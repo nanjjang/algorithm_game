@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Wizard.DataBuild</RootNamespace>
+    <AssemblyName>Wizard.DataBuild</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/Wizard.Content/Wizard.Content.csproj" />
+    <ProjectReference Include="../../src/Wizard.Text/Wizard.Text.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="JsonSchema.Net" />
+  </ItemGroup>
+</Project>

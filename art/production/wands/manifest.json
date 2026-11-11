@@ -1,0 +1,1764 @@
+{
+  "source": "docs/wands/*.md",
+  "handCanvas": [
+    32,
+    64
+  ],
+  "grip": [
+    16,
+    48
+  ],
+  "filter": "point",
+  "mipmaps": false,
+  "sprites": {
+    "dalgu": {
+      "hand": {
+        "file": "dalgu/hand.png",
+        "cell": [
+          32,
+          64
+        ],
+        "columns": 14,
+        "rows": [
+          "down_hold",
+          "down_aim",
+          "right_hold",
+          "right_aim",
+          "up_hold",
+          "up_aim"
+        ]
+      },
+      "inspection": {
+        "file": "dalgu/inspection.png",
+        "cell": [
+          192,
+          192
+        ],
+        "columns": 7,
+        "rows": 2
+      },
+      "icon": {
+        "file": "dalgu/icon.png",
+        "cell": [
+          64,
+          64
+        ],
+        "columns": 14
+      },
+      "stages": [
+        {
+          "stage": 0,
+          "head": [
+            16,
+            34
+          ],
+          "mutations": [
+            [
+              12,
+              37
+            ],
+            [
+              20,
+              37
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 1,
+          "head": [
+            16,
+            34
+          ],
+          "mutations": [
+            [
+              12,
+              37
+            ],
+            [
+              20,
+              37
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 2,
+          "head": [
+            16,
+            34
+          ],
+          "mutations": [
+            [
+              12,
+              37
+            ],
+            [
+              20,
+              37
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 3,
+          "head": [
+            16,
+            33
+          ],
+          "mutations": [
+            [
+              12,
+              36
+            ],
+            [
+              20,
+              36
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 4,
+          "head": [
+            16,
+            33
+          ],
+          "mutations": [
+            [
+              12,
+              36
+            ],
+            [
+              20,
+              36
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 5,
+          "head": [
+            16,
+            33
+          ],
+          "mutations": [
+            [
+              12,
+              36
+            ],
+            [
+              20,
+              36
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 6,
+          "head": [
+            16,
+            32
+          ],
+          "mutations": [
+            [
+              12,
+              35
+            ],
+            [
+              20,
+              35
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 7,
+          "head": [
+            16,
+            33
+          ],
+          "mutations": [
+            [
+              12,
+              36
+            ],
+            [
+              20,
+              36
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 8,
+          "head": [
+            16,
+            33
+          ],
+          "mutations": [
+            [
+              12,
+              36
+            ],
+            [
+              20,
+              36
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 9,
+          "head": [
+            16,
+            30
+          ],
+          "mutations": [
+            [
+              12,
+              33
+            ],
+            [
+              20,
+              33
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 10,
+          "head": [
+            16,
+            30
+          ],
+          "mutations": [
+            [
+              12,
+              33
+            ],
+            [
+              20,
+              33
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 11,
+          "head": [
+            16,
+            30
+          ],
+          "mutations": [
+            [
+              12,
+              33
+            ],
+            [
+              20,
+              33
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 12,
+          "head": [
+            16,
+            30
+          ],
+          "mutations": [
+            [
+              12,
+              33
+            ],
+            [
+              20,
+              33
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 13,
+          "head": [
+            16,
+            30
+          ],
+          "mutations": [
+            [
+              12,
+              33
+            ],
+            [
+              20,
+              33
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        }
+      ]
+    },
+    "chorong": {
+      "hand": {
+        "file": "chorong/hand.png",
+        "cell": [
+          32,
+          64
+        ],
+        "columns": 14,
+        "rows": [
+          "down_hold",
+          "down_aim",
+          "right_hold",
+          "right_aim",
+          "up_hold",
+          "up_aim"
+        ]
+      },
+      "inspection": {
+        "file": "chorong/inspection.png",
+        "cell": [
+          192,
+          192
+        ],
+        "columns": 7,
+        "rows": 2
+      },
+      "icon": {
+        "file": "chorong/icon.png",
+        "cell": [
+          64,
+          64
+        ],
+        "columns": 14
+      },
+      "stages": [
+        {
+          "stage": 0,
+          "head": [
+            16,
+            33
+          ],
+          "mutations": [
+            [
+              12,
+              36
+            ],
+            [
+              20,
+              36
+            ],
+            [
+              16,
+              32
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 1,
+          "head": [
+            16,
+            33
+          ],
+          "mutations": [
+            [
+              12,
+              36
+            ],
+            [
+              20,
+              36
+            ],
+            [
+              16,
+              32
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 2,
+          "head": [
+            16,
+            33
+          ],
+          "mutations": [
+            [
+              12,
+              36
+            ],
+            [
+              20,
+              36
+            ],
+            [
+              16,
+              32
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 3,
+          "head": [
+            16,
+            27
+          ],
+          "mutations": [
+            [
+              12,
+              30
+            ],
+            [
+              20,
+              30
+            ],
+            [
+              16,
+              26
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 4,
+          "head": [
+            16,
+            27
+          ],
+          "mutations": [
+            [
+              12,
+              30
+            ],
+            [
+              20,
+              30
+            ],
+            [
+              16,
+              26
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 5,
+          "head": [
+            16,
+            27
+          ],
+          "mutations": [
+            [
+              12,
+              30
+            ],
+            [
+              20,
+              30
+            ],
+            [
+              16,
+              26
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 6,
+          "head": [
+            16,
+            27
+          ],
+          "mutations": [
+            [
+              12,
+              30
+            ],
+            [
+              20,
+              30
+            ],
+            [
+              16,
+              26
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 7,
+          "head": [
+            16,
+            27
+          ],
+          "mutations": [
+            [
+              12,
+              30
+            ],
+            [
+              20,
+              30
+            ],
+            [
+              16,
+              26
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 8,
+          "head": [
+            16,
+            25
+          ],
+          "mutations": [
+            [
+              12,
+              28
+            ],
+            [
+              20,
+              28
+            ],
+            [
+              16,
+              24
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 9,
+          "head": [
+            16,
+            27
+          ],
+          "mutations": [
+            [
+              12,
+              30
+            ],
+            [
+              20,
+              30
+            ],
+            [
+              16,
+              26
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 10,
+          "head": [
+            16,
+            23
+          ],
+          "mutations": [
+            [
+              12,
+              26
+            ],
+            [
+              20,
+              26
+            ],
+            [
+              16,
+              22
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 11,
+          "head": [
+            16,
+            23
+          ],
+          "mutations": [
+            [
+              12,
+              26
+            ],
+            [
+              20,
+              26
+            ],
+            [
+              16,
+              22
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 12,
+          "head": [
+            16,
+            23
+          ],
+          "mutations": [
+            [
+              12,
+              26
+            ],
+            [
+              20,
+              26
+            ],
+            [
+              16,
+              22
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 13,
+          "head": [
+            16,
+            21
+          ],
+          "mutations": [
+            [
+              12,
+              24
+            ],
+            [
+              20,
+              24
+            ],
+            [
+              16,
+              20
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        }
+      ]
+    },
+    "galpi": {
+      "hand": {
+        "file": "galpi/hand.png",
+        "cell": [
+          32,
+          64
+        ],
+        "columns": 14,
+        "rows": [
+          "down_hold",
+          "down_aim",
+          "right_hold",
+          "right_aim",
+          "up_hold",
+          "up_aim"
+        ]
+      },
+      "inspection": {
+        "file": "galpi/inspection.png",
+        "cell": [
+          192,
+          192
+        ],
+        "columns": 7,
+        "rows": 2
+      },
+      "icon": {
+        "file": "galpi/icon.png",
+        "cell": [
+          64,
+          64
+        ],
+        "columns": 14
+      },
+      "stages": [
+        {
+          "stage": 0,
+          "head": [
+            16,
+            23
+          ],
+          "mutations": [
+            [
+              12,
+              26
+            ],
+            [
+              20,
+              26
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 1,
+          "head": [
+            16,
+            23
+          ],
+          "mutations": [
+            [
+              12,
+              26
+            ],
+            [
+              20,
+              26
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 2,
+          "head": [
+            16,
+            23
+          ],
+          "mutations": [
+            [
+              12,
+              26
+            ],
+            [
+              20,
+              26
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 3,
+          "head": [
+            16,
+            23
+          ],
+          "mutations": [
+            [
+              12,
+              26
+            ],
+            [
+              20,
+              26
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 4,
+          "head": [
+            16,
+            23
+          ],
+          "mutations": [
+            [
+              12,
+              26
+            ],
+            [
+              20,
+              26
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 5,
+          "head": [
+            16,
+            23
+          ],
+          "mutations": [
+            [
+              12,
+              26
+            ],
+            [
+              20,
+              26
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 6,
+          "head": [
+            16,
+            23
+          ],
+          "mutations": [
+            [
+              12,
+              26
+            ],
+            [
+              20,
+              26
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 7,
+          "head": [
+            16,
+            21
+          ],
+          "mutations": [
+            [
+              12,
+              24
+            ],
+            [
+              20,
+              24
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 8,
+          "head": [
+            16,
+            21
+          ],
+          "mutations": [
+            [
+              12,
+              24
+            ],
+            [
+              20,
+              24
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 9,
+          "head": [
+            16,
+            21
+          ],
+          "mutations": [
+            [
+              12,
+              24
+            ],
+            [
+              20,
+              24
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 10,
+          "head": [
+            16,
+            21
+          ],
+          "mutations": [
+            [
+              12,
+              24
+            ],
+            [
+              20,
+              24
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 11,
+          "head": [
+            16,
+            21
+          ],
+          "mutations": [
+            [
+              12,
+              24
+            ],
+            [
+              20,
+              24
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 12,
+          "head": [
+            16,
+            21
+          ],
+          "mutations": [
+            [
+              12,
+              24
+            ],
+            [
+              20,
+              24
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 13,
+          "head": [
+            16,
+            21
+          ],
+          "mutations": [
+            [
+              12,
+              24
+            ],
+            [
+              20,
+              24
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        }
+      ]
+    },
+    "seonge": {
+      "hand": {
+        "file": "seonge/hand.png",
+        "cell": [
+          32,
+          64
+        ],
+        "columns": 14,
+        "rows": [
+          "down_hold",
+          "down_aim",
+          "right_hold",
+          "right_aim",
+          "up_hold",
+          "up_aim"
+        ]
+      },
+      "inspection": {
+        "file": "seonge/inspection.png",
+        "cell": [
+          192,
+          192
+        ],
+        "columns": 7,
+        "rows": 2
+      },
+      "icon": {
+        "file": "seonge/icon.png",
+        "cell": [
+          64,
+          64
+        ],
+        "columns": 14
+      },
+      "stages": [
+        {
+          "stage": 0,
+          "head": [
+            16,
+            28
+          ],
+          "mutations": [
+            [
+              12,
+              31
+            ],
+            [
+              20,
+              31
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 1,
+          "head": [
+            16,
+            29
+          ],
+          "mutations": [
+            [
+              12,
+              32
+            ],
+            [
+              20,
+              32
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 2,
+          "head": [
+            16,
+            29
+          ],
+          "mutations": [
+            [
+              12,
+              32
+            ],
+            [
+              20,
+              32
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 3,
+          "head": [
+            16,
+            27
+          ],
+          "mutations": [
+            [
+              12,
+              30
+            ],
+            [
+              20,
+              30
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 4,
+          "head": [
+            16,
+            29
+          ],
+          "mutations": [
+            [
+              12,
+              32
+            ],
+            [
+              20,
+              32
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 5,
+          "head": [
+            16,
+            27
+          ],
+          "mutations": [
+            [
+              12,
+              30
+            ],
+            [
+              20,
+              30
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 6,
+          "head": [
+            16,
+            27
+          ],
+          "mutations": [
+            [
+              12,
+              30
+            ],
+            [
+              20,
+              30
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 7,
+          "head": [
+            16,
+            26
+          ],
+          "mutations": [
+            [
+              12,
+              29
+            ],
+            [
+              20,
+              29
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 8,
+          "head": [
+            16,
+            25
+          ],
+          "mutations": [
+            [
+              12,
+              28
+            ],
+            [
+              20,
+              28
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 9,
+          "head": [
+            16,
+            24
+          ],
+          "mutations": [
+            [
+              12,
+              27
+            ],
+            [
+              20,
+              27
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 10,
+          "head": [
+            16,
+            25
+          ],
+          "mutations": [
+            [
+              12,
+              28
+            ],
+            [
+              20,
+              28
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 11,
+          "head": [
+            16,
+            21
+          ],
+          "mutations": [
+            [
+              12,
+              24
+            ],
+            [
+              20,
+              24
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 12,
+          "head": [
+            16,
+            21
+          ],
+          "mutations": [
+            [
+              12,
+              24
+            ],
+            [
+              20,
+              24
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 13,
+          "head": [
+            16,
+            21
+          ],
+          "mutations": [
+            [
+              12,
+              24
+            ],
+            [
+              20,
+              24
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        }
+      ]
+    },
+    "geumeum": {
+      "hand": {
+        "file": "geumeum/hand.png",
+        "cell": [
+          32,
+          64
+        ],
+        "columns": 14,
+        "rows": [
+          "down_hold",
+          "down_aim",
+          "right_hold",
+          "right_aim",
+          "up_hold",
+          "up_aim"
+        ]
+      },
+      "inspection": {
+        "file": "geumeum/inspection.png",
+        "cell": [
+          192,
+          192
+        ],
+        "columns": 7,
+        "rows": 2
+      },
+      "icon": {
+        "file": "geumeum/icon.png",
+        "cell": [
+          64,
+          64
+        ],
+        "columns": 14
+      },
+      "stages": [
+        {
+          "stage": 0,
+          "head": [
+            16,
+            37
+          ],
+          "mutations": [
+            [
+              12,
+              40
+            ],
+            [
+              20,
+              40
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 1,
+          "head": [
+            16,
+            36
+          ],
+          "mutations": [
+            [
+              12,
+              39
+            ],
+            [
+              20,
+              39
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 2,
+          "head": [
+            16,
+            33
+          ],
+          "mutations": [
+            [
+              12,
+              36
+            ],
+            [
+              20,
+              36
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 3,
+          "head": [
+            16,
+            35
+          ],
+          "mutations": [
+            [
+              12,
+              38
+            ],
+            [
+              20,
+              38
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 4,
+          "head": [
+            16,
+            33
+          ],
+          "mutations": [
+            [
+              12,
+              36
+            ],
+            [
+              20,
+              36
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 5,
+          "head": [
+            16,
+            34
+          ],
+          "mutations": [
+            [
+              12,
+              37
+            ],
+            [
+              20,
+              37
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 6,
+          "head": [
+            16,
+            34
+          ],
+          "mutations": [
+            [
+              12,
+              37
+            ],
+            [
+              20,
+              37
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 7,
+          "head": [
+            16,
+            30
+          ],
+          "mutations": [
+            [
+              12,
+              33
+            ],
+            [
+              20,
+              33
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 8,
+          "head": [
+            16,
+            30
+          ],
+          "mutations": [
+            [
+              12,
+              33
+            ],
+            [
+              20,
+              33
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 9,
+          "head": [
+            16,
+            28
+          ],
+          "mutations": [
+            [
+              12,
+              31
+            ],
+            [
+              20,
+              31
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 10,
+          "head": [
+            16,
+            24
+          ],
+          "mutations": [
+            [
+              12,
+              27
+            ],
+            [
+              20,
+              27
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 11,
+          "head": [
+            16,
+            22
+          ],
+          "mutations": [
+            [
+              12,
+              25
+            ],
+            [
+              20,
+              25
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 12,
+          "head": [
+            16,
+            22
+          ],
+          "mutations": [
+            [
+              12,
+              25
+            ],
+            [
+              20,
+              25
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 13,
+          "head": [
+            16,
+            21
+          ],
+          "mutations": [
+            [
+              12,
+              24
+            ],
+            [
+              20,
+              24
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        }
+      ]
+    }
+  },
+  "detachedEffects": {
+    "chorong_max_lightning": {
+      "file": "parts/chorong_max_lightning.png",
+      "cell": [
+        8,
+        16
+      ],
+      "frames": 4,
+      "anchor": [
+        4,
+        15
+      ]
+    },
+    "seonge_orbit": {
+      "file": "parts/seonge_orbit.png",
+      "cell": [
+        40,
+        16
+      ],
+      "frames": 8,
+      "anchor": [
+        20,
+        8
+      ]
+    },
+    "geumeum_orb": {
+      "file": "parts/geumeum_orb.png",
+      "cell": [
+        20,
+        20
+      ],
+      "frames": 3,
+      "anchor": [
+        10,
+        10
+      ]
+    }
+  }
+}

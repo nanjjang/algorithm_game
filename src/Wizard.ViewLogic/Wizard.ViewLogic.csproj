@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Wizard.ViewLogic</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Wizard.Core/Wizard.Core.csproj" />
+    <ProjectReference Include="../Wizard.Content/Wizard.Content.csproj" />
+    <ProjectReference Include="../Wizard.Text/Wizard.Text.csproj" />
+    <ProjectReference Include="../Wizard.Sim/Wizard.Sim.csproj" />
+    <ProjectReference Include="../Wizard.Rules/Wizard.Rules.csproj" />
+    <ProjectReference Include="../Wizard.Protocol/Wizard.Protocol.csproj" />
+    <ProjectReference Include="../Wizard.Netcode/Wizard.Netcode.csproj" />
+    <ProjectReference Include="../Wizard.Client/Wizard.Client.csproj" />
+  </ItemGroup>
+</Project>

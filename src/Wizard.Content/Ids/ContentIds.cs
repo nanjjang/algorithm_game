@@ -1,4 +1,5 @@
 using System;
+using Wizard.Core;
 
 namespace Wizard.Content
 {
@@ -609,11 +610,239 @@ namespace Wizard.Content
             }
         }
 
-        // 옛 이름 → 정본(CONTRACTS 2.1 대응표, spec 14 1.2·3.1). 별칭이 아니면 그대로 돌려준다.
+        // spec 14 3.9 꼬리표. 꼬리표는 비트 집합이라 id는 비트 하나에만 있다(둘 이상 켜진 값은 id가 없다)
+        public static string ToId(EnemyTag v)
+        {
+            switch (v)
+            {
+                case EnemyTag.Elite: return "tag.elite";
+                case EnemyTag.Heavy: return "tag.heavy";
+                case EnemyTag.Boss: return "tag.boss";
+                case EnemyTag.Flying: return "tag.flying";
+                case EnemyTag.Burrowed: return "tag.burrowed";
+                case EnemyTag.Rooted: return "tag.rooted";
+                default: throw new ArgumentOutOfRangeException(nameof(v), v, "no content id");
+            }
+        }
+
+        public static bool TryParse(string id, out EnemyTag v)
+        {
+            switch (ResolveAlias(id))
+            {
+                case "tag.elite": v = EnemyTag.Elite; return true;
+                case "tag.heavy": v = EnemyTag.Heavy; return true;
+                case "tag.boss": v = EnemyTag.Boss; return true;
+                case "tag.flying": v = EnemyTag.Flying; return true;
+                case "tag.burrowed": v = EnemyTag.Burrowed; return true;
+                case "tag.rooted": v = EnemyTag.Rooted; return true;
+                default: v = default; return false;
+            }
+        }
+
+        // spec 14 3.11. 정본 id는 currency.*. DB 열(currency_balance.currency)의 키만 쓴 꼴(gold …)은 별칭으로 받는다(spec 14 1.3).
+        // 원정 지갑(currency.expedition_purse)은 표시 전용이라 재화가 아니다(spec 14 9절 U-23)
+        public static string ToId(CurrencyCode v)
+        {
+            switch (v)
+            {
+                case CurrencyCode.Gold: return "currency.gold";
+                case CurrencyCode.SeasonCoin: return "currency.season_coin";
+                case CurrencyCode.Starlight: return "currency.starlight";
+                default: throw new ArgumentOutOfRangeException(nameof(v), v, "no content id");
+            }
+        }
+
+        public static bool TryParse(string id, out CurrencyCode v)
+        {
+            switch (ResolveAlias(id))
+            {
+                case "currency.gold": v = CurrencyCode.Gold; return true;
+                case "currency.season_coin": v = CurrencyCode.SeasonCoin; return true;
+                case "currency.starlight": v = CurrencyCode.Starlight; return true;
+                default: v = default; return false;
+            }
+        }
+
+        // spec 14 3.14 치장 칸
+        public static string ToId(CosmeticSlot v)
+        {
+            switch (v)
+            {
+                case CosmeticSlot.Head: return "cosmetic_slot.head";
+                case CosmeticSlot.Cloak: return "cosmetic_slot.cloak";
+                case CosmeticSlot.Footprints: return "cosmetic_slot.footprints";
+                case CosmeticSlot.Seat: return "cosmetic_slot.seat";
+                default: throw new ArgumentOutOfRangeException(nameof(v), v, "no content id");
+            }
+        }
+
+        public static bool TryParse(string id, out CosmeticSlot v)
+        {
+            switch (ResolveAlias(id))
+            {
+                case "cosmetic_slot.head": v = CosmeticSlot.Head; return true;
+                case "cosmetic_slot.cloak": v = CosmeticSlot.Cloak; return true;
+                case "cosmetic_slot.footprints": v = CosmeticSlot.Footprints; return true;
+                case "cosmetic_slot.seat": v = CosmeticSlot.Seat; return true;
+                default: v = default; return false;
+            }
+        }
+
+        // spec 14 3.2. 전용 지팡이의 종류 id wand.N 은 그 캐릭터 번호를 쓴다(WC 0). 지팡이 개체는 콘텐츠 id가 아니라 DB 행이다
+        public static string ToWandId(CharacterId v)
+        {
+            switch (v)
+            {
+                case CharacterId.Char1: return "wand.1";
+                case CharacterId.Char2: return "wand.2";
+                case CharacterId.Char3: return "wand.3";
+                case CharacterId.Char4: return "wand.4";
+                case CharacterId.Char5: return "wand.5";
+                default: throw new ArgumentOutOfRangeException(nameof(v), v, "no wand id");
+            }
+        }
+
+        public static bool TryParseWand(string id, out CharacterId v)
+        {
+            switch (ResolveAlias(id))
+            {
+                case "wand.1": v = CharacterId.Char1; return true;
+                case "wand.2": v = CharacterId.Char2; return true;
+                case "wand.3": v = CharacterId.Char3; return true;
+                case "wand.4": v = CharacterId.Char4; return true;
+                case "wand.5": v = CharacterId.Char5; return true;
+                default: v = default; return false;
+            }
+        }
+
+        // spec 14 3.7. 엘리트는 종이 아니다(EnemyState.IsElite). 표시 id는 elite.<바탕 키>, 코드는 EliteCodeBase + 바탕 종 번호
+        // (CONTRACTS 2.1 EnemyTypeId 주석). 졸개(갓버섯 새싹)에는 엘리트가 없다
+        public const ushort EliteCodeBase = 200;
+
+        public static string ToEliteId(EnemyTypeId baseType)
+        {
+            switch (baseType)
+            {
+                case EnemyTypeId.SlimeMoss: return "elite.slime_moss";
+                case EnemyTypeId.WolfBramble: return "elite.wolf_bramble";
+                case EnemyTypeId.GolemMenhir: return "elite.golem_menhir";
+                case EnemyTypeId.ShamanCap: return "elite.shaman_cap";
+                case EnemyTypeId.BugLantern: return "elite.bug_lantern";
+                case EnemyTypeId.HogNeedle: return "elite.hog_needle";
+                case EnemyTypeId.WeaselPot: return "elite.weasel_pot";
+                case EnemyTypeId.BatDusk: return "elite.bat_dusk";
+                case EnemyTypeId.WispStray: return "elite.wisp_stray";
+                case EnemyTypeId.VineThorn: return "elite.vine_thorn";
+                case EnemyTypeId.BoarTusk: return "elite.boar_tusk";
+                case EnemyTypeId.ToadDrum: return "elite.toad_drum";
+                default: throw new ArgumentOutOfRangeException(nameof(baseType), baseType, "no elite id");
+            }
+        }
+
+        public static bool TryParseElite(string id, out EnemyTypeId baseType)
+        {
+            switch (ResolveAlias(id))
+            {
+                case "elite.slime_moss": baseType = EnemyTypeId.SlimeMoss; return true;
+                case "elite.wolf_bramble": baseType = EnemyTypeId.WolfBramble; return true;
+                case "elite.golem_menhir": baseType = EnemyTypeId.GolemMenhir; return true;
+                case "elite.shaman_cap": baseType = EnemyTypeId.ShamanCap; return true;
+                case "elite.bug_lantern": baseType = EnemyTypeId.BugLantern; return true;
+                case "elite.hog_needle": baseType = EnemyTypeId.HogNeedle; return true;
+                case "elite.weasel_pot": baseType = EnemyTypeId.WeaselPot; return true;
+                case "elite.bat_dusk": baseType = EnemyTypeId.BatDusk; return true;
+                case "elite.wisp_stray": baseType = EnemyTypeId.WispStray; return true;
+                case "elite.vine_thorn": baseType = EnemyTypeId.VineThorn; return true;
+                case "elite.boar_tusk": baseType = EnemyTypeId.BoarTusk; return true;
+                case "elite.toad_drum": baseType = EnemyTypeId.ToadDrum; return true;
+                default: baseType = default; return false;
+            }
+        }
+
+        public static ushort ToEliteCode(EnemyTypeId baseType)
+        {
+            ToEliteId(baseType);   // 엘리트가 없는 종이면 여기서 던진다
+            return (ushort)(EliteCodeBase + (ushort)baseType);
+        }
+
+        // spec 14 3.12. 칭호 하나하나는 데이터의 문자열 id(title.<분류>.<키>)이고 분류만 열거형이다(CONTRACTS 2.1 TitleKind).
+        // 강화 단계 칭호는 title.stage.N.bK (N = 캐릭터 1~5, K = 묶음 0~4)만 받는다. 그 밖의 분류는 키를 데이터가 더한다(spec 14 9절 U-02, U-03)
+        public const int StageTitleBandCount = 5;
+
+        private const string StageTitlePrefix = "title.stage.";
+
+        public static bool TryGetTitleKind(string titleId, out TitleKind kind)
+        {
+            kind = default;
+            if (!ContentId.TryParse(titleId, out _))
+            {
+                return false;
+            }
+            if (titleId.StartsWith(StageTitlePrefix, StringComparison.Ordinal))
+            {
+                if (!IsStageTitleId(titleId))
+                {
+                    return false;
+                }
+                kind = TitleKind.Stage;
+                return true;
+            }
+            if (HasKeyAfter(titleId, "title.record.")) { kind = TitleKind.Record; return true; }
+            if (HasKeyAfter(titleId, "title.revenge.")) { kind = TitleKind.Revenge; return true; }
+            if (HasKeyAfter(titleId, "title.season.")) { kind = TitleKind.Season; return true; }
+            if (HasKeyAfter(titleId, "title.feat.")) { kind = TitleKind.Feat; return true; }
+            return false;
+        }
+
+        public static string ToStageTitleId(CharacterId character, int band)
+        {
+            if (band < 0 || band >= StageTitleBandCount)
+            {
+                throw new ArgumentOutOfRangeException(nameof(band), band, "stage title band is 0..4");
+            }
+            string wand = ToWandId(character);   // Baseline 이면 여기서 던진다
+            char n = wand[wand.Length - 1];
+            char k = (char)('0' + band);
+            return StageTitlePrefix + n + ".b" + k;
+        }
+
+        // title.stage.N.bK 의 25개(캐릭터 5 × 묶음 5) 가운데 하나인가
+        private static bool IsStageTitleId(string id)
+        {
+            for (byte c = (byte)CharacterId.Char1; c <= (byte)CharacterId.Char5; c++)
+            {
+                for (int band = 0; band < StageTitleBandCount; band++)
+                {
+                    if (string.Equals(id, ToStageTitleId((CharacterId)c, band), StringComparison.Ordinal))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private static bool HasKeyAfter(string id, string prefix)
+        {
+            return id.Length > prefix.Length && id.StartsWith(prefix, StringComparison.Ordinal);
+        }
+
+        // 옛 이름 → 정본. 별칭이 아니면 그대로 돌려준다.
+        // 출처: CONTRACTS 2.1 대응표(다른 명세가 실제로 적은 꼴 — 네임스페이스가 붙은 꼴과 키만 쓴 꼴 둘 다),
+        // spec 14 1.2(WC 0의 네임스페이스 없는 장소·인물), 3.1(ElementAlias), 1.3(재화 키).
+        // spec 11의 fac_* 는 별칭으로도 받지 않는다(CONTRACTS 2.1). 데이터에는 정본만 적는다.
         public static string ResolveAlias(string id)
         {
             switch (id)
             {
+                // 블록 (spec 02·07·08)
+                case "great_fireball": return "block.fireball";
+                case "giant_fireball": return "block.fireball";
+                case "split_2": return "block.split_two";
+                case "split_3": return "block.split_three";
+                case "pierce_2": return "block.pierce";
+                case "overheat_x3": return "block.triple_heat";
+                case "erosion": return "block.corrosion";
                 case "block.great_fireball": return "block.fireball";
                 case "block.giant_fireball": return "block.fireball";
                 case "block.split_2": return "block.split_two";
@@ -621,24 +850,57 @@ namespace Wizard.Content
                 case "block.pierce_2": return "block.pierce";
                 case "block.overheat_x3": return "block.triple_heat";
                 case "block.erosion": return "block.corrosion";
+                // 비기 (spec 03·04·10)
                 case "art.mana_release": return "art.burst";
+                case "art.recoil_shot": return "art.recoil";
+                case "art.fan_spread": return "art.fan";
+                case "art.twin_wing": return "art.wings";
+                case "art.afterimage_step": return "art.afterimage";
+                case "art.piercing_lance": return "art.spear";
+                case "art.vent_burst": return "art.vent";
+                case "art.eightfold_spread": return "art.octastar";
+                case "art.thunder_lance": return "art.thunder_spear";
+                case "art.full_bloom": return "art.bloom";
                 case "art.transcribe": return "art.copy_circle";
                 case "art.thunder_dash": return "art.bolt_dash";
+                // 패시브 (spec 04)
                 case "passive.boil_over": return "passive.overflow";
                 case "passive.shadow_pact": return "passive.shadow_contract";
+                // 보스 (spec 06·07)
                 case "boss.boar_kiln": return "boss.kiln_boar";
                 case "boss.master_phantom": return "boss.mirror_phantom";
                 case "boss.mirror_master": return "boss.mirror_phantom";
                 case "boss.star_serpent": return "boss.night_serpent";
-                case "element.frost": return "element.ice";
-                case "element.shadow": return "element.dark";
+                // 재료 (spec 06·07·08)
                 case "stone_low": return "mat.stone_low";
                 case "stone_mid": return "mat.stone_mid";
                 case "stone_high": return "mat.stone_high";
                 case "charm_guard": return "charm.safeguard";
+                case "mat.charm_guard": return "charm.safeguard";
+                // 속성 (spec 14 3.1 ElementAlias, 8절 C-01)
+                case "element.frost": return "element.ice";
+                case "element.shadow": return "element.dark";
                 case "frost": return "ice";
                 case "shadow": return "dark";
+                // 틀과 변덕 (spec 07 4절의 frame.hunt, modifier.<열거형 이름>)
+                case "frame.hunt": return "frame.hunting_party";
+                case "modifier.rush": return "whim.crowding";
+                case "modifier.thick_hide": return "whim.thick_hide";
+                case "modifier.big_herd": return "whim.big_pack";
+                case "modifier.chief_march": return "whim.chief_parade";
+                case "modifier.last_breath": return "whim.last_breath";
+                case "modifier.slow_barrage": return "whim.slow_barrage";
+                case "modifier.long_night": return "whim.long_night";
+                case "modifier.narrow_field": return "whim.narrow_field";
+                // 장소·인물 (spec 14 1.2, 2.3, 8절 C-20)
                 case "master": return "npc.master";
+                case "field": return "place.field";
+                case "plaza": return "place.plaza";
+                case "arena": return "place.arena";
+                // 재화 키 (spec 14 1.3)
+                case "gold": return "currency.gold";
+                case "season_coin": return "currency.season_coin";
+                case "starlight": return "currency.starlight";
                 default: return id;
             }
         }

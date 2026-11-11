@@ -1,11 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    벤치 실행 파일(Program.cs, M1-PERF-01)이면서 xUnit 테스트 묶음이다. M1-PERF-01 은 "Step 할당 0바이트"를
+    벤치가 아니라 테스트로도 단언한다. 진입점은 Program.cs 가 가지므로 테스트 SDK 의 진입점 생성을 끈다.
+  -->
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <OutputType>Exe</OutputType>
     <RootNamespace>Wizard.Perf</RootNamespace>
+    <IsTestProject>true</IsTestProject>
+    <GenerateProgramFile>false</GenerateProgramFile>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../../src/Wizard.Sim/Wizard.Sim.csproj" />
+    <ProjectReference Include="../../tools/Wizard.DataBuild/Wizard.DataBuild.csproj" />
     <ProjectReference Include="../Wizard.TestKit/Wizard.TestKit.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
   </ItemGroup>
 </Project>

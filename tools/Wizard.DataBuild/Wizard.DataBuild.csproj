@@ -8,6 +8,8 @@
   <ItemGroup>
     <ProjectReference Include="../../src/Wizard.Content/Wizard.Content.csproj" />
     <ProjectReference Include="../../src/Wizard.Text/Wizard.Text.csproj" />
+    <ProjectReference Include="../../src/Wizard.Sim/Wizard.Sim.csproj" />
+    <ProjectReference Include="../../src/Wizard.Rules/Wizard.Rules.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="JsonSchema.Net" />

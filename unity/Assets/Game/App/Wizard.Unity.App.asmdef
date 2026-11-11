@@ -1,0 +1,28 @@
+{
+    "name": "Wizard.Unity.App",
+    "rootNamespace": "Wizard.Unity.App",
+    "references": [
+        "Wizard.Core",
+        "Wizard.Content",
+        "Wizard.Text",
+        "Wizard.Sim",
+        "Wizard.Rules",
+        "Wizard.Protocol",
+        "Wizard.Netcode",
+        "Wizard.Client",
+        "Wizard.ViewLogic",
+        "Wizard.Unity.Input",
+        "Wizard.Unity.Presentation",
+        "Wizard.Unity.UI",
+        "Unity.InputSystem"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

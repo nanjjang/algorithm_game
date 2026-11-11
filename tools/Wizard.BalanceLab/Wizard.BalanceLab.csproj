@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Wizard.BalanceLab</RootNamespace>
+    <AssemblyName>Wizard.BalanceLab</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/Wizard.Rules/Wizard.Rules.csproj" />
+  </ItemGroup>
+</Project>

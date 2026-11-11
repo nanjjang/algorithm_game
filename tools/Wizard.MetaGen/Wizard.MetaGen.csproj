@@ -4,5 +4,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Wizard.MetaGen</RootNamespace>
     <AssemblyName>Wizard.MetaGen</AssemblyName>
+    <!-- 경로를 NFC 로 모아 GUID 를 계산한다(RepoPath). 불변 문화권 모드에서는 비ASCII 정규화가 아무것도 하지 않으므로 이 도구만 끈다. -->
+    <InvariantGlobalization>false</InvariantGlobalization>
   </PropertyGroup>
 </Project>

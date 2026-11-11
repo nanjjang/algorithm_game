@@ -7,5 +7,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../../src/Wizard.Client/Wizard.Client.csproj" />
+    <ProjectReference Include="../../tools/Wizard.DataBuild/Wizard.DataBuild.csproj" />
   </ItemGroup>
 </Project>

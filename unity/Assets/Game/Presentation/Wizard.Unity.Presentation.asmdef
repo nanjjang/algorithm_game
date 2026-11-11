@@ -1,0 +1,24 @@
+{
+    "name": "Wizard.Unity.Presentation",
+    "rootNamespace": "Wizard.Unity.Presentation",
+    "references": [
+        "Wizard.Core",
+        "Wizard.Content",
+        "Wizard.Text",
+        "Wizard.Sim",
+        "Wizard.Rules",
+        "Wizard.Protocol",
+        "Wizard.Netcode",
+        "Wizard.Client",
+        "Wizard.ViewLogic"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

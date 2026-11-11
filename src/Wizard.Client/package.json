@@ -1,0 +1,10 @@
+{
+  "name": "com.wizard.client",
+  "version": "0.0.0",
+  "displayName": "Wizard.Client",
+  "description": "IBackend, offline/server backends, transports, sessions",
+  "unity": "6000.3",
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "3.2.1"
+  }
+}

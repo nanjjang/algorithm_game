@@ -8,13 +8,15 @@
 
 ### 0.1 코드 규약
 
-- 공유 어셈블리(`Wizard.Core`~`Wizard.Client`)는 `netstandard2.1`, C# 9다. `record`, `init`, `record struct`, 파일 범위 네임스페이스, `Int128`, `System.Text.Json`을 쓰지 않는다(ARCHITECTURE 3.3절).
+- 공유 어셈블리 아홉(`Wizard.Core`~`Wizard.Client`, `Wizard.ViewLogic`)은 `netstandard2.1`, C# 9다. `record`, `init`, `record struct`, 파일 범위 네임스페이스, `Int128`, `System.Text.Json`을 쓰지 않는다(ARCHITECTURE 3.3절).
 - 아래 코드 블록은 네임스페이스 블록을 생략하고 머리 주석에 네임스페이스를 적는다.
 - `Wizard.Core`, `Wizard.Content`, `Wizard.Sim`에는 실수형이 없다. `Fix64`를 실수로 바꾸는 함수는 `Wizard.ViewLogic.FixConvert` 한 곳에만 둔다(13절). Unity 어셈블리는 그 결과(`System.Numerics.Vector2`, `float`)를 엔진 타입으로 옮기기만 한다.
 - 코어 세 어셈블리에는 가변 정적 필드가 없다(`const`와 불변 `static readonly` 표만). 임시 버퍼는 세계나 호출자가 가진다. 서버는 여러 세계를 여러 스레드에서 동시에 돌린다.
 - 바이트를 쓰고 읽는 길은 `ByteWriter`/`ByteReader`/`StateWriter`의 시프트 구현뿐이다. `BitConverter`, `MemoryMarshal`, `Unsafe`, `Buffer.BlockCopy`, `Marshal`, `unsafe`, `[ThreadStatic]`, `checked`를 코어 세 어셈블리에서 쓰지 않는다.
 - 코어 세 어셈블리에서 상수가 아닌 제수의 원시 `/`와 `%`를 쓰지 않는다. `FixMath`와 `Wide`의 나눗셈 도우미만 쓴다(1.1절 계약).
 - 코어 안의 컬렉션은 배열, `SortedIntList`, 고정 크기 풀만 쓴다. `Dictionary`는 조회 전용이고 순회하지 않는다.
+- `Wizard.ViewLogic`은 엔진이 없는 아홉 번째 공유 어셈블리다(T-31). 실수형을 쓸 수 있고 코어 버전 해시에 들어가지 않는다. `UnityEngine` 타입을 쓰지 못하므로 좌표는 `System.Numerics.Vector2`다. 화면의 규칙과 상태 기계는 여기에 있고 Unity 쪽 뷰는 그리기와 입력 전달만 한다(13절).
+- 계약의 선언은 뼈대 작업이 먼저 한다(T-33). `SimWorld`와 `ContentDb`는 부분 클래스이고 모듈은 자기 파일에서 훅을 구현한다(3.2절, 2.3절). 훅을 더하거나 호출 순서를 바꾸는 것은 계약 변경이다.
 - 시간 단위: 틱 `uint`(60틱/초), 입력 시각 `long`(`틱 × 256 + 오프셋`, 1단위 = 1/15,360초), 서버 벽시계는 UTC `DateTime`(DB는 `timestamptz`).
 
 ### 0.2 오류 규약
@@ -114,7 +116,7 @@ public readonly struct Unit { }            // 값이 없는 Result<Unit>
 | 난수 흐름 | spec 01 고정 `StreamId` 1~6, spec 07 `Derive(seed, tag, wave, sub)` | spec 07 방식. 흐름 표는 1.3절 하나 |
 | 발사 묶음 | spec 01 `ShotId`(내 발사)·`CastId`(스침 묶음), spec 02 `CastId`(내 발사) | `ShotId` = 플레이어 발사 1회. `CastId` = 스침을 한 번만 인정하는 묶음(적의 시전, 결투에서는 상대의 `ShotId`) |
 | 모드 열거형 | `SimMode`, `GameMode` | `SimMode { Endless, Duel, Plaza, Practice }` |
-| 틱 안 처리 순서 | spec 01 11단계, spec 05 9단계 | 3.2절의 12단계 |
+| 틱 안 처리 순서 | spec 01 11단계, spec 05 9단계 | 3.2절의 0~12단계 |
 | 야영 조작 기록 | spec 01·07 `CampCommand`, spec 09 `RunCommand` | `RunCommand` |
 | 캐릭터 | `D1`, `Char1`, `char_1`, `disciple_1` | `CharacterId.Char1`~`Char5`(1~5), 문자열 `char.1`~`char.5` |
 | 속성 | `Frost`, `frost`, `shadow` | `Element.Ice`, `Element.Dark`. 문자열 `element.ice`, `element.dark` |
@@ -1365,6 +1367,21 @@ public static class TextMetrics {
 
 화면에 찍는 모든 문자열은 `ITextResolver`를 거친다. 코드에 한글 문구를 직접 적지 않는다.
 
+**원본 파일의 형식**(`data/names/names.ko.json`, T-35). 여러 작업이 줄을 더하는 유일한 파일이라 병합되는 꼴로 고정한다.
+
+```json
+{
+  "char.1": "제자 1",
+  "char.2": "제자 2",
+  "~end": ""
+}
+```
+
+- 한 줄에 열쇠 하나. 열쇠는 서수(ordinal) 비교 오름차순이다(문화권에 기대는 정렬을 쓰지 않는다. 기기마다 결과가 같아야 한다).
+- 마지막 항목 줄(닫는 중괄호 바로 앞)은 표지 열쇠 `"~end": ""`다. 열쇠는 ASCII이고(spec 14 1.1·2.2절의 id 문법) `~`로 시작하지 않으므로 서수 비교에서 표지가 언제나 끝에 온다. 실제 항목의 줄이 모두 쉼표로 끝나므로 줄을 더하는 변경이 이웃 줄을 건드리지 않는다. 표지는 이름이 아니다. DataBuild는 표지를 이진 절에 싣지 않는다.
+- git 병합은 union이다(`.gitattributes`). 병합 뒤 `databuild names --fix`가 정렬을 맞추고 중복을 본다. `databuild names --check`는 정렬, 중복 없음, 한 줄에 열쇠 하나, 끝 표지를 검사한다(M1-CONT-02).
+- 작업은 자기 영역의 열쇠만 더한다. 남의 줄을 고치거나 지우지 않는다(PIPELINE 4.4절).
+
 ## 6. `Wizard.Client`
 
 ### 6.1 `IBackend`
@@ -2279,6 +2296,15 @@ sha256 [32] (앞의 모든 바이트)
 
 소유: `Wizard.Protocol.Boot`. 근거: spec 12 3.2절. `{ payload(base64url JSON), sig(Ed25519), key_id }`. payload의 필드는 spec 12 3.2절 그대로다. 클라이언트는 공개 키 2개를 내장하고, 마지막으로 받아 들인 `issued_at`보다 이른 파일은 버린다.
 
+### 11.5 Unity `.meta`
+
+소유: `tools/Wizard.MetaGen`(M0-BT-04). 근거: T-34.
+
+- `src/`와 `unity/Assets/` 아래의 폴더·파일마다 `.meta`가 하나 있다. Unity가 아니라 `metagen`이 만들고 커밋한다.
+- GUID = MD5(대상의 저장소 기준 상대 경로). 입력은 `.meta`를 뗀 대상 경로의 UTF-8 바이트이고, 구분자는 `/`, 앞에 `/`가 없고, 대소문자는 그대로다(예: `src/Wizard.Sim/Heat/HeatState.cs`). 출력은 hex 32자(소문자)다. 같은 경로면 어느 작업 트리, 어느 기기에서나 같은 GUID다.
+- 이미 있는 `.meta`는 덮어쓰지 않는다. `metagen --check`는 빠진 `.meta`, 주인 없는 `.meta`, 중복 GUID를 찾고, `src/`와 `unity/Assets/Game/`에서는 GUID가 위 계산값과 같은지도 본다.
+- 가져오기 블록(`MonoImporter`, `AssemblyDefinitionImporter`, `PackageManifestImporter`, `PluginImporter`, `folderAsset`)은 Unity가 쓰는 형식 그대로 쓴다. Unity가 연 뒤에도 바이트가 바뀌지 않아야 한다.
+
 ## 12. DB 스키마
 
 소유: `Wizard.Server.Data`(`server/migrations/`). 근거: spec 12 8절이 바탕이고, 다른 명세가 더한 표와 이 문서의 조정을 합친다. 모든 시각은 `timestamptz`, 열거값은 `text + CHECK`.
@@ -2359,6 +2385,8 @@ sha256 [32] (앞의 모든 바이트)
 ## 13. 표시 계층 계약
 
 소유: 엔진과 무관한 타입·열쇠·바인딩 표·연출 한도는 `Wizard.ViewLogic`(T-31), 텍스처와 재생기를 쥔 구현은 `Wizard.Unity.Presentation`. 근거: spec 14 5.7절, 각 명세의 연결점 절. 에셋이 없는 지금은 빈 구현과 도형으로 돈다. 아래 타입에는 `UnityEngine` 타입이 없다(`System.Numerics.Vector2`를 쓴다).
+
+화면 쪽의 경계도 같다. 화면의 상태 기계와 뷰 모델, HUD 모델은 `Wizard.ViewLogic`에 있고(spec 13), `unity/Assets/Game/UI`의 뷰는 코드로 만든 uGUI 위젯으로 모델을 그리고 조작을 모델에 넘기기만 한다. 프리팹과 장면 편집을 쓰지 않는다(T-32). 뷰에는 규칙이 없다.
 
 ```csharp
 // namespace Wizard.ViewLogic.Presentation   (SpriteRef·ClipRef는 불투명 핸들. Unity 쪽 구현이 실제 그림을 쥔다)

@@ -44,7 +44,7 @@ algorithm_project/
 │  │                         waves, frames, modifiers, tod, scoring, starfall, arena, duel_rules
 │  ├ rules/                  규칙: enhance, economy, shop, drops, bag, leagues, il, fees, season,
 │  │                         titles, cosmetics, plaza(시설·채널 상수), limits(상한 식의 계수)
-│  ├ names/names.ko.json     이름 표(유일한 위치). DataBuild가 이진 절(names.ko.wznm)로 바꾼다
+│  ├ names/names.ko.json     이름 표(유일한 위치. 형식은 T-35). DataBuild가 이진 절(names.ko.wznm)로 바꾼다
 │  ├ presentation/           표시 연결: event_bindings, asset_aliases, particle_budget, wand_looks/
 │  └ schema/                 각 파일의 JSON Schema
 ├ src/                       공유 C# (netstandard2.1, C# 9). 폴더 하나가 UPM 로컬 패키지 하나
@@ -69,7 +69,8 @@ algorithm_project/
 │  ├ migrations/             번호가 붙은 SQL 파일
 │  └ deploy/                 launchd plist, Caddyfile, 백업·DDNS 스크립트
 ├ unity/                     Unity 6000.3.20f1 프로젝트(2D URP). 4절
-│  ├ Assets/Game/{App,Input,Presentation,UI,Debug}/
+│  ├ Assets/Game/{App,Input,Presentation,UI,Debug}/   그리기와 입력만. 뷰는 코드로 만든다(T-32)
+│  ├ Assets/Scenes/          Boot, Menu, Battle, Plaza. 시작 개체 하나씩만 둔다(T-32)
 │  ├ Assets/Tests/{EditMode,PlayMode}/
 │  ├ Assets/StreamingAssets/content/   빌드에 든 기본 데이터 팩과 이름 표
 │  ├ Assets/Plugins/         Newtonsoft 이외의 외부 DLL(BouncyCastle)
@@ -78,8 +79,10 @@ algorithm_project/
 │  ├ Packages/manifest.json  src/의 로컬 패키지를 file: 로 참조
 │  └ ProjectSettings/
 ├ tests/                     xUnit (net10.0)
-│  ├ Wizard.Core.Tests/  Wizard.Sim.Tests/  Wizard.Rules.Tests/  Wizard.Text.Tests/
+│  ├ Wizard.Core.Tests/  Wizard.Content.Tests/  Wizard.Text.Tests/  Wizard.Sim.Tests/  Wizard.Rules.Tests/
 │  ├ Wizard.Protocol.Tests/  Wizard.Netcode.Tests/  Wizard.Client.Tests/
+│  ├ Wizard.ViewLogic.Tests/ 화면 로직의 벡터(spec 13·14). Unity 없이 돈다(T-31)
+│  ├ Wizard.Analyzers.Tests/  Wizard.DataBuild.Tests/  Wizard.AssetCheck.Tests/  Wizard.Perf/
 │  ├ Wizard.Server.Tests/    PostgreSQL을 쓰는 통합 테스트(Docker의 고정 이미지, T-38)
 │  ├ Wizard.TestKit/         테스트 공통. Shared/는 netstandard2.1 + C# 9의 UPM 패키지(골든 읽기를 Unity도 쓴다)
 │  ├ golden/                 결정론 골든(씨앗, 입력 기록, 기대 해시). dotnet과 Unity가 같이 읽는다
@@ -93,7 +96,8 @@ algorithm_project/
 │  ├ Wizard.LoadBot/         머리 없는 클라이언트(부하 시험, 결투 지연 실험)
 │  ├ Wizard.Analyzers/       Roslyn 분석기(코어 금지 목록, 결제 값 참조 금지). netstandard2.0
 │  ├ Wizard.Ci/              CI의 로직(단계 실행, 시간 제한, 잠금). tools/ci/의 셸은 이것을 부르는 껍데기(T-40)
-│  ├ Wizard.{MetaGen, VectorCoverage, TaskGraph, AssetCheck, BalanceLab}/
+│  ├ Wizard.MetaGen/         Unity .meta를 경로에서 계산해 만들고 검사한다(T-34)
+│  ├ Wizard.{VectorCoverage, TaskGraph, AssetCheck, BalanceLab}/
 │  └ check-tasks.mjs         tasks.json 검사(JSON, 위상정렬, 묶음 안 경로 겹침, 벡터 배정). node로 돈다
 ├ Wizard.sln                 (dotnet new sln --format sln. .slnx가 아니다)
 ├ Directory.Build.props      공통 설정(UseArtifactsOutput, Nullable, 경고를 오류로)
@@ -141,13 +145,15 @@ Unity 어셈블리(`unity/Assets/Game/`의 asmdef):
 |---|---|---|
 | `Wizard.Unity.Input` | `IInputSource` 구현(Input System 저수준 이벤트의 시각), 키 바인딩 적용. 결투 중에는 입력 폴링을 프레임과 분리한다(CONTRACTS 6.5절) | Core, Sim, Client |
 | `Wizard.Unity.Presentation` | 표시 이벤트 소비, 개체 뷰(보간), 회색 도형 렌더러, `IAssetCatalog`·`IFxPlayer`·`ISfxPlayer`의 Unity 쪽 구현과 빈 구현, 카메라·흔들림·히트스톱(표시 전용). `Fix64 → float` 변환은 `Wizard.ViewLogic.FixConvert`를 쓴다 | ViewLogic과 그 아래 |
-| `Wizard.Unity.UI` | `ScreenStack`, 화면 80여 개의 상태 기계와 뷰 모델, HUD | Presentation, Client, Rules(기댓값 표시), Text |
-| `Wizard.Unity.App` | 시작 절차(상태 파일 → 프로필 고르기), 조립 루트(DI), 고정 틱 루프 | 위 전부 |
+| `Wizard.Unity.UI` | `ScreenHost`와 코드로 만든 uGUI 위젯, 화면 80여 개와 HUD의 **뷰**. `Wizard.ViewLogic`의 모델을 그리고 조작을 모델에 넘기기만 한다. 규칙과 상태 기계는 없다(T-31, T-32) | Presentation, ViewLogic과 그 아래 |
+| `Wizard.Unity.App` | 시작 절차(상태 파일 → 프로필 고르기), 조립 루트(DI), 고정 틱 루프, 머리 없는 골든 실행기 | 위 전부 |
 | `Wizard.Unity.Debug` | 디버그 메뉴(웨이브 건너뛰기, 지급, 해시 표시, 넷 지연 흉내) | App |
+
+화면의 규칙과 상태 기계, 뷰 모델, HUD 모델은 Unity 어셈블리가 아니라 `Wizard.ViewLogic`에 있다(T-31). Unity 어셈블리의 테스트는 `unity/Assets/Tests/{EditMode,PlayMode}`의 asmdef 둘이다.
 
 ### 3.2 의존 방향
 
-화살표는 "참조한다"다. 순환은 없다. 아래에서 위로 올라가는 참조는 금지다.
+화살표는 "참조한다"다(화살촉이 참조되는 쪽). 순환은 없다. 그림의 위쪽이 낮은 계층이다. 낮은 계층이 높은 계층을 참조하는 것은 금지다.
 
 ```
                          Wizard.Core
@@ -164,11 +170,13 @@ Unity 어셈블리(`unity/Assets/Game/`의 asmdef):
         ▲    ▲        │                │
         │   Wizard.Client ─────────────┤
         │        ▲                     │
-        │   Wizard.ViewLogic ◀─ Wizard.Unity.{Input, Presentation, UI, App}
+        │   Wizard.ViewLogic ◀─ Wizard.Unity.Presentation ◀─ Wizard.Unity.UI ◀─ Wizard.Unity.App ◀─ Wizard.Unity.Debug
         │
    Wizard.Server.Duel        Wizard.Server.Data ◀─ Wizard.Server.App ◀─ Wizard.Server.{Api, Admin}
    Wizard.Server.Verify ──▶ (Sim, Protocol, Data)
 ```
+
+한 줄로 쓰면 `Core ← Content ← Sim ← Rules ← Protocol ← Netcode ← Client ← ViewLogic ← Wizard.Unity.{Presentation, UI, App}`, `Text ← Client`다. `Wizard.Unity.Input`은 `Core`, `Sim`, `Client`만 참조하고(`ViewLogic`을 참조하지 않는다) `Wizard.Unity.App`이 `Input`을 참조한다.
 
 금지 규칙(빌드에서 검사한다):
 
@@ -178,7 +186,8 @@ Unity 어셈블리(`unity/Assets/Game/`의 asmdef):
 - `Wizard.Rules`에는 실수형이 없다. `Wizard.Netcode`에는 시계(`DateTime`, `Stopwatch`)와 소켓이 없다.
 - `Wizard.Server.Api`는 `Wizard.Server.Payments.Fakes`를 참조하지 않는다.
 - 공유 어셈블리 9개의 asmdef는 `noEngineReferences: true`다. `UnityEngine`을 쓰면 Unity에서 컴파일되지 않는다.
-- 서버 프로젝트는 `Wizard.Client`를 참조하지 않는다. `Wizard.Client`는 서버 프로젝트를 참조하지 않는다.
+- 서버 프로젝트는 `Wizard.Client`와 `Wizard.ViewLogic`을 참조하지 않는다. `Wizard.Client`는 서버 프로젝트를 참조하지 않는다.
+- `Wizard.ViewLogic`은 `UnityEngine`과 Unity 어셈블리를 참조하지 않는다. `unity/Assets/Game/UI`의 뷰에는 규칙이 없다(T-31).
 - `Wizard.Server.Duel`은 `Wizard.Server.Data`를 참조하지 않는다.
 - `Wizard.Sim`과 `Wizard.Rules`의 강화·매치·리그 코드는 유료 재화 값(`Starlight`, `CurrencyBucket.Paid`, `ItemOrigin.Paid`)을 읽지 않는다(spec 12 10.7절).
 
@@ -251,10 +260,12 @@ src/Wizard.Sim/
 "com.wizard.rules":    "file:../../src/Wizard.Rules",
 "com.wizard.protocol": "file:../../src/Wizard.Protocol",
 "com.wizard.netcode":  "file:../../src/Wizard.Netcode",
-"com.wizard.client":   "file:../../src/Wizard.Client"
+"com.wizard.client":   "file:../../src/Wizard.Client",
+"com.wizard.viewlogic": "file:../../src/Wizard.ViewLogic",
+"com.wizard.testkit.shared": "file:../../tests/Wizard.TestKit/Shared"
 ```
 
-- `.meta` 파일은 `src/` 안에 생기고 커밋한다. Unity가 무작위 GUID로 먼저 만들지 못하게, Unity를 띄우는 모든 스크립트는 먼저 `metagen`을 돌린다(GUID = 경로의 MD5, T-34). `metagen --check`는 `src/`와 `unity/Assets/Game/`의 GUID가 계산값과 같은지도 본다. Unity가 실행 중에 스스로 고쳐 쓰는 파일(`Packages/packages-lock.json`, `ProjectSettings/*.asset`의 형식 갱신, `ProjectVersion.txt`)은 실행 뒤 되돌린다(PIPELINE 4.4절).
+- `.meta` 파일은 `src/` 안에 생기고 커밋한다. Unity가 무작위 GUID로 먼저 만들지 못하게, Unity를 띄우는 모든 스크립트는 먼저 `metagen`을 돌린다(GUID = 저장소 기준 상대 경로의 MD5, T-34). 이미 있는 `.meta`는 덮어쓰지 않는다. `metagen --check`는 `src/`와 `unity/Assets/Game/`의 GUID가 계산값과 같은지도 본다. Unity가 실행 중에 스스로 고쳐 쓰는 파일(`Packages/packages-lock.json`, `ProjectSettings/*.asset`의 형식 갱신, `ProjectVersion.txt`)은 실행 뒤 되돌린다(PIPELINE 4.4절).
 - `artifacts/` 출력 덕분에 패키지 폴더에 `bin/`, `obj/`가 생기지 않는다. 생기면 Unity가 DLL을 중복으로 읽어 충돌한다.
 - 외부 DLL: Newtonsoft.Json은 Unity 패키지(`com.unity.nuget.newtonsoft-json`), BouncyCastle은 `unity/Assets/Plugins/`. `Wizard.Client.asmdef`가 `overrideReferences: true`와 `precompiledReferences`로 가리키고, `com.wizard.client`의 `package.json`이 newtonsoft 패키지에 의존한다. 전부 M0-BT-01이 만든다.
 - DLL로 넣는 방식을 버린 이유는 `DECISIONS-TECH.md` T-02에 있다.
@@ -263,19 +274,25 @@ src/Wizard.Sim/
 
 ```
 unity/Assets/Game/
-├ App/            Bootstrap(장면 1개), CompositionRoot, FixedTickDriver, SceneFlow
+├ App/            Core/(Bootstrap, CompositionRoot, FixedTickDriver, SceneFlow), Boot/, Headless/(골든 실행기)
 ├ Input/          UnityInputSource, KeyBindingStore, InputModeTracker
 ├ Presentation/
-│  ├ Bus/         PresentationEventRouter, EventBindingTable
+│  ├ Core/        도형 표시의 공통부(좌표 적용, 보간). UnityConvert는 Presentation 바로 아래에 있다
+│  ├ Bus/         ViewLogic의 PresentationEventRouter에 Unity 쪽 재생기와 카메라를 꽂는 연결부
 │  ├ World/       PlayerView, EnemyView, ProjectileView, TelegraphView, HazardView (지금은 도형)
-│  ├ Assets/      AssetCatalog(매니페스트 로더), PlaceholderFactory
-│  ├ Fx/  Sfx/    IFxPlayer/ISfxPlayer 구현 자리(지금은 Null)
-│  └ Camera/      ShakeAccumulator, HitstopClock
-├ UI/             Screens/<ScreenId>/, Hud/, Common/(Interactable, 선택 괄호, 글자 폭)
+│  ├ Duel/  Plaza/ 결투의 예측·확정·번복 표시, 광장 장면 표시
+│  ├ Assets/      IAssetCatalog의 Unity 구현(카탈로그, 대체 그림). 매니페스트 로더와 레지스트리는 ViewLogic에 있다
+│  ├ Fx/  Sfx/    IFxPlayer/ISfxPlayer 구현 자리(지금은 빈 재생기와 디버그 표시)
+│  └ Camera/      CameraDirector. 흔들림 누적과 그림 정지 시계의 계산은 ViewLogic의 연출 한도가 한다
+├ UI/             Common/(코드로 만드는 위젯, ScreenHost, 입력 라우팅), Screens/<화면>/, Hud/ — 뷰만 있다
 └ Debug/
 ```
 
-장면은 `Boot`, `Menu`, `Battle`(무한 웨이브·결투·연습 공용), `Plaza` 넷이다. 화면은 장면이 아니라 `ScreenStack`으로 전환한다(spec 13 1.1절).
+장면은 `Boot`, `Menu`, `Battle`(무한 웨이브·결투·연습 공용), `Plaza` 넷이다. 화면은 장면이 아니라 `ScreenStack`(`Wizard.ViewLogic`)으로 전환하고, Unity 쪽 `ScreenHost`가 그 스택을 따라 뷰를 만들고 없앤다(spec 13 1.1절).
+
+- 장면에는 시작 개체 하나만 둔다. 나머지 개체와 화면 뷰는 **코드로** 만든다. 에셋을 들여오기 전까지 프리팹과 장면 편집을 쓰지 않는다(T-32). 장면과 프리팹은 병합 충돌을 풀기 어려운 파일이기 때문이다.
+- 뷰는 uGUI 위젯이다. 모델(`Wizard.ViewLogic`)을 읽어 그리고 조작을 모델에 넘기기만 한다. 그림은 위젯의 겉(스킨)만 바꿔 꽂는다.
+- 새 파일의 `.meta`는 Unity가 아니라 `metagen`이 만든다(T-34, 4.2절).
 
 ## 5. 런타임 구성
 
@@ -479,7 +496,7 @@ wizard-api ─ 웹소켓 duel.setup ─▶ 양쪽 클라이언트(같은 설정,
 | 웹소켓 `/v1/duel/ws` | UDP가 막혔을 때의 결투 | UDP와 **같은 바이트**를 이진 프레임으로 | 같음 |
 | UDS HTTP | `wizard-api` ↔ `wizard-duel` | JSON | 소켓 파일 권한 + 공유 비밀 |
 
-- JSON 규칙: 열거형은 snake_case 문자열, 시각은 ISO-8601 UTC 문자열, 64비트 정수는 숫자, 바이트열은 base64url, 콘텐츠는 문자열 id(`block.fireball`), 캐릭터는 1~5 정수.
+- JSON 규칙: 열거형은 snake_case 문자열, 시각은 ISO-8601 UTC 문자열, 64비트 정수는 숫자(부호 없는 64비트인 씨앗과 상태 해시만 16자리 hex 문자열이다. T-20), 바이트열은 base64url, 콘텐츠는 문자열 id(`block.fireball`), 캐릭터는 1~5 정수.
 - 서버는 System.Text.Json, 클라이언트는 Newtonsoft.Json을 쓴다. `tests/fixtures/protocol/`의 JSON을 양쪽 코덱이 모두 왕복시키는 테스트로 어긋남을 막는다.
 - 버전: `protocol_version`(정수)을 상태 파일과 `/v1/features`가 알린다. 다르면 새 빌드를 안내한다.
 
@@ -519,6 +536,7 @@ content/base.wzpack  (머리말: magic, schema, data_version, core_compat, 절 �
 ### 8.3 이름 표
 
 - 유일한 위치: `data/names/names.ko.json` (`NameKey → 문자열 또는 틀`). 파일의 뼈대(빈 표와 `"~end"`)와 `databuild names --check`는 M1-CONT-02가 만든다. 데이터 작업은 자기 id의 열쇠를 같이 더한다. 그래서 M1부터 G5의 "모든 id에 이름 열쇠"가 통과한다.
+- 형식(T-35): 열쇠 오름차순, 한 줄에 열쇠 하나, 마지막 줄은 표지 열쇠 `"~end": ""`다. git 병합은 union(`.gitattributes`)이고 병합 뒤 `databuild names --fix`가 정렬과 중복을 본다. 여러 작업이 줄을 더해도 덧붙이기끼리는 충돌하지 않는다. 작업은 자기 영역의 열쇠만 더한다.
 - 실행 때 읽는 것은 JSON이 아니라 DataBuild가 만든 이진 절 `names.ko.wznm`이다. `Wizard.Text`는 `ByteReader`로 읽는다(공유 코드에 JSON 파서를 들이지 않는다).
 - 화면에 보이지 않는 한글 데이터(채팅 금칙어 등)는 이름 표가 아니라 `data/rules/chat_filter.json` 같은 데이터 파일에 둔다. 코드에 한글 리터럴로 두지 않는다.
 - 코어, 규칙, 프로토콜, DB는 이 파일을 읽지 않는다. 읽는 곳은 `Wizard.Text`를 쓰는 표시 계층과 관리 화면뿐이다.
@@ -545,12 +563,13 @@ PresentationEventRouter ─ EventBindingTable(data/presentation/event_bindings.j
      └ HUD 뷰 모델 갱신
 ```
 
+- `PresentationEventRouter`, 바인딩 표, `UiEventKeys`, 연출 한도, 그리고 `IAssetCatalog`·`IFxPlayer`·`ISfxPlayer`의 타입은 `Wizard.ViewLogic`에 있다(T-31, CONTRACTS 13절). Unity 쪽(`Presentation/Bus`, `Fx`, `Sfx`, `Camera`)은 라우터에 실제 재생기와 카메라를 꽂는다. 그래서 바인딩과 한도의 규칙은 `dotnet test`로 검증한다.
 - 코어 밖에서 생기는 표시 사건(화면 조작, 연결, 대기열, 서버 전체 알림, 거래, 시즌)은 `UiEventKeys`의 문자열 열쇠로 `PresentationEventRouter.RaiseUi`에 넣는다. 같은 바인딩 표에서 그림과 소리를 찾는다. 두 카탈로그의 모든 열쇠가 바인딩 줄이나 "의도적 없음" 목록에 있는지 테스트가 본다(CONTRACTS 13절).
 - 이벤트 종류는 `SimEventType` 열거형 하나로 모은다. 각 명세의 "시각/소리 연결점" 절에 있는 이름을 모듈별 번호 구간에 넣는다(CONTRACTS 3.3절).
 - 이벤트에서 에셋으로 가는 대응은 코드가 아니라 데이터(`event_bindings.json`)다. 에셋이 생기면 이 표와 카탈로그만 채운다.
 - 표시용 난수(입자, 흔들림)는 코어 난수기를 쓰지 않는다. 쓰면 재실행 결과가 달라진다.
 - 매 틱 읽는 연속 값(열 링, 콤보 막대, 체력)은 이벤트가 아니라 `ISimView`에서 읽는다.
-- 입자 수 예산과 넘쳤을 때의 처리는 `effects.md`가 유일한 기준이고(DECISIONS 2.8), 표시 계층의 `ParticleBudget`이 집행한다. 코어는 관여하지 않는다.
+- 입자 수 예산과 넘쳤을 때의 처리는 `effects.md`가 유일한 기준이고(DECISIONS 2.8), `Wizard.ViewLogic`의 `ParticleBudget`이 계산하고 재생기가 그 결과를 따른다. 코어는 관여하지 않는다.
 
 ## 10. 서브시스템 모듈
 
@@ -615,6 +634,22 @@ PresentationEventRouter ─ EventBindingTable(data/presentation/event_bindings.j
 | `Client.Boot` | 상태 파일 읽기와 서명 검증, 버전 검사, 접속 가능 여부 판정 |
 | `Client.Settings` | 설정과 키 배치(두 프로필이 같이 쓰는 유일한 것) |
 
+### 10.5 화면 로직(`Wizard.ViewLogic`)
+
+엔진이 없는 어셈블리다(T-31). 실수형을 쓸 수 있고 코어 버전 해시에 들어가지 않는다. 폴더 하나가 모듈 하나이고 테스트는 `tests/Wizard.ViewLogic.Tests`의 대응하는 폴더다.
+
+| 모듈(폴더) | 내용 | 명세 |
+|---|---|---|
+| `ViewLogic.Stack`, `ViewLogic.Common` | `ScreenStack`(Push/Replace/Pop, 층, 입력 가로막기), 누를 수 있는 것의 상태 기계, 입력 모드, 공용 창, `UiScale` | 13 1절, 14 4.3절 |
+| `ViewLogic.Screens.<화면>` | 화면마다의 상태 기계와 뷰 모델: 시작·메인 메뉴, 원정 준비와 시작 웨이브, 야영·조립, 연습, 비기, 서고, 정산·상점, 강화, 기록, 설정, 튜토리얼, 옷장, 인증, 순위표, 광장·사회, 거래·장터·우편, 결투, 시즌, 운영, 상점의 유료 탭 자리 | 13 |
+| `ViewLogic.Hud` | 전투 HUD(웨이브 진행, 처치 수, 최근 입력, 회로 점등), 보스 HUD, 결투 HUD의 모델 | 13 7절 |
+| `ViewLogic.Notify` | 알림 라우터(`NotificationRouter`) | 13 1.6절 |
+| `ViewLogic.Presentation` | 표시 계약의 타입(`IAssetCatalog`, `IFxPlayer`, `ISfxPlayer`, `FxRequest`, `AssetKey`), `UiEventKeys`, `PresentationEventRouter`. 하위 폴더: `Bindings`(바인딩 표), `UiEvents`, `Limits`(광과민 한도, 번쩍, 흔들림 누적, 그림 정지 시계, 연출 줄이기, 입자 예산), `WandLooks`(지팡이 겉모습 자료) | 13 14절, 14 5절, `effects.md`, CONTRACTS 13절 |
+| `ViewLogic.Assets` | 매니페스트 로더와 통합 에셋 레지스트리(`AssetKey` → 기록) | 14 5절 |
+| `FixConvert` | `Fix64 → float`, 칸 → 표시 좌표(`System.Numerics.Vector2`), 센티도 → 도. 이 변환은 코어 밖에서 여기에만 있다(T-27) | CONTRACTS 13절 |
+
+화면은 `IBackend`만 부른다(P7). 화면 문자열은 이름 표의 열쇠로만 가리킨다(P10). Unity 쪽 뷰(`unity/Assets/Game/UI`)는 이 모델을 그리기만 한다.
+
 ## 11. 결정론 보증
 
 같은 씨앗과 같은 입력 기록이면 Unity(Mono, IL2CPP)와 서버(CoreCLR)에서, arm64와 x64에서 같은 해시가 나와야 한다.
@@ -642,6 +677,7 @@ PresentationEventRouter ─ EventBindingTable(data/presentation/event_bindings.j
 | 넷코드 | 호스트 1 + 클라이언트 2를 메모리 안에서 잇고 지연·지터·유실(독립, 연속)·순서 바뀜·수신 공백을 흉내 낸다. 섬(0.07초) 판정이 통신 없는 실행과 같은지, 연속 유실 뒤 몰수가 0인지, 오프셋 균등 분포 입력의 폐기율이 0인지 본다 | `Wizard.Netcode.Tests`의 `NetSim` |
 | 프로토콜 | JSON 픽스처 왕복(두 코덱), 패킷 바이트 픽스처, AEAD는 RFC 8439 벡터 | `Wizard.Protocol.Tests` |
 | 규칙 | 강화 마르코프 정확값, 경제 시뮬레이션 회귀(`docs/sim/*.py`와 같은 모형) | `Wizard.Rules.Tests` |
+| 화면 로직 | spec 13·14의 화면 벡터(화면 상태 기계, HUD 모델, 연출 한도, 에셋 레지스트리), 바인딩 표의 빠짐 검사 | `Wizard.ViewLogic.Tests`. Unity를 띄우지 않는다(T-31) |
 | 서버 통합 | 멱등(같은 요청 두 번), 동시 요청, 교착 없음, 원장 대조, 검증 불일치 회수 | 실제 PostgreSQL |
 | 오프라인 완주 | 네트워크를 끊고 "처음 실행 → 판 → 정산 → 강화 → 다시 실행" | Unity PlayMode + `Wizard.Client.Tests` |
 | 결제 | 가짜 제공자로 세 흐름, 같은 영수증 두 번, 환불로 음수 잔액 | `Wizard.Server.Tests` |
@@ -652,7 +688,7 @@ GDD 16절의 1~18단계와 `online.md` 11절의 1~10단계를 마일스톤과 �
 
 | GDD 16 | online 11 | 마일스톤 | 단계의 항목(GDD 16절 그대로) | 필요한 것(이 구조에서) | 대표 작업 |
 |---|---|---|---|---|---|
-| — | — | M0 | (기반) | 저장소 뼈대, 분석기, 생성 도구, CI, 작업 그래프 도구, Unity 뼈대, 에이전트 설정 설치 | M0-TL-02, M0-BT-01~06, M0-UE-01, M0-TE-01 |
+| — | — | M0 | (기반) | 저장소 뼈대, 분석기, 생성 도구, CI, 작업 그래프 도구, Unity 뼈대, 에이전트 설정 설치, 보충 결정(T-31~T-35)의 문서 반영 | M0-TL-01·02, M0-BT-01~06, M0-UE-01, M0-TE-01 |
 | 1 손맛 시제품 | 1 결정론 코어 | M1 | Unity 프로젝트와 git, 입력 설정, **한글 입력기 확인**. 60틱 고정소수점 코어, 입력 이벤트와 순서 규칙, 입력 기록과 재실행, 상태 해시, 두 자동 테스트. 8방향 이동, 자세와 반전, 시야 화살표. 고정 투사체 2종과 3갈래, 과열·임계·잠금·열 링. 슬라임 무한 생성, 포탑, 체력과 무적, 스쳐 피하기. 판정기와 임시 기술 3개, **섬 간격의 밀리초 표시**. **통과 기준 네 가지** | `Wizard.Core` 전부, `Sim.Input`·`World`·`Player`·`Heat`·`Graze`, `Sim.Runtime`(세계, 해시, 스냅숏, 재실행), `InputRecorder`, `Wizard.DataBuild` 최소판, Unity 뼈대(`App`, `Input`, 도형 표시), 골든(런타임 × 아키텍처) | M1-CORE-01~05, M1-SIM-01~09, M1-CLI-01·02, M1-UE-01~03, M1-TE-01·02 |
 | 2 주문 컴파일러 | (7의 앞부분: 넷코드 뼈대) | M2 | 블록 16종, 속성, 실행 트리, 안전장치, 단위 테스트, 글자 출력 조립기 | `Sim.Spell`, 블록 데이터 16종. 멀티플레이 전제로 당긴 것: 패킷 코덱, AEAD, 시계, `DuelHostCore`, `DuelClientCore`, NetSim, 한 기기 2인 | M2-SPL-01~04, M2-NET-01~07 |
 | 3 적과 웨이브의 뼈대 | — | M3 | 원형 4종(늑대 회피, 술사 엄폐), 예고 구역, 웨이브 생성, 약점과 저항, 콤보와 결정, 디버그 메뉴(웨이브 건너뛰기, 무적, 골드·결정·블록 지급, 강화 단계 설정) | `Sim.Enemies`(원형 4종), 예고, `Sim.Waves` 기본, `Sim.Combo`, 디버그 op, 2인 헤드리스 스모크 | M3-ENM-01~03, M3-WAV-01, M3-CMB-01, M3-CB-03, M3-DBG-01, M3-NET-01 |
@@ -661,7 +697,7 @@ GDD 16절의 1~18단계와 `online.md` 11절의 1~10단계를 마일스톤과 �
 | 6 프로필과 오프라인 백엔드 | 2 `IBackend`, `Wizard.Rules`, `OfflineBackend` | M6 | `IBackend`, 규칙 라이브러리(강화·정산·상점), `OfflineBackend`. 이름 표, 프로필, **서고**, 지팡이 개체(여러 자루, 정렬·거르기, +0 구입), **출발 조립**, 원정 지갑과 정산, 귀환 가방, 드랍, 비기 해금 저장, 상점 | `Wizard.Rules`, `Wizard.Text`와 이름 표, `Wizard.Client`의 `IBackend`·`OfflineBackend`·`ISaveStore`, `RunResultFacts`와 정산, 서고·조립 바꾸기 화면 | M6-RUL-01~03, M6-SIM-01, M6-CLI-01~03, M6-TXT-01·02, M6-UL-01~04 |
 | 7 강화 화면 | 2(강화 화면과 슬롯 새기기) | M7 | 제물, 결과 분기, 변이 6종, 부적, 슬롯 새기기, 기댓값 계산과 표시, 하락 흔적, 결과 꾸러미, 공통 연출 | `Rules.Enhance` 전부, 강화 화면 상태 기계, 경제 시뮬레이션 회귀 | M7-RUL-01~03, M7-CLI-01, M7-UL-01~03, M7-TE-01 |
 | 8 무한 웨이브 완성 | — | M8 | 신규 8종, **꼬리표**, 엘리트, 보스 6종, **허상과의 첫 만남과 복수 보상·복수 추적기, 하루와 시간대**, 야생의 변덕, R5, **시작 웨이브 고르기**, 점수, 기기 안의 기록 표 | 적 12종, 엘리트, `Sim.Bosses`, 변덕, R5, 점수, 상한 규칙, 오프라인 기록 | M8-ENM-01~04, M8-BOS-01~05, M8-WAV-01·02, M8-RUL-01, M8-CLI-01, M8-UL-01, M8-TE-01 |
-| 9 겉모습과 마감 | — | M9 (+ V) | 캐릭터 그림, 지팡이 5종 × 14단계, 전투 효과와 층 순서·입자 예산, 소리, 타격감, 타이틀·일시정지·결과, 설정과 키 재설정, 튜토리얼. 네트워크를 끊은 완주 자동 테스트 | **지금 만드는 것**: 에셋 레지스트리, 표시 이벤트 바인딩 표와 `UiEventKeys`(식별자), 연출 한도, **빈 FX·SFX 재생기**, 설정, 튜토리얼, 옷장 뷰, 오프라인 완주 테스트. **에셋을 기다리는 것**: 실제 그림 반입과 합성, 실제 FX·SFX 재생기(V-01~V-14) | M9-AST-01~03, M9-PRS-01~03, M9-SET-01·02, M9-TUT-01·02, M9-COS-01·02, M9-TE-01 |
+| 9 겉모습과 마감 | — | M9 (+ V) | 캐릭터 그림, 지팡이 5종 × 14단계, 전투 효과와 층 순서·입자 예산, 소리, 타격감, 타이틀·일시정지·결과, 설정과 키 재설정, 튜토리얼. 네트워크를 끊은 완주 자동 테스트 | **지금 만드는 것**: 에셋 레지스트리, `UiEventKeys`(식별자), 연출 한도, FX·SFX는 **빈 구현과 바인딩 표(실제 재생기는 V-13·V-14)**, 설정, 튜토리얼, 옷장 뷰, 오프라인 완주 테스트. **에셋을 기다리는 것**: 실제 그림 반입과 합성(V-01~V-12), 소리의 실제 재생기(V-13), 입자 효과의 실제 재생기(V-14) | M9-AST-01~03, M9-PRS-01~03, M9-SET-01·02, M9-TUT-01·02, M9-COS-01·02, M9-TE-01 |
 | 10 서버 기반 | 3 서버 기반 | M10 | 맥미니에 API 서버와 DB, 자체 계정(가입·로그인, 이메일 확인, **이메일로 하는 비밀번호 복구**), 재화 원장과 멱등 키, 강화 서버 함수, `ServerBackend`, TLS와 백업 | `Wizard.Protocol`, `Server.Data`(스키마, 원장, 멱등), `Server.App` 계정·강화, `Server.Api`, `ServerBackend`, 실제 메일 발송(`ApiMailSender`), 배치 | M10-PRO-01~03, M10-DB-01, M10-ACC-01~05, M10-API-01·02, M10-INV-01, M10-ENH-01, M10-SHP-01, M10-CLI-01~03, M10-OPS-01 |
 | 11 판 제출과 검증, 순위표, 주간 도전 | 4 제출과 검증 워커, 순위표 | M11 | (제목 그대로) | Runs 유스케이스(`setup_canonical`, `claimed_facts`), `Server.Verify`, 순위표, 주간 도전, 부정 방지 | M11-RUN-01~04, M11-VER-01, M11-BRD-01, M11-ANT-01, M11-TE-01 |
 | 12 광장 | 5 광장 | M12 | 인스턴스, 이동, **시설**, 채팅, 친구, **살펴보기, 서버 전체 알림** | `Netcode`의 광장 호스트·클라이언트, 웹소켓 허브(`play_seconds`), 시설, 채팅, 친구, 살펴보기, 알림 | M12-NET-01, M12-API-01, M12-PLZ-01, M12-CHT-01, M12-SOC-01, M12-NTC-01 |

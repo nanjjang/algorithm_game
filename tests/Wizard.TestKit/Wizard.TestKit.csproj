@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Wizard.TestKit</RootNamespace>
+    <IsTestProject>false</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="Shared/Wizard.TestKit.Shared.csproj" />
+    <ProjectReference Include="../../src/Wizard.Core/Wizard.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="xunit" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Shared/**" />
+    <None Remove="Shared/**" />
+  </ItemGroup>
+</Project>

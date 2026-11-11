@@ -1,21 +1,38 @@
 .DS_Store
-# .NET
+# 빌드 출력 (UseArtifactsOutput). src/ 안에 bin/obj가 생기지 않는다
+/artifacts/
 bin/
 obj/
 *.user
 TestResults/
-# Unity
-[Ll]ibrary/
-[Tt]emp/
-[Oo]bj/
-[Bb]uild/
-[Bb]uilds/
-[Ll]ogs/
-[Uu]ser[Ss]ettings/
-*.csproj.user
 .vs/
 .idea/
-# local secrets
+# 에이전트 작업 트리와 작업 상태 (T-40)
+/.claude/worktrees/
+/.claude/taskstate.json
+/.claude/settings.local.json
+# 생성되는 팩과 이름 표 이진
+*.wzpack
+*.wznm
+# Unity (위치 고정. T-43)
+/unity/[Ll]ibrary/
+/unity/[Tt]emp/
+/unity/[Oo]bj/
+/unity/[Bb]uild/
+/unity/[Bb]uilds/
+/unity/[Ll]ogs/
+/unity/[Uu]ser[Ss]ettings/
+/unity/MemoryCaptures/
+/unity/.vscode/
+/unity/*.csproj
+/unity/*.sln
+/unity/*.slnx
+/unity/*.csproj.user
+/unity/Assets/Art/
+/unity/Assets/Art.meta
+/unity/Assets/StreamingAssets/content/*.wzpack
+/unity/Assets/StreamingAssets/content/*.wznm
+# 비밀값
 *.pepper
 appsettings.Local.json
 .env

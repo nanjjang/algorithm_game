@@ -1,0 +1,9 @@
+<Project>
+  <!--
+    분석기 탐침(tools/ci/determinism-guard.sh): 금지 API 가 든 파일 하나를 지정한 프로젝트에만 끼워 넣고
+    빌드가 WZ 진단으로 실패하는지 본다. 평소 빌드에는 영향이 없다.
+  -->
+  <ItemGroup Condition="'$(WizardAnalyzerProbe)' != '' and '$(MSBuildProjectName)' == '$(WizardAnalyzerProbeProject)'">
+    <Compile Include="$(WizardAnalyzerProbe)" />
+  </ItemGroup>
+</Project>

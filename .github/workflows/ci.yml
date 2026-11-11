@@ -1,0 +1,40 @@
+# 원격 CI 는 로컬과 같은 스크립트를 부르기만 한다(PIPELINE 4.6). 검사의 내용은 전부 tools/ci/ 에 있다.
+# Unity 배치 컴파일·EditMode·플레이어 빌드(ci.sh full 의 Unity 단계, integration)는 라이선스가 있는 이 저장소의 맥에서 돈다.
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dotnet:
+    runs-on: macos-15
+    timeout-minutes: 45
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+      DOTNET_NOLOGO: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Local CI (fast + full)
+        run: /bin/bash tools/ci.sh full
+      - name: Keep CI results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-results
+          path: artifacts/ci/
+          if-no-files-found: ignore

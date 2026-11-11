@@ -1,8 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    CI 의 로직(DECISIONS-TECH T-40, PIPELINE 4.6). tools/ci/*.sh 는 bash 3.2 껍데기이고 단계 모으기·실행, 시간 제한,
+    잠금, 바뀐 경로에 따른 선택, 기기 요구 확인, 커밋 훅의 검사, 게이트 파일은 여기서 한다. 명령: Program.cs 머리말.
+    자체 테스트는 Tests/ 에 있고 같은 어셈블리로 빌드된다(tools/Wizard.TaskGraph 와 같은 방식. tests/ 의 프로젝트 수는 고정이다).
+    진입점은 Program.Main 이다(GenerateProgramFile=false).
+    Microsoft.CodeAnalysis.CSharp 는 pre-commit 의 금지 API 빠른 검사(구문 나무)에 쓴다. 판은 Directory.Packages.props 의 것이다.
+  -->
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <OutputType>Exe</OutputType>
     <RootNamespace>Wizard.Ci</RootNamespace>
     <AssemblyName>Wizard.Ci</AssemblyName>
+    <IsTestProject>true</IsTestProject>
+    <GenerateProgramFile>false</GenerateProgramFile>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
+  </ItemGroup>
 </Project>

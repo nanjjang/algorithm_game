@@ -1,0 +1,14 @@
+#!/bin/bash
+# commit-msg 훅(CLAUDE.md 10절, PIPELINE 4.2): 첫 줄 '<type>(<작업 id>): <요약>', 빈 둘째 줄, 본문, 끝의 Co-Authored-By 줄(정해진 모델 줄)을 본다.
+# 검사는 tools/Wizard.Ci 의 CommitMessage 가 한다. git 은 command git 으로만 부른다. bash 3.2 문법만 쓴다.
+set -u
+case "$0" in */*) _here="${0%/*}" ;; *) _here="." ;; esac
+. "$_here/../lib/common.sh"
+ROOT="$(ci_root_from "$0")" || exit 1
+[ $# -ge 1 ] || { echo "commit-msg: 메시지 파일이 없다" >&2; exit 1; }
+case "$1" in
+    /*) MSG="$1" ;;
+    *) MSG="$PWD/$1" ;;
+esac
+ci_need_dotnet
+ci_tool commit-msg "$MSG" --root "$ROOT"

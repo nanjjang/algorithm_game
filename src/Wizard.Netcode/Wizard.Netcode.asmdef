@@ -1,0 +1,19 @@
+{
+    "name": "Wizard.Netcode",
+    "rootNamespace": "Wizard.Netcode",
+    "references": [
+        "Wizard.Core",
+        "Wizard.Content",
+        "Wizard.Sim",
+        "Wizard.Protocol"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}

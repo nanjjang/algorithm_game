@@ -13,6 +13,13 @@
         "Wizard.ViewLogic",
         "Wizard.TestKit.Shared",
         "Wizard.Unity.App",
+        "Wizard.Unity.Input",
+        "Wizard.Unity.Presentation",
+        "Wizard.Unity.UI",
+        "Wizard.Unity.Debug",
+        "Unity.InputSystem",
+        "Unity.InputSystem.TestFramework",
+        "UnityEngine.UI",
         "UnityEngine.TestRunner"
     ],
     "includePlatforms": [],

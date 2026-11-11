@@ -13,7 +13,7 @@
 | T-01 | 공유 코드는 `netstandard2.1` + C# 9 단일 타깃 | [신규] |
 | T-02 | 코어는 로컬 UPM 패키지로 소스를 공유한다(DLL 아님) | [신규] |
 | T-03 | 서버·도구·테스트는 .NET 10 | [신규] |
-| T-04 | 어셈블리 8개, 의존은 한 방향 | [신규] |
+| T-04 | 공유 어셈블리 9개, 의존은 한 방향 (개정) | [신규] |
 | T-05 | 싱글도 플레이어 배열을 가진 같은 `SimWorld` | [신규] |
 | T-06 | 고정소수점은 `Fix64`, 연산과 반올림 규칙 하나 | [통합] |
 | T-07 | 각도는 센티도 정수 | [통합] |
@@ -40,7 +40,11 @@
 | T-28 | 입력은 Input System 이벤트 시각으로 양자화 | [신규] |
 | T-29 | 에셋 없이 도는 표시 계층(도형 + 빈 구현 + 바인딩 표) | [신규] |
 | T-30 | 결정론은 런타임 × 아키텍처 조합의 골든 테스트로 지킨다 (개정) | [신규] |
-| T-31~T-35 | ViewLogic, 코드로 만드는 뷰, 뼈대 선행, `.meta` 계산, 이름 표 형식 — `PIPELINE.md` 1.2절(M0-TL-01이 이 문서로 옮긴다) | [신규] |
+| T-31 | 화면 로직은 엔진 없는 공유 패키지 `Wizard.ViewLogic`에 둔다 | [신규] |
+| T-32 | 화면 뷰는 uGUI로, 코드로만 만든다(프리팹·장면 편집 없음) | [신규] |
+| T-33 | 뼈대를 먼저 만들고, 모듈은 부분 클래스의 훅과 모듈 등록으로 붙는다 | [신규] |
+| T-34 | Unity `.meta`의 GUID는 경로에서 계산한다(`MetaGen`) | [신규] |
+| T-35 | 이름 표는 병합되는 형식으로 고정한다(정렬, 한 줄에 열쇠 하나, 끝 표지, union) | [신규] |
 | T-36 | 메일은 HTTPS API 방식의 `ApiMailSender` + 사업자 어댑터 | [신규] |
 | T-37 | 외부 라이브러리: BouncyCastle, Argon2, JSON Schema, Newtonsoft | [신규] |
 | T-38 | 테스트용 PostgreSQL은 Docker의 고정 이미지 | [신규] |
@@ -56,7 +60,7 @@
 
 ## T-01 공유 코드는 `netstandard2.1` + C# 9 단일 타깃
 
-- **결정**: `Wizard.Core`, `Content`, `Text`, `Sim`, `Rules`, `Protocol`, `Netcode`, `Client`는 `netstandard2.1` 하나만 대상으로 하고 C# 9 문법만 쓴다. `#if`로 런타임을 가르지 않는다.
+- **결정**: `Wizard.Core`, `Content`, `Text`, `Sim`, `Rules`, `Protocol`, `Netcode`, `Client`, `ViewLogic`(T-31)은 `netstandard2.1` 하나만 대상으로 하고 C# 9 문법만 쓴다. `#if`로 런타임을 가르지 않는다.
 - **대안**: (가) `netstandard2.1;net10.0` 다중 타깃으로 서버에서 `Int128`, `Math.BigMul` 같은 빠른 API를 쓴다. (나) 서버용 코어를 따로 둔다.
 - **이유**: 설치된 Unity 6000.3.20f1의 컴파일러는 Roslyn 4.3.1이고 언어 판은 C# 9로 고정이며 API는 .NET Standard 2.1이다. 다중 타깃은 코어 계산 경로를 둘로 만들어 "같은 소스"라는 전제를 깬다. 결투 한 경기의 서버 비용이 코어 하나의 1.2%쯤이라(spec 10 14.13) 성능을 위해 위험을 살 이유가 없다.
 - **따라오는 일**: `record`, `init`, `record struct`, 파일 범위 네임스페이스, `Int128`, `BitOperations`, `System.Text.Json`, `ChaCha20Poly1305` 클래스를 공유 코드에서 쓰지 않는다. 명세의 `record struct`(spec 10 17.2)는 일반 구조체로 바꾼다. 128비트 곱과 나눗셈은 `Wizard.Core.Wide`에 직접 만든다(spec 01 2.2의 [임시]를 확정).
@@ -66,7 +70,7 @@
 - **결정**: `src/`의 폴더마다 `package.json` + asmdef + csproj를 두고, Unity는 `Packages/manifest.json`의 `file:` 참조로 소스를 직접 컴파일한다. 공유 asmdef는 전부 `noEngineReferences: true`다. dotnet의 출력은 `UseArtifactsOutput`으로 저장소 최상위 `artifacts/`에 모은다.
 - **대안**: (가) dotnet으로 DLL을 빌드해 `Assets/Plugins`에 복사한다. (나) `Assets/` 안에 소스를 두고 서버 csproj가 `..\unity\Assets\…`를 링크한다. (다) git 서브모듈.
 - **이유**: DLL 방식은 Unity를 열기 전에 빌드 단계가 하나 더 생기고, 낡은 DLL로 테스트하는 사고가 난다. 디버깅과 IL2CPP 스트리핑도 소스 쪽이 쉽다. (나)는 서버가 Unity 프로젝트 폴더에 묶인다. `noEngineReferences`는 코어가 `UnityEngine`을 건드리는 순간 컴파일이 깨지게 해서 원칙 P3을 기계가 지키게 한다.
-- **따라오는 일**: `src/` 안에 Unity가 만든 `.meta`를 커밋한다. `bin/`·`obj/`가 패키지 폴더에 생기면 Unity가 DLL을 중복으로 읽으므로 `artifacts/` 출력이 필수다.
+- **따라오는 일**: `src/` 안의 `.meta`를 커밋한다. Unity가 만든 것이 아니라 `MetaGen`이 경로에서 계산한 것이다(T-34). `bin/`·`obj/`가 패키지 폴더에 생기면 Unity가 DLL을 중복으로 읽으므로 `artifacts/` 출력이 필수다.
 
 ## T-03 서버·도구·테스트는 .NET 10
 
@@ -74,11 +78,12 @@
 - **대안**: .NET 8.
 - **이유**: .NET 10은 LTS이고 이미 설치되어 있다. 맥미니(arm64)에서 그대로 돈다. 서버만 쓰는 코드(`Wizard.Server.*`)는 최신 C#을 쓸 수 있다.
 
-## T-04 어셈블리 8개, 의존은 한 방향
+## T-04 공유 어셈블리 9개, 의존은 한 방향 (개정)
 
-- **결정**: `Core ← Content ← Sim ← Rules ← Protocol ← Netcode ← Client`, `Text ← Client`. 서버는 `Data ← App ← Api/Admin`, `Duel`은 `Netcode`까지만, `Verify`는 `Sim`과 대기열 저장소만.
+- **결정**: `Core ← Content ← Sim ← Rules ← Protocol ← Netcode ← Client ← ViewLogic ← Wizard.Unity.{Presentation, UI, App}`, `Text ← Client`. 공유 어셈블리는 아홉이다(여덟에 `Wizard.ViewLogic`을 더했다. T-31). 서버는 `Data ← App ← Api/Admin`, `Duel`은 `Netcode`까지만, `Verify`는 `Sim`, `Protocol`과 `Data`의 대기열 저장소만.
 - **대안**: (가) spec 01 3.2처럼 `Wizard.Sim` 하나에 전부. (나) 과열, 컴파일러, 판정기를 각각 어셈블리로.
 - **이유**: (가)는 규칙 라이브러리와 통신 DTO가 전투 코어에 섞여 버전 해시가 불필요하게 바뀐다. (나)는 서로 호출이 잦은 전투 모듈을 갈라 순환을 만든다. 전투 모듈은 `Wizard.Sim` 안의 네임스페이스로 나누고, 호출 순서는 `SimWorld`의 틱 파이프라인 한 곳에 둔다.
+- **개정 이유**: 처음 구성은 공유 어셈블리가 여덟이었고 화면의 상태 기계가 `Wizard.Unity.UI`에 있었다. 화면 규칙을 `dotnet test`로 검증하려고 아홉 번째를 더했다(T-31). 서버 프로젝트는 `ViewLogic`을 참조하지 않는다.
 - **따라오는 일**: `Rules`가 `Sim`을 참조하는 곳은 리그 제한(`WandSnapshot`)뿐이다. 정산과 1차 검사는 Sim 타입이 아니라 형식 판이 붙은 정규 바이트 `RunResultFacts`를 받는다(T-18·T-23 개정). 반대 방향은 금지다. 야영의 회복 값처럼 재실행 결과를 바꾸는 판 안의 경제는 `Sim` 쪽에 있다.
 
 ## T-05 싱글도 플레이어 배열을 가진 같은 `SimWorld`
@@ -268,9 +273,48 @@
 - **지금 이 기기의 사실**: `mac-il2cpp` 모듈이 설치되어 있지 않다(Mono 변형만 있다). x64 dotnet 런타임도 없다. Rosetta 2는 있다. 모듈과 런타임 설치는 사용자가 한다(`PIPELINE.md` 4.1절). 골든 실행 스크립트는 필요한 것이 없으면 건너뛰지 않고 무엇이 없는지 적고 실패한다.
 - **이유**: 소스는 같아도 컴파일러와 런타임이 다르다. 정수 연산은 같아야 하지만 "같아야 한다"를 확인하는 장치가 없으면 차이는 출시 뒤에 검증 불일치(무고한 플레이어의 보상 회수)로 나타난다.
 
-## T-31 ~ T-35
+## T-31 화면 로직은 엔진 없는 공유 패키지 `Wizard.ViewLogic`에 둔다 [신규]
 
-`PIPELINE.md` 1.2절에 있다(공유 패키지 `Wizard.ViewLogic`, 코드로만 만드는 uGUI 뷰, 뼈대 선행과 부분 클래스 훅, `.meta`의 결정적 GUID, 이름 표의 병합 형식). 작업 M0-TL-01이 결정/대안/이유 형식으로 이 문서에 옮긴다. 그 전까지는 `PIPELINE.md`가 정본이다. T-33의 훅은 (단계, 모듈)마다 따로 선언한다(`CONTRACTS.md` 3.2절).
+- **결정**: 아홉 번째 공유 패키지 `src/Wizard.ViewLogic`을 둔다(`netstandard2.1`, C# 9, `noEngineReferences: true`). 여기에 있는 것: 화면 상태 기계와 뷰 모델(`ScreenStack` 포함), HUD 모델, 알림 라우터, 표시 이벤트 바인딩 표와 `UiEventKeys`, `PresentationEventRouter`, 연출 한도(번쩍·흔들림·입자 예산) 계산, 에셋 매니페스트 로더와 레지스트리, 표시 계약의 엔진 무관 타입(`IAssetCatalog`, `IFxPlayer`, `ISfxPlayer`, `FxRequest`, `AssetKey`), `FixConvert`. 의존은 `Core`, `Content`, `Text`, `Sim`, `Rules`, `Protocol`, `Netcode`, `Client`다. 코어 버전 해시에 들어가지 않고 실수형을 쓸 수 있다. `Wizard.Unity.UI`와 `Wizard.Unity.Presentation`은 이것을 그리고 입력을 넘기기만 하는 얇은 층이다.
+- **대안**: (가) 화면 상태 기계와 뷰 모델을 `Wizard.Unity.UI` 안에 둔다(이 문서 묶음의 처음 구성). (나) `Wizard.Client`에 넣는다.
+- **이유**: spec 13의 테스트 벡터 243개와 spec 14의 화면·에셋 쪽 벡터를 `dotnet test`로 돌리려는 것이다. (가)처럼 Unity 어셈블리 안에 두면 검증마다 편집기를 배치 모드로 띄워야 하고, 작업 트리마다 `Library`가 따로 생겨 병렬 작업이 무거워진다. 화면 규칙이 엔진 밖에 있으면 "뷰에 규칙이 없다"를 컴파일러가 지켜 준다(`noEngineReferences`라 `UnityEngine`을 쓰는 순간 컴파일이 깨진다). (나)는 통신·저장·세션을 맡는 `Client`에 화면 상태가 섞인다. `Client`는 머리 없는 클라이언트(`tools/Wizard.LoadBot`)도 참조하는 층이다.
+- **따라오는 일**:
+  - 표시 계약의 타입에 엔진 타입을 쓰지 못한다. 좌표는 `System.Numerics.Vector2`, 그림과 소리는 불투명 핸들(`SpriteRef`, `ClipRef`)이고 Unity 쪽 구현이 실제 자산을 쥔다(`CONTRACTS.md` 13절).
+  - `Fix64 → float` 변환(`FixConvert`)의 자리가 `Wizard.Unity.Presentation`에서 여기로 옮겨졌다(T-27). Unity 어셈블리는 `UnityConvert`로 엔진 타입에 옮기기만 한다.
+  - 표시용 난수는 여기서도 코어 난수기를 쓰지 않는다. 코어 금지 목록(실수형 등)의 분석기 진단은 이 어셈블리에 걸리지 않는다. 공유 코드의 문법 제한(C# 9)은 걸린다.
+  - `ARCHITECTURE.md` 2절·3.1절(공유 어셈블리 9개)·3.2절(의존 그림)·10.5절(모듈), 테스트 프로젝트 `tests/Wizard.ViewLogic.Tests`. 서버 프로젝트는 이 어셈블리를 참조하지 않는다.
+
+## T-32 화면 뷰는 uGUI로, 코드로만 만든다 [신규]
+
+- **결정**: `unity/Assets/Game/UI`의 뷰는 uGUI 위젯을 **코드로** 만든다. 에셋을 들여오기 전까지 프리팹과 장면 편집을 쓰지 않는다. 장면 넷(`Boot`, `Menu`, `Battle`, `Plaza`)에는 시작 개체 하나만 두고 나머지는 코드가 만든다. 뷰는 `Wizard.ViewLogic`의 모델을 읽어 그리고 조작을 모델에 넘기기만 한다. 그림은 위젯의 겉(스킨)만 바꿔 꽂는다.
+- **대안**: (가) 화면마다 프리팹을 만들고 장면에 배치한다. (나) UI Toolkit(UXML·USS).
+- **이유**: 장면과 프리팹 파일은 병합 충돌이 나면 풀기 어렵다. 여러 작업 트리가 화면을 같이 만들기 때문에 충돌이 생기지 않는 형식이어야 한다. 에셋이 없는 지금은 코드로 만든 자리 표시 위젯이 가장 단순하고, 화면 하나가 폴더 하나(`UI/Screens/<화면>/`)라서 소유 경로로 자를 수 있다. (나)는 배치와 모양이 UXML·USS 자산 파일로 갈라져 같은 이득이 줄어든다. 저장소 뼈대의 `Wizard.Unity.UI` asmdef도 uGUI(`UnityEngine.UI`)를 참조한다.
+- **따라오는 일**: 공용 위젯(판, 버튼, 탭, 목록, 칸, 글자, 선택 괄호)과 `ScreenHost`는 M4-UE-01이 만든다. 장면 파일, `ProjectSettings/`, `Packages/manifest.json`은 unity-engineer의 작업만 고친다(`PIPELINE.md` 4.5절). 에셋 반입 뒤에 프리팹을 쓸지는 아직 정하지 않았다. 그때 결정으로 남긴다. 그 전까지는 이 결정이 선다.
+
+## T-33 뼈대를 먼저 만들고, 모듈은 부분 클래스의 훅과 모듈 등록으로 붙는다 [신규]
+
+- **결정**: 함께 고칠 수밖에 없는 것을 M0~M1에서 한 번에 선언한다: 프로젝트 전부(실행 파일의 빈 `Program.cs` 포함), id 열거형 전부, `SimEventType` 전 구간, `ErrorCode`, 계약 인터페이스. `SimWorld`와 `ContentDb`는 부분 클래스이고, 틱 단계·상태 절·팩 절마다 부분 메서드 훅을 미리 선언해 둔다. 모듈은 자기 폴더의 파일(`SimWorld.<모듈>.cs`, `ContentDb.<절>.cs`)에서 훅을 구현하기만 한다. **훅은 (단계, 모듈)마다 따로 선언한다**(목록은 `CONTRACTS.md` 3.2절의 표). 서버의 엔드포인트·서비스·웹소켓 처리기와 DataBuild의 변환기는 모듈 인터페이스를 구현한 클래스를 어셈블리에서 찾아 등록한다.
+- **대안**: (가) 모듈 작업이 필요할 때마다 열거형, 틱 파이프라인, `Program.cs`, 솔루션 파일을 고친다. (나) 코어의 모듈을 인터페이스 목록으로 실행 중에 등록한다. (다) 단계마다 훅 하나를 두고 여러 모듈이 같이 구현한다.
+- **이유**: (가)는 여러 에이전트가 같은 파일을 동시에 고치게 한다. 뼈대가 먼저 있으면 뒤 작업은 새 파일만 더한다. (나)는 틱 안의 호출 순서가 등록 순서에 숨는다. 코어의 순서는 `Step` 한 곳에 글로 보여야 한다(`CONTRACTS.md` 3.2절의 0~12단계가 유일한 순서다). 부분 메서드는 구현이 없으면 호출이 컴파일에서 사라지므로, 빈 훅만 있는 상태로도 컴파일되고 아직 없는 모듈의 비용이 없다. (다)는 C#에서 되지 않는다. 부분 메서드는 구현이 하나뿐이어야 한다. 서버와 DataBuild는 등록 순서가 결과를 바꾸지 않는 곳이라 어셈블리에서 찾는 방식을 쓴다.
+- **따라오는 일**:
+  - `SimWorld.<모듈>.cs`와 `ContentDb.<절>.cs`는 모듈 폴더에 두되 네임스페이스가 `Wizard.Sim`, `Wizard.Content`다. `src/Wizard.Core/Errors/`(네임스페이스 `Wizard.Core`)와 함께 "네임스페이스 = 폴더"의 허용된 예외 셋이고 분석기가 이 세 꼴만 허용한다(M0-BT-02).
+  - 훅을 더하거나 한 단계 안의 호출 순서를 바꾸는 것은 계약 변경이다(`PIPELINE.md` 3.7절).
+  - 선언하는 작업: 프로젝트와 `Program.cs`는 M0-BT-01, 열거형은 M1-CONT-01, `ContentDb`의 접근자와 절 목차·DataBuild 뼈대는 M1-CONT-02, `SimEventType`과 Sim 계약 타입은 M1-SIM-01, 틱 파이프라인과 훅은 M1-SIM-02, `ErrorCode`는 M1-CORE-05, 서버의 모듈 등록은 M10-API-01(엔드포인트·서비스)과 M12-API-01(웹소켓 처리기).
+  - 뒤 작업은 `Program.cs`를 `owned_paths`에 가진 경우에만 고친다. `PIPELINE.md` 4.4절의 2번.
+
+## T-34 Unity `.meta`의 GUID는 경로에서 계산한다 [신규]
+
+- **결정**: `tools/Wizard.MetaGen`이 `src/`와 `unity/Assets/` 아래의 폴더·파일마다 `.meta`가 없으면 만든다. GUID는 저장소 기준 상대 경로의 MD5다(입력 바이트의 정확한 꼴은 `CONTRACTS.md` 11.5절). 같은 경로면 어느 작업 트리에서나 같은 GUID가 나온다. 이미 있는 `.meta`는 덮어쓰지 않는다. `metagen --check`는 빠진 `.meta`, 주인 없는 `.meta`, 중복 GUID를 찾고, `src/`와 `unity/Assets/Game/`에서는 GUID가 계산값과 같은지도 본다. Unity를 띄우는 모든 스크립트는 먼저 `metagen`을 돌린다.
+- **대안**: (가) Unity가 만든 `.meta`를 그대로 커밋한다. (나) `.meta`를 커밋하지 않는다.
+- **이유**: 에이전트는 Unity를 열지 않고 `src/`에 파일을 더한다. (가)는 작업 트리마다 Unity가 제각각 무작위 GUID를 만들어, 병합할 때 같은 파일의 `.meta`가 충돌한다. (나)는 기기마다 GUID가 달라져 GUID로 가리키는 참조(장면의 스크립트, 설정 자산)가 기기마다 어긋난다. 경로에서 계산하면 누가 먼저 만들어도 바이트가 같다. `src/`와 `unity/Assets/Game/`에서 계산값과 대조하는 것은 Unity가 먼저 만든 무작위 GUID가 커밋되어 굳는 것을 막으려는 것이다. 그 밖의 곳(Unity가 프로젝트 틀로 만든 설정 자산 등)은 이미 있는 값을 그대로 둔다.
+- **따라오는 일**: `metagen --check`는 병합 게이트에 있다. MetaGen은 확장자별 가져오기 블록을 Unity가 쓰는 형식 그대로 써서 Unity가 연 뒤에도 `.meta`가 바뀌지 않게 한다(M0-BT-04). `.meta`는 "MetaGen이 만든 것만" 더할 수 있는 공유 파일이다(`PIPELINE.md` 4.4절). 경로가 GUID를 정하므로 `src/`와 `unity/Assets/Game/`의 파일을 옮기면 GUID가 바뀐다. `ARCHITECTURE.md` 4.2절, `PIPELINE.md` 4.3·4.5절.
+
+## T-35 이름 표는 병합되는 형식으로 고정한다 [신규]
+
+- **결정**: `data/names/names.ko.json`은 열쇠 오름차순, 한 줄에 열쇠 하나, 마지막 줄은 표지 열쇠 `"~end": ""`다. git 병합은 union(`.gitattributes`)이고, 병합 뒤 `databuild names --fix`가 정렬과 중복을 본다. `databuild names --check`가 형식(정렬, 중복 없음, 한 줄에 열쇠 하나, 끝 표지)을 검사한다. 작업은 자기 영역의 열쇠만 더한다.
+- **대안**: (가) 영역마다 이름 파일을 나눈다. (나) 형식을 정하지 않고 충돌은 병합 때 푼다.
+- **이유**: 이름은 한 곳에만 둔다(DECISIONS 1.25). 그래서 이 파일은 하나뿐이고 여러 작업이 줄을 더한다. (가)는 "한 곳"을 깨고, 열쇠가 어느 파일에 있는지를 또 정해야 한다. 형식을 고정하면 덧붙이기끼리는 충돌하지 않는다. 끝 표지가 있으면 실제 항목의 줄이 모두 쉼표로 끝나서, 줄을 더하는 변경이 이웃 줄을 건드리지 않는다. union 병합은 양쪽 줄을 다 살리므로 순서가 흐트러지거나 같은 열쇠가 두 번 남을 수 있다. 그것을 `names --fix`와 `--check`가 잡는다.
+- **따라오는 일**: 파일의 뼈대와 두 명령은 M1-CONT-02, `.gitattributes`의 union 줄은 M0-BT-01, 커밋 훅의 형식 검사는 `PIPELINE.md` 4.6절. 실행 때 읽는 것은 이 JSON이 아니라 DataBuild가 만든 이진 절 `names.ko.wznm`이다. 정렬은 서수 비교이고 표지 열쇠는 이진 절에 싣지 않는다(`CONTRACTS.md` 5절). `ARCHITECTURE.md` 8.3절, `PIPELINE.md` 3.8·4.4절.
 
 ## T-36 메일은 HTTPS API 방식의 `ApiMailSender` + 사업자 어댑터 [신규]
 
@@ -293,7 +337,7 @@
   | DB | Npgsql, Dapper | `Wizard.Server.Data` |
   | 분석기 | Microsoft.CodeAnalysis.CSharp 4.3.x(Unity의 Roslyn 4.3.1에 맞춘다) | `tools/Wizard.Analyzers` |
 
-  정확한 판 번호는 M0-BT-01이 그때의 안정판으로 `Directory.Packages.props`에 고정한다. 코어 세 어셈블리와 `Rules`, `Protocol`, `Netcode`, `Text`에는 외부 의존이 없다.
+  정확한 판 번호는 M0-BT-01이 그때의 안정판으로 `Directory.Packages.props`에 고정한다. 코어 세 어셈블리와 `Rules`, `Protocol`, `Netcode`, `Text`에는 외부 의존이 없다. `ViewLogic`은 패키지를 직접 참조하지 않는다(`Client`를 참조할 뿐이다).
 - **대안**: Ed25519와 AEAD를 직접 구현한다. Argon2를 네이티브 라이브러리로 쓴다.
 - **이유**: 이 기기의 .NET 10에는 `ChaCha20Poly1305`는 있지만 Ed25519와 Argon2가 없다. 암호를 직접 구현하지 않는다. 네이티브 라이브러리는 배포물과 Unity 플러그인 구성을 늘린다. 한 벌(BouncyCastle)로 클라이언트와 도구를 맞추면 RFC 벡터 한 묶음으로 둘을 검증한다.
 - **따라오는 일**: 패키지 참조 줄과 Unity 쪽 DLL(`unity/Assets/Plugins/`), asmdef의 `overrideReferences`·`precompiledReferences`, `com.wizard.client`의 `package.json` 의존은 M0-BT-01이 한꺼번에 넣는다. 뒤 작업이 csproj를 고칠 일이 없게 한다(`PIPELINE.md` 4.4절).
@@ -366,4 +410,5 @@
 | 로그 형식과 보관 | 구조화 JSON, 30일(spec 12 8.4). 라이브러리는 기본 `ILogger` | 서버 기반 |
 | PostgreSQL, Caddy 설치 | 배치용은 맥미니에 아직 없다(사용자 설치). 테스트용 DB는 T-38 | 서버 기반 |
 | 팩 내려받기 경로 | `wizard-api`가 정적 파일로 낸다 | 판 제출과 검증 |
+| 에셋 반입 뒤 화면 뷰에 프리팹을 쓸지 | T-32. 반입 전까지는 코드로만 만든다. 반입 뒤의 방식은 정하지 않았다 | 에셋 반입(시각 작업) |
 | IL2CPP 골든 실행을 자동으로 돌리는 방법 | Unity 배치 모드로 플레이어를 빌드한 뒤(빌드 진입점은 `-quit`을 쓴다) 플레이어를 `-batchmode -nographics`로 실행. `mac-il2cpp` 모듈이 먼저 있어야 한다 | 손맛 시제품 뒤 |

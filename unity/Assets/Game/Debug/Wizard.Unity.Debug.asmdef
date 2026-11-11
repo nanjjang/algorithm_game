@@ -1,0 +1,28 @@
+{
+    "name": "Wizard.Unity.Debug",
+    "rootNamespace": "Wizard.Unity.Debug",
+    "references": [
+        "Wizard.Core",
+        "Wizard.Content",
+        "Wizard.Text",
+        "Wizard.Sim",
+        "Wizard.Rules",
+        "Wizard.Protocol",
+        "Wizard.Netcode",
+        "Wizard.Client",
+        "Wizard.ViewLogic",
+        "Wizard.Unity.App",
+        "Wizard.Unity.Input",
+        "Wizard.Unity.Presentation",
+        "Wizard.Unity.UI"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,10 @@
+{
+  "name": "com.wizard.testkit.shared",
+  "version": "0.0.0",
+  "displayName": "Wizard.TestKit.Shared",
+  "description": "Golden file loader and vector naming shared by dotnet tests and Unity EditMode",
+  "unity": "6000.3",
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "3.2.1"
+  }
+}

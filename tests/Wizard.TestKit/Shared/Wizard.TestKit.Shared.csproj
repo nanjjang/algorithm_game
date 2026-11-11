@@ -11,4 +11,9 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" />
   </ItemGroup>
+  <ItemGroup>
+    <!-- Tests/ 는 Unity EditMode 테스트 어셈블리(NUnit, UnityEngine)다. Unity 만 컴파일한다 -->
+    <Compile Remove="Tests/**" />
+    <None Remove="Tests/**" />
+  </ItemGroup>
 </Project>

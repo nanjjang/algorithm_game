@@ -1,86 +1,94 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Numerics;
 using System.Text;
 
 namespace Wizard.TableGen
 {
-    // CONTRACTS 1.1, ARCHITECTURE 3.4, T-41. 코어의 수학 표를 정수(임의 정밀도)만으로 만든다. 실수 함수를 쓰지 않는다.
-    //   tablegen            표를 다시 쓴다
-    //   tablegen --check    다시 만든 결과가 커밋된 파일과 바이트가 같은지 본다(다르면 1)
+    // CONTRACTS 1.1, ARCHITECTURE 3.4, T-41. 코어의 수학 표를 정수(임의 정밀도)만으로 만든다. 계산은 TableMath.cs.
+    //   tablegen              표를 다시 쓴다
+    //   tablegen --check      다시 만든 결과가 커밋된 파일과 바이트가 같은지 본다(다르면 1)
+    //   tablegen --self-test  도구의 자체 테스트(SelfTest.cs)
     // 저장소 뿌리는 현재 폴더가 아니라 이 도구의 위치에서 구한다.
     public static class Program
     {
-        private const int PrecisionBits = 256;
-        private const int QuarterCenti = 9000;
-        private const int HalfTurnCenti = 18000;
+        public const string OutputDirRelative = "src/Wizard.Core/Generated";
 
         public static int Main(string[] args)
         {
-            bool check = Array.IndexOf(args, "--check") >= 0;
-            string root = RepoRoot.Find();
-            string dir = Path.Combine(root, "src", "Wizard.Core", "Generated");
-            var outputs = new[]
+            string mode = args.Length == 0 ? "--write" : args[0];
+            if (args.Length > 1)
             {
-                (Path.Combine(dir, "SinTable.g.cs"), BuildSinTable()),
-                (Path.Combine(dir, "PowTables.g.cs"), BuildPowTables()),
-            };
+                Console.Error.WriteLine("FAIL  tablegen takes at most one option (--check | --self-test)");
+                return 2;
+            }
+            if (mode == "--self-test")
+            {
+                return SelfTest.Run(RepoRoot.Find(), Console.Out, Console.Error);
+            }
+            return Run(RepoRoot.Find(), mode, Console.Out, Console.Error);
+        }
+
+        public static int Run(string root, string mode, TextWriter stdout, TextWriter stderr)
+        {
+            bool check;
+            switch (mode)
+            {
+                case "--write":
+                    check = false;
+                    break;
+                case "--check":
+                    check = true;
+                    break;
+                default:
+                    stderr.WriteLine($"FAIL  unknown option '{mode}' (--check | --self-test)");
+                    return 2;
+            }
             int failures = 0;
-            foreach (var (path, text) in outputs)
+            foreach (var (name, text) in Outputs())
             {
+                string rel = OutputDirRelative + "/" + name;
+                string path = Path.Combine(root, rel);
                 byte[] bytes = new UTF8Encoding(false).GetBytes(text);
                 if (check)
                 {
-                    if (!File.Exists(path) || !File.ReadAllBytes(path).AsSpan().SequenceEqual(bytes))
+                    if (!File.Exists(path))
                     {
-                        Console.Error.WriteLine($"FAIL  {Path.GetRelativePath(root, path)} differs from tablegen output");
+                        stderr.WriteLine($"FAIL  {rel} is missing. Run tools/Wizard.TableGen and commit the file.");
                         failures++;
+                    }
+                    else if (!File.ReadAllBytes(path).AsSpan().SequenceEqual(bytes))
+                    {
+                        stderr.WriteLine($"FAIL  {rel} differs from tablegen output. Run tools/Wizard.TableGen and commit the file.");
+                        failures++;
+                    }
+                    else
+                    {
+                        stdout.WriteLine($"ok    {rel}");
                     }
                 }
                 else
                 {
-                    Directory.CreateDirectory(dir);
+                    Directory.CreateDirectory(Path.GetDirectoryName(path)!);
                     File.WriteAllBytes(path, bytes);
-                    Console.WriteLine($"wrote {Path.GetRelativePath(root, path)}");
+                    stdout.WriteLine($"wrote {rel}");
                 }
             }
             return failures == 0 ? 0 : 1;
         }
 
-        // sin(k 센티도) × 2^32, k = 0..9000. 가장 가까운 정수, 같으면 짝수.
-        public static long[] SinRaw()
+        public static IReadOnlyList<(string Name, string Text)> Outputs() => new[]
         {
-            BigInteger one = BigInteger.One << PrecisionBits;
-            BigInteger pi = 16 * ArcTanInverse(5, one) - 4 * ArcTanInverse(239, one);
-            var table = new long[QuarterCenti + 1];
-            for (int k = 0; k <= QuarterCenti; k++)
-            {
-                BigInteger x = pi * k / HalfTurnCenti;   // 라디안, 2^256 배율
-                BigInteger s = SinScaled(x, one);
-                table[k] = (long)RoundShift(s, PrecisionBits - 32);
-            }
-            return table;
-        }
-
-        // base^n × 2^32, base = num/den. 정확한 유리수를 반올림(같으면 짝수)
-        public static long[] PowRaw(int num, int den, int count)
-        {
-            var table = new long[count];
-            for (int n = 0; n < count; n++)
-            {
-                BigInteger p = BigInteger.Pow(num, n) << 32;
-                BigInteger q = BigInteger.Pow(den, n);
-                table[n] = (long)RoundDiv(p, q);
-            }
-            return table;
-        }
+            ("SinTable.g.cs", BuildSinTable()),
+            ("PowTables.g.cs", BuildPowTables()),
+        };
 
         private static string BuildSinTable()
         {
             var sb = Header("sin(k 센티도) × 2^32, k = 0..9000. 가장 가까운 정수(같으면 짝수). FixMath.Sin/Cos/Atan2 가 읽는다.");
             sb.Append("    internal static class SinTable\n    {\n");
-            AppendArray(sb, "Raw", SinRaw());
+            AppendArray(sb, "Raw", TableMath.SinRaw());
             sb.Append("    }\n}\n");
             return sb.ToString();
         }
@@ -90,13 +98,13 @@ namespace Wizard.TableGen
             var sb = Header("1.15^n, 0.85^d, 0.92^d, 0.7^k × 2^32. 정확한 십진 거듭제곱을 반올림(같으면 짝수). spec 02 11절의 표와 같다.");
             sb.Append("    internal static partial class PowTables\n    {\n");
             sb.Append("        // 강화 배율, 단계 0..13 (DECISIONS 1.3)\n");
-            AppendArray(sb, "Enhance115", PowRaw(115, 100, 14));
+            AppendArray(sb, "Enhance115", TableMath.PowRaw(115, 100, 14));
             sb.Append("\n        // 깊이 감쇠, 깊이 0..15\n");
-            AppendArray(sb, "Decay085", PowRaw(85, 100, 16));
+            AppendArray(sb, "Decay085", TableMath.PowRaw(85, 100, 16));
             sb.Append('\n');
-            AppendArray(sb, "Decay092", PowRaw(92, 100, 16));
+            AppendArray(sb, "Decay092", TableMath.PowRaw(92, 100, 16));
             sb.Append("\n        // 연쇄 번개 전이, k 0..15\n");
-            AppendArray(sb, "Chain07", PowRaw(7, 10, 16));
+            AppendArray(sb, "Chain07", TableMath.PowRaw(7, 10, 16));
             sb.Append("    }\n}\n");
             return sb.ToString();
         }
@@ -126,66 +134,19 @@ namespace Wizard.TableGen
             }
             sb.Append("        };\n");
         }
-
-        // atan(1/n) × one
-        private static BigInteger ArcTanInverse(int n, BigInteger one)
-        {
-            BigInteger n2 = (BigInteger)n * n;
-            BigInteger term = one / n;
-            BigInteger sum = term;
-            for (int k = 1; !term.IsZero; k++)
-            {
-                term /= n2;
-                BigInteger part = term / (2 * k + 1);
-                sum += (k & 1) == 1 ? -part : part;
-            }
-            return sum;
-        }
-
-        // sin(x/one) × one, 테일러 급수
-        private static BigInteger SinScaled(BigInteger x, BigInteger one)
-        {
-            BigInteger x2 = x * x / one;
-            BigInteger term = x;
-            BigInteger sum = x;
-            for (int n = 1; !term.IsZero; n++)
-            {
-                term = -(term * x2 / one) / ((2 * n) * (2 * n + 1));
-                sum += term;
-            }
-            return sum;
-        }
-
-        private static BigInteger RoundShift(BigInteger v, int bits) => RoundDiv(v, BigInteger.One << bits);
-
-        // v / d 를 가장 가까운 정수로, 같으면 짝수. d > 0
-        private static BigInteger RoundDiv(BigInteger v, BigInteger d)
-        {
-            BigInteger q = BigInteger.DivRem(v, d, out BigInteger r);
-            if (r.Sign < 0)
-            {
-                q -= 1;
-                r += d;
-            }
-            BigInteger twice = r * 2;
-            if (twice > d || (twice == d && !q.IsEven))
-            {
-                q += 1;
-            }
-            return q;
-        }
     }
 
-    internal static class RepoRoot
+    // 저장소 뿌리: 이 도구의 DLL 위치에서 위로 올라가며 Wizard.sln 이 있는 첫 폴더. 현재 폴더는 보지 않는다.
+    public static class RepoRoot
     {
         public static string Find()
         {
-            string? dir = AppContext.BaseDirectory;
+            string? dir = Path.GetFullPath(AppContext.BaseDirectory);
             while (dir != null)
             {
                 if (File.Exists(Path.Combine(dir, "Wizard.sln")))
                 {
-                    return dir;
+                    return dir.TrimEnd(Path.DirectorySeparatorChar);
                 }
                 dir = Path.GetDirectoryName(dir.TrimEnd(Path.DirectorySeparatorChar));
             }

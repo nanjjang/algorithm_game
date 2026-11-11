@@ -20,10 +20,11 @@ WZ0012 | Determinism | Error | Unsafe code in deterministic core
 WZ0013 | Determinism | Error | Memory reinterpretation in deterministic core
 WZ0014 | Determinism | Error | Raw division by a non-constant
 WZ0015 | Determinism | Error | checked arithmetic in deterministic core
-WZ0016 | Determinism | Error | Diagnostic suppression in deterministic core
+WZ0016 | Determinism | Error | Diagnostic suppression
 WZ0017 | Layering | Error | Reference to code outside the core version hash
 WZ0019 | Layering | Error | Socket in netcode core
 WZ0020 | Payments | Error | Paid currency value in enhance, match or league code
 WZ0021 | Language | Error | C# feature not available to Unity
 WZ0022 | Language | Error | API not available in shared packages
 WZ0023 | Layering | Error | Forbidden assembly reference
+WZ0024 | Layering | Error | Namespace does not match folder

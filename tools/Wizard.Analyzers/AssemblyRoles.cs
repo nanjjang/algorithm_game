@@ -53,6 +53,12 @@ namespace Wizard.Analyzers
         // 허용되지 않은 참조인가
         public static bool IsForbiddenReference(string assembly, string reference)
         {
+            // 공유 패키지 asmdef 는 noEngineReferences 다(ARCHITECTURE 3.2). dotnet 빌드에서도 엔진 DLL 을 참조하지 않는다
+            if (IsShared(assembly) && (reference.StartsWith("UnityEngine", StringComparison.Ordinal)
+                                       || reference.StartsWith("UnityEditor", StringComparison.Ordinal)))
+            {
+                return true;
+            }
             if (!reference.StartsWith("Wizard.", StringComparison.Ordinal) || reference == assembly)
             {
                 return false;

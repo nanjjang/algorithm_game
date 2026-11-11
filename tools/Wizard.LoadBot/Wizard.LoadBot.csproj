@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Wizard.LoadBot</RootNamespace>
+    <AssemblyName>Wizard.LoadBot</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/Wizard.Client/Wizard.Client.csproj" />
+  </ItemGroup>
+</Project>

@@ -2,7 +2,7 @@ using Microsoft.CodeAnalysis;
 
 namespace Wizard.Analyzers
 {
-    // 진단 목록. 번호는 추가만 한다. ARCHITECTURE 3.2·3.3·11, DECISIONS-TECH T-11·T-18·T-42, spec 12 10.7.
+    // 진단 목록. 번호는 추가만 한다. ARCHITECTURE 3.2·3.3·11, DECISIONS-TECH T-11·T-18·T-33·T-42, spec 12 10.7.
     public static class Rules
     {
         private const string Determinism = "Determinism";
@@ -10,8 +10,13 @@ namespace Wizard.Analyzers
         private const string Language = "Language";
         private const string Payments = "Payments";
 
+        // 억제할 수 없게 만든다(T-42 "억제도 오류"). 끄려는 시도 자체는 WZ0016 으로 따로 알린다.
+        //   NotConfigurable — #pragma, NoWarn, WarningsNotAsErrors, .editorconfig·전역 설정의 심각도(묶음 설정 포함)가 듣지 않는다.
+        //   Compiler        — SuppressMessage·UnconditionalSuppressMessage 가 듣지 않는다(컴파일러 진단은 특성으로 억제되지 않는다).
+        // 두 꼬리표가 없으면 [assembly: SuppressMessage(…, "WZ0016")] 하나로 억제 검사까지 꺼진다. SDK 10.0.201 빌드에서 확인했다(M0-BT-02).
         private static DiagnosticDescriptor Error(string id, string title, string message, string category) =>
-            new DiagnosticDescriptor(id, title, message, category, DiagnosticSeverity.Error, isEnabledByDefault: true);
+            new DiagnosticDescriptor(id, title, message, category, DiagnosticSeverity.Error, isEnabledByDefault: true,
+                customTags: new[] { WellKnownDiagnosticTags.NotConfigurable, WellKnownDiagnosticTags.Compiler });
 
         public static readonly DiagnosticDescriptor FloatingPoint = Error("WZ0001",
             "Floating-point type in integer-only assembly",
@@ -34,7 +39,7 @@ namespace Wizard.Analyzers
             "'{0}' iterates '{1}' whose order is not defined; use arrays, SortedIntList or fixed pools (Dictionary is lookup-only)", Determinism);
 
         public static readonly DiagnosticDescriptor UnstableSort = Error("WZ0006",
-            "Unstable or unspecified sort in deterministic core",
+            "Unstable or unspecified sort",
             "'{0}' must not call '{1}'; use DetSort with a total-order comparer", Determinism);
 
         public static readonly DiagnosticDescriptor CultureString = Error("WZ0007",
@@ -74,12 +79,12 @@ namespace Wizard.Analyzers
             "'{0}' must not use 'checked'; arithmetic wraps in every build", Determinism);
 
         public static readonly DiagnosticDescriptor Suppression = Error("WZ0016",
-            "Diagnostic suppression in deterministic core",
-            "'{0}' must not suppress diagnostics ({1})", Determinism);
+            "Diagnostic suppression",
+            "'{0}' must not suppress or downgrade diagnostics ({1})", Determinism);
 
         public static readonly DiagnosticDescriptor OutsideCoreHash = Error("WZ0017",
             "Reference to code outside the core version hash",
-            "'{0}' must not reference '{1}' (Wizard.Content.Rules, ErrorCode, Error, Result are outside the core version hash)", Layering);
+            "'{0}' must not reference '{1}' (Wizard.Content.Rules, ErrorCode, Error, Result, Unit are outside the core version hash)", Layering);
 
         public static readonly DiagnosticDescriptor Sockets = Error("WZ0019",
             "Socket in netcode core",
@@ -100,5 +105,17 @@ namespace Wizard.Analyzers
         public static readonly DiagnosticDescriptor LayerReference = Error("WZ0023",
             "Forbidden assembly reference",
             "'{0}' must not reference '{1}' (ARCHITECTURE 3.2)", Layering);
+
+        public static readonly DiagnosticDescriptor NamespaceFolder = Error("WZ0024",
+            "Namespace does not match folder",
+            "Namespace '{1}' does not match the folder of '{0}' ({2}; CLAUDE.md 6, CONTRACTS 0.1)", Layering);
+
+        // 분석기가 내는 진단 전부(심각도를 낮추는 설정을 찾을 때 쓴다)
+        public static readonly DiagnosticDescriptor[] All =
+        {
+            FloatingPoint, SystemRandom, Clock, NewGuid, HashIteration, UnstableSort, CultureString, Threading, HashCodeOrder, MutableStatic,
+            ThreadStatic, UnsafeCode, MemoryReinterpret, RawDivision, CheckedContext, Suppression, OutsideCoreHash, Sockets, PaidValue,
+            ForbiddenSyntax, ForbiddenApi, LayerReference, NamespaceFolder,
+        };
     }
 }

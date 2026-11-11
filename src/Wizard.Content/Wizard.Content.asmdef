@@ -1,0 +1,16 @@
+{
+    "name": "Wizard.Content",
+    "rootNamespace": "Wizard.Content",
+    "references": [
+        "Wizard.Core"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}

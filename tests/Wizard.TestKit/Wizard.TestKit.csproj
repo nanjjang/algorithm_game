@@ -1,15 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    테스트 공통 기반의 xUnit 쪽(net10.0). 엔진 없는 공유부는 Shared/(netstandard2.1, Unity 도 같은 소스를 쓴다).
+    다른 테스트 프로젝트가 이 프로젝트를 참조해 도우미(FuzzAssert, GoldenAssert, TestRepo …)를 쓴다.
+    TestKit 자체 테스트(SelfTests/)도 여기서 돈다. tests/ 의 프로젝트 수는 layout-check 가 16 으로 고정하므로
+    자체 테스트를 위한 프로젝트를 따로 두지 않는다.
+  -->
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>Wizard.TestKit</RootNamespace>
-    <IsTestProject>false</IsTestProject>
+    <IsTestProject>true</IsTestProject>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="Shared/Wizard.TestKit.Shared.csproj" />
     <ProjectReference Include="../../src/Wizard.Core/Wizard.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Shared/**" />

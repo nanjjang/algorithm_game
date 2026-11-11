@@ -6,6 +6,9 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../../src/Wizard.Sim/Wizard.Sim.csproj" />
+    <ProjectReference Include="../../tools/Wizard.DataBuild/Wizard.DataBuild.csproj" />
+    <ProjectReference Include="../../tools/Wizard.ReplayCli/Wizard.ReplayCli.csproj" />
+    <ProjectReference Include="../../tools/Wizard.BalanceLab/Wizard.BalanceLab.csproj" />
     <ProjectReference Include="../Wizard.TestKit/Wizard.TestKit.csproj" />
   </ItemGroup>
   <ItemGroup>

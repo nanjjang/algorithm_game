@@ -6,6 +6,12 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../../src/Wizard.Content/Wizard.Content.csproj" />
+    <ProjectReference Include="../../src/Wizard.Sim/Wizard.Sim.csproj" />
+    <ProjectReference Include="../../src/Wizard.Rules/Wizard.Rules.csproj" />
+    <ProjectReference Include="../../src/Wizard.Netcode/Wizard.Netcode.csproj" />
+    <ProjectReference Include="../../src/Wizard.Client/Wizard.Client.csproj" />
+    <ProjectReference Include="../../src/Wizard.ViewLogic/Wizard.ViewLogic.csproj" />
+    <ProjectReference Include="../../tools/Wizard.DataBuild/Wizard.DataBuild.csproj" />
     <ProjectReference Include="../Wizard.TestKit/Wizard.TestKit.csproj" />
   </ItemGroup>
   <ItemGroup>

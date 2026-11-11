@@ -6,8 +6,15 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../../server/Wizard.Server.App/Wizard.Server.App.csproj" />
+    <ProjectReference Include="../../server/Wizard.Server.Data/Wizard.Server.Data.csproj" />
     <ProjectReference Include="../../server/Wizard.Server.Api/Wizard.Server.Api.csproj" />
     <ProjectReference Include="../../server/Wizard.Server.Payments.Fakes/Wizard.Server.Payments.Fakes.csproj" />
+    <ProjectReference Include="../../server/Wizard.Server.Api.DevHost/Wizard.Server.Api.DevHost.csproj" />
+    <ProjectReference Include="../../server/Wizard.Server.Duel/Wizard.Server.Duel.csproj" />
+    <ProjectReference Include="../../server/Wizard.Server.Verify/Wizard.Server.Verify.csproj" />
+    <ProjectReference Include="../../server/Wizard.Server.Admin/Wizard.Server.Admin.csproj" />
+    <ProjectReference Include="../../tools/Wizard.DataBuild/Wizard.DataBuild.csproj" />
+    <ProjectReference Include="../../tools/Wizard.LoadBot/Wizard.LoadBot.csproj" />
     <ProjectReference Include="../Wizard.TestKit/Wizard.TestKit.csproj" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Wizard.Server.Tests</RootNamespace>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../server/Wizard.Server.App/Wizard.Server.App.csproj" />
+    <ProjectReference Include="../../server/Wizard.Server.Api/Wizard.Server.Api.csproj" />
+    <ProjectReference Include="../../server/Wizard.Server.Payments.Fakes/Wizard.Server.Payments.Fakes.csproj" />
+    <ProjectReference Include="../Wizard.TestKit/Wizard.TestKit.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

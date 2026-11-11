@@ -1,0 +1,8 @@
+{
+  "name": "com.wizard.viewlogic",
+  "version": "0.0.0",
+  "displayName": "Wizard.ViewLogic",
+  "description": "Screen state machines, view models, presentation bindings",
+  "unity": "6000.3",
+  "dependencies": {}
+}

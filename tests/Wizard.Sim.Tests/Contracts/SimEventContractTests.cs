@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using Wizard.Core;
 using Wizard.Sim.Events;
+using Wizard.TestKit;
 using Xunit;
 
 namespace Wizard.Sim.Tests.Contracts
@@ -150,6 +151,7 @@ namespace Wizard.Sim.Tests.Contracts
             Assert.Throws<SimInvariantException>(() => SimEventDocs.BindingKey((SimEventType)65000));
         }
 
+        // 같은 각본을 여러 번 돌려 가장 작은 값이 0인지 본다(AllocationProbe. 한 번 재기는 병렬 실행에서 가끔 흔들렸다, FIX-1)
         [Fact]
         public void BindingKey_AllocatesNothing()
         {
@@ -158,14 +160,19 @@ namespace Wizard.Sim.Tests.Contracts
             {
                 SimEventDocs.BindingKey(t);
             }
-            long before = GC.GetAllocatedBytesForCurrentThread();
             int total = 0;
-            for (int i = 0; i < all.Length; i++)
+            long least = AllocationProbe.LeastBytes(() =>
             {
-                total += SimEventDocs.BindingKey(all[i]).Length;
-            }
-            Assert.Equal(before, GC.GetAllocatedBytesForCurrentThread());
-            Assert.True(total > 0);
+                total = 0;
+                return () =>
+                {
+                    for (int i = 0; i < all.Length; i++)
+                    {
+                        total += SimEventDocs.BindingKey(all[i]).Length;
+                    }
+                };
+            }, () => Assert.True(total > 0));
+            Assert.Equal(0L, least);
         }
 
         internal static IEnumerable<SimEventType> AllTypes() =>

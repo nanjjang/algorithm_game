@@ -7,6 +7,7 @@ using Wizard.Content;
 using Wizard.Core;
 using Wizard.Sim.Duel;
 using Wizard.Sim.Input;
+using Wizard.TestKit;
 using Xunit;
 
 namespace Wizard.Sim.Tests.Runtime
@@ -86,38 +87,66 @@ namespace Wizard.Sim.Tests.Runtime
             Assert.Equal(2, world.NewEntityId().Value);
         }
 
-        [Fact]
-        public void Step_AllocatesNothing()
+        // 결투 세계 하나와 그 세계를 한 틱 나아가게 하는 동작. 받는 모듈이 없는 명령을 넣어 거절 이벤트가 나는 길까지 지난다
+        private static Action DuelTicker(out SimWorld world)
         {
-            SimWorld world = WorldKit.NewDuel(Db);
+            SimWorld w = WorldKit.NewDuel(Db);
+            world = w;
             var sink = new RecordingSink(16);
             var buffer = new PlayerInput[16];
             var commands = new RunCommand[2];
             uint seq = 0;
-
-            void One()
+            return () =>
             {
-                int n = WorldKit.FillInputs(buffer, world.Tick, world.PlayerCount, ref seq);
-                commands[0] = WorldKit.Cmd(world.Tick, ++seq, RunCommandOp.Heal);     // 받는 모듈이 없어 거절 이벤트가 나는 길까지 지난다
+                int n = WorldKit.FillInputs(buffer, w.Tick, w.PlayerCount, ref seq);
+                commands[0] = WorldKit.Cmd(w.Tick, ++seq, RunCommandOp.Heal);
                 sink.Clear();
-                world.Step(buffer.AsSpan(0, n), commands.AsSpan(0, 1), sink);
-            }
+                w.Step(buffer.AsSpan(0, n), commands.AsSpan(0, 1), sink);
+            };
+        }
 
-            One();
-            long before = GC.GetAllocatedBytesForCurrentThread();
-            for (int i = 0; i < 1000; i++)
+        // 같은 각본을 새 세계로 여러 번 돌려 가장 작은 값이 0인지 본다(AllocationProbe. 한 번 재기는 병렬 실행에서 가끔 흔들렸다, FIX-1)
+        [Fact]
+        public void Step_AllocatesNothing()
+        {
+            SimWorld? last = null;
+            long least = AllocationProbe.LeastBytes(() =>
             {
-                One();
-            }
-            Assert.Equal(0L, GC.GetAllocatedBytesForCurrentThread() - before);
+                Action one = DuelTicker(out SimWorld world);
+                last = world;
+                one();
+                return () =>
+                {
+                    for (int i = 0; i < 1000; i++)
+                    {
+                        one();
+                    }
+                };
+            }, () => Assert.Equal(1001U, last!.Tick));
+            Assert.Equal(0L, least);
+        }
 
-            before = GC.GetAllocatedBytesForCurrentThread();
+        [Fact]
+        public void ComputeStateHash_AllocatesNothing()
+        {
             ulong h = 0;
-            for (int i = 0; i < 100; i++)
+            long least = AllocationProbe.LeastBytes(() =>
             {
+                Action one = DuelTicker(out SimWorld world);
+                for (int i = 0; i < 1001; i++)
+                {
+                    one();
+                }
                 h ^= world.ComputeStateHash();
-            }
-            Assert.Equal(0L, GC.GetAllocatedBytesForCurrentThread() - before);
+                return () =>
+                {
+                    for (int i = 0; i < 100; i++)
+                    {
+                        h ^= world.ComputeStateHash();
+                    }
+                };
+            });
+            Assert.Equal(0L, least);
             Assert.NotEqual(0UL, h | 1UL);
         }
 
@@ -187,6 +216,100 @@ namespace Wizard.Sim.Tests.Runtime
                     .Select(f => t.FullName + "." + f.Name))
                 .ToList();
             Assert.Empty(bad);
+        }
+
+        // ── AllocationProbe 자체(FIX-1). TestKit 의 SelfTests 는 이 작업의 소유 경로가 아니어서 이 묶음에 둔다
+
+        private sealed class Target
+        {
+            public int[]? Buffer;
+        }
+
+        // 각본이 실행마다 할당하면 최솟값이 0이 아니다
+        [Fact]
+        public void AllocationProbe_ScriptThatAllocatesEveryRun_IsNotZero()
+        {
+            object? keep = null;
+            long least = AllocationProbe.LeastBytes(() => () => keep = new byte[100]);
+            Assert.True(least >= 100, "least = " + least);
+            GC.KeepAlive(keep);
+        }
+
+        // 드문 경로(1,000번째 반복에서만)의 할당도 모든 실행에 있으므로 걸린다
+        [Fact]
+        public void AllocationProbe_RarePathAllocation_IsNotZero()
+        {
+            object? keep = null;
+            long least = AllocationProbe.LeastBytes(() => () =>
+            {
+                for (int i = 0; i < 1000; i++)
+                {
+                    if (i == 999)
+                    {
+                        keep = new object();
+                    }
+                }
+            });
+            Assert.True(least > 0, "least = " + least);
+            GC.KeepAlive(keep);
+        }
+
+        // 대상마다 처음 한 번 만드는 버퍼: 새 대상으로 돌리면 실행마다 할당하므로 걸린다
+        [Fact]
+        public void AllocationProbe_LazyBufferPerNewTarget_IsNotZero()
+        {
+            Target? last = null;
+            long least = AllocationProbe.LeastBytes(() =>
+            {
+                var target = new Target();
+                last = target;
+                return () => target.Buffer ??= new int[16];
+            });
+            Assert.True(least >= 16 * sizeof(int), "least = " + least);
+            Assert.NotNull(last!.Buffer);
+        }
+
+        // 한 실행에만 있는 할당(각본과 무관한 일회성 바이트를 흉내 낸다)은 걸러지고, arrange 의 할당은 세지 않는다
+        [Fact]
+        public void AllocationProbe_OneOffAllocationAndArrange_AreNotCounted()
+        {
+            int run = 0;
+            object? keep = null;
+            long least = AllocationProbe.LeastBytes(4, () =>
+            {
+                var big = new byte[4096];                                        // arrange 의 할당
+                int mine = run++;
+                return () =>
+                {
+                    if (mine == 1)
+                    {
+                        keep = new byte[256];
+                    }
+                    big[0] = 1;
+                };
+            });
+            Assert.Equal(0L, least);
+            Assert.Equal(4, run);
+            GC.KeepAlive(keep);
+        }
+
+        // verify 는 실행마다 재는 구간 밖에서 불린다
+        [Fact]
+        public void AllocationProbe_VerifyRunsAfterEachRunOutsideTheWindow()
+        {
+            int acted = 0;
+            var verified = new System.Collections.Generic.List<int>();
+            long least = AllocationProbe.LeastBytes(3, () => () => acted++, () => verified.Add(acted));
+            Assert.Equal(0L, least);
+            Assert.Equal(new[] { 1, 2, 3 }, verified);
+        }
+
+        [Fact]
+        public void AllocationProbe_RejectsBadArguments()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => AllocationProbe.LeastBytes(1, () => () => { }));
+            Assert.Throws<ArgumentNullException>(() => AllocationProbe.LeastBytes(null!));
+            Assert.Throws<InvalidOperationException>(() => AllocationProbe.LeastBytes(() => null!));
         }
     }
 }

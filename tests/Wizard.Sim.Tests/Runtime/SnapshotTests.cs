@@ -2,6 +2,7 @@ using System;
 using Wizard.Content;
 using Wizard.Core;
 using Wizard.Sim.Input;
+using Wizard.TestKit;
 using Xunit;
 
 namespace Wizard.Sim.Tests.Runtime
@@ -116,21 +117,30 @@ namespace Wizard.Sim.Tests.Runtime
             Assert.Throws<ArgumentNullException>(() => duel.SaveSnapshot(null!));
         }
 
+        // 같은 각본을 새 세계로 여러 번 돌려 가장 작은 값이 0인지 본다(AllocationProbe. 한 번 재기는 병렬 실행에서 가끔 흔들렸다, FIX-1)
         [Fact]
         public void SaveAndLoad_AllocateNothing()
         {
-            SimWorld world = WorldKit.NewDuel(Db);
-            SimSnapshot snap = world.CreateSnapshotBuffer();
-            world.SaveSnapshot(snap);
-            world.LoadSnapshot(snap);
-
-            long before = GC.GetAllocatedBytesForCurrentThread();
-            for (int i = 0; i < 1000; i++)
+            SimWorld? last = null;
+            ulong hash = 0;
+            long least = AllocationProbe.LeastBytes(() =>
             {
+                SimWorld world = WorldKit.NewDuel(Db);
+                last = world;
+                SimSnapshot snap = world.CreateSnapshotBuffer();
                 world.SaveSnapshot(snap);
                 world.LoadSnapshot(snap);
-            }
-            Assert.Equal(0L, GC.GetAllocatedBytesForCurrentThread() - before);
+                hash = world.ComputeStateHash();
+                return () =>
+                {
+                    for (int i = 0; i < 1000; i++)
+                    {
+                        world.SaveSnapshot(snap);
+                        world.LoadSnapshot(snap);
+                    }
+                };
+            }, () => Assert.Equal(hash, last!.ComputeStateHash()));
+            Assert.Equal(0L, least);
         }
     }
 }

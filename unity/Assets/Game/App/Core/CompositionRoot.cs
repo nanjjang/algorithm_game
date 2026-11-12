@@ -10,13 +10,16 @@ using Wizard.Unity.Input;
 namespace Wizard.Unity.App.Core
 {
     // 조립 루트(ARCHITECTURE 5). 앱에 하나뿐이고 장면을 넘어 산다(DontDestroyOnLoad). 장면의 시작 개체(Bootstrap)가 처음 만든다.
-    // 여기서 만든 것: 단조 시계, Input System 입력원, 고정 틱 구동기, 장면 흐름, 기본 팩의 ContentDb. 전역 싱글턴은 두지 않는다
+    // 여기서 만든 것: 단조 시계, Input System 입력원, 고정 틱 구동기, 장면 흐름, 기본 팩의 ContentDb, Battle 장면의 표시기 묶음.
+    // 전역 싱글턴은 두지 않는다
     // (찾는 쪽은 Ensure 로 장면에서 찾는다. 세계와 규칙은 받은 ContentDb 만 본다).
     // 렌더 프레임마다 Update 에서 FixedTickDriver.RunFrame 을 부른다. Time.timeScale 을 쓰지 않는다.
     //
     // 장면마다 [임시](OPEN-QUESTIONS):
     //   - Boot: 시작 화면·메인 메뉴(M6)가 아직 없으므로 곧바로 Battle 로 간다.
     //   - Battle: 고른 판이 없으면 연습 세션(허수아비 세계, 기록 없음)을 꽂는다. 일시정지 화면이 없으므로 Pause 키로 푼다(PauseKeyResume).
+    //     세션과 같이 표시기 묶음(BattlePresentation: 회색 도형의 세계 표시기)을 만들어 구동기에 꽂는다. 도형 뿌리는 이 개체에 매단다
+    //     (장면이 바뀌는 사이의 프레임에도 살아 있고, 다음 장면에 들어올 때 여기서 치운다).
     //   - 그 밖의 장면: 세션을 뺀다.
     [DefaultExecutionOrder(ExecutionOrder)]
     public sealed class CompositionRoot : MonoBehaviour
@@ -29,6 +32,7 @@ namespace Wizard.Unity.App.Core
         private FixedTickDriver? _driver;
         private SceneFlow? _flow;
         private ContentDb? _content;
+        private BattlePresentation? _battle;
         private string _contentMessage = string.Empty;
         private bool _contentReported;
 
@@ -44,6 +48,9 @@ namespace Wizard.Unity.App.Core
         public ContentDb? Content => _content;
 
         public string ContentMessage => _contentMessage;
+
+        // Battle 장면의 표시기 묶음. 그 장면이 아니거나 팩이 없으면 null
+        public BattlePresentation? Battle => _battle;
 
         // 있으면 그것을, 없으면 새로 만든다
         public static CompositionRoot Ensure()
@@ -94,6 +101,7 @@ namespace Wizard.Unity.App.Core
             {
                 _flow.Entered -= OnSceneEntered;
             }
+            DropBattle();
             _driver?.SetSession(null);
             _input?.Dispose();
         }
@@ -102,6 +110,7 @@ namespace Wizard.Unity.App.Core
         {
             FixedTickDriver driver = Driver;
             driver.SetSession(null);
+            DropBattle();
             switch (scene)
             {
                 case GameScene.Boot:
@@ -126,6 +135,13 @@ namespace Wizard.Unity.App.Core
             }
             var session = new PracticeSession(_content, new PracticeSetup(), Clock.NowSeconds);
             driver.SetSession(new PracticeTickSession(session, resumeOnPauseKey: true));
+            _battle = BattlePresentation.For(driver, _content, SimMode.Practice, transform);
+        }
+
+        private void DropBattle()
+        {
+            _battle?.Dispose();
+            _battle = null;
         }
 
         private static InvalidOperationException NotComposed() => new InvalidOperationException("CompositionRoot is not composed yet");

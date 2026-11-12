@@ -7,6 +7,7 @@ using Wizard.Core;
 using Wizard.Sim.Events;
 using Wizard.Sim.Input;
 using Wizard.Unity.Input;
+using Wizard.ViewLogic.Presentation;
 
 namespace Wizard.Unity.App.Core.Tests
 {

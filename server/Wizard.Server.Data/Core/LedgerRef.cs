@@ -9,13 +9,13 @@ namespace Wizard.Server.Data
         public readonly string RefType;                   // "run", "trade" …
         public readonly string RefId;
         public readonly Guid? RequestId;
-        
+
         public LedgerRef(LedgerReason reason, string refType, string refId, Guid? requestId)
         {
-        Reason = reason;
-        RefType = refType;
-        RefId = refId;
-        RequestId = requestId;
+            Reason = reason;
+            RefType = refType;
+            RefId = refId;
+            RequestId = requestId;
         }
     }
 }

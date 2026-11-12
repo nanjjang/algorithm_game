@@ -21,6 +21,7 @@ namespace Wizard.Ci
 
         public static CiLock Acquire(string root, TimeSpan wait, TextWriter log)
         {
+            // 게이트의 변수가 아니라 이 프로세스의 .NET 런타임이 읽는 설정이다. 그래서 인자로 받지 않고 이 프로세스의 환경을 본다
             string? v = Environment.GetEnvironmentVariable("DOTNET_SYSTEM_IO_DISABLEFILELOCKING");
             if (v != null && (v == "1" || v.Equals("true", StringComparison.OrdinalIgnoreCase)))
             {

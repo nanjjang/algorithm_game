@@ -6,6 +6,7 @@ using Wizard.Sim.Graze;
 using Wizard.Sim.Input;
 using Wizard.Sim.Tests.Player;
 using Wizard.Sim.Tests.Runtime;
+using Wizard.TestKit;
 using Xunit;
 using static Wizard.Sim.Tests.Graze.GrazeKit;
 
@@ -446,67 +447,63 @@ namespace Wizard.Sim.Tests.Graze
 
         private static int BitsAt(byte[] b, int i) => b[i] | (b[i + 1] << 8) | (b[i + 2] << 16) | (b[i + 3] << 24);
 
-        // 각본 하나(1000틱): 후보 8개(큰 id 부터 넣어 정렬도 돌게), 시전 지우기, 피격. 새 세계에서 돌리고 그동안 이 스레드가 할당한 바이트를 돌려준다
-        private static long AllocatedByOneScriptedRun(out int events)
-        {
-            PlayerRig rig = Ready();
-            SimWorld world = rig.World;
-            var sink = new CountingSink();
-            FixVec2 center = rig.P.Pos;
-            Fix64 r = Milli(120);
-            var threats = new GrazeThreat[64];
-            for (int k = 0; k < threats.Length; k++)
-            {
-                threats[k] = GrazeThreat.Bullet(new EntityId(k + 1), k + 1, RightOf(center, Milli(500 + 5 * k)), r);
-            }
-            int tick = 0;
-
-            void One()
-            {
-                for (int k = 0; k < 8; k++)
-                {
-                    int idx = (tick * 8 + 7 - k) % threats.Length;
-                    world.OfferGrazeThreat(P0, in threats[idx]);
-                }
-                if (tick % 17 == 0)
-                {
-                    world.ReleaseGrazeCast((tick % threats.Length) + 1);
-                }
-                if (tick % 250 == 40)
-                {
-                    world.QueuePlayerHit(P0, new EntityId(tick + 1000), 1);   // 네 번: 6칸이라 쓰러지지 않고 끝까지 스친다
-                }
-                world.Step(ReadOnlySpan<PlayerInput>.Empty, ReadOnlySpan<RunCommand>.Empty, sink);
-                tick++;
-            }
-
-            One();
-            long before = GC.GetAllocatedBytesForCurrentThread();
-            for (int i = 0; i < 1000; i++)
-            {
-                One();
-            }
-            long allocated = GC.GetAllocatedBytesForCurrentThread() - before;
-            events = sink.Count;
-            Assert.True(rig.P.HpPoints > 0);
-            Assert.True(world.GrazeAt(0).AwardTick > world.Tick - 500U);       // 지워진 시전을 다시 스치는 일이 뒤쪽 절반에도 있었다
-            return allocated;
-        }
-
-        // Step 이 어느 경로에서든 관리 힙에 할당하면 같은 각본을 돌릴 때마다 0보다 크다. 그래서 새 세계로 세 번 돌려 가장 작은 값이 0인지 본다.
-        // 한 번만 재면 가끔 실패했다(전체를 되풀이해 돌릴 때 12번에 2번). 잡힌 자리와 크기가 실행마다 달랐고(틱 986에서 176바이트,
-        // 다른 실행에서는 4,592바이트) 이 시험만 따로 돌리면 0이었다. 같은 각본에서 자리가 달라지므로 Step 의 경로가 하는 할당이 아니고,
-        // 다른 시험이 병렬로 돌 때 이 스레드에 잡히는 런타임 쪽의 일회성 할당으로 본다(원인 확인과 도우미로 옮기는 일은 FIX-1)
+        // Step 이 어느 경로에서든 관리 힙에 할당하면 같은 각본을 돌릴 때마다 0보다 크다. 그래서 새 세계로 여러 번 돌려 가장 작은 값이 0인지 본다
+        // (AllocationProbe). 한 번만 재면 가끔 실패했다(전체를 되풀이해 돌릴 때 12번에 2번, 이 시험만 따로 돌리면 0). 원인은 FIX-1의 결과 보고.
+        // 각본 하나(1000틱): 후보 8개(큰 id 부터 넣어 정렬도 돌게), 시전 지우기, 피격.
         [Fact]
         public void StepDoesNotAllocateAfterWarmUp()
         {
-            long least = long.MaxValue;
-            for (int run = 0; run < 3; run++)
+            PlayerRig? last = null;
+            CountingSink? sink = null;
+            long least = AllocationProbe.LeastBytes(() =>
             {
-                long allocated = AllocatedByOneScriptedRun(out int events);
-                Assert.True(events > 0);
-                least = Math.Min(least, allocated);
-            }
+                PlayerRig rig = Ready();
+                last = rig;
+                SimWorld world = rig.World;
+                var runSink = new CountingSink();
+                sink = runSink;
+                FixVec2 center = rig.P.Pos;
+                Fix64 r = Milli(120);
+                var threats = new GrazeThreat[64];
+                for (int k = 0; k < threats.Length; k++)
+                {
+                    threats[k] = GrazeThreat.Bullet(new EntityId(k + 1), k + 1, RightOf(center, Milli(500 + 5 * k)), r);
+                }
+                int tick = 0;
+
+                void One()
+                {
+                    for (int k = 0; k < 8; k++)
+                    {
+                        int idx = (tick * 8 + 7 - k) % threats.Length;
+                        world.OfferGrazeThreat(P0, in threats[idx]);
+                    }
+                    if (tick % 17 == 0)
+                    {
+                        world.ReleaseGrazeCast((tick % threats.Length) + 1);
+                    }
+                    if (tick % 250 == 40)
+                    {
+                        world.QueuePlayerHit(P0, new EntityId(tick + 1000), 1);   // 네 번: 6칸이라 쓰러지지 않고 끝까지 스친다
+                    }
+                    world.Step(ReadOnlySpan<PlayerInput>.Empty, ReadOnlySpan<RunCommand>.Empty, runSink);
+                    tick++;
+                }
+
+                One();
+                return () =>
+                {
+                    for (int i = 0; i < 1000; i++)
+                    {
+                        One();
+                    }
+                };
+            }, () =>
+            {
+                Assert.True(sink!.Count > 0);
+                Assert.True(last!.P.HpPoints > 0);
+                Assert.True(last.World.GrazeAt(0).AwardTick > last.World.Tick - 500U);   // 지워진 시전을 다시 스치는 일이 뒤쪽 절반에도 있었다
+            });
             Assert.Equal(0L, least);
         }
     }

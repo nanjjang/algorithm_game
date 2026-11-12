@@ -7,6 +7,7 @@ using Wizard.Core;
 using Wizard.Sim.Arts;
 using Wizard.Sim.Events;
 using Wizard.Sim.Input;
+using Wizard.TestKit;
 using Xunit;
 
 namespace Wizard.Sim.Tests.Contracts
@@ -128,18 +129,23 @@ namespace Wizard.Sim.Tests.Contracts
             Assert.Throws<SimInvariantException>(() => RecentInputs.Empty.Push((CmdDir)4, false));
         }
 
+        // 같은 각본을 여러 번 돌려 가장 작은 값이 0인지 본다(AllocationProbe. 한 번 재기는 병렬 실행에서 가끔 흔들렸다, FIX-1)
         [Fact]
         public void RecentInputs_PushAllocatesNothing()
         {
             RecentInputs r = RecentInputs.Empty;
-            r = r.Push(CmdDir.Left, true);
-            long before = GC.GetAllocatedBytesForCurrentThread();
-            for (int i = 0; i < 1000; i++)
+            long least = AllocationProbe.LeastBytes(() =>
             {
-                r = r.Push((CmdDir)(i & 3), (i & 1) == 0);
-            }
-            Assert.Equal(before, GC.GetAllocatedBytesForCurrentThread());
-            Assert.Equal(5, r.Count);
+                r = RecentInputs.Empty.Push(CmdDir.Left, true);
+                return () =>
+                {
+                    for (int i = 0; i < 1000; i++)
+                    {
+                        r = r.Push((CmdDir)(i & 3), (i & 1) == 0);
+                    }
+                };
+            }, () => Assert.Equal(5, r.Count));
+            Assert.Equal(0L, least);
         }
 
         [Fact]

@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Wizard.Core;
 using Wizard.Sim.Input;
+using Wizard.TestKit;
 using Xunit;
 
 namespace Wizard.Sim.Tests.Contracts
@@ -266,21 +267,28 @@ namespace Wizard.Sim.Tests.Contracts
             });
         }
 
+        // 같은 각본을 새 키 상태로 여러 번 돌려 가장 작은 값이 0인지 본다(AllocationProbe. 한 번 재기는 병렬 실행에서 가끔 흔들렸다, FIX-1)
         [Fact]
         public void KeyState_ApplyAllocatesNothing()
         {
-            var ks = default(KeyState);
             var down = new InputEvent(1, 0, LogicalKey.Fire, true, 1);
             var up = new InputEvent(1, 1, LogicalKey.Fire, false, 2);
-            ks.Apply(down);
-            ks.Apply(up);
-            long before = GC.GetAllocatedBytesForCurrentThread();
-            for (int i = 0; i < 1000; i++)
+            var ks = default(KeyState);
+            long least = AllocationProbe.LeastBytes(() =>
             {
+                ks = default(KeyState);
                 ks.Apply(down);
                 ks.Apply(up);
-            }
-            Assert.Equal(before, GC.GetAllocatedBytesForCurrentThread());
+                return () =>
+                {
+                    for (int i = 0; i < 1000; i++)
+                    {
+                        ks.Apply(down);
+                        ks.Apply(up);
+                    }
+                };
+            }, () => Assert.False(ks.IsDown(LogicalKey.Fire)));
+            Assert.Equal(0L, least);
         }
     }
 }

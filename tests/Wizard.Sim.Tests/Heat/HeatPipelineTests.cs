@@ -7,6 +7,7 @@ using Wizard.Sim.Heat;
 using Wizard.Sim.Input;
 using Wizard.Sim.Tests.Player;
 using Wizard.Sim.Tests.Runtime;
+using Wizard.TestKit;
 using Xunit;
 
 namespace Wizard.Sim.Tests.Heat
@@ -339,48 +340,55 @@ namespace Wizard.Sim.Tests.Heat
             Assert.NotEqual(a.World.ComputeStateHash(), b.World.ComputeStateHash());
         }
 
+        // 같은 각본을 새 세계로 여러 번 돌려 가장 작은 값이 0인지 본다(AllocationProbe. 한 번 재기는 병렬 실행에서 가끔 흔들렸다, FIX-1)
         [Fact]
         public void StepDoesNotAllocateAfterWarmUp()
         {
             bool[] script = Script(1500, 47U);
-            HeatRig rig = Busy(1UL);
-            SimWorld world = rig.World;
-            var sink = new CountingSink();
-            var buffer = new PlayerInput[1];
-            bool held = false;
-            uint seq = 0;
-            int tick = 0;
-
-            void One()
+            CountingSink? sink = null;
+            long least = AllocationProbe.LeastBytes(() =>
             {
-                int n = 0;
-                bool want = script[tick % script.Length];
-                if (want != held)
-                {
-                    held = want;
-                    buffer[0] = new PlayerInput(P0, new InputEvent(world.Tick, 0, LogicalKey.Fire, want, ++seq));
-                    n = 1;
-                }
-                if (tick % 41 == 7)
-                {
-                    world.HeatOnKill(P0);
-                }
-                if (tick % 173 == 50)
-                {
-                    world.HeatApplyGraze(P0, sink);
-                }
-                world.Step(buffer.AsSpan(0, n), ReadOnlySpan<RunCommand>.Empty, sink);
-                tick++;
-            }
+                HeatRig rig = Busy(1UL);
+                SimWorld world = rig.World;
+                var runSink = new CountingSink();
+                sink = runSink;
+                var buffer = new PlayerInput[1];
+                bool held = false;
+                uint seq = 0;
+                int tick = 0;
 
-            One();
-            long before = GC.GetAllocatedBytesForCurrentThread();
-            for (int i = 0; i < 1400; i++)
-            {
+                void One()
+                {
+                    int n = 0;
+                    bool want = script[tick % script.Length];
+                    if (want != held)
+                    {
+                        held = want;
+                        buffer[0] = new PlayerInput(P0, new InputEvent(world.Tick, 0, LogicalKey.Fire, want, ++seq));
+                        n = 1;
+                    }
+                    if (tick % 41 == 7)
+                    {
+                        world.HeatOnKill(P0);
+                    }
+                    if (tick % 173 == 50)
+                    {
+                        world.HeatApplyGraze(P0, runSink);
+                    }
+                    world.Step(buffer.AsSpan(0, n), ReadOnlySpan<RunCommand>.Empty, runSink);
+                    tick++;
+                }
+
                 One();
-            }
-            Assert.Equal(0L, GC.GetAllocatedBytesForCurrentThread() - before);
-            Assert.True(sink.Count > 100);
+                return () =>
+                {
+                    for (int i = 0; i < 1400; i++)
+                    {
+                        One();
+                    }
+                };
+            }, () => Assert.True(sink!.Count > 100));
+            Assert.Equal(0L, least);
         }
     }
 }

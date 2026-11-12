@@ -6,6 +6,7 @@ using Wizard.Sim.Events;
 using Wizard.Sim.Input;
 using Wizard.Sim.Player;
 using Wizard.Sim.Tests.Runtime;
+using Wizard.TestKit;
 using Xunit;
 using static Wizard.Sim.Tests.Player.PlayerRig;
 
@@ -262,46 +263,53 @@ namespace Wizard.Sim.Tests.Player
             Assert.Throws<SimInvariantException>(() => other.ReadState(w.ToArray()));
         }
 
+        // 같은 각본을 새 세계로 여러 번 돌려 가장 작은 값이 0인지 본다(AllocationProbe. 한 번 재기는 병렬 실행에서 가끔 흔들렸다, FIX-1)
         [Fact]
         public void StepDoesNotAllocateAfterWarmUp()
         {
             Key[][] script = Script(1200, 47U);
-            SimWorld world = Endless(1UL).World;
-            var sink = new CountingSink();
-            var buffer = new PlayerInput[8];
-            uint seq = 0;
-            int tick = 0;
-
-            void One()
+            CountingSink? sink = null;
+            long least = AllocationProbe.LeastBytes(() =>
             {
-                Key[] keys = script[tick % script.Length];
-                for (int i = 0; i < keys.Length; i++)
-                {
-                    buffer[i] = new PlayerInput(new PlayerSlot(0),
-                        new InputEvent(world.Tick, keys[i].Offset, keys[i].LogicalKey, keys[i].Down, (uint)i));
-                }
-                InputOrder.Sort(buffer.AsSpan(0, keys.Length));
-                for (int i = 0; i < keys.Length; i++)
-                {
-                    InputEvent e = buffer[i].Event;
-                    buffer[i] = new PlayerInput(buffer[i].Slot, new InputEvent(e.Tick, e.Offset, e.Key, e.Down, ++seq));
-                }
-                if (tick % 29 == 0)
-                {
-                    world.QueuePlayerHit(new PlayerSlot(0), new EntityId(tick + 1), 1);
-                }
-                world.Step(buffer.AsSpan(0, keys.Length), ReadOnlySpan<RunCommand>.Empty, sink);
-                tick++;
-            }
+                SimWorld world = Endless(1UL).World;
+                var runSink = new CountingSink();
+                sink = runSink;
+                var buffer = new PlayerInput[8];
+                uint seq = 0;
+                int tick = 0;
 
-            One();                                                                   // 첫 Step 이 캐시를 만든다(초기화 훅이 없다)
-            long before = GC.GetAllocatedBytesForCurrentThread();
-            for (int i = 0; i < 1000; i++)
-            {
-                One();
-            }
-            Assert.Equal(0L, GC.GetAllocatedBytesForCurrentThread() - before);
-            Assert.True(sink.Count > 0);
+                void One()
+                {
+                    Key[] keys = script[tick % script.Length];
+                    for (int i = 0; i < keys.Length; i++)
+                    {
+                        buffer[i] = new PlayerInput(new PlayerSlot(0),
+                            new InputEvent(world.Tick, keys[i].Offset, keys[i].LogicalKey, keys[i].Down, (uint)i));
+                    }
+                    InputOrder.Sort(buffer.AsSpan(0, keys.Length));
+                    for (int i = 0; i < keys.Length; i++)
+                    {
+                        InputEvent e = buffer[i].Event;
+                        buffer[i] = new PlayerInput(buffer[i].Slot, new InputEvent(e.Tick, e.Offset, e.Key, e.Down, ++seq));
+                    }
+                    if (tick % 29 == 0)
+                    {
+                        world.QueuePlayerHit(new PlayerSlot(0), new EntityId(tick + 1), 1);
+                    }
+                    world.Step(buffer.AsSpan(0, keys.Length), ReadOnlySpan<RunCommand>.Empty, runSink);
+                    tick++;
+                }
+
+                One();                                                               // 첫 Step 이 캐시를 만든다(초기화 훅이 없다)
+                return () =>
+                {
+                    for (int i = 0; i < 1000; i++)
+                    {
+                        One();
+                    }
+                };
+            }, () => Assert.True(sink!.Count > 0));
+            Assert.Equal(0L, least);
         }
     }
 }

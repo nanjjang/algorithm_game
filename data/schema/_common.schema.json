@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wizard.invalid/data/schema/_common.schema.json",
+  "title": "공통 정의",
+  "description": "data/ 의 스키마가 같이 쓰는 정의. 다른 스키마는 \"$ref\": \"_common.schema.json#/$defs/<이름>\" 으로 가리킨다. 수는 십진 그대로 적고 DataBuild 가 decimal 로 읽어 정수 단위로 바꾼다(ARCHITECTURE 8.2, spec 14 0.3, tools/Wizard.DataBuild/Core/Units.cs). 반올림은 가장 가까운 정수, 같으면 짝수다.",
+  "$defs": {
+    "contentId": {
+      "description": "콘텐츠 id(spec 14 1.1). 네임스페이스.열쇠, ASCII 소문자, 64자 이하. 예: block.fireball, char.1",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*(\\.[a-z0-9][a-z0-9_]*)+$",
+      "maxLength": 64
+    },
+    "nameKey": {
+      "description": "이름 표 열쇠(spec 14 2.2, CONTRACTS 5). ContentId 이거나 ContentId 에 접미사(.epithet, .desc, .line.<n>)를 붙인 것",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*(\\.[a-z0-9][a-z0-9_]*)+$"
+    },
+    "definition": {
+      "description": "데이터가 정의하는 항목 하나. 항목의 id 는 \"id\" 속성에 둔다(databuild check 가 이 값마다 이름 열쇠가 있는지 본다)",
+      "type": "object",
+      "required": ["id"],
+      "properties": {
+        "id": { "$ref": "#/$defs/contentId" }
+      }
+    },
+    "note": {
+      "description": "데이터 주석(출처, [임시]·[총괄 제안] 표시). 변환기는 읽지 않는다. 속성 이름은 \"_note\"",
+      "type": "string"
+    },
+    "cells": {
+      "description": "거리(칸). 1칸 = 64px → Q32.32 Raw(× 2^32)",
+      "type": "number"
+    },
+    "pixels": {
+      "description": "거리(px). 1px = 2^26 Raw",
+      "type": "number"
+    },
+    "cellsPerSecond": {
+      "description": "속력(칸/초) → 틱당 Raw(× 2^32 ÷ 60)",
+      "type": "number"
+    },
+    "seconds": {
+      "description": "시간(초) → 틱(× 60)",
+      "type": "number",
+      "minimum": 0
+    },
+    "ticks": {
+      "description": "시간(틱, 1초 = 60틱). 정수 그대로",
+      "type": "integer",
+      "minimum": 0
+    },
+    "heat": {
+      "description": "열 → HU(× 120)",
+      "type": "number"
+    },
+    "degrees": {
+      "description": "각도(도) → 센티도(× 100). 0 = +x, 화면에서 반시계가 +(CONTRACTS 0.3)",
+      "type": "number"
+    },
+    "percent": {
+      "description": "백분율(%) → 천분율(× 10) 또는 만분율(× 100). 어느 쪽인지는 그 필드의 스키마 설명이 정한다",
+      "type": "number"
+    },
+    "ratio": {
+      "description": "배율(1.6 = 1.6배) → 천분율(× 1000)",
+      "type": "number"
+    },
+    "centi": {
+      "description": "센티 단위 값(4.7 → 470). 예: 걸음 속도 칸/초",
+      "type": "number"
+    },
+    "integer": {
+      "description": "정수 그대로",
+      "type": "integer"
+    },
+    "nonNegativeInteger": {
+      "description": "0 이상의 정수",
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

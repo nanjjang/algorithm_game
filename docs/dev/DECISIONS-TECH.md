@@ -56,6 +56,7 @@
 | T-44 | IL2CPP 코드 제거는 `link.xml`로 막고 플레이어에서 왕복 테스트를 돌린다 | [신규] |
 | T-45 | 서버 주도의 왕복 측정, 결투 키의 epoch, 입력 검증 순서 | [신규] |
 | T-46 | `EndlessSetup`의 정규 바이트는 `.wzrc` 머리말 전체이고, 코어·데이터 버전은 `EndlessSetup`의 칸이다 | [신규] |
+| T-47 | `ContentDb`의 절 파일은 `ContentDb.<절>.cs`, 훅은 읽기(`Load`)와 조회(`Find`) 둘, 뼈대 파일은 M1-CONT-02가 가진다 | [신규] |
 
 ---
 
@@ -406,6 +407,44 @@
 - **`DataVersion`이 `int`인 까닭**: 비교 상대인 `ContentPack.DataVersion`·`ContentDb.DataVersion`이 `int`다(2.3절). 파일의 칸은 `u32` 그대로이고, `int`를 넘는 값은 읽을 때 거절한다.
 - **새 설정의 `CoreVersion`이 빈 문자열인 까닭**: 기본값을 `SimVersion.CoreVersion`으로 두면 서버가 요청의 값을 넣는 것을 잊어도 조용히 자기 버전이 적힌다. 비워 두면 `WriteCanonical`이 던진다.
 - **따라오는 일**: (1) M1-SIM-07의 `InputRecordCodec`은 머리말을 직접 풀지 않고 `TryReadCanonicalPrefix`를 쓴다. (2) `SimWorld.CreateEndless`는 두 버전 칸을 읽지 않는다(M1-SIM-02). (3) M11-RUN-02는 `EndlessSetup.CoreVersion`에 요청의 `core_version`을 넣는다. (4) `DuelSetup.WriteCanonical`(WZDR 머리말)은 `DuelRoomOptions`의 칸이 아직 없어서 선언하지 않았다. 아래 "아직 정하지 않은 기술 항목"에 올렸다.
+
+## T-47 `ContentDb`의 절 파일은 `ContentDb.<절>.cs`, 훅은 읽기(`Load`)와 조회(`Find`) 둘, 뼈대 파일은 M1-CONT-02가 가진다 [신규]
+
+- **결정**:
+  1. 절을 읽는 코드는 절마다 `ContentDb.<절>.cs` 하나다(`<절>`은 `ContentSection`의 이름: `Characters`, `DuelRules`, `RunLimits` …). 전투 쪽은 `src/Wizard.Content/Pack/Sections/`, 규칙 쪽은 `src/Wizard.Content/Rules/Sections/`에 둔다. 네임스페이스는 `Wizard.Content`이고 `partial class ContentDb`만 담는다(분석기 WZ0024가 이 꼴만 받는다). `tasks.json`이 `<절>Section.cs`로 적어 둔 33곳을 이 이름으로 고쳤다.
+  2. 훅은 둘이다. 접근자는 뼈대에 한 번만 선언하고 몸통은 "조회 훅에 묻고, 답이 없으면 `ContentException`"이다. 절 파일은 두 훅을 구현하고 읽은 정의를 담는 비공개 필드를 같이 둔다.
+  3. 뼈대 파일은 셋이고 M1-CONT-02가 가진다(`owned_paths`에 앞의 둘을 더했다). 뒤 작업은 이 셋을 고치지 않는다.
+     - `src/Wizard.Content/Pack/ContentDb.cs` — `Build`(생성자가 `LoadSections()`를 부른다), `DataVersion`, 전투 쪽 접근자
+     - `src/Wizard.Content/Rules/ContentDb.Rules.cs` — 규칙 쪽 접근자와 규칙 쪽 조회 훅(규칙 타입을 쓰므로 해시 안에 선언할 수 없다. WZ0017)
+     - `src/Wizard.Content/Pack/Core/ContentDb.Core.cs` — `LoadSections`, 읽기 훅 전부(바이트만 받으므로 전투·규칙 모두), 전투 쪽 조회 훅, `Require`
+
+```csharp
+// 절마다 하나. 팩에 그 절이 있으면 Build가 섹션 id 오름차순으로 한 번 부른다. 본문이 깨졌으면 ContentException
+partial void Load<절>(ReadOnlySpan<byte> section);
+// 접근자마다 하나. 접근자가 부른다. def가 null로 남으면(읽는 코드가 없다, 절이 팩에 없다, 그 id가 없다) 접근자가 ContentException을 던진다
+partial void Find<접근자>(ref T? def);                   // 키가 있는 접근자는 Find<접근자>(키, ref T? def)
+```
+
+| 접근자 | 조회 훅 | 절(섹션 id) |
+|---|---|---|
+| `Character(id)` · `Block(id)` · `Art(id)` · `Mutation(id)` · `Enemy(id)` · `Boss(id)` | `FindCharacter` · `FindBlock` · `FindArt` · `FindMutation` · `FindEnemy` · `FindBoss` | characters 1 · blocks 2 · arts 3 · mutations 4 · enemies 5 · bosses 6 |
+| `WaveCurve` · `Frames` · `Modifiers` · `TimeOfDay(tod)` · `Scoring` | `FindWaveCurve` · `FindFrames` · `FindModifiers` · `FindTimeOfDay` · `FindScoring` | waves 7 · frames 8 · modifiers 9 · tod 10 · scoring 11 |
+| `Arena(mode)` · `DuelRules` · `Tries(id)` · `Starfall` · `WeatherEvents` | `FindArena` · `FindDuelRules` · `FindTries` · `FindStarfall` · `FindWeatherEvents` | arena 12 · duel_rules 13 · tries 14 · starfall 15 · weather_events 16 |
+| `BossRotation` · `Elite(baseType)` · `ElementRules` · `SimLimits` | `FindBossRotation` · `FindElite` · `FindElementRules` · `FindSimLimits` | boss_rotation 17 · elites 18 · elements 19 · sim_limits 40 |
+| `Enhance` · `Economy` · `Drops` · `Leagues` · `Season` · `Titles` · `Cosmetics` | `FindEnhance` · `FindEconomy` · `FindDrops` · `FindLeagues` · `FindSeason` · `FindTitles` · `FindCosmetics` | enhance 20 · economy 21 · drops 22 · leagues 23 · season 24 · titles 25 · cosmetics 26 |
+| `Plaza` · `Shop` · `Item(code)` · `Bag` · `RunLimits` · `Net` | `FindPlaza` · `FindShop` · `FindItem` · `FindBag` · `FindRunLimits` · `FindNet` | plaza 27 · shop 28 · items 29 · bag 30 · run_limits 31 · net 34 |
+
+- **대안**: (가) `tasks.json`의 이름(`<절>Section.cs`)을 살리고 분석기의 "네임스페이스 = 폴더" 예외를 그 이름까지 넓힌다. (나) 접근자를 뼈대에 두지 않고 절 파일이 접근자 자체를 선언한다. (다) 절 읽기를 정적 클래스 `<절>Section`으로 두고 `ContentDb`가 그것을 부른다.
+- **이유**: `CLAUDE.md` 6절, `CONTRACTS.md` 2.3절, T-33, `PIPELINE.md` 5.2절, 분석기(WZ0024)와 그 테스트가 전부 `ContentDb.<절>.cs`라고 적는다. 다른 것은 `tasks.json`의 `owned_paths`뿐이고 문서 우선순위에서 `tasks.json`이 아래다. (가)는 위 문서 넷과 분석기를 같이 고쳐야 하고, `Rules/Sections/`의 파일이 `Wizard.Content` 네임스페이스를 쓰게 하는 예외(바닥 규칙을 피하는 길)를 파일 이름 꼴 하나 더로 넓힌다. (나)는 절 파일이 생기기 전에는 접근자가 없어서 `db.Block(…)`을 부르는 코드가 그 절의 데이터 작업보다 먼저 올 수 없고, 계약의 시그니처가 여러 파일에 흩어진다(2.3절은 M1-CONT-02가 전부 선언한다고 정했다). (다)는 아직 없는 타입을 부를 수 없으므로 절이 생길 때마다 뒤 작업이 뼈대 파일을 고쳐야 한다. T-33이 없애려던 일이다. 부분 메서드는 구현이 없으면 호출이 컴파일에서 사라지므로, 절 파일이 하나도 없는 지금도 컴파일되고 접근자는 `ContentException`을 던진다.
+- **경위**: 뼈대 커밋이 `ContentDb.cs`와 `ContentDb.Rules.cs`를 던지는 몸통으로 만들어 두었는데 어느 작업의 `owned_paths`에도 없었다. `Build`가 읽기 훅을 부르지 않고 접근자가 조회 훅을 거치지 않아서, 절 파일이 훅을 구현해도 읽히지 않았다(M1-CONT-02가 막힌 지점).
+- **따라오는 일**:
+  - 절 파일의 필드는 `Load<절>`에서만 채우고 그 뒤로 바꾸지 않는다(`ContentDb`는 불변이다). 조회 훅은 상태를 바꾸지 않고 관리 힙에 할당하지 않는다(`Step` 안에서 불린다).
+  - `Build`가 아는 절의 본문을 읽게 되었다. 모르는 섹션은 건너뛴다(`CONTRACTS.md` 11.2절). 형식 시험이 아는 섹션 id에 임의 바이트를 실은 팩으로 `ContentDb`를 만들면 그 절의 읽기가 생기는 날 깨진다. 그런 시험은 `ContentPack`까지만 보거나 절이 없는 팩을 쓴다(`tests/Wizard.Content.Tests/ContentPackTests.cs`, `Pack/PackFormatTests.cs`를 그렇게 고쳤다).
+  - 접근자가 없는 절(il 32, fees 33, chat_filter 35)은 `CONTRACTS.md` 2.3절에 접근자가 없다. 그 절의 작업이 자기 절 파일에 접근자를 더하고 2.3절 목록에 올리는 계약 변경을 낸다. 부분 클래스라서 뼈대 파일을 고치지 않아도 된다.
+  - 훅을 더하거나 `LoadSections`의 순서를 바꾸는 것은 계약 변경이다(`CONTRACTS.md` 0.1절).
+  - M1-CONT-03의 `howto-data-slice.md`는 이 꼴(파일 이름, 두 훅, 필드는 `Load`에서만 채운다)을 절차로 적는다.
+  - `CONTRACTS.md` 2.3절의 글은 이 결정과 어긋나지 않아 그대로 두었다. 위 훅 표를 2.3절에 옮겨 적는 것은 CCR 작업으로 한다(작업 브랜치에서 `CONTRACTS.md`를 고치면 `check-diff`가 막고, 그 파일을 작업의 `owned_paths`에 넣으면 뒤의 CCR 작업과 경로가 겹친다).
+  - `tasks.json`에서 M1-CONT-02의 `owned_paths`에 뼈대 파일 둘, 뼈대 테스트(`ContentPackTests.cs`), 그리고 이 결정을 작업 브랜치에서 같이 넣으려고 `DECISIONS-TECH.md`와 `tasks.json`을 더했다(`check-diff`가 브랜치의 변경을 그 작업의 `owned_paths`로만 본다). 뒤의 둘은 M1-CONT-02가 main에 들어간 뒤에는 필요 없다. 그대로 두면 이 두 파일을 가지는 CCR 작업은 `deps`에 M1-CONT-02를 넣어야 한다.
 
 ---
 

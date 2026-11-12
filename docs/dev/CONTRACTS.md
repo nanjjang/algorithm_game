@@ -836,6 +836,8 @@ public sealed class SimSnapshot { public uint Tick { get; } /* 내용은 불투�
 
 모듈마다 상태 훅 넷도 같은 방식으로 선언한다: `Snapshot_Save_<모듈>`, `Snapshot_Load_<모듈>`, `State_Write_<모듈>(ref StateWriter)`, `State_Read_<모듈>(ref StateReader)`. 해시는 `State_Write`를 해시 모드로 부른 것이다(직렬화와 해시가 갈라질 수 없다). 한 단계 안의 모듈 호출 순서는 위 표의 위에서 아래 순이다. 훅을 더하거나 순서를 바꾸는 것은 계약 변경이다.
 
+`ISimView`의 값을 채우는 뷰 훅(`View_<뷰>_<모듈>`)도 같은 방식으로 선언한다. 표와 규칙은 3.3절에 있다(T-54).
+
 **단계 안 순서의 예외**(T-50). 하나뿐이다: 9단계에서는 `Stage09_Graze`를 그 단계의 맨 뒤에 부른다(`Stage09_Spell` → `Stage09_Enemies` → `Stage09_Duel` → `Stage09_Graze`). 스침 판정은 같은 틱의 피격 후보(`QueuePlayerHit`)와 스침 후보(`OfferGrazeThreat`)가 다 들어온 뒤여야 하기 때문이다(위 순서의 9단계 "피격 판정 뒤 스침 판정", spec 01 3.8·8.3). 9단계의 줍기는 스침과 서로 읽지 않으므로 어느 훅에 있어도 결과가 같다.
 
 **모듈 사이의 이음**(T-50). 모듈이 남의 상태 배열을 직접 쓰는 일은 없다. 이음은 아래 셋뿐이다.
@@ -952,9 +954,45 @@ public readonly struct RecentInputs {                 // 최대 5개. 0번이 �
     public readonly int Count;
     public CmdDir Dir(int index); public bool Chained(int index);      // chained = 앞 입력과 이어짐(간격 안)
 }
+public readonly struct EnemyView {                    // T-54. 칸은 더하기만 한다
+    public readonly EntityId Id; public readonly EnemyTypeId Type;     // 종(spec 14 3절). 종이 없는 개체는 None
+    public readonly FixVec2 Pos; public readonly Fix64 BodyRadius;     // 판정 중심, 몸 반지름(칸)
+    public readonly Fix64 Hp, MaxHp;
+    public readonly uint WindupStartTick; public readonly int WindupTicks;   // 공격 준비(시전, 예비 동작) 중이면 시작 틱과 길이. 아니면 길이 0
+}
+public readonly struct ProjectileView {               // T-54. 플레이어 탄과 적 탄. 칸은 더하기만 한다
+    public readonly EntityId Id; public readonly Faction Faction;      // Wizard.Sim.Spell.Faction
+    public readonly PlayerSlot Owner; public readonly BlockId Core;    // 플레이어 탄의 주인과 코어 블록. 적 탄은 None
+    public readonly Element Element;
+    public readonly FixVec2 Pos; public readonly FixVec2 Dir;          // Dir = 단위 벡터(전장 좌표). 없으면 0
+    public readonly Fix64 Radius;                                      // 판정 반지름(칸)
+    public readonly int Group;                        // 플레이어 탄 = J 발사의 ShotId(비기의 탄은 0), 적 탄 = 시전 묶음 CastId
+}
 ```
 
 `CampView`는 `Sub`(`CampSub`), 방금 넘긴 웨이브, 이 야영의 회복 횟수, 전리품 카드, 보관함, 해금 차례를 준다. 화면은 이것을 그대로 읽고 따로 상태를 두지 않는다.
+
+**뷰 훅**(T-54). `ISimView`의 세계 쪽 구현(`SimWorldView`)은 뼈대의 것이고 모듈의 상태를 모른다. 값은 그 상태를 가진 모듈이 뷰 훅(`partial void View_<뷰>_<모듈>`)으로 채운다. 선언은 `SimWorld.Hooks.cs`, 부르는 문과 순서는 `SimWorld.View.cs`의 `Fill…` 한 곳이고 아래 표와 같다(`HookTableTests`가 대조한다). 한 뷰 안의 순서는 3.2절 훅 표의 위에서 아래 순이다. 뷰 훅을 더하거나 순서를 바꾸는 것은 계약 변경이다.
+
+| 뷰 | 뼈대의 문 | 뷰 훅(부르는 순서) |
+|---|---|---|
+| `Player(slot)` | `FillPlayerView(int index, ref PlayerViewDraft draft)` | `View_Player_Player`, `View_Player_Heat`, `View_Player_Graze`, `View_Player_Combo`, `View_Player_Arts`, `View_Player_Characters` |
+| `Enemies` | `FillEnemyViews(ViewBuffer<EnemyView> into)` | `View_Enemies_Enemies`, `View_Enemies_Bosses` |
+| `Projectiles` | `FillProjectileViews(ViewBuffer<ProjectileView> into)` | `View_Projectiles_Spell`, `View_Projectiles_Enemies`, `View_Projectiles_Bosses` |
+| `Telegraphs` | `FillTelegraphViews(ViewBuffer<TelegraphView> into)` | `View_Telegraphs_Telegraph` |
+| `Hazards` | `FillHazardViews(ViewBuffer<HazardView> into)` | `View_Hazards_Enemies`, `View_Hazards_Bosses` |
+| `Wave` | `FillWaveView(ref WaveView view)` | `View_Wave_Waves` |
+| `Camp` | `FillCampView(ref CampView view)` | `View_Camp_Camp` |
+| `Duel` | `FillDuelView(ref DuelView view)` | `View_Duel_Duel` |
+
+- **뷰 훅은 세계 상태를 바꾸지 않는다.** 시작 상태를 세우는 `Ensure…`를 부르지 않고(아직 서지 않았으면 아무것도 채우지 않는다), 이벤트를 내지 않고, 난수를 쓰지 않는다. 그래서 뷰를 읽는 쪽이 있든 없든(클라이언트, 서버, 검증 워커) 같은 입력의 해시가 같다. 모듈 시험이 "매 틱 뷰를 읽은 세계와 읽지 않은 세계의 해시가 같다"를 본다.
+- `PlayerView`는 모듈이 자기 칸만 채운다(`PlayerViewDraft`. Player: 캐릭터·위치·시야·자세·체력·무적·키, Heat: 열·임계 시작·링·열 면제·잠금, Graze: 스침 가속, Combo: 콤보·결정·빚·금, Arts: 미리보기·최근 입력). 채우지 않은 칸은 기본값이다. **시작 상태가 서기 전(첫 `Step` 전)의 `PlayerView`는 `MaxHpPoints`가 0이다.** 표시 계층은 그런 플레이어를 그리지 않는다.
+- `PlayerView.Id`는 지금 `None`이다. 플레이어는 개체 id를 받지 않고 슬롯으로 가리킨다(이벤트의 `Slot`). 플레이어에게 개체 id를 주는 것은 상태 바이트가 바뀌는 일이라 필요해지는 작업이 계약 변경으로 올린다.
+- 목록 뷰는 훅이 자기 개체를 id 오름차순으로 `Add`하고, 목록 전체는 훅 순서대로 이어 붙인 것이다(전체가 id 오름차순이라는 보장은 없다. 표시 계층은 `Id`로 짝을 찾는다). 하나짜리 뷰(`Wave`, `Camp`, `Duel`)는 그 모듈이 `view`를 통째로 놓는다.
+- **캐시가 없다.** `SimWorldView`는 읽을 때마다 지금 상태에서 다시 만든다. `Step` 안에서 읽는 쪽(적 두뇌의 `EnemyContext.World`)이 있어도 바깥에서 누가 먼저 읽었는지에 따라 값이 달라지지 않는다. 목록 뷰가 돌려준 범위는 뷰의 버퍼를 가리키므로 **같은 속성을 다시 읽거나 세계가 진행하면 무효다.** 읽는 쪽은 한 번 읽어 지역 변수에 두고 쓴다.
+- `ViewBuffer<T>`는 세계의 뷰가 가진다(정적 버퍼가 아니다). 처음 읽을 때 만들고 모자라면 두 배로 늘린다. 이 할당은 뷰를 읽는 쪽의 일이고 상태가 아니다. `Step` 안에서 목록 뷰를 읽게 되는 작업(적 두뇌)은 `Step`의 할당 0을 지키도록 풀 용량만큼 미리 잡는 문을 계약 변경으로 더한다.
+- `EnemyView`의 공격 준비 칸은 `TelegraphView`와 같은 꼴이다(시작 틱 + 길이, 끝 = 둘의 합). 표시는 이 둘로만 채움을 센다(처음 본 틱을 기억해 세지 않는다). 종별 예비 동작의 종류와 정예 표식은 표시 이벤트(spec 05 14절)가 알린다.
+- 손맛 시제품(M1-SIM-09)의 적과 탄은 `Proto/SimWorld.ProtoView.cs`가 `View_Enemies_Enemies`·`View_Projectiles_Spell`·`View_Projectiles_Enemies`로 내준다(슬라임 = `SlimeMoss`, 포탑 = `ShamanCap`). 표시 계층은 시제품의 읽기 문(`ProtoReadout`)을 쓰지 않는다. M3-CB-02가 시제품을 지우면 진짜 Spell·Enemies 모듈이 같은 훅을 구현하고 표시 계층은 바뀌지 않는다.
 
 스침 이벤트의 칸(T-50. spec 01 17.2의 필드를 `SimEvent`의 칸에 놓은 것):
 
@@ -2567,6 +2605,10 @@ public readonly struct FxRequest {
 public interface IFxPlayer { void Play(in FxRequest request); void StopAll(); }
 public interface ISfxPlayer { void Play(string sfxId, int pitchStep = 0, float volumeDb = 0f); void SetBus(SfxBus bus, float volume); }
 public interface IPresentationEventHandler { void Handle(in PresentationEvent e, ISimView view); }
+public interface IFramePresenter {                    // T-54. 프레임의 끝에서 고정 틱 구동기(App의 FixedTickDriver)가 부른다. 엔진 타입이 없다
+    void OnEvents(ReadOnlySpan<SimEvent> events, ISimView view);      // 이번 프레임에 돈 틱들이 낸 표시 이벤트(틱 순). 모든 표시기에 먼저 다 부른다
+    void Render(ISimView view, double alpha);                         // 마지막으로 돈 틱 뒤의 상태와 보간 비율(0~1)
+}
 
 // namespace Wizard.ViewLogic
 public static class FixConvert {                      // 고정소수점 → 실수는 코어 세 어셈블리 밖에서 **여기에만** 있다
@@ -2609,3 +2651,4 @@ public sealed class PresentationEventRouter {
 - **빠짐 검사**: `SimEventType`의 모든 값과 `UiEventKeys.All`의 모든 열쇠는 바인딩 표에 줄이 있거나, 같은 폴더의 `event_bindings.none.json`(의도적으로 연출이 없는 사건의 목록)에 있어야 한다. 각 명세의 연결점 절(spec 01 17, 02 19, 03 21, 04 18, 05 14, 06 17, 07 20, 08, 09 22, 10 23, 11 17, 12 17, 13 21)에 나오는 사건 이름은 두 카탈로그 가운데 하나에 있어야 한다. 테스트가 확인한다(M9-PRS-01). 에셋을 나중에 꽂을 식별자가 빠지지 않게 하는 장치다.
 - 대응이 없는 이벤트는 조용히 지나간다. 개발 빌드는 한 번 기록한다.
 - 흔들림, 번쩍, 그림 정지의 세기와 줄이기 설정은 표시 계층이 집행한다(spec 13 14절). 코어는 `HitstopRequest`와 사건만 알린다.
+- `IFramePresenter`는 `Wizard.ViewLogic.Presentation`에 있다(T-54). 구현은 `Wizard.Unity.Presentation`(세계 그림), `Wizard.Unity.UI`(HUD) 어디에나 둘 수 있고, 만들어서 `FixedTickDriver.AddPresenter`에 꽂는 것은 조립 루트(`Wizard.Unity.App`)다. 표시기는 `ISimView`와 표시 이벤트만 읽는다. 세계(`SimWorld`)를 쥐지 않는다.

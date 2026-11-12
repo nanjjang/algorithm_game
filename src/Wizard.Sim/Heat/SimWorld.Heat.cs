@@ -405,6 +405,23 @@ namespace Wizard.Sim
             }
         }
 
+        // ── 뷰 훅(CONTRACTS 3.3, T-54). PlayerView 의 Heat 칸(spec 01 17.1): 열, 임계 시작, 링 상태, 열 면제, 남은 잠금과 전체 잠금.
+        //    상태를 바꾸지 않는다: 시작 상태가 아직 서지 않았으면(첫 Step 전) 채우지 않는다
+        partial void View_Player_Heat(int index, ref PlayerViewDraft draft)
+        {
+            if (!_heatReady)
+            {
+                return;
+            }
+            ref readonly HeatState s = ref _heat[index];
+            draft.HeatHu = s.HeatHu;
+            draft.CritStartHu = s.CritStartHu;
+            draft.HeatRing = HeatRingOf(index);
+            draft.ExemptArmed = s.ExemptArmed;
+            draft.LockRemainTicks = HeatLockRemainTicks(index);
+            draft.LockTotalTicks = HeatLockTotalTicks(index);
+        }
+
         // ── 상태 훅
 
         partial void Snapshot_Save_Heat(SimWorld target)

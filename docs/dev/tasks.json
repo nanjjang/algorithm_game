@@ -2067,7 +2067,8 @@
    "owner_model": "sonnet",
    "reviewer_model": "opus",
    "deps": [
-    "M1-CONT-03"
+    "M1-CONT-03",
+    "M1-SIM-08"
    ],
    "spec_refs": [
     "docs/spec/02-spell-compiler.md §3",
@@ -2075,7 +2076,12 @@
     "docs/spec/02-spell-compiler.md §16.1",
     "docs/spec/02-spell-compiler.md §16.2",
     "docs/DECISIONS.md §2.5",
-    "docs/spec/14-content-ids-assets.md §3.3"
+    "docs/spec/14-content-ids-assets.md §3.3",
+    "docs/spec/02-spell-compiler.md §9",
+    "docs/spec/02-spell-compiler.md §10",
+    "docs/spec/02-spell-compiler.md §12",
+    "docs/spec/02-spell-compiler.md §18",
+    "docs/dev/DECISIONS-TECH.md"
    ],
    "contracts": [
     "docs/dev/CONTRACTS.md §2.2"
@@ -2092,16 +2098,25 @@
     "src/Wizard.Content/Pack/Sections/ContentDb.Elements.cs",
     "tools/Wizard.DataBuild/Convert/ElementsConverter.cs",
     "src/Wizard.Content/Defs/ElementDef.cs",
-    "tests/Wizard.Content.Tests/ElementsPackTests.cs"
+    "tests/Wizard.Content.Tests/ElementsPackTests.cs",
+    "src/Wizard.Content/Ids/ProjectileFlags.cs",
+    "src/Wizard.Content/Ids/ModifierEffect.cs",
+    "src/Wizard.Content/Defs/BlockParams.cs",
+    "docs/dev/DECISIONS-TECH.md",
+    "docs/dev/tasks.json"
    ],
    "acceptance": [
     "16종의 열·피해·간격·속도·사거리·등급·속성이 spec 02 4절 표와 DECISIONS 2.5절 표와 같다(명세 표를 옮긴 대조 테스트)",
     "열은 HU 정수, 분열 배수는 천분율(1600, 2200)이다",
+    "ProjectileFlags의 비트, ModifierEffect의 값, BlockParams의 필드가 DECISIONS-TECH T-53과 같다. 16종의 표식·효과·동작 값(폭발 반경 2, 전이 3회·반경 3·전이마다 ×0.7, 감속 30%·20% 60틱, 받는 피해 +15% 180틱, 부채꼴 반각 10도·15도, spec 02 18절 U6~U12의 [임시] 값)이 데이터에 있고 대조 테스트가 모든 필드를 본다",
+    "표식·효과와 그 값의 짝, 제어 블록의 갈래(분열: 갈래 2 이상·열 배수 1 초과·부채꼴 반각, 적중 시 발동: 갈래 1·열 배수 1), 전이 배율과 코어 표(PowBase.Chain07)의 일치를 변환기가 진단으로 막는다. 제어 블록의 갈래는 BlockDef.IsSplit·IsTrigger로 읽는다(ControlType 필드를 두지 않는다, T-53)",
+    "속성 배율 절(elements)에 약점 ×1.25와 저항 ×0.8이 Fix64 Raw로 있다. 적마다의 약점·저항 배치(상성 표 18행)는 적·보스 데이터의 몫이다(벡터 TV-A08~A14는 M8-DAT-02)",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [
-    "S02§16.1",
-    "S02§16.2"
+    "S02:TV-A01..TV-A07",
+    "S02:TV-A17",
+    "S02:TV-B01..TV-B04"
    ],
    "parallel_group": "M2-W03",
    "status": "todo"
@@ -2165,7 +2180,8 @@
     "docs/spec/02-spell-compiler.md §16.3",
     "docs/spec/02-spell-compiler.md §16.4",
     "docs/spec/02-spell-compiler.md §16.5",
-    "docs/spec/02-spell-compiler.md §16.10"
+    "docs/spec/02-spell-compiler.md §16.10",
+    "docs/dev/DECISIONS-TECH.md"
    ],
    "contracts": [
     "docs/dev/CONTRACTS.md §3.4"
@@ -2180,6 +2196,7 @@
     "SpellTable이 세계 상태다: 항목 = 원천(core, links, WandCombatProfile의 정규 바이트), 핸들 = 추가 순서의 색인, 같은 원천은 같은 핸들. 길이가 스냅숏에, 길이와 원천이 WriteState와 해시에 들어간다",
     "스냅숏 뒤 새 핸들 생성 → 복원 → 다른 순서로 다시 생성해도 해시가 같다. WriteState → 새 세계 ReadState 뒤 모든 핸들이 실행된다(원천에서 다시 컴파일)",
     "새 핸들은 세계 생성과 Step 0단계에서만 생긴다. 5~10단계의 실행 경로에서 컴파일이 일어나지 않는다(할당 0)",
+    "분열과 적중 시 발동은 BlockDef.IsSplit·IsTrigger로 가른다. BlockId로 가르지 않는다. 부채꼴 각도는 BlockParams.FanHalfAngleCenti에서 만든다(−반각 ~ +반각을 갈래 수로 고르게 나눈다. DECISIONS-TECH T-53)",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [
@@ -2207,7 +2224,8 @@
     "docs/spec/02-spell-compiler.md §10",
     "docs/spec/02-spell-compiler.md §13",
     "docs/spec/02-spell-compiler.md §16.6",
-    "docs/spec/02-spell-compiler.md §16.7"
+    "docs/spec/02-spell-compiler.md §16.7",
+    "docs/dev/DECISIONS-TECH.md"
    ],
    "contracts": [
     "docs/dev/CONTRACTS.md §3.4"
@@ -2220,6 +2238,7 @@
     "투사체 풀이 고정 크기이고 상한을 넘는 발사의 처리 순서가 명세와 같다",
     "투사체 상태 전부가 스냅숏과 상태 해시에 들어간다",
     "실행한 마디마다 SpellNodeExecuted(마디 번호 = SpellPreview의 마디 번호)를 낸다",
+    "블록의 동작은 BlockDef.Flags·Effect·Params에서 읽는다(DECISIONS-TECH T-53: 폭발 반경, 전이 횟수·반경, 돌아오는 탄의 소멸 반경·거리, 튕김·관통 횟수, 반지름 배수와 상한, 유도의 선회각·시야·거리). 코드에 그 수를 두지 않는다",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [
@@ -2245,7 +2264,11 @@
     "docs/spec/02-spell-compiler.md §12",
     "docs/spec/02-spell-compiler.md §16.8",
     "docs/spec/02-spell-compiler.md §16.9",
-    "docs/DECISIONS.md §2.5"
+    "docs/DECISIONS.md §2.5",
+    "docs/spec/02-spell-compiler.md §3",
+    "docs/spec/02-spell-compiler.md §16.1",
+    "docs/spec/02-spell-compiler.md §16.2",
+    "docs/dev/DECISIONS-TECH.md"
    ],
    "contracts": [
     "docs/dev/CONTRACTS.md §3.4"
@@ -2257,11 +2280,18 @@
    "acceptance": [
     "약점 ×1.25, 저항 ×0.8의 곱셈 순서와 버림이 명세와 같다",
     "감속과 잠식의 겹침·갱신 규칙이 명세와 같다",
+    "전이 배율은 FixMath.PowTable(PowBase.Chain07, k)로 계산한다(BlockParams.ChainHopMulPermille를 거듭 곱하지 않는다). 감속·잠식의 폭과 지속, 임계 배율의 교체 값은 BlockParams에서 읽는다(DECISIONS-TECH T-53)",
+    "강화 배율 표(spec 02 11.3)의 두 열을 다 대조한다: 무한 웨이브 열은 FixMath.PowTable(PowBase.Enhance115, n), 결투 열(1 + 0.03 × 단계)의 Raw는 표의 값과 같다(TV-A15·TV-A16. M2-SPL-01에서 옮겨 왔다)",
+    "속성 배율은 ContentDb.ElementRules(ElementDef.Multiplier)로 계산하고 결투에서는 1이다(TV-B05). 피해 속성은 맞힌 투사체 블록의 속성이고 캐릭터 속성이나 변형 블록의 속성이 아니다(TV-B08·TV-B09). 폭발은 맞은 적마다 따로 배율을 받는다(TV-B13). 대상의 약점·저항은 spec 02 3.3 표의 값을 시험 입력으로 준다(적 데이터가 아직 없다)",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [
     "S02§16.8",
-    "S02§16.9"
+    "S02§16.9",
+    "S02:TV-A15..TV-A16",
+    "S02:TV-B05",
+    "S02:TV-B08..TV-B09",
+    "S02:TV-B13"
    ],
    "parallel_group": "M2-W08",
    "status": "todo"
@@ -2607,7 +2637,9 @@
     "docs/spec/05-enemies.md §11.12",
     "docs/spec/05-enemies.md §11.13",
     "docs/spec/05-enemies.md §11.19",
-    "docs/DECISIONS.md §2.5"
+    "docs/DECISIONS.md §2.5",
+    "docs/spec/02-spell-compiler.md §3",
+    "docs/spec/02-spell-compiler.md §16.2"
    ],
    "contracts": [
     "docs/dev/CONTRACTS.md §3.6"
@@ -2619,6 +2651,7 @@
    "acceptance": [
     "적 처리는 id 오름차순이고 적 풀과 적 탄 풀은 고정 크기다. 상한 처리가 명세와 같다",
     "IEnemyBrain 계약이 CONTRACTS 3.6절과 같다",
+    "엘리트는 바탕 종의 약점·저항으로 속성 배율을 받고, 보스의 졸개는 상성이 없다(배율 1). spec 02 TV-B06·TV-B07(M2-SPL-01에서 옮겨 왔다). 엘리트와 졸개의 데이터가 아직 없으면 spec 02 3.3 표의 값으로 만든 시험용 정의를 쓴다",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [
@@ -2627,7 +2660,8 @@
     "S05§11.11",
     "S05§11.12",
     "S05§11.13",
-    "S05§11.19"
+    "S05§11.19",
+    "S02:TV-B06..TV-B07"
    ],
    "parallel_group": "M3-W04",
    "status": "todo"
@@ -3658,7 +3692,9 @@
    ],
    "spec_refs": [
     "docs/spec/03-command-parser.md §12",
-    "docs/spec/03-command-parser.md §18.2"
+    "docs/spec/03-command-parser.md §18.2",
+    "docs/spec/02-spell-compiler.md §3",
+    "docs/spec/02-spell-compiler.md §16.2"
    ],
    "contracts": [
     "docs/dev/CONTRACTS.md §3.5"
@@ -3670,10 +3706,12 @@
    "acceptance": [
     "꿰뚫는 창, 방열 폭발, 팔방 전개, 뇌광창, 만개의 효과가 spec 03 12절 수치와 같다",
     "저스트 판정(뇌광창)과 만개의 0.18초 창이 입력 시각 단위로 정확하다",
+    "꿰뚫는 창의 피해 속성은 코어 블록의 속성이다(spec 02 EL-5, TV-B12. M2-SPL-01에서 옮겨 왔다). 대상의 약점은 spec 02 3.3 표의 값(엄니 멧돼지: 약점 냉기)을 시험 입력으로 준다",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [
-    "S03:B31..B32"
+    "S03:B31..B32",
+    "S02:TV-B12"
    ],
    "parallel_group": "M5-W03",
    "status": "todo"
@@ -3771,7 +3809,9 @@
     "docs/spec/01-sim-core.md §7",
     "docs/spec/01-sim-core.md §14.6",
     "docs/spec/01-sim-core.md §8",
-    "docs/dev/DECISIONS-TECH.md"
+    "docs/dev/DECISIONS-TECH.md",
+    "docs/spec/02-spell-compiler.md §3",
+    "docs/spec/02-spell-compiler.md §16.2"
    ],
    "contracts": [
     "docs/dev/CONTRACTS.md §3.2"
@@ -3783,12 +3823,14 @@
    "acceptance": [
     "끓어넘침, 피뢰침 체질, 밑줄, 살얼음, 그림자 계약이 각각 정해진 틱 단계에서만 상태를 바꾼다",
     "피뢰침 체질은 이음 훅 OnGrazeAwarded_Characters에서 발동한다(CONTRACTS 3.2절, T-50). 스침 인정마다 1회이고 비기 스침(AwardSkillGraze)도 같다. 벼락은 콤보에 넣지 않는다",
+    "블록을 거치지 않는 패시브 피해(끓어넘침)는 캐릭터의 속성으로 속성 배율을 받는다(spec 02 EL-4, TV-B10. M2-SPL-01에서 옮겨 왔다)",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [
     "S04§15.4",
     "S01§14.6",
-    "S01:T-G23"
+    "S01:T-G23",
+    "S02:TV-B10"
    ],
    "parallel_group": "M5-W02",
    "status": "todo"
@@ -5183,7 +5225,9 @@
    ],
    "spec_refs": [
     "docs/spec/05-enemies.md §4",
-    "docs/spec/05-enemies.md §11.14"
+    "docs/spec/05-enemies.md §11.14",
+    "docs/spec/02-spell-compiler.md §3",
+    "docs/spec/02-spell-compiler.md §16.2"
    ],
    "contracts": [
     "docs/dev/CONTRACTS.md §3.6"
@@ -5194,13 +5238,15 @@
    ],
    "acceptance": [
     "꽈리 유폭과 멧돼지 돌진의 상호작용이 명세와 같다",
+    "꽈리 벌레의 유폭은 무속성이고 상성을 받지 않는다(spec 02 EL-6, TV-B11. M2-SPL-01에서 옮겨 왔다)",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [
     "S05:TV-SPC-17..TV-SPC-25",
     "S05:TV-SPC-35..TV-SPC-38",
     "S05:TV-SPC-40..TV-SPC-41",
-    "S05:TV-SPC-43..TV-SPC-44"
+    "S05:TV-SPC-43..TV-SPC-44",
+    "S02:TV-B11"
    ],
    "parallel_group": "M8-W04",
    "status": "todo"
@@ -5351,7 +5397,9 @@
     "docs/spec/06-bosses.md §8",
     "docs/spec/06-bosses.md §12",
     "docs/monsters.md §3",
-    "docs/spec/14-content-ids-assets.md §3.8"
+    "docs/spec/14-content-ids-assets.md §3.8",
+    "docs/spec/02-spell-compiler.md §3",
+    "docs/spec/02-spell-compiler.md §16.1"
    ],
    "contracts": [
     "docs/dev/CONTRACTS.md §2.2"
@@ -5371,10 +5419,12 @@
     "여섯 보스의 단계, 패턴 표, 격노 수치가 spec 06과 같다(대조 테스트)",
     "보스 공격도 회피 검산 R1~R4를 통과한다",
     "약점·저항 배분이 spec 14 7.2절과 같다: 속성별 정확한 개수, 보스의 저항 = 자기 속성, 웨이브 1~4에 나오는 종의 저항 ≠ 비전(TV-035·TV-036). M3-BT-01의 상성 검사기에 이 규칙을 더한다",
+    "적 12종과 보스 6종의 약점·저항이 spec 02 3.3 상성 표 18행과 같다(TV-A08~TV-A14. M2-SPL-01에서 옮겨 왔다. 적 12종의 값은 M8-DAT-01의 enemies 절에서 읽는다)",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [
-    "S14§7.2"
+    "S14§7.2",
+    "S02:TV-A08..TV-A14"
    ],
    "parallel_group": "M8-W03",
    "status": "todo"

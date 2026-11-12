@@ -141,9 +141,9 @@ namespace Wizard.Ci.Tests
             return g;
         }
 
-        private static ProcResult Fast(string wt) =>
+        private static ProcResult Fast(string wt, string? ciBase = null) =>
             TempGit.RunScript(Path.Combine(wt, "tools", "ci", "ci.sh"), "/",
-                new Dictionary<string, string?> { ["WIZARD_TASKGRAPH_DLL"] = TaskGraphDll.Value }, "fast");
+                new Dictionary<string, string?> { ["WIZARD_TASKGRAPH_DLL"] = TaskGraphDll.Value, ["WIZARD_CI_BASE"] = ciBase }, "fast");
 
         private static JsonNode StepJson(string wt) =>
             JsonNode.Parse(File.ReadAllText(Path.Combine(wt, "artifacts", "ci", "fast", "task-branch.json")))!;
@@ -195,6 +195,49 @@ namespace Wizard.Ci.Tests
             Assert.Equal(1, pathOnly.ExitCode);
             Assert.Contains("README.md — 소유 파일 밖이다", pathOnly.Stdout + pathOnly.Stderr, StringComparison.Ordinal);
             Assert.Contains("문제 0건", pathOnly.Stdout, StringComparison.Ordinal);
+        }
+
+        // DECISIONS-TECH T-48 의 길: 계약 개정(소유 밖 문서)을 브랜치의 첫 커밋 하나로 따로 두고, 게이트는 그 커밋을 기준으로 준다
+        // (WIZARD_CI_BASE=<그 커밋> tools/ci/ci.sh fast). 기준을 주면 task-branch 의 check-diff 와 commit-msgs 가 나머지 커밋만 보고 통과한다.
+        // 기준이 없으면 둘 다 개정 커밋까지 본다(이 시험에서는 개정 커밋의 첫 줄이 다른 작업 id 라 commit-msgs 도 실패한다).
+        [Fact]
+        public void Fast_WithTheBaseAtAContractAmendmentCommit_ChecksOnlyTheRest()
+        {
+            using TempGit g = RepoWithTaskBranchStep();
+            string wt = g.PathOf(".claude/worktrees/" + Id);
+            g.Git("worktree", "add", "-q", wt, "-b", "task/" + Id);
+            Change(g, wt, "docs/dev/CONTRACTS.md", "# 계약\n개정\n", Good("M0-BT-06", "계약 개정"));
+            string amendment = TempGit.GitIn(wt, "rev-parse", "HEAD").Trim();
+            Change(g, wt, "tools/ci/lib/notes.txt", "x\n", Good(Id, "소유 경로 안의 변경 하나"));
+            Change(g, wt, "tools/ci/lib/notes2.txt", "y\n", Good(Id, "소유 경로 안의 변경 둘"));
+
+            // 명령 줄 층: --base 없이 WIZARD_CI_BASE 로 기준을 받는다
+            var stdout = new StringWriter();
+            var stderr = new StringWriter();
+            int code = Program.Run(new[] { "commit-msgs", "--task", Id, "--root", wt }, stdout, stderr,
+                k => k == "WIZARD_CI_BASE" ? amendment : null);
+            Assert.True(code == 0, stdout.ToString() + stderr.ToString());
+            Assert.Contains("(" + amendment + " 와의 갈림점)..HEAD 커밋 2개(병합 커밋 제외), 문제 0건", stdout.ToString(), StringComparison.Ordinal);
+
+            stdout = new StringWriter();
+            stderr = new StringWriter();
+            Assert.Equal(1, Program.Run(new[] { "commit-msgs", "--task", Id, "--root", wt }, stdout, stderr, _ => null));
+            Assert.Contains("커밋 3개(병합 커밋 제외), 문제 1건", stderr.ToString(), StringComparison.Ordinal);
+            Assert.Contains("'M0-BT-06'", stderr.ToString(), StringComparison.Ordinal);
+
+            // ci.sh fast 로 끝까지(진짜 task-branch.sh 와 taskgraph check-diff)
+            ProcResult withBase = Fast(wt, amendment);
+            string okOut = withBase.Stdout + withBase.Stderr;
+            Assert.True(withBase.ExitCode == 0, okOut);
+            Assert.Contains("커밋 2개(병합 커밋 제외), 문제 0건", okOut, StringComparison.Ordinal);
+            Assert.Contains("위반 0건", okOut, StringComparison.Ordinal);
+            Assert.DoesNotContain("docs/dev/CONTRACTS.md", okOut, StringComparison.Ordinal);
+
+            ProcResult noBase = Fast(wt);
+            string badOut = noBase.Stdout + noBase.Stderr;
+            Assert.Equal(1, noBase.ExitCode);
+            Assert.Contains("docs/dev/CONTRACTS.md — 소유 파일 밖이다", badOut, StringComparison.Ordinal);
+            Assert.Contains("커밋 3개(병합 커밋 제외), 문제 1건", badOut, StringComparison.Ordinal);
         }
 
         [Fact]

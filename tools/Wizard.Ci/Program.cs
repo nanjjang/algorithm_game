@@ -22,6 +22,10 @@ namespace Wizard.Ci
     //   ci exec --name <n> --timeout <초> --out <json> -- <명령> [인자…]   명령 하나를 시간 제한 안에서
     //   공통: --root <저장소>(없으면 이 도구가 놓인 곳에서 위로 찾는다)
     //   --all 또는 WIZARD_CI_FORCE_ALL=1: 바뀐 경로로 줄이지 않는다. WIZARD_CI_BASE: 비교 기준(기본 merge-base HEAD main)
+    // 환경 변수(WIZARD_CI_BASE, WIZARD_CI_FORCE_ALL, WIZARD_CI_NOTE, WIZARD_CI_TRX_DIR, WIZARD_CI_LOCK_WAIT, CI_STEP_TIMEOUT, 기기 요구의 변수)는
+    // 이 명령 줄 층(Run 의 env)에서만 읽어 인자로 넘긴다. 판정 함수(ChangeScope, BranchCommits, StageRunner, Requirements)는 프로세스 환경을
+    // 직접 읽지 않는다: 바깥 게이트의 WIZARD_CI_BASE 가 임시 저장소를 보는 자체 시험에 새지 않게 하려는 것이다(FIX-4).
+    // 비교 기준의 우선순위: --base, 없으면 WIZARD_CI_BASE(빈 값은 없는 것), 없으면 main 과의 갈림점(commit-msgs 는 main).
     // 종료 코드: 0 통과, 1 검사 실패, 2 사용법·환경 오류, 3 unity-scope 의 "건너뛰어도 된다", 124 시간 제한.
     public static class Program
     {
@@ -32,7 +36,7 @@ namespace Wizard.Ci
             Console.OutputEncoding = new UTF8Encoding(false);
             try
             {
-                return Run(args, Console.Out, Console.Error);
+                return Run(args, Console.Out, Console.Error, Environment.GetEnvironmentVariable);
             }
             catch (CiException e)
             {
@@ -41,7 +45,8 @@ namespace Wizard.Ci
             }
         }
 
-        public static int Run(string[] args, TextWriter stdout, TextWriter stderr)
+        // env: 환경 변수를 읽는 함수. Main 만 프로세스 환경을 준다(시험은 사전을 준다)
+        public static int Run(string[] args, TextWriter stdout, TextWriter stderr, Func<string, string?> env)
         {
             if (args.Length == 0)
             {
@@ -55,7 +60,7 @@ namespace Wizard.Ci
             var rest = new List<string>();
             string? rootOpt = null;
             string? baseRef = null;
-            bool all = Environment.GetEnvironmentVariable("WIZARD_CI_FORCE_ALL") == "1";
+            bool all = env("WIZARD_CI_FORCE_ALL") == "1";
             for (int i = 1; i < args.Length; i++)
             {
                 switch (args[i])
@@ -66,14 +71,15 @@ namespace Wizard.Ci
                     default: rest.Add(args[i]); break;
                 }
             }
+            baseRef ??= NullIfEmpty(env("WIZARD_CI_BASE"));
             string root = RepoPaths.Resolve(rootOpt);
             switch (cmd)
             {
                 case "stage":
                 {
                     string stage = One(rest, "ci stage fast|full|integration");
-                    using CiLock l = CiLock.Acquire(root, LockWait(), stdout);
-                    var runner = new StageRunner(root, stdout, all);
+                    using CiLock l = CiLock.Acquire(root, LockWait(env), stdout);
+                    var runner = new StageRunner(root, stdout, all, baseRef, StepTimeout(env));
                     List<StageResult> results = runner.RunUpTo(stage);
                     return Summarize(stage, results, stdout);
                 }
@@ -86,8 +92,8 @@ namespace Wizard.Ci
                     }
                     // 먼저 마일스톤이 있는지 본다(오래 도는 검사 뒤에 이름이 틀렸다고 알리지 않게)
                     GateFile.HumanChecks(File.ReadAllText(Path.Combine(root, "docs", "dev", "tasks.json"), Encoding.UTF8), ms);
-                    using CiLock l = CiLock.Acquire(root, LockWait(), stdout);
-                    var runner = new StageRunner(root, stdout, true);
+                    using CiLock l = CiLock.Acquire(root, LockWait(env), stdout);
+                    var runner = new StageRunner(root, stdout, true, baseRef, StepTimeout(env));
                     List<StageResult> results = runner.RunUpTo("integration");
                     string? branch = Git.IsRepo(root) ? Git.CurrentBranch(root) : null;
                     string? commit = Git.IsRepo(root) ? Git.RevParse(root, "HEAD") : null;
@@ -98,8 +104,8 @@ namespace Wizard.Ci
                 case "run":
                 {
                     string name = One(rest, "ci run <스크립트>");
-                    using CiLock l = CiLock.Acquire(root, LockWait(), stdout);
-                    var runner = new StageRunner(root, stdout, all);
+                    using CiLock l = CiLock.Acquire(root, LockWait(env), stdout);
+                    var runner = new StageRunner(root, stdout, all, baseRef, StepTimeout(env));
                     StageResult r = runner.RunSingle(name);
                     return r.Passed ? 0 : 1;
                 }
@@ -130,7 +136,7 @@ namespace Wizard.Ci
                     None(rest, "ci test-affected [--base <rev>]");
                     AffectedTests a = AffectedTests.Select(ProjectGraph.Load(root), ChangeScope.Detect(root, baseRef, all));
                     stdout.WriteLine("test-affected: " + (a.All ? "전부 — " : "") + a.Reason);
-                    string? note = Environment.GetEnvironmentVariable("WIZARD_CI_NOTE");
+                    string? note = env("WIZARD_CI_NOTE");
                     if (a.Projects.Count == 0)
                     {
                         string why = "바뀐 프로젝트에 딸린 테스트 프로젝트가 없다(" + a.Reason + ")";
@@ -145,7 +151,7 @@ namespace Wizard.Ci
                     {
                         File.AppendAllText(note, (a.All ? "전부: " : "") + a.Reason + " → 테스트 프로젝트 " + a.Projects.Count.ToString(CultureInfo.InvariantCulture) + "개\n");
                     }
-                    string trx = Environment.GetEnvironmentVariable("WIZARD_CI_TRX_DIR") is string t && t.Length > 0
+                    string trx = env("WIZARD_CI_TRX_DIR") is string t && t.Length > 0
                         ? t
                         : Path.Combine(root, "artifacts", "ci", "tests");
                     return AffectedTests.Run(root, a.Projects, trx, stdout, TimeSpan.FromMinutes(20));
@@ -166,7 +172,7 @@ namespace Wizard.Ci
                     int missing = 0;
                     foreach (string what in rest)
                     {
-                        string? msg = Requirements.Check(what, root, Environment.GetEnvironmentVariable);
+                        string? msg = Requirements.Check(what, root, env);
                         if (msg == null)
                         {
                             stdout.WriteLine("ok    " + what);
@@ -284,11 +290,20 @@ namespace Wizard.Ci
             return failed == 0 ? 0 : 1;
         }
 
-        private static TimeSpan LockWait()
+        private static TimeSpan LockWait(Func<string, string?> env)
         {
-            string? v = Environment.GetEnvironmentVariable("WIZARD_CI_LOCK_WAIT");
+            string? v = env("WIZARD_CI_LOCK_WAIT");
             return TimeSpan.FromSeconds(v != null && int.TryParse(v, NumberStyles.None, CultureInfo.InvariantCulture, out int s) ? s : 3600);
         }
+
+        // 검사 하나의 기본 시간 제한(초). CI_STEP_TIMEOUT 이 양의 정수면 그것(스크립트의 "# ci-timeout:" 이 먼저다)
+        private static int StepTimeout(Func<string, string?> env)
+        {
+            string? t = env("CI_STEP_TIMEOUT");
+            return t != null && int.TryParse(t, NumberStyles.None, CultureInfo.InvariantCulture, out int s) && s > 0 ? s : StageRunner.DefaultStepTimeoutSeconds;
+        }
+
+        private static string? NullIfEmpty(string? s) => string.IsNullOrEmpty(s) ? null : s;
 
         private static string One(List<string> rest, string usage)
         {

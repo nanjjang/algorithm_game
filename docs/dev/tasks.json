@@ -1519,7 +1519,8 @@
    "owner_model": "opus",
    "reviewer_model": "fable",
    "deps": [
-    "M1-SIM-04"
+    "M1-SIM-04",
+    "M1-SIM-07"
    ],
    "spec_refs": [
     "docs/spec/03-command-parser.md §1",
@@ -1539,12 +1540,20 @@
    ],
    "owned_paths": [
     "src/Wizard.Sim/Arts/Parser/",
-    "tests/Wizard.Sim.Tests/Arts/Parser/"
+    "tests/Wizard.Sim.Tests/Arts/Parser/",
+    "src/Wizard.Sim/Arts/ArtDecision.cs",
+    "src/Wizard.Sim/Arts/TrieNode.cs",
+    "src/Wizard.Sim/Arts/CommandPreview.cs",
+    "src/Wizard.Sim/Arts/ICommandParser.cs",
+    "docs/dev/DECISIONS-TECH.md",
+    "docs/dev/OPEN-QUESTIONS.md",
+    "docs/dev/tasks.json"
    ],
    "acceptance": [
     "spec 03 18.1절 A군 117건과 18.3절 S군 전부 통과",
     "섬(0.07초), 만개(0.18초), 0.2초 구간이 입력 시각 단위(틱×256+오프셋)로 경계값까지 정확하다",
     "판정기 상태가 스냅숏에 들어가고 되감은 뒤 같은 판정이 나온다",
+    "ICommandParser만으로 판정 결과(ArtDecision: spec 03 7.4절의 칸 전부와 섬 초과량)와 미리보기(CommandPreview)를 받고 WriteState·ReadState·CopyFrom으로 상태를 옮긴다. CommandTrie.Node(id)가 spec 03 5.3절의 값을 준다(T-52의 CONTRACTS 3.5절 개정문)",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [
@@ -3388,7 +3397,8 @@
     "docs/DECISIONS.md §1.2"
    ],
    "contracts": [
-    "docs/dev/CONTRACTS.md §2.2"
+    "docs/dev/CONTRACTS.md §2.2",
+    "docs/dev/CONTRACTS.md §3.5"
    ],
    "owned_paths": [
     "data/sim/characters.json",
@@ -3408,12 +3418,15 @@
     "src/Wizard.Content/Pack/Sections/ContentDb.Tries.cs",
     "tools/Wizard.DataBuild/Convert/TriesConverter.cs",
     "src/Wizard.Content/Defs/TrieDef.cs",
-    "tests/Wizard.Content.Tests/TriesPackTests.cs"
+    "tests/Wizard.Content.Tests/TriesPackTests.cs",
+    "src/Wizard.Sim/Arts/Parser/ParserSourceLoader.cs",
+    "tests/Wizard.Sim.Tests/Arts/Parser/DataTrieTests.cs"
    ],
    "acceptance": [
     "다섯 캐릭터의 능력치가 spec 04 2절 표와 같다",
     "비기 15종의 비용·난이도·경로·해금 조건이 spec 03 12절·14절과 같다",
     "캐릭터별 트라이가 spec 03 5절과 같고 판정기의 S군 벡터가 데이터로 만든 트라이에서도 통과한다",
+    "ParserSourceLoader.FromContent가 arts·tries 절에서 ParserSource(비기 15종의 경로·종류·비용·외상 가부, spec 03 1.2절의 판정기 상수와 9.2절의 빚 상한)를 만들고, CommandTrie.Build(character, ContentDb)로 만든 트라이가 Build(character, ParserSource)에 명세 값을 넣어 만든 것과 노드마다 같다(T-52의 CONTRACTS 3.5절 개정문)",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [
@@ -3452,6 +3465,7 @@
    "acceptance": [
     "결정 비용 지불, 그믐의 외상(빚 2개까지), 재사용 대기, K 보관이 spec 03 8~10절과 같다",
     "PlayerView.Preview(ArtPreview)와 Recent(RecentInputs)가 spec 03 11절의 HUD 미리보기를 표현한다: 섬 자리의 두 줄(B15, B15b), 그믐의 외상 N(B13), 결정이 모자랄 때의 대체 기술(B14), 불발(n번째 입력이 x 늦음)(B37), 커서에서의 미리보기(B08)",
+    "PlayerView.Preview는 ICommandParser.Preview의 CommandPreview에서 옮긴다(Normal·HasJust·Just, 비용 = CrystalsPaid + DebtAdded, 외상 = DebtAdded, 불발 = LateIndex·LateByUnits). 5단계에서 플레이어마다 틱에 한 번 TryTakeBuffered(틱 × 256)를 부른다(T-52의 CONTRACTS 3.5절 개정문)",
     "spec 03 17절 경계 조건이 전부 테스트로 있다",
     "판정기와 지갑의 상태가 스냅숏·WriteState·해시에 들어간다. 같은 기록의 재실행에서 모든 ArtDecision이 같다(B36)",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"

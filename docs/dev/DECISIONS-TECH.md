@@ -59,6 +59,7 @@
 | T-47 | `ContentDb`의 절 파일은 `ContentDb.<절>.cs`, 훅은 읽기(`Load`)와 조회(`Find`) 둘, 뼈대 파일은 M1-CONT-02가 가진다 | [신규] |
 | T-48 | WZDR 머리말은 `DuelSetup`의 정규 바이트 전체, `DuelRoomOptions`의 칸은 spec 10 9.2 표(비밀번호 제외), 쓰는 문은 `DuelRecordWriter` | [신규] |
 | T-49 | `record_sha256`은 그 앞의 모든 바이트를 덮는다. `TryRead`는 한도를 받고 `InputRecordBody`에 1차 검사의 값을 준다 | [신규] |
+| T-52 | 판정기의 계약 타입을 채운다: `ArtDecision`·`TrieNode`·`CommandPreview`, `ICommandParser.ReadState`, 판정기 데이터는 `ParserSource`, 팩에서 만드는 자리는 `ParserSourceLoader` | [신규] |
 
 ---
 
@@ -489,6 +490,155 @@ partial void Find<접근자>(ref T? def);                   // 키가 있는 접
 - **오류의 순서**: 꼬리말은 길이(모자람, 남음) → `record_sha256` → `flags`의 순으로 본다. 무결성을 먼저 보고 칸을 읽는다. 그래서 꼬리말의 한 비트가 바뀐 파일은 `ShaMismatch`이고, 모르는 `flags` 비트를 넣고 바르게 봉인한 파일이 `BadFlags`다.
 - **`wave` 대조를 미루어도 되는 까닭**: 서버가 받아 둔 중간 지점 `(wave, tick, state_hash)`의 구속력은 `wizard-api`가 재실행 facts의 중간 지점(세계가 기록한 것)과 대조해서 생긴다(8.3절 5번). 파일의 `0x04`는 그보다 앞에서 싸게 거르는 것이고, 원정 정리에서는 멈출 틱을 정한다. 파일이 거짓 `wave`를 적어도 facts의 중간 지점에는 세계가 기록한 값만 들어간다.
 - **따라오는 일**: M11-RUN-03(1차 검사)은 `InputRecordBody`의 칸을 쓴다(`HeaderLength`로 머리말을 잘라 `run.setup_canonical`과 대조, `HasDebugOps`·`DebugUsed`, `PauseTotalMs`, `Checkpoints`). M11-VER-01(워커)은 `file[HeaderLength..]`를 `Run`의 `recordBody`로 준다. M1-CLI-02(`RunSession`)는 `TryRead`에 `SimLimitsDef`의 한도를 준다.
+
+## T-52 판정기의 계약 타입을 채운다: `ArtDecision`·`TrieNode`·`CommandPreview`, `ICommandParser.ReadState`, 판정기 데이터는 `ParserSource`, 팩에서 만드는 자리는 `ParserSourceLoader` [신규]
+
+번호 T-48·T-49는 M1-SIM-07이 썼고 main에 들어갔다. T-50은 M1-SIM-06의 브랜치가 쓰고 있다. T-51은 같은 때 돌던 M1-SIM-05의 브랜치와 겹치지 않게 비워 두었는데, M1-SIM-05는 결정 번호를 쓰지 않고 main에 들어갔다. T-51은 빈 번호로 남긴다(코드 주석과 `tasks.json`이 이미 T-52를 가리키고, 번호는 더하기만 한다).
+
+- **문제**: M1-SIM-08(커맨드 판정기)이 판정 로직과 배정된 벡터를 다 끝내고도 막혔다. `CONTRACTS.md` 3.5절의 겉면이 결과를 실어 나를 수 없었다. (1) `ArtDecision`은 `Art` 한 칸뿐이고 생성자가 없었다. (2) `TrieNode`와 `CommandPreview`는 빈 구조체였고 어느 작업의 `owned_paths`에도 없었다. (3) `ICommandParser`에 `WriteState`와 `CopyFrom`은 있는데 `ReadState`가 없어 `State_Read_Arts`를 구현할 길이 없었다. (4) `CommandTrie.Build(CharacterId, ContentDb)`는 `ArtDef`·`TrieDef`의 필드가 있어야 하는데 그 필드는 M5-DAT-01이 채우고 M5-DAT-01은 M1-SIM-08에 기댄다. 그래서 구현은 결과를 `ArtVerdict`라는 옆 타입으로 내고, 계약의 메서드는 `bool`만 맞고 값은 비어 있었다. 바로 뒤의 M1-SIM-09(시제품)는 `ICommandParser`로 판정 결과를 받아야 한다.
+- **결정**:
+  1. **`ArtDecision`**은 spec 03 7.4절의 칸 전부다. 이름이 다른 것은 둘이다. `LateBy`는 `LateByUnits`로 적는다(단위를 이름에 붙인다. `ArtPreview.FizzleLateByUnits`와 같은 꼴). 그리고 `JustLateByUnits`를 더한다: 섬 자리에서 섬 창을 넘겨 일반 기술을 골랐을 때 넘긴 양이다(7.5절의 연습장 문구 "0.02초 늦음", 벡터 B38). 7.4절의 구조에는 이 값을 담을 칸이 없고, 판정 뒤에는 방향 시각 기록이 비워져 밖에서 다시 셈할 수 없다. `Write`/`Read`를 가진다(보관된 K가 판정기 상태이고, 결투의 준비 중인 비기도 판정을 틱 너머로 들고 있다). `ArtVerdict`는 없앴다.
+  2. **`ArtOutcome { Fire = 0, Fizzle = 1 }`, `FizzleReason { None = 0, NoCrystal = 1, FullBloomLate = 2 }`**를 3.5절에 올린다. 번호는 상태와 해시에 들어가므로 더하기만 한다.
+  3. **`TrieNode`**는 값 칸만 담는다: `Id`, `Depth`, `Parent`, `Fail`, `KArt`, `JustArt`, `InEdgeGapUnits`(없으면 `NoGap = -1`), `UniqueFallback`, `IsFullBloom`. spec 03 5.3절의 배열 칸(`Child`, `Next`, `Path`)은 `CommandTrie`의 접근자(`Child`, `Next`, `Path`)다. 노드별 접근자(`KArt(node)` 등)도 그대로 둔다. 판정의 뜨거운 길은 병렬 배열을 읽는다.
+  4. **`CommandPreview`**는 `{ ArtDecision Normal; bool HasJust; ArtDecision Just; }`다. `Preview`는 같은 판정 함수를 지갑과 상태를 바꾸지 않고 부른다. 두 줄의 조건과 시각은 spec 03 11절·U-29·U-30 그대로다(3.5절에 적었다). HUD의 `ArtPreview`(3.3절)로 옮기는 것은 M5-ART-01이 한다.
+  5. **`ICommandParser.ReadState(ref StateReader)`**를 더한다. `TryTakeBuffered`의 인자 이름을 `tickEndTime`에서 `tickStartTime`으로 바꾼다: 넣는 값은 이번 틱의 첫 입력 시각(틱 × 256)이다. 그래야 발동 틱이 명세의 `ceil(대기 끝 ÷ 256)`이 된다. 틱의 끝 시각을 넣으면 한 틱 이르다.
+  6. **판정기 데이터는 `ParserSource`**(`ParserTimings` + `ParserArt[]`)다. `CommandTrie.Build(character, ParserSource)`와 `new CommandParser(CommandTrie)`가 계약이다. `Build(character, ContentDb)`는 `ParserSourceLoader.FromContent(db)`를 거친다. 그 몸통은 arts·tries 절이 생길 때 M5-DAT-01이 채운다(그때까지 `ContentException`).
+  7. **`CopyFrom`은 모양으로 본다**(같은 캐릭터, 같은 노드 수). 구현은 "같은 트라이 인스턴스"를 요구했는데, 스냅숏의 그림자 세계와 결투의 예측 세계는 같은 `ContentDb`로 따로 만든 트라이를 가진다(3.2절 "같은 모양의 다른 세계와도 쓸 수 있다"). 그대로면 `Snapshot_Save_Arts`가 처음 불릴 때 던진다.
+  8. **보관된 K가 있는 동안의 K는 시각과 무관하게 무시한다.** 구현은 "누른 시각 < 대기 끝"일 때만 무시했다. 보관된 K는 5단계(`TryTakeBuffered`)에서 나가는데 입력은 2단계에서 먼저 처리되므로, 대기 끝과 같은 틱에 대기 끝 뒤의 시각으로 들어온 K가 새 판정으로 먼저 나가고 보관된 K는 대기 하나만큼 밀렸다. spec 03 6.2절의 `CooldownBuffered | K 누름 | 무시`와 U-04에 어긋난다. 고치고 시험을 더했다.
+- **대안**: (가) `ArtVerdict`를 그대로 두고 `ArtDecision`은 그 별칭으로 둔다. (나) `TrieNode`에 `Child`·`Next` 배열까지 싣는다(명세의 구조 그대로). (다) `CommandPreview`의 칸을 HUD의 `ArtPreview`와 똑같이 둔다. (라) `ParserSource`를 두지 않고 `ArtDef`·`TrieDef`의 필드를 지금 정해 `CommandTrie`가 그것을 직접 읽는다. (마) 계약 변경을 따로 CCR 작업으로 낸다.
+- **이유**: (가) 같은 값을 두 타입이 들면 뒤의 모든 호출자가 옮겨 적어야 하고, 계약의 메서드가 빈 값을 주는 채로 남는다. (나) 읽기 전용 값 구조체에 배열 참조를 실으면 "불변"이 깨지고 노드마다 배열 셋을 할당한다. 접근자는 같은 값을 준다. (다) `ArtPreview`는 그리는 쪽의 꼴(기술과 비용 둘, 외상, 늦은 입력)이고 판정기는 비용을 모른다(불발의 비용은 `ArtDef`에 있다). 판정 그대로를 내주면 옮기는 쪽이 필요한 것을 다 뽑을 수 있고 "같은 판정 함수의 결과"(spec 03 11절)라는 말이 타입으로 지켜진다. (라) `ArtDef`의 칸은 spec 03 12.1절의 표가 주인이고 효과·해금·결투 칸까지 한 번에 정해야 한다. 지금 반만 정하면 M5-DAT-01이 계약 코드를 다시 고친다. `ParserSource`는 판정기가 읽는 칸만의 좁은 이음이라, 팩 없이 명세 값으로 판정기를 시험할 수 있고(A군 117건이 그렇게 돈다) 시제품도 팩의 비기 절 없이 붙는다. (마) `PIPELINE.md` 3.7절의 원래 길이지만 계약 **코드**는 M1-SIM-08의 구현과 한 덩어리다(`ArtVerdict`를 지우고 `ArtDecision`으로 옮기는 일이 구현의 절반을 건드린다). 계약 코드만 먼저 넣는 CCR은 그 사이 빌드가 깨진다. 그래서 계약 코드는 T-47 때처럼 이 작업의 브랜치에 같이 넣고, CCR에는 문서(`CONTRACTS.md`)를 옮겨 적는 일만 남긴다.
+- **`CONTRACTS.md`는 이 브랜치에서 고치지 않았다.** 작업 브랜치에서 그 파일을 고치면 `check-diff`가 막는다. 그 파일을 이 작업의 `owned_paths`에 넣으면 `tools/Wizard.TaskGraph`의 시험(`Add_ToCopyOfRealGraph_PassesFullValidationIncludingVectors`: 실제 그래프에 "`CONTRACTS.md`를 가진 CCR, `deps` = M0-TL-01"을 더해 검사를 통과해야 한다)이 "경로가 겹치는데 순서가 없다"로 깨진다(실제로 넣어 돌려서 확인했다). 그래서 T-47 때와 같이 결정과 **3.5절의 개정문 전체**를 여기에 적고, `CONTRACTS.md`에 옮겨 적는 일은 CCR 작업으로 한다. 옮기기 전까지 3.5절은 아래 개정문으로 읽는다. 개정문은 지금의 3.5절에 더하기만 한다(있던 선언을 지우지 않는다). 바뀌는 것은 `TryTakeBuffered`의 인자 이름 하나다.
+- **따라오는 일**:
+  - CCR 작업(계약 변경 요청으로 올린다): `CONTRACTS.md` 3.5절을 아래 개정문으로 바꾼다. T-47의 훅 표를 2.3절에 옮기는 일과 같이 할 수 있다. 그 전에 결함 작업 하나가 필요하다: 위 시험은 `CONTRACTS.md`를 가진 실제 작업이 그래프에 하나라도 생기면(처음 더하는 CCR 포함) 깨진다. 시험의 가짜 CCR이 실제 그래프의 어느 작업과도 겹치지 않는 경로를 쓰거나 `deps`로 순서를 받아야 한다(`tools/Wizard.TaskGraph/Tests/AddAndCardTests.cs`, build-tools-engineer).
+  - `tasks.json`: M1-SIM-08의 `owned_paths`에 계약 코드 넷(`Arts/ArtDecision.cs`, `TrieNode.cs`, `CommandPreview.cs`, `ICommandParser.cs`)과 이 결정을 같이 넣으려고 `DECISIONS-TECH.md`, `OPEN-QUESTIONS.md`, `tasks.json`을 더했다(`check-diff`가 브랜치의 변경을 그 작업의 `owned_paths`로만 본다. T-47과 같다). M1-SIM-08이 main에 들어간 뒤에는 문서 셋이 필요 없다. 통합 때 M1-SIM-06·07의 브랜치도 `DECISIONS-TECH.md`와 `tasks.json`을 건드리므로 차례로 옮긴다(결정 번호는 겹치지 않는다).
+  - `tasks.json`: M1-SIM-08의 `deps`에 M1-SIM-07을 더했다. M1-SIM-07의 문서 커밋(T-48·T-49)이 같은 `DECISIONS-TECH.md`와 `tasks.json`을 고쳤는데 두 작업 사이에 순서가 없어, 병합 게이트에서 M1-SIM-08을 main 위로 옮길 때 `DECISIONS-TECH.md`가 충돌했다. 같은 파일을 두 작업이 가지면 `deps`로 순서를 준다(`PIPELINE.md` 3.8절의 충돌 표). M1-SIM-07은 이미 main에 있으므로 이 순서는 M1-SIM-08을 막지 않는다. M1-SIM-06의 브랜치(T-50)가 이 문서들을 소유 경로에 넣는다면 그 작업의 `deps`에 M1-SIM-08을 넣는 것이 같은 처리다.
+  - M5-DAT-01: `owned_paths`에 `src/Wizard.Sim/Arts/Parser/ParserSourceLoader.cs`와 `tests/Wizard.Sim.Tests/Arts/Parser/DataTrieTests.cs`, `contracts`에 3.5절, 수락 조건 한 줄. 판정기 상수(spec 03 1.2절)와 빚 상한(9.2절)의 자리는 그 작업이 arts나 tries 절 안에 정한다. `CommandTrie.cs`는 고치지 않는다.
+  - M5-ART-01: 수락 조건 한 줄(`CommandPreview` → `ArtPreview`, 5단계의 `TryTakeBuffered(틱 × 256)`). `SimWorld.Arts.cs`(2·5단계 훅과 상태 절 7)는 그 작업의 것이다. 판정기 상태가 세계의 스냅숏·해시에 실제로 들어가는 것은 그때 확인된다. M1-SIM-08은 판정기 단위(두 번 실행, 저장 → 진행 → 복원, 바이트 왕복, 다른 인스턴스로의 `CopyFrom`)로 확인했다.
+  - M1-SIM-09(시제품)는 팩에 비기 절이 없으므로 `Build(character, ParserSource)`를 쓴다. 값은 시제품의 데이터에서 받는다.
+  - 명세가 정하지 않아 임시로 둔 것 셋을 `OPEN-QUESTIONS.md`에 올렸다: 보관된 K가 나간 뒤의 새 대기 시작 시각(Q-10), 웨이브·라운드 시작 때 보관된 K(Q-11), 벡터 B37의 "커서 FBB"(Q-12).
+
+**`CONTRACTS.md` 3.5절 개정문** (CCR 작업이 3.5절 전체를 이것으로 바꾼다)
+
+소유: `Sim.Arts`. 근거: spec 03 5~11절. 결정: T-52.
+
+```csharp
+// namespace Wizard.Sim.Arts
+public enum CmdDir : byte { Forward = 0, Back = 1, Left = 2, Right = 3 }
+
+// ── 판정기가 읽는 데이터(불변). 팩의 arts·tries 절에서 만든다. 절이 없는 곳(시험, 시제품)은 값을 직접 넣어 만든다
+public readonly struct ParserTimings {                // spec 03 1.2의 상수(입력 시각 단위)와 9.2의 빚 상한. 코드에 수를 두지 않는다
+    public readonly long JustWindowUnits, GapFullBloomUnits, GapShortUnits, GapSameSideUnits, GapDefaultUnits;
+    public readonly long ArtCooldownUnits, KBufferWindowUnits;
+    public readonly int MaxDebt;
+    public ParserTimings(long justWindowUnits, long gapFullBloomUnits, long gapShortUnits, long gapSameSideUnits,
+                         long gapDefaultUnits, long artCooldownUnits, long kBufferWindowUnits, int maxDebt);
+}
+public sealed class ParserArt {                       // 비기 하나에서 판정기가 읽는 칸(spec 03 5.2 경로, 12.1 종류·비용·외상)
+    public readonly ArtId Id; public readonly bool IsUnique; public readonly CharacterId Owner;   // 공용의 Owner는 Baseline
+    public readonly bool IsJust;                      // 섬 슬롯에 붙는다
+    public readonly bool TakesAll; public readonly int Cost, MinCost;   // TakesAll이면 결정 전부(최소 MinCost), 아니면 Cost
+    public readonly bool CreditAllowed;
+    public ParserArt(ArtId id, bool isUnique, CharacterId owner, bool isJust, bool takesAll, int cost, int minCost,
+                     bool creditAllowed, CmdDir[][] paths);
+    public int PathCount { get; } public ReadOnlySpan<CmdDir> Path(int index);
+}
+public sealed class ParserSource {                    // 상수 + 비기 전부(공용 10 + 다섯 캐릭터의 고유)
+    public readonly ParserTimings Timings;
+    public ParserSource(in ParserTimings timings, ParserArt[] arts);
+    public int Count { get; } public ParserArt At(int index);
+    public ParserArt? Find(ArtId id); public ParserArt Get(ArtId id);
+    public bool IsInTrieOf(ParserArt art, CharacterId character);          // 공용 전부 + 그 캐릭터의 고유 하나
+}
+public static class ParserSourceLoader {              // arts·tries 절 → ParserSource. 절이 팩에 없으면 ContentException
+    public static ParserSource FromContent(ContentDb db);
+}
+
+// ── 트라이
+public readonly struct TrieNode {                     // spec 03 5.3. 배열 칸(Child, Next, Path)은 CommandTrie의 접근자로 읽는다
+    public const long NoGap = -1;
+    public readonly int Id; public readonly byte Depth; public readonly int Parent, Fail;   // 루트의 Parent는 -1, Fail은 0
+    public readonly ArtId KArt, JustArt;              // 없으면 None
+    public readonly long InEdgeGapUnits;              // 깊이 0~1은 NoGap
+    public readonly bool UniqueFallback, IsFullBloom;
+    public bool HasInEdgeGap { get; }
+}
+public sealed class CommandTrie {                     // 캐릭터별. 불변. 노드 id는 BFS 순서(0 = 루트, 자식은 F, B, L, R 순)
+    public const int Root = 0, NoNode = -1, DirCount = 4, DirHistorySize = 8;
+    public static CommandTrie Build(CharacterId character, ContentDb db);    // = Build(character, ParserSourceLoader.FromContent(db))
+    public static CommandTrie Build(CharacterId character, ParserSource source);   // 아호-코라식 실패 링크, DFA 전이 표
+    public CharacterId Character { get; } public ParserSource Source { get; }
+    public int NodeCount { get; } public int MaxDepth { get; }
+    public ref readonly TrieNode Node(int id);
+    public int Next(int node, CmdDir dir);            // 입력당 O(1). 항상 유효한 노드
+    public int Child(int node, CmdDir dir);           // 없으면 NoNode
+    public ReadOnlySpan<CmdDir> Path(int node);
+    public int Find(ReadOnlySpan<CmdDir> path);       // 없으면 NoNode
+    // 노드별 접근자(Node(id)의 칸과 같은 값): Depth, Parent, Fail, KArt, JustArt, TryGetInEdgeGap, UniqueFallback, IsFullBloom
+}
+
+// ── 지갑과 판정 결과
+public interface ICrystalWallet {                     // PlayerState가 구현한다
+    int Crystals { get; set; } int Cap { get; } int Debt { get; set; } bool HasCredit { get; }
+}
+public enum CommandResetReason : byte { StanceEnter, StanceExit, Reverse, Pause, WaveStart, RoundStart, Fired, Fizzled, Timeout }
+public enum ArtOutcome : byte { Fire = 0, Fizzle = 1 }
+public enum FizzleReason : byte { None = 0, NoCrystal = 1, FullBloomLate = 2 }
+public readonly struct ArtDecision {                  // spec 03 7.4
+    public readonly ArtOutcome Outcome;
+    public readonly ArtId Art, SelectedArt;           // Art = 나간 기술(불발이면 고른 기술). SelectedArt = 부모 대체 전의 기술
+    public readonly bool ViaFallback, IsJust;
+    public readonly byte CrystalsPaid, DebtAdded, CrystalsAfter, Repeats;
+    public readonly FizzleReason Reason;
+    public readonly byte LateIndex;                   // FullBloomLate: 2~5
+    public readonly long LateByUnits;                 // FullBloomLate: 초과량(명세의 LateBy)
+    public readonly long JudgeTime; public readonly int NodeId;
+    public readonly long JustLateByUnits;             // 섬 자리에서 섬 창을 넘긴 양(spec 03 7.5, B38). 그 밖 0
+    public ArtDecision(ArtOutcome outcome, ArtId art, ArtId selectedArt, bool viaFallback, bool isJust,
+                       byte crystalsPaid, byte debtAdded, byte crystalsAfter, byte repeats,
+                       FizzleReason reason, byte lateIndex, long lateByUnits, long judgeTime, int nodeId, long justLateByUnits);
+    public bool IsFire { get; }
+    public void Write(ref StateWriter w); public static ArtDecision Read(ref StateReader r);   // 선언 순서대로, 정수는 고정 폭
+}
+public readonly struct CommandPreview {               // spec 03 11절. 지갑과 상태를 바꾸지 않고 낸 판정
+    public readonly ArtDecision Normal;               // 한 줄일 때의 줄, 두 줄일 때의 아랫줄
+    public readonly bool HasJust;                     // 고른 노드에 해금된 섬 기술이 있다 → 두 줄
+    public readonly ArtDecision Just;                 // 윗줄. HasJust가 거짓이면 빈 값
+    public CommandPreview(in ArtDecision normal, bool hasJust, in ArtDecision just);
+}
+public static class LateBy { public static int HundredthsCeil(long lateByUnits); }   // spec 03 7.5: 백분의 일 초, 올림
+
+// ── 판정기
+public interface ICommandParser {
+    void Reset(CommandResetReason reason);
+    void OnStanceChanged(bool inStance, long time);
+    void OnDirection(CmdDir dir, long time);                               // 자세 밖이면 무시
+    bool OnSkillPress(long time, ICrystalWallet wallet, in UnlockSet unlocks, out ArtDecision decision);
+    bool TryTakeBuffered(long tickStartTime, out ArtDecision decision);    // 재사용 대기 끝에 나가는 보관된 K
+    CommandPreview Preview(long now, ICrystalWallet wallet, in UnlockSet unlocks);   // HUD "지금 K ="
+    void WriteState(ref StateWriter w);                                    // 커서, 자세, 방향 시각 8개, 대기 끝, 보관 결과
+    void ReadState(ref StateReader r);                                     // WriteState의 역. 깨진 값은 SimInvariantException
+    void CopyFrom(ICommandParser other);                                   // 스냅숏
+}
+public sealed class CommandParser : ICommandParser {  // 플레이어마다 하나
+    public CommandParser(CommandTrie trie);
+    public CommandTrie Trie { get; } public int Cursor { get; } public bool InStance { get; }
+    public long CooldownEnd { get; } public bool HasBuffered { get; }
+    public int DirCount { get; } public long RecentDirTime(int back);      // 0 = 가장 최근
+    public bool LastDirChained { get; }                                    // 표시 이벤트 cmd.dir_input의 chained
+    public static bool IsUnlocked(in UnlockSet unlocks, ArtId art);
+}
+```
+
+- 시각은 전부 입력 시각(`long`)이다. 간격 비교는 정수다(0.07초 = 1,075). 판정기 상수는 `ParserTimings`로 받는다. 코드에 수를 적지 않는다.
+- 판정기 상태(커서, 자세, 방향 시각 버퍼, 재사용 대기, 보관된 K)는 다른 상태와 똑같이 스냅숏·`WriteState`·해시에 들어가고, 되감기 때 복원해 다시 돌린다. 내 입력이 모두 제때 확정되면 커서와 판정 시각은 다시 돌려도 같다(spec 10 14.11의 뜻은 이것이다). 그러나 비용과 대체 기술의 결정(`ArtDecision`)은 지갑 상태를 읽으므로 상대의 적중이 늦게 확정되면 달라질 수 있고, 내 이벤트가 서버에서 버려지면 판정기의 입력 열 자체가 바뀐다. 판정기 상태를 복원 대상에서 빼면 서버와 갈린다.
+- 판정기는 순번(`Seq`)을 상태에 넣지 않는다. 입력 시각만 넣는다(3.1절).
+- `ArtDecision`의 필드는 spec 03 7.4절 그대로이고 `ArtId`만 2.1절의 정본을 쓴다. 이름이 다른 것은 단위를 붙인 `LateByUnits`(명세의 `LateBy`)와, 7.5절의 섬 초과량을 담으려고 더한 `JustLateByUnits`뿐이다. `ArtOutcome`과 `FizzleReason`의 번호는 상태와 해시에 들어가므로 더하기만 한다.
+- `TrieNode`는 spec 03 5.3절의 값 칸만 담는다. 배열 칸(`Child`, `Next`, `Path`)은 `CommandTrie`의 접근자다. 해금 여부는 노드에 굽지 않고 `UnlockSet`에서 읽는다.
+- `OnSkillPress`가 참이면 `decision`이 지금 적용할 판정(발동 또는 불발)이다. 거짓이면 재사용 대기 중이라 무시했거나 보관 창 안이라 보관했다. **보관된 K가 있는 동안의 K는 시각과 무관하게 무시한다**: 보관된 K는 5단계에서 나가므로, 대기 끝과 같은 틱의 2단계에 들어온 K는 아직 보관 중이다.
+- `TryTakeBuffered(tickStartTime, …)`의 인자는 **이번 틱의 첫 입력 시각(틱 × 256)**이다. 그 값이 대기 끝 이상이면 보관된 판정을 낸다. 그래서 발동 틱이 `ceil(대기 끝 ÷ 256)`이다(spec 03 10절). `Stage05_Arts`가 플레이어마다 틱에 한 번 부른다. 발동이면 새 대기는 `tickStartTime`부터다([임시], `OPEN-QUESTIONS.md` Q-10). 웨이브·라운드 시작의 `Reset`은 대기를 풀고 보관된 판정은 남긴다([임시], Q-11).
+- `Preview(now, …)`는 같은 판정 함수를 지갑과 상태를 바꾸지 않고 부른 결과다. 재사용 대기는 보지 않는다. 고른 노드에 해금된 섬 기술이 없으면 `Normal` = `now`에 K를 누른 판정 한 줄이다(만개 간격 초과의 불발 포함). 있으면 항상 두 줄이다: `Just` = 마지막 방향 시각에 누른 판정, `Normal` = `max(now, 마지막 방향 시각 + 섬 창 + 1)`에 누른 판정. HUD의 `ArtPreview`(3.3절)는 여기서 옮긴다: 기술 = `Art`, 비용 = `CrystalsPaid + DebtAdded`, 외상 = `DebtAdded`, 불발 = `Outcome`·`Reason`·`LateIndex`·`LateByUnits`.
+- `CopyFrom`은 같은 모양의 트라이(같은 캐릭터, 같은 `ContentDb`)를 쓰는 판정기끼리 된다. 트라이 인스턴스가 같을 필요는 없다(스냅숏의 그림자 세계, 결투의 예측 세계). 모양이 다르면 `SimInvariantException`.
+- `CommandTrie.Build(character, ContentDb)`는 arts·tries 절이 팩에 생길 때까지 `ContentException`이다. 그 절의 필드와 `ParserSourceLoader`의 몸통은 비기 데이터 작업(M5-DAT-01)이 채운다. 그 전의 호출자는 `Build(character, ParserSource)`를 쓴다.
 
 ---
 

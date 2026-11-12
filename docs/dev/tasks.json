@@ -2453,18 +2453,40 @@
    "reviewer_model": "fable",
    "deps": [
     "M1-CORE-05",
-    "M2-DAT-01"
+    "M2-DAT-01",
+    "M1-SIM-08",
+    "M2-SPL-01",
+    "M10-ACC-01"
    ],
    "spec_refs": [
+    "docs/spec/10-duel.md §2.8",
     "docs/spec/10-duel.md §14.2",
-    "docs/spec/10-duel.md §14.6"
+    "docs/spec/10-duel.md §14.4",
+    "docs/spec/10-duel.md §14.5",
+    "docs/spec/10-duel.md §14.6",
+    "docs/dev/DECISIONS-TECH.md"
    ],
    "contracts": [
-    "docs/dev/CONTRACTS.md §6.4"
+    "docs/dev/CONTRACTS.md §2.2",
+    "docs/dev/CONTRACTS.md §6.4",
+    "docs/dev/CONTRACTS.md §10.4",
+    "docs/dev/CONTRACTS.md §10.5"
    ],
    "owned_paths": [
     "src/Wizard.Netcode/Clock/",
-    "tests/Wizard.Netcode.Tests/Clock/"
+    "tests/Wizard.Netcode.Tests/Clock/",
+    "src/Wizard.Netcode/Duel/ClockSample.cs",
+    "src/Wizard.Netcode/Duel/ClockSample.cs.meta",
+    "src/Wizard.Netcode/Duel/ClockOffset.cs",
+    "src/Wizard.Netcode/Duel/ClockOffset.cs.meta",
+    "src/Wizard.Content/Rules/Defs/NetRuleSet.cs",
+    "src/Wizard.Content/Rules/Sections/ContentDb.Net.cs",
+    "tools/Wizard.DataBuild/Convert/NetConverter.cs",
+    "data/rules/net.json",
+    "data/schema/net.schema.json",
+    "tests/Wizard.Content.Tests/NetPackTests.cs",
+    "docs/dev/DECISIONS-TECH.md",
+    "docs/dev/tasks.json"
    ],
    "acceptance": [
     "표본 16개에서 왕복이 가장 짧은 표본으로 오프셋을 정한다",
@@ -2472,6 +2494,7 @@
     "TickLengthAdjustPpm이 ±5,000ppm 안이다",
     "ChooseInputDelay(rttMs, NetRuleSet)가 데이터의 표로만 정한다(코드에 경계값이 없다). 서버 쪽 왕복 표본 계산(도착 시각 − 보낸 시각 − hold, hold가 RttHoldCapMs를 넘으면 버림, 최근 16개의 최솟값)이 순수 함수로 있다",
     "틱 길이 보정(±0.5%)은 입력 시계의 드리프트에만 쓴다",
+    "T-60: ClockSync·ClockSample·ClockOffset·RttSampleWindow가 src/Wizard.Netcode/Clock/(네임스페이스 Wizard.Netcode.Clock)에 있고 DECISIONS-TECH T-60의 개정문(CONTRACTS 6.4절을 바꿔 읽는다)의 시그니처와 같다. 틱 길이 보정의 한도(ClockSlewMaxPpm), 표본 창의 크기(ClockSyncSamples), 다시 재는 간격(ClockResyncTicks)은 NetRuleSet의 데이터이고 팩 절 34로 왕복한다. 넷코드 코드에 5,000, 16, 60이 없다(명세와 다른 값의 규칙으로 도는 테스트가 있다)",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [
@@ -2521,7 +2544,7 @@
     "ConfirmedInputRecord(WZDR)를 ReplayRunner.RunDuel로 돌리면 호스트의 최종 해시가 나온다",
     "200ms 연속 유실 중에 키를 누르고 뗀다 → 몰수 0, 유실(reason 5)로 통지, 그 뒤 입력은 정상으로 받는다. 늦은 이벤트 하나 → 그 이벤트만 버려지고 같은 패킷의 다른 이벤트와 뒤따르는 패킷은 받는다",
     "OnPacket의 수신 시각은 인자로 받은 값(기기에 닿은 시각)이고, 호출자가 수신 버퍼를 다 비운 뒤 Advance를 부르는 계약이 테스트로 있다(큐에 밀린 패킷이 늦음으로 판정되지 않는다)",
-    "SetInputDelay, MeasuredRttMs(서버가 쌓은 표본), 응답 주소 = 태그 검증을 통과한 마지막 패킷의 출발 주소(검증 실패 패킷은 주소를 바꾸지 못한다)",
+    "SetInputDelay, MeasuredRttMs(서버가 쌓은 표본. 슬롯마다 Wizard.Netcode.Clock.RttSampleWindow를 두고 MinRttMs를 돌려준다, T-60), 응답 주소 = 태그 검증을 통과한 마지막 패킷의 출발 주소(검증 실패 패킷은 주소를 바꾸지 못한다)",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [

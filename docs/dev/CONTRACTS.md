@@ -725,9 +725,19 @@ public sealed class EndlessSetup {
 }
 public sealed class DuelSetup {
     public Guid MatchId; public ulong Seed; public DuelRoomOptions Options;
-    public DuelPlayerSetup[] Players;                 // 길이 2. 리그 제한을 적용한 뒤의 값
-    public void WriteCanonical(ByteWriter w);         // WZDR 머리말(11.1절). DuelRoomOptions의 칸과 WZDR 머리말의 칸 배치가 정해진 뒤에 더한다.
-                                                      // 그때까지 코드에 선언이 없다(T-46의 따라오는 일)
+    public DuelPlayerSetup[] Players;                 // 길이 2. 리그 제한을 적용한 뒤의 값. Players[i].Slot == i
+    // 경기의 봉투 값(T-48. EndlessSetup의 것과 같은 규칙이다). 세계는 읽지 않는다. 서버(M14-SRV-02)가 경기를 만들 때 채운다
+    public string CoreVersion;                        // hex 32자(소문자). 새 설정은 빈 문자열이라 채우기 전에는 쓰지 못한다
+    public int DataVersion;                           // ContentDb.DataVersion. 0 이상
+    public const ushort CanonicalFormatVersion = 1;   // WZDR의 format_version
+    // 정규 바이트 = WZDR 머리말 그대로(11.1절): magic "WZDR"부터 둘째 플레이어의 unlocked_arts까지. 입력 지연 D는 들어가지 않는다.
+    // 규칙은 EndlessSetup과 같다: 한 설정에 바이트 열 하나, WriteCanonical은 담기지 않으면(null, 길이 2가 아닌 Players, Slot ≠ 자리,
+    // 칸의 폭을 넘는 값, −1 미만의 상한) 아무것도 쓰지 않고 InvalidOperationException, 읽기는 예외 없이 false.
+    // 옵션 값이 선택지 안인지, id가 그 팩에 있는지는 보지 않는다(규칙과 팩을 모른다).
+    public void WriteCanonical(ByteWriter w);
+    public static bool TryReadCanonical(ReadOnlySpan<byte> bytes, out DuelSetup setup);          // bytes 전체가 정규 바이트. 뒤에 남으면 false
+    public static bool TryReadCanonicalPrefix(ReadOnlySpan<byte> bytes, out DuelSetup setup, out int length);
+                                                      // WZDR의 앞머리에서 읽는다. length = 머리말의 길이. DuelRecordCodec.TryRead가 쓴다
 }
 public sealed class DuelPlayerSetup {                 // 입력 지연 D는 여기에 없다. 시뮬레이션은 D를 모른다(0.3절, 10.5절)
     public PlayerSlot Slot; public WandSnapshot AppliedWand; public int ActualStage;
@@ -1152,6 +1162,12 @@ public sealed class ReplayResult {
     public uint TicksSimulated;
     public string? FaultDetail;                       // SimFault일 때 예외의 종류와 틱(운영자용)
 }
+public sealed class DuelReplayResult {
+    public ReplayStatus Status;
+    public DuelOutcome Outcome;                       // Completed일 때만
+    public uint TicksSimulated;
+    public string? FaultDetail;                       // SimFault일 때 예외의 종류와 틱(운영자용)
+}
 public enum ReplayStatus : byte {
     Completed = 0,
     RecordCorrupt = 1,   // 구조 오류, 꼬리표·해시 불일치, 무효 명령, 중간 지점 레코드와 실제 해시의 불일치
@@ -1159,25 +1175,67 @@ public enum ReplayStatus : byte {
     EndedLate = 3,       // end_tick에 닿았는데 판이 끝나지 않았다
     SimFault = 4,        // 코어가 SimInvariantException을 던졌다(구현 결함일 수 있다)
     Timeout = 5,         // 호출자가 준 시간·틱 한도를 넘었다
-    PackMissing = 6,     // 그 판의 data_version 팩을 찾지 못했다(호출자가 채운다)
+    PackMissing = 6,     // 그 판의 data_version 팩을 찾지 못했다(호출자가 채운다). ReplayRunner도 받은 db.DataVersion이
+                         // 머리말의 data_version과 다르면 돌리지 않고 이것을 돌려준다(다른 팩으로 돌린 결과가 mismatch로 가지 않게)
 }
 public static class ReplayRunner {
     // 머리말과 기록으로 처음부터 다시 돌린다. upToWave > 0이면 그 웨이브의 중간 지점까지만(원정 정리).
     // header는 **호출자가 믿는 원천**에서 온 것이어야 한다. 서버는 run.setup_canonical로만 만든다(파일의 머리말을 쓰지 않는다).
-    // 예외를 밖으로 던지지 않는다. SimInvariantException은 SimFault로 돌려준다.
+    // recordBody는 파일에서 머리말을 뺀 바이트(본문 ‖ 꼬리말)다: file[body.HeaderLength..]. record_sha256은 header의 정규 바이트로 대조하므로
+    // 파일의 머리말이 header와 한 바이트라도 다르면 RecordCorrupt다.
+    // 예외를 밖으로 던지지 않는다. SimInvariantException과 그 밖의 예외는 SimFault로 돌려준다.
     public static ReplayResult Run(ContentDb db, InputRecordHeader header, ReadOnlySpan<byte> recordBody,
                                    ReplayLimits limits, int upToWave = 0);
-    public static DuelReplayResult RunDuel(ContentDb db, ReadOnlySpan<byte> duelRecord, ReplayLimits limits);   // WZDR. 호스트의 확정 기록, 다시 보기
+    // WZDR 전체(호스트의 확정 기록, 다시 보기). 시작 조건은 파일의 머리말(DuelSetup의 정규 바이트)에서 읽는다. WZDR은 서버가 만든 파일이고
+    // 이 결과로 보상을 정하지 않는다(결투의 정본은 호스트의 세계다). 판정 규칙은 Run과 같다(RecordCorrupt, PackMissing, EndedEarly/Late, Timeout, SimFault)
+    public static DuelReplayResult RunDuel(ContentDb db, ReadOnlySpan<byte> duelRecord, ReplayLimits limits);
 }
 public readonly struct ReplayLimits { public readonly uint MaxTicks; public readonly long MaxStepCount; }       // 값은 SimLimitsDef(data/sim/limits)
 public sealed class InputRecordHeader {               // .wzrc 머리말을 읽은 것. 머리말의 바이트 = Setup.WriteCanonical의 바이트(T-46)
     public ushort FormatVersion;                      // = EndlessSetup.CanonicalFormatVersion
     public EndlessSetup Setup;                        // core_version·data_version도 여기에 있다(Setup.CoreVersion, Setup.DataVersion). 따로 두지 않는다
 }
-public static class InputRecordCodec {                // 신뢰할 수 없는 바이트를 읽는 유일한 문
-    // 구조를 전부 확인한 뒤에만 true. 실패는 전부 RecordCorrupt다.
-    public static bool TryRead(ReadOnlySpan<byte> file, out InputRecordHeader header, out InputRecordBody body, out RecordError error);
+public static class InputRecordCodec {                // 신뢰할 수 없는 .wzrc 바이트를 읽는 유일한 문. 예외 없음
+    // 구조를 전부 확인한 뒤에만 true. 실패는 전부 RecordCorrupt다. limits는 MaxTicks만 쓴다(end_tick의 상한. T-49)
+    public static bool TryRead(ReadOnlySpan<byte> file, ReplayLimits limits,
+                               out InputRecordHeader header, out InputRecordBody body, out RecordError error);
     public static void WriteHeader(ByteWriter w, InputRecordHeader header);        // = header.Setup.WriteCanonical(w). 머리말을 쓰는 코드는 한 곳뿐이다
+}
+public sealed class InputRecordBody {                 // TryRead가 통과한 파일에서 뽑아 주는 것. 서버의 1차 검사가 쓴다(8.3절)
+    public int HeaderLength;                          // file[..HeaderLength] = 머리말(run.setup_canonical과 바이트로 대조), file[HeaderLength..] = Run의 recordBody
+    public uint EndTick; public ulong FinalStateHash; // 꼬리말
+    public bool DebugUsed;                            // 꼬리말 flags 비트 0
+    public bool HasDebugOps;                          // 본문에 200~255 op이 하나라도 있다(플래그와 무관하게 본다)
+    public int CommandCount, InputCount, PauseCount;  // 0x02, 0x01, 0x03 레코드 수
+    public long PauseTotalMs;                         // 0x03의 wall_ms 합(순위 판의 일시정지 한도)
+    public RunCheckpoint[] Checkpoints;               // 0x04 레코드, 파일 순서
+    // 전부 클라이언트가 적은 값이다. 구조만 확인된 것이고 재실행으로 확인된 것이 아니다
+}
+public enum RecordError : byte {                      // TryRead가 false인 까닭(진단용. 판정은 전부 RecordCorrupt다). 번호는 더하기만 한다
+    None = 0, BadMagic = 1, BadVersion = 2, Truncated = 3, TrailingBytes = 4, ShaMismatch = 5, TickOverflow = 6, TickBackwards = 7,
+    TooManyKeys = 8, KeyOrder = 9, CommandAfterKey = 10, BadKey = 11, BadOp = 12, UnknownTag = 13, EndTickOverLimit = 14,
+    BadSlot = 15,        // WZDR: 슬롯이 0·1이 아니다
+    BadHeader = 16,      // magic·format_version은 맞는데 머리말이 정규 바이트가 아니다(머리말 도중에 끝난 것 포함)
+    BadFlags = 17,       // 꼬리말 flags에 모르는 비트(WZDR은 0만)
+    BadSeq = 18,         // WZDR: 순번이 0이거나 그 슬롯에서 늘지 않는다. .wzrc: 순번 공간(uint)을 다 썼다
+}
+public static class DuelRecordCodec {                 // WZDR(11.1절)을 읽는 유일한 문. 예외 없음. ReplayRunner.RunDuel이 같은 판독기를 쓴다
+    public static bool TryRead(ReadOnlySpan<byte> file, ReplayLimits limits,
+                               out DuelSetup setup, out DuelRecordBody body, out RecordError error);
+}
+public sealed class DuelRecordBody {
+    public int HeaderLength;                          // 머리말(DuelSetup의 정규 바이트)의 길이
+    public int InputDelayTicks0, InputDelayTicks1;    // 머리말 뒤의 input_delay 두 칸(슬롯 순). 시뮬레이션 밖의 값
+    public uint EndTick; public ulong FinalStateHash; // 꼬리말
+    public int InputCount;                            // 0x05 레코드 수
+}
+public sealed class DuelRecordWriter {                // WZDR을 쓰는 쪽. DuelHostCore.ConfirmedInputRecord(6.4절)가 쓴다
+    public DuelRecordWriter(DuelSetup setup);         // 머리말 = setup.WriteCanonical. 담기지 않는 설정이면 InvalidOperationException
+    public void SetInputDelay(PlayerSlot slot, int delayTicks);    // 0..255. Finish 전에 마지막으로 준 값이 실린다(주지 않으면 0)
+    // 확정된 입력을 확정 순서(InputOrder 순)대로. 순번은 받은 값 그대로(서버가 만든 뗌 이벤트 포함).
+    // 읽는 쪽이 받지 않을 열(틱·순서 역행, 슬롯이 0·1이 아님, 늘지 않는 순번, 한 사람 한 틱 9개째)은 쓰지 않고 예외를 던진다
+    public void Append(in PlayerInput input);
+    public ReadOnlyMemory<byte> Finish(uint endTick, ulong finalStateHash);
 }
 public sealed class InputRecorder {                   // 판을 하는 쪽이 쓴다. 순번은 여기서만 매긴다(3.1절)
     public InputRecorder(InputRecordHeader header);
@@ -1187,7 +1245,7 @@ public sealed class InputRecorder {                   // 판을 하는 쪽이 �
                        Span<RunCommand> commandsOut, out int commandCount, Span<PlayerInput> inputsOut, out int inputCount);
     public void MarkPause(uint tick, uint wallMs);
     public void MarkCheckpoint(int wave, uint tick, ulong stateHash);
-    public ReadOnlyMemory<byte> Snapshot();           // 지금까지의 파일 바이트(중간 지점 올리기)
+    public ReadOnlyMemory<byte> Snapshot();           // 마지막 중간 지점까지의 완결된 파일(중간 지점 올리기, 원정 정리의 입력)
     public ReadOnlyMemory<byte> Finish(uint endTick, ulong finalStateHash);
 }
 ```
@@ -1198,13 +1256,20 @@ public sealed class InputRecorder {                   // 판을 하는 쪽이 �
 
 `InputRecordCodec.TryRead`가 `RecordCorrupt`로 돌려주는 것:
 
-- magic, `format_version`, 길이가 맞지 않는다. 꼬리말 뒤에 바이트가 남는다. `record_sha256`이 다르다
-- Δtick 누적이 `uint`를 넘거나 `end_tick`을 넘는다. 레코드의 틱이 역행한다(Δtick은 음수가 없으므로 넘침으로만 생긴다)
+- magic, `format_version`, 길이가 맞지 않는다. 머리말이 정규 바이트가 아니다. 꼬리말 뒤에 바이트가 남는다. `record_sha256`이 다르다. `record_sha256`은 그 앞의 모든 바이트(머리말, 본문, 꼬리말의 칸)를 덮으므로 **파일 어디든 한 비트가 바뀌면 여기서 걸린다**(T-49)
+- Δtick 누적이 `uint`를 넘거나 `end_tick`을 넘는다(명령·키의 틱은 `end_tick`보다 앞, 일시정지·중간 지점의 틱은 `end_tick` 이하). 레코드의 틱이 역행한다(Δtick은 음수가 없으므로 넘침과 `0x04`의 절대 틱으로만 생긴다). `0x04`가 같은 틱의 명령·키 뒤에 온다(그 해시는 그 틱의 `Step` 전의 것이다)
 - 한 틱에 키 이벤트가 9개 이상이다. 한 틱 안에서 키의 `(offset, KeyClass)`가 역행한다. 명령이 그 틱의 키 뒤에 온다
-- 키 코드가 `LogicalKey` 범위 밖이다. op이 `RunCommandOp`에 없다. 모르는 꼬리표
-- `end_tick`이 `ReplayLimits.MaxTicks`를 넘는다
+- 키 코드가 `LogicalKey` 범위 밖이다. op이 `RunCommandOp`에 없다. 모르는 꼬리표. 꼬리말 `flags`의 모르는 비트
+- `end_tick`이 `limits.MaxTicks`를 넘는다
 
-`ReplayRunner.Run`이 재실행 중에 `RecordCorrupt`로 돌려주는 것: 무효 명령(3.1절), `0x04 Checkpoint` 레코드의 `(wave, tick, state_hash)`가 재실행의 값과 다름.
+`DuelRecordCodec.TryRead`도 같은 틀이다. 다른 점: 레코드는 `0x05`뿐이다. 슬롯은 0·1. 한 틱 안의 순서는 `InputOrder`(오프셋, 분류, 슬롯, 순번)이고 같은 것 둘은 없다. 순번은 슬롯마다 1 이상이고 늘어나기만 한다(건너뜀은 된다. 10.6절의 유실 소비). 키는 **슬롯마다** 한 틱에 8개까지다. 꼬리말 `flags`는 0이다.
+
+`ReplayRunner.Run`이 재실행 중에 `RecordCorrupt`로 돌려주는 것: 무효 명령(3.1절), `0x04 Checkpoint` 레코드의 `(wave, tick, state_hash)`가 재실행의 값과 다름, 꼬리말의 `final_state_hash`가 재실행의 최종 해시와 다름(`RunDuel`도 같다).
+
+- `0x04`의 `state_hash`는 `world.Tick == tick`일 때(그 틱의 `Step` 전)의 해시와 대조한다. `wave`는 세계가 그 틱에 기록한 중간 지점(`RunOutcome.Checkpoints`)과 대조한다. 세계가 중간 지점을 기록하는 것은 Waves·Outcome 모듈이므로 `wave`의 대조는 M6-SIM-01이 `ReplayRunner`에 더한다. 그 전까지는 `(tick, state_hash)`만 본다. 구속력은 달라지지 않는다: 서버가 받아 둔 중간 지점은 `wizard-api`가 재실행 facts의 중간 지점(세계가 기록한 것)과 대조한다(8.3절 5번).
+- `upToWave > 0`(원정 정리): `wave == upToWave`인 첫 `0x04`의 틱까지만 돌리고 그 지점까지의 `0x04`를 대조한다. 그런 `0x04`가 없으면 `RecordCorrupt`다. `Completed`의 `Outcome`은 **그 지점까지의 결과**다(`EndKind = None`, `EndTick` = 그 틱, `FinalStateHash` = 그 틱의 해시, 그 밖의 칸은 그 지점까지 쌓인 값). 판 끝 검사(`EndedEarly`/`EndedLate`)와 꼬리말의 `final_state_hash` 대조는 하지 않는다. 입력은 `InputRecorder.Snapshot()`이 만든 파일(꼬리말이 그 지점의 `tick`·`state_hash`)이어도 되고 전체 파일이어도 된다.
+- `InputRecorder.Snapshot()`은 **마지막 `MarkCheckpoint`까지의** 완결된 파일을 돌려준다(꼬리말의 `end_tick`·`final_state_hash` = 그 지점의 값, `debug_used` = 그 지점까지의 값). 중간 지점이 아직 없으면 `InvalidOperationException`이다.
+- `InputRecorder.Append`는 한 틱에 한 번, 틱이 늘어나는 순서로 부른다. `.wzrc`의 `0x01`에는 슬롯 칸이 없으므로 슬롯 0만 받는다(무한 웨이브와 연습은 플레이어가 하나다). 잘못 부르면 아무것도 기록하지 않고 예외를 던진다.
 
 **판정의 분류**(서버. 8.3절, 12.4절). 구현 결함이 보상 회수로 흘러가지 않게 가른다.
 
@@ -1222,7 +1287,23 @@ public sealed class InputRecorder {                   // 판을 하는 쪽이 �
 
 ```csharp
 // namespace Wizard.Sim.Duel
-public sealed class DuelRoomOptions { /* spec 10 9.2: 라운드 수, 길이, 체력 배율, 야생 난입, 가시밭 끔 … */ }
+public sealed class DuelRoomOptions {                 // spec 10 9.2의 방 옵션. 칸의 순서 = 명세 표의 순서 = WZDR 머리말의 순서(11.1절). T-48
+    public const int NoCap = -1;                      // IlCap·HeroBlockCap의 "없음"
+    public int Rounds;                                // 1 / 3 / 5
+    public int RoundSeconds;                          // 60 / 90 / 120
+    public int HpMultPermille;                        // ×0.7 / ×1 / ×1.5 = 700 / 1000 / 1500
+    public int EnhanceCap;                            // 0~13
+    public int IlCap = NoCap;                         // 없음 또는 0~237
+    public bool AllowMutations;
+    public int HeroBlockCap = NoCap;                  // 없음 또는 0~8
+    public bool Equalize, WildIntrusion, ThornsOff;
+    public TimeOfDay FloorColor;                      // Day / Dusk / Night. 색만 바꾼다
+    public bool Spectate;
+    // 선택지와 기본값은 데이터(duel_rules)의 것이다. 새 객체는 "아직 고르지 않은 옵션"이고 기본값은 M14-DAT-01의 절이 준다.
+    // 값이 선택지 안인지는 방을 만드는 서버가 본다. 방 비밀번호는 여기에 없다(로비의 비밀이고, 이 타입은 다시 보기 파일에 그대로 실린다).
+    // enhance_cap·il_cap·allow_mutations·hero_block_cap·equalize는 DuelSetup을 만들기 전에 이미 적용된다(DuelPlayerSetup이 적용 뒤의 값이다).
+    // 세계가 읽는 것은 Rounds, RoundSeconds, HpMultPermille, WildIntrusion, ThornsOff다
+}
 public enum DuelPhase : byte { Countdown = 0, Live = 1, Overtime = 2, RoundResult = 3, Intermission = 4, MatchOver = 5 }
 public enum DuelWinner : byte { None = 0, P1 = 1, P2 = 2, Draw = 3 }
 public enum DuelEndReason : byte { Ko = 0, Timeout = 1 }       // 이탈·기권·몰수·무효는 코어 밖(호스트)
@@ -1687,7 +1768,7 @@ public sealed class DuelHostCore {                    // 소켓도 시계도 모
     public int PollSpectatorChunk(Span<byte> buffer);              // 120틱 늦은 확정 입력
     public DuelHostStatus Status { get; }             // 진행, 끝(결과), 몰수(누가), 끊김 타이머
     public DuelNetStats StatsFor(PlayerSlot slot);
-    public ReadOnlyMemory<byte> ConfirmedInputRecord();            // WZDR. ReplayRunner.RunDuel로 돌리면 호스트의 최종 해시가 나온다
+    public ReadOnlyMemory<byte> ConfirmedInputRecord();            // WZDR. DuelRecordWriter(3.8절)로 쓴다. ReplayRunner.RunDuel로 돌리면 호스트의 최종 해시가 나온다
 }
 public sealed class DuelClientCore {
     public DuelClientCore(ContentDb db, DuelSetup setup, PlayerSlot me, DuelClientKeys keys, IAeadCipher cipher, DuelResume? resume = null);
@@ -2027,7 +2108,7 @@ public sealed class EnhanceResultDto {                                      // s
 **제출에서 확정까지의 순서**(spec 09 7~9절. 12.4절의 열을 쓴다).
 
 1. `finish`를 받으면 **한 트랜잭션에서**: `run` 행 `FOR UPDATE` → 토큰 소모(`token_used_at`) → 1차 검사 → 그 결과 기록 → 정산 → `verify_queue` 등록 → COMMIT. 토큰 소모와 정산이 다른 트랜잭션이면 그 사이에 죽은 뒤의 재제출이 "토큰 이미 사용"으로 막혀 판이 정산되지 못한다. 멱등 키는 `run_id`이고, 같은 `run_id`의 재제출은 저장된 결과를 돌려준다.
-2. 1차 검사: 기록 파일을 `InputRecordCodec.TryRead`로 읽는다 → 파일의 머리말 바이트가 `run.setup_canonical`과 **같은지 대조**한다(다르면 `RunRecordInvalid`. 머리말의 `unlocked_arts` 한 비트만 바꿔도 거절된다) → 디버그 op이 하나라도 있거나 facts의 `debug_used`가 켜져 있으면 `RunRecordInvalid` → `RunResultFacts.TryRead` → 가속·일시정지 검사 → 웨이브별 점수·골드 상한(`IRunLimits.ScoreCap(w, WhimsUpper(w))`) → `bag_selection` 검사.
+2. 1차 검사: 기록 파일을 `InputRecordCodec.TryRead`로 읽는다 → 파일의 머리말 바이트(`file[..body.HeaderLength]`)가 `run.setup_canonical`과 **같은지 대조**한다(다르면 `RunRecordInvalid`. 머리말의 `unlocked_arts` 한 비트만 바꿔도 거절된다) → 디버그 op이 하나라도 있거나(`body.HasDebugOps`, `body.DebugUsed`) facts의 `debug_used`가 켜져 있으면 `RunRecordInvalid` → `RunResultFacts.TryRead` → 가속·일시정지 검사 → 웨이브별 점수·골드 상한(`IRunLimits.ScoreCap(w, WhimsUpper(w))`) → `bag_selection` 검사.
 3. facts 바이트를 `run.claimed_facts`에, SHA-256을 `run.claimed_digest`에 저장한다. 정산은 이 facts로만 한다.
 4. 검증 워커(그 판의 코어 버전): `run.setup_canonical`로 머리말을 만들고(파일의 머리말은 재실행 입력으로 쓰지 않는다) `ReplayRunner.Run` → `ReplayStatus`와 재실행 facts의 바이트·다이제스트를 `verify_queue.result`에 적는다. 워커는 `run`의 주장 값을 읽지 않고 비교하지 않는다.
 5. `wizard-api`의 백그라운드 작업: 3.8절의 표대로 `match` / `mismatch` / `unverifiable`을 정한다. `match`의 조건은 (a) 재실행 facts 바이트 = `claimed_facts`, (b) `run_checkpoint`의 모든 줄 `(wave, tick, state_hash)`가 재실행 facts의 중간 지점과 같다. 받아 둔 중간 지점이 구속력을 가지므로 5웨이브 단위의 다시 하기가 걸린다.
@@ -2274,8 +2355,10 @@ OnClientInput(p, pkt, receiveTime):                       // AEAD와 재전송 �
   0x03 Pause     : varuint Δtick, u32 wall_ms
   0x04 Checkpoint: u16 wave, u32 tick, u64 state_hash
 꼬리말:
-  0xFF  end_tick u32   final_state_hash u64   flags u8(비트 0 = debug_used)   record_sha256 [32] (머리말 ‖ 본문)
+  0xFF  end_tick u32   final_state_hash u64   flags u8(비트 0 = debug_used)   record_sha256 [32]
 ```
+
+- `record_sha256`은 **그 앞의 모든 바이트**의 SHA-256이다: 머리말 ‖ 본문 ‖ 꼬리말의 칸(`0xFF`부터 `flags`까지). 그래서 `end_tick`, `final_state_hash`, `flags`의 손상도 `TryRead`에서 걸린다(T-49. spec 09 3.5절의 [임시 형식]은 "header ‖ body"였고 꼬리말에 `flags`가 없었다). 무결성 표지일 뿐 인증이 아니다: 고쳐 쓰고 다시 봉인한 기록은 재실행이 가린다.
 
 - `run_id [16]`을 비롯한 모든 uuid는 RFC 4122 네트워크 순서(문자열 hex 순서) 16바이트다. `UuidBytes.Write`/`Read`만 쓴다(1.5절). `Guid.ToByteArray()`는 앞 세 필드가 리틀 엔디언인 혼합 순서라서 쓰지 않는다. `tests/fixtures/uuid/`에 알려진 uuid의 바이트 픽스처를 둔다.
 - 레코드의 순서가 곧 순번의 순서다. 한 틱 안에서는 `0x02 Command`가 먼저, 그다음 `0x01 Input`이 `(offset, KeyClass)` 순으로 온다. 읽는 쪽은 레코드 순서대로 1부터 번호를 매긴다. 쓰는 쪽(`InputRecorder`)이 실행 중에 매긴 번호와 같다(3.1절).
@@ -2284,7 +2367,29 @@ OnClientInput(p, pkt, receiveTime):                       // AEAD와 재전송 �
 - 한 설정에 바이트 열은 하나다. 읽는 쪽은 다시 쓰면 같은 바이트가 되는 입력만 받는다(다른 `format_version`, `RunKind`에 없는 `kind`, 0·1이 아닌 참거짓, `int`를 넘는 `data_version`, 모자란 길이는 거절). 서버의 1차 검사가 바이트로 대조하므로(8.3절) 같은 설정의 다른 표기가 있으면 안 된다.
 - 디버그 op(200~255)이 한 번이라도 적용된 판은 꼬리말의 `debug_used`가 켜진다. 서버는 이 플래그와 무관하게 본문에 디버그 op이 있으면 거절한다.
 
-결투의 확정 입력 기록은 같은 틀에 슬롯 바이트를 더한 `0x05 DuelInput`(varuint Δtick, u8 slot, u8 offset, u8 key_down, varuint seq)을 쓰고, 머리말 대신 `DuelSetup`의 정규 바이트와 그 뒤의 `input_delay u8 × 2`(시뮬레이션 밖의 칸)를 싣는다(`magic "WZDR"`). `DuelSetup`의 정규 바이트의 칸 배치는 아직 적지 않았다. `DuelRoomOptions`의 칸이 정해질 때 이 절에 적는다(`DECISIONS-TECH.md`의 "아직 정하지 않은 기술 항목"). 서버가 만든 뗌 이벤트도 `0x05`로 실린다. 이것도 `Wizard.Sim`의 코덱이고 `ReplayRunner.RunDuel`이 읽는다.
+**결투의 확정 입력 기록(WZDR).** 같은 틀이다. 머리말은 `DuelSetup`의 정규 바이트, 그 뒤에 `input_delay u8 × 2`(시뮬레이션 밖의 칸), 본문은 슬롯 바이트를 더한 `0x05 DuelInput`의 열, 꼬리말은 `.wzrc`와 같다(T-48). `Wizard.Sim`의 코덱이다(`DuelRecordCodec`, `DuelRecordWriter`, `ReplayRunner.RunDuel`. 3.8절).
+
+```
+머리말(= DuelSetup의 정규 바이트):
+  magic "WZDR"(4)  format_version u16(=1)
+  core_version [16]   data_version u32
+  match_id [16]   seed u64
+  options: rounds u8, round_seconds u16, hp_mult_permille u16, enhance_cap u8, il_cap i16(−1 = 없음), allow_mutations u8,
+           hero_block_cap i16(−1 = 없음), equalize u8, wild_intrusion u8, thorns_off u8, floor_color u8, spectate u8
+  플레이어 × 2(슬롯 0, 1 순):
+           slot u8(= 자리 번호), applied_wand(.wzrc의 wand_snapshot과 같은 배치), actual_stage u8, max_hp_points u32, unlocked_arts u16
+그 뒤(정규 바이트 밖):
+  input_delay u8 × 2(슬롯 0, 1. 경기가 끝났을 때 서버가 정해 둔 D)
+본문:
+  0x05 DuelInput : varuint Δtick, u8 slot, u8 offset, u8 key_down, varuint seq      (순번은 실린 값 그대로다. 슬롯마다 따로 센다)
+꼬리말:
+  0xFF  end_tick u32   final_state_hash u64   flags u8(= 0)   record_sha256 [32] (그 앞의 모든 바이트. 머리말과 input_delay 포함)
+```
+
+- 머리말의 칸: `core_version`·`data_version`·uuid·참거짓·id의 규칙은 `.wzrc`와 같다. `options`의 순서는 spec 10 9.2절 표의 순서이고 값은 `DuelRoomOptions`의 칸 그대로다(`hp_mult_permille` = ×1이 1000, `floor_color` = `TimeOfDay`의 번호). `max_hp_points`는 `int` 범위(넘으면 거절)다.
+- 한 설정에 바이트 열은 하나다. 0·1이 아닌 참거짓, −1 미만의 상한, 자리 번호와 다른 `slot`, `int`를 넘는 값, 모자란 길이는 거절한다. 방 비밀번호는 싣지 않는다(`DuelRoomOptions`에 없다).
+- 레코드의 순서 = 확정 열의 순서 = `InputOrder` 순이다. 서버가 만든 뗌 이벤트도 `0x05`로 실린다(10.1절). 결투에는 0단계 명령, 일시정지, 중간 지점 레코드가 없다(`0x01`~`0x04`는 모르는 꼬리표다).
+- `input_delay`는 다시 보기와 진단이 읽는 값이다. 재실행 결과에 영향이 없다(유효 틱은 이미 D가 더해진 값이다).
 
 ### 11.2 콘텐츠 팩 `.wzpack`
 

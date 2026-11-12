@@ -6,6 +6,6 @@ namespace Wizard.Sim
     public static partial class SimVersion
     {
         // 재실행에 영향을 주는 소스(T-18의 대상 목록) SHA-256의 앞 16바이트(hex 32자)
-        public const string CoreVersion = "33ac223572790a84ba74d3334763b915";
+        public const string CoreVersion = "91c73a4a3b60a4a51d1987810679d5c4";
     }
 }

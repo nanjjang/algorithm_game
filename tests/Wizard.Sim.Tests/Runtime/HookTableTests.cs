@@ -9,7 +9,8 @@ using Xunit;
 namespace Wizard.Sim.Tests.Runtime
 {
     // CONTRACTS 3.2 "부분 클래스와 훅": 훅이 (단계, 모듈)마다 따로 선언되어 있고 표와 같다. 상태 훅 넷이 모듈마다 있다.
-    // 한 단계 안의 호출 순서가 표의 위에서 아래 순이고, 단계는 0~12 순이다. 상태 절의 순서는 절 id 오름차순이다.
+    // 한 단계 안의 호출 순서가 표의 위에서 아래 순이고("단계 안 순서의 예외"에 적힌 훅만 그 단계의 맨 뒤), 단계는 0~12 순이다.
+    // 상태 절의 순서는 절 id 오름차순이다. 이음 훅(T-50)은 "모듈 사이의 이음"의 표와 같고 Raise… 가 표의 순서로 부른다.
     // 구현이 없는 부분 메서드는 IL 에 남지 않으므로 선언과 호출은 소스에서 읽는다. 기대값은 CONTRACTS.md 의 표에서 읽는다.
     public sealed class HookTableTests
     {
@@ -47,20 +48,78 @@ namespace Wizard.Sim.Tests.Runtime
             return rows;
         }
 
+        // CONTRACTS 3.2 "단계 안 순서의 예외": "<N>단계에서는 `StageNN_X`를 그 단계의 맨 뒤에 부른다"
+        private static List<string> LastInStageHooks()
+        {
+            string text = File.ReadAllText(TestRepo.Path("docs/dev/CONTRACTS.md"));
+            int at = text.IndexOf("**단계 안 순서의 예외**", StringComparison.Ordinal);
+            Assert.True(at >= 0, "the in-stage order exception paragraph was not found in CONTRACTS.md");
+            int end = text.IndexOf('\n', at);
+            string paragraph = text.Substring(at, end - at);
+            List<string> hooks = Regex.Matches(paragraph, @"(\d+)단계에서는 `(Stage(\d\d)_\w+)`를 그 단계의 맨 뒤에 부른다")
+                .Select(m =>
+                {
+                    Assert.Equal(int.Parse(m.Groups[1].Value), int.Parse(m.Groups[3].Value));
+                    return m.Groups[2].Value;
+                })
+                .ToList();
+            Assert.Single(hooks);       // 계약은 예외가 하나뿐이라고 적었다
+            return hooks;
+        }
+
+        private sealed class LinkRow
+        {
+            public string Raise = "";
+            public readonly List<string> Hooks = new List<string>();
+        }
+
+        // CONTRACTS 3.2 의 "| 사건 | 내는 곳 | 뼈대의 문 | 이음 훅(부르는 순서) |" 표
+        private static List<LinkRow> LinkTable()
+        {
+            string[] lines = File.ReadAllLines(TestRepo.Path("docs/dev/CONTRACTS.md"));
+            int start = Array.FindIndex(lines, l => l.StartsWith("| 사건 | 내는 곳 | 뼈대의 문 |", StringComparison.Ordinal));
+            Assert.True(start >= 0, "link hook table header not found in CONTRACTS.md");
+            var rows = new List<LinkRow>();
+            for (int i = start + 2; i < lines.Length && lines[i].StartsWith("|", StringComparison.Ordinal); i++)
+            {
+                string[] cells = lines[i].Split('|');
+                var row = new LinkRow();
+                Match raise = Regex.Match(cells[3], @"`(Raise\w+)\(PlayerSlot slot, ISimEventSink sink\)`");
+                Assert.True(raise.Success, "link hook row without a Raise… door: " + lines[i]);
+                row.Raise = raise.Groups[1].Value;
+                foreach (Match m in Regex.Matches(cells[4], @"`(On\w+_\w+)`"))
+                {
+                    row.Hooks.Add(m.Groups[1].Value);
+                }
+                Assert.NotEmpty(row.Hooks);
+                rows.Add(row);
+            }
+            Assert.NotEmpty(rows);
+            return rows;
+        }
+
         private static string Source(string file) => File.ReadAllText(TestRepo.Path(CoreDir + file));
 
         private static int StageOf(string hook) => int.Parse(hook.Substring(5, 2));
 
-        // 단계 오름차순, 같은 단계 안에서는 표의 위에서 아래
+        // 단계 오름차순, 같은 단계 안에서는 표의 위에서 아래. 예외로 적힌 훅은 그 단계의 맨 뒤
         private static List<string> ExpectedStageOrder(List<Row> rows)
         {
+            List<string> last = LastInStageHooks();
             var order = new List<string>();
             for (int stage = 0; stage <= 11; stage++)
             {
+                var inStage = new List<string>();
                 foreach (Row row in rows)
                 {
-                    order.AddRange(row.StageHooks.Where(h => StageOf(h) == stage));
+                    inStage.AddRange(row.StageHooks.Where(h => StageOf(h) == stage));
                 }
+                foreach (string hook in last.Where(h => StageOf(h) == stage))
+                {
+                    Assert.True(inStage.Remove(hook), hook + " is named by the exception but is not in the hook table");
+                    inStage.Add(hook);
+                }
+                order.AddRange(inStage);
             }
             return order;
         }
@@ -106,6 +165,11 @@ namespace Wizard.Sim.Tests.Runtime
                 expected.Add("Snapshot_Load_" + name);
                 expected.Add("State_Write_" + name);
                 expected.Add("State_Read_" + name);
+            }
+
+            foreach (LinkRow link in LinkTable())
+            {
+                expected.UnionWith(link.Hooks);
             }
 
             string hooks = Source("SimWorld.Hooks.cs");
@@ -173,6 +237,48 @@ namespace Wizard.Sim.Tests.Runtime
             int tick = step.IndexOf("_tick = unchecked(_tick + 1U);", body, StringComparison.Ordinal);
             Assert.True(body >= 0 && cmd > body && s1 > cmd && inputLoop > s1 && s2 > inputLoop && s3 > s2 && tick > s11,
                 "Step stage layout differs from CONTRACTS 3.2");
+        }
+
+        // T-50: 9단계에서 Graze 는 피격 후보를 넣는 모듈(Spell, Enemies, Duel)의 뒤다. 수락 조건 "피격 판정이 스침 판정보다 먼저다"의 순서 쪽
+        [Fact]
+        public void Step_JudgesGrazeAfterEveryOtherStage09Hook()
+        {
+            Assert.Equal(new[] { "Stage09_Graze" }, LastInStageHooks());
+            string step = Source("SimWorld.Step.cs");
+            List<string> stage9 = Regex.Matches(step, @"\b(Stage09_\w+)\s*\(").Select(m => m.Groups[1].Value).ToList();
+            Assert.Equal(new[] { "Stage09_Spell", "Stage09_Enemies", "Stage09_Duel", "Stage09_Graze" }, stage9);
+        }
+
+        // 이음 훅: 선언의 시그니처가 계약과 같고, Raise… 가 표의 순서로 한 번씩 부른다. 다른 자리에서는 부르지 않는다
+        [Fact]
+        public void LinkHooks_AreRaisedInContractOrderFromOneDoor()
+        {
+            string hooks = Source("SimWorld.Hooks.cs");
+            string step = Source("SimWorld.Step.cs");
+            foreach (LinkRow link in LinkTable())
+            {
+                foreach (string hook in link.Hooks)
+                {
+                    Assert.Matches(@"partial\s+void\s+" + hook + @"\(PlayerSlot slot, ISimEventSink sink\);", hooks);
+                }
+
+                Match door = Regex.Match(step, @"internal void " + link.Raise + @"\(PlayerSlot slot, ISimEventSink sink\)\s*\{([^}]*)\}");
+                Assert.True(door.Success, link.Raise + " is not in SimWorld.Step.cs with the contract signature");
+                List<string> calls = Regex.Matches(door.Groups[1].Value, @"\b(On\w+_\w+)\(slot, sink\);").Select(m => m.Groups[1].Value).ToList();
+                Assert.Equal(link.Hooks, calls);
+
+                // 훅을 부르는 곳은 그 문 하나다(src/Wizard.Sim 전체에서 호출은 한 번, 나머지는 선언과 구현)
+                foreach (string hook in link.Hooks)
+                {
+                    int callSites = 0;
+                    foreach (string file in Directory.GetFiles(TestRepo.Path("src/Wizard.Sim"), "*.cs", SearchOption.AllDirectories))
+                    {
+                        string code = Regex.Replace(File.ReadAllText(file), @"//[^\n]*", "");   // 주석의 언급은 세지 않는다
+                        callSites += Regex.Matches(code, @"(?<!partial void )\b" + hook + @"\(").Count;
+                    }
+                    Assert.Equal(1, callSites);
+                }
+            }
         }
 
         [Fact]

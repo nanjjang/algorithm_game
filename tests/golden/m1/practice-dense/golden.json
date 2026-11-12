@@ -1,0 +1,9 @@
+{
+  "format": 1,
+  "id": "m1/practice-dense",
+  "kind": "practice",
+  "seed": "0x0",
+  "setup": { "hashEveryTicks": 600, "players": 1 },
+  "record": "record.wzrc",
+  "notes": "연습 모드 1인, 2분. 키가 몰린 틱(9~12개, 아홉째부터 기록기가 버린다), 쓸데없는 누름·뗌, 일시정지 키, 명령이 섞인다. 기록: replaycli bot --kind practice --ticks 7200 --bot-seed 0x52 --profile dense"
+}

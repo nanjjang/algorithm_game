@@ -1,0 +1,35 @@
+{
+  "_note": "spec 07 2.4(FrameDef 5행), 7.3, 7.4. 출처: monsters 4.4 [제안]. 틀 id 는 spec 14 3.9(frame.hunting_party = 명세 07 의 frame.hunt, CONTRACTS 2.1 대응표). 떼의 주 묶음 'cost ∈ {1,2}'는 표에 적힌 세 종(이끼 슬라임, 해거름 박쥐, 꽈리 벌레)으로 적는다. 몫은 예산의 %이고 나머지(100 − 몫)는 혼합이다. 같은 틀 연속 금지, 시간대에 없는 종의 몫을 혼합으로 돌리기, 틀 선택 확률(균등 [임시] U-02)은 규칙이라 데이터에 없다.",
+  "frames": [
+    {
+      "id": "frame.swarm",
+      "fixed": [],
+      "group": ["enemy.slime_moss", "enemy.bat_dusk", "enemy.bug_lantern"],
+      "group_share": 70
+    },
+    {
+      "id": "frame.hunting_party",
+      "fixed": [{ "species": "enemy.toad_drum", "min": 1, "max": 1 }],
+      "group": ["enemy.wolf_bramble", "enemy.boar_tusk"],
+      "group_share": 60
+    },
+    {
+      "id": "frame.battery",
+      "fixed": [{ "species": "enemy.golem_menhir", "min": 1, "max": 2 }],
+      "group": ["enemy.shaman_cap", "enemy.hog_needle", "enemy.wisp_stray", "enemy.vine_thorn"],
+      "group_share": 60
+    },
+    {
+      "id": "frame.ambush",
+      "fixed": [],
+      "group": ["enemy.weasel_pot", "enemy.bug_lantern"],
+      "group_share": 50
+    },
+    {
+      "id": "frame.mixed",
+      "fixed": [],
+      "group": [],
+      "group_share": 0
+    }
+  ]
+}

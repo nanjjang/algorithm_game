@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text.Json.Nodes;
+using System.Text.RegularExpressions;
 using Xunit;
 
 namespace Wizard.TaskGraph.Tests
@@ -128,19 +129,114 @@ namespace Wizard.TaskGraph.Tests
             Assert.Equal(before, File.ReadAllBytes(tasks));
         }
 
+        // ---------- 실제 그래프의 복사본에 CCR 하나를 더해 본다 ----------
+        // 실제 docs/dev/tasks.json 은 PIPELINE 3.7절대로 CCR·FIX 작업이 계속 늘어난다. 그래서 받은 id 를 상수로 적지 않고
+        // "그 그래프의 가장 큰 CCR 번호 + 1"로 기대한다(FIX-2: 예전에는 "CCR-1"로 적혀 있어 실제 그래프에 CCR-1이 들어오면
+        // Expected "CCR-1", Actual "CCR-2"로 fast 게이트가 막혔다). 기대값은 TaskAdder 를 거치지 않고 여기서 따로 센다.
+        //
+        // 알려진 한계(경로 겹침): 더해 보는 작업은 deps [M0-TL-01], owned_paths [docs/dev/CONTRACTS.md] 다. M0-TL-01 도
+        // CONTRACTS.md 를 가지므로 deps 로 순서가 정해져 통과한다. 그런데 M0-TL-01 말고 다른 작업이 CONTRACTS.md(또는 그것을
+        // 덮는 docs/dev/, docs/ 같은 경로)를 owned_paths 에 넣고, 그 작업과 이 작업이 deps 로 이어지지 않으면 검사 4
+        // ("owned_paths가 겹치는데 deps로 순서가 정해져 있지 않다")로 이 시험이 실패한다. PIPELINE 3.7절의 CCR 작업은
+        // CONTRACTS.md 를 고치는 작업이라 실제 CCR 이 들어오면 바로 이 경우가 된다. 그 경우는
+        // Add_ToCopyOfRealGraph_WhenAnotherTaskAlsoOwnsContracts_FailsOnOverlap 이 그대로 고정해 둔다. 어떻게 피할지
+        // (시험 쪽에서 deps 를 그래프에서 고르는지, PIPELINE 3.7절이 CCR 의 deps 를 정하는지)는 결과 보고의 물음으로 올렸다.
+        private const string ContractsPath = "docs/dev/CONTRACTS.md";
+        private static readonly Regex CcrOrFixId = new Regex("^(CCR|FIX)-([0-9]+)$", RegexOptions.CultureInvariant);
+
+        private static JsonObject ContractsCcr()
+        {
+            return Fx.Task("CCR", group: "M0-W09", deps: new[] { "M0-TL-01" }, paths: new[] { ContractsPath }, agent: "tech-lead", model: "fable");
+        }
+
+        // 그래프에 있는 kind-<번호> 의 가장 큰 번호. 없으면 0
+        private static int MaxNumber(string text, string kind)
+        {
+            int max = 0;
+            foreach (TaskDef t in TaskDoc.Parse(text, "max").Tasks)
+            {
+                Match m = CcrOrFixId.Match(t.Id);
+                if (m.Success && m.Groups[1].Value == kind)
+                {
+                    max = Math.Max(max, int.Parse(m.Groups[2].Value, System.Globalization.CultureInfo.InvariantCulture));
+                }
+            }
+            return max;
+        }
+
+        private static string Ccr(int n) => "CCR-" + n.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+        private static int M0TaskCount(string text)
+        {
+            JsonObject m0 = ((JsonArray)TaskDoc.Parse(text, "m0").Root["milestones"]!).OfType<JsonObject>().Single(m => (string)m["id"]! == "M0");
+            return (int)m0["task_count"]!;
+        }
+
+        // 실제 그래프 흉내: 그래프에 이미 있던 것처럼 작업 하나를 더한 문서를 돌려준다(검사 전체를 통과해야 한다)
+        private static string WithExisting(string text, JsonObject task)
+        {
+            AddResult r = TaskAdder.Prepare(text, "tasks.json", task.ToJsonString(), Fx.SchemaPath, Fx.RealSpecsDir);
+            Assert.True(r.Report.Ok, string.Join("\n", r.Report.Errors));
+            return r.NewText;
+        }
+
+        // 더해 보고, 받은 id = (더하기 전 문서의 가장 큰 CCR 번호 + 1)인지와 M0 의 task_count 가 하나 늘었는지 본다
+        private static void AssertAddsNextCcr(string text, int expectedNumber)
+        {
+            Assert.Equal(expectedNumber, MaxNumber(text, "CCR") + 1); // 기대값 계산 자체를 확인한다
+            AddResult r = TaskAdder.Prepare(text, "tasks.json", ContractsCcr().ToJsonString(), Fx.SchemaPath, Fx.RealSpecsDir);
+            Assert.True(r.Report.Ok, string.Join("\n", r.Report.Errors));
+            Assert.Equal(Ccr(expectedNumber), r.Id);
+            Assert.Equal(M0TaskCount(text) + 1, M0TaskCount(r.NewText));
+            Assert.Contains("\"id\": \"" + Ccr(expectedNumber) + "\"", r.NewText);
+            Assert.Equal(1, TaskDoc.Parse(r.NewText, "x").Tasks.Count(x => x.Id == Ccr(expectedNumber)));
+        }
+
         [Fact]
         public void Add_ToCopyOfRealGraph_PassesFullValidationIncludingVectors()
         {
             string text = File.ReadAllText(Fx.RealTasksPath);
-            JsonObject t = Fx.Task("CCR", group: "M0-W09", deps: new[] { "M0-TL-01" }, paths: new[] { "docs/dev/CONTRACTS.md" }, agent: "tech-lead", model: "fable");
-            AddResult r = TaskAdder.Prepare(text, "tasks.json", t.ToJsonString(), Fx.SchemaPath, Fx.RealSpecsDir);
-            Assert.True(r.Report.Ok, string.Join("\n", r.Report.Errors));
-            Assert.Equal("CCR-1", r.Id);
-            TaskDoc doc = TaskDoc.Parse(r.NewText, "x");
-            JsonObject m0 = ((JsonArray)doc.Root["milestones"]!).OfType<JsonObject>().Single(m => (string)m["id"]! == "M0");
-            JsonObject old = ((JsonArray)TaskDoc.Parse(text, "y").Root["milestones"]!).OfType<JsonObject>().Single(m => (string)m["id"]! == "M0");
-            Assert.Equal((int)old["task_count"]! + 1, (int)m0["task_count"]!);
-            Assert.Contains("\"id\": \"CCR-1\"", r.NewText);
+            AssertAddsNextCcr(text, MaxNumber(text, "CCR") + 1);
+        }
+
+        [Fact]
+        public void Add_ToCopyOfRealGraph_WithCcrAndFixAlreadyPresent_TakesHighestCcrPlusOne()
+        {
+            string real = File.ReadAllText(Fx.RealTasksPath);
+            int ccr0 = MaxNumber(real, "CCR");
+            int fix0 = MaxNumber(real, "FIX");
+
+            // M1-SIM-06 에서 본 경우: 실제 그래프에 CCR 이 하나 들어와 있다(번호는 add 가 매긴다). 경로는 아무 작업과도 겹치지 않게 한다
+            string withOne = WithExisting(real, Fx.Task("CCR", group: "M0-W10", deps: new[] { "M0-TL-01" },
+                paths: new[] { "docs/dev/ccr-simulated/first.md" }, agent: "tech-lead", model: "fable"));
+            Assert.Equal(ccr0 + 1, MaxNumber(withOne, "CCR"));
+            AssertAddsNextCcr(withOne, ccr0 + 2);
+
+            // 번호가 비어 있어도(개수가 아니라 가장 큰 번호) + 1 이고, FIX 번호는 CCR 번호에 섞이지 않는다
+            string withGap = WithExisting(withOne, Fx.Task(Ccr(ccr0 + 7), group: "M0-W11", deps: new[] { "M0-TL-01" },
+                paths: new[] { "docs/dev/ccr-simulated/gap.md" }, agent: "tech-lead", model: "fable"));
+            string withFix = WithExisting(withGap, Fx.Task("FIX-" + (fix0 + ccr0 + 20).ToString(System.Globalization.CultureInfo.InvariantCulture),
+                group: "M0-W12", deps: new[] { "M0-BT-06" }, paths: new[] { "docs/dev/ccr-simulated/fix.md" }));
+            Assert.Equal(fix0 + ccr0 + 20, MaxNumber(withFix, "FIX"));
+            AssertAddsNextCcr(withFix, ccr0 + 8);
+        }
+
+        // 위 주석의 "알려진 한계"를 고정한다: M0-TL-01 이 아닌 작업이 CONTRACTS.md 를 갖고 deps 로 이어지지 않으면
+        // 실제 그래프 복사본에 더해 보는 시험은 번호가 아니라 경로 겹침으로 실패한다
+        [Fact]
+        public void Add_ToCopyOfRealGraph_WhenAnotherTaskAlsoOwnsContracts_FailsOnOverlap()
+        {
+            string real = File.ReadAllText(Fx.RealTasksPath);
+            int ccr0 = MaxNumber(real, "CCR");
+            string withContractsCcr = WithExisting(real, Fx.Task("CCR", group: "M0-W10", deps: new[] { "M0-TL-01" },
+                paths: new[] { ContractsPath }, agent: "tech-lead", model: "fable"));
+
+            AddResult r = TaskAdder.Prepare(withContractsCcr, "tasks.json", ContractsCcr().ToJsonString(), Fx.SchemaPath, Fx.RealSpecsDir);
+            Assert.Equal(Ccr(ccr0 + 2), r.Id);
+            Assert.False(r.Report.Ok);
+            Assert.Equal(
+                new[] { $"{Ccr(ccr0 + 1)}와 {Ccr(ccr0 + 2)}의 owned_paths가 겹치는데 deps로 순서가 정해져 있지 않다 — {ContractsPath} ↔ {ContractsPath}" },
+                r.Report.Errors.ToArray());
         }
     }
 }

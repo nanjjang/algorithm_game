@@ -11,6 +11,7 @@ namespace Wizard.Content.Tests
 {
     // data/rules/net.json → 팩 절 34 → ContentDb.Net 의 왕복(M2-DAT-01).
     // 기대값: spec 10 14.5(입력 지연 표), 14.7(되감기 한도 8), 14.8(순서 위반 30), 14.9(관전 2초 = 120틱),
+    //   2.8(시계 맞추기: 왕복 16회, 1초 = 60틱마다 다시 잼, 틱 속도 ±0.5% = 5,000ppm. T-60),
     //   2.5·3.7·16(끊김 유예 20초 = 1200틱), online 4.12(자동 매치 왕복 120ms), CONTRACTS 2.2·6.4(관전 키프레임 60틱).
     // 명세에 값이 없는 것은 [총괄 제안]이고 아래 "Proposed_" 테스트가 따로 모은다(M2-NET-06 이 측정으로 고치면 그 테스트가 바뀐다).
     public sealed class NetPackTests
@@ -94,6 +95,15 @@ namespace Wizard.Content.Tests
         }
 
         [Fact]
+        public void Clock_FollowsSpec10_2_8()
+        {
+            NetRuleSet n = RepoNet();
+            Assert.Equal(16, n.ClockSyncSamples);                 // spec 10 2.8 clock_sync_samples "왕복 16회"
+            Assert.Equal(60, n.ClockResyncTicks);                 // clock_resync_interval "1초마다(60틱)"
+            Assert.Equal(5000, n.ClockSlewMaxPpm);                // clock_slew_max "틱 속도 ±0.5%"
+        }
+
+        [Fact]
         public void Proposed_ValuesNotInTheSpec_AreTheOverseersFirstValues()
         {
             // [총괄 제안]: data/rules/net.json 의 "_note" 가 근거를 적는다. M2-NET-06 의 측정으로 고친다
@@ -133,9 +143,9 @@ namespace Wizard.Content.Tests
         [Fact]
         public void SectionBytes_HaveTheDocumentedLayout()
         {
-            // 절 바이트의 꼴(ContentDb.Net.cs 머리 주석): u16 N + (i32, i32) × N + i32 × 10 = 2 + 24 + 40
+            // 절 바이트의 꼴(ContentDb.Net.cs 머리 주석): u16 N + (i32, i32) × N + i32 × 13 = 2 + 24 + 52
             byte[] s = Section(RepoPack.Value);
-            Assert.Equal(2 + 3 * 8 + 10 * 4, s.Length);
+            Assert.Equal(2 + 3 * 8 + 13 * 4, s.Length);
             Assert.Equal(3, s[0] | (s[1] << 8));
         }
 
@@ -161,6 +171,33 @@ namespace Wizard.Content.Tests
             using (TempDataRepo repo = Repo(Net(table: "[{ \"rtt_up_to_ms\": 60 }]")))
             {
                 Assert.Contains(Problems(repo.Root), p => p.Contains("data/rules/net.json:/input_delay_table/0") && p.Contains("스키마"));
+            }
+            using (TempDataRepo repo = Repo(Net(clockSamples: "0")))
+            {
+                Assert.Contains(Problems(repo.Root), p => p.Contains("data/rules/net.json:/clock_sync_samples") && p.Contains("스키마"));
+            }
+            using (TempDataRepo repo = Repo(Net(clockSlew: "0")))
+            {
+                Assert.Contains(Problems(repo.Root), p => p.Contains("data/rules/net.json:/clock_slew_max_ppm") && p.Contains("스키마"));
+            }
+            using (TempDataRepo repo = Repo(Net(clockResync: "0")))
+            {
+                Assert.Contains(Problems(repo.Root), p => p.Contains("data/rules/net.json:/clock_resync_seconds") && p.Contains("스키마"));
+            }
+        }
+
+        [Fact]
+        public void Problems_ClockKeysAreRequired()
+        {
+            // 시계 값 셋이 없는 옛 꼴의 파일은 스키마에서 걸린다(코드에 기본값이 없다)
+            string old = "{ \"input_delay_table\": " + Table((60, 2), (90, 3), (120, 4)) + ", \"rollback_limit_ticks\": 8"
+                + ", \"disconnect_silence_seconds\": 1.0, \"disconnect_grace_seconds\": 20"
+                + ", \"full_state_gap_ticks\": 30, \"catchup_ticks_per_advance\": 8, \"rtt_hold_cap_ms\": 50"
+                + ", \"queue_rtt_limit_ms\": 120, \"order_violation_forfeit\": 30, \"spectator_delay_seconds\": 2.0"
+                + ", \"spectator_keyframe_ticks\": 60 }\n";
+            using (TempDataRepo repo = Repo(old))
+            {
+                Assert.Contains(Problems(repo.Root), p => p.Contains("data/rules/net.json") && p.Contains("스키마"));
             }
         }
 
@@ -189,6 +226,10 @@ namespace Wizard.Content.Tests
             {
                 Assert.Contains(Problems(repo.Root), p => p.Contains("data/rules/net.json:/disconnect_silence_seconds") && p.Contains("0"));
             }
+            using (TempDataRepo repo = Repo(Net(clockResync: "0.001")))
+            {
+                Assert.Contains(Problems(repo.Root), p => p.Contains("data/rules/net.json:/clock_resync_seconds") && p.Contains("0"));
+            }
         }
 
         [Fact]
@@ -204,7 +245,8 @@ namespace Wizard.Content.Tests
         public void SecondsConvertToTicks_HalfEven()
         {
             // 1.0초 → 60, 20초 → 1200, 2.0초 → 120 (spec 14 0.3: 가장 가까운 정수, 같으면 짝수). 0.0125초 = 0.75틱 → 1
-            using (TempDataRepo repo = Repo(Net(silence: "0.0125", grace: "20.5", spectator: "0.025")))
+            using (TempDataRepo repo = Repo(Net(silence: "0.0125", grace: "20.5", spectator: "0.025", clockResync: "0.5", clockSamples: "5",
+                clockSlew: "1234")))
             {
                 var d = new Diagnostics();
                 Pipeline.Output o = Pipeline.Run(repo.Root, ModuleRegistry.Discover(), PackOptions.Default(PackOptions.DefaultDataVersion), d);
@@ -213,6 +255,9 @@ namespace Wizard.Content.Tests
                 Assert.Equal(1, n.DisconnectSilenceTicks);         // 0.75 → 1
                 Assert.Equal(1230, n.DisconnectGraceTicks);        // 20.5 × 60
                 Assert.Equal(2, n.SpectatorDelayTicks);            // 1.5 → 2 (같으면 짝수)
+                Assert.Equal(30, n.ClockResyncTicks);              // 0.5 × 60
+                Assert.Equal(5, n.ClockSyncSamples);               // 정수 그대로
+                Assert.Equal(1234, n.ClockSlewMaxPpm);
             }
         }
 
@@ -239,6 +284,13 @@ namespace Wizard.Content.Tests
             byte[] zero = (byte[])good.Clone();
             zero[26] = 0;
             Assert.Throws<ContentException>(() => Load(zero));
+            // 1 미만: 맨 끝 칸(틱 길이 보정 한도 5,000 = 0x1388)을 0 으로
+            byte[] slew = (byte[])good.Clone();
+            slew[good.Length - 4] = 0;
+            slew[good.Length - 3] = 0;
+            Assert.Throws<ContentException>(() => Load(slew));
+            // 시계 칸 셋이 없는 옛 꼴(i32 × 10 까지)
+            Assert.Throws<ContentException>(() => Load(good.AsSpan(0, good.Length - 12).ToArray()));
         }
 
         // 표를 읽는 규칙의 참조 구현(테스트 전용). 계약: CONTRACTS 2.2 의 주석과 spec 10 14.5
@@ -265,7 +317,8 @@ namespace Wizard.Content.Tests
         }
 
         private static string Net(string table = "", string rollback = "8", string silence = "1.0", string grace = "20",
-            string spectator = "2.0", string extra = "")
+            string spectator = "2.0", string extra = "", string clockSamples = "16", string clockResync = "1.0",
+            string clockSlew = "5000")
         {
             if (table.Length == 0)
             {
@@ -275,7 +328,8 @@ namespace Wizard.Content.Tests
                 + ", \"disconnect_silence_seconds\": " + silence + ", \"disconnect_grace_seconds\": " + grace
                 + ", \"full_state_gap_ticks\": 30, \"catchup_ticks_per_advance\": 8, \"rtt_hold_cap_ms\": 50"
                 + ", \"queue_rtt_limit_ms\": 120, \"order_violation_forfeit\": 30, \"spectator_delay_seconds\": " + spectator
-                + ", \"spectator_keyframe_ticks\": 60" + extra + " }\n";
+                + ", \"spectator_keyframe_ticks\": 60, \"clock_sync_samples\": " + clockSamples
+                + ", \"clock_resync_seconds\": " + clockResync + ", \"clock_slew_max_ppm\": " + clockSlew + extra + " }\n";
         }
 
         private static ContentDb Load(byte[] section) =>

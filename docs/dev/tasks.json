@@ -1477,13 +1477,22 @@
    ],
    "contracts": [
     "docs/dev/CONTRACTS.md §3.1",
+    "docs/dev/CONTRACTS.md §3.2",
     "docs/dev/CONTRACTS.md §3.8",
+    "docs/dev/CONTRACTS.md §3.9",
     "docs/dev/CONTRACTS.md §11.1"
    ],
    "owned_paths": [
     "src/Wizard.Sim/Replay/",
     "src/Wizard.Sim/Input/Recorder/",
-    "tests/Wizard.Sim.Tests/Replay/"
+    "tests/Wizard.Sim.Tests/Replay/",
+    "src/Wizard.Sim/Runtime/Contracts/DuelSetup.cs",
+    "src/Wizard.Sim/Runtime/Contracts/InputRecordBody.cs",
+    "src/Wizard.Sim/Runtime/Contracts/RecordError.cs",
+    "src/Wizard.Sim/Runtime/Contracts/DuelReplayResult.cs",
+    "src/Wizard.Sim/Duel/DuelRoomOptions.cs",
+    "tests/Wizard.Sim.Tests/Contracts/SetupContractTests.cs",
+    "tests/Wizard.Sim.Tests/Contracts/DuelSetupCanonicalTests.cs"
    ],
    "acceptance": [
     "InputRecorder가 만든 파일을 ReplayRunner가 돌리면 원래 실행과 틱마다 같은 해시가 나온다",
@@ -1492,6 +1501,7 @@
     "ReplayRunner.Run은 예외를 밖으로 던지지 않는다. SimInvariantException은 SimFault, 한도 초과는 Timeout으로 돌려준다. 무효 명령이 하나라도 있으면 RecordCorrupt, 0x04 Checkpoint 레코드가 재실행 해시와 다르면 RecordCorrupt다",
     "InputRecorder.Append가 순번을 매긴다(명령 먼저, 9번째 키부터는 번호 없이 버림). 기록을 다시 읽어 매긴 순번이 실행 중의 순번과 같다",
     "WZDR 코덱과 ReplayRunner.RunDuel이 있다(2인 세계의 확정 입력 기록을 돌려 같은 해시를 낸다. 머리말 뒤에 input_delay 두 칸)",
+    "WZDR 머리말 = DuelSetup의 정규 바이트(CONTRACTS 11.1절, T-48)이고 한 설정에 바이트 열 하나다. DuelRecordWriter가 쓴 파일을 DuelRecordCodec.TryRead가 받는다. record_sha256은 그 앞의 모든 바이트를 덮는다(T-49)",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [
@@ -4094,7 +4104,8 @@
    "reviewer_model": "fable",
    "deps": [
     "M4-RUN-02",
-    "M5-ART-04"
+    "M5-ART-04",
+    "M1-SIM-07"
    ],
    "spec_refs": [
     "docs/spec/07-waves-drops.md §12",
@@ -4103,16 +4114,20 @@
     "docs/spec/09-run-verify-ranking-season.md §3"
    ],
    "contracts": [
-    "docs/dev/CONTRACTS.md §3.7"
+    "docs/dev/CONTRACTS.md §3.7",
+    "docs/dev/CONTRACTS.md §3.8"
    ],
    "owned_paths": [
     "src/Wizard.Sim/Waves/Outcome/",
-    "tests/Wizard.Sim.Tests/Waves/Outcome/"
+    "tests/Wizard.Sim.Tests/Waves/Outcome/",
+    "src/Wizard.Sim/Replay/ReplayRunner.cs",
+    "tests/Wizard.Sim.Tests/Replay/ReplayRunnerTests.cs"
    ],
    "acceptance": [
     "RunOutcome이 CONTRACTS 3.7절과 같고 WriteFacts가 RunResultFacts의 정규 바이트(facts_format 1)를 낸다. 다이제스트는 그 바이트의 SHA-256이다",
     "드랍은 코어가 '기회'만 기록하고 추첨하지 않는다(재료·부적·한정은 정산 때 서버 난수)",
-    "같은 기록의 재실행이 바이트가 같은 facts를 낸다. 귀환 가방 후보, 허상 결과, 해금, 중간 지점 (wave, tick, hash)가 facts 안에 있다"
+    "같은 기록의 재실행이 바이트가 같은 facts를 낸다. 귀환 가방 후보, 허상 결과, 해금, 중간 지점 (wave, tick, hash)가 facts 안에 있다",
+    "ReplayRunner.Run이 0x04 레코드의 wave를 세계가 기록한 중간 지점과 대조하고(다르면 RecordCorrupt), upToWave > 0의 Outcome이 그 지점까지의 결과(웨이브·점수·골드·드랍 기회·중간 지점 포함, EndKind = None)다(CONTRACTS 3.8절, T-49)"
    ],
    "vectors": [],
    "parallel_group": "M6-W05",
@@ -8707,7 +8722,8 @@
    ],
    "acceptance": [
     "spec 10 2절 상수표와 7절 캐릭터별 값이 데이터에 있다(대조 테스트). 각도는 센티도, 반지름은 Raw다",
-    "결투 체력 100 × 칸, 무적 없음, 순간 피해 상한 30%, 판정 반지름 0.30, 탄 상한 한 사람당 150이 들어 있다"
+    "결투 체력 100 × 칸, 무적 없음, 순간 피해 상한 30%, 판정 반지름 0.30, 탄 상한 한 사람당 150이 들어 있다",
+    "방 옵션(spec 10 9.2절)의 선택지와 기본값이 데이터에 있다. DuelRoomOptions(CONTRACTS 3.9절)의 코드에는 수가 없고, 기본 옵션은 이 절에서 만든다(T-48)"
    ],
    "vectors": [],
    "parallel_group": "M14-W01",
@@ -9028,6 +9044,7 @@
     "자동 매치 해금 조건(웨이브 10, 누적 플레이 2시간)과 기기당 계정 3개 제한을 서버가 본다(DuelStatusView.missing)",
     "pre-start에서 서버가 잰 왕복이 한도를 넘으면 시작 전에 취소한다(void. 상대에게 불이익 없음, 넘은 쪽도 이탈로 세지 않는다)",
     "결과 보고는 match_id당 처음 확정된 것이 이긴다. void로 닫힌 뒤에 온 보고에는 저장된 void를 돌려준다. duel.rejoin이 rekey를 부르고 새 duel.setup과 전체 상태를 내려 준다",
+    "DuelSetup을 만들 때 봉투 값(CoreVersion, DataVersion)을 채우고 방 옵션의 값이 데이터의 선택지 안인지 본다. 방 비밀번호는 DuelRoomOptions와 DuelSetup에 싣지 않는다(CONTRACTS 3.2·3.9절, T-48)",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [

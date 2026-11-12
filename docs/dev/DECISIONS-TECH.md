@@ -57,6 +57,8 @@
 | T-45 | 서버 주도의 왕복 측정, 결투 키의 epoch, 입력 검증 순서 | [신규] |
 | T-46 | `EndlessSetup`의 정규 바이트는 `.wzrc` 머리말 전체이고, 코어·데이터 버전은 `EndlessSetup`의 칸이다 | [신규] |
 | T-47 | `ContentDb`의 절 파일은 `ContentDb.<절>.cs`, 훅은 읽기(`Load`)와 조회(`Find`) 둘, 뼈대 파일은 M1-CONT-02가 가진다 | [신규] |
+| T-48 | WZDR 머리말은 `DuelSetup`의 정규 바이트 전체, `DuelRoomOptions`의 칸은 spec 10 9.2 표(비밀번호 제외), 쓰는 문은 `DuelRecordWriter` | [신규] |
+| T-49 | `record_sha256`은 그 앞의 모든 바이트를 덮는다. `TryRead`는 한도를 받고 `InputRecordBody`에 1차 검사의 값을 준다 | [신규] |
 
 ---
 
@@ -406,7 +408,7 @@
 - **이유**: (가)는 "정규 바이트 = 머리말 = `run.setup_canonical` = `setup`"이라는 등식을 깨서 3.2·8.3·11.1·12.1절과 ARCHITECTURE의 판 흐름, 그리고 그 등식을 수락 조건으로 가진 작업 여덟 개(M1-SIM-01, M1-SIM-07, M11-PRO-01, M11-RUN-01~03, M11-VER-01, M11-CLI-01)를 다 고쳐야 한다. 서버가 저장하는 바이트와 `EndlessSetup`이 읽는 바이트가 달라지면 "받은 바이트를 그대로 쓴다"가 "받은 바이트의 뒷부분을 쓴다"가 되어 잘못 자를 여지가 생긴다. (나)는 읽는 쪽에 값을 돌려줄 자리가 또 필요해 시그니처 둘이 같이 바뀌고, 버전을 설정과 따로 들고 다니다 어긋날 수 있다. (다)는 틀린다: `wizard-api`는 지금 버전의 코어 한 벌만 링크하지만 판의 코어 버전은 출발 요청의 값이다(T-18). 상수를 쓰면 서버가 자기 버전을 적는다. 칸을 더하는 것은 더하기만 하는 변경이고 이미 적힌 문장과 수락 조건을 하나도 바꾸지 않는다.
 - **`DataVersion`이 `int`인 까닭**: 비교 상대인 `ContentPack.DataVersion`·`ContentDb.DataVersion`이 `int`다(2.3절). 파일의 칸은 `u32` 그대로이고, `int`를 넘는 값은 읽을 때 거절한다.
 - **새 설정의 `CoreVersion`이 빈 문자열인 까닭**: 기본값을 `SimVersion.CoreVersion`으로 두면 서버가 요청의 값을 넣는 것을 잊어도 조용히 자기 버전이 적힌다. 비워 두면 `WriteCanonical`이 던진다.
-- **따라오는 일**: (1) M1-SIM-07의 `InputRecordCodec`은 머리말을 직접 풀지 않고 `TryReadCanonicalPrefix`를 쓴다. (2) `SimWorld.CreateEndless`는 두 버전 칸을 읽지 않는다(M1-SIM-02). (3) M11-RUN-02는 `EndlessSetup.CoreVersion`에 요청의 `core_version`을 넣는다. (4) `DuelSetup.WriteCanonical`(WZDR 머리말)은 `DuelRoomOptions`의 칸이 아직 없어서 선언하지 않았다. 아래 "아직 정하지 않은 기술 항목"에 올렸다.
+- **따라오는 일**: (1) M1-SIM-07의 `InputRecordCodec`은 머리말을 직접 풀지 않고 `TryReadCanonicalPrefix`를 쓴다. (2) `SimWorld.CreateEndless`는 두 버전 칸을 읽지 않는다(M1-SIM-02). (3) M11-RUN-02는 `EndlessSetup.CoreVersion`에 요청의 `core_version`을 넣는다. (4) `DuelSetup.WriteCanonical`(WZDR 머리말)은 `DuelRoomOptions`의 칸이 아직 없어서 선언하지 않았다. T-48에서 정했다.
 
 ## T-47 `ContentDb`의 절 파일은 `ContentDb.<절>.cs`, 훅은 읽기(`Load`)와 조회(`Find`) 둘, 뼈대 파일은 M1-CONT-02가 가진다 [신규]
 
@@ -446,6 +448,48 @@ partial void Find<접근자>(ref T? def);                   // 키가 있는 접
   - `CONTRACTS.md` 2.3절의 글은 이 결정과 어긋나지 않아 그대로 두었다. 위 훅 표를 2.3절에 옮겨 적는 것은 CCR 작업으로 한다(작업 브랜치에서 `CONTRACTS.md`를 고치면 `check-diff`가 막고, 그 파일을 작업의 `owned_paths`에 넣으면 뒤의 CCR 작업과 경로가 겹친다).
   - `tasks.json`에서 M1-CONT-02의 `owned_paths`에 뼈대 파일 둘, 뼈대 테스트(`ContentPackTests.cs`), 그리고 이 결정을 작업 브랜치에서 같이 넣으려고 `DECISIONS-TECH.md`와 `tasks.json`을 더했다(`check-diff`가 브랜치의 변경을 그 작업의 `owned_paths`로만 본다). 뒤의 둘은 M1-CONT-02가 main에 들어간 뒤에는 필요 없다. 그대로 두면 이 두 파일을 가지는 CCR 작업은 `deps`에 M1-CONT-02를 넣어야 한다.
 
+## T-48 WZDR 머리말은 `DuelSetup`의 정규 바이트 전체, `DuelRoomOptions`의 칸은 spec 10 9.2 표, 쓰는 문은 `DuelRecordWriter` [신규]
+
+- **문제**: M1-SIM-07의 수락 조건은 "WZDR 코덱과 `ReplayRunner.RunDuel`"인데, WZDR 머리말(= `DuelSetup`의 정규 바이트)의 칸 배치가 계약에 없었고 `DuelRoomOptions`에는 칸이 하나도 없었다(T-46의 따라오는 일 4, "아직 정하지 않은 기술 항목"). 머리말을 읽지 못하면 `RunDuel(db, duelRecord, limits)`가 세계를 만들 수 없다. 넷코드(M2-NET-04의 `ConfirmedInputRecord`)가 WZDR을 쓸 공개 문도 없었다(M1-SIM-07의 계약 변경 요청 1·6).
+- **결정**:
+  1. `DuelRoomOptions`의 칸은 spec 10 9.2절 표의 열두 칸이다(`Rounds`, `RoundSeconds`, `HpMultPermille`, `EnhanceCap`, `IlCap`, `AllowMutations`, `HeroBlockCap`, `Equalize`, `WildIntrusion`, `ThornsOff`, `FloorColor`, `Spectate`). 값은 고른 값 그대로 든다(선택지의 번호가 아니다). "없음"은 `NoCap = −1`이다. **비밀번호는 넣지 않는다.**
+  2. 선택지와 기본값(명세의 [임시] 3판, 90초, ×1, +13 …)은 코드에 두지 않는다. `new DuelRoomOptions()`는 "아직 고르지 않은 옵션"이고 기본값은 `duel_rules` 데이터가 준다(M14-DAT-01). 값이 선택지 안인지는 방을 만드는 서버가 본다(M14-SRV-02).
+  3. `DuelSetup`에 봉투 값 `CoreVersion`·`DataVersion`을 더한다(T-46의 `EndlessSetup`과 같은 규칙: 세계는 읽지 않는다, 새 설정은 비어 있어 채우기 전에는 쓰지 못한다).
+  4. `DuelSetup`의 정규 바이트는 WZDR 머리말 **전체**다: magic `WZDR`, format_version, core_version, data_version, match_id, seed, 옵션 열두 칸(명세 표의 순서), 플레이어 둘(슬롯 순. `slot`, 적용된 지팡이, `actual_stage`, `max_hp_points`, `unlocked_arts`). 칸의 폭은 `CONTRACTS.md` 11.1절. 한 설정에 바이트 열 하나, `WriteCanonical`/`TryReadCanonical`/`TryReadCanonicalPrefix`의 규칙은 T-46 그대로다.
+  5. 입력 지연 D는 정규 바이트 밖이다(0.3절). 머리말 뒤의 `input_delay u8 × 2`에 싣고 `record_sha256`에는 들어간다. 값은 경기가 끝났을 때 서버가 정해 둔 D다(재접속으로 D가 바뀌면 마지막 값).
+  6. WZDR을 읽는 문은 `DuelRecordCodec.TryRead(file, limits, out setup, out body, out error)`, 쓰는 문은 `DuelRecordWriter(setup)` + `SetInputDelay` + `Append(in PlayerInput)` + `Finish(endTick, hash)`다. 둘 다 `Wizard.Sim`의 공개 타입이다. 쓰는 쪽은 읽는 쪽이 받지 않을 열을 쓰지 않는다(예외).
+  7. `ReplayRunner.RunDuel`은 시작 조건을 **파일의 머리말에서** 읽는다. 판정 규칙은 `Run`과 같다. 꼬리말 `flags`는 0만 받는다(결투에는 디버그 op이 없다).
+  8. `RecordError`에 `BadSlot = 15`, `BadHeader = 16`, `BadFlags = 17`, `BadSeq = 18`을 더한다(더하기만 한다). `DuelReplayResult`에 `FaultDetail`을 더한다(`ReplayResult`와 같은 뜻).
+- **대안**: (가) `DuelRoomOptions`에는 세계가 읽는 다섯 칸(라운드 수, 길이, 체력 배율, 야생 난입, 가시밭 끔)만 두고 로비의 옵션은 다른 타입으로 가른다. (나) 선택지의 번호(`RoundsChoice` 0·1·2)를 싣는다. (다) 비밀번호까지 한 타입에 둔다. (라) `RunDuel`이 `Run`처럼 믿는 `DuelSetup`을 따로 받는다. (마) 머리말을 "봉투 + 길이가 붙은 불투명한 옵션 덩어리"로 두고 칸은 M14에서 정한다.
+- **이유**: (가)는 `IDuelService.CreateRoomAsync(requestId, DuelRoomOptions)`와 `SetRoomOptions`(6.1절)가 이미 이 타입을 방 옵션 전체로 쓰고 있어서 타입을 둘로 가르면 그 계약을 같이 바꿔야 한다. 세계가 읽지 않는 칸이 머리말에 실려도 해가 없고, 다시 보기 화면이 "이 경기의 방 규칙"을 그 파일만으로 보여 줄 수 있다. (나)는 선택지 표(데이터)가 바뀌면 옛 파일의 뜻이 바뀐다. 값을 실으면 파일이 스스로 뜻을 가진다. (다)는 틀린다: WZDR은 다시 보기와 운영 검토에 쓰는 파일이고(spec 10 14.9절) `DuelSetup`은 두 클라이언트와 관전자에게 내려간다. 로비의 비밀이 거기에 실리면 안 된다. 비밀번호는 방 만들기·입장 요청의 따로 된 칸이다(M14-PRO-01). (라)는 `RunDuel`의 시그니처(`db, duelRecord, limits`)를 바꿔야 하고 얻는 것이 없다: WZDR은 서버가 만들고 서버가 보관하는 파일이며 이 결과로 보상을 정하지 않는다. 결투는 서버가 판정하고(DECISIONS 2.6) 정본은 호스트의 세계다. 무한 웨이브의 `Run`이 믿는 머리말을 따로 받는 것은 그 파일이 공격자의 입력이기 때문이다. (마)는 M1-SIM-07의 수락 조건("2인 세계의 확정 입력 기록을 돌려 같은 해시")을 지금 채우지 못하고, 칸을 정하는 일을 M2-NET-04(호스트가 WZDR을 쓴다)보다 뒤로 넘긴다.
+- **기본값을 코드에 두지 않는 까닭**: `CLAUDE.md` 5절(기획 수치는 `data/`에만). 명세의 기본값은 [임시]이고 사용자가 QA에서 고친다.
+- **따라오는 일**:
+  - 계약 코드(`Runtime/Contracts/`의 `DuelSetup.cs`·`InputRecordBody.cs`·`RecordError.cs`·`DuelReplayResult.cs`, `Duel/DuelRoomOptions.cs`)와 `tests/Wizard.Sim.Tests/Contracts/`의 대조 시험은 M1-SIM-01의 폴더에 있다. 이 결정의 구현을 M1-SIM-07 브랜치에서 같이 넣으려고 `tasks.json`에서 M1-SIM-07의 `owned_paths`에 그 파일 일곱을 더했다(M1-SIM-01 → M1-SIM-02 → M1-SIM-07로 순서가 있다).
+  - 문서 셋(`CONTRACTS.md`, 이 문서, `tasks.json`)은 M1-SIM-07의 `owned_paths`에 넣지 않았다. `CONTRACTS.md`를 어느 작업의 소유로 적으면 뒤의 CCR 작업과 경로가 겹친다(T-47의 따라오는 일. `taskgraph`의 시험 `Add_ToCopyOfRealGraph_PassesFullValidationIncludingVectors`가 실제 그래프로 그것을 본다). 그래서 문서 개정은 M1-SIM-07 브랜치의 **첫 커밋 하나**로 따로 두었다(T-46 때와 같은 길). `check-diff`가 그 커밋의 세 파일을 소유 밖으로 본다. 통합 때 계약 개정으로 main에 먼저 옮기면 사라지고, 그 전에는 그 커밋을 기준으로 주면(`WIZARD_CI_BASE=<그 커밋>`) 나머지 변경만 본다.
+  - M14-DAT-01: 방 옵션의 선택지와 기본값을 `duel_rules`에 넣는다(수락 조건에 더했다). `SimConfig.FillDuel`과 Duel 모듈은 `Rounds`, `RoundSeconds`, `HpMultPermille`, `WildIntrusion`, `ThornsOff`를 읽는다.
+  - M14-SRV-02: `DuelSetup`을 만들 때 `CoreVersion`·`DataVersion`을 채우고 옵션 값이 선택지 안인지 본다(수락 조건에 더했다). M14-PRO-01: 비밀번호는 `DuelRoomOptions` 밖의 칸으로 싣는다.
+  - M2-NET-04: `ConfirmedInputRecord`는 `DuelRecordWriter`로 쓴다. `SetInputDelay`를 받을 때 기록기에도 준다. 시험의 `DuelSetup`은 봉투 값을 채워야 한다(비어 있으면 기록기의 생성자가 던진다).
+  - `EndlessSetup`과 `DuelSetup`의 지팡이·코어 버전 읽기·쓰기는 지금 두 파일에 같은 꼴로 있다. 한 도우미로 모으는 것은 형식을 바꾸지 않는 정리라서 따로 한다(두 정규 바이트 시험이 지킨다).
+
+## T-49 `record_sha256`은 그 앞의 모든 바이트를 덮는다. `TryRead`는 한도를 받고 `InputRecordBody`에 1차 검사의 값을 준다 [신규]
+
+- **문제**(M1-SIM-07의 계약 변경 요청 2·3·4·7):
+  1. 11.1절의 `record_sha256`은 "머리말 ‖ 본문"이라 꼬리말의 `end_tick`·`final_state_hash`·`flags` 13바이트가 밖이었다. 수락 조건은 `TryRead`가 "바뀐 바이트"를 `RecordCorrupt`로 돌려주는 것인데 그 13바이트의 손상은 `TryRead`가 볼 수 없었고, `flags`의 비트 0(`debug_used`)이 뒤집힌 것은 재실행도 잡지 못했다.
+  2. 3.8절은 `TryRead`가 "`end_tick`이 `ReplayLimits.MaxTicks`를 넘는다"를 거른다고 적었는데 시그니처에 한도가 없었다.
+  3. `InputRecordBody`에 칸이 없어서 서버의 1차 검사(8.3절)가 꼬리말, 디버그 op, 일시정지 합, 중간 지점을 읽을 길이 없었다.
+  4. 원정 정리(`upToWave > 0`)의 `Outcome`과 `0x04`의 `wave` 대조는 세계가 웨이브와 중간 지점을 내보여야 하는데 그 모듈(Waves, Outcome)이 아직 없다.
+- **결정**:
+  1. `record_sha256` = **그 앞의 모든 바이트**의 SHA-256(머리말 ‖ 본문 ‖ `0xFF` ‖ `end_tick` ‖ `final_state_hash` ‖ `flags`. WZDR은 `input_delay` 포함). `.wzrc`와 WZDR이 같다. `format_version`은 1 그대로다(이 형식으로 나간 파일이 아직 없다).
+  2. `InputRecordCodec.TryRead(file, ReplayLimits limits, out header, out body, out error)`. `MaxTicks`만 쓴다. `DuelRecordCodec.TryRead`도 같은 꼴이다.
+  3. `InputRecordBody` = `HeaderLength`, `EndTick`, `FinalStateHash`, `DebugUsed`, `HasDebugOps`, `CommandCount`, `InputCount`, `PauseCount`, `PauseTotalMs`, `Checkpoints[]`. 전부 클라이언트가 적은 값이고 구조만 확인된 것이다.
+  4. `ReplayRunner`는 받은 `db.DataVersion`이 머리말의 `data_version`과 다르면 돌리지 않고 `PackMissing`을 돌려준다.
+  5. `upToWave > 0`의 `Completed`는 그 지점까지의 `Outcome`을 준다(`EndKind = None`, `EndTick`·`FinalStateHash` = 그 지점의 값). 지금 `ReplayRunner`가 채우는 것은 세계 뼈대가 아는 칸(끝 틱, 해시, 시작 웨이브)이고 `GetOutcome`과 같은 수준이다. 웨이브·점수·드랍·중간 지점 칸과 `0x04`의 `wave` 대조는 M6-SIM-01(판의 결과)이 더한다. 그 작업에 `ReplayRunner.cs`와 그 시험을 소유 경로로, M1-SIM-07을 `deps`로, 수락 조건 한 줄을 더했다.
+- **대안**: (가) SHA의 범위를 그대로 두고 수락 조건의 "바뀐 바이트"를 "`TryRead` 또는 재실행이 잡는다"로 읽는다. (나) 꼬리말의 칸을 본문 앞(머리말 바로 뒤)으로 옮긴다. (다) `TryRead`에 한도를 주지 않고 `end_tick` 상한은 `ReplayRunner.Run`만 본다. (라) `InputRecordBody`에 레코드 열 전체를 담는다. (마) `data_version`이 다른 팩으로도 그대로 돌린다(호출자가 맞는 팩을 준다고 믿는다).
+- **이유**: (가)는 `flags`가 남는다. `debug_used`만 뒤집힌 파일은 구조도 재실행 해시도 그대로라서 아무 데서도 걸리지 않는다. 서버는 본문의 디버그 op을 따로 보므로 보상이 새지는 않지만, "기록 무결성은 SHA-256"(T-10)이라는 말이 파일의 일부에만 참이 된다. 범위를 넓히는 것은 쓰는 쪽과 읽는 쪽의 한 줄씩이고, 손상을 재실행(비싸다. 판정이 `mismatch`라 회수로 간다) 전에 1차 검사에서 가른다. spec 09 3.5절의 "header ‖ body"는 [임시 형식]이고 그 꼬리말에는 `flags`가 없었다. 명세의 뜻(파일의 무결성)을 넓힌 것이지 바꾼 것이 아니다. (나)는 기록기가 `end_tick`과 최종 해시를 판이 끝나야 알므로 파일을 이어 쓰지 못하게 된다. (다)는 1차 검사(재실행 없이 `wizard-api`가 한다)가 터무니없는 `end_tick`을 받아들여 검증 대기열에 넣는다. 3.8절의 글이 이미 `TryRead`의 일로 적었다. 시그니처가 글을 따라간다. (라)는 50MB 상한의 파일마다 레코드 수만큼 객체를 만든다. 1차 검사가 쓰는 것은 합과 개수와 중간 지점뿐이다. 레코드가 필요한 것은 재실행이고 그쪽은 같은 판독기로 할당 없이 다시 읽는다. (마)는 워커의 팩 저장소가 잘못 고른 날 정직한 판 전부가 `mismatch`로 회수된다. `PackMissing`은 `unverifiable`이라 보상을 건드리지 않는다(3.8절의 판정 표).
+- **오류의 순서**: 꼬리말은 길이(모자람, 남음) → `record_sha256` → `flags`의 순으로 본다. 무결성을 먼저 보고 칸을 읽는다. 그래서 꼬리말의 한 비트가 바뀐 파일은 `ShaMismatch`이고, 모르는 `flags` 비트를 넣고 바르게 봉인한 파일이 `BadFlags`다.
+- **`wave` 대조를 미루어도 되는 까닭**: 서버가 받아 둔 중간 지점 `(wave, tick, state_hash)`의 구속력은 `wizard-api`가 재실행 facts의 중간 지점(세계가 기록한 것)과 대조해서 생긴다(8.3절 5번). 파일의 `0x04`는 그보다 앞에서 싸게 거르는 것이고, 원정 정리에서는 멈출 틱을 정한다. 파일이 거짓 `wave`를 적어도 facts의 중간 지점에는 세계가 기록한 값만 들어간다.
+- **따라오는 일**: M11-RUN-03(1차 검사)은 `InputRecordBody`의 칸을 쓴다(`HeaderLength`로 머리말을 잘라 `run.setup_canonical`과 대조, `HasDebugOps`·`DebugUsed`, `PauseTotalMs`, `Checkpoints`). M11-VER-01(워커)은 `file[HeaderLength..]`를 `Run`의 `recordBody`로 준다. M1-CLI-02(`RunSession`)는 `TryRead`에 `SimLimitsDef`의 한도를 준다.
+
 ---
 
 ## 아직 정하지 않은 기술 항목
@@ -461,5 +505,4 @@ partial void Find<접근자>(ref T? def);                   // 키가 있는 접
 | PostgreSQL, Caddy 설치 | 배치용은 맥미니에 아직 없다(사용자 설치). 테스트용 DB는 T-38 | 서버 기반 |
 | 팩 내려받기 경로 | `wizard-api`가 정적 파일로 낸다 | 판 제출과 검증 |
 | 에셋 반입 뒤 화면 뷰에 프리팹을 쓸지 | T-32. 반입 전까지는 코드로만 만든다. 반입 뒤의 방식은 정하지 않았다 | 에셋 반입(시각 작업) |
-| WZDR 머리말(`DuelSetup`의 정규 바이트)의 칸 배치와 `DuelSetup.WriteCanonical`을 더하는 작업 | 계약은 "`DuelSetup`의 정규 바이트 + `input_delay u8 × 2`, magic `WZDR`"까지만 정했다(CONTRACTS 11.1절). `DuelRoomOptions`의 칸(spec 10 9.2절)이 코드에 아직 없어서 바이트를 정할 수 없다. 기본 방향은 T-46과 같다: 봉투 값(magic, format_version, core_version, data_version)을 앞에 두고 한 설정에 바이트 열 하나. `DuelSetup.cs`는 M1-SIM-01의 소유 폴더(`src/Wizard.Sim/Runtime/Contracts/`)에 있어서, 더하는 작업의 소유 경로를 `tasks.json`에서 정해야 한다 | M1-SIM-07의 WZDR 코덱 전(그 작업의 수락 조건 "WZDR 코덱과 `ReplayRunner.RunDuel`") |
 | IL2CPP 골든 실행을 자동으로 돌리는 방법 | Unity 배치 모드로 플레이어를 빌드한 뒤(빌드 진입점은 `-quit`을 쓴다) 플레이어를 `-batchmode -nographics`로 실행. `mac-il2cpp` 모듈이 먼저 있어야 한다 | 손맛 시제품 뒤 |

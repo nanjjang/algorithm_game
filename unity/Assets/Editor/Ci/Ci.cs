@@ -115,7 +115,8 @@ namespace Wizard.Unity.Editor
         }
 
         // -batchmode -nographics -quit -executeMethod Wizard.Unity.Editor.Ci.BuildPlayer -wizardBackend mono|il2cpp -wizardArch arm64|x64
-        // 결과: <저장소>/artifacts/unity/<backend>-<arch>/Wizard.app 와 build.json
+        //   [-wizardContentPack <팩 경로>](없으면 <저장소>/artifacts/content/base.wzpack = databuild build 의 기본 출력)
+        // 결과: <저장소>/artifacts/unity/<backend>-<arch>/Wizard.app 와 build.json(팩의 SHA-256 포함)
         public static void BuildPlayer()
         {
             string? backend = Arg("-wizardBackend");
@@ -164,7 +165,8 @@ namespace Wizard.Unity.Editor
                 }
             }
 
-            string outDir = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "..", "artifacts", "unity", backend + "-" + arch));
+            string repoRoot = Path.GetFullPath(Path.Combine(Application.dataPath, "..", ".."));
+            string outDir = Path.Combine(repoRoot, "artifacts", "unity", backend + "-" + arch);
             if (Directory.Exists(outDir))
             {
                 Directory.Delete(outDir, true);
@@ -180,17 +182,41 @@ namespace Wizard.Unity.Editor
                 options = HasArg("-wizardDevelopment") ? BuildOptions.Development : BuildOptions.None,
             };
 
+            // 기본 팩을 StreamingAssets/content/ 에 놓는다(ARCHITECTURE 8.2, FIX-3). 팩은 플레이어 빌드 스크립트가 Unity 를 띄우기 전에
+            // databuild build 로 만든다. 없거나 읽히지 않으면 건너뛰지 않고 실패한다(팩 없는 플레이어는 조립 루트가 세션을 꽂지 않는다).
+            string packSource = Path.GetFullPath(Arg("-wizardContentPack") ?? ContentPackStage.DefaultSourcePath(repoRoot));
+            if (!ContentPackStage.TryPlace(packSource, Application.streamingAssetsPath, ContentPackStage.LoadValidator(),
+                    out ContentPackStage? stage, out string staged) || stage == null)
+            {
+                Fail(staged);
+                return;
+            }
+            Log.Log("ci: " + staged);
+
             ScriptingImplementation previous = PlayerSettings.GetScriptingBackend(NamedBuildTarget.Standalone);
-            PlayerSettings.SetScriptingBackend(NamedBuildTarget.Standalone, implementation);
             BuildReport report;
+            string unstaged;
             try
             {
+                AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+                PlayerSettings.SetScriptingBackend(NamedBuildTarget.Standalone, implementation);
                 report = BuildPipeline.BuildPlayer(options);
             }
             finally
             {
                 PlayerSettings.SetScriptingBackend(NamedBuildTarget.Standalone, previous);
+                // 놓은 팩과 Unity 가 만든 .meta 를 지운다(성공이든 실패든). *.wzpack 은 커밋하지 않는다
+                if (!stage.TryRemove(out unstaged))
+                {
+                    Log.LogError("ci: " + unstaged);
+                }
+                AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
             }
+            Log.Log("ci: " + unstaged);
+
+            // 빌드된 앱 안의 팩이 databuild 출력과 바이트가 같은지 SHA-256 으로 남긴다. 스크립트가 다시 대조한다
+            string playerPack = ContentPackStage.PlayerPackPath(options.locationPathName);
+            string playerPackSha = File.Exists(playerPack) ? ContentPackStage.Sha256Hex(File.ReadAllBytes(playerPack)) : "";
 
             var summary = new BuildSummary
             {
@@ -201,6 +227,11 @@ namespace Wizard.Unity.Editor
                 totalErrors = report.summary.totalErrors,
                 totalSizeBytes = (long)report.summary.totalSize,
                 output = options.locationPathName,
+                contentPackSource = packSource,
+                contentPackSha256 = stage.Sha256,
+                playerContentPack = playerPack,
+                playerContentPackSha256 = playerPackSha,
+                contentPackUnstaged = stage.Removed,
             };
             File.WriteAllText(Path.Combine(outDir, "build.json"), JsonUtility.ToJson(summary, true) + "\n");
 
@@ -209,7 +240,22 @@ namespace Wizard.Unity.Editor
                 Fail("player build " + backend + "-" + arch + " ended with " + report.summary.result);
                 return;
             }
-            Log.Log("ci: player built at " + options.locationPathName);
+            if (!stage.Removed)
+            {
+                Fail(unstaged);
+                return;
+            }
+            if (playerPackSha.Length == 0)
+            {
+                Fail("the built player has no content pack at " + playerPack);
+                return;
+            }
+            if (playerPackSha != stage.Sha256)
+            {
+                Fail("the content pack in the player (" + playerPack + ", sha256 " + playerPackSha + ") differs from " + packSource + " (sha256 " + stage.Sha256 + ")");
+                return;
+            }
+            Log.Log("ci: player built at " + options.locationPathName + " with content pack sha256 " + playerPackSha);
         }
 
         private static bool HasMacIl2CppModule()
@@ -264,6 +310,11 @@ namespace Wizard.Unity.Editor
             public int totalErrors;
             public long totalSizeBytes;
             public string? output;
+            public string? contentPackSource;          // databuild 출력(기본 <저장소>/artifacts/content/base.wzpack)
+            public string? contentPackSha256;          // 그 바이트의 SHA-256(소문자 hex)
+            public string? playerContentPack;          // 앱 안의 StreamingAssets/content/base.wzpack
+            public string? playerContentPackSha256;    // 그 바이트의 SHA-256. 없으면 빈 문자열
+            public bool contentPackUnstaged;           // 놓은 팩과 .meta 를 지웠는가
         }
     }
 }

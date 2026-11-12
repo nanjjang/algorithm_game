@@ -3,6 +3,7 @@ using System.Numerics;
 using Wizard.Content;
 using Wizard.Core;
 using Wizard.Sim.World;
+using Wizard.TestKit;
 using Xunit;
 
 namespace Wizard.Sim.Tests.World
@@ -315,20 +316,26 @@ namespace Wizard.Sim.Tests.World
 
         // ── 할당 0(Step 안에서 부른다)
 
+        // 같은 각본을 여러 번 돌려 가장 작은 값이 0인지 본다(AllocationProbe. 한 번 재기는 병렬 실행에서 가끔 흔들렸다, FIX-1)
         [Fact]
         public void Integrate_AllocatesNothing()
         {
             ArenaGeometry duel = WorldData.DuelArena.Geometry;
             long v = Movement.AxisStepRaw(672, 1200);
-            FixVec2 p = WorldData.At(WorldData.Ratio(84, 10), WorldData.Ratio(23, 10));
-            p = Run(duel, p, Dir8.SE, v, Body, 10);                              // 데우기
-            long before = GC.GetAllocatedBytesForCurrentThread();
-            for (int t = 0; t < 2000; t++)
+            FixVec2 p = default;
+            long least = AllocationProbe.LeastBytes(() =>
             {
-                p = Movement.Integrate(duel, p, (Dir8)(t / 37 % 8), v, Body);
-            }
-            long after = GC.GetAllocatedBytesForCurrentThread();
-            Assert.Equal(before, after);
+                p = WorldData.At(WorldData.Ratio(84, 10), WorldData.Ratio(23, 10));
+                p = Run(duel, p, Dir8.SE, v, Body, 10);                          // 데우기
+                return () =>
+                {
+                    for (int t = 0; t < 2000; t++)
+                    {
+                        p = Movement.Integrate(duel, p, (Dir8)(t / 37 % 8), v, Body);
+                    }
+                };
+            });
+            Assert.Equal(0L, least);
         }
 
         [Fact]

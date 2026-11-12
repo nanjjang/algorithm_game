@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using Wizard.Content;
 using Wizard.Core;
 using Wizard.Sim.Duel;
+using Wizard.Sim.Input;
 using Wizard.Sim.Waves;
 using Xunit;
 
@@ -141,7 +142,80 @@ namespace Wizard.Sim.Tests.Contracts
         public void DuelSetup_FieldsMatchContract()
         {
             ContractShape.Fields(typeof(DuelSetup),
-                ("MatchId", typeof(Guid)), ("Seed", typeof(ulong)), ("Options", typeof(DuelRoomOptions)), ("Players", typeof(DuelPlayerSetup[])));
+                ("MatchId", typeof(Guid)), ("Seed", typeof(ulong)), ("Options", typeof(DuelRoomOptions)), ("Players", typeof(DuelPlayerSetup[])),
+                ("CoreVersion", typeof(string)), ("DataVersion", typeof(int)));          // 경기의 봉투 값(T-48)
+            Assert.Equal((ushort)1, DuelSetup.CanonicalFormatVersion);
+            ContractShape.HasPublicInstanceMethod(typeof(DuelSetup), "WriteCanonical", typeof(void), typeof(ByteWriter));
+            Assert.Equal(string.Empty, new DuelSetup().CoreVersion);                     // 채우기 전에는 쓰지 못한다
+        }
+
+        // CONTRACTS 3.9, spec 10 9.2: 방 옵션의 칸(명세 표의 순서). 비밀번호는 없다(T-48)
+        [Fact]
+        public void DuelRoomOptions_FieldsMatchContract()
+        {
+            ContractShape.Fields(typeof(DuelRoomOptions),
+                ("Rounds", typeof(int)), ("RoundSeconds", typeof(int)), ("HpMultPermille", typeof(int)), ("EnhanceCap", typeof(int)),
+                ("IlCap", typeof(int)), ("AllowMutations", typeof(bool)), ("HeroBlockCap", typeof(int)), ("Equalize", typeof(bool)),
+                ("WildIntrusion", typeof(bool)), ("ThornsOff", typeof(bool)), ("FloorColor", typeof(TimeOfDay)), ("Spectate", typeof(bool)));
+            Assert.Equal(-1, DuelRoomOptions.NoCap);
+            var fresh = new DuelRoomOptions();
+            Assert.Equal(DuelRoomOptions.NoCap, fresh.IlCap);
+            Assert.Equal(DuelRoomOptions.NoCap, fresh.HeroBlockCap);
+            MemberInfo[] all = typeof(DuelRoomOptions).GetMembers(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+            Assert.DoesNotContain(all, m => m.Name.IndexOf("Password", StringComparison.OrdinalIgnoreCase) >= 0);
+        }
+
+        // CONTRACTS 3.8: 검사를 통과한 기록에서 서버의 1차 검사가 읽는 칸(T-49)
+        [Fact]
+        public void InputRecordBody_FieldsMatchContract()
+        {
+            ContractShape.Fields(typeof(InputRecordBody),
+                ("HeaderLength", typeof(int)), ("EndTick", typeof(uint)), ("FinalStateHash", typeof(ulong)),
+                ("DebugUsed", typeof(bool)), ("HasDebugOps", typeof(bool)),
+                ("CommandCount", typeof(int)), ("InputCount", typeof(int)), ("PauseCount", typeof(int)), ("PauseTotalMs", typeof(long)),
+                ("Checkpoints", typeof(RunCheckpoint[])));
+            Assert.Empty(new InputRecordBody().Checkpoints);
+        }
+
+        [Fact]
+        public void DuelRecordBody_And_DuelReplayResult_FieldsMatchContract()
+        {
+            ContractShape.Fields(typeof(DuelRecordBody),
+                ("HeaderLength", typeof(int)), ("InputDelayTicks0", typeof(int)), ("InputDelayTicks1", typeof(int)),
+                ("EndTick", typeof(uint)), ("FinalStateHash", typeof(ulong)), ("InputCount", typeof(int)));
+            ContractShape.Fields(typeof(DuelReplayResult),
+                ("Status", typeof(ReplayStatus)), ("Outcome", typeof(DuelOutcome)), ("TicksSimulated", typeof(uint)), ("FaultDetail", typeof(string)));
+        }
+
+        // CONTRACTS 3.8: 번호는 더하기만 한다
+        [Fact]
+        public void RecordError_ValuesMatchContract()
+        {
+            Assert.Equal(typeof(byte), Enum.GetUnderlyingType(typeof(RecordError)));
+            ContractShape.Enum<RecordError>(
+                ("None", 0), ("BadMagic", 1), ("BadVersion", 2), ("Truncated", 3), ("TrailingBytes", 4), ("ShaMismatch", 5),
+                ("TickOverflow", 6), ("TickBackwards", 7), ("TooManyKeys", 8), ("KeyOrder", 9), ("CommandAfterKey", 10),
+                ("BadKey", 11), ("BadOp", 12), ("UnknownTag", 13), ("EndTickOverLimit", 14),
+                ("BadSlot", 15), ("BadHeader", 16), ("BadFlags", 17), ("BadSeq", 18));
+        }
+
+        // CONTRACTS 3.8: 신뢰할 수 없는 바이트를 읽는 문 둘과 WZDR 을 쓰는 쪽의 시그니처
+        [Fact]
+        public void RecordCodecs_SignaturesMatchContract()
+        {
+            Type span = typeof(ReadOnlySpan<byte>);
+            ContractShape.HasPublicStaticMethod(typeof(InputRecordCodec), "TryRead", typeof(bool), span, typeof(ReplayLimits),
+                typeof(InputRecordHeader).MakeByRefType(), typeof(InputRecordBody).MakeByRefType(), typeof(RecordError).MakeByRefType());
+            ContractShape.HasPublicStaticMethod(typeof(DuelRecordCodec), "TryRead", typeof(bool), span, typeof(ReplayLimits),
+                typeof(DuelSetup).MakeByRefType(), typeof(DuelRecordBody).MakeByRefType(), typeof(RecordError).MakeByRefType());
+            ContractShape.HasPublicStaticMethod(typeof(DuelSetup), "TryReadCanonical", typeof(bool), span, typeof(DuelSetup).MakeByRefType());
+            ContractShape.HasPublicStaticMethod(typeof(DuelSetup), "TryReadCanonicalPrefix", typeof(bool), span,
+                typeof(DuelSetup).MakeByRefType(), typeof(int).MakeByRefType());
+            ContractShape.HasPublicStaticMethod(typeof(ReplayRunner), "RunDuel", typeof(DuelReplayResult), typeof(ContentDb), span, typeof(ReplayLimits));
+            Assert.NotNull(typeof(DuelRecordWriter).GetConstructor(new[] { typeof(DuelSetup) }));
+            ContractShape.HasPublicInstanceMethod(typeof(DuelRecordWriter), "SetInputDelay", typeof(void), typeof(PlayerSlot), typeof(int));
+            ContractShape.HasPublicInstanceMethod(typeof(DuelRecordWriter), "Append", typeof(void), typeof(PlayerInput).MakeByRefType());
+            ContractShape.HasPublicInstanceMethod(typeof(DuelRecordWriter), "Finish", typeof(ReadOnlyMemory<byte>), typeof(uint), typeof(ulong));
         }
 
         // 입력 지연 D는 시뮬레이션이 모른다(CONTRACTS 0.3, 10.5절)

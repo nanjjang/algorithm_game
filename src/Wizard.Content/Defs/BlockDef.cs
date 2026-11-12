@@ -2,7 +2,7 @@ using Wizard.Core;
 
 namespace Wizard.Content
 {
-    // CONTRACTS 2.2, spec 02 4.2
+    // CONTRACTS 2.2, spec 02 4.2. 원본 data/sim/blocks.json, 절 꼴은 Pack/Sections/ContentDb.Blocks.cs
     public sealed class BlockDef
     {
         public BlockId Id;

@@ -704,15 +704,30 @@ public sealed class EndlessSetup {
     public bool PhantomFirst;
     public WandSnapshot Wand; public ArtMask UnlockedArts;
     public bool SeasonTagOn;                          // 시즌 주화·한정 드랍 기회를 기록할지
-    // 정규 바이트 = .wzrc 머리말 그대로(11.1절). 서버 프로필에서는 서버가 StartRun 때 만들어 run.setup_canonical에 저장하고
-    // RunStartTicket.setup으로 내려 준다. 클라이언트는 그 바이트를 읽어 쓰고 다시 조립하지 않는다.
+    // 판의 봉투 값(T-46). 이 판을 돌릴 코어와 팩이다. 세계는 읽지 않는다(상태와 해시에 들어가지 않는다).
+    // 맞는 코어·팩으로 돌리는지는 호출자가 본다(클라이언트는 출발 때, 워커는 대기열 조건과 팩 저장소에서).
+    // 서버는 지금 링크한 코어의 상수가 아니라 출발 요청의 core_version을 넣는다(T-18). 그래서 상수가 아니라 칸이다.
+    public string CoreVersion;                        // hex 32자(소문자). SimVersion.CoreVersion과 같은 꼴. 새 설정은 빈 문자열이라 채우기 전에는 쓰지 못한다
+    public int DataVersion;                           // ContentDb.DataVersion. 0 이상
+    public const ushort CanonicalFormatVersion = 1;   // .wzrc의 format_version
+    // 정규 바이트 = .wzrc 머리말 그대로(11.1절): magic부터 unlocked_arts까지. 서버 프로필에서는 서버가 StartRun 때 만들어
+    // run.setup_canonical에 저장하고 RunStartTicket.setup으로 내려 준다. 클라이언트는 그 바이트를 읽어 쓰고 다시 조립하지 않는다.
+    // WriteCanonical은 w의 끝에 덧붙인다. 칸이 형식에 담기지 않으면(null, 소문자 hex 32자가 아닌 CoreVersion, 음수, u8·u16을 넘는 값,
+    // 255개를 넘는 배열, RunKind에 없는 Kind) 아무것도 쓰지 않고 InvalidOperationException을 던진다(설정을 만든 코드의 결함. 틱 밖에서만 부른다).
     public void WriteCanonical(ByteWriter w);
-    public static bool TryReadCanonical(ReadOnlySpan<byte> bytes, out EndlessSetup setup);
+    // 신뢰할 수 없는 바이트를 읽는다. 예외 없음. 실패하면 setup은 null이다([NotNullWhen(true)] out EndlessSetup?).
+    // true인 입력은 WriteCanonical이 다시 쓰면 같은 바이트가 된다(한 설정에 바이트 열 하나): 다른 magic·format_version, RunKind에 없는 kind,
+    // 0·1이 아닌 참거짓, int를 넘는 data_version, 모자라거나 남는 길이는 false다.
+    // 캐릭터·변이·블록 id가 그 팩에 있는지, 시작 웨이브가 규칙에 맞는지는 보지 않는다(팩과 규칙을 모른다).
+    public static bool TryReadCanonical(ReadOnlySpan<byte> bytes, out EndlessSetup setup);       // bytes 전체가 정규 바이트. 뒤에 남으면 false
+    public static bool TryReadCanonicalPrefix(ReadOnlySpan<byte> bytes, out EndlessSetup setup, out int length);
+                                                      // 기록 파일의 앞머리에서 읽는다. length = 머리말의 길이. InputRecordCodec.TryRead가 쓴다
 }
 public sealed class DuelSetup {
     public Guid MatchId; public ulong Seed; public DuelRoomOptions Options;
     public DuelPlayerSetup[] Players;                 // 길이 2. 리그 제한을 적용한 뒤의 값
-    public void WriteCanonical(ByteWriter w);         // WZDR 머리말(11.1절)
+    public void WriteCanonical(ByteWriter w);         // WZDR 머리말(11.1절). DuelRoomOptions의 칸과 WZDR 머리말의 칸 배치가 정해진 뒤에 더한다.
+                                                      // 그때까지 코드에 선언이 없다(T-46의 따라오는 일)
 }
 public sealed class DuelPlayerSetup {                 // 입력 지연 D는 여기에 없다. 시뮬레이션은 D를 모른다(0.3절, 10.5절)
     public PlayerSlot Slot; public WandSnapshot AppliedWand; public int ActualStage;
@@ -1155,10 +1170,14 @@ public static class ReplayRunner {
     public static DuelReplayResult RunDuel(ContentDb db, ReadOnlySpan<byte> duelRecord, ReplayLimits limits);   // WZDR. 호스트의 확정 기록, 다시 보기
 }
 public readonly struct ReplayLimits { public readonly uint MaxTicks; public readonly long MaxStepCount; }       // 값은 SimLimitsDef(data/sim/limits)
+public sealed class InputRecordHeader {               // .wzrc 머리말을 읽은 것. 머리말의 바이트 = Setup.WriteCanonical의 바이트(T-46)
+    public ushort FormatVersion;                      // = EndlessSetup.CanonicalFormatVersion
+    public EndlessSetup Setup;                        // core_version·data_version도 여기에 있다(Setup.CoreVersion, Setup.DataVersion). 따로 두지 않는다
+}
 public static class InputRecordCodec {                // 신뢰할 수 없는 바이트를 읽는 유일한 문
     // 구조를 전부 확인한 뒤에만 true. 실패는 전부 RecordCorrupt다.
     public static bool TryRead(ReadOnlySpan<byte> file, out InputRecordHeader header, out InputRecordBody body, out RecordError error);
-    public static void WriteHeader(ByteWriter w, InputRecordHeader header);
+    public static void WriteHeader(ByteWriter w, InputRecordHeader header);        // = header.Setup.WriteCanonical(w). 머리말을 쓰는 코드는 한 곳뿐이다
 }
 public sealed class InputRecorder {                   // 판을 하는 쪽이 쓴다. 순번은 여기서만 매긴다(3.1절)
     public InputRecorder(InputRecordHeader header);
@@ -2003,7 +2022,7 @@ public sealed class EnhanceResultDto {                                      // s
 
 `seed`와 `state_hash`는 부호 없는 64비트라서 JSON에는 16자리 hex 문자열로 싣는다. `run_token`은 base64url이다.
 
-**출발의 정본은 서버가 가진다.** `StartRun`은 `EndlessSetup`의 정규 바이트(seed, kind, start_wave, phantom_first, season_tag_on, wand_snapshot, unlocked_arts, core_version, data_version)를 만들어 `run.setup_canonical`에 저장하고 같은 바이트를 `setup`으로 내려 준다. 출발 뒤에 계정의 해금이나 지팡이가 바뀌어도(그 판의 정산이 해금을 더하거나, 다른 판이 먼저 정산되어도) 재실행의 시작 조건은 이 바이트다.
+**출발의 정본은 서버가 가진다.** `StartRun`은 `EndlessSetup`의 정규 바이트(seed, kind, start_wave, phantom_first, season_tag_on, wand_snapshot, unlocked_arts, core_version, data_version)를 만들어 `run.setup_canonical`에 저장하고 같은 바이트를 `setup`으로 내려 준다. `core_version`과 `data_version`은 `RunStartRequest`의 값이고 `EndlessSetup.CoreVersion`·`DataVersion`에 실려 `WriteCanonical`이 쓴다(3.2절, T-46). 클라이언트는 `EndlessSetup.TryReadCanonical`로 읽고, 받은 바이트를 그대로 기록 파일의 머리말로 쓴다. 출발 뒤에 계정의 해금이나 지팡이가 바뀌어도(그 판의 정산이 해금을 더하거나, 다른 판이 먼저 정산되어도) 재실행의 시작 조건은 이 바이트다.
 
 **제출에서 확정까지의 순서**(spec 09 7~9절. 12.4절의 열을 쓴다).
 
@@ -2260,10 +2279,12 @@ OnClientInput(p, pkt, receiveTime):                       // AEAD와 재전송 �
 
 - `run_id [16]`을 비롯한 모든 uuid는 RFC 4122 네트워크 순서(문자열 hex 순서) 16바이트다. `UuidBytes.Write`/`Read`만 쓴다(1.5절). `Guid.ToByteArray()`는 앞 세 필드가 리틀 엔디언인 혼합 순서라서 쓰지 않는다. `tests/fixtures/uuid/`에 알려진 uuid의 바이트 픽스처를 둔다.
 - 레코드의 순서가 곧 순번의 순서다. 한 틱 안에서는 `0x02 Command`가 먼저, 그다음 `0x01 Input`이 `(offset, KeyClass)` 순으로 온다. 읽는 쪽은 레코드 순서대로 1부터 번호를 매긴다. 쓰는 쪽(`InputRecorder`)이 실행 중에 매긴 번호와 같다(3.1절).
-- 머리말의 바이트는 `EndlessSetup`의 정규 바이트와 같다. 서버 프로필에서는 서버가 내려 준 `setup` 바이트를 그대로 쓴다(8.3절).
+- 머리말의 바이트는 `EndlessSetup`의 정규 바이트와 같다(magic부터 unlocked_arts까지 전부. T-46). 쓰는 코드는 `EndlessSetup.WriteCanonical` 하나, 읽는 코드는 `TryReadCanonical`·`TryReadCanonicalPrefix` 하나다(3.2절). 서버 프로필에서는 서버가 내려 준 `setup` 바이트를 그대로 쓴다(8.3절).
+- 머리말의 칸: `core_version [16]`은 `EndlessSetup.CoreVersion`(소문자 hex 32자)이 나타내는 16바이트를 글자 순서대로, `data_version u32`는 `EndlessSetup.DataVersion`(0 이상의 `int`), `kind u8`은 `RunKind`의 번호, `phantom_first`와 `season_tag_on`은 0 또는 1, `character`·`mutations`·`core`·`links`는 id의 번호(2.1절), `stage`·`slots_extra`는 `WandSnapshot`의 값, `unlocked_arts u16`은 `ArtMask`다. 수는 리틀 엔디언이다(1.4절). `phantom_first`가 `season_tag_on`보다 먼저다(클래스의 칸 순서와 다르다).
+- 한 설정에 바이트 열은 하나다. 읽는 쪽은 다시 쓰면 같은 바이트가 되는 입력만 받는다(다른 `format_version`, `RunKind`에 없는 `kind`, 0·1이 아닌 참거짓, `int`를 넘는 `data_version`, 모자란 길이는 거절). 서버의 1차 검사가 바이트로 대조하므로(8.3절) 같은 설정의 다른 표기가 있으면 안 된다.
 - 디버그 op(200~255)이 한 번이라도 적용된 판은 꼬리말의 `debug_used`가 켜진다. 서버는 이 플래그와 무관하게 본문에 디버그 op이 있으면 거절한다.
 
-결투의 확정 입력 기록은 같은 틀에 슬롯 바이트를 더한 `0x05 DuelInput`(varuint Δtick, u8 slot, u8 offset, u8 key_down, varuint seq)을 쓰고, 머리말 대신 `DuelSetup`의 정규 바이트와 그 뒤의 `input_delay u8 × 2`(시뮬레이션 밖의 칸)를 싣는다(`magic "WZDR"`). 서버가 만든 뗌 이벤트도 `0x05`로 실린다. 이것도 `Wizard.Sim`의 코덱이고 `ReplayRunner.RunDuel`이 읽는다.
+결투의 확정 입력 기록은 같은 틀에 슬롯 바이트를 더한 `0x05 DuelInput`(varuint Δtick, u8 slot, u8 offset, u8 key_down, varuint seq)을 쓰고, 머리말 대신 `DuelSetup`의 정규 바이트와 그 뒤의 `input_delay u8 × 2`(시뮬레이션 밖의 칸)를 싣는다(`magic "WZDR"`). `DuelSetup`의 정규 바이트의 칸 배치는 아직 적지 않았다. `DuelRoomOptions`의 칸이 정해질 때 이 절에 적는다(`DECISIONS-TECH.md`의 "아직 정하지 않은 기술 항목"). 서버가 만든 뗌 이벤트도 `0x05`로 실린다. 이것도 `Wizard.Sim`의 코덱이고 `ReplayRunner.RunDuel`이 읽는다.
 
 ### 11.2 콘텐츠 팩 `.wzpack`
 

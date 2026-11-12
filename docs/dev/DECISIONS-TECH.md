@@ -55,6 +55,7 @@
 | T-43 | 솔루션은 `.sln`, 분석기는 `netstandard2.0`, Unity 쪽은 최상위 빌드 설정을 끊는다 | [신규] |
 | T-44 | IL2CPP 코드 제거는 `link.xml`로 막고 플레이어에서 왕복 테스트를 돌린다 | [신규] |
 | T-45 | 서버 주도의 왕복 측정, 결투 키의 epoch, 입력 검증 순서 | [신규] |
+| T-46 | `EndlessSetup`의 정규 바이트는 `.wzrc` 머리말 전체이고, 코어·데이터 버전은 `EndlessSetup`의 칸이다 | [신규] |
 
 ---
 
@@ -396,6 +397,16 @@
 - **이유**: (1) 클라이언트 값에 기대면 D, 이른 시각 검사, 대기열 자격이 모두 자기 보고가 된다. (2) 같은 (키, nonce)의 재사용은 키스트림을 드러낸다. (3) 의사코드대로면 늦은 이벤트 하나가 뒤따르는 최대 8개 패킷을 통째로 버리게 하고, 133ms를 넘는 연속 유실 뒤에는 빠진 순번이 영영 오지 않아 이후 모든 패킷이 순서 위반이 된다. 30개가 쌓이면 정직한 플레이어가 몰수패한다. online 4.11의 표("늦은 입력은 그 이벤트만 버린다")와도 어긋난다. (4) online 4.11-6과 spec 10 TV-N22가 "멈추고 기다린다"다. 회선이 튈 때마다 전체 상태를 받으면 해시 불일치 통계가 단순 지연으로 오염된다. (5) 뗌이 버려지면 캐릭터가 계속 걷거나 쏜다.
 - **따라오는 일**: spec 10 14.8절의 표·의사코드와 TV-N15·TV-N16을 이 규칙으로 고쳐 적었다(`REVIEW-LOG.md`). NetSim에 연속 유실(버스트) 모형과 "오프셋 균등 분포 입력의 폐기율" 측정을 더한다(M2-NET-06).
 
+## T-46 `EndlessSetup`의 정규 바이트는 `.wzrc` 머리말 전체이고, 코어·데이터 버전은 `EndlessSetup`의 칸이다 [신규]
+
+- **문제**: `CONTRACTS.md` 3.2절·11.1절은 "`EndlessSetup`의 정규 바이트 = `.wzrc` 머리말 그대로"라 하고 8.3절은 그 안에 core_version과 data_version이 있다고 적는데, 3.2절의 `EndlessSetup`에는 그 두 값을 담을 칸이 없고 `WriteCanonical(ByteWriter w)`에는 받을 매개변수가 없었다. 어느 구현도 요구된 바이트를 낼 수 없었다(M1-SIM-01의 계약 변경 요청).
+- **결정**: (1) 정규 바이트는 머리말 **전체**다(magic, format_version, core_version, data_version, run_id … unlocked_arts). `run.setup_canonical`, `RunStartTicket.setup`, 기록 파일의 머리말이 같은 바이트다. (2) `EndlessSetup`에 `string CoreVersion`(소문자 hex 32자)과 `int DataVersion`을 더한다. 판의 봉투 값이고 세계는 읽지 않는다(상태와 해시에 들어가지 않는다). 맞는 코어·팩으로 돌리는지는 호출자가 본다. (3) 한 설정에 바이트 열은 하나다. `TryReadCanonical`은 다시 쓰면 같은 바이트가 되는 입력만 받는다. `WriteCanonical`은 형식에 담기지 않는 설정에 `InvalidOperationException`을 던지고 아무것도 쓰지 않는다. (4) 기록 파일의 앞머리를 읽는 `TryReadCanonicalPrefix(bytes, out setup, out length)`를 더한다. (5) `InputRecordHeader`는 `{ FormatVersion, Setup }`이다. core_version·data_version을 따로 들지 않는다(뼈대에 있던 두 칸을 뺐다. 계약에 적힌 적이 없는 칸이고 쓰는 코드가 없었다). `InputRecordCodec.WriteHeader`는 `Setup.WriteCanonical`을 부른다.
+- **대안**: (가) 정규 바이트를 run_id부터 unlocked_arts까지로 줄이고, 머리말을 "magic + format_version + core_version + data_version + 정규 바이트"로 다시 정의한다(버전은 `InputRecordHeader`에만). (나) `WriteCanonical(ByteWriter w, string coreVersion, uint dataVersion)`처럼 매개변수로 받는다. (다) `WriteCanonical`이 `SimVersion.CoreVersion` 상수를 쓴다.
+- **이유**: (가)는 "정규 바이트 = 머리말 = `run.setup_canonical` = `setup`"이라는 등식을 깨서 3.2·8.3·11.1·12.1절과 ARCHITECTURE의 판 흐름, 그리고 그 등식을 수락 조건으로 가진 작업 여덟 개(M1-SIM-01, M1-SIM-07, M11-PRO-01, M11-RUN-01~03, M11-VER-01, M11-CLI-01)를 다 고쳐야 한다. 서버가 저장하는 바이트와 `EndlessSetup`이 읽는 바이트가 달라지면 "받은 바이트를 그대로 쓴다"가 "받은 바이트의 뒷부분을 쓴다"가 되어 잘못 자를 여지가 생긴다. (나)는 읽는 쪽에 값을 돌려줄 자리가 또 필요해 시그니처 둘이 같이 바뀌고, 버전을 설정과 따로 들고 다니다 어긋날 수 있다. (다)는 틀린다: `wizard-api`는 지금 버전의 코어 한 벌만 링크하지만 판의 코어 버전은 출발 요청의 값이다(T-18). 상수를 쓰면 서버가 자기 버전을 적는다. 칸을 더하는 것은 더하기만 하는 변경이고 이미 적힌 문장과 수락 조건을 하나도 바꾸지 않는다.
+- **`DataVersion`이 `int`인 까닭**: 비교 상대인 `ContentPack.DataVersion`·`ContentDb.DataVersion`이 `int`다(2.3절). 파일의 칸은 `u32` 그대로이고, `int`를 넘는 값은 읽을 때 거절한다.
+- **새 설정의 `CoreVersion`이 빈 문자열인 까닭**: 기본값을 `SimVersion.CoreVersion`으로 두면 서버가 요청의 값을 넣는 것을 잊어도 조용히 자기 버전이 적힌다. 비워 두면 `WriteCanonical`이 던진다.
+- **따라오는 일**: (1) M1-SIM-07의 `InputRecordCodec`은 머리말을 직접 풀지 않고 `TryReadCanonicalPrefix`를 쓴다. (2) `SimWorld.CreateEndless`는 두 버전 칸을 읽지 않는다(M1-SIM-02). (3) M11-RUN-02는 `EndlessSetup.CoreVersion`에 요청의 `core_version`을 넣는다. (4) `DuelSetup.WriteCanonical`(WZDR 머리말)은 `DuelRoomOptions`의 칸이 아직 없어서 선언하지 않았다. 아래 "아직 정하지 않은 기술 항목"에 올렸다.
+
 ---
 
 ## 아직 정하지 않은 기술 항목
@@ -411,4 +422,5 @@
 | PostgreSQL, Caddy 설치 | 배치용은 맥미니에 아직 없다(사용자 설치). 테스트용 DB는 T-38 | 서버 기반 |
 | 팩 내려받기 경로 | `wizard-api`가 정적 파일로 낸다 | 판 제출과 검증 |
 | 에셋 반입 뒤 화면 뷰에 프리팹을 쓸지 | T-32. 반입 전까지는 코드로만 만든다. 반입 뒤의 방식은 정하지 않았다 | 에셋 반입(시각 작업) |
+| WZDR 머리말(`DuelSetup`의 정규 바이트)의 칸 배치와 `DuelSetup.WriteCanonical`을 더하는 작업 | 계약은 "`DuelSetup`의 정규 바이트 + `input_delay u8 × 2`, magic `WZDR`"까지만 정했다(CONTRACTS 11.1절). `DuelRoomOptions`의 칸(spec 10 9.2절)이 코드에 아직 없어서 바이트를 정할 수 없다. 기본 방향은 T-46과 같다: 봉투 값(magic, format_version, core_version, data_version)을 앞에 두고 한 설정에 바이트 열 하나. `DuelSetup.cs`는 M1-SIM-01의 소유 폴더(`src/Wizard.Sim/Runtime/Contracts/`)에 있어서, 더하는 작업의 소유 경로를 `tasks.json`에서 정해야 한다 | M1-SIM-07의 WZDR 코덱 전(그 작업의 수락 조건 "WZDR 코덱과 `ReplayRunner.RunDuel`") |
 | IL2CPP 골든 실행을 자동으로 돌리는 방법 | Unity 배치 모드로 플레이어를 빌드한 뒤(빌드 진입점은 `-quit`을 쓴다) 플레이어를 `-batchmode -nographics`로 실행. `mac-il2cpp` 모듈이 먼저 있어야 한다 | 손맛 시제품 뒤 |

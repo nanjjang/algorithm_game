@@ -12,5 +12,17 @@ namespace Wizard.Sim.Events
         public readonly int CreditCount;                  // 외상으로 낼 결정 수(제자 5, B13). 0이면 없음
         public readonly int FizzleInputIndex;             // 불발이면 몇 번째 입력이 늦었는가(1부터). 0이면 불발 아님(B37)
         public readonly int FizzleLateByUnits;            // 늦은 양(입력 시각 단위)
+
+        public ArtPreview(ArtId justArt, int justCost, ArtId normalArt, int normalCost, int creditCount,
+                          int fizzleInputIndex, int fizzleLateByUnits)
+        {
+            JustArt = justArt;
+            JustCost = justCost;
+            NormalArt = normalArt;
+            NormalCost = normalCost;
+            CreditCount = creditCount;
+            FizzleInputIndex = fizzleInputIndex;
+            FizzleLateByUnits = fizzleLateByUnits;
+        }
     }
 }

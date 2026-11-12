@@ -1,0 +1,46 @@
+{
+  "_note": "spec 07 2.3(TimeOfDayDef 4행), spec 14 3.9(코드, 밝은 림 세기). 출처: monsters 4.1 [확정: 구간 / 제안: 가중치], monsters 1.4(림 낮 20%, 해질녘 40%, 밤 60%, 보스 웨이브는 밤 바닥이라 60%). 가중치는 원문의 배율(×1.5, ×2, ×0.5, 없음 = 0) 그대로 적고 적히지 않은 종은 ×1 이다. 해질녘의 도깨비불 0 은 spec 07 2.3(2.2 표의 시간대 칸 '밤'만). 하루 속 웨이브 구간은 waves.json 의 tod_ranges 한 곳에만 있다. 바닥 색은 표시 계층(world-characters 2.4)의 값이라 여기 두지 않는다.",
+  "tods": [
+    {
+      "id": "tod.day",
+      "normal_enemies": true,
+      "weights": [
+        { "species": "enemy.hog_needle", "weight": 1.5 },
+        { "species": "enemy.vine_thorn", "weight": 1.5 },
+        { "species": "enemy.boar_tusk", "weight": 1.5 },
+        { "species": "enemy.bat_dusk", "weight": 0 },
+        { "species": "enemy.wisp_stray", "weight": 0 }
+      ],
+      "rim_strength_percent": 20
+    },
+    {
+      "id": "tod.dusk",
+      "normal_enemies": true,
+      "weights": [
+        { "species": "enemy.wolf_bramble", "weight": 2 },
+        { "species": "enemy.bat_dusk", "weight": 0.5 },
+        { "species": "enemy.wisp_stray", "weight": 0 }
+      ],
+      "rim_strength_percent": 40
+    },
+    {
+      "id": "tod.night",
+      "normal_enemies": true,
+      "weights": [
+        { "species": "enemy.bat_dusk", "weight": 2 },
+        { "species": "enemy.wisp_stray", "weight": 2 },
+        { "species": "enemy.slime_moss", "weight": 0.5 },
+        { "species": "enemy.hog_needle", "weight": 0 },
+        { "species": "enemy.vine_thorn", "weight": 0 },
+        { "species": "enemy.boar_tusk", "weight": 0 }
+      ],
+      "rim_strength_percent": 60
+    },
+    {
+      "id": "tod.boss",
+      "normal_enemies": false,
+      "weights": [],
+      "rim_strength_percent": 60
+    }
+  ]
+}

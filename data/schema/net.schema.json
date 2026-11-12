@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://wizard.invalid/data/schema/net.schema.json",
   "title": "넷코드 규칙 (data/rules/net.json → 팩 절 34 net)",
-  "description": "spec 10 14.5·14.7·14.8·14.9·3.7, online 4.12, CONTRACTS 2.2 NetRuleSet. 시뮬레이션 결과를 바꾸지 않는 값이라 코어 버전 해시 밖이다(data/rules). 표의 정렬(경계 오름차순)과 D의 비감소는 변환기가 본다.",
+  "description": "spec 10 2.8·14.4·14.5·14.7·14.8·14.9·3.7, online 4.12, CONTRACTS 2.2 NetRuleSet. 시뮬레이션 결과를 바꾸지 않는 값이라 코어 버전 해시 밖이다(data/rules). 표의 정렬(경계 오름차순)과 D의 비감소는 변환기가 본다.",
   "type": "object",
   "required": [
     "input_delay_table",
@@ -15,7 +15,10 @@
     "queue_rtt_limit_ms",
     "order_violation_forfeit",
     "spectator_delay_seconds",
-    "spectator_keyframe_ticks"
+    "spectator_keyframe_ticks",
+    "clock_sync_samples",
+    "clock_resync_seconds",
+    "clock_slew_max_ppm"
   ],
   "additionalProperties": false,
   "properties": {
@@ -76,6 +79,23 @@
       "description": "호스트가 관전 시작용 상태를 보관하는 간격(틱) → SpectatorKeyframeTicks",
       "$ref": "_common.schema.json#/$defs/integer",
       "minimum": 1
+    },
+    "clock_sync_samples": {
+      "description": "경기 전 Sync 왕복 횟수이자 서버가 사람마다 두는 왕복 표본 창의 크기(spec 10 2.8 clock_sync_samples, CONTRACTS 10.5) → ClockSyncSamples",
+      "$ref": "_common.schema.json#/$defs/integer",
+      "minimum": 1,
+      "maximum": 256
+    },
+    "clock_resync_seconds": {
+      "description": "경기 중 시계를 다시 재는 간격(초, spec 10 2.8 clock_resync_interval) → ClockResyncTicks(× 60)",
+      "$ref": "_common.schema.json#/$defs/seconds",
+      "exclusiveMinimum": 0
+    },
+    "clock_slew_max_ppm": {
+      "description": "입력 시계의 틱 길이 보정 한도(ppm. 5000 = ±0.5%, spec 10 2.8 clock_slew_max) → ClockSlewMaxPpm",
+      "$ref": "_common.schema.json#/$defs/integer",
+      "minimum": 1,
+      "maximum": 100000
     }
   },
   "$defs": {

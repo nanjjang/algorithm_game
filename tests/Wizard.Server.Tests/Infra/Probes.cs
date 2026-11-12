@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dapper;
 using Wizard.Content;
 using Wizard.Server.Data;
+using Wizard.Server.Tests.AccountsData;
 
 namespace Wizard.Server.Tests.Infra
 {
@@ -26,13 +27,9 @@ GRANT SELECT, UPDATE ON probe_mail, probe_listing TO wizard_app;";
 
         public static Task CreateAsync(PgTestDatabase db) => db.ExecAsync(Sql);
 
-        public static async Task AddAccountsAsync(PgTestDatabase db, params long[] ids)
-        {
-            foreach (long id in ids)
-            {
-                await db.ExecAsync("INSERT INTO account (id) VALUES (@Id) ON CONFLICT DO NOTHING", new { Id = id });
-            }
-        }
+        // 번호가 정해진 계정 행을 만든다. 0010_accounts.sql(M10-ACC-01)이 들어온 뒤 account 는 id 가 GENERATED ALWAYS 이고
+        // NOT NULL 열이 있어서 "INSERT INTO account (id)"로는 만들 수 없다. 스키마를 지키는 자리 값은 AccountTestRows 한 곳이 안다(DECISIONS-TECH T-56).
+        public static Task AddAccountsAsync(PgTestDatabase db, params long[] ids) => AccountTestRows.EnsureAsync(db, ids);
 
         // 시작 잔액을 원장으로 준다(원장 합 = 잔액이 처음부터 맞게)
         public static async Task GrantAsync(PgTestDatabase db, long accountId, long gold, long stones)

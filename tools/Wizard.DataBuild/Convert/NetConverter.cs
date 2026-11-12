@@ -9,7 +9,7 @@ using Wizard.DataBuild.Core;
 namespace Wizard.DataBuild
 {
     // data/rules/net.json → 팩 절 34 net(해시 밖). 읽는 쪽과 절 바이트의 꼴: src/Wizard.Content/Rules/Sections/ContentDb.Net.cs.
-    // 스키마: data/schema/net.schema.json. 근거: spec 10 14.5·14.7·14.8·14.9·3.7, online 4.12, CONTRACTS 2.2 NetRuleSet.
+    // 스키마: data/schema/net.schema.json. 근거: spec 10 2.8·14.4·14.5·14.7·14.8·14.9·3.7, online 4.12, CONTRACTS 2.2 NetRuleSet.
     // 단위: 초 → 틱(× 60, 가장 가까운 정수, 같으면 짝수). 나머지는 원본이 이미 틱·ms·개수라 정수 그대로.
     // 교차 검사: 입력 지연 표는 경계가 엄격히 오름차순이고 D 가 줄지 않는다(왕복이 클수록 D 가 작아질 이유가 없다).
     //
@@ -26,6 +26,9 @@ namespace Wizard.DataBuild
     //   i32 order_violation_forfeit
     //   i32 spectator_delay_ticks
     //   i32 spectator_keyframe_ticks
+    //   i32 clock_sync_samples
+    //   i32 clock_resync_ticks
+    //   i32 clock_slew_max_ppm
     public sealed class NetConverter : ISectionConverter
     {
         public ContentSection Section => ContentSection.Net;
@@ -69,11 +72,15 @@ namespace Wizard.DataBuild
             int forfeit = Int(root.GetProperty("order_violation_forfeit"), "/order_violation_forfeit", file, diagnostics);
             int spectatorDelay = Units.SecondsToTicks(root.GetProperty("spectator_delay_seconds").GetDecimal());
             int spectatorKeyframe = Int(root.GetProperty("spectator_keyframe_ticks"), "/spectator_keyframe_ticks", file, diagnostics);
+            int clockSamples = Int(root.GetProperty("clock_sync_samples"), "/clock_sync_samples", file, diagnostics);
+            int clockResync = Units.SecondsToTicks(root.GetProperty("clock_resync_seconds").GetDecimal());
+            int clockSlew = Int(root.GetProperty("clock_slew_max_ppm"), "/clock_slew_max_ppm", file, diagnostics);
 
-            // 초를 틱으로 바꾼 값이 0 이 되면(0.001초) 끊김·유예·관전 지연이 사라진다
+            // 초를 틱으로 바꾼 값이 0 이 되면(0.001초) 끊김·유예·관전 지연·다시 재는 간격이 사라진다
             RequirePositive(silence, "/disconnect_silence_seconds", file, diagnostics);
             RequirePositive(grace, "/disconnect_grace_seconds", file, diagnostics);
             RequirePositive(spectatorDelay, "/spectator_delay_seconds", file, diagnostics);
+            RequirePositive(clockResync, "/clock_resync_seconds", file, diagnostics);
 
             if (diagnostics.Count != before)
             {
@@ -96,6 +103,9 @@ namespace Wizard.DataBuild
             output.I32(forfeit);
             output.I32(spectatorDelay);
             output.I32(spectatorKeyframe);
+            output.I32(clockSamples);
+            output.I32(clockResync);
+            output.I32(clockSlew);
         }
 
         // 스키마의 "integer" 는 6.0 도 받으므로 decimal 로 읽어 정수인지 본다(다른 변환기의 Int 도우미와 같다)

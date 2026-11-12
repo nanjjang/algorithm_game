@@ -672,6 +672,101 @@ public sealed class CommandParser : ICommandParser {  // 플레이어마다 하�
 - `CopyFrom`은 같은 모양의 트라이(같은 캐릭터, 같은 `ContentDb`)를 쓰는 판정기끼리 된다. 트라이 인스턴스가 같을 필요는 없다(스냅숏의 그림자 세계, 결투의 예측 세계). 모양이 다르면 `SimInvariantException`.
 - `CommandTrie.Build(character, ContentDb)`는 arts·tries 절이 팩에 생길 때까지 `ContentException`이다. 그 절의 필드와 `ParserSourceLoader`의 몸통은 비기 데이터 작업(M5-DAT-01)이 채운다. 그 전의 호출자는 `Build(character, ParserSource)`를 쓴다.
 
+## T-53 블록의 표식·효과·동작 값을 채운다: `ProjectileFlags`·`ModifierEffect`·`BlockParams`. 제어 블록의 갈래는 `Kind`와 `SplitCount`로 가른다 [신규]
+
+- **문제**: M2-SPL-01(블록 16종 데이터와 속성 배율)이 반쯤 하고 멈췄다. (1) `ProjectileFlags`, `ModifierEffect`, `BlockParams`는 뼈대가 빈 타입으로 만들어 두고 머리 주석에 "M2-SPL-01이 채운다"고 적었는데, 그 세 파일이 카드의 `owned_paths`에 없었다. `howto-data-slice.md` 5절도 "비워 둔 타입은 그 절의 데이터 작업이 채운다"고 한다. 그래서 spec 02 4.1의 메모 값(폭발 반경 2, 전이 3회·반경 3·×0.7, 감속, 잠식)을 데이터에 실을 수 없었고 벡터 TV-A04·TV-A05가 반만 시험되었다. (2) `ProjectileFlags`의 비트와 `ModifierEffect`의 번호는 팩에 들어가는 계약인데 `CONTRACTS.md` 2.1절에 선언이 없다. (3) spec 02 4.2의 `BlockDef`에는 `ControlType { None, Split, Trigger }`가 있는데 `CONTRACTS.md` 2.2절의 `BlockDef`에는 없다. (4) 카드의 벡터 30개 가운데 16개는 이 작업 시점에 시험할 수 없다(적·보스 데이터, 피해 계산, 패시브, 비기가 있어야 한다).
+- **결정**:
+  1. **`ProjectileFlags : ushort`**(`[Flags]`): `None = 0, Explodes = 1, Chains = 2, Returns = 4, PassThrough = 8, IgnoresWolfDodge = 16`. 투사체 블록만 갖는다. 거대 화염구 `Explodes`, 연쇄 번개 `Chains | IgnoresWolfDodge`, 부메랑 `Returns`, 그림자 구체 `PassThrough`.
+  2. **`ModifierEffect : byte`**: `None = 0, Bounce = 1, Pierce = 2, Size = 3, Homing = 4, Frost = 5, TripleHeat = 6, Corrosion = 7`. 변형 블록은 정확히 하나를 갖고 그 밖의 블록은 `None`이다. 이름은 블록의 정본 이름을 따른다(`CONTRACTS.md` 2.1절 대응표: spec 02의 `Overheat3` → `TripleHeat`, `Erosion` → `Corrosion`).
+  3. **`BlockParams`**의 필드 19개(아래 개정문). 그 블록이 쓰지 않는 값은 0이다. 값의 출처는 spec 02 4.1의 메모, 4.2의 "기타" 칸, 9.3(부채꼴), 10.4, 12절, 그리고 18절의 [임시] U6~U12다. 4.2의 표에 수가 없는 것(튕김 횟수, 관통 수, 반지름 배수와 상한, 유도의 선회각·시야·거리, 부메랑이 돌아와 사라지는 반경과 돌아오는 길의 상한)도 여기에 둔다. 기획 수치는 `data/`에만 둘 수 있고(`CLAUDE.md` 5절), 빼 두면 실행기 작업(M2-SPL-03)이 같은 자리에서 다시 멈춘다.
+  4. **전이 배율은 두 곳에 있고 변환기가 대조한다.** 원본의 `chain_hop_multiplier`(0.7 → `ChainHopMulPermille` 700)는 표시와 대조용이다. 피해 계산은 `FixMath.PowTable(PowBase.Chain07, k)`를 쓴다(spec 02 18절 U18 "거듭제곱은 표", `CONTRACTS.md` 1.1절). 변환기는 원본의 값을 Raw로 바꾼 것이 표의 1번 칸과 다르면 진단을 낸다. 값을 바꾸려면 표(`tools/Wizard.TableGen`)부터 바꾼다.
+  5. **분열의 부채꼴은 반각 하나다**: `FanHalfAngleCenti`(2갈래 1000, 3갈래 1500). 갈래 `i`(0부터)의 각도는 `−반각 + i × (2 × 반각) ÷ (갈래 수 − 1)`이다(2갈래 −10 / +10도, 3갈래 −15 / 0 / +15도. spec 02 9.3 표와 같다).
+  6. **`ControlType` 필드를 두지 않는다.** 제어 블록의 갈래는 `Kind`와 `SplitCount`로 정해진다: 갈래가 둘 이상이면 분열, 하나면 적중 시 발동. `BlockDef`에 읽기 전용 속성 `IsSplit`·`IsTrigger`를 둔다. 컴파일러는 `BlockId`로 가르지 않는다. 변환기가 제어 블록을 이 둘로만 받는다(분열: 갈래 ≥ 2, 열 배수 > 1, 부채꼴 반각이 있다. 적중 시 발동: 갈래 1, 열 배수 1. 제어 블록은 열을 더하지 않는다).
+  7. **표식·효과와 값의 짝은 변환기가 막는다.** `Explodes` ⇔ 폭발 반경, `Chains` ⇔ 전이 횟수·반경·배율, `Returns` ⇔ 소멸 반경·돌아오는 길, 효과마다 그 값. 감속은 투사체 블록(얼음 송곳)과 효과 `Frost`만, 받는 피해 증가는 효과 `Corrosion`만 갖는다. 읽는 쪽(`ContentDb.Blocks.cs`)은 꼴만 본다(모르는 비트·번호, 음수).
+  8. **`ElementDef`**는 `WeakMultiplier`·`ResistMultiplier`(Fix64)와 `Multiplier(damage, weak, resist)`다. 무속성 피해는 1이고, 결투에서 1로 두는 것은 부르는 쪽이 한다(정의는 모드를 모른다). 적마다의 약점·저항은 `EnemyDef`와 `BossDef`의 값이다(spec 05 2.2, spec 06 1절).
+  9. **벡터 배정을 옮긴다**(`PIPELINE.md` 3.7절). M2-SPL-01에는 데이터만으로 시험되는 12개가 남는다: TV-A01~A07, TV-A17, TV-B01~B04.
+
+| 벡터 | 받는 작업 | 까닭 |
+|---|---|---|
+| TV-A08~A14 (상성 표 18행과 그 검산) | M8-DAT-02 | 일반 12종(M8-DAT-01)과 보스 6종의 약점·저항이 다 있는 첫 자리. spec 14 7.2절의 같은 검산을 이미 가진 작업이다 |
+| TV-A15·A16 (강화 배율 표) | M2-SPL-04 | 결투 열(1 + 0.03 × 단계)까지 보아야 한다. 피해 공식이 두 열을 다 쓴다(TV-H24) |
+| TV-B05 (결투 배율 1), TV-B08·B09 (피해 속성 = 투사체 블록의 속성), TV-B13 (폭발은 적마다 따로) | M2-SPL-04 | 피해 계산과 실행기가 있어야 한다 |
+| TV-B06·B07 (엘리트는 바탕 종, 졸개는 상성 없음) | M3-ENM-01 | 적 공통 런타임의 상성 조회 |
+| TV-B10 (끓어넘침은 캐릭터 속성) | M5-CHR-01 | 패시브 |
+| TV-B11 (꽈리 벌레 유폭은 무속성) | M8-ENM-01 | 꽈리 벌레 |
+| TV-B12 (꿰뚫는 창은 코어 블록의 속성) | M5-ART-03 | 공용 비기 ⑥ |
+
+- **대안**: (가) 세 타입을 채우는 일을 CCR 작업으로 따로 낸다. (나) `ControlType`을 `BlockDef`의 필드로 더한다(spec 02 4.2 그대로). (다) `BlockParams`에 4.2 표의 값만 두고 18절의 [임시] 값은 실행기 작업이 필요할 때 더한다. (라) 표식과 효과를 원본에 적지 않고 `params`에 어떤 값이 있는지로 변환기가 만든다. (마) 전이 배율을 원본에 두지 않는다. (바) 부채꼴 각도를 갈래마다의 배열로 둔다.
+- **이유**:
+  - (가) 타입의 필드와 원본·스키마·변환기·절 읽기·대조 시험은 한 덩어리다(`howto-data-slice.md` 3~6절: 필드를 더할 때 변환기와 절 파일을 같은 커밋에서 고친다). 타입만 먼저 넣는 CCR은 읽지도 쓰지도 않는 필드를 main에 남긴다. 머리 주석과 `howto-data-slice.md`가 이미 이 작업의 일이라고 적었고 빠진 것은 카드의 경로뿐이다.
+  - (나) 분열 ⇔ 갈래 ≥ 2는 16종에서 언제나 참이고 변환기가 지키므로 필드를 더하면 같은 사실이 두 곳에 생긴다(어긋날 수 있는 값이 하나 는다). 셋째 갈래의 제어 블록이 생기면 그때 필드를 더한다(번호는 더하기만 한다).
+  - (다) 18절은 "[임시] 기본값으로 만든다"고 했고 그 값들은 QA에서 사용자가 고칠 수다. 코드에 둘 수 없으므로(`CLAUDE.md` 5절) 자리는 `blocks.json`뿐이고, `BlockParams.cs`와 `blocks.json`은 실행기 작업의 소유가 아니다.
+  - (라) spec 02 4.2가 표식과 효과를 `BlockDef`의 칸으로 적었다. 값이 없는 표식(`PassThrough`, `IgnoresWolfDodge`)은 만들 수 없고, 원본에 적혀 있어야 "표식은 있는데 값이 없다"를 진단할 수 있다.
+  - (마) spec 02 4.1의 메모 값이고 TV-A04가 대조한다. 조립 화면의 설명도 데이터에서 읽는다. 표와 어긋날 수 있다는 흠은 4번의 대조로 막는다.
+  - (바) 9.3 표의 두 줄은 반각 하나로 정확히 만들어지고, 배열은 갈래 수와 길이가 어긋날 수 있다.
+- **`CONTRACTS.md`는 이 브랜치에서 고치지 않았다.** T-47·T-52와 같은 까닭이다: 작업 브랜치에서 그 파일을 고치면 `check-diff`가 막고, 그 파일을 작업의 `owned_paths`에 넣으면 `taskgraph`의 시험(`Add_ToCopyOfRealGraph_PassesFullValidationIncludingVectors`)이 "경로가 겹치는데 순서가 없다"로 깨진다. 아래 개정문은 지금의 2.1·2.2절에 더하기만 한다(있던 선언을 바꾸지 않는다. 2.2절은 `BlockParams`를 "필드는 명세의 표가 주인"이라며 비워 두었다). 옮겨 적기 전까지 2.1·2.2절은 아래 개정문과 같이 읽는다.
+- **따라오는 일**:
+  - CCR 작업(계약 변경 요청으로 올린다): 아래 개정문을 `CONTRACTS.md` 2.1·2.2절에 옮겨 적는다. T-47의 훅 표, T-52의 3.5절과 같이 할 수 있다. FIX-2가 먼저다.
+  - 계약 코드: `src/Wizard.Content/Ids/ProjectileFlags.cs`, `Ids/ModifierEffect.cs`, `Defs/BlockParams.cs`, `Defs/BlockDef.cs`(`IsSplit`·`IsTrigger`), `Defs/ElementDef.cs`.
+  - 팩의 blocks 절: 항목 끝에 `BlockParams` 96바이트가 붙어 항목 하나가 156바이트다(꼴은 `ContentDb.Blocks.cs`와 `BlocksConverter.cs`의 머리 주석). 절의 꼴은 그 절의 주인 작업이 정한다(`howto-data-slice.md` 3절). 재실행에 드는 소스가 바뀌어 `SimVersion.g.cs`를 다시 만들었다.
+  - `tasks.json`: M2-SPL-01의 `owned_paths`에 계약 코드 셋과, 이 결정을 같이 넣으려고 `DECISIONS-TECH.md`·`tasks.json`을 더했다(T-47·T-52와 같다. main에 들어간 뒤에는 문서 둘이 필요 없다). 같은 문서를 가진 M1-SIM-08과 순서가 있어야 해서 `deps`에 M1-SIM-08을 더했다(이미 main에 있어 막지 않는다). 위 표대로 벡터를 옮기고 받는 작업의 수락 조건에 한 줄씩 더했다.
+  - M2-SPL-02(컴파일러): 분열과 적중 시 발동은 `IsSplit`·`IsTrigger`로 가른다. 부채꼴 각도는 5번의 식이다.
+  - M2-SPL-03(실행기): 블록의 동작은 `Flags`·`Effect`·`Params`에서 읽는다. `RadiusMulCapPermille`는 크기 블록이 겹친 곱의 상한이다. 겹침의 규칙(튕김·관통은 블록 수만큼 더한다, 반지름은 곱한다)은 spec 02 18절 U6~U8 그대로이고 코드의 몫이다.
+  - M2-SPL-04(피해): 전이는 `PowTable(Chain07, k)`, 임계 배율은 과열 3배가 있으면 `CritMultiplier`, 감속과 잠식의 폭·지속은 `Params`. 결투에서 바뀌는 값(감속 절반, 잠식 1.08, 유도 선회 절반·90틱)은 `BlockParams`에 없다. 결투 규칙 데이터(M14-DAT-01)가 가진다.
+  - 얼음 송곳의 감속에는 표식이 없다(`Params.SlowPermille > 0`으로 안다). 서리(변형)와 같은 값의 자리를 쓴다.
+
+**`CONTRACTS.md` 2.1·2.2절 개정문** (CCR 작업이 옮겨 적는다. 더하기만 한다)
+
+```csharp
+// namespace Wizard.Content — 2.1절에 더한다. 번호와 비트는 팩의 blocks 절에 들어간다(더하기만 한다)
+[Flags] public enum ProjectileFlags : ushort {
+    None = 0, Explodes = 1, Chains = 2, Returns = 4, PassThrough = 8, IgnoresWolfDodge = 16 }
+public enum ModifierEffect : byte {
+    None = 0, Bounce = 1, Pierce = 2, Size = 3, Homing = 4, Frost = 5, TripleHeat = 6, Corrosion = 7 }
+
+// 2.2절. BlockDef에 더한다(필드는 그대로)
+public sealed class BlockDef {
+    /* … 2.2절의 필드 … */
+    public bool IsSplit { get; }                      // Kind == Control && SplitCount > 1
+    public bool IsTrigger { get; }                    // Kind == Control && SplitCount == 1
+}
+public sealed class BlockParams {                     // 쓰지 않는 값은 0. 전부 0 이상
+    public Fix64 ExplosionRadius;                     // Explodes. 칸
+    public int ChainHops; public Fix64 ChainRadius;   // Chains. 전이 횟수(첫 타 제외), 전이 반경(칸)
+    public int ChainHopMulPermille;                   // Chains. 700. 계산은 PowTable(PowBase.Chain07, k)
+    public Fix64 ReturnArriveRadius, ReturnMaxDistance;   // Returns. 칸
+    public int SlowPermille, SlowTicks;               // 적중 감속(얼음 송곳, 효과 Frost)
+    public int DamageTakenBonusPermille, DamageTakenBonusTicks;   // 효과 Corrosion
+    public int FanHalfAngleCenti;                     // 분열. 부채꼴의 반각
+    public int BounceCount, PierceCount;              // 효과 Bounce, Pierce. 블록 1개당
+    public int RadiusMulPermille, RadiusMulCapPermille;   // 효과 Size
+    public int HomingTurnCentiPerTick, HomingConeHalfCenti; public Fix64 HomingRange;   // 효과 Homing
+    public int CritMultiplier;                        // 효과 TripleHeat. 임계 배율을 이 값으로 교체
+}
+public sealed class ElementDef {                      // spec 02 3.3 AF-1, DECISIONS 2.5
+    public Fix64 WeakMultiplier, ResistMultiplier;    // 1.25, 0.8
+    public Fix64 Multiplier(Element damage, Element weak, Element resist);   // 무속성 피해는 1. 결투의 1은 부르는 쪽
+}
+```
+
+| 블록 | `Flags` / `Effect` | `Params` (0이 아닌 값) |
+|---|---|---|
+| `block.magic_bolt` | — | — |
+| `block.fireball` | `Explodes` | `ExplosionRadius` 2 |
+| `block.chain_lightning` | `Chains`, `IgnoresWolfDodge` | `ChainHops` 3, `ChainRadius` 3, `ChainHopMulPermille` 700 |
+| `block.boomerang` | `Returns` | `ReturnArriveRadius` 0.5, `ReturnMaxDistance` 9 [임시 U12] |
+| `block.ice_spike` | — | `SlowPermille` 300, `SlowTicks` 60 |
+| `block.shadow_orb` | `PassThrough` | — |
+| `block.split_two` / `block.split_three` | — (`IsSplit`) | `FanHalfAngleCenti` 1000 / 1500 |
+| `block.on_hit_trigger` | — (`IsTrigger`) | — |
+| `block.wall_bounce` | `Bounce` | `BounceCount` 2 [임시 U6] |
+| `block.double_size` | `Size` | `RadiusMulPermille` 2000, `RadiusMulCapPermille` 4000 [임시 U8] |
+| `block.pierce` | `Pierce` | `PierceCount` 2 [임시 U7] |
+| `block.frost` | `Frost` | `SlowPermille` 200, `SlowTicks` 60 |
+| `block.homing` | `Homing` | `HomingTurnCentiPerTick` 300, `HomingConeHalfCenti` 9000, `HomingRange` 6 [임시 U9] |
+| `block.triple_heat` | `TripleHeat` | `CritMultiplier` 3 |
+| `block.corrosion` | `Corrosion` | `DamageTakenBonusPermille` 150, `DamageTakenBonusTicks` 180 |
+
 ---
 
 ## 아직 정하지 않은 기술 항목

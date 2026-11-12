@@ -1,13 +1,10 @@
+using System;
+
 namespace Wizard.ReplayCli
 {
-    // 빈 진입점. 실행 파일 프로젝트는 진입점이 없으면 CS5001로 빌드가 깨진다(ARCHITECTURE 3.4).
-    // 실제 내용은 M1-TE-01 이 채운다. 그 전에는 할 일이 없다는 것을 알리고 0이 아닌 코드로 끝난다.
+    // replaycli — .wzrc·.wzdr 재실행, 틱별 해시, 두 실행 비교, 골든(ARCHITECTURE 2, PIPELINE 4.4·7.3). 명령과 인자는 Cli.cs 의 도움말에 있다
     public static class Program
     {
-        public static int Main(string[] args)
-        {
-            System.Console.Error.WriteLine("replaycli: not implemented yet (M1-TE-01)");
-            return 2;
-        }
+        public static int Main(string[] args) => Cli.Run(args, Console.Out, Console.Error);
     }
 }

@@ -1,0 +1,9 @@
+{
+  "format": 1,
+  "id": "m1/duel-dense",
+  "kind": "duel",
+  "seed": "0x00000000d0e10002",
+  "setup": { "hashEveryTicks": 30, "players": 2 },
+  "record": "record.wzdr",
+  "notes": "결투 세계 2인, 30초. 두 사람의 키가 몰린 틱(사람마다 8개에서 끊긴다)과 같은 오프셋의 입력. 기록: replaycli bot --kind duel --ticks 1800 --bot-seed 0x57 --profile dense --seed 0x00000000d0e10002"
+}

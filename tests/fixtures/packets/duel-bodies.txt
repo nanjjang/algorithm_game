@@ -1,0 +1,114 @@
+# 결투 UDP 패킷 본문(평문)의 바이트 픽스처. CONTRACTS 10.2~10.4절. M2-NET-01.
+# 값은 계약의 필드 표에서 손으로 옮겼다(리틀 엔디언, varuint = LEB128). 구현 출력에서 베끼지 않았다.
+# 형식: "[이름]" 다음 줄에 "kind <번호>", 이어서 "hex ..." 줄들(공백 무시, 줄 끝 '#' 뒤는 설명). 필드 값은 테스트 코드에 같은 이름으로 있다.
+
+[client_input.empty]
+kind 1
+hex 64000000        # sealed_through_tick 100
+hex 60000000        # ack_confirmed_tick 96
+hex 83060000        # client_send_time_ms 1667
+hex 72060000        # echo_server_time_ms 1650
+hex 0500            # echo_hold_ms 5
+hex 2a000000        # base_seq 42 (이벤트가 없으면 지금까지 매긴 마지막 순번)
+hex 00              # event_count 0
+
+[client_input.events]
+kind 1
+hex 64000000        # sealed_through_tick 100
+hex 5f000000        # ack_confirmed_tick 95
+hex a4060000        # client_send_time_ms 1700
+hex 9a060000        # echo_server_time_ms 1690
+hex 0300            # echo_hold_ms 3
+hex 09000000        # base_seq 9
+hex 04              # event_count 4
+hex 5d000000 80 10 0a000000   # e0: tick 93(= sealed − 7, 창의 첫 틱), offset 128, Up 누름, seq 10
+hex 00 c0 15 01               # e1: Δtick 0, offset 192, Skill 누름, Δseq 1 (seq 11)
+hex 07 10 00 02               # e2: Δtick 7 (tick 100), offset 16, Up 뗌, Δseq 2 (seq 13)
+hex 01 ff 17 01               # e3: Δtick 1 (tick 101, 아직 봉인하지 않은 다음 틱), offset 255, Reverse 누름, Δseq 1 (seq 14)
+
+[client_input.wide]
+kind 1
+hex ffffffff        # sealed_through_tick 4294967295
+hex 00000000        # ack_confirmed_tick 0
+hex ffffffff        # client_send_time_ms 4294967295
+hex 00000000        # echo_server_time_ms 0 (받은 서버 패킷 없음)
+hex ffff            # echo_hold_ms 65535
+hex 00000000        # base_seq 0
+hex 03              # event_count 3
+hex e8030000 00 16 01000000   # e0: tick 1000, offset 0, Stance 누름, seq 1
+hex ac02 01 04 c801           # e1: Δtick 300 (tick 1300), offset 1, Fire 뗌, Δseq 200 (seq 201)
+hex ebf5ffff0f 02 13 b6feffff0f   # e2: Δtick 4294965995 (tick 4294967295), offset 2, Right 누름, Δseq 4294967094 (seq 4294967295)
+
+[server_tick.empty]
+kind 2
+hex d0070000        # server_time_ms 2000
+hex c6070000        # echo_client_send_time_ms 1990
+hex fdff            # margin_ms_estimate −3
+hex 00              # flags 0
+hex 78000000        # confirmed_from_tick 120
+hex 00              # confirmed_count 0
+
+[server_tick.full]
+kind 2
+hex 45230100        # server_time_ms 74565
+hex 36230100        # echo_client_send_time_ms 74550
+hex 1500            # margin_ms_estimate 21
+hex 03              # flags 1 | 2
+hex 59000000        # confirmed_from_tick 89
+hex 02              # confirmed_count 2
+hex 01 02           # 틱 89: n0 1, n1 2
+hex 40 14 05        #   슬롯 0: offset 64, Fire 누름, seq 5
+hex 00 10 8201      #   슬롯 1: offset 0, Up 누름, seq 130
+hex 00 15 8301      #   슬롯 1: offset 0, Skill 누름, seq 131
+hex 00 00           # 틱 90: n0 0, n1 0 ("변화 없음"으로 닫힌 틱)
+hex 5a000000        # hash_tick 90
+hex efcdab8967452301   # state_hash 0x0123456789abcdef
+hex 02              # dropped_count 2
+hex 06000000 01 0000   # seq 6, reason 1 늦음, run 0
+hex 07000000 05 2b01   # seq 7, reason 5 유실, run 299 (순번 7..306)
+
+[server_tick.dropped_only]
+kind 2
+hex 01000000        # server_time_ms 1
+hex 00000000        # echo_client_send_time_ms 0
+hex 0000            # margin_ms_estimate 0
+hex 02              # flags 2
+hex 00000000        # confirmed_from_tick 0
+hex 00              # confirmed_count 0
+hex 01              # dropped_count 1
+hex ffffffff 02 0000   # seq 4294967295, reason 2 이른 시각, run 0
+
+[sync_request.first]
+kind 3
+hex 0504030201000000   # t0_us 0x0102030405
+hex 00000000        # echo_server_seq 0 (처음)
+hex fa000000        # echo_hold_us 250
+
+[sync_request.echo]
+kind 3
+hex 40420f0000000000   # t0_us 1000000
+hex 07000000        # echo_server_seq 7
+hex b0040000        # echo_hold_us 1200
+
+[sync_reply]
+kind 4
+hex 40420f0000000000   # t0_us 1000000 (그대로)
+hex 0100000005000000   # server_time_us 21474836481 (0x500000001)
+hex 08000000        # server_seq 8
+
+[hello]
+kind 5
+hex 01              # slot 1
+hex f8283501        # client_build 20261112
+
+[hello_ack]
+kind 6
+hex b4000000        # start_tick 180
+hex 60e3160000000000   # match_epoch_server_us 1500000
+hex 03              # input_delay_self 3
+hex 02              # input_delay_opponent 2
+hex 4a00            # rtt_ms_measured 74
+
+[bye]
+kind 7
+hex 01              # reason 1

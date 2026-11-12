@@ -12,8 +12,16 @@ namespace Wizard.Content
     //     i64 base_damage_raw  i32 interval_ticks  i64 speed_per_tick_raw  u8 is_instant(0 | 1)
     //     i64 range_raw  i64 hit_radius_raw  i32 damage_bonus_permille
     //     u16 flags  u8 effect
-    // BlockParams 는 아직 필드가 없어 절에 없다(spec 02 4.2 의 폭발 반경 등은 M2-SPL-01 이 끝에 더한다).
-    // 깨진 바이트(모자람, 남음, 순서, 모르는 열거형 값·비트)는 ContentException.
+    //     BlockParams(T-53. 쓰지 않는 값은 0, 음수 없음):
+    //       i64 explosion_radius_raw  i32 chain_hops  i64 chain_radius_raw  i32 chain_hop_mul_permille
+    //       i64 return_arrive_radius_raw  i64 return_max_distance_raw
+    //       i32 slow_permille  i32 slow_ticks  i32 damage_taken_bonus_permille  i32 damage_taken_bonus_ticks
+    //       i32 fan_half_angle_centi
+    //       i32 bounce_count  i32 pierce_count  i32 radius_mul_permille  i32 radius_mul_cap_permille
+    //       i32 homing_turn_centi_per_tick  i32 homing_cone_half_centi  i64 homing_range_raw  i32 crit_multiplier
+    //   항목 하나는 156바이트다. 필드를 더할 때는 항목 끝에 더한다.
+    // 깨진 바이트(모자람, 남음, 순서, 모르는 열거형 값·비트, 음수인 BlockParams 값)는 ContentException.
+    // 값끼리의 규칙(폭발 표식이면 반경이 있다 등)은 변환기가 본다. 읽는 쪽은 꼴만 본다.
     public sealed partial class ContentDb
     {
         // BlockId 값으로 찾는 표. 비어 있는 칸은 그 id 가 팩에 없다는 뜻이다
@@ -95,10 +103,51 @@ namespace Wizard.Content
             }
             d.Flags = (ProjectileFlags)flags;
             d.Effect = (ModifierEffect)BlockEnumByte(ref r, typeof(ModifierEffect));
+            BlockParams p = d.Params;
+            p.ExplosionRadius = Fix64.FromRaw(BlockParamI64(ref r));
+            p.ChainHops = BlockParamI32(ref r);
+            p.ChainRadius = Fix64.FromRaw(BlockParamI64(ref r));
+            p.ChainHopMulPermille = BlockParamI32(ref r);
+            p.ReturnArriveRadius = Fix64.FromRaw(BlockParamI64(ref r));
+            p.ReturnMaxDistance = Fix64.FromRaw(BlockParamI64(ref r));
+            p.SlowPermille = BlockParamI32(ref r);
+            p.SlowTicks = BlockParamI32(ref r);
+            p.DamageTakenBonusPermille = BlockParamI32(ref r);
+            p.DamageTakenBonusTicks = BlockParamI32(ref r);
+            p.FanHalfAngleCenti = BlockParamI32(ref r);
+            p.BounceCount = BlockParamI32(ref r);
+            p.PierceCount = BlockParamI32(ref r);
+            p.RadiusMulPermille = BlockParamI32(ref r);
+            p.RadiusMulCapPermille = BlockParamI32(ref r);
+            p.HomingTurnCentiPerTick = BlockParamI32(ref r);
+            p.HomingConeHalfCenti = BlockParamI32(ref r);
+            p.HomingRange = Fix64.FromRaw(BlockParamI64(ref r));
+            p.CritMultiplier = BlockParamI32(ref r);
             return d;
         }
 
-        // ProjectileFlags 에 선언된 비트 전부(비트는 M2-SPL-01 이 더한다. 읽는 코드는 그대로 따라간다)
+        // BlockParams 의 값은 전부 0 이상이다(쓰지 않는 값은 0)
+        private static int BlockParamI32(ref ByteReader r)
+        {
+            int v = BlockI32(ref r);
+            if (v < 0)
+            {
+                throw BlocksBroken("negative block param");
+            }
+            return v;
+        }
+
+        private static long BlockParamI64(ref ByteReader r)
+        {
+            long v = BlockI64(ref r);
+            if (v < 0)
+            {
+                throw BlocksBroken("negative block param");
+            }
+            return v;
+        }
+
+        // ProjectileFlags 에 선언된 비트 전부(비트를 더하면 읽는 코드는 그대로 따라간다)
         private static ushort BlockKnownFlags()
         {
             ushort mask = 0;

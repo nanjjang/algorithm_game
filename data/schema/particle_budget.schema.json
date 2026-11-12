@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wizard.invalid/data/schema/particle_budget.schema.json",
+  "title": "입자 예산 (data/presentation/particle_budget.json → Wizard.ViewLogic.Presentation.Limits.ParticleBudgetTable)",
+  "description": "effects.md 9.3절이 유일한 기준(DECISIONS 2.8). 팩에 들지 않는 표시 연결이다. 세 칸 배열은 연출 줄이기 Full / Reduced / Minimal(spec 13 14.5) 순서. 시간은 초(읽는 쪽이 밀리초로 바꾼다), 길이는 px. 화면마다 분류는 한 번, 우선순위 번호는 서로 다르다(작을수록 중요). 합계는 합계에 세는 몫의 합을 넘지 않는다(ParticleBudgetTable 이 본다).",
+  "type": "object",
+  "required": ["scenes", "wand_tiers", "wand_lifetimes_seconds", "hit", "bullet_load", "trail", "shares"],
+  "additionalProperties": false,
+  "properties": {
+    "_note": { "$ref": "_common.schema.json#/$defs/note" },
+    "scenes": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": { "$ref": "#/$defs/scene" }
+    },
+    "wand_tiers": {
+      "description": "지팡이 문서가 채우는 몫 — 단계 구간별 요청 상한(다섯 지팡이 공통). +0부터 빈틈없이 오름차순",
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/wandTier" }
+    },
+    "wand_lifetimes_seconds": {
+      "description": "열마다의 수명 한도(초)",
+      "type": "object",
+      "required": ["idle", "muzzle", "shed", "hit"],
+      "additionalProperties": false,
+      "properties": {
+        "idle": { "$ref": "_common.schema.json#/$defs/seconds" },
+        "muzzle": { "$ref": "_common.schema.json#/$defs/seconds" },
+        "shed": { "$ref": "_common.schema.json#/$defs/seconds" },
+        "hit": { "$ref": "_common.schema.json#/$defs/seconds" }
+      }
+    },
+    "hit": {
+      "description": "적중 1회에 덧붙는 것, 최소형, 같은 적 연타 합치기, 처치 조각 절반",
+      "type": "object",
+      "required": ["extra_crit", "extra_weak", "extra_resist", "minimal_particles", "merge_window_seconds", "merge_over_hits", "merged_particles", "kill_halve_over_per_frame"],
+      "additionalProperties": false,
+      "properties": {
+        "extra_crit": { "description": "임계 사격 적중에 더하는 입자", "$ref": "_common.schema.json#/$defs/integer" },
+        "extra_weak": { "description": "약점 적중에 더하는 입자", "$ref": "_common.schema.json#/$defs/integer" },
+        "extra_resist": { "description": "저항 적중에 더하는 입자(음수)", "$ref": "_common.schema.json#/$defs/integer" },
+        "minimal_particles": { "description": "적중 최소형의 입자 수", "$ref": "_common.schema.json#/$defs/nonNegativeInteger" },
+        "merge_window_seconds": { "description": "같은 적 연타를 세는 창", "$ref": "_common.schema.json#/$defs/seconds" },
+        "merge_over_hits": { "description": "창 안에서 이 수를 넘으면 큰 불꽃 하나로", "$ref": "_common.schema.json#/$defs/nonNegativeInteger" },
+        "merged_particles": { "description": "큰 불꽃 하나의 입자 수", "$ref": "_common.schema.json#/$defs/nonNegativeInteger" },
+        "kill_halve_over_per_frame": { "description": "한 프레임에 이 수를 넘게 죽으면 처치 조각을 절반으로", "$ref": "_common.schema.json#/$defs/nonNegativeInteger" }
+      }
+    },
+    "bullet_load": {
+      "description": "화면의 내 탄 수에 따른 자동 줄이기. min_bullets 오름차순, 첫 줄은 0",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["min_bullets", "shed", "trail_length_percent", "hit_decor"],
+        "additionalProperties": false,
+        "properties": {
+          "_note": { "$ref": "_common.schema.json#/$defs/note" },
+          "min_bullets": { "$ref": "_common.schema.json#/$defs/nonNegativeInteger" },
+          "shed": { "description": "탄이 흘리는 입자를 내는가", "type": "boolean" },
+          "trail_length_percent": { "description": "꼬리 띠 길이 배율(%). 0 = 끔", "$ref": "_common.schema.json#/$defs/percent", "minimum": 0, "maximum": 100 },
+          "hit_decor": { "description": "적중 장식: full / half(절반 올림) / minimal(최소형)", "enum": ["full", "half", "minimal"] }
+        }
+      }
+    },
+    "trail": {
+      "description": "꼬리 띠의 한도(입자가 아니어도 지킨다)와 바닥 흔적 그림의 한도",
+      "type": "object",
+      "required": ["max_length_px", "max_frames", "max_opacity_percent", "ground_marks_per_wand", "ground_mark_max_diameter_px", "ground_mark_max_opacity_percent", "ground_mark_max_life_seconds"],
+      "additionalProperties": false,
+      "properties": {
+        "max_length_px": { "$ref": "_common.schema.json#/$defs/nonNegativeInteger" },
+        "max_frames": { "$ref": "_common.schema.json#/$defs/nonNegativeInteger" },
+        "max_opacity_percent": { "$ref": "_common.schema.json#/$defs/percent", "minimum": 0, "maximum": 100 },
+        "ground_marks_per_wand": { "$ref": "_common.schema.json#/$defs/nonNegativeInteger" },
+        "ground_mark_max_diameter_px": { "$ref": "_common.schema.json#/$defs/nonNegativeInteger" },
+        "ground_mark_max_opacity_percent": { "$ref": "_common.schema.json#/$defs/percent", "minimum": 0, "maximum": 100 },
+        "ground_mark_max_life_seconds": { "$ref": "_common.schema.json#/$defs/seconds" }
+      }
+    },
+    "shares": {
+      "description": "결투·광장의 지팡이 대기 나누기, 피해 숫자, 일회성 흐려짐",
+      "type": "object",
+      "required": ["duel_opponent_idle_cap", "plaza_self_idle_cap", "plaza_near_count", "plaza_near_idle_cap", "damage_numbers_max", "damage_merge_window_seconds", "one_shot_fade_seconds"],
+      "additionalProperties": false,
+      "properties": {
+        "duel_opponent_idle_cap": { "$ref": "_common.schema.json#/$defs/nonNegativeInteger" },
+        "plaza_self_idle_cap": { "$ref": "_common.schema.json#/$defs/nonNegativeInteger" },
+        "plaza_near_count": { "$ref": "_common.schema.json#/$defs/nonNegativeInteger" },
+        "plaza_near_idle_cap": { "$ref": "_common.schema.json#/$defs/nonNegativeInteger" },
+        "damage_numbers_max": { "$ref": "_common.schema.json#/$defs/nonNegativeInteger" },
+        "damage_merge_window_seconds": { "$ref": "_common.schema.json#/$defs/seconds" },
+        "one_shot_fade_seconds": { "$ref": "_common.schema.json#/$defs/seconds" }
+      }
+    }
+  },
+  "$defs": {
+    "perPreset": {
+      "description": "Full / Reduced / Minimal",
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": { "$ref": "_common.schema.json#/$defs/nonNegativeInteger" }
+    },
+    "scene": {
+      "type": "object",
+      "required": ["id", "total", "pools"],
+      "additionalProperties": false,
+      "properties": {
+        "_note": { "$ref": "_common.schema.json#/$defs/note" },
+        "id": { "enum": ["battle", "duel", "plaza", "enhance"] },
+        "total": { "description": "동시에 살아 있는 입자 수의 합계(합계 밖 몫 제외)", "$ref": "#/$defs/perPreset" },
+        "pools": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/pool" }
+        }
+      }
+    },
+    "pool": {
+      "type": "object",
+      "required": ["category", "priority", "kind", "quota"],
+      "additionalProperties": false,
+      "properties": {
+        "_note": { "$ref": "_common.schema.json#/$defs/note" },
+        "category": { "enum": ["art", "hit", "kill", "shot", "wand_idle", "environment", "art_opponent", "wand_idle_opponent", "emote", "enhance_charge", "enhance_burst"] },
+        "priority": { "description": "작을수록 중요. 합계가 넘치면 큰 번호부터 줄인다", "type": "integer", "minimum": 1 },
+        "kind": { "description": "one_shot = 차면 가장 오래된 것부터 0.1초에 흐려지며 자리를 내준다, recurring = 차면 새로 만들지 않는다", "enum": ["one_shot", "recurring"] },
+        "quota": { "$ref": "#/$defs/perPreset" },
+        "outside_total": { "description": "화면 합계에 세지 않는 따로 주는 몫(광장 연습 허수아비)", "type": "boolean" }
+      }
+    },
+    "wandTier": {
+      "type": "object",
+      "required": ["min_tier", "max_tier", "idle", "muzzle", "shed_per_bullet", "hit", "trail_length_px"],
+      "additionalProperties": false,
+      "properties": {
+        "_note": { "$ref": "_common.schema.json#/$defs/note" },
+        "min_tier": { "type": "integer", "minimum": 0, "maximum": 13 },
+        "max_tier": { "type": "integer", "minimum": 0, "maximum": 13 },
+        "idle": { "description": "대기 입자(동시)", "$ref": "_common.schema.json#/$defs/nonNegativeInteger" },
+        "muzzle": { "description": "발사 1회의 총구 입자", "$ref": "_common.schema.json#/$defs/nonNegativeInteger" },
+        "shed_per_bullet": { "description": "탄 1발이 흘리는 입자(동시)", "$ref": "_common.schema.json#/$defs/nonNegativeInteger" },
+        "hit": { "description": "적중 1회", "$ref": "_common.schema.json#/$defs/nonNegativeInteger" },
+        "trail_length_px": { "description": "꼬리 띠 길이(입자가 아니다)", "$ref": "_common.schema.json#/$defs/nonNegativeInteger" }
+      }
+    }
+  }
+}

@@ -327,6 +327,26 @@ namespace Wizard.Sim
             }
         }
 
+        // ── 뷰 훅(CONTRACTS 3.3, T-54). PlayerView 의 Player 칸: 캐릭터, 위치, 시야, 자세, 체력, 무적, 키 상태.
+        //    상태를 바꾸지 않는다: 시작 상태가 아직 서지 않았으면(첫 Step 전) 채우지 않는다. 그때 MaxHpPoints 는 0 이다.
+        //    Id 는 채우지 않는다(플레이어는 개체 id 를 받지 않는다. 식별자는 슬롯이다, T-54)
+        partial void View_Player_Player(int index, ref PlayerViewDraft draft)
+        {
+            if (!_playersSpawned)
+            {
+                return;
+            }
+            ref readonly PlayerState p = ref _players[index];
+            draft.Character = p.Character;
+            draft.Pos = p.Pos;
+            draft.Facing = p.Facing;
+            draft.Stance = p.Stance;
+            draft.HpPoints = p.HpPoints;
+            draft.MaxHpPoints = p.MaxHpPoints;
+            draft.Invulnerable = _tick < p.InvulnUntil;
+            draft.Keys = p.Keys.Mask;
+        }
+
         // ── 상태 훅
 
         partial void Snapshot_Save_Player(SimWorld target)

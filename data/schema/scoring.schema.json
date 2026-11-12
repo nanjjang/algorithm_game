@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wizard.invalid/data/schema/scoring.schema.json",
+  "title": "웨이브 점수 (data/sim/scoring.json → 팩 절 11 scoring)",
+  "description": "spec 07 12.1~12.2, CONTRACTS 2.2 ScoringDef. 점수는 정수 원점수로 든다. 웨이브 계수 S(w) = at_wave_1 + per_wave × (w − 1) 는 10배 정수로 바꾼다(정확해야 한다).",
+  "type": "object",
+  "required": ["wave_coef", "kill_per_cost", "boss_kill", "wave_clear", "fast_clear", "no_hit", "graze", "phantom_first"],
+  "additionalProperties": false,
+  "properties": {
+    "_note": { "$ref": "_common.schema.json#/$defs/note" },
+    "wave_coef": {
+      "description": "웨이브 계수 → WaveCoefTenthsAtWave1, WaveCoefTenthsPerWave(× 10)",
+      "type": "object",
+      "required": ["at_wave_1", "per_wave"],
+      "additionalProperties": false,
+      "properties": {
+        "at_wave_1": { "type": "number", "exclusiveMinimum": 0 },
+        "per_wave": { "type": "number", "minimum": 0 }
+      }
+    },
+    "kill_per_cost": { "description": "처치 원점수 = 비용 × 이 값 → KillPerCost", "type": "integer", "minimum": 0 },
+    "boss_kill": { "description": "보스 처치 원점수 → BossKill", "type": "integer", "minimum": 0 },
+    "wave_clear": { "description": "웨이브 클리어 원점수 → WaveClear", "type": "integer", "minimum": 0 },
+    "fast_clear": {
+      "description": "빠른 처리 = max(0, 목표 − 걸린 시간(초)) × per_second → FastPerSecond, FastTargetTicks, FastTargetTicksBoss(초 × 60)",
+      "type": "object",
+      "required": ["per_second", "target_seconds", "boss_target_seconds"],
+      "additionalProperties": false,
+      "properties": {
+        "per_second": { "type": "integer", "minimum": 0 },
+        "target_seconds": { "$ref": "_common.schema.json#/$defs/seconds" },
+        "boss_target_seconds": { "$ref": "_common.schema.json#/$defs/seconds" }
+      }
+    },
+    "no_hit": { "description": "무피격 웨이브 원점수 → NoHit", "type": "integer", "minimum": 0 },
+    "graze": {
+      "description": "스쳐 피하기: 1회당 per_graze, 한 웨이브에서 cap(보스 boss_cap)회까지 → GrazePer, GrazeCap, GrazeCapBoss",
+      "type": "object",
+      "required": ["per_graze", "cap", "boss_cap"],
+      "additionalProperties": false,
+      "properties": {
+        "per_graze": { "type": "integer", "minimum": 0 },
+        "cap": { "type": "integer", "minimum": 0 },
+        "boss_cap": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "phantom_first": { "description": "허상과의 첫 만남 웨이브의 고정 점수 → PhantomFirst", "type": "integer", "minimum": 0 }
+  }
+}

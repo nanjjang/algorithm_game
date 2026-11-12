@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wizard.invalid/data/schema/waves.schema.json",
+  "title": "웨이브 성장 곡선 (data/sim/waves.json → 팩 절 7 waves)",
+  "description": "spec 07 2.1(WaveCurveDef 단일 레코드), 3.1, 5절, 6절, 7.2, CONTRACTS 2.2. 구간 표(tod_ranges, telegraph_cap, elite_count, modifier_count)의 줄은 웨이브 [from, to](닫힌 구간)이고 from 오름차순으로 빈틈·겹침 없이 이어진다(변환기가 본다). to = null 은 끝 없음이고 마지막 줄만 쓸 수 있다.",
+  "type": "object",
+  "required": [
+    "day_length", "tod_ranges",
+    "hp_linear_until", "hp_linear_step", "hp_exp_base", "hp_exp_rate", "elite_hp_mul", "boss_hp_ref_wave",
+    "budget_linear", "budget_late", "bundle_rule", "bundle_interval_seconds", "bundle_early_release_alive", "max_alive",
+    "telegraph_cap", "elite_count", "elite_cost_mul", "species_cap", "stall_seconds", "stall_kill_score",
+    "modifier_count", "damage", "fill_species", "script"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "_note": { "$ref": "_common.schema.json#/$defs/note" },
+    "day_length": { "description": "하루의 웨이브 수 → DayLength", "type": "integer", "minimum": 1 },
+    "tod_ranges": {
+      "description": "하루 속 순번 → 시간대 → TodRangeFrom/To/Tod. 1..day_length 를 덮고 tod.boss 는 정확히 순번 day_length 하나",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["from", "to", "tod"],
+        "additionalProperties": false,
+        "properties": {
+          "from": { "type": "integer", "minimum": 1 },
+          "to": { "type": "integer", "minimum": 1 },
+          "tod": { "description": "시간대 id(spec 14 3.9)", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^tod\\." }
+        }
+      }
+    },
+    "hp_linear_until": { "description": "이 웨이브까지 체력 배율이 직선 → HpLinearUntil", "type": "integer", "minimum": 1 },
+    "hp_linear_step": { "description": "직선 구간의 웨이브당 증가(배율, 0.12) → HpLinearStepMicro(× 1,000,000, 정확해야 한다)", "type": "number", "minimum": 0 },
+    "hp_exp_base": { "description": "지수 구간의 시작값(배율, hp_linear_until 의 값 2.32) → HpExpBaseMicro(× 1,000,000, 정확해야 한다)", "type": "number", "exclusiveMinimum": 0 },
+    "hp_exp_rate": { "description": "지수 구간의 웨이브당 배율(1.06) → HpExpRatePct(× 100, 정확해야 한다)", "$ref": "_common.schema.json#/$defs/ratio", "minimum": 1 },
+    "elite_hp_mul": { "description": "엘리트 체력 배수 → EliteHpMul", "type": "integer", "minimum": 1 },
+    "boss_hp_ref_wave": { "description": "보스 체력 배율이 1인 웨이브 → BossHpRefWave", "type": "integer", "minimum": 1 },
+    "budget_linear": {
+      "description": "B = base + per_wave × w (w ≤ until) → BudgetLinearBase, BudgetLinearPerWave, BudgetLinearUntil",
+      "type": "object",
+      "required": ["base", "per_wave", "until"],
+      "additionalProperties": false,
+      "properties": {
+        "base": { "type": "integer", "minimum": 0 },
+        "per_wave": { "type": "integer", "minimum": 0 },
+        "until": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "budget_late": {
+      "description": "B = min(cap, base + per_wave × (w − budget_linear.until)) → BudgetLateBase, BudgetLatePerWave, BudgetCap",
+      "type": "object",
+      "required": ["base", "per_wave", "cap"],
+      "additionalProperties": false,
+      "properties": {
+        "base": { "type": "integer", "minimum": 0 },
+        "per_wave": { "type": "integer", "minimum": 0 },
+        "cap": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "bundle_rule": {
+      "description": "묶음 수 = w ≤ grow_after ? base : min(max, base + (w − grow_after) ÷ grow_every) → BundleBase, BundleGrowAfter, BundleGrowEvery, BundleMax",
+      "type": "object",
+      "required": ["base", "grow_after", "grow_every", "max"],
+      "additionalProperties": false,
+      "properties": {
+        "base": { "type": "integer", "minimum": 1 },
+        "grow_after": { "type": "integer", "minimum": 0 },
+        "grow_every": { "type": "integer", "minimum": 1 },
+        "max": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "bundle_interval_seconds": { "description": "묶음 간격(초) → BundleIntervalTicks(× 60)", "$ref": "_common.schema.json#/$defs/seconds", "exclusiveMinimum": 0 },
+    "bundle_early_release_alive": { "description": "살아 있는 적이 이 수 이하이면 다음 묶음을 바로 → BundleEarlyReleaseAlive", "type": "integer", "minimum": 0 },
+    "max_alive": { "description": "전장 동시 개체 상한 → MaxAlive", "type": "integer", "minimum": 1 },
+    "telegraph_cap": { "description": "동시 예고 상한 → TelegraphCapFrom/To/TelegraphCap", "$ref": "#/$defs/steps" },
+    "elite_count": { "description": "엘리트 수(첫 줄 앞은 0) → EliteCountFrom/To/EliteCount", "$ref": "#/$defs/steps" },
+    "elite_cost_mul": { "description": "엘리트 비용 배수 → EliteCostMul", "type": "integer", "minimum": 1 },
+    "species_cap": {
+      "description": "한 웨이브 구성의 종별 마릿수 상한 → SpeciesCapSpecies/SpeciesCap(EnemyTypeId 오름차순). 종은 한 번만",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["species", "cap"],
+        "additionalProperties": false,
+        "properties": {
+          "species": { "$ref": "#/$defs/species" },
+          "cap": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "stall_seconds": { "description": "지체 방지가 걸리는 웨이브 경과(초) → StallTicks(× 60)", "$ref": "_common.schema.json#/$defs/seconds", "exclusiveMinimum": 0 },
+    "stall_kill_score": { "description": "지체 뒤 처치 점수 배율(0.5) → StallKillScorePct(× 100, 정확해야 한다)", "$ref": "_common.schema.json#/$defs/ratio", "minimum": 0, "maximum": 1 },
+    "modifier_count": { "description": "변덕 수(첫 줄 앞은 0, 보스 웨이브 0은 규칙) → ModifierCountFrom/To/ModifierCount", "$ref": "#/$defs/steps" },
+    "damage": {
+      "description": "피해 성장(칸, spec 07 6.3) → ContactDamage, TelegraphDamagePlus, EliteBossPlusFromWave, AllPlusFromWave, AttackDamageCap",
+      "type": "object",
+      "required": ["contact", "telegraph_plus", "elite_boss_plus_from", "all_plus_from", "attack_cap"],
+      "additionalProperties": false,
+      "properties": {
+        "contact": { "type": "integer", "minimum": 1 },
+        "telegraph_plus": { "type": "integer", "minimum": 0 },
+        "elite_boss_plus_from": { "type": "integer", "minimum": 1 },
+        "all_plus_from": { "type": "integer", "minimum": 1 },
+        "attack_cap": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "fill_species": { "description": "끝까지 남은 예산을 채우는 종 → FillSpecies", "$ref": "#/$defs/species" },
+    "script": {
+      "description": "고정 각본(spec 07 7.2) → ScriptWaves/ScriptPlans(웨이브 오름차순). 웨이브는 한 번만, 보스 웨이브는 없다",
+      "type": "array",
+      "items": { "$ref": "#/$defs/scriptWave" }
+    }
+  },
+  "$defs": {
+    "species": { "description": "일반 적 종 id(spec 14 3.6)", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^enemy\\." },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["from", "to", "value"],
+        "additionalProperties": false,
+        "properties": {
+          "from": { "type": "integer", "minimum": 1 },
+          "to": { "description": "null = 끝 없음(마지막 줄만)", "type": ["integer", "null"], "minimum": 1 },
+          "value": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "fixed": {
+      "description": "고정 개수: 종마다 [min, max] 마리(무리로 나오는 종은 무리 수) → FixedSpecies/FixedMin/FixedMax(EnemyTypeId 오름차순). 종은 한 번만, min ≤ max",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["species", "min", "max"],
+        "additionalProperties": false,
+        "properties": {
+          "species": { "$ref": "#/$defs/species" },
+          "min": { "type": "integer", "minimum": 0 },
+          "max": { "type": "integer", "minimum": 1 }
+        }
+      }
+    },
+    "scriptWave": {
+      "type": "object",
+      "required": ["wave", "frame", "fixed", "group", "group_share", "rest"],
+      "additionalProperties": false,
+      "properties": {
+        "_note": { "$ref": "_common.schema.json#/$defs/note" },
+        "wave": { "description": "누적 웨이브 번호", "type": "integer", "minimum": 1 },
+        "frame": { "description": "표기 틀 id(spec 14 3.9) → FrameDef.Id", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^frame\\." },
+        "fixed": { "$ref": "#/$defs/fixed" },
+        "group": {
+          "description": "주 묶음의 종 → FrameDef.GroupSpecies(EnemyTypeId 오름차순). 종은 한 번만. 비었으면 group_share 는 0",
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/species" }
+        },
+        "group_share": { "description": "주 묶음 몫(예산의 %) → FrameDef.GroupSharePct", "type": "integer", "minimum": 0, "maximum": 100 },
+        "rest": { "description": "나머지: mixed = 혼합, fill = 남은 예산 전부 fill_species → FrameDef.RestMixed", "enum": ["mixed", "fill"] }
+      }
+    }
+  }
+}

@@ -54,7 +54,8 @@ namespace Wizard.Content.Tests
             Assert.True(pack.TryGetSection(20, out ReadOnlyMemory<byte> s20));
             Assert.Equal(new byte[] { 9 }, s20.ToArray());
             Assert.False(pack.TryGetSection(7, out _));
-            Assert.Equal(42, ContentDb.Build(pack).DataVersion);
+            // ContentDb.Build 는 아는 절의 본문을 절 훅으로 읽는다(T-47). 위의 임의 바이트로는 만들지 않고 절이 없는 팩으로 본다
+            Assert.Equal(42, ContentDb.Build(ContentPack.Load(BuildPack())).DataVersion);
         }
 
         [Fact]

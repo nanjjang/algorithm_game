@@ -767,6 +767,36 @@ public sealed class ElementDef {                      // spec 02 3.3 AF-1, DECIS
 | `block.triple_heat` | `TripleHeat` | `CritMultiplier` 3 |
 | `block.corrosion` | `Corrosion` | `DamageTakenBonusPermille` 150, `DamageTakenBonusTicks` 180 |
 
+## T-54 `ISimView`의 값은 뷰 훅으로 채운다. `EnemyView`·`ProjectileView`의 칸, `IFramePresenter`는 `Wizard.ViewLogic`에 [신규]
+
+번호 T-53은 같은 때 돌고 있는 M2-SPL-01의 브랜치가 쓰고 있어(블록의 표식·효과·동작 값) 이 브랜치에서는 쓰지 않는다.
+
+- **문제**: M1-UE-02(회색 도형 표시)가 구현과 시험을 끝내고도 막혔다. 돌아가는 게임이 세계를 그릴 수 없었다. (1) `SimWorldView.Player(slot)`가 `default(PlayerView)`를 돌려주고 `Enemies`·`Projectiles`가 언제나 비어 있었다. 뼈대는 모듈의 상태를 모르는데(T-33) 뷰를 채우는 훅이 계약에 없었다(M1-SIM-02가 올린 것). Heat는 표시용 접근자(`HeatRingOf` 등)까지 만들어 두었지만 부르는 곳이 없었다. (2) `EnemyView`·`ProjectileView`에 칸이 없었다. (3) 시제품(M1-SIM-09)은 적과 탄을 `ProtoReadout`으로 내주며 "표시 계층이 읽는 문"이라고 적었는데, 같은 작업의 격리 시험(`ProtoIsolationTests`)은 시제품 폴더 밖의 어떤 C# 파일도 시제품의 이름을 쓰지 못하게 막는다. 둘은 같이 설 수 없다. (4) `IFramePresenter`가 `Wizard.Unity.App`에 있어서 그 아래의 `Wizard.Unity.Presentation`이 구현할 수 없었고, 표시기를 만들어 꽂는 코드가 조립 루트에 없었다.
+- **결정**:
+  1. **뷰 훅.** `ISimView`의 값은 그 상태를 가진 모듈이 `partial void View_<뷰>_<모듈>`로 채운다. 선언은 `SimWorld.Hooks.cs`, 부르는 문과 순서는 `SimWorld.View.cs`의 `Fill…` 한 곳이고 `CONTRACTS.md` 3.3절의 뷰 훅 표와 같다(`HookTableTests`가 대조한다). 표에는 지금 쓰는 훅뿐 아니라 뒤 모듈의 것(Combo, Arts, Characters, Bosses, Telegraph, Waves, Camp, Duel)까지 한 번에 넣었다. 뒤 작업은 자기 폴더에서 구현만 더한다.
+  2. **뷰 훅은 세계 상태를 바꾸지 않는다.** 시작 상태를 세우는 `Ensure…`를 부르지 않는다(아직 서지 않았으면 채우지 않는다). 그래서 첫 `Step` 전의 `PlayerView`는 `MaxHpPoints`가 0이고 표시 계층은 그 플레이어를 그리지 않는다. 뷰를 읽는 클라이언트와 읽지 않는 서버·검증 워커의 해시가 같아야 하기 때문이다. 모듈마다 "매 틱 뷰를 읽은 세계와 읽지 않은 세계의 해시가 같다"는 시험을 둔다.
+  3. **캐시가 없다.** `SimWorldView`는 읽을 때마다 지금 상태에서 다시 만든다. 목록 뷰는 뷰가 가진 `ViewBuffer<T>`(세계마다 하나, 처음 읽을 때 만든다)에 채워 범위로 돌려준다. 그 범위는 같은 속성을 다시 읽거나 세계가 진행하면 무효다.
+  4. **`PlayerView`는 나눠 채운다.** `PlayerViewDraft`(내부 가변 구조체)에 모듈이 자기 칸만 쓰고 뼈대가 `PlayerView`로 만든다. `PlayerView.Id`는 지금 `None`이다(플레이어는 개체 id를 받지 않는다).
+  5. **`EnemyView`·`ProjectileView`의 칸**을 정했다(`CONTRACTS.md` 3.3절). 적: id, 종(`EnemyTypeId`), 위치, 몸 반지름, 체력, 공격 준비의 시작 틱과 길이. 투사체: id, 진영(`Faction`), 주인 슬롯, 코어 블록, 속성, 위치, 방향, 판정 반지름, 묶음(플레이어 탄 = `ShotId`, 적 탄 = `CastId`). 칸은 더하기만 한다.
+  6. **시제품은 뷰 훅으로 내준다.** `Proto/SimWorld.ProtoView.cs`가 `View_Enemies_Enemies`·`View_Projectiles_Spell`·`View_Projectiles_Enemies`를 구현한다(슬라임 = `SlimeMoss`, 포탑 = `ShamanCap`: 시제품의 수치가 그 두 종의 것이다). 표시 계층은 `ISimView`만 읽고 시제품의 이름을 모른다. 격리 시험은 그대로 통과한다(뷰 훅도 뼈대가 선언한 훅이다). `ProtoReadout`은 시제품 폴더의 시험과 측정 도구의 문으로 남는다.
+  7. **예고의 채움은 세계가 준 시작 틱과 길이로만 센다.** M1-UE-02의 첫 구현은 "시전이 끝나는 틱"만 받아서 표시 쪽이 처음 본 틱을 기억해 길이를 어림했다. `EnemyView`의 공격 준비 칸이 `TelegraphView`와 같은 꼴(시작 틱 + 길이)이라 그 기억을 지웠다(`ShapeSample.CastFill`).
+  8. **`IFramePresenter`는 `Wizard.ViewLogic.Presentation`에 둔다**(`CONTRACTS.md` 13절). 엔진 타입이 없는 계약이다(`ReadOnlySpan<SimEvent>`, `ISimView`, `double`). `WorldPresenter`가 직접 구현하고, 조립 루트가 Battle 장면에서 `BattlePresentation`으로 만들어 `FixedTickDriver.AddPresenter`에 꽂고 장면을 떠날 때 치운다. 도형 뿌리는 조립 루트의 개체에 매단다(장면이 바뀌는 사이의 프레임에도 살아 있다).
+- **대안**: (가) 격리 시험의 허용 목록에 표시 어댑터 경로 하나를 넣고 표시 계층이 `ProtoReadout`을 읽는다(M1-UE-02가 올린 첫째 안). (나) 뼈대(`SimWorldView`)가 모듈의 접근자(`PlayerAt`, `HeatAt`)를 직접 읽는다. (다) 뷰를 `Step` 끝에 한 번 채워 두고 읽을 때는 그 값을 준다(또는 시기 번호로 캐시한다). (라) `IFramePresenter`를 App에 두고 표시기마다 App에 얇은 이음을 만든다(M1-UE-02가 올린 안).
+- **이유**:
+  - (가)는 표시 계층이 세계(`SimWorld`)를 쥐게 만든다. `ProtoReadout`은 `SimWorld`를 인자로 받는다. "표시 계층은 `ISimView`와 이벤트만 읽는다"(작업의 수락 조건, ARCHITECTURE 6.1)와 어긋나고, `PracticeSession`이 세계를 밖에 내주어야 한다. 시제품이 사라지는 날(M3-CB-02) 표시 계층을 다시 써야 한다. 뷰 훅이면 그날 표시 계층은 바뀌지 않는다.
+  - (나)는 T-33이 없애려던 일이다. 모듈이 생길 때마다 뼈대 파일을 고치게 되고, 모듈 폴더를 지우면 뼈대가 컴파일되지 않는다(시제품의 수락 조건 "폴더를 지우면 나머지가 그대로 컴파일된다"와 같은 원칙). 부분 메서드는 구현이 없으면 호출이 사라진다.
+  - (다)는 결정론의 함정이다. `Step` 끝에 채우면 서버와 검증 워커가 읽지도 않는 뷰를 틱마다 만든다(성능 예산). 읽을 때 채우고 캐시하면, 적 두뇌가 `Step` 안에서 `EnemyContext.World`(= `ISimView`)를 읽을 때 "바깥에서 누가 먼저 읽었는가"에 따라 캐시된 값(틱 시작의 상태)과 새로 채운 값(그 단계의 상태)이 갈린다. 표시 계층이 있는 클라이언트와 없는 서버의 해시가 달라진다. 읽을 때마다 다시 채우면 값이 상태에만 달려 있다.
+  - (라)는 표시기가 늘 때마다(HUD, 연출 버스, 적 표시) App의 파일을 고치게 한다. App은 그 작업들의 소유가 아니다. 계약이 구현하는 쪽보다 아래 계층에 있어야 한다는 것은 `IPresentationEventHandler`·`IFxPlayer`가 이미 따르는 규칙이다(T-31).
+  - 시작 상태 전의 `PlayerView`를 "그리지 않는다"로 둔 것: 세계 생성 때의 초기화 훅이 아직 없어서(M1-SIM-02가 올린 것. Player·Heat는 첫 훅에서 시작 상태를 세운다) 첫 `Step` 전에는 위치가 없다. 뷰 훅이 시작 상태를 세우면 뷰를 읽은 세계만 상태가 바뀐다. 표시 쪽이 한 프레임 건너뛰는 것이 맞다.
+- **따라오는 일**:
+  - `CONTRACTS.md` 3.2절(뷰 훅의 자리), 3.3절(`EnemyView`·`ProjectileView`, 뷰 훅 표와 규칙), 13절(`IFramePresenter`)을 고쳤다.
+  - 계약 코드: `SimWorld.Hooks.cs`, `SimWorld.View.cs`, `SimWorldView.cs`, `ViewBuffer.cs`, `PlayerViewDraft.cs`, `EnemyView.cs`, `ProjectileView.cs`, `IFramePresenter.cs`, `HookTableTests.cs`. 모듈 쪽: `SimWorld.Player.cs`·`SimWorld.Heat.cs`·`SimWorld.Graze.cs`의 뷰 훅 하나씩, `Proto/SimWorld.ProtoView.cs`. 코어 소스가 바뀌어 `SimVersion.g.cs`를 다시 만들었다. 상태 바이트와 해시는 바뀌지 않는다(뷰 훅은 상태를 읽기만 한다).
+  - `tasks.json`: M1-UE-02의 `owned_paths`에 위 파일을 더하고 `deps`에 M1-SIM-10을 더했다(`SimWorld.Heat.cs`의 순서). 뒤 모듈의 뷰 훅은 그 작업의 수락 조건에 한 줄씩 더했다: M2-SPL-03(플레이어 탄), M3-ENM-01(적과 적 탄), M3-ENM-02(예고 구역), M3-CMB-01(콤보·결정), M3-WAV-01(`WaveView`), M4-RUN-01(`CampView`), M5-ART-01(미리보기·최근 입력), M8-BOS-01(보스), M14-DUL-01(`DuelView`), M3-CB-02(시제품의 뷰 훅이 사라져도 표시가 그대로인 것).
+  - 찾은 빈자리: 플레이어 빌드에 기본 팩을 싣는 작업이 없었다(`ContentPackFile`의 머리말이 적어 둔 것). 팩이 없으면 조립 루트가 세션도 표시기도 꽂지 않는다. FIX-3으로 더하고 M1-INT의 `deps`에 넣었다.
+  - `Step` 안에서 목록 뷰를 읽는 작업(적 두뇌, M3-ENM-01)은 `ViewBuffer`를 풀 용량만큼 미리 잡는 문을 계약 변경으로 올린다(지금은 처음 읽을 때와 모자랄 때 할당한다. `Step` 밖의 읽기에서는 문제가 아니다).
+  - 플레이어에게 개체 id를 주는 것(`PlayerView.Id`)은 Player 절의 바이트가 바뀌는 일이라 여기서 하지 않았다. 필요해지는 작업이 올린다.
+  - `docs/dev`의 네 파일은 M1-UE-02의 `owned_paths`에 넣지 않고 문서만 든 커밋으로 따로 두었다(T-50과 같은 까닭). 통합 때 계약 개정으로 main에 먼저 옮긴다. 그 전에는 이 브랜치의 `check-diff`가 네 파일을 소유 밖으로 본다.
+
 ---
 
 ## 아직 정하지 않은 기술 항목

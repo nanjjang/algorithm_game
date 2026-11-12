@@ -59,6 +59,7 @@
 | T-47 | `ContentDb`의 절 파일은 `ContentDb.<절>.cs`, 훅은 읽기(`Load`)와 조회(`Find`) 둘, 뼈대 파일은 M1-CONT-02가 가진다 | [신규] |
 | T-48 | WZDR 머리말은 `DuelSetup`의 정규 바이트 전체, `DuelRoomOptions`의 칸은 spec 10 9.2 표(비밀번호 제외), 쓰는 문은 `DuelRecordWriter` | [신규] |
 | T-49 | `record_sha256`은 그 앞의 모든 바이트를 덮는다. `TryRead`는 한도를 받고 `InputRecordBody`에 1차 검사의 값을 준다 | [신규] |
+| T-50 | 스침 판정은 9단계의 맨 뒤, 스침 보상은 이음 훅(`OnGrazeAwarded_*`)으로 그 순간에 반영, 연속 스침 음높이는 표시 계층이 센다 | [신규] |
 | T-52 | 판정기의 계약 타입을 채운다: `ArtDecision`·`TrieNode`·`CommandPreview`, `ICommandParser.ReadState`, 판정기 데이터는 `ParserSource`, 팩에서 만드는 자리는 `ParserSourceLoader` | [신규] |
 
 ---
@@ -491,9 +492,40 @@ partial void Find<접근자>(ref T? def);                   // 키가 있는 접
 - **`wave` 대조를 미루어도 되는 까닭**: 서버가 받아 둔 중간 지점 `(wave, tick, state_hash)`의 구속력은 `wizard-api`가 재실행 facts의 중간 지점(세계가 기록한 것)과 대조해서 생긴다(8.3절 5번). 파일의 `0x04`는 그보다 앞에서 싸게 거르는 것이고, 원정 정리에서는 멈출 틱을 정한다. 파일이 거짓 `wave`를 적어도 facts의 중간 지점에는 세계가 기록한 값만 들어간다.
 - **따라오는 일**: M11-RUN-03(1차 검사)은 `InputRecordBody`의 칸을 쓴다(`HeaderLength`로 머리말을 잘라 `run.setup_canonical`과 대조, `HasDebugOps`·`DebugUsed`, `PauseTotalMs`, `Checkpoints`). M11-VER-01(워커)은 `file[HeaderLength..]`를 `Run`의 `recordBody`로 준다. M1-CLI-02(`RunSession`)는 `TryRead`에 `SimLimitsDef`의 한도를 준다.
 
+## T-50 스침 판정은 9단계의 맨 뒤, 스침 보상은 이음 훅으로 그 순간에 반영, 연속 스침 음높이는 표시 계층이 센다 [신규]
+
+번호 T-51은 빈 번호로 남긴다. T-52는 M1-SIM-08이 썼고 main에 들어갔다(아래 절).
+
+- **문제**: M1-SIM-06(스쳐 피하기)이 계약 변경 요청 넷을 올리고 멈췄다. (1) `CONTRACTS.md` 3.2절의 "한 단계 안에서는 훅 표의 위에서 아래 순"대로면 9단계에서 `Stage09_Graze`가 `Stage09_Enemies`·`Stage09_Duel`보다 먼저 불린다. 적 탄·돌진·예고 구역의 피격 후보와 스침 후보는 그 두 훅이 넣으므로, 같은 절의 9단계 설명("피격 판정 뒤 스침 판정")과 spec 01 3.8·8.3을 지킬 수 없다. (2) 스침의 보상 중 열(8.4), 콤보(9.2), 피뢰침 체질(spec 04 4.2)은 Graze의 상태가 아닌데, 그 모듈들에 보상을 넘길 길이 계약에 없었다. Graze는 "뒤 단계에서 읽어 가라"(`GrazeAwardsThisTick`)로, 같은 묶음에서 만들던 Heat는 "Graze가 불러라"(`HeatApplyGraze`)로 서로 다르게 만들었고 어느 쪽도 상대를 부르지 않았다. (3) `GrazeAwarded`의 칸과 `chainIndex`의 주인이 적혀 있지 않았다.
+- **결정**:
+  1. **9단계의 순서.** `Stage09_Graze`는 9단계의 맨 뒤에 부른다(`Spell` → `Enemies` → `Duel` → `Graze`). "표의 위에서 아래 순"의 예외는 이것 하나다. `SimWorld.Step.cs`의 한 줄을 옮겼고 `HookTableTests`가 계약의 문장에서 이 예외를 읽어 대조한다.
+  2. **모듈 사이의 이음은 셋이다**(`CONTRACTS.md` 3.2절): 읽기(접근자), 연산(받는 모듈의 `internal` 메서드. 부르는 쪽이 받는 쪽의 뒤 작업일 때), 이음 훅(뼈대가 선언한 `partial void`. 내는 쪽이 받는 쪽보다 앞 작업이거나 순서가 없는데 받는 쪽이 그 순간에 상태를 바꿔야 할 때).
+  3. **스침 보상은 이음 훅이다.** Graze는 보상이 있는 스침마다 뼈대의 `RaiseGrazeAwarded(slot, sink)`를 부르고, 뼈대가 `OnGrazeAwarded_Heat` → `OnGrazeAwarded_Combo` → `OnGrazeAwarded_Characters`를 이 순서로 부른다. 전부 보상인지 줄어든 보상(결투)인지는 받는 모듈이 `SimConfig.GrazeFullReward`로 가른다. Graze 안의 순서는 시전 묶음 기록 → (결투) 스침 간격 → 가속(Graze의 상태) → `RaiseGrazeAwarded` → `GrazeAwarded`다. 가속과 이음 훅은 서로 다른 상태라 spec 01 8.4의 순서(열 → 가속 → 콤보 → 피뢰침)와 결과가 같다.
+  4. **스침 가속은 읽기다.** Player의 4단계가 `GrazeBuffActive(i)`를 `Movement.MovePermille`에 넘긴다(M1-SIM-04가 비워 둔 자리). 웨이브 끝의 가속 초기화(spec 01 10.6)는 연산 `EndGrazeBuff`다.
+  5. **점수의 스침 횟수는 읽기다.** Waves가 뒤 단계에서 `GrazeAwardsThisTick(i)`를 읽는다. spec 01 8.1의 11번은 "이 영역은 `GrazeAwarded` 이벤트만 내고 점수 명세가 센다"고 적었지만 표시 이벤트는 코어 안에서 받을 수 없다(`ISimEventSink`는 표시 계층의 것이다).
+  6. **연속 스침의 음높이(`chainIndex`)는 표시 계층이 센다.** 코어는 `GrazeChain`을 두지 않고 `GrazeAwarded`의 `C`는 0이다(`CONTRACTS.md` 0.3절 통합 표, 3.3절의 칸 표).
+  7. **열 보상의 계산은 Heat에만 둔다.** Graze에 있던 `GrazeRules.HeatAfterGraze`(쓰는 곳이 없는 사본)와 그 시험을 지웠다.
+- **대안**: (가) 뒤 단계에서 읽어 간다: 새 훅 `Stage10_Heat`가 `GrazeAwardsThisTick`을 읽어 열을 반영하고 콤보와 피뢰침은 이미 있는 10단계 훅에서 읽는다. (나) Graze가 `HeatApplyGraze`, `Combo.Add`, 피뢰침을 직접 부른다. (다) 스침 판정을 `Stage10_Graze`로 옮긴다(표의 순서로 Player 뒤). (라) `GrazeChain`을 Graze 상태에 넣고 코어가 `chainIndex`를 채운다.
+- **이유**:
+  - (가)는 비기 스침에서 명세와 결과가 달라진다. 벼락 질주·잔상 걸음의 스침은 5단계에서 인정되고(spec 01 8.1의 10번) 같은 틱 6단계의 J 발사가 그 열(임계 시작)과 열 면제를 써야 한다(3.8의 순서). 10단계에서 반영하면 그 발사는 임계가 아니고 열을 낸다. 6단계와 10단계 양쪽에서 읽게 하면 "어디까지 반영했는가"를 Heat가 따로 세어야 하고(같은 인정으로 면제가 두 번 걸리지 않게) 상태가 늘어난다.
+  - (나)는 작업의 순서에 기댄다. Heat(M1-SIM-05)는 같은 묶음이라 서로 `deps`가 없어서 Graze의 브랜치에는 Heat가 없었고(어느 쪽이 먼저 main에 들어갈지는 정해져 있지 않다), Combo(M3-CMB-01)와 피뢰침(M5-CHR-01)은 뒤 작업이다. 뒤 작업이 생길 때마다 `SimWorld.Graze.cs`를 고치게 되는데 그것이 T-33이 없애려던 일이다. 부분 메서드는 구현이 없으면 호출이 사라지므로 Graze는 받는 모듈이 없어도 컴파일되고, 받는 모듈은 자기 폴더에 훅만 더한다.
+  - (다)는 `Stage10_Player`가 피격 후보를 확정하며 비운 뒤라 "이번 틱에 피격 후보가 있었는가"를 Graze가 읽을 수 없고(결투에서는 Player가 후보를 확정하지 않고 비운다), 계약의 9단계 설명과도 어긋난다. 표의 순서로는 Heat(2)가 Graze(3)보다 앞이라 같은 10단계에서 Heat가 그 틱의 스침을 읽지도 못한다.
+  - 순서가 한 곳에 보여야 한다는 T-33의 원칙은 그대로다. 이음 훅의 선언은 `SimWorld.Hooks.cs`, 부르는 순서는 `SimWorld.Step.cs`의 `RaiseGrazeAwarded`에만 있고 `HookTableTests`가 계약의 표와 대조한다.
+  - (라): spec 01 3.4와 `CONTRACTS.md` 1.4절이 "표시 전용 값은 상태와 해시에 넣지 않는다"고 하고, 3.9는 `GrazeChain`을 "표시용"이라고 적었다. 어느 규칙도 이 값을 읽지 않는다. 2초와 5단은 소리 연출의 수(effects.md 11.1, C-10)라 `data/sim/`이 아니라 바인딩 데이터가 가질 값이다. 결투에서 소리는 `Confirmed` 이벤트에서만 나므로(`CONTRACTS.md` 6.4절) 표시 계층이 확정된 `GrazeAwarded`의 틱으로 세면 되감기와 무관하게 같은 값이 나온다.
+- **따라오는 일**:
+  - `CONTRACTS.md` 0.3절(연속 스침의 음높이), 3.2절(단계 안 순서의 예외, 모듈 사이의 이음, 이음 훅 표), 3.3절(스침 이벤트의 칸)을 고쳤다.
+  - 계약 코드: `SimWorld.Step.cs`(9단계 순서, `RaiseGrazeAwarded`), `SimWorld.Hooks.cs`(이음 훅 셋), `HookTableTests.cs`. `SimWorld.Player.cs`의 4단계 한 줄.
+  - Heat 쪽 훅과 열 보상 벡터(T-G02~T-G07)는 M1-SIM-10이 한다(새 작업. `deps` M1-SIM-05, M1-SIM-06). Heat가 이미 만든 `HeatApplyGraze`를 `OnGrazeAwarded_Heat`가 부르고, 결투의 줄어든 보상을 더한다. 첫 골든(M1-TE-01)과 손맛 계측(M1-TE-02)은 M1-SIM-10 뒤다.
+  - 콤보 쪽 훅과 T-G25는 M3-CMB-01(`deps`에 M1-SIM-06을 더했다), 피뢰침 쪽 훅과 T-G23은 M5-CHR-01이 한다.
+  - `chainIndex`를 세는 것은 M9-PRS-01(표시 이벤트 바인딩)의 수락 조건에 더했다.
+  - 뒤 작업이 쓰는 Graze의 문: 적·결투의 9단계 훅은 피격 후보를 `QueuePlayerHit`, 스침 후보를 `OfferGrazeThreat`로 넣고 시전의 탄이 다 사라지면 `ReleaseGrazeCast`를 부른다. 비기는 `AwardSkillGraze`, 웨이브 끝은 `EndGrazeBuff`.
+  - `tasks.json`에서 M1-SIM-06의 `owned_paths`에 위 계약 코드 넷을 더했다. `docs/dev`의 네 파일(`CONTRACTS.md`, 이 문서, `OPEN-QUESTIONS.md`, `tasks.json`)은 넣지 않고 문서만 든 커밋으로 따로 두었다. 통합 때 계약 개정으로 main에 먼저 옮긴다(T-46·T-48 때와 같다). `CONTRACTS.md`를 작업의 소유로 적으면 `CONTRACTS.md`를 가지는 CCR 작업과 경로가 겹치고(`taskgraph`의 시험이 실제 그래프에 그런 작업을 더해 본다), 같은 묶음의 M1-SIM-08이 자기 브랜치에서 `tasks.json`·`DECISIONS-TECH.md`·`OPEN-QUESTIONS.md`를 `owned_paths`에 넣어 두어서 이 작업도 넣으면 묶음 안 겹침이 된다. 그 커밋이 main에 가기 전에는 이 브랜치의 `check-diff`가 네 파일을 소유 밖으로 본다.
+  - 이음 작업의 id를 `CCR-<번호>`로 하지 않고 M1-SIM-10으로 했다. `taskgraph`의 시험(`Add_ToCopyOfRealGraph_PassesFullValidationIncludingVectors`)이 실제 그래프의 다음 CCR 번호가 `CCR-1`이라고 적어 두어서, 실제 그래프에 CCR 작업이 하나라도 생기면 그 시험이 실패한다. 도구 쪽의 결함이라 결함 작업 FIX-2로 올렸다.
+  - spec 01 8.3의 `InSkillGrazeWindow`(비기 무적 중의 스침 판정)는 비기 모듈이 생길 때 정한다. 지금은 무적 중이면 후보 판정을 하지 않고, 비기는 `AwardSkillGraze`로만 인정한다.
+
 ## T-52 판정기의 계약 타입을 채운다: `ArtDecision`·`TrieNode`·`CommandPreview`, `ICommandParser.ReadState`, 판정기 데이터는 `ParserSource`, 팩에서 만드는 자리는 `ParserSourceLoader` [신규]
 
-번호 T-48·T-49는 M1-SIM-07이 썼고 main에 들어갔다. T-50은 M1-SIM-06의 브랜치가 쓰고 있다. T-51은 같은 때 돌던 M1-SIM-05의 브랜치와 겹치지 않게 비워 두었는데, M1-SIM-05는 결정 번호를 쓰지 않고 main에 들어갔다. T-51은 빈 번호로 남긴다(코드 주석과 `tasks.json`이 이미 T-52를 가리키고, 번호는 더하기만 한다).
+번호 T-48·T-49는 M1-SIM-07이 썼고 main에 들어갔다. T-50은 M1-SIM-06이 썼다(위 절). T-51은 같은 때 돌던 M1-SIM-05의 브랜치와 겹치지 않게 비워 두었는데, M1-SIM-05는 결정 번호를 쓰지 않고 main에 들어갔다. T-51은 빈 번호로 남긴다(코드 주석과 `tasks.json`이 이미 T-52를 가리키고, 번호는 더하기만 한다).
 
 - **문제**: M1-SIM-08(커맨드 판정기)이 판정 로직과 배정된 벡터를 다 끝내고도 막혔다. `CONTRACTS.md` 3.5절의 겉면이 결과를 실어 나를 수 없었다. (1) `ArtDecision`은 `Art` 한 칸뿐이고 생성자가 없었다. (2) `TrieNode`와 `CommandPreview`는 빈 구조체였고 어느 작업의 `owned_paths`에도 없었다. (3) `ICommandParser`에 `WriteState`와 `CopyFrom`은 있는데 `ReadState`가 없어 `State_Read_Arts`를 구현할 길이 없었다. (4) `CommandTrie.Build(CharacterId, ContentDb)`는 `ArtDef`·`TrieDef`의 필드가 있어야 하는데 그 필드는 M5-DAT-01이 채우고 M5-DAT-01은 M1-SIM-08에 기댄다. 그래서 구현은 결과를 `ArtVerdict`라는 옆 타입으로 내고, 계약의 메서드는 `bool`만 맞고 값은 비어 있었다. 바로 뒤의 M1-SIM-09(시제품)는 `ICommandParser`로 판정 결과를 받아야 한다.
 - **결정**:

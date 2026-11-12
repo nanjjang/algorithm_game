@@ -7,3 +7,4 @@
 검토자는 "해시가 바뀔 이유가 있는 변경인가"를 본다(PIPELINE 3.6절 9번). 이유가 "다시 돌렸더니 달라졌다"뿐이면 반려다.
 
 - M0-TE-01 | (없음) | 기록 파일을 만든다. 아직 골든이 없다
+- M1-TE-01 | m1/practice-solo, m1/practice-dense, m1/practice-stance, m1/practice-loadout, m1/endless-solo, m1/duel-basic, m1/duel-dense | 첫 골든을 만든다(M1 코어: 이동·자세·과열·스침·판정기와 시제품 내용, 저장소 data/ 의 팩 data_version 1)

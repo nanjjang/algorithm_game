@@ -141,7 +141,7 @@
    "id": "M2",
    "title": "주문 컴파일러 + 넷코드 뼈대 (GDD 16-2, 멀티플레이 축 선행)",
    "gate": "M2-INT",
-   "task_count": 13,
+   "task_count": 14,
    "blocked_on_assets": 0,
    "parallel_groups": [
     "M2-W01",
@@ -1896,7 +1896,7 @@
    ],
    "acceptance": [
     "같은 기록을 두 번 돌리면 틱마다 해시가 같다",
-    "같은 오프셋의 방향과 K는 방향이 먼저다(spec 01 14.2절 벡터 전부)",
+    "같은 오프셋의 방향과 K는 방향이 먼저다(spec 01 14.2절의 입력 이벤트 벡터. 서버 수신 규칙인 T-I06·T-I13은 M2-NET-04가 가진다)",
     "무작위 입력 1,000판(판마다 3,600틱)에서 임의 틱에 SaveSnapshot → k틱 진행 → LoadSnapshot → 다시 진행한 해시가 끊지 않고 진행한 해시와 같다(k = 1~16)",
     "임의 틱의 WriteState를 새 세계에 ReadState해 이어 돌린 해시가 같다",
     "ReplayCli가 .wzrc를 돌려 해시 목록을 내고 두 실행을 비교해 처음 갈라진 틱과 상태 절을 알려 준다",
@@ -1907,7 +1907,8 @@
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [
-    "S01§14.2",
+    "S01:T-I01..T-I05",
+    "S01:T-I07..T-I12",
     "S01:T-C14..T-C15",
     "S01:T-C17"
    ],
@@ -2501,6 +2502,7 @@
     "docs/spec/10-duel.md §14.5",
     "docs/spec/10-duel.md §14.7",
     "docs/spec/10-duel.md §14.8",
+    "docs/spec/01-sim-core.md §14.2",
     "docs/dev/DECISIONS-TECH.md"
    ],
    "contracts": [
@@ -2515,6 +2517,7 @@
     "소켓과 시계를 모른다(시각은 인자로만 받는다). 같은 패킷 열과 같은 시각 열이면 같은 확정 열이 나온다",
     "유효 틱 T는 양쪽이 봉인했거나 서버 시각이 T+1틱을 지났을 때 닫힌다. 늦은 입력은 버려지고 통계에 잡힌다",
     "입력 검증이 CONTRACTS 10.6절의 순서와 같다: 패킷 안의 역행만 패킷 거부(몰수 계수), base_seq와 순번 공백은 유실로 소비, 봉인된 틱과 늦은 시각은 그 이벤트만 버림(순번 소비), 이른 시각, 키 상태 모순 무시, 틱당 8개",
+    "spec 01의 T-I06(한 틱 9개의 9번째부터 버림)과 T-I13(순번 규칙)은 서버 수신의 규칙이고 spec 10의 TV-N17·TV-N16과 같은 규칙이다(CONTRACTS 0.3절, 10.6절). 호스트 테스트 폴더에 S01_T_I06__…, S01_T_I13__… 테스트로 둔다: 9번째 키는 수량(reason 3)으로 버려져 확정 열과 WZDR에 없고, 순번 공백은 유실로 소비하고 패킷을 계속 받으며, 한 패킷 안의 역행만 그 패킷을 버린다",
     "ConfirmedInputRecord(WZDR)를 ReplayRunner.RunDuel로 돌리면 호스트의 최종 해시가 나온다",
     "200ms 연속 유실 중에 키를 누르고 뗀다 → 몰수 0, 유실(reason 5)로 통지, 그 뒤 입력은 정상으로 받는다. 늦은 이벤트 하나 → 그 이벤트만 버려지고 같은 패킷의 다른 이벤트와 뒤따르는 패킷은 받는다",
     "OnPacket의 수신 시각은 인자로 받은 값(기기에 닿은 시각)이고, 호출자가 수신 버퍼를 다 비운 뒤 Advance를 부르는 계약이 테스트로 있다(큐에 밀린 패킷이 늦음으로 판정되지 않는다)",
@@ -2524,7 +2527,9 @@
    "vectors": [
     "S10:TV-N10..TV-N20",
     "S10:TV-N24..TV-N25",
-    "S10:TV-N27..TV-N29"
+    "S10:TV-N27..TV-N29",
+    "S01:T-I06",
+    "S01:T-I13"
    ],
    "parallel_group": "M2-W04",
    "status": "todo"
@@ -2685,6 +2690,36 @@
    ],
    "vectors": [],
    "parallel_group": "M2-W09",
+   "status": "todo"
+  },
+  {
+   "id": "FIX-4",
+   "milestone": "M2",
+   "title": "WIZARD_CI_BASE를 준 fast 게이트에서 Wizard.Ci의 자체 시험이 실패한다: 게이트의 환경 변수가 임시 저장소 시험에 샌다",
+   "module": "tools",
+   "owner_agent": "build-tools-engineer",
+   "owner_model": "opus",
+   "reviewer_model": "opus",
+   "deps": [
+    "M0-BT-05"
+   ],
+   "spec_refs": [
+    "docs/dev/PIPELINE.md §4.6",
+    "docs/dev/DECISIONS-TECH.md"
+   ],
+   "contracts": [],
+   "owned_paths": [
+    "tools/Wizard.Ci/"
+   ],
+   "acceptance": [
+    "경위(M1-TE-01의 tech-lead 해결에서 찾았다): 계약 개정 커밋을 브랜치의 첫 커밋으로 따로 둔 작업은 DECISIONS-TECH T-48대로 `WIZARD_CI_BASE=<그 커밋> tools/ci/ci.sh fast`로 나머지 변경만 본다. 그렇게 돌리면 test-changed와 test 검사에서 Wizard.Ci.Tests.ChangeScopeTests의 시험 셋(TaskBranch_SeesCommittedStagedUnstagedAndUntrackedChanges_SinceTheMergeBase, DeletedFiles_CountAsChanged, OnMain_ForcedOrWithoutMain_EverythingCounts)이 \"비교 기준 '<그 커밋>' 을 git 이 모른다(WIZARD_CI_BASE 또는 --base)\"로 실패한다(M1-TE-01의 작업 트리, main e892ced 위에서 확인했다. 나머지 열 개 검사는 통과). ChangeScope.Detect(root, null, …)가 프로세스의 WIZARD_CI_BASE를 직접 읽어서, 임시 저장소를 보는 시험이 바깥 게이트의 기준을 물려받는다. TempGit은 자식 프로세스의 환경만 지운다",
+    "게이트의 환경 변수(WIZARD_CI_BASE, WIZARD_CI_FORCE_ALL 등)는 명령 줄 층 한 곳에서 읽어 인자로 넘긴다. ChangeScope와 BranchCommits의 판정 함수는 프로세스 환경을 직접 읽지 않는다. 밖에서 보는 동작은 그대로다: --base가 있으면 그것, 없으면 WIZARD_CI_BASE, 없으면 main과의 갈림점",
+    "Wizard.Ci의 시험 전체가 바깥 환경에 WIZARD_CI_BASE(임시 저장소에 없는 커밋)와 WIZARD_CI_FORCE_ALL=1이 있어도 통과한다. 그 환경을 주고 도는 시험이 있다(환경을 준 자식 프로세스로 시험 묶음을 다시 돌리거나, 판정 함수가 환경을 받지 않는다는 것을 시험으로 고정한다)",
+    "계약 개정 커밋이 앞에 있는 브랜치를 흉내 낸 임시 저장소에서 기준을 그 커밋으로 준 task-branch 검사와 commit-msgs가 나머지 커밋만 보고 통과하는 시험이 있다",
+    "tools/Wizard.TaskGraph와 tools/Wizard.VectorCoverage의 시험도 같은 환경으로 돌려 보고, 같은 누출이 있으면 파일과 시험 이름을 결과 보고에 올린다(이 작업의 소유 경로가 아니다)"
+   ],
+   "vectors": [],
+   "parallel_group": "M2-W01",
    "status": "todo"
   },
   {

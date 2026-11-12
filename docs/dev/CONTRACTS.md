@@ -115,6 +115,7 @@ public readonly struct Unit { }            // 값이 없는 Result<Unit>
 | `Fix64 → float` | 이 문서의 옛 `Wizard.Unity.Presentation.FixConvert` | `Wizard.ViewLogic.FixConvert`(13절) |
 | 난수 흐름 | spec 01 고정 `StreamId` 1~6, spec 07 `Derive(seed, tag, wave, sub)` | spec 07 방식. 흐름 표는 1.3절 하나 |
 | 발사 묶음 | spec 01 `ShotId`(내 발사)·`CastId`(스침 묶음), spec 02 `CastId`(내 발사) | `ShotId` = 플레이어 발사 1회. `CastId` = 스침을 한 번만 인정하는 묶음(적의 시전, 결투에서는 상대의 `ShotId`) |
+| 연속 스침의 음높이 | spec 01 3.9 `GrazeChain`(`PlayerState`의 표시용 칸)·8.4 `UpdateGrazeChain`·17.2 `GrazeAwarded.chainIndex` / spec 01 3.4·이 문서 1.4절 "표시 전용 값은 상태와 해시에 넣지 않는다" | 코어는 `GrazeChain`을 두지 않는다(T-50). `chainIndex`(0~5)는 표시 계층(`Wizard.ViewLogic`)이 `Confirmed`인 `GrazeAwarded`의 틱 간격으로 센다. 2초와 5단은 표시 데이터다. 이벤트의 `C`는 0이다(3.3절) |
 | 모드 열거형 | `SimMode`, `GameMode` | `SimMode { Endless, Duel, Plaza, Practice }` |
 | 틱 안 처리 순서 | spec 01 11단계, spec 05 9단계 | 3.2절의 0~12단계 |
 | 야영 조작 기록 | spec 01·07 `CampCommand`, spec 09 `RunCommand` | `RunCommand` |
@@ -835,6 +836,28 @@ public sealed class SimSnapshot { public uint Tick { get; } /* 내용은 불투�
 
 모듈마다 상태 훅 넷도 같은 방식으로 선언한다: `Snapshot_Save_<모듈>`, `Snapshot_Load_<모듈>`, `State_Write_<모듈>(ref StateWriter)`, `State_Read_<모듈>(ref StateReader)`. 해시는 `State_Write`를 해시 모드로 부른 것이다(직렬화와 해시가 갈라질 수 없다). 한 단계 안의 모듈 호출 순서는 위 표의 위에서 아래 순이다. 훅을 더하거나 순서를 바꾸는 것은 계약 변경이다.
 
+**단계 안 순서의 예외**(T-50). 하나뿐이다: 9단계에서는 `Stage09_Graze`를 그 단계의 맨 뒤에 부른다(`Stage09_Spell` → `Stage09_Enemies` → `Stage09_Duel` → `Stage09_Graze`). 스침 판정은 같은 틱의 피격 후보(`QueuePlayerHit`)와 스침 후보(`OfferGrazeThreat`)가 다 들어온 뒤여야 하기 때문이다(위 순서의 9단계 "피격 판정 뒤 스침 판정", spec 01 3.8·8.3). 9단계의 줍기는 스침과 서로 읽지 않으므로 어느 훅에 있어도 결과가 같다.
+
+**모듈 사이의 이음**(T-50). 모듈이 남의 상태 배열을 직접 쓰는 일은 없다. 이음은 아래 셋뿐이다.
+
+| 이음 | 꼴 | 쓰는 때 |
+|---|---|---|
+| 읽기 | 그 상태를 가진 모듈의 `internal` 접근자(`PlayerAt`, `GrazeBuffActive`, `GrazeAwardsThisTick`). 상태를 바꾸지 않는다 | 다른 단계에서 읽어도 명세의 결과가 같을 때. 이동(4단계)의 스침 가속, 점수의 스침 횟수 |
+| 연산 | 받는 모듈의 `internal` 메서드. 받는 모듈의 상태만 바꾼다(`QueuePlayerHit`, `GrantPlayerInvuln`, `OfferGrazeThreat`, `ReleaseGrazeCast`, `AwardSkillGraze`, `EndGrazeBuff`). 부르는 자리는 부르는 모듈의 단계 훅 안이다 | 부르는 모듈이 받는 모듈의 **뒤 작업**일 때(`deps`로 순서가 있다). 받는 모듈은 부르는 쪽을 모른다 |
+| 이음 훅 | 뼈대가 선언한 `partial void`(아래 표). 사건을 내는 모듈은 뼈대의 `Raise…`만 부르고, 받는 모듈이 자기 폴더에서 훅을 구현한다. 부르는 순서는 `SimWorld.Step.cs`의 `Raise…` 한 곳에 있다 | 사건을 내는 모듈이 받는 모듈보다 **앞 작업**이거나 서로 순서가 없는데, 받는 쪽이 **그 순간에** 자기 상태를 바꿔야 명세의 순서가 지켜질 때 |
+
+| 사건 | 내는 곳 | 뼈대의 문 | 이음 훅(부르는 순서) |
+|---|---|---|---|
+| 스침 인정(spec 01 8.4, 12.2) | Graze. 보상이 있는 스침마다 1회: 시전 묶음마다, 비기 스침(`AwardSkillGraze`) 포함. 결투의 스침 간격에 걸려 연출만 나는 스침(`GrazeCosmeticOnly`)에는 내지 않는다 | `RaiseGrazeAwarded(PlayerSlot slot, ISimEventSink sink)` | `OnGrazeAwarded_Heat`, `OnGrazeAwarded_Combo`, `OnGrazeAwarded_Characters`. 모두 `(PlayerSlot slot, ISimEventSink sink)` |
+
+- `OnGrazeAwarded_Heat`: `SimConfig.GrazeFullReward`이면 잠금 중일 때 잠금을 풀고 열 = 임계 시작(`HeatUnlocked`, 이유 Graze), 아니면 열이 임계 시작보다 낮을 때만 임계 시작으로 올리고, 다음 발사 1회 열 면제를 건다(`HeatExemptArmed`). 줄어든 보상(결투, spec 01 12.2)이면 잠금이 아닐 때 열을 임계 시작까지 올리기만 한다(잠금 해제와 열 면제 없음).
+- `OnGrazeAwarded_Combo`: 콤보 +2(결투 +1)와 끊김 타이머 다시 채우기(spec 01 9.2·9.3). 값은 데이터다.
+- `OnGrazeAwarded_Characters`: 피뢰침 체질(spec 01 8.1의 7번. 결투는 spec 04 8절의 값과 간격).
+- 스침 가속(이동 +20%)은 Graze의 상태이고 Player가 4단계에서 `GrazeBuffActive`로 읽는다. 점수의 스침 횟수는 Waves가 뒤 단계에서 `GrazeAwardsThisTick`으로 읽는다(순서를 따지지 않는 값은 이음 훅을 쓰지 않는다).
+- 이음 훅 안에서는 자기 모듈의 상태만 바꾼다. 같은 사건을 다시 내지 않는다(스침 인정 훅 안에서 `AwardSkillGraze`를 부르지 않는다).
+- 비기 스침은 5단계에서 인정되므로 그 보상(열, 열 면제)은 같은 틱 6단계의 발사보다 먼저 반영된다. 뒤 단계에서 읽어 가는 방식으로는 이 순서를 낼 수 없어서 이음 훅이다.
+- 이음 훅을 더하거나 `Raise…` 안의 순서를 바꾸는 것은 계약 변경이다.
+
 **야영 하위 상태**(`ISimView.Camp.Sub`. 정본 상태이고 해시에 들어간다. spec 07 11.4).
 
 | `CampSub` | 받는 키 | 받는 명령 | 나가는 길 |
@@ -932,6 +955,16 @@ public readonly struct RecentInputs {                 // 최대 5개. 0번이 �
 ```
 
 `CampView`는 `Sub`(`CampSub`), 방금 넘긴 웨이브, 이 야영의 회복 횟수, 전리품 카드, 보관함, 해금 차례를 준다. 화면은 이것을 그대로 읽고 따로 상태를 두지 않는다.
+
+스침 이벤트의 칸(T-50. spec 01 17.2의 필드를 `SimEvent`의 칸에 놓은 것):
+
+| 이벤트 | `Slot` | `Source` | `A` | `B` | `C` | `X`, `Y` |
+|---|---|---|---|---|---|---|
+| `GrazeAwarded`, `GrazeCosmeticOnly` | 스친 플레이어 | 위협의 개체 id(비기 스침은 없음) | `CastId`(비기 스침은 0) | 종류: 0 탄, 1 돌진, 2 예고 구역, 3 비기 | 0(`chainIndex`는 표시 계층이 센다. 0.3절) | 위협의 위치(구역은 중심, 비기 스침은 플레이어 위치) |
+| `GrazeBuffStarted`, `GrazeBuffEnded` | 그 플레이어 | 없음 | 0 | 0 | 0 | 0 |
+
+- 같은 틱에 여러 시전이 인정되면 `GrazeAwarded`는 위협 id 오름차순으로 나온다.
+- 종류 번호는 더하기만 한다. `GrazeBuffEnded`는 기한 틱의 9단계에 한 번, 또는 `EndGrazeBuff`(웨이브 끝, spec 01 10.6)가 부른 자리에서 한 번 나온다.
 
 - 400번대 이후의 이벤트는 각 명세의 연결점 절에 있는 이름을 그 구간에 그대로 옮긴다. 열거형 이름은 PascalCase, 데이터 열쇠는 `구역.snake_case`다(예: `TelegraphStart` ↔ `telegraph.start`).
 - 번호는 추가만 한다. 다시 보기 파일은 이벤트를 담지 않으므로(입력만 담는다) 번호 변경이 기록을 깨지는 않지만, 바인딩 표와 맞추려고 고정한다.

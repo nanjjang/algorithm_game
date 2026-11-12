@@ -121,7 +121,7 @@
    "id": "M1",
    "title": "결정론 코어 위의 손맛 시제품 (GDD 16-1, online 11-1)",
    "gate": "M1-INT",
-   "task_count": 26,
+   "task_count": 29,
    "blocked_on_assets": 0,
    "parallel_groups": [
     "M1-W01",
@@ -1438,22 +1438,33 @@
    ],
    "spec_refs": [
     "docs/spec/01-sim-core.md §8",
-    "docs/spec/01-sim-core.md §14.7"
+    "docs/spec/01-sim-core.md §14.7",
+    "docs/dev/DECISIONS-TECH.md"
    ],
    "contracts": [
+    "docs/dev/CONTRACTS.md §0.3",
     "docs/dev/CONTRACTS.md §3.2",
     "docs/dev/CONTRACTS.md §3.3"
    ],
    "owned_paths": [
     "src/Wizard.Sim/Graze/",
-    "tests/Wizard.Sim.Tests/Graze/"
+    "tests/Wizard.Sim.Tests/Graze/",
+    "src/Wizard.Sim/Runtime/Core/SimWorld.Step.cs",
+    "src/Wizard.Sim/Runtime/Core/SimWorld.Hooks.cs",
+    "tests/Wizard.Sim.Tests/Runtime/HookTableTests.cs",
+    "src/Wizard.Sim/Player/SimWorld.Player.cs"
    ],
    "acceptance": [
     "같은 CastId의 탄 여러 발이 스쳐도 보상은 한 번이다. 피격 판정이 스침 판정보다 먼저다",
+    "9단계에서 Stage09_Graze가 그 단계의 맨 뒤에 불린다(CONTRACTS 3.2절 \"단계 안 순서의 예외\", T-50). 그 틱의 피격 후보가 있으면 어떤 스침도 인정하지 않는다",
+    "보상이 있는 스침마다 뼈대의 RaiseGrazeAwarded를 한 번 부른다(이음 훅 OnGrazeAwarded_Heat·Combo·Characters의 순서는 뼈대에 있다). Graze는 열·콤보의 상태를 쓰지 않고 그 계산의 사본도 두지 않는다",
+    "스침 가속 중에는 Player의 4단계 이동량이 배율 1200의 값이고(GrazeBuffActive를 읽는다) 기한 틱부터 1000이다. 웨이브 끝의 가속 초기화는 EndGrazeBuff다",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [
-    "S01§14.7"
+    "S01:T-G01",
+    "S01:T-G08..T-G22",
+    "S01:T-G24"
    ],
    "parallel_group": "M1-W07",
    "status": "todo"
@@ -1596,6 +1607,48 @@
     "전부 SimWorld의 훅과 SimConfig 스위치로만 붙어 있고 Proto 폴더를 지우면 나머지가 그대로 컴파일된다(M3-CB-02에서 지운다)"
    ],
    "vectors": [],
+   "parallel_group": "M1-W08",
+   "status": "todo"
+  },
+  {
+   "id": "M1-SIM-10",
+   "milestone": "M1",
+   "title": "스침 보상의 열 쪽: 이음 훅 OnGrazeAwarded_Heat와 열 보상 벡터(T-50)",
+   "module": "Wizard.Sim",
+   "owner_agent": "combat-engineer",
+   "owner_model": "opus",
+   "reviewer_model": "opus",
+   "deps": [
+    "M1-SIM-05",
+    "M1-SIM-06"
+   ],
+   "spec_refs": [
+    "docs/spec/01-sim-core.md §7",
+    "docs/spec/01-sim-core.md §8",
+    "docs/spec/01-sim-core.md §12",
+    "docs/spec/01-sim-core.md §14.7",
+    "docs/dev/DECISIONS-TECH.md"
+   ],
+   "contracts": [
+    "docs/dev/CONTRACTS.md §3.2",
+    "docs/dev/CONTRACTS.md §3.3"
+   ],
+   "owned_paths": [
+    "src/Wizard.Sim/Heat/",
+    "tests/Wizard.Sim.Tests/Heat/Graze/"
+   ],
+   "acceptance": [
+    "Heat 모듈이 이음 훅 OnGrazeAwarded_Heat를 CONTRACTS 3.2절의 표대로 구현한다. 전부 보상(SimConfig.GrazeFullReward)이면 잠금 중일 때 잠금을 풀고 열 = 임계 시작(HeatUnlocked, 이유 Graze), 아니면 열이 임계 시작보다 낮을 때만 올리고, 열 면제를 건다(HeatExemptArmed는 새로 걸릴 때만). 줄어든 보상(결투, spec 01 12.2)이면 잠금이 아닐 때 열을 임계 시작까지만 올린다",
+    "열 보상의 계산은 Heat 한 곳에만 있다. M1-SIM-05가 만든 연산 HeatApplyGraze는 이 훅의 몸통이 되거나 이 훅만 부른다(다른 모듈이 부르는 문으로 남기지 않는다)",
+    "시험은 Graze의 문으로 스침을 일으킨다(OfferGrazeThreat → Step, AwardSkillGraze). 시험이 Heat의 메서드를 직접 불러 스침의 열을 만들지 않는다. spec 01 T-G01의 열 85와 열 면제 대기를 T-G02의 전제로 세계 실행에서 확인한다",
+    "Step 앞에 넣은 비기 스침(AwardSkillGraze)이 그 틱 6단계의 발사에 반영된다: 그 발사는 임계이고 열이 오르지 않는다. 9단계의 스침은 다음 발사부터다",
+    "같은 틱에 시전 둘이 인정되어도 열 면제는 한 번만 걸린다",
+    "Heat와 Graze가 같이 도는 세계의 결정론: 두 번 실행, 스냅숏 저장·복원 뒤 진행, WriteState/ReadState 왕복의 해시가 같다. Step 할당 0(같은 각본을 새 세계로 여러 번 돌린 최솟값으로 잰다. 한 번 재기는 전체 실행에서 가끔 실패한다, FIX-1)",
+    "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
+   ],
+   "vectors": [
+    "S01:T-G02..T-G07"
+   ],
    "parallel_group": "M1-W08",
    "status": "todo"
   },
@@ -1789,7 +1842,8 @@
    "deps": [
     "M1-SIM-07",
     "M1-SIM-09",
-    "M0-TE-01"
+    "M0-TE-01",
+    "M1-SIM-10"
    ],
    "spec_refs": [
     "docs/dev/ARCHITECTURE.md §11",
@@ -1838,7 +1892,8 @@
    "reviewer_model": "opus",
    "deps": [
     "M1-SIM-09",
-    "M1-CLI-02"
+    "M1-CLI-02",
+    "M1-SIM-10"
    ],
    "spec_refs": [
     "docs/GDD.md §16",
@@ -1909,7 +1964,9 @@
     "M1-TE-01",
     "M1-TE-02",
     "M1-PERF-01",
-    "M0-INT"
+    "M0-INT",
+    "FIX-1",
+    "FIX-2"
    ],
    "spec_refs": [
     "docs/GDD.md §16",
@@ -1929,6 +1986,77 @@
    "parallel_group": "M1-W11",
    "status": "todo",
    "human_check": "GDD 16-1의 통과 기준 중 사람 측정 세 가지"
+  },
+  {
+   "id": "FIX-1",
+   "milestone": "M1",
+   "title": "할당 0 시험이 전체 실행에서 가끔 실패한다: 한 번 재기를 같은 각본 여러 번의 최솟값으로",
+   "module": "tests",
+   "owner_agent": "test-engineer-opus",
+   "owner_model": "opus",
+   "reviewer_model": "opus",
+   "deps": [
+    "M1-SIM-04",
+    "M1-SIM-05",
+    "M1-SIM-06"
+   ],
+   "spec_refs": [
+    "docs/dev/PIPELINE.md §7",
+    "docs/dev/DECISIONS-TECH.md"
+   ],
+   "contracts": [
+    "docs/dev/CONTRACTS.md §3.2"
+   ],
+   "owned_paths": [
+    "tests/Wizard.TestKit/AllocationProbe.cs",
+    "tests/Wizard.Sim.Tests/Player/PlayerPipelineTests.cs",
+    "tests/Wizard.Sim.Tests/Heat/HeatPipelineTests.cs",
+    "tests/Wizard.Sim.Tests/Runtime/SnapshotTests.cs",
+    "tests/Wizard.Sim.Tests/Runtime/WorldShapeTests.cs",
+    "tests/Wizard.Sim.Tests/World/MovementIntegrationTests.cs",
+    "tests/Wizard.Sim.Tests/Contracts/SimEventContractTests.cs",
+    "tests/Wizard.Sim.Tests/Contracts/InputContractTests.cs",
+    "tests/Wizard.Sim.Tests/Contracts/ViewContractTests.cs",
+    "tests/Wizard.Sim.Tests/Graze/GrazePipelineTests.cs"
+   ],
+   "acceptance": [
+    "경위: M1-SIM-06의 작업 트리(main ac1f4d8 위)에서 Wizard.Sim.Tests 전체(568개)를 80번 되풀이해 돌렸더니 13번에서 할당 0 시험이 실패했다: PlayerPipelineTests.StepDoesNotAllocateAfterWarmUp 8번(1,664~2,744바이트), HeatPipelineTests.StepDoesNotAllocateAfterWarmUp 4번(648~7,768바이트), SnapshotTests.SaveAndLoad_AllocateNothing 1번(5,312바이트). fast 게이트는 이 묶음을 Debug와 Release로 두 번 돌리므로 게이트가 까닭 없이 자주 실패한다. Player의 4단계에서 스침 가속을 읽는 줄을 빼고 돌린 50번에서도 Player 2번, Heat 1번이 실패했다(그 줄 때문이 아니다)",
+    "같은 꼴이던 GrazePipelineTests의 시험은 고치기 전 12번에 2번 실패했고, 틱마다 잰 값은 한 틱(986번째)에서만 176바이트였으며 그 시험만 따로 돌리면 0이었다. 같은 각본에서 자리와 크기가 실행마다 달라지므로 Step의 정해진 경로가 하는 할당은 아니다. 병렬로 도는 다른 시험과 겹칠 때 이 스레드에 잡히는 런타임 쪽의 일회성 할당으로 보이지만 원인은 확인하지 못했다. 원인을 확인해 결과 보고에 적는다",
+    "Wizard.TestKit에 같은 각본을 새 대상으로 여러 번 돌려 이 스레드가 할당한 바이트의 최솟값을 돌려주는 도우미가 있다. 각본이 어느 경로에서든 할당하면 모든 실행에서 0보다 크므로 최솟값이 0이 아니다(일부러 할당하는 각본으로 도우미를 시험한다)",
+    "owned_paths의 할당 0 시험이 전부 그 도우미를 쓴다(Graze는 M1-SIM-06이, Replay는 M1-SIM-07이 같은 방법을 시험 안에 넣어 두었다. Graze는 도우미로 옮긴다). 기대값은 그대로 0바이트이고 각본의 경로를 줄이지 않는다",
+    "Wizard.Sim.Tests 전체를 Debug와 Release로 200번씩 되풀이해 돌려 할당 0 시험의 실패가 0번이다. 횟수와 결과를 결과 보고에 적는다",
+    "tests/Wizard.Core.Tests의 할당 시험(Codec, Random, Collections, Angles)도 같은 횟수로 되풀이해 실패가 보이면 파일과 횟수를 결과 보고에 올린다(이 작업의 소유 경로가 아니다)"
+   ],
+   "vectors": [],
+   "parallel_group": "M1-W08",
+   "status": "todo"
+  },
+  {
+   "id": "FIX-2",
+   "milestone": "M1",
+   "title": "taskgraph의 시험이 실제 그래프에 CCR 작업이 없다고 가정한다(다음 번호를 CCR-1로 적어 두었다)",
+   "module": "tools",
+   "owner_agent": "build-tools-engineer",
+   "owner_model": "opus",
+   "reviewer_model": "opus",
+   "deps": [
+    "M0-BT-06"
+   ],
+   "spec_refs": [
+    "docs/dev/PIPELINE.md §3"
+   ],
+   "contracts": [],
+   "owned_paths": [
+    "tools/Wizard.TaskGraph/Tests/AddAndCardTests.cs"
+   ],
+   "acceptance": [
+    "경위: AddAndCardTests.Add_ToCopyOfRealGraph_PassesFullValidationIncludingVectors가 실제 docs/dev/tasks.json에 CCR 작업 하나를 더해 보고 받은 id가 CCR-1인지 확인한다. PIPELINE 3.7절대로 실제 그래프에 CCR 작업을 하나 더하면 다음 번호가 CCR-2가 되어 이 시험이 실패하고 fast 게이트가 막힌다(M1-SIM-06에서 실제 그래프에 CCR-1을 넣고 이 시험만 돌려 확인했다: Expected \"CCR-1\", Actual \"CCR-2\"). 그래서 T-50의 이음 작업은 M1-SIM-10이라는 id를 썼다",
+    "그 시험이 실제 그래프에 이미 있는 CCR·FIX 작업의 수와 무관하게 통과한다(받은 id = 지금 가장 큰 번호 + 1). 실제 그래프에 CCR 작업이 이미 있는 경우를 흉내 낸 시험이 있다",
+    "그 시험이 더해 보는 작업(deps M0-TL-01, docs/dev/CONTRACTS.md)이 실제 그래프의 다른 작업과 경로가 겹쳐 실패하는 경우를 문서에 적는다: 어떤 작업이 CONTRACTS.md를 owned_paths에 넣으면 이 시험이 실패한다는 것을 시험의 주석과 PIPELINE 3.7절을 고치는 작업의 물음으로 결과 보고에 올린다"
+   ],
+   "vectors": [],
+   "parallel_group": "M1-W08",
+   "status": "todo"
   },
   {
    "id": "M2-SPL-01",
@@ -2672,13 +2800,16 @@
    "owner_model": "opus",
    "reviewer_model": "opus",
    "deps": [
-    "M3-ENM-01"
+    "M3-ENM-01",
+    "M1-SIM-06"
    ],
    "spec_refs": [
     "docs/spec/01-sim-core.md §9",
     "docs/spec/01-sim-core.md §10",
     "docs/spec/01-sim-core.md §14.8",
-    "docs/spec/01-sim-core.md §14.9"
+    "docs/spec/01-sim-core.md §14.9",
+    "docs/spec/01-sim-core.md §8",
+    "docs/dev/DECISIONS-TECH.md"
    ],
    "contracts": [
     "docs/dev/CONTRACTS.md §3.2",
@@ -2690,11 +2821,14 @@
    ],
    "acceptance": [
     "피격 시 콤보 0과 결정 파괴의 순서가 명세와 같다. 300번대 이벤트가 한 번씩만 나온다",
+    "이음 훅 OnGrazeAwarded_Combo를 구현한다(CONTRACTS 3.2절, T-50): 스침 인정마다 콤보 +2(결투 +1), 끊김 타이머를 다시 채운다. 값은 데이터다. 시험은 Graze의 문(OfferGrazeThreat → Step)으로 스침을 일으킨다. 같은 틱에 시전 둘이 인정되면 콤보 +4다(spec 01 T-G11)",
+    "웨이브 끝(spec 01 10.6)에 EndGrazeBuff를 부른다",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [
     "S01§14.8",
-    "S01§14.9"
+    "S01§14.9",
+    "S01:T-G25"
    ],
    "parallel_group": "M3-W05",
    "status": "todo"
@@ -3635,7 +3769,9 @@
     "docs/spec/04-characters-wands.md §4",
     "docs/spec/04-characters-wands.md §15.4",
     "docs/spec/01-sim-core.md §7",
-    "docs/spec/01-sim-core.md §14.6"
+    "docs/spec/01-sim-core.md §14.6",
+    "docs/spec/01-sim-core.md §8",
+    "docs/dev/DECISIONS-TECH.md"
    ],
    "contracts": [
     "docs/dev/CONTRACTS.md §3.2"
@@ -3646,11 +3782,13 @@
    ],
    "acceptance": [
     "끓어넘침, 피뢰침 체질, 밑줄, 살얼음, 그림자 계약이 각각 정해진 틱 단계에서만 상태를 바꾼다",
+    "피뢰침 체질은 이음 훅 OnGrazeAwarded_Characters에서 발동한다(CONTRACTS 3.2절, T-50). 스침 인정마다 1회이고 비기 스침(AwardSkillGraze)도 같다. 벼락은 콤보에 넣지 않는다",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [
     "S04§15.4",
-    "S01§14.6"
+    "S01§14.6",
+    "S01:T-G23"
    ],
    "parallel_group": "M5-W02",
    "status": "todo"
@@ -6005,7 +6143,8 @@
     "fx·sfx 식별자가 effects.md 19절·20절의 이름이다. 없는 식별자를 가리키면 검사가 실패한다",
     "confirmed_only가 켜진 줄은 Predicted 단계에서 소리와 피격 연출을 내지 않는다",
     "UiEventKeys 카탈로그(ui.*, net.*, duel.*, plaza.*, notice.*, trade.*, season.*, run.*)와 PresentationEventRouter.RaiseUi(key, args)가 있다(Wizard.ViewLogic 소유)",
-    "spec 09 22절, spec 10 23절, spec 11 17절, spec 12 17절, spec 13 21절의 모든 사건 이름이 SimEventType이나 UiEventKeys 가운데 하나에 있다(명세의 그 절에서 이름을 모아 대조하는 테스트). 에셋을 나중에 꽂을 식별자가 빠지지 않는다"
+    "spec 09 22절, spec 10 23절, spec 11 17절, spec 12 17절, spec 13 21절의 모든 사건 이름이 SimEventType이나 UiEventKeys 가운데 하나에 있다(명세의 그 절에서 이름을 모아 대조하는 테스트). 에셋을 나중에 꽂을 식별자가 빠지지 않는다",
+    "연속 스침의 음높이(spec 01 17.2의 chainIndex 0~5)는 표시 쪽이 센다(CONTRACTS 0.3절, T-50): Confirmed인 GrazeAwarded가 앞 것의 2초 안이면 한 단씩 5단까지, 아니면 0. 2초와 5단은 바인딩 데이터에 있다. 코어의 이벤트 칸 C는 0이다"
    ],
    "vectors": [],
    "parallel_group": "M9-W02",

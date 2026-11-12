@@ -97,19 +97,11 @@ namespace Wizard.Ci.Tests
             using TempGit g = RepoWithUnityVersion();
             var stdout = new StringWriter();
             var stderr = new StringWriter();
-            string? before = Environment.GetEnvironmentVariable("DOTNET_ROOT_X64");
-            // 이 명령은 프로세스 환경을 읽는다. 없는 폴더를 가리키게 하고 되돌린다
-            Environment.SetEnvironmentVariable("DOTNET_ROOT_X64", g.PathOf("nope"));
-            try
-            {
-                int code = Program.Run(new[] { "require", "x64-dotnet", "--root", g.Dir }, stdout, stderr);
-                Assert.Equal(1, code);
-                Assert.StartsWith("FAIL  x64 dotnet 런타임이 없다", stderr.ToString(), StringComparison.Ordinal);
-            }
-            finally
-            {
-                Environment.SetEnvironmentVariable("DOTNET_ROOT_X64", before);
-            }
+            // 명령 줄 층은 환경을 인자(env)로 받는다. 프로세스 환경을 바꾸지 않는다(같이 도는 다른 시험에 새지 않게)
+            int code = Program.Run(new[] { "require", "x64-dotnet", "--root", g.Dir }, stdout, stderr,
+                Env(new Dictionary<string, string?> { ["DOTNET_ROOT_X64"] = g.PathOf("nope") }));
+            Assert.Equal(1, code);
+            Assert.StartsWith("FAIL  x64 dotnet 런타임이 없다", stderr.ToString(), StringComparison.Ordinal);
         }
     }
 }

@@ -1,6 +1,6 @@
 namespace Wizard.Sim
 {
-    // CONTRACTS 3.8. InputRecordCodec.TryRead 가 RecordCorrupt 로 돌려주는 까닭(목록의 순서 그대로)
+    // CONTRACTS 3.8. InputRecordCodec.TryRead·DuelRecordCodec.TryRead 가 RecordCorrupt 로 돌려주는 까닭. 번호는 더하기만 한다
     public enum RecordError : byte
     {
         None = 0,
@@ -18,5 +18,9 @@ namespace Wizard.Sim
         BadOp = 12,
         UnknownTag = 13,
         EndTickOverLimit = 14,
+        BadSlot = 15,        // WZDR: 슬롯이 0·1 이 아니다
+        BadHeader = 16,      // magic·format_version 은 맞는데 머리말이 정규 바이트가 아니다(모자란 길이 포함)
+        BadFlags = 17,       // 꼬리말 flags 에 이 형식 판이 모르는 비트
+        BadSeq = 18,         // WZDR: 순번이 0 이거나 그 슬롯에서 늘지 않는다. .wzrc: 순번 공간(uint)을 다 썼다
     }
 }

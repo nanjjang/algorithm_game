@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wizard.invalid/data/schema/elements.schema.json",
+  "title": "속성 배율 (data/sim/elements.json → 팩 절 19 elements)",
+  "description": "DECISIONS 2.5, spec 02 3.3 AF-1, CONTRACTS 2.2 ElementDef. 수는 십진으로 적고 DataBuild 가 Fix64 Raw 로 바꾼다(tools/Wizard.DataBuild/Convert/ElementsConverter.cs).",
+  "type": "object",
+  "required": ["weak_multiplier", "resist_multiplier"],
+  "additionalProperties": false,
+  "properties": {
+    "_note": { "$ref": "_common.schema.json#/$defs/note" },
+    "weak_multiplier": { "description": "약점 속성 피해 배율(1.25) → WeakMultiplier Raw(× 2^32). 1 보다 크다", "type": "number", "exclusiveMinimum": 1 },
+    "resist_multiplier": { "description": "저항 속성 피해 배율(0.8) → ResistMultiplier Raw(× 2^32). 0 보다 크고 1 보다 작다", "type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1 }
+  }
+}

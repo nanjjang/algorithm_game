@@ -1,0 +1,18 @@
+{
+  "_note": "넷코드 값(팩 절 34 net, 해시 밖). 출처: input_delay_table = spec 10 14.5, online 4.12(60ms 이하 2, 90ms 이하 3, 120ms 이하 4, 120ms 초과 4틱 고정이므로 마지막 줄의 D가 그 위에도 적용된다). rollback_limit_ticks = spec 10 14.7(8틱). disconnect_grace_seconds = spec 10 2.5 disconnect_wait·3.7·16(20초). order_violation_forfeit = spec 10 14.8(한 경기에서 순서 위반으로 버린 패킷이 30개를 넘으면 몰수패, [임시]). queue_rtt_limit_ms = spec 10 14.5·online 4.12(자동 매치 왕복 120ms). spectator_delay_seconds = spec 10 14.9(2초 = 120틱). spectator_keyframe_ticks = CONTRACTS 2.2·6.4(호스트가 60틱마다 보관). 명세에 값이 없는 것은 [총괄 제안]이고 M2-NET-06의 측정으로 고친다: disconnect_silence_seconds 1.0(spec 10 16이 양쪽 동시 끊김 판정에 같은 1초를 쓰고, M2-NET-06의 300ms 수신 공백이 끊김으로 잡히지 않는 값), full_state_gap_ticks 30(해시 방송 간격과 같다. 300ms = 18틱 공백에서는 전체 상태를 청하지 않는다), catchup_ticks_per_advance 8(되감기 한도와 같다), rtt_hold_cap_ms 50(정직한 클라이언트가 에코를 붙드는 시간은 한 틱 안쪽이다)",
+  "input_delay_table": [
+    { "rtt_up_to_ms": 60, "delay_ticks": 2 },
+    { "rtt_up_to_ms": 90, "delay_ticks": 3 },
+    { "rtt_up_to_ms": 120, "delay_ticks": 4 }
+  ],
+  "rollback_limit_ticks": 8,
+  "disconnect_silence_seconds": 1.0,
+  "disconnect_grace_seconds": 20,
+  "full_state_gap_ticks": 30,
+  "catchup_ticks_per_advance": 8,
+  "rtt_hold_cap_ms": 50,
+  "queue_rtt_limit_ms": 120,
+  "order_violation_forfeit": 30,
+  "spectator_delay_seconds": 2.0,
+  "spectator_keyframe_ticks": 60
+}

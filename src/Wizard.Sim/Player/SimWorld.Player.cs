@@ -139,8 +139,8 @@ namespace Wizard.Sim
         }
 
         // 4단계: 이동과 벽(spec 01 5.6). 자세·반전 자세는 속도를 StanceSpeedCenti 로 바꾼다(배율이 아니라 값 교체).
-        // 스침 가속(Graze 모듈의 상태)과 느려짐(적 명세의 PlayerSlowPermille)은 그 모듈이 생기면 여기서 읽는다.
-        // 지금은 둘 다 없음(1000)이다(결과 보고의 확인하지 못한 것)
+        // 스침 가속은 Graze 모듈의 상태를 읽는다(GrazeBuffActive: t < 가속 기한. CONTRACTS 3.2 "모듈 사이의 이음"의 읽기, T-50).
+        // 느려짐(적 명세의 PlayerSlowPermille)은 그 모듈이 생기면 여기서 읽는다. 지금은 없음(1000)이다
         partial void Stage04_Player(ISimEventSink sink)
         {
             if (!PlayerModuleOn)
@@ -158,7 +158,7 @@ namespace Wizard.Sim
                 }
                 CharacterDef def = _playerDefs[i]!;
                 int speed = Movement.SpeedCenti(def, p.Stance != StanceMode.Normal);
-                int mul = Movement.MovePermille(def, false, PermilleOne);
+                int mul = Movement.MovePermille(def, GrazeBuffActive(i), PermilleOne);
                 p.Pos = Movement.Integrate(arena, p.Pos, dir, Movement.AxisStepRaw(speed, mul), def.BodyRadius);
             }
         }

@@ -6,7 +6,7 @@ namespace Wizard.Sim
 {
     // CONTRACTS 3.2 "부분 클래스와 훅"(T-33). 훅 선언은 여기 한 곳이다. 모듈은 자기 폴더의 SimWorld.<모듈>.cs 에서 구현만 더한다.
     // C# 의 부분 메서드는 구현이 하나뿐이어야 하므로 (단계, 모듈)마다 따로 선언한다. 구현이 없으면 호출이 컴파일에서 사라진다.
-    // 부르는 순서는 SimWorld.Step.cs(틱 단계)와 SimWorld.State.cs(상태 절) 두 곳에만 있다. 훅을 더하거나 순서를 바꾸는 것은 계약 변경이다.
+    // 부르는 순서는 SimWorld.Step.cs(틱 단계, 이음 훅의 Raise…)와 SimWorld.State.cs(상태 절) 두 곳에만 있다. 훅을 더하거나 순서를 바꾸는 것은 계약 변경이다.
     //
     // 훅의 약속:
     //   - 단계 훅은 Step 안에서 불린다. 관리 힙에 할당하지 않는다(Stage00 의 Depart 컴파일만 예외. CONTRACTS 3.2).
@@ -18,6 +18,8 @@ namespace Wizard.Sim
     //       적용: 확인을 통과한 명령만 온다(valid == true). 자기 op 이면 적용한다.
     //     어느 모듈도 받지 않은 명령은 적용하지 않고 DebugCommandRejected 만 낸다(CONTRACTS 3.1).
     //   - Stage02 훅은 입력 이벤트 하나마다 InputOrder 순으로 불린다(한 이벤트 안에서 Player → Arts).
+    //   - 이음 훅(On<사건>_<모듈>)은 단계 훅 안에서, 그 사건이 일어난 순간에 불린다. 자기 모듈의 상태만 바꾸고 할당하지 않는다.
+    //     같은 사건을 다시 내지 않는다(재진입 없음).
     //   - Snapshot_Save_<모듈>(target): 자기 상태를 target 세계의 같은 필드로 값 복사한다. Snapshot_Load_<모듈>(source): 그 반대.
     //     target·source 는 같은 모양(같은 ContentDb, 모드, 플레이어 수)의 세계이고 스냅숏 버퍼 안에만 있다. 할당하지 않는다.
     //   - State_Write_<모듈>(ref w): 절의 내용만 정규 직렬화로 쓴다(CONTRACTS 1.4). 같은 함수가 해시도 센다(해시 모드).
@@ -62,11 +64,12 @@ namespace Wizard.Sim
         // ── 8. 예고 대기 줄
         partial void Stage08_Telegraph(ISimEventSink sink);
 
-        // ── 9. 이동과 충돌
-        partial void Stage09_Graze(ISimEventSink sink);
+        // ── 9. 이동과 충돌. Stage09_Graze 는 이 단계의 맨 뒤에 부른다(표의 순서의 하나뿐인 예외. CONTRACTS 3.2, T-50):
+        //    스침 판정은 같은 틱의 피격 후보와 스침 후보가 다 들어온 뒤여야 한다(spec 01 3.8, 8.3)
         partial void Stage09_Spell(ISimEventSink sink);
         partial void Stage09_Enemies(ISimEventSink sink);
         partial void Stage09_Duel(ISimEventSink sink);
+        partial void Stage09_Graze(ISimEventSink sink);
 
         // ── 10. 피해 확정과 사망 처리
         partial void Stage10_Player(ISimEventSink sink);
@@ -82,6 +85,12 @@ namespace Wizard.Sim
         partial void Stage11_Combo(ISimEventSink sink);
         partial void Stage11_Waves(ISimEventSink sink);
         partial void Stage11_Duel(ISimEventSink sink);
+
+        // ── 이음 훅(CONTRACTS 3.2 "모듈 사이의 이음", T-50). 사건을 내는 모듈은 SimWorld.Step.cs 의 Raise… 만 부른다.
+        //    스침 인정(spec 01 8.4, 12.2): 보상이 있는 스침마다 1회. 받는 모듈이 자기 상태만 바꾼다
+        partial void OnGrazeAwarded_Heat(PlayerSlot slot, ISimEventSink sink);
+        partial void OnGrazeAwarded_Combo(PlayerSlot slot, ISimEventSink sink);
+        partial void OnGrazeAwarded_Characters(PlayerSlot slot, ISimEventSink sink);
 
         // ── 상태 훅(모듈마다 넷). Rng(16)는 Runtime/Core 의 것이라 SimWorld.Rng.cs 에 구현이 있다
         partial void Snapshot_Save_Player(SimWorld target);

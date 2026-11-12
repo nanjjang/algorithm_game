@@ -6,7 +6,7 @@ using Wizard.Sim.Input;
 namespace Wizard.Sim
 {
     // CONTRACTS 3.2 "Step 의 처리 순서". 틱 안의 순서는 여기 한 곳뿐이다(0~12단계).
-    // 한 단계 안의 모듈 순서는 CONTRACTS 3.2 훅 표의 위에서 아래 순이다. 훅을 더하거나 순서를 바꾸는 것은 계약 변경이다.
+    // 한 단계 안의 모듈 순서는 CONTRACTS 3.2 훅 표의 위에서 아래 순이다(예외: 9단계의 Graze 는 맨 뒤). 훅을 더하거나 순서를 바꾸는 것은 계약 변경이다.
     public sealed partial class SimWorld
     {
         // 틱 하나를 진행한다.
@@ -63,11 +63,12 @@ namespace Wizard.Sim
             // 8. 예고 대기 줄
             Stage08_Telegraph(sink);
 
-            // 9. 이동과 충돌, 예고 판정, 피격 뒤 스침, 줍기(모듈 순서는 훅 표의 순서)
-            Stage09_Graze(sink);
+            // 9. 이동과 충돌, 예고 판정, 피격 뒤 스침, 줍기. 모듈 순서는 훅 표의 순서이고 Graze 만 맨 뒤다(T-50):
+            //    스침 판정은 이 단계의 피격 후보와 스침 후보가 다 들어온 뒤에 한다
             Stage09_Spell(sink);
             Stage09_Enemies(sink);
             Stage09_Duel(sink);
+            Stage09_Graze(sink);
 
             // 10. 피해 확정과 사망 처리, 상태 효과·지대 만료
             Stage10_Player(sink);
@@ -86,6 +87,15 @@ namespace Wizard.Sim
 
             // 12. Tick += 1 (넘침은 래핑)
             _tick = unchecked(_tick + 1U);
+        }
+
+        // 이음 훅의 문(CONTRACTS 3.2 "모듈 사이의 이음", T-50). 스침 인정(spec 01 8.4, 12.2)의 보상을 그 순간에 반영한다.
+        // Graze 모듈이 보상이 있는 스침마다 한 번 부른다. 받는 모듈의 순서는 여기 한 곳이다: 열 → 콤보 → 피뢰침
+        internal void RaiseGrazeAwarded(PlayerSlot slot, ISimEventSink sink)
+        {
+            OnGrazeAwarded_Heat(slot, sink);
+            OnGrazeAwarded_Combo(slot, sink);
+            OnGrazeAwarded_Characters(slot, sink);
         }
 
         // 0단계 한 명령: 확인 → (유효하면) 적용, 아니면 디버그 이벤트만

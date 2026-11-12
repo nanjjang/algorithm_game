@@ -1,7 +1,16 @@
 {
   "block.fireball": "거대 화염구",
   "block.magic_bolt": "마력탄",
+  "frame.ambush": "매복",
+  "frame.battery": "포대",
+  "frame.hunting_party": "사냥대",
+  "frame.mixed": "혼합",
+  "frame.swarm": "떼",
   "place.arena": "돌마당",
   "place.field": "한뎃벌",
+  "tod.boss": "보스",
+  "tod.day": "낮",
+  "tod.dusk": "해질녘",
+  "tod.night": "밤",
   "~end": ""
 }

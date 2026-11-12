@@ -359,6 +359,12 @@ namespace Wizard.Sim
             }
         }
 
+        // ── 뷰 훅(CONTRACTS 3.3, T-54). PlayerView 의 Graze 칸: 스침 가속 중인가(spec 01 17.1 GrazeBuffActive). 상태를 바꾸지 않는다
+        partial void View_Player_Graze(int index, ref PlayerViewDraft draft)
+        {
+            draft.GrazeBuffActive = GrazeBuffActive(index);
+        }
+
         // ── 상태 훅
 
         partial void Snapshot_Save_Graze(SimWorld target) => CopyGrazeState(this, target);

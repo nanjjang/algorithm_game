@@ -5,6 +5,7 @@ using Wizard.Client;
 using Wizard.Sim.Events;
 using Wizard.Sim.Input;
 using Wizard.Unity.Input;
+using Wizard.ViewLogic.Presentation;
 
 namespace Wizard.Unity.App.Core
 {
@@ -16,6 +17,8 @@ namespace Wizard.Unity.App.Core
     //   alpha = session.Alpha(now)                         // 실수는 여기서부터
     //   표시기마다 OnEvents(session.Events, view)          // PresentationEventRouter.Drain 자리
     //   표시기마다 Render(view, alpha)
+    // 표시기의 계약(IFramePresenter)은 Wizard.ViewLogic.Presentation 에 있다(CONTRACTS 13, T-54): 표시 계층(Presentation, UI)이 구현하고
+    // 조립 루트가 AddPresenter 로 꽂는다.
     //
     // - 틱 수는 프레임 수가 아니라 단조 시계가 정한다(SimClock: 따라잡는 틱 수에 상한이 없다). Unity 의 FixedUpdate·Time.deltaTime·
     //   Time.timeScale 을 쓰지 않고 바꾸지도 않는다(ARCHITECTURE 4.1, spec 01 D12). 히트스톱은 표시 계층이 그림만 멈춘다.
@@ -79,6 +82,8 @@ namespace Wizard.Unity.App.Core
         }
 
         public bool RemovePresenter(IFramePresenter presenter) => _presenters.Remove(presenter);
+
+        public int PresenterCount => _presenters.Count;
 
         // 프레임 하나. 돌려주는 값 = 표시 보간 비율(세션이 없으면 0)
         public double RunFrame()

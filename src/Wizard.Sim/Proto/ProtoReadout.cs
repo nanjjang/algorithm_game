@@ -4,9 +4,10 @@ using Wizard.Core;
 
 namespace Wizard.Sim.Proto
 {
-    // 시제품의 탄·적·조립을 표시 계층(회색 도형)과 측정 도구가 읽는 문. 세계 상태를 바꾸지 않는다.
-    // ISimView 의 Enemies·Projectiles 를 채우는 훅이 계약에 아직 없어(SimWorldView, M1-SIM-02 결과 보고) 시제품은 이 문으로 내준다.
-    // 이 폴더와 같이 M3-CB-02 에서 사라진다. 그때 표시 계층은 ISimView 로 옮긴다
+    // 시제품의 탄·적·조립을 이 폴더의 시험과 측정 도구가 읽는 문. 세계 상태를 바꾸지 않는다.
+    // 표시 계층(회색 도형)은 이 문을 쓰지 않는다: 적과 탄은 뷰 훅(SimWorld.ProtoView.cs, CONTRACTS 3.3, T-54)이 ISimView 의
+    // Enemies·Projectiles 로 내준다. 이 폴더 밖의 코드는 시제품의 이름을 쓰지 않는다(ProtoIsolationTests).
+    // 이 폴더와 같이 M3-CB-02 에서 사라진다
     public static class ProtoReadout
     {
         // 이 세계에서 시제품이 도는가(연습 모드이고 첫 Step 뒤)

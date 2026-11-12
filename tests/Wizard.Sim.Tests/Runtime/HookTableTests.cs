@@ -11,6 +11,7 @@ namespace Wizard.Sim.Tests.Runtime
     // CONTRACTS 3.2 "부분 클래스와 훅": 훅이 (단계, 모듈)마다 따로 선언되어 있고 표와 같다. 상태 훅 넷이 모듈마다 있다.
     // 한 단계 안의 호출 순서가 표의 위에서 아래 순이고("단계 안 순서의 예외"에 적힌 훅만 그 단계의 맨 뒤), 단계는 0~12 순이다.
     // 상태 절의 순서는 절 id 오름차순이다. 이음 훅(T-50)은 "모듈 사이의 이음"의 표와 같고 Raise… 가 표의 순서로 부른다.
+    // 뷰 훅(T-54)은 CONTRACTS 3.3 "뷰 훅"의 표와 같고 SimWorld.View.cs 의 Fill… 이 표의 순서로 부른다.
     // 구현이 없는 부분 메서드는 IL 에 남지 않으므로 선언과 호출은 소스에서 읽는다. 기대값은 CONTRACTS.md 의 표에서 읽는다.
     public sealed class HookTableTests
     {
@@ -98,6 +99,48 @@ namespace Wizard.Sim.Tests.Runtime
             return rows;
         }
 
+        private sealed class ViewRow
+        {
+            public string Door = "";
+            public string Parameters = "";
+            public readonly List<string> Hooks = new List<string>();
+        }
+
+        // CONTRACTS 3.3 의 "| 뷰 | 뼈대의 문 | 뷰 훅(부르는 순서) |" 표
+        private static List<ViewRow> ViewTable()
+        {
+            string[] lines = File.ReadAllLines(TestRepo.Path("docs/dev/CONTRACTS.md"));
+            int start = Array.FindIndex(lines, l => l.StartsWith("| 뷰 | 뼈대의 문 | 뷰 훅(부르는 순서) |", StringComparison.Ordinal));
+            Assert.True(start >= 0, "view hook table header not found in CONTRACTS.md");
+            var rows = new List<ViewRow>();
+            for (int i = start + 2; i < lines.Length && lines[i].StartsWith("|", StringComparison.Ordinal); i++)
+            {
+                string[] cells = lines[i].Split('|');
+                var row = new ViewRow();
+                Match door = Regex.Match(cells[2], @"`(Fill\w+)\(([^)]*)\)`");
+                Assert.True(door.Success, "view hook row without a Fill… door: " + lines[i]);
+                row.Door = door.Groups[1].Value;
+                row.Parameters = door.Groups[2].Value;
+                foreach (Match m in Regex.Matches(cells[3], @"`(View_\w+)`"))
+                {
+                    row.Hooks.Add(m.Groups[1].Value);
+                }
+                Assert.NotEmpty(row.Hooks);
+                rows.Add(row);
+            }
+            Assert.NotEmpty(rows);
+            return rows;
+        }
+
+        // "int index, ref PlayerViewDraft draft" → "index, ref draft"
+        private static string CallArgs(string parameters) =>
+            string.Join(", ", parameters.Split(',').Select(p =>
+            {
+                string[] words = p.Trim().Split(' ');
+                string name = words[words.Length - 1];
+                return words[0] == "ref" ? "ref " + name : name;
+            }));
+
         private static string Source(string file) => File.ReadAllText(TestRepo.Path(CoreDir + file));
 
         private static int StageOf(string hook) => int.Parse(hook.Substring(5, 2));
@@ -170,6 +213,11 @@ namespace Wizard.Sim.Tests.Runtime
             foreach (LinkRow link in LinkTable())
             {
                 expected.UnionWith(link.Hooks);
+            }
+
+            foreach (ViewRow view in ViewTable())
+            {
+                expected.UnionWith(view.Hooks);
             }
 
             string hooks = Source("SimWorld.Hooks.cs");
@@ -279,6 +327,51 @@ namespace Wizard.Sim.Tests.Runtime
                     Assert.Equal(1, callSites);
                 }
             }
+        }
+
+        // 뷰 훅(T-54): 선언의 매개변수가 문의 것과 같고, Fill… 이 표의 순서로 한 번씩 부른다. 다른 자리에서는 부르지 않는다.
+        // 한 뷰 안의 순서는 훅 표의 위에서 아래 순이고, 훅 이름의 모듈은 훅 표에 있는 모듈이다
+        [Fact]
+        public void ViewHooks_AreFilledInContractOrderFromOneDoor()
+        {
+            string hooks = Source("SimWorld.Hooks.cs");
+            string doors = Source("SimWorld.View.cs");
+            List<string> modules = ContractTable().SelectMany(r => r.Sections).Select(s => s.Name).ToList();
+            var seenDoors = new HashSet<string>(StringComparer.Ordinal);
+            foreach (ViewRow view in ViewTable())
+            {
+                Assert.True(seenDoors.Add(view.Door), view.Door + " is listed twice");
+                string args = CallArgs(view.Parameters);
+                foreach (string hook in view.Hooks)
+                {
+                    Assert.Matches(@"partial\s+void\s+" + hook + @"\(" + Regex.Escape(view.Parameters) + @"\);", hooks);
+                    string module = hook.Substring(hook.LastIndexOf('_') + 1);
+                    Assert.Contains(module, modules);
+                }
+                List<int> order = view.Hooks.Select(h => modules.IndexOf(h.Substring(h.LastIndexOf('_') + 1))).ToList();
+                Assert.Equal(order.OrderBy(x => x), order);
+
+                Match door = Regex.Match(doors, @"internal void " + view.Door + @"\(" + Regex.Escape(view.Parameters) + @"\)\s*\{([^}]*)\}");
+                Assert.True(door.Success, view.Door + " is not in SimWorld.View.cs with the contract signature");
+                List<string> calls = Regex.Matches(door.Groups[1].Value, @"\b(View_\w+)\(" + Regex.Escape(args) + @"\);")
+                    .Select(m => m.Groups[1].Value).ToList();
+                Assert.Equal(view.Hooks, calls);
+
+                foreach (string hook in view.Hooks)
+                {
+                    int callSites = 0;
+                    foreach (string file in Directory.GetFiles(TestRepo.Path("src/Wizard.Sim"), "*.cs", SearchOption.AllDirectories))
+                    {
+                        string code = Regex.Replace(File.ReadAllText(file), @"//[^\n]*", "");   // 주석의 언급은 세지 않는다
+                        callSites += Regex.Matches(code, @"(?<!partial void )\b" + hook + @"\(").Count;
+                    }
+                    Assert.Equal(1, callSites);
+                }
+            }
+
+            // 뼈대의 문은 표의 것뿐이다
+            List<string> declaredDoors = Regex.Matches(doors, @"internal void (Fill\w+)\(").Select(m => m.Groups[1].Value).ToList();
+            Assert.Equal(seenDoors.OrderBy(x => x, StringComparer.Ordinal), declaredDoors.OrderBy(x => x, StringComparer.Ordinal));
         }
 
         [Fact]

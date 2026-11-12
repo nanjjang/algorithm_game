@@ -6,6 +6,8 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../../src/Wizard.Text/Wizard.Text.csproj" />
+    <!-- 이름 표 이진 절을 DataBuild 의 쓰는 쪽(NameTableWriter)으로 만들어 읽는다(CONTRACTS 5절. 형식의 정본이 DataBuild 다) -->
+    <ProjectReference Include="../../tools/Wizard.DataBuild/Wizard.DataBuild.csproj" />
     <ProjectReference Include="../Wizard.TestKit/Wizard.TestKit.csproj" />
   </ItemGroup>
   <ItemGroup>

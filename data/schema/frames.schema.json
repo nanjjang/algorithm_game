@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wizard.invalid/data/schema/frames.schema.json",
+  "title": "웨이브 틀 (data/sim/frames.json → 팩 절 8 frames)",
+  "description": "spec 07 2.4(FrameDef 5행), 7.3, 7.4, CONTRACTS 2.2. 틀마다 한 줄이고 FrameId 마다 정확히 한 줄이 있어야 한다(변환기가 본다). 나머지(100 − group_share %)는 늘 혼합이다(FrameDef.RestMixed = true).",
+  "type": "object",
+  "required": ["frames"],
+  "additionalProperties": false,
+  "properties": {
+    "_note": { "$ref": "_common.schema.json#/$defs/note" },
+    "frames": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/frame" }
+    }
+  },
+  "$defs": {
+    "species": { "description": "일반 적 종 id(spec 14 3.6)", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^enemy\\." },
+    "frame": {
+      "type": "object",
+      "required": ["id", "fixed", "group", "group_share"],
+      "additionalProperties": false,
+      "properties": {
+        "_note": { "$ref": "_common.schema.json#/$defs/note" },
+        "id": { "description": "틀 id(spec 14 3.9) → FrameDef.Id", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^frame\\." },
+        "fixed": {
+          "description": "고정 개수: 종마다 [min, max] 마리 → FixedSpecies/FixedMin/FixedMax(EnemyTypeId 오름차순). 종은 한 번만, min ≤ max",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["species", "min", "max"],
+            "additionalProperties": false,
+            "properties": {
+              "species": { "$ref": "#/$defs/species" },
+              "min": { "type": "integer", "minimum": 0 },
+              "max": { "type": "integer", "minimum": 1 }
+            }
+          }
+        },
+        "group": {
+          "description": "주 묶음의 종 → FrameDef.GroupSpecies(EnemyTypeId 오름차순). 종은 한 번만. 비었으면 group_share 는 0",
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/species" }
+        },
+        "group_share": { "description": "주 묶음 몫(예산의 %) → FrameDef.GroupSharePct", "type": "integer", "minimum": 0, "maximum": 100 }
+      }
+    }
+  }
+}

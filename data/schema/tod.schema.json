@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wizard.invalid/data/schema/tod.schema.json",
+  "title": "시간대 (data/sim/tod.json → 팩 절 10 tod)",
+  "description": "spec 07 2.3(TimeOfDayDef 4행), spec 14 3.9, CONTRACTS 2.2. 시간대마다 한 줄이고 TimeOfDay(day, dusk, night, boss)마다 정확히 한 줄이 있어야 한다(변환기가 본다). 하루 속 웨이브 구간은 waves.json 의 tod_ranges 에 있다.",
+  "type": "object",
+  "required": ["tods"],
+  "additionalProperties": false,
+  "properties": {
+    "_note": { "$ref": "_common.schema.json#/$defs/note" },
+    "tods": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/tod" }
+    }
+  },
+  "$defs": {
+    "tod": {
+      "type": "object",
+      "required": ["id", "normal_enemies", "weights", "rim_strength_percent"],
+      "additionalProperties": false,
+      "properties": {
+        "_note": { "$ref": "_common.schema.json#/$defs/note" },
+        "id": { "description": "시간대 id(spec 14 3.9) → TimeOfDayDef.Id", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^tod\\." },
+        "normal_enemies": { "description": "일반 적이 나오는가 → NormalEnemies. false 면 weights 는 비어 있어야 한다", "type": "boolean" },
+        "weights": {
+          "description": "스폰 가중치 배율 → WeightSpecies/WeightPct(× 100, 정확해야 한다. EnemyTypeId 오름차순). 0 = 나오지 않음, 없는 종은 ×1. 종은 한 번만",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["species", "weight"],
+            "additionalProperties": false,
+            "properties": {
+              "species": { "description": "일반 적 종 id(spec 14 3.6)", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^enemy\\." },
+              "weight": { "$ref": "_common.schema.json#/$defs/ratio", "minimum": 0 }
+            }
+          }
+        },
+        "rim_strength_percent": { "description": "밝은 림 세기(%) → RimStrengthPermille(× 10)", "$ref": "_common.schema.json#/$defs/percent", "minimum": 0, "maximum": 100 }
+      }
+    }
+  }
+}

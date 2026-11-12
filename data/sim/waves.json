@@ -1,0 +1,73 @@
+{
+  "_note": "spec 07 2.1(WaveCurveDef 단일 레코드), 3.1, 5절, 6절, 7.2. 출처: DECISIONS 2.3(하루 = 10웨이브, 시간대 구간) [확정], monsters 4.2(체력·피해 성장)·4.3(예산·묶음·예고 상한·엘리트·종 상한·지체 방지)·4.4(각본)·4.5(변덕 수) [제안]. 원문 단위 그대로 적는다(초, 배율). 정수 변환은 WavesConverter. elite_hp_mul·boss_hp_ref_wave·damage 는 2.1 표에 없지만 6.2·6.3 의 정수 식이 쓰는 상수라 여기 둔다. 변덕의 효과(몰려옴 240틱, 두꺼운 가죽 130, 우두머리 행차 +2, 긴 밤의 도깨비불 상한 6)는 modifiers.json(M8-DAT-03) 몫이다. script 는 spec 07 7.2 의 '구현 각본' [임시](19절 U-03·U-07)를 틀과 같은 꼴로 옮긴 것이다: fixed(고정 개수, 무리로 나오는 박쥐는 무리 하나로 센다) → group(주 묶음, 예산의 group_share %. 남은 예산을 넘지 않는다) → rest(mixed = 혼합, fill = 남은 예산 전부 fill_species). 웨이브 12의 엘리트 1은 elite_count 표가 준다. 13·15는 틀 = 혼합 강제 + 새 종 1 이상 [조율: 18절 C-04].",
+  "day_length": 10,
+  "tod_ranges": [
+    { "from": 1, "to": 4, "tod": "tod.day" },
+    { "from": 5, "to": 7, "tod": "tod.dusk" },
+    { "from": 8, "to": 9, "tod": "tod.night" },
+    { "from": 10, "to": 10, "tod": "tod.boss" }
+  ],
+  "hp_linear_until": 12,
+  "hp_linear_step": 0.12,
+  "hp_exp_base": 2.32,
+  "hp_exp_rate": 1.06,
+  "elite_hp_mul": 3,
+  "boss_hp_ref_wave": 10,
+  "budget_linear": { "base": 10, "per_wave": 6, "until": 12 },
+  "budget_late": { "base": 82, "per_wave": 4, "cap": 200 },
+  "bundle_rule": { "base": 4, "grow_after": 12, "grow_every": 8, "max": 8 },
+  "bundle_interval_seconds": 7,
+  "bundle_early_release_alive": 3,
+  "max_alive": 40,
+  "telegraph_cap": [
+    { "from": 1, "to": 4, "value": 2 },
+    { "from": 5, "to": 8, "value": 3 },
+    { "from": 9, "to": 12, "value": 4 },
+    { "from": 13, "to": 29, "value": 5 },
+    { "from": 30, "to": null, "value": 6 }
+  ],
+  "elite_count": [
+    { "from": 12, "to": 19, "value": 1 },
+    { "from": 20, "to": 29, "value": 2 },
+    { "from": 30, "to": 39, "value": 3 },
+    { "from": 40, "to": null, "value": 4 }
+  ],
+  "elite_cost_mul": 3,
+  "species_cap": [
+    { "species": "enemy.golem_menhir", "cap": 3 },
+    { "species": "enemy.vine_thorn", "cap": 4 },
+    { "species": "enemy.toad_drum", "cap": 2 },
+    { "species": "enemy.boar_tusk", "cap": 3 },
+    { "species": "enemy.hog_needle", "cap": 4 },
+    { "species": "enemy.wisp_stray", "cap": 4 }
+  ],
+  "stall_seconds": 120,
+  "stall_kill_score": 0.5,
+  "modifier_count": [
+    { "from": 21, "to": 40, "value": 1 },
+    { "from": 41, "to": null, "value": 2 }
+  ],
+  "damage": {
+    "contact": 1,
+    "telegraph_plus": 1,
+    "elite_boss_plus_from": 31,
+    "all_plus_from": 61,
+    "attack_cap": 3
+  },
+  "fill_species": "enemy.slime_moss",
+  "script": [
+    { "wave": 1, "frame": "frame.mixed", "fixed": [], "group": [], "group_share": 0, "rest": "fill" },
+    { "wave": 2, "frame": "frame.mixed", "fixed": [{ "species": "enemy.bug_lantern", "min": 2, "max": 3 }], "group": [], "group_share": 0, "rest": "fill" },
+    { "wave": 3, "frame": "frame.mixed", "fixed": [{ "species": "enemy.shaman_cap", "min": 1, "max": 1 }], "group": ["enemy.wolf_bramble"], "group_share": 100, "rest": "fill" },
+    { "wave": 4, "frame": "frame.mixed", "fixed": [{ "species": "enemy.shaman_cap", "min": 1, "max": 1 }, { "species": "enemy.hog_needle", "min": 1, "max": 1 }], "group": ["enemy.wolf_bramble"], "group_share": 100, "rest": "fill" },
+    { "wave": 5, "frame": "frame.mixed", "fixed": [{ "species": "enemy.golem_menhir", "min": 1, "max": 1 }], "group": [], "group_share": 0, "rest": "mixed" },
+    { "wave": 6, "frame": "frame.mixed", "fixed": [{ "species": "enemy.golem_menhir", "min": 1, "max": 1 }, { "species": "enemy.shaman_cap", "min": 1, "max": 1 }, { "species": "enemy.weasel_pot", "min": 1, "max": 1 }], "group": [], "group_share": 0, "rest": "mixed" },
+    { "wave": 7, "frame": "frame.mixed", "fixed": [{ "species": "enemy.bat_dusk", "min": 1, "max": 1 }], "group": [], "group_share": 0, "rest": "mixed" },
+    { "wave": 8, "frame": "frame.mixed", "fixed": [{ "species": "enemy.wisp_stray", "min": 2, "max": 2 }], "group": [], "group_share": 0, "rest": "mixed" },
+    { "wave": 9, "frame": "frame.mixed", "fixed": [{ "species": "enemy.bat_dusk", "min": 1, "max": 1 }], "group": ["enemy.wolf_bramble"], "group_share": 60, "rest": "mixed" },
+    { "wave": 11, "frame": "frame.mixed", "fixed": [{ "species": "enemy.vine_thorn", "min": 1, "max": 1 }], "group": [], "group_share": 0, "rest": "mixed" },
+    { "wave": 12, "frame": "frame.mixed", "fixed": [], "group": [], "group_share": 0, "rest": "mixed" },
+    { "wave": 13, "frame": "frame.mixed", "fixed": [{ "species": "enemy.boar_tusk", "min": 1, "max": 1 }], "group": [], "group_share": 0, "rest": "mixed" },
+    { "wave": 15, "frame": "frame.mixed", "fixed": [{ "species": "enemy.toad_drum", "min": 1, "max": 1 }], "group": [], "group_share": 0, "rest": "mixed" }
+  ]
+}

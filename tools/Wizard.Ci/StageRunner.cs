@@ -19,6 +19,8 @@ namespace Wizard.Ci
     //   WIZARD_CI_NOTE       검사가 남길 말을 적는 파일. "skipped: <이유>" 줄은 건너뜀으로 기록된다
     //   WIZARD_CI_DLL        이 도구(Wizard.Ci.dll). 검사 스크립트가 changed, affected-tests, unity-scope, require 를 부른다
     //   WIZARD_CI_TRX_DIR    이 실행에서 dotnet test 의 TRX 결과를 모으는 폴더(실행을 시작할 때 비운다)
+    //   WIZARD_CI_BASE       비교 기준(명령 줄 층이 --base 또는 WIZARD_CI_BASE 에서 정한 것. 없으면 지운다 → main 과의 갈림점)
+    // 이 클래스는 프로세스 환경을 읽지 않는다. 기본 시간 제한(CI_STEP_TIMEOUT)과 비교 기준은 명령 줄 층(Program.Run)이 넘긴다(FIX-4).
     public sealed class StageRunner
     {
         public const int DefaultStepTimeoutSeconds = 1800;
@@ -27,15 +29,20 @@ namespace Wizard.Ci
         private readonly string _root;
         private readonly TextWriter _out;
         private readonly bool _forceAll;
+        private readonly string? _baseRef;
         private readonly int _defaultTimeout;
 
-        public StageRunner(string root, TextWriter output, bool forceAll)
+        public StageRunner(string root, TextWriter output, bool forceAll, string? baseRef, int defaultStepTimeoutSeconds)
         {
+            if (defaultStepTimeoutSeconds <= 0)
+            {
+                throw new CiException("검사의 기본 시간 제한은 양의 정수(초)다: " + defaultStepTimeoutSeconds.ToString(CultureInfo.InvariantCulture));
+            }
             _root = root;
             _out = output;
             _forceAll = forceAll;
-            string? t = Environment.GetEnvironmentVariable("CI_STEP_TIMEOUT");
-            _defaultTimeout = t != null && int.TryParse(t, NumberStyles.None, CultureInfo.InvariantCulture, out int s) && s > 0 ? s : DefaultStepTimeoutSeconds;
+            _baseRef = baseRef;
+            _defaultTimeout = defaultStepTimeoutSeconds;
         }
 
         public string CiDir => Path.Combine(_root, "artifacts", "ci");
@@ -130,6 +137,7 @@ namespace Wizard.Ci
             req.Environment["WIZARD_CI_NOTE"] = note;
             req.Environment["WIZARD_CI_DLL"] = typeof(StageRunner).Assembly.Location;
             req.Environment["WIZARD_CI_TRX_DIR"] = TrxDir;
+            req.Environment["WIZARD_CI_BASE"] = _baseRef;
             ProcResult r = ProcessRunner.Run(req);
 
             var notes = new List<string>();

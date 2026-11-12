@@ -95,6 +95,11 @@ namespace Wizard.Ci
                     Echo = output,
                     EchoError = output,
                 };
+                // 바뀐 경로를 정하는 게이트의 변수는 이 체크아웃의 것이다. 테스트가 만드는 임시 저장소에는 그 커밋이 없으므로 넘기지 않는다(FIX-4)
+                foreach (string v in ScopeVariables)
+                {
+                    req.Environment[v] = null;
+                }
                 ProcResult r = ProcessRunner.Run(req);
                 TrxCounts c = TrxCounts.ReadDir(dir);
                 total += c.Total;
@@ -122,6 +127,9 @@ namespace Wizard.Ci
             output.WriteLine("test-affected: 프로젝트 " + N(projects.Count) + "개, 테스트 " + N(total) + "개, 실패한 프로젝트 " + N(failed) + "개");
             return failed == 0 ? 0 : 1;
         }
+
+        // dotnet test 의 자식에게 넘기지 않는 변수
+        public static readonly IReadOnlyList<string> ScopeVariables = new[] { "WIZARD_CI_BASE", "WIZARD_CI_FORCE_ALL" };
 
         private static string N(int n) => n.ToString(CultureInfo.InvariantCulture);
     }

@@ -1,7 +1,0 @@
-namespace Wizard.Netcode.Duel
-{
-    // CONTRACTS 6.4, 10절. SyncRequest/SyncReply 한 번의 표본. 필드는 명세가 주인이다. 그 영역의 작업이 채운다
-    public readonly struct ClockSample
-    {
-    }
-}

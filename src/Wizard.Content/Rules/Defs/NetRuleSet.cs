@@ -16,5 +16,8 @@ namespace Wizard.Content.Rules
         public int RttHoldCapMs, QueueRttLimitMs;                                   // QueueRttLimitMs = 120
         public int OrderViolationForfeit;                                           // 30
         public int SpectatorDelayTicks, SpectatorKeyframeTicks;                     // 120, 60
+        // 시계 맞추기(spec 10 2.8·14.4, T-60). ClockSyncSamples = 경기 전 Sync 왕복 횟수이자 서버가 사람마다 두는 왕복 표본 창의 크기(16).
+        // ClockResyncTicks = 경기 중 다시 재는 간격(60). ClockSlewMaxPpm = 틱 길이 보정의 한도(5,000 = ±0.5%)
+        public int ClockSyncSamples, ClockResyncTicks, ClockSlewMaxPpm;
     }
 }

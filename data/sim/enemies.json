@@ -1,0 +1,202 @@
+{
+  "_note": "spec 05 2.5 표(원형 4종 [확정: G 11])와 4.1~4.4절의 공격 표, spec 14 3.6(id·약점·저항·꼬리표·첫 등장). 몸 반지름은 spec 05 U-04, 재사용 대기는 U-05 [임시]. 공격 첨자: 이끼 슬라임 0 접촉 / 덤불 늑대 0 돌진 / 선돌지기 0 내려찍기, 1 휩쓸기, 2 접촉 / 갓버섯 술사 0 3갈래 탄, 1 접촉. 접촉은 늘 피해 1, 같은 적에게서 1.5초에 1회(spec 05 1.1 P3, 3.6). 신규 8종(bug_lantern ~ toad_drum)과 엘리트(EliteDef)는 뒤 작업이 더한다",
+  "enemies": [
+    {
+      "id": "enemy.slime_moss",
+      "_note": "spec 05 4.1. 예고 없음(속도 3.0 < V, R2)",
+      "role": "swarm",
+      "base_hp": 20,
+      "move_speed": 3.0,
+      "attack_damage": 1,
+      "contact_damage": 1,
+      "cost": 1,
+      "first_wave": 1,
+      "times": ["tod.day", "tod.dusk", "tod.night"],
+      "weak": "element.fire",
+      "resist": "element.ice",
+      "tags": [],
+      "knockback_immune": false,
+      "species_cap": null,
+      "body_radius": 0.35,
+      "attacks": [
+        {
+          "key": "contact",
+          "_note": "slime_moss.contact. 쿨다운 90틱(spec 05 4.1)",
+          "kind": "contact",
+          "damage": 1,
+          "damage_source": "contact",
+          "cooldown_seconds": 1.5
+        }
+      ]
+    },
+    {
+      "id": "enemy.wolf_bramble",
+      "_note": "spec 05 4.2. R2 예외(1.2절 보충 6): 몸 접촉이 없고 늘 예고 돌진을 한다. 해질녘 가중치 ×2 는 웨이브 데이터(M 4.1). ② 반동 사격의 0.8초 경직은 비기 쪽 값이다(spec 03)",
+      "role": "evasive_charger",
+      "base_hp": 45,
+      "move_speed": 4.5,
+      "attack_damage": 1,
+      "contact_damage": 0,
+      "cost": 3,
+      "first_wave": 3,
+      "times": ["tod.day", "tod.dusk", "tod.night"],
+      "weak": "element.lightning",
+      "resist": "element.dark",
+      "tags": [],
+      "knockback_immune": false,
+      "species_cap": null,
+      "body_radius": 0.40,
+      "attacks": [
+        {
+          "key": "dash",
+          "_note": "wolf_bramble.dash. 직선 돌진 6칸, 띠 폭 1.0, 예고 0.5초(30틱), 시작 순간 방향 고정, 돌진 속도 18(6 ÷ 18초 = 20틱), 경직 1.5초(90틱), 발동 거리 3.5~5.5. 재사용 대기 0(빈틈이 대신함, U-05)",
+          "kind": "dash",
+          "shape": "band",
+          "width": 1.0,
+          "length": 6,
+          "trigger_min": 3.5,
+          "trigger_max": 5.5,
+          "telegraph_seconds": 0.5,
+          "lock": "at_start",
+          "anchor": "self",
+          "active_ticks": 20,
+          "dash_speed": 18,
+          "recovery_seconds": 1.5,
+          "damage": 1,
+          "damage_source": "telegraph",
+          "grazeable": true,
+          "is_dash": true,
+          "cooldown_seconds": 0
+        }
+      ],
+      "ai": {
+        "_note": "wolf_bramble.dodge: 대시 1.5칸, 재사용 1.5초(90틱), 0.25초(15틱) 안에 맞을 탄이면 회피(spec 05 4.2). 대시 시간 6틱(0.1초, 15칸/초) [임시: U-28]",
+        "dodge_distance": 1.5,
+        "dodge_cooldown_seconds": 1.5,
+        "dodge_window_seconds": 0.25,
+        "dodge_dash_seconds": 0.1
+      }
+    },
+    {
+      "id": "enemy.golem_menhir",
+      "_note": "spec 05 4.3. 중량, 넉백 면역, 종 상한 3(spec 05 2.5)",
+      "role": "armored_heavy",
+      "base_hp": 300,
+      "move_speed": 1.8,
+      "attack_damage": 2,
+      "contact_damage": 1,
+      "cost": 6,
+      "first_wave": 5,
+      "times": ["tod.day", "tod.dusk", "tod.night"],
+      "weak": "element.arcane",
+      "resist": "element.lightning",
+      "tags": ["tag.heavy"],
+      "knockback_immune": true,
+      "species_cap": 3,
+      "body_radius": 0.60,
+      "attacks": [
+        {
+          "key": "slam",
+          "_note": "golem_menhir.slam. 원 반경 2.5, 중심 = 예고 시작 순간의 플레이어 위치, 사거리 8, 예고 1.1초(66틱, C-01), 빈틈 1.2초(72틱). 공격 간 최소 간격 1.0초 [임시: U-05]",
+          "kind": "zone",
+          "shape": "circle",
+          "radius": 2.5,
+          "range": 8,
+          "telegraph_seconds": 1.1,
+          "lock": "at_start",
+          "anchor": "player_pos_at_start",
+          "recovery_seconds": 1.2,
+          "damage": 2,
+          "damage_source": "telegraph",
+          "cooldown_seconds": 1.0
+        },
+        {
+          "key": "sweep",
+          "_note": "golem_menhir.sweep. 부채꼴 근접 3.0, 110도, 꼭짓점 = 자기 위치, 방향 = 시작 순간 플레이어 쪽 고정, 예고 0.8초(48틱), 빈틈 0.8초(48틱). 사거리 3.0 = 휩쓸기를 고르는 거리(4.3 (나), U-31)",
+          "kind": "zone",
+          "shape": "fan",
+          "radius": 3.0,
+          "fan_degrees": 110,
+          "range": 3.0,
+          "telegraph_seconds": 0.8,
+          "lock": "at_start",
+          "anchor": "self",
+          "recovery_seconds": 0.8,
+          "damage": 2,
+          "damage_source": "telegraph",
+          "cooldown_seconds": 1.0
+        },
+        {
+          "key": "contact",
+          "_note": "golem_menhir 접촉. 피해 1, 90틱(spec 05 4.3 표, M 4.2)",
+          "kind": "contact",
+          "damage": 1,
+          "damage_source": "contact",
+          "cooldown_seconds": 1.5
+        }
+      ],
+      "ai": {
+        "_note": "철갑: 정면 120도(±60°)로 받는 임계가 아닌 피해를 절반(spec 05 4.3, 3.7). 빈틈 동안 무효, ⑥ ⑨ 무시는 두뇌·비기 쪽 규칙",
+        "armor_half_angle_degrees": 60,
+        "armor_damage_ratio": 0.5
+      }
+    },
+    {
+      "id": "enemy.shaman_cap",
+      "_note": "spec 05 4.4. 접촉 피해 1(spec 05 2.2 contact_damage '4.2 표대로 항상 1', 3.6: 접촉이 없는 것은 늑대와 땅속 족제비뿐)",
+      "role": "ranged_cover",
+      "base_hp": 40,
+      "move_speed": 2.5,
+      "attack_damage": 1,
+      "contact_damage": 1,
+      "cost": 4,
+      "first_wave": 3,
+      "times": ["tod.day", "tod.dusk", "tod.night"],
+      "weak": "element.ice",
+      "resist": "element.dark",
+      "tags": [],
+      "knockback_immune": false,
+      "species_cap": null,
+      "body_radius": 0.30,
+      "attacks": [
+        {
+          "key": "triple",
+          "_note": "shaman_cap.triple. 3갈래 탄 속도 6.5, 시전 0.4초(24틱), 빈틈 0.6초(36틱), 탄 판정 반지름 0.12. 퍼짐 20도·사거리 9 [임시: U-34]. 시전 간격 2.0초(120틱) [임시: U-05]. 시전은 예고 구역이 아니다(U-12)",
+          "kind": "spread",
+          "range": 9,
+          "cast_seconds": 0.4,
+          "lock": "at_start",
+          "anchor": "self",
+          "recovery_seconds": 0.6,
+          "damage": 1,
+          "damage_source": "projectile",
+          "proj": {
+            "speed": 6.5,
+            "count": 3,
+            "spread_degrees": 20,
+            "range": 9,
+            "hit_radius": 0.12
+          },
+          "grazeable": true,
+          "cooldown_seconds": 2.0
+        },
+        {
+          "key": "contact",
+          "_note": "shaman_cap 접촉. 피해 1, 같은 적에게서 1.5초에 1회(spec 05 1.1 P3, 3.6)",
+          "kind": "contact",
+          "damage": 1,
+          "damage_source": "contact",
+          "cooldown_seconds": 1.5
+        }
+      ],
+      "ai": {
+        "_note": "엄폐: 체력 절반 이하면 선돌지기(없으면 가시덩굴) + normalize(엄폐물 − 플레이어) × 1.5 로(spec 05 4.4). 거리 유지 5~8칸, 엄폐물이 없으면 7칸 이상 [임시: U-36]",
+        "cover_hp_ratio": 0.5,
+        "cover_offset": 1.5,
+        "keep_distance_min": 5,
+        "keep_distance_max": 8,
+        "kite_distance_min": 7
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "com.wizard.protocol.tests.crypto",
+  "version": "0.0.0",
+  "displayName": "Wizard.Protocol.Tests.Crypto.Shared",
+  "description": "IAeadCipher conformance suite (RFC 8439 vectors, fuzzed round trip and tamper) shared by dotnet tests and the headless player",
+  "unity": "6000.3",
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "3.2.1"
+  }
+}

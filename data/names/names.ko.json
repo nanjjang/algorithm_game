@@ -1,3 +1,7 @@
 {
+  "block.fireball": "거대 화염구",
+  "block.magic_bolt": "마력탄",
+  "place.arena": "돌마당",
+  "place.field": "한뎃벌",
   "~end": ""
 }

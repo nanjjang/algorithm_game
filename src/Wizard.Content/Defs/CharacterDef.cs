@@ -2,7 +2,9 @@ using Wizard.Core;
 
 namespace Wizard.Content
 {
-    // CONTRACTS 2.2, spec 01 5.1, spec 04 2.2. 팩에서 읽은 뒤 바뀌지 않는다
+    // CONTRACTS 2.2, spec 01 5.1, spec 04 2.2. 팩에서 읽은 뒤 바뀌지 않는다.
+    // 원본 data/sim/characters.json(baseline = CharacterId.Baseline, characters = char.1~char.5), 절 꼴은 Pack/Sections/ContentDb.Characters.cs.
+    // 깊이 감쇠(0.85 / 0.92)는 캐릭터가 아니라 지팡이 쪽 값이다(spec 02 5.2, spec 04 7.1)
     public sealed class CharacterDef
     {
         public CharacterId Id;

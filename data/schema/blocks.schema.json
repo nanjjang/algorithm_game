@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wizard.invalid/data/schema/blocks.schema.json",
+  "title": "주문 블록 (data/sim/blocks.json → 팩 절 2 blocks)",
+  "description": "spec 02 4.1·4.2, spec 14 3.3, CONTRACTS 2.2 BlockDef. 수는 원문 단위의 십진으로 적고 DataBuild 가 정수로 바꾼다(tools/Wizard.DataBuild/Convert/BlocksConverter.cs). Flags·Effect·Params 는 아직 값이 없다(M2-SPL-01 이 열거형 비트와 같이 더한다).",
+  "type": "object",
+  "required": ["blocks"],
+  "additionalProperties": false,
+  "properties": {
+    "_note": { "$ref": "_common.schema.json#/$defs/note" },
+    "blocks": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/block" }
+    }
+  },
+  "$defs": {
+    "block": {
+      "type": "object",
+      "required": [
+        "id", "kind", "rarity", "element", "heat", "heat_multiplier", "split_count", "base_damage",
+        "interval_seconds", "speed", "instant", "range", "hit_radius", "damage_bonus"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "_note": { "$ref": "_common.schema.json#/$defs/note" },
+        "id": { "description": "블록 id(block.*, spec 14 3.3)", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^block\\." },
+        "kind": { "description": "블록 종류 → BlockKind(spec 14 3.3)", "enum": ["projectile", "control", "modifier"] },
+        "rarity": { "description": "등급 → Rarity(spec 14 3.3)", "enum": ["common", "rare", "hero"] },
+        "element": { "description": "속성 id(element.*). 무 속성은 element.neutral", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^element\\." },
+        "heat": { "description": "더하는 열 → HeatHu(× 120). 제어 블록은 0", "$ref": "_common.schema.json#/$defs/heat", "minimum": 0 },
+        "heat_multiplier": { "description": "열 배수(분열 1.6 / 2.2, 그 밖 1) → HeatMulPermille(× 1000)", "$ref": "_common.schema.json#/$defs/ratio", "exclusiveMinimum": 0 },
+        "split_count": { "description": "갈래 수(분열 2 / 3, 그 밖 1) → SplitCount", "type": "integer", "minimum": 1 },
+        "base_damage": { "description": "기본 피해(투사체) → BaseDamage Raw(× 2^32)", "type": "number", "minimum": 0 },
+        "interval_seconds": { "description": "발사 간격(초, 코어일 때) → IntervalTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "speed": { "description": "탄속(칸/초). 즉발이면 0 → SpeedPerTick Raw(÷ 60)", "$ref": "_common.schema.json#/$defs/cellsPerSecond", "minimum": 0 },
+        "instant": { "description": "즉발 → IsInstant", "type": "boolean" },
+        "range": { "description": "사거리(칸. 부메랑은 편도) → Range Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "hit_radius": { "description": "탄 판정 반지름(칸) → HitRadius Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "damage_bonus": { "description": "변형 블록의 피해 보너스(0.2 = +20%) → DamageBonusPermille(× 1000)", "$ref": "_common.schema.json#/$defs/ratio", "minimum": 0 }
+      }
+    }
+  }
+}

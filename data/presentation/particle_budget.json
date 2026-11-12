@@ -1,0 +1,95 @@
+{
+  "_note": "effects.md 9.3절의 표 전부(입자 수와 넘쳤을 때의 처리의 유일한 기준, DECISIONS 2.8)와 0.4절의 단계별 합계. 세 칸 배열은 연출 줄이기 Full / Reduced / Minimal 순서다. 시간은 초, 길이는 px. [임시]가 붙은 줄은 9.3절이 단계별 값이나 우선순위를 적지 않아 정한 값이다(spec 13 20절과 같은 방식으로 OPEN-QUESTIONS 에 올린다).",
+  "scenes": [
+    {
+      "id": "battle",
+      "_note": "전투 화면 표. 우선순위 0(예고 구역, 적 탄, 열 링, 피격 표시)은 입자가 아니라 줄이지 않으므로 표에 없다.",
+      "total": [1500, 800, 300],
+      "pools": [
+        { "category": "art", "priority": 1, "kind": "one_shot", "quota": [400, 250, 120] },
+        { "category": "hit", "priority": 2, "kind": "one_shot", "quota": [300, 150, 60] },
+        { "category": "kill", "priority": 3, "kind": "one_shot", "quota": [300, 150, 60] },
+        { "category": "shot", "priority": 4, "kind": "recurring", "quota": [240, 120, 0] },
+        { "category": "wand_idle", "priority": 5, "kind": "recurring", "quota": [60, 30, 0] },
+        { "category": "environment", "priority": 6, "kind": "recurring", "quota": [200, 100, 60] }
+      ]
+    },
+    {
+      "id": "duel",
+      "_note": "결투 화면. 내 비기와 상대 비기는 각 400(줄임·최소는 전투 표의 분류 1 값을 따로 준다 [임시]). 환경·처치는 0. 상대 지팡이 대기는 30까지(줄임 15, 최소 0 [임시]). 합계는 몫의 합 [임시]. 상대 비기의 우선순위는 내 적중보다 앞 [임시].",
+      "total": [1430, 815, 300],
+      "pools": [
+        { "category": "art", "priority": 1, "kind": "one_shot", "quota": [400, 250, 120] },
+        { "category": "art_opponent", "priority": 2, "kind": "one_shot", "quota": [400, 250, 120] },
+        { "category": "hit", "priority": 3, "kind": "one_shot", "quota": [300, 150, 60] },
+        { "category": "kill", "priority": 4, "kind": "one_shot", "quota": [0, 0, 0] },
+        { "category": "shot", "priority": 5, "kind": "recurring", "quota": [240, 120, 0] },
+        { "category": "wand_idle", "priority": 6, "kind": "recurring", "quota": [60, 30, 0] },
+        { "category": "wand_idle_opponent", "priority": 7, "kind": "recurring", "quota": [30, 15, 0] },
+        { "category": "environment", "priority": 8, "kind": "recurring", "quota": [0, 0, 0] }
+      ]
+    },
+    {
+      "id": "plaza",
+      "_note": "광장 화면(40명 기준). 우선순위는 감정표현 > 지팡이 대기 > 환경 [임시: 전투 표처럼 환경을 먼저 줄인다]. 연습 허수아비를 칠 때만 전투의 분류 2와 4를 각 60씩 따로 준다(합계 밖, 치는 본인 화면에만). 그 몫의 줄임·최소 값은 전투 표의 값을 넘지 않게 [임시].",
+      "total": [800, 400, 150],
+      "pools": [
+        { "category": "emote", "priority": 1, "kind": "one_shot", "quota": [200, 100, 30] },
+        { "category": "wand_idle", "priority": 2, "kind": "recurring", "quota": [400, 200, 60] },
+        { "category": "environment", "priority": 3, "kind": "recurring", "quota": [200, 100, 60] },
+        { "category": "hit", "priority": 4, "kind": "one_shot", "quota": [60, 60, 60], "outside_total": true },
+        { "category": "shot", "priority": 5, "kind": "recurring", "quota": [60, 60, 0], "outside_total": true }
+      ]
+    },
+    {
+      "id": "enhance",
+      "_note": "강화 화면: 합계 600 / 300 / 100. 넘치면 충전 입자(반복)부터 새로 만들지 않는다. 두 몫은 합계를 함께 쓴다 [임시: 분류별 몫은 9.3절에 없다].",
+      "total": [600, 300, 100],
+      "pools": [
+        { "category": "enhance_burst", "priority": 1, "kind": "one_shot", "quota": [600, 300, 100] },
+        { "category": "enhance_charge", "priority": 2, "kind": "recurring", "quota": [600, 300, 100] }
+      ]
+    }
+  ],
+  "wand_tiers": [
+    { "min_tier": 0, "max_tier": 3, "idle": 8, "muzzle": 2, "shed_per_bullet": 0, "hit": 4, "trail_length_px": 16 },
+    { "min_tier": 4, "max_tier": 6, "idle": 16, "muzzle": 4, "shed_per_bullet": 1, "hit": 7, "trail_length_px": 24 },
+    { "min_tier": 7, "max_tier": 9, "idle": 30, "muzzle": 5, "shed_per_bullet": 1, "hit": 8, "trail_length_px": 32 },
+    { "min_tier": 10, "max_tier": 12, "idle": 45, "muzzle": 6, "shed_per_bullet": 2, "hit": 10, "trail_length_px": 40 },
+    { "min_tier": 13, "max_tier": 13, "idle": 60, "muzzle": 8, "shed_per_bullet": 2, "hit": 12, "trail_length_px": 48 }
+  ],
+  "wand_lifetimes_seconds": { "idle": 2, "muzzle": 0.2, "shed": 0.3, "hit": 0.4 },
+  "hit": {
+    "extra_crit": 4,
+    "extra_weak": 2,
+    "extra_resist": -2,
+    "minimal_particles": 2,
+    "merge_window_seconds": 0.05,
+    "merge_over_hits": 3,
+    "merged_particles": 8,
+    "kill_halve_over_per_frame": 5
+  },
+  "bullet_load": [
+    { "min_bullets": 0, "shed": true, "trail_length_percent": 100, "hit_decor": "full" },
+    { "min_bullets": 101, "shed": false, "trail_length_percent": 50, "hit_decor": "half" },
+    { "min_bullets": 201, "shed": false, "trail_length_percent": 0, "hit_decor": "minimal" }
+  ],
+  "trail": {
+    "max_length_px": 48,
+    "max_frames": 4,
+    "max_opacity_percent": 70,
+    "ground_marks_per_wand": 24,
+    "ground_mark_max_diameter_px": 16,
+    "ground_mark_max_opacity_percent": 60,
+    "ground_mark_max_life_seconds": 0.8
+  },
+  "shares": {
+    "duel_opponent_idle_cap": 30,
+    "plaza_self_idle_cap": 60,
+    "plaza_near_count": 8,
+    "plaza_near_idle_cap": 30,
+    "damage_numbers_max": 40,
+    "damage_merge_window_seconds": 0.2,
+    "one_shot_fade_seconds": 0.1
+  }
+}

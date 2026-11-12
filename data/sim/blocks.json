@@ -1,0 +1,37 @@
+{
+  "_note": "spec 02 4.1·4.2 표, spec 01 2.5. 피격 반지름 0.12·0.18은 spec 02 4.2 [임시]. 거대 화염구의 폭발(Explodes, 반경 2)은 ProjectileFlags 비트와 BlockParams 필드가 생기는 M2-SPL-01이 더한다. 나머지 14종도 M2-SPL-01",
+  "blocks": [
+    {
+      "id": "block.magic_bolt",
+      "kind": "projectile",
+      "rarity": "common",
+      "element": "element.arcane",
+      "heat": 4,
+      "heat_multiplier": 1,
+      "split_count": 1,
+      "base_damage": 10,
+      "interval_seconds": 0.15,
+      "speed": 14,
+      "instant": false,
+      "range": 10,
+      "hit_radius": 0.12,
+      "damage_bonus": 0
+    },
+    {
+      "id": "block.fireball",
+      "kind": "projectile",
+      "rarity": "rare",
+      "element": "element.fire",
+      "heat": 18,
+      "heat_multiplier": 1,
+      "split_count": 1,
+      "base_damage": 40,
+      "interval_seconds": 0.6,
+      "speed": 9,
+      "instant": false,
+      "range": 8,
+      "hit_radius": 0.18,
+      "damage_bonus": 0
+    }
+  ]
+}

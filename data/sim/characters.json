@@ -1,0 +1,23 @@
+{
+  "_note": "spec 01 5.1 표의 기준값(Baseline) 열. 검산 테스트(spec 01 14.5, GDD 18)의 기준값 캐릭터이고 문자열 id가 없다(CharacterId.Baseline = 0, spec 01 15절 C16). 몸 반지름은 spec 01 5.6 [임시], 스침 가속 +20%는 spec 01 5.6·spec 04 2.4. 깊이 감쇠 0.85는 지팡이 쪽 값(spec 02 5.2 DepthDecay, spec 04 7.1)이라 여기 두지 않는다. 캐릭터 다섯(char.1~char.5)의 줄은 characters 배열에 M5-DAT-01이 더한다",
+  "baseline": {
+    "max_hp_cells": 6,
+    "walk_speed": 5.0,
+    "stance_speed": 4.25,
+    "hit_radius": 0.15,
+    "body_radius": 0.30,
+    "graze_radius": 0.6,
+    "invuln_seconds": 1.0,
+    "crystal_cap": 5,
+    "combo_per_crystal": 15,
+    "crystal_loss_on_hit": 1,
+    "base_link_slots": 4,
+    "max_mutations": 2,
+    "cool_per_second": 45,
+    "cool_delay_seconds": 0.2,
+    "crit_start": 85,
+    "lock_seconds": 3.0,
+    "graze_buff_seconds": 1.5,
+    "graze_buff_speed": 1.2
+  }
+}

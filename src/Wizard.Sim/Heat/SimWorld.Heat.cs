@@ -9,7 +9,7 @@ using Wizard.Sim.Player;
 namespace Wizard.Sim
 {
     // Heat 모듈(절 2). spec 01 7절(과열: 발사 열, 임계, 잠금, 냉각, 열 예외), 3.8(틱 순서), 17절(연결점).
-    // 훅: Stage01_Heat(잠금 풀림), Stage06_Heat(J 발사), Stage11_Heat(냉각). 상태 훅 넷.
+    // 훅: Stage01_Heat(잠금 풀림), Stage06_Heat(J 발사), Stage11_Heat(냉각). 이음 훅 OnGrazeAwarded_Heat(스침의 열 보상). 상태 훅 넷.
     //
     // 6단계의 순서: Stage06_Heat 가 발사 여부·임계·열·잠금을 정하고(HeatFire), 같은 단계의 Stage06_Spell 이
     // HeatFiredThisTick 으로 읽어 ISpellExecutor.Execute(isCrit, shotId)를 부른다(CONTRACTS 3.2 "과열 판정 → Execute → 열 반영").
@@ -109,10 +109,21 @@ namespace Wizard.Sim
             HeatFor(slot).Mods = modifiers;
         }
 
-        // 스쳐 피하기의 열 보상(spec 01 8.4): 잠금 해제(열 = 임계 시작) 또는 열을 임계 시작까지, 그리고 다음 발사 열 면제
+        // 스쳐 피하기의 열 보상. 이음 훅 OnGrazeAwarded_Heat 의 몸통이다(CONTRACTS 3.2 "모듈 사이의 이음", T-50).
+        // src 에서 이것을 부르는 곳은 그 훅 하나뿐이다: 스침을 내는 쪽(Graze)은 뼈대의 RaiseGrazeAwarded 만 부르고, 다른 모듈은
+        // 스침의 열을 직접 만들지 않는다(Heat/Graze 시험의 LinkSourceTests 가 소스로 본다). 열 보상의 계산은 여기와 HeatMachine 에만 있다.
+        //   전부 보상(spec 01 8.4, SimConfig.GrazeFullReward): 잠금이면 풀고 열 = 임계 시작(HeatUnlocked, 이유 Graze),
+        //     아니면 열이 임계 시작보다 낮을 때만 올린다. 그리고 다음 발사 1회 열 면제(HeatExemptArmed 는 새로 걸릴 때만).
+        //   줄어든 보상(결투, spec 01 12.2): 잠금이 아니면 열을 임계 시작까지 올리기만 한다. 잠금 해제와 열 면제는 없다.
         internal void HeatApplyGraze(PlayerSlot slot, ISimEventSink sink)
         {
             ref HeatState s = ref HeatFor(slot);
+            if (!_config.GrazeFullReward)
+            {
+                HeatMachine.ApplyReducedGraze(ref s);
+                NoteHeatRing(ref s, slot, sink);
+                return;
+            }
             if (HeatMachine.ApplyGraze(ref s, out bool armedNow))
             {
                 EmitHeat(sink, SimEventType.HeatUnlocked, slot, (int)HeatUnlockReason.Graze, s.HeatHu);
@@ -231,6 +242,20 @@ namespace Wizard.Sim
                 EmitFire(i, in _heatFires[i], in p, sink);
                 NoteHeatRing(ref s, SlotAt(i), sink);
             }
+        }
+
+        // ── 이음 훅(CONTRACTS 3.2 이음 훅 표, T-50)
+
+        // 스침 인정(spec 01 8.4, 12.2). Graze 가 보상이 있는 스침마다(시전 묶음마다, 비기 스침 포함) 뼈대의 RaiseGrazeAwarded 로 부른다.
+        // 그 순간에 반영하므로 5단계의 비기 스침은 같은 틱 6단계의 발사가 쓰고(임계, 열 면제), 9단계의 스침은 다음 발사부터 쓴다.
+        // 같은 틱에 시전 둘이 인정되면 두 번 불리지만 열 면제는 참/거짓이라 한 번만 걸린다(8.4 "겹치지 않는다")
+        partial void OnGrazeAwarded_Heat(PlayerSlot slot, ISimEventSink sink)
+        {
+            if (!HeatModuleOn)
+            {
+                return;
+            }
+            HeatApplyGraze(slot, sink);
         }
 
         // 11단계: 냉각(spec 01 7.4)

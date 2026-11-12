@@ -802,6 +802,87 @@ public sealed class ElementDef {                      // spec 02 3.3 AF-1, DECIS
   - 플레이어에게 개체 id를 주는 것(`PlayerView.Id`)은 Player 절의 바이트가 바뀌는 일이라 여기서 하지 않았다. 필요해지는 작업이 올린다.
   - `docs/dev`의 네 파일은 M1-UE-02의 `owned_paths`에 넣지 않고 문서만 든 커밋으로 따로 두었다(T-50과 같은 까닭). 통합 때 계약 개정으로 main에 먼저 옮긴다. 그 전에는 이 브랜치의 `check-diff`가 네 파일을 소유 밖으로 본다.
 
+## T-60 시계 맞추기는 `Wizard.Netcode.Clock`에 모은다: `ClockSample`·`ClockOffset`의 칸, `RttSampleWindow`, 시계 값 셋은 `NetRuleSet`의 데이터 [신규]
+
+번호 T-53은 M2-SPL-01(블록의 표식·효과·동작 값), T-54는 M1-UE-02(뷰 훅)가 쓰고, T-55~T-59는 같은 때 도는 브랜치(M8-DAT-03, M10-ACC-01, M2-SPL-02, M9-AST-01, M9-PRS-01)가 쓰고 있어서 T-60을 썼다. 이 결정은 처음에 T-54로 적었다가 main의 T-54(뷰 훅)와 겹쳐 고쳤다.
+
+- **문제**: M2-NET-03(시계 맞추기)이 첫 수락 조건에서 막혔다. (1) `CONTRACTS.md` 6.4절의 `ClockSync.Estimate(ReadOnlySpan<ClockSample>)`가 받고 돌려주는 `ClockSample`·`ClockOffset`은 칸이 없는 자리 표시였고(`src/Wizard.Netcode/Duel/`) 어느 작업의 `owned_paths`에도 없었다. (2) 6.4절은 `ClockSync`를 `Wizard.Netcode.Duel`에 적었는데 작업 카드의 소유 폴더는 `src/Wizard.Netcode/Clock/`이고, 분석기의 "네임스페이스 = 폴더" 규칙은 옆 폴더의 이름을 막는다. (3) 카드가 요구하는 "서버 쪽 왕복 표본 계산의 순수 함수"가 계약에 타입으로 없었다. (4) `TickLengthAdjustPpm(long)`에는 규칙 인자가 없어서 한도 ±5,000ppm과 표본 창의 크기 16이 코드의 상수가 될 수밖에 없었다. `NetRuleSet`에는 spec 10 2.8절의 시계 값 셋(`clock_sync_samples`, `clock_resync_interval`, `clock_slew_max`)이 빠져 있었다.
+- **결정**:
+  1. **자리.** 시계 맞추기의 타입 넷(`ClockSync`, `ClockSample`, `ClockOffset`, `RttSampleWindow`)은 폴더 `src/Wizard.Netcode/Clock/`, 네임스페이스 `Wizard.Netcode.Clock`이다. `Duel/`의 자리 표시 둘은 지웠다.
+  2. **`ClockSample { long T0Us, ServerUs, T1Us }`** = spec 10 14.4 Sync의 `(t0, ts, t1)`. `T0Us`와 `T1Us`는 같은 클라이언트 단조 시계의 µs다. 경기 전에는 `SyncRequest.t0_us`·`SyncReply.server_time_us`·받은 시각, 경기 중에는 `ServerTick`의 `echo_client_send_time_ms`·`server_time_ms`·받은 시각이다(ms 칸은 호출자가 µs로 바꾼다). `RttUs = T1Us − T0Us`.
+  3. **`ClockOffset { bool IsValid; long OffsetUs, RttUs; int SampleIndex }`**. 서버 시각 = 클라이언트 시각 + `OffsetUs`(`ToServerUs`). `default`가 "쓸 표본이 없었다"다.
+  4. **`Estimate`**는 왕복이 가장 짧은 표본으로 `offset = ts − (t0 + rtt / 2)`를 낸다(나눗셈은 내림). 왕복이 음수인 표본은 건너뛰고, 왕복이 같으면 앞의 표본을 고른다. 쓸 표본이 없으면 `default`를 돌려주고 예외를 던지지 않는다. 표본 수는 호출자가 정한다(코드에 16이 없다).
+  5. **`TickLengthAdjustPpm(long errorUs, NetRuleSet rules)`**. `errorUs` = 서버 기준 목표 시각 − 내 입력 시계 시각(양수 = 내가 뒤처졌다). 돌려주는 값은 틱 길이의 변화(ppm)이고 `틱 길이 = 기본 길이 × (1,000,000 + 값) / 1,000,000`, `값 = −clamp(errorUs, ±ClockSlewMaxPpm)`이다. spec 10 14.4의 `err / 1s`를 ppm으로 적으면 µs 값 그대로라서(1초 = 1,000,000µs) 환산 상수가 없다. 비례 보정의 시간 상수 1초는 명세의 [임시]다.
+  6. **`ChooseInputDelay`**는 왕복을 모를 때(`rttMs < 0`. 표본이 없는 `MeasuredRttMs`의 −1) 마지막 줄의 D를 준다. 모르는 회선에는 마감 여유가 가장 큰 D가 안전하다. 표본 없이 경기를 시작할지는 호출자(호스트를 모는 서버)가 정한다(`CONTRACTS.md` 10.5절).
+  7. **`RttSampleWindow`**가 서버의 왕복 표본 계산 한 곳이다: 순수 함수 `TryRoundTripUs`(도착 − 보낸 시각 − hold. hold가 음수이거나 `RttHoldCapMs`를 넘거나 왕복이 음수이면 버린다. 상한과 같으면 받는다)와, 사람마다 하나 두는 창(`Offer`, `MinRttUs`, `MinRttMs`, `OneWayUs`, `Clear`). 창의 크기는 `ClockSyncSamples`다. `MinRttMs`는 **올림**이다. 올려야 `ChooseInputDelay`의 "60ms 이하"가 µs로 본 것과 같다(60,001µs는 61ms). 표본이 없으면 셋 다 −1이다. `DuelHostCore.MeasuredRttMs`와 대기열 탐침(10.5절)이 이것을 쓴다.
+  8. **데이터.** `NetRuleSet`에 `ClockSyncSamples`(16: 경기 전 Sync 왕복 횟수이자 서버 표본 창의 크기), `ClockResyncTicks`(60), `ClockSlewMaxPpm`(5,000)을 더한다. 원본은 `data/rules/net.json`의 `clock_sync_samples`, `clock_resync_seconds`, `clock_slew_max_ppm`이고 팩 절 34의 끝에 `i32` 셋으로 붙는다(셋 다 1 이상). 코드에 16, 60, 5,000이 없다.
+- **대안**: (가) 계약의 네임스페이스 그대로 `ClockSync`를 `Duel/ClockSync.cs`에 두고 카드의 소유를 그 파일로 옮긴다. (나) `Clock/` 폴더에 두되 네임스페이스를 `Wizard.Netcode`로 얕게 적는다(분석기의 앞머리 규칙으로는 된다). (다) 한도와 창의 크기를 코드의 상수로 두고 계약의 시그니처를 그대로 둔다. (라) `ClockOffset`의 "표본 없음"을 `SampleIndex = −1`로 나타낸다.
+- **이유**: 시계 맞추기는 `DuelHostCore`(왕복 표본), `DuelClientCore`를 모는 쪽(오프셋, 틱 길이), 경기가 아닌 탐침(Sync 두 종류만 받는 토큰)이 같이 쓴다. `Duel`의 호스트·클라이언트 어느 폴더의 것도 아니어서 자기 폴더가 맞고, 폴더가 있으면 네임스페이스는 폴더와 같게 적는 것이 `CLAUDE.md` 6절의 원칙이다((가), (나)). `Clock`이 `Duel`의 타입을 받으면 넷코드 안에서 옆 폴더끼리 서로 기대게 된다. (다)는 `CLAUDE.md` 5절("기획 수치는 `data/`의 JSON에만")과 M2-DAT-01의 수락 조건("넷코드 코드에 60, 90, 120, 8 같은 값이 박혀 있지 않다")에 어긋난다. 한도 ±0.5%와 16회는 spec 10 2.8절의 [제안] 값이고 M2-NET-06의 측정으로 고칠 수 있는 값이다. 다시 재는 간격(60틱)은 이 작업이 쓰지 않지만 같은 표의 같은 종류 값이라 같이 넣었다. 따로 넣으면 절 34의 꼴을 한 번 더 바꾸게 된다. (라)는 `default(ClockOffset)`가 "표본 0번을 골랐다"로 읽혀서 채우지 않은 값과 가를 수 없다.
+- **`CONTRACTS.md`는 이 브랜치에서 고치지 않았다.** T-47·T-52 때와 같은 까닭이다: 작업 브랜치에서 그 파일을 고치면 `check-diff`가 막고, 그 파일을 이 작업의 `owned_paths`에 넣으면 `tools/Wizard.TaskGraph`의 시험 셋(`Add_ToCopyOfRealGraph_…`)이 "CCR-1와 M2-NET-03의 owned_paths가 겹치는데 deps로 순서가 정해져 있지 않다"로 깨진다(넣어 돌려서 확인했다). 그래서 결정과 **개정문**을 여기에 적는다. 옮겨 적기 전까지 `CONTRACTS.md`의 2.2절(`NetRuleSet`), 6.4절(`ClockSync` 블록과 `MeasuredRttMs`의 주석), 10.4절, 10.5절은 아래 개정문으로 읽는다. 6.4절에서 바뀌는 선언은 둘이다: `ClockSync`의 네임스페이스(`Wizard.Netcode.Duel` → `Wizard.Netcode.Clock`)와 `TickLengthAdjustPpm`의 인자(`NetRuleSet rules`가 붙는다). 나머지는 더하기만 한다.
+- **따라오는 일**: (0) CCR 작업(계약 변경 요청으로 올린다): `CONTRACTS.md`의 네 곳을 아래 개정문으로 바꾼다. T-47·T-52·T-53의 옮겨 적기와 같이 할 수 있다. 그 전에 T-52가 적은 결함 작업(`AddAndCardTests.cs`의 가짜 CCR이 실제 그래프의 `CONTRACTS.md` 소유 작업과 겹치는 것)이 있어야 `tasks.json`에 넣을 수 있다. (1) M2-NET-03의 `owned_paths`에 계약 코드(`Duel/`의 자리 표시 둘과 그 `.meta`, `NetRuleSet`과 절 34의 읽기·쓰기·스키마·데이터·테스트)와 문서 둘(이 문서, `tasks.json`)을 더하고, 같은 문서를 고친 M1-SIM-08과의 순서를 위해 `deps`에 M1-SIM-08을 넣었다. 같은 때 도는 M2-SPL-01(T-53)도 두 문서를 가지고 있어서 뒤에 들어가는 쪽을 main 위로 옮길 때 두 문서가 겹친다(양쪽 절을 다 살리면 된다. 번호는 겹치지 않게 했다). 절 34의 꼴이 바뀌었으므로 옛 팩은 이 판의 `ContentDb`로 읽히지 않는다(팩은 커밋하지 않고 빌드 때 만든다). (2) M2-NET-04의 `MeasuredRttMs`는 슬롯마다 `RttSampleWindow`를 두고 `MinRttMs`를 돌려준다. 이른 시각 검사의 편도 추정은 `OneWayUs`다. (3) 입력 시계를 모는 쪽(M2-NET-07의 Loopback, M14-CLI-01의 전송)이 `ClockResyncTicks`마다 `ClockSample`을 모아 `Estimate` → `TickLengthAdjustPpm`을 부른다. `InputClock.TickSeconds`(6.5절, 실수)로 옮기는 것은 `Wizard.Netcode` 밖의 일이다. (4) spec 10 2.8절의 다른 넷코드 값(`packet_history_ticks`, `state_hash_interval`, `future_claim_tolerance` …)이 데이터에 있어야 하는지는 그 값을 쓰는 작업(M2-NET-01·04·05)이 닿을 때 같은 기준으로 본다.
+
+**`CONTRACTS.md` 개정문** (CCR 작업이 아래 네 곳을 이것으로 바꾼다)
+
+2.2절 `NetRuleSet`에 한 줄을 더한다(`SpectatorDelayTicks` 줄 뒤).
+
+```csharp
+    public int ClockSyncSamples, ClockResyncTicks, ClockSlewMaxPpm;   // 16, 60, 5,000(±0.5%). spec 10 2.8의 시계 값 셋(T-60)
+```
+
+6.4절 `DuelHostCore.MeasuredRttMs`의 주석과 `ClockSync` 블록(`// namespace Wizard.Netcode.Plaza` 앞).
+
+```csharp
+    public int MeasuredRttMs(PlayerSlot slot);                     // 서버가 직접 쌓은 표본(RttSampleWindow, 최근 ClockSyncSamples개)의 최솟값을 ms로 올림. 표본이 없으면 −1
+
+// namespace Wizard.Netcode.Clock — 폴더 src/Wizard.Netcode/Clock/(T-60). 결투의 호스트·클라이언트와 대기열 탐침(10.5절)이 같이 쓴다.
+// 시각은 전부 µs 정수이고 인자로만 받는다. 값(표, 한도, 창의 크기)은 전부 NetRuleSet에서 읽는다
+public readonly struct ClockSample {                  // spec 10 14.4 Sync의 표본 하나. T0Us와 T1Us는 같은 클라이언트 단조 시계
+    public readonly long T0Us, ServerUs, T1Us;        // 보낸 시각, 서버가 답에 적은 서버 시각, 답을 받은 시각
+    public ClockSample(long t0Us, long serverUs, long t1Us);
+    public long RttUs { get; }                        // T1Us − T0Us. 음수면 쓸 수 없는 표본
+}
+public readonly struct ClockOffset {                  // default = 쓸 표본이 없었다(IsValid 거짓, 나머지 0)
+    public readonly bool IsValid;
+    public readonly long OffsetUs, RttUs;             // 서버 시각 − 클라이언트 시각, 고른 표본의 왕복
+    public readonly int SampleIndex;                  // 고른 표본의 자리(진단용)
+    public ClockOffset(long offsetUs, long rttUs, int sampleIndex);            // IsValid = true
+    public long ToServerUs(long clientUs);            // clientUs + OffsetUs
+}
+public static class ClockSync {
+    // 왕복이 가장 짧은 표본 기준: offset = ts − (t0 + rtt / 2)(나눗셈은 내림). 왕복이 음수인 표본은 건너뛰고, 같으면 앞의 표본.
+    // 쓸 표본이 없으면 default(예외 없음). 표본 수는 호출자가 정한다(경기 전에는 ClockSyncSamples개)
+    public static ClockOffset Estimate(ReadOnlySpan<ClockSample> samples);
+    // 경계와 D 값은 데이터(InputDelayTable). 코드에 60/90을 박지 않는다. 마지막 경계를 넘으면 마지막 줄의 D.
+    // rttMs < 0(왕복을 모른다. MeasuredRttMs의 −1)이면 마지막 줄의 D
+    public static int ChooseInputDelay(int rttMs, NetRuleSet rules);
+    // errorUs = 서버 기준 목표 시각 − 내 입력 시계 시각(양수 = 내가 뒤처졌다). 돌려주는 값 = 틱 길이의 변화(ppm):
+    // 틱 길이 = 기본 길이 × (1,000,000 + 값) / 1,000,000, 값 = −clamp(errorUs, ±ClockSlewMaxPpm)(spec 10 14.4의 err / 1s를 ppm으로 적으면 errorUs 그대로다).
+    // 입력 시계의 드리프트 보정에만 쓴다. 틱을 건너뛰지 않는다
+    public static int TickLengthAdjustPpm(long errorUs, NetRuleSet rules);
+}
+public sealed class RttSampleWindow {                 // 서버가 사람마다 두는 왕복 표본 창(10.5절). 버퍼는 인스턴스가 가진다. Offer와 조회는 할당하지 않는다
+    public RttSampleWindow(NetRuleSet rules);         // 크기 = ClockSyncSamples, hold 상한 = RttHoldCapMs
+    // 순수 함수: 왕복 = 도착 − 보낸 시각 − hold. hold가 음수이거나 상한을 넘거나(같으면 받는다) 왕복이 음수이면 false
+    public static bool TryRoundTripUs(long arrivalUs, long sentUs, long holdUs, int holdCapMs, out long rttUs);
+    public bool Offer(long arrivalUs, long sentUs, long holdUs);               // 받을 만하면 넣고(가장 오래된 것을 밀어낸다) true
+    public int Capacity { get; } public int Count { get; }
+    public long MinRttUs { get; }                     // 창의 최솟값. 표본이 없으면 −1
+    public int MinRttMs { get; }                      // MinRttUs를 ms로 올림(60,001µs → 61). 표본이 없으면 −1. MeasuredRttMs의 값
+    public long OneWayUs { get; }                     // MinRttUs / 2(내림). 표본이 없으면 −1. 이른 시각 검사의 편도 추정
+    public void Clear();                              // 새 경기, 재접속으로 경로가 바뀐 때
+}
+```
+
+깨진 규칙(`null`, 빈 표, 1 미만의 한도나 창 크기)은 팩에서 올 수 없고 호출자가 손으로 만든 `NetRuleSet`에서만 나온다. `ArgumentNullException`·`ArgumentException`이다.
+
+10.4절의 마지막 문단.
+
+> 경기 전 `SyncRequest`/`SyncReply`를 16회(`ClockSyncSamples`, 데이터 값) 주고받는다. 클라이언트는 왕복이 가장 짧은 표본으로 시계 오프셋을 정한다(`ClockSync.Estimate`, 6.4절). 경기 중에는 `ServerTick`의 시각 칸으로 1초(`ClockResyncTicks`)마다 다시 재고, 어긋남은 `ClockSync.TickLengthAdjustPpm`으로 틱 길이만 바꿔 맞춘다(한도 `ClockSlewMaxPpm`).
+
+10.5절 첫 항목의 끝("최근 16개의 최솟값이 …" 문장부터).
+
+> 최근 16개(`ClockSyncSamples`, 데이터 값)의 최솟값이 그 사람의 왕복이고, 그 절반이 이른 시각 검사의 편도 추정이다(spec 10 14.8). 이 계산은 `RttSampleWindow`(6.4절) 한 곳에 있고 경기의 호스트와 탐침이 같이 쓴다. ms로 줄일 때는 올린다(왕복 60,001µs는 61ms이고 "60ms 이하"가 아니다).
+
 ---
 
 ## T-56 `mail_outbox`의 상태는 spec 12의 넷뿐이다: 배달 확인은 `sent` 그대로, 반송은 `sent → dropped`. 시험 대역이 진짜 표로 바뀔 때의 시험 도우미는 그 표를 들이는 작업이 고친다 [신규]

@@ -804,6 +804,41 @@ public sealed class ElementDef {                      // spec 02 3.3 AF-1, DECIS
 
 ---
 
+## T-56 `mail_outbox`의 상태는 spec 12의 넷뿐이다: 배달 확인은 `sent` 그대로, 반송은 `sent → dropped`. 시험 대역이 진짜 표로 바뀔 때의 시험 도우미는 그 표를 들이는 작업이 고친다 [신규]
+
+번호 메모: T-54는 아직 main에 들어오지 않은 다른 작업 브랜치 둘(M1-UE-02, M2-NET-03)이 각자 쓰고 있다. 겹치지 않게 T-56을 쓴다(T-55는 그 둘 가운데 하나를 고쳐 매길 자리로 비워 둔다).
+
+- **문제**: M10-ACC-01(계정 스키마와 저장소)이 구현을 끝내고 멈췄다. 올라온 것은 둘이다.
+  1. `0010_accounts.sql`이 진짜 `account` 표를 만들자 M10-DB-01의 시험 25개가 깨졌다. 시험 도우미 `tests/Wizard.Server.Tests/Infra/Probes.cs`의 `AddAccountsAsync`가 `INSERT INTO account (id) VALUES (…)`로 계정 행을 만드는데, 진짜 표는 `id`가 `GENERATED ALWAYS`이고 `NOT NULL` 열이 여섯이라 그 문장이 `428C9`로 실패한다. 그 파일은 M10-DB-01의 소유(`tests/Wizard.Server.Tests/Infra/`)라 M10-ACC-01의 카드로는 고칠 수 없었다. `Infra/StandInTables.cs`는 "진짜 마이그레이션이 들어오면 대역은 아무것도 하지 않는다"까지만 대비했고, 대역에 맞춰 쓴 도우미가 진짜 표에서 깨지는 것은 대비하지 않았다.
+  2. `mail_outbox.status`의 값이 문서마다 다르다. spec 12는 8.1절(`mail_status`)·8.2절 DDL(`CHECK`)·2.8절 상태 기계·벡터 T-MAIL-64~66·U-29(실패율 감시)에서 `queued`, `sent`, `failed`, `dropped` 넷으로 적었다. `CONTRACTS.md` 12.2절도 "spec 12 8.2절 그대로"다. 그런데 `CONTRACTS.md` 7.1절의 한 문장과 M10-ACC-05 카드는 "queued → sent → delivered / bounced / failed"라고 적었고(T-36의 "배달·반송 사건"을 풀어 쓴 말), 카드는 재시도를 "지수 간격", 영구 실패를 `failed`, 하루 한도 초과를 "미룸"이라고 적었다. spec 12 2.8절의 지연표는 1·5·15분이고 영구 실패는 `dropped`이며 한도를 넘으면 보내지 않는다.
+- **결정**:
+  1. **상태 값은 spec 12의 넷뿐이다.** `delivered`와 `bounced`를 값으로 더하지 않는다. 마이그레이션도 더 만들지 않는다. 문서 우선순위(`CLAUDE.md` 1절: 명세가 계약보다 위)대로 7.1절의 문장과 M10-ACC-05의 카드를 고쳐 읽는다.
+  2. **배달 확인 사건은 줄을 바꾸지 않는다**(`sent` 그대로). 배달 시각을 적을 열이 DDL에 없고, 그 값을 읽는 규칙도 명세에 없다.
+  3. **반송·거절 사건은 `sent → dropped`다.** `sent_at`과 `provider_ref`는 남기고 `tries`는 그대로 둔다. 그래서 "반송된 줄"은 `status = 'dropped' AND sent_at IS NOT NULL`이다(보내지 못하고 버린 줄은 `sent_at`이 없다. `sent_at`은 `MarkSent`만 쓴다). 사건은 사업자의 참조 값(`provider_ref`)으로 줄에 잇는다. 같은 사건이 두 번 와도 한 번만 바뀐다.
+  4. **하루 발송 수는 `sent_at`으로 센다**: `count(*) WHERE sent_at >= 오늘 0시`. spec 12 8.2절 DDL의 주석은 `status='sent' AND sent_at >= …`인데, 3번 때문에 그 식 그대로면 반송된 메일이 하루 한도(사업자 한도를 지키는 값, online 7.3)를 돌려준다. 반송이 없으면 두 식은 같은 수다(T-MAIL-45는 그대로 성립한다).
+  5. **실패율 감시(U-29)의 `dropped`에는 반송된 줄도 든다.** 반송은 도달하지 못한 메일이다.
+  6. **재시도 간격과 횟수는 spec 12 2.8절 그대로다**: 1·5·15분, 첫 시도를 넣어 최대 4회. "지수 간격"이 아니다. `failed`는 "마지막 시도가 실패, 다시 시도 대기"의 표시값이고 끝 상태가 아니다. 끝 상태는 `sent`와 `dropped`다. 하루 한도를 넘은 메일은 미루지 않고 보내지 않는다(2.8절 "넘으면 보내지 않고 화면의 답은 같다").
+  7. **"반송된 주소로 다시 보내지 않는다"(M10-ACC-05)의 재료는 `mail_outbox`에서 읽는다.** 저장소가 "그 계정의 마지막 반송 메일의 발송 시각"을 준다(`LastBouncedSentAtAsync`, 30일 보관 안에서). 언제까지 막을지(주소를 바꾸거나 다시 확인하면 푼다 등)의 판정은 App의 몫이고 M10-ACC-05가 정한다. 주소나 주소의 HMAC을 `mail_outbox`에 더하지 않는다(spec 12 2.8절·T-MAIL-67: 받는 주소 열이 없다).
+  8. **시험 대역이 진짜 표로 바뀔 때의 규칙.** `StandInTables`의 대역을 진짜 표로 바꾸는 마이그레이션 작업은, 대역에 맞춰 쓴 시험 도우미가 진짜 표에서 깨지면 그 도우미를 **같은 브랜치에서** 고친다. 마이그레이션과 도우미의 고침은 한 커밋에 있어야 main이 깨지지 않기 때문이다. 그 파일을 그 작업의 `owned_paths`에 더한다(tech-lead가 `tasks.json`을 고친다). 이번에는 `Probes.AddAccountsAsync`가 M10-ACC-01의 `AccountTestRows.EnsureAsync`(스키마를 지키는 자리 값으로 번호가 정해진 계정 행을 만들고 시퀀스를 그 뒤로 옮긴다)를 부르게 했다. 자리 값을 아는 곳은 그 한 곳이다.
+- **대안**: (가) 값 `delivered`·`bounced`를 더하는 마이그레이션을 새로 낸다. (나) 반송을 `mail_outbox`에 적지 않는다(`sent` 그대로 두고 따로 된 표나 계정의 표식에 적는다). (다) 반송을 `failed`로 적는다. (라) `Probes.cs`를 고치는 결함 작업(FIX)을 따로 내고 M10-ACC-01이 그것을 기다린다. (마) 진짜 `account` 표에 맞춰 `Probes.cs` 안에 삽입문을 다시 쓴다.
+- **이유**:
+  - (가) 명세가 값의 집합을 네 곳에서 같게 적었고 벡터가 그 이름을 쓴다(T-MAIL-64~66 "`dropped`"). 계약의 한 문장이 명세와 다를 때는 명세가 맞다. 값을 더하면 관리 화면, 실패율 감시(U-29: `dropped` 비율), 하루 발송 수의 식을 같이 바꿔야 하는데 얻는 것은 "배달됨"이라는, 아무 규칙도 읽지 않는 표시뿐이다.
+  - (나) 새 표는 명세에 없다. 반송은 실패율에 잡혀야 하고(U-29) 그 감시는 `mail_outbox`를 본다. T-36도 "배달·반송 사건을 받아 `mail_outbox`를 닫을 수 있다"고 적었다.
+  - (다) `failed`는 발송 작업이 다시 꺼내는 상태다(2.8절). 반송된 줄을 `failed`로 두면 같은 주소로 다시 나간다.
+  - (라) 도우미만 먼저 고치는 FIX는 진짜 표가 없는 main에서 돌아야 하므로 "표의 모양을 보고 두 가지로 넣는" 코드가 되고, 그 반쪽(대역 쪽)은 M10-ACC-01이 들어오는 순간 죽은 코드다. 순서도 하나 더 생긴다. `PIPELINE.md` 3.7절의 "앞선 작업의 결함은 자기 작업에서 고치지 않는다"는 앞선 작업이 틀렸을 때의 규칙이다. 여기서는 M10-DB-01이 틀린 것이 아니라(그때는 대역뿐이었다) 표가 바뀌면서 도우미가 같이 바뀌어야 하는 것이다.
+  - (마) 자리 값(아이디 규칙에 맞는 `login_id`, 겹치지 않는 닉네임, 시퀀스 옮기기)을 두 곳에 두면 `account`의 열이 늘 때 두 곳을 같이 고쳐야 한다.
+- **`CONTRACTS.md`는 이 브랜치에서 고치지 않았다.** T-47·T-52·T-53과 같은 까닭이다(작업 브랜치에서 그 파일을 고치면 `check-diff`가 막고, `owned_paths`에 넣으면 `taskgraph`의 시험이 깨진다. FIX-2). 옮겨 적기 전까지 7.1절의 그 문장은 아래 개정문으로 읽는다.
+- **따라오는 일**:
+  - CCR 작업(계약 변경 요청으로 올린다): 아래 개정문을 `CONTRACTS.md` 7.1절에 옮겨 적는다. T-47·T-52·T-53의 개정문과 같이 할 수 있다. FIX-2가 먼저다.
+  - 저장소(`server/Wizard.Server.Data/Accounts/PgMailOutboxStore.cs`, M10-ACC-01): `MarkBouncedAsync(uow, providerRef)`(바뀐 줄 또는 null), `LastBouncedSentAtAsync(uow, accountId)`, `MailOutboxRow.Bounced`. `CountSentSinceAsync`는 4번의 식이다. `0010_accounts.sql`의 색인 `mail_outbox_sent_at`은 `WHERE sent_at IS NOT NULL`이고, `mail_outbox_provider_ref`와 `mail_outbox_bounced`를 더했다(셋 다 [임시] 색인. 표의 모양은 spec 12 8.2절 그대로다).
+  - `tasks.json`: M10-ACC-01의 `owned_paths`에 `tests/Wizard.Server.Tests/Infra/Probes.cs`와, 이 결정을 같이 넣으려고 `DECISIONS-TECH.md`·`tasks.json`을 더했다(main에 들어간 뒤에는 문서 둘이 필요 없다). 같은 문서를 가진 M2-SPL-01과 순서가 있어야 해서 `deps`에 M2-SPL-01을 더했다(이미 main에 있어 막지 않는다). M10-ACC-05의 수락 조건 둘을 위 1~7번의 말로 고쳐 적었다.
+  - M10-ACC-05(`ApiMailSender`): 상태 전이는 1~6번이다. `PollDeliveryAsync`의 반송·거절 사건마다 `MarkBouncedAsync`를 부른다. 배달 확인 사건은 버린다. 반송된 주소로 다시 보내지 않는 판정(7번)을 정해 결과 보고에 적는다. `MailDeliveryEvent`의 칸(적어도 사업자의 참조 값, 사건의 갈래, 시각)은 그 작업이 채운다(계약 코드의 머리 주석 "그 영역의 작업이 채운다").
+  - `Infra/StandInTables.cs`의 `account` 대역은 이제 쓰이지 않는다(표가 이미 있어 건너뛴다). 지우지 않았다: 그 파일은 M10-ACC-01의 소유가 아니고, 남아 있어도 동작이 같다. `item_stack`·`wand` 대역을 진짜 표로 바꾸는 M10-INV-01이 그 파일을 정리할 때 같이 지운다(8번의 규칙으로 `owned_paths`에 더한다). `item_stack`과 `wand`에는 `account`로 가는 외래 키가 없어서(spec 12 8.2절) 그 작업에서 `Probes`의 원장 도우미가 같은 꼴로 깨지지는 않는다.
+
+**`CONTRACTS.md` 7.1절 개정문** (CCR 작업이 옮겨 적는다. "출시 구성에는 실제 구현 `ApiMailSender`…" 항목의 한 문장을 바꾼다)
+
+> 발송 재시도, 하루 한도, 반송 처리, `mail_outbox` 상태 전이는 어댑터와 무관한 공통 코드다. 상태 값은 spec 12 8.1절의 넷(`queued`, `sent`, `failed`, `dropped`)뿐이고 전이는 spec 12 2.8절이다: `queued → sent`, 실패하면 `failed`로 두고 1·5·15분 뒤 다시 시도, 4번째 실패·재시도할 수 없는 실패·코드 만료는 `dropped`. 배달 확인 사건은 줄을 바꾸지 않고, 반송·거절 사건은 `sent → dropped`다(`sent_at`은 남는다. T-56).
+
 ## 아직 정하지 않은 기술 항목
 
 구현을 막지 않는다. 해당 단계에 닿았을 때 정한다.

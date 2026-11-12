@@ -177,6 +177,17 @@ namespace Wizard.Sim.Heat
             return broke;
         }
 
+        // spec 01 12.2 DuelGraze 의 열 부분(줄어든 보상): 잠금이 아니고 열이 임계 시작보다 낮을 때만 임계 시작으로 올린다.
+        // 잠금 중이면 아무것도 바꾸지 않는다([해석] 12.2: 잠금은 풀리지 않고, 열은 풀릴 때 0이 된다). 열 면제는 없다
+        public static void ApplyReducedGraze(ref HeatState s)
+        {
+            int c = s.CritStartHu;
+            if (!s.Locked && s.HeatHu < c)
+            {
+                s.HeatHu = c;
+            }
+        }
+
         // spec 01 7.6.7: 피해 계산용 열을 돌려주고 열 0. 잠금 중이면 열 100으로 계산하고 잠금을 푼다
         public static int ConsumeForVentBlast(ref HeatState s, out bool brokeLock)
         {

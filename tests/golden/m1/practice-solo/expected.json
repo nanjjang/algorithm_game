@@ -1,0 +1,55 @@
+{
+  "format": 1,
+  "id": "m1/practice-solo",
+  "hashes": [
+    {
+      "tick": 300,
+      "hash": "a2b64b1bf970e071"
+    },
+    {
+      "tick": 600,
+      "hash": "f31547cda1410353"
+    },
+    {
+      "tick": 900,
+      "hash": "2028ce88ff8f674e"
+    },
+    {
+      "tick": 1200,
+      "hash": "9bfc6c644f0d7741"
+    },
+    {
+      "tick": 1500,
+      "hash": "6ba2e43435f30c60"
+    },
+    {
+      "tick": 1800,
+      "hash": "9aadc17ad8d77075"
+    },
+    {
+      "tick": 2100,
+      "hash": "ce85cf74e92aef3e"
+    },
+    {
+      "tick": 2400,
+      "hash": "b11c5ebdc17599b9"
+    },
+    {
+      "tick": 2700,
+      "hash": "41d53d7a2a8f1ea7"
+    },
+    {
+      "tick": 3000,
+      "hash": "638e7e3227d51554"
+    },
+    {
+      "tick": 3300,
+      "hash": "9b3bcf4da8ca4b83"
+    },
+    {
+      "tick": 3600,
+      "hash": "27eaf6baa2aa4ab0",
+      "label": "final"
+    }
+  ]
+}

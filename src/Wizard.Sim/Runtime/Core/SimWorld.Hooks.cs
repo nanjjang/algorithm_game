@@ -6,7 +6,8 @@ namespace Wizard.Sim
 {
     // CONTRACTS 3.2 "부분 클래스와 훅"(T-33). 훅 선언은 여기 한 곳이다. 모듈은 자기 폴더의 SimWorld.<모듈>.cs 에서 구현만 더한다.
     // C# 의 부분 메서드는 구현이 하나뿐이어야 하므로 (단계, 모듈)마다 따로 선언한다. 구현이 없으면 호출이 컴파일에서 사라진다.
-    // 부르는 순서는 SimWorld.Step.cs(틱 단계, 이음 훅의 Raise…)와 SimWorld.State.cs(상태 절) 두 곳에만 있다. 훅을 더하거나 순서를 바꾸는 것은 계약 변경이다.
+    // 부르는 순서는 SimWorld.Step.cs(틱 단계, 이음 훅의 Raise…), SimWorld.State.cs(상태 절), SimWorld.View.cs(뷰 훅의 Fill…) 세 곳에만 있다.
+    // 훅을 더하거나 순서를 바꾸는 것은 계약 변경이다.
     //
     // 훅의 약속:
     //   - 단계 훅은 Step 안에서 불린다. 관리 힙에 할당하지 않는다(Stage00 의 Depart 컴파일만 예외. CONTRACTS 3.2).
@@ -26,6 +27,9 @@ namespace Wizard.Sim
     //     State_Read_<모듈>(ref r): 같은 순서로 읽어 상태 전체를 덮어쓴다.
     //     풀 절(Spell, Enemies, Telegraph, Bosses)은 틀까지 모듈이 쓴다: 쓸 때 TryBeginPoolSection(ref w, 절, 개수)가 true 일 때만 내용을 쓰고,
     //     읽을 때 TryBeginPoolSection(ref r, 절)이 false 이면 풀을 비운다. 그래서 빈 풀은 바이트를 남기지 않는다.
+    //   - 뷰 훅(View_<뷰>_<모듈>, CONTRACTS 3.3 "뷰 훅", T-54)은 표시 계층이 ISimView 를 읽을 때 불린다(Step 밖일 수도 안일 수도 있다).
+    //     세계 상태를 바꾸지 않는다: 시작 상태를 세우는 Ensure… 를 부르지 않고(아직 서지 않았으면 아무것도 채우지 않는다), 이벤트를 내지 않고,
+    //     난수를 쓰지 않는다. 자기 모듈의 상태에서 자기 칸만 채운다. 목록 뷰는 자기 개체를 id 오름차순으로 Add 한다.
     public sealed partial class SimWorld
     {
         // ── 0. RunCommand 적용(순번 순)
@@ -91,6 +95,30 @@ namespace Wizard.Sim
         partial void OnGrazeAwarded_Heat(PlayerSlot slot, ISimEventSink sink);
         partial void OnGrazeAwarded_Combo(PlayerSlot slot, ISimEventSink sink);
         partial void OnGrazeAwarded_Characters(PlayerSlot slot, ISimEventSink sink);
+
+        // ── 뷰 훅(CONTRACTS 3.3 "뷰 훅", T-54). 부르는 문과 순서는 SimWorld.View.cs 의 Fill… 한 곳이다. 상태를 바꾸지 않는다
+        //    PlayerView: index = 슬롯(0..PlayerCount-1). 모듈이 자기 칸만 채운다(PlayerViewDraft 의 머리말)
+        partial void View_Player_Player(int index, ref PlayerViewDraft draft);
+        partial void View_Player_Heat(int index, ref PlayerViewDraft draft);
+        partial void View_Player_Graze(int index, ref PlayerViewDraft draft);
+        partial void View_Player_Combo(int index, ref PlayerViewDraft draft);
+        partial void View_Player_Arts(int index, ref PlayerViewDraft draft);
+        partial void View_Player_Characters(int index, ref PlayerViewDraft draft);
+
+        //    목록 뷰: 자기 개체를 id 오름차순으로 into.Add 한다. 목록 전체는 훅 순서대로 이어 붙인 것이다
+        partial void View_Enemies_Enemies(ViewBuffer<EnemyView> into);
+        partial void View_Enemies_Bosses(ViewBuffer<EnemyView> into);
+        partial void View_Projectiles_Spell(ViewBuffer<ProjectileView> into);
+        partial void View_Projectiles_Enemies(ViewBuffer<ProjectileView> into);
+        partial void View_Projectiles_Bosses(ViewBuffer<ProjectileView> into);
+        partial void View_Telegraphs_Telegraph(ViewBuffer<TelegraphView> into);
+        partial void View_Hazards_Enemies(ViewBuffer<HazardView> into);
+        partial void View_Hazards_Bosses(ViewBuffer<HazardView> into);
+
+        //    하나짜리 뷰: 그 상태를 가진 모듈이 view 를 통째로 놓는다
+        partial void View_Wave_Waves(ref WaveView view);
+        partial void View_Camp_Camp(ref CampView view);
+        partial void View_Duel_Duel(ref DuelView view);
 
         // ── 상태 훅(모듈마다 넷). Rng(16)는 Runtime/Core 의 것이라 SimWorld.Rng.cs 에 구현이 있다
         partial void Snapshot_Save_Player(SimWorld target);

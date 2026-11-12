@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wizard.invalid/data/schema/net.schema.json",
+  "title": "넷코드 규칙 (data/rules/net.json → 팩 절 34 net)",
+  "description": "spec 10 14.5·14.7·14.8·14.9·3.7, online 4.12, CONTRACTS 2.2 NetRuleSet. 시뮬레이션 결과를 바꾸지 않는 값이라 코어 버전 해시 밖이다(data/rules). 표의 정렬(경계 오름차순)과 D의 비감소는 변환기가 본다.",
+  "type": "object",
+  "required": [
+    "input_delay_table",
+    "rollback_limit_ticks",
+    "disconnect_silence_seconds",
+    "disconnect_grace_seconds",
+    "full_state_gap_ticks",
+    "catchup_ticks_per_advance",
+    "rtt_hold_cap_ms",
+    "queue_rtt_limit_ms",
+    "order_violation_forfeit",
+    "spectator_delay_seconds",
+    "spectator_keyframe_ticks"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "_note": { "$ref": "_common.schema.json#/$defs/note" },
+    "input_delay_table": {
+      "description": "입력 지연 표(왕복 경계 ms → D) → InputDelayTable. 경계 오름차순. 왕복이 마지막 줄의 경계를 넘으면 마지막 줄의 D를 쓴다(spec 10 14.5의 '120ms 초과 4틱 고정')",
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": { "$ref": "#/$defs/delayStep" }
+    },
+    "rollback_limit_ticks": {
+      "description": "되감기 한도(틱) → RollbackLimitTicks. 마지막 확정 틱 + 이 값을 넘어 예측하지 않는다",
+      "$ref": "_common.schema.json#/$defs/integer",
+      "minimum": 1
+    },
+    "disconnect_silence_seconds": {
+      "description": "검증된 패킷이 이만큼 없으면 끊긴 것으로 본다(초) → DisconnectSilenceTicks(× 60)",
+      "$ref": "_common.schema.json#/$defs/seconds",
+      "exclusiveMinimum": 0
+    },
+    "disconnect_grace_seconds": {
+      "description": "끊긴 뒤 돌아오기를 기다리는 유예(초). 지나면 몰수 → DisconnectGraceTicks(× 60)",
+      "$ref": "_common.schema.json#/$defs/seconds",
+      "exclusiveMinimum": 0
+    },
+    "full_state_gap_ticks": {
+      "description": "확정 공백이 이 틱 수를 넘으면 상태 전체를 청한다 → FullStateGapTicks",
+      "$ref": "_common.schema.json#/$defs/integer",
+      "minimum": 1
+    },
+    "catchup_ticks_per_advance": {
+      "description": "멈춤이 풀린 뒤 한 번의 Advance에서 따라잡는 틱의 상한 → CatchupTicksPerAdvance",
+      "$ref": "_common.schema.json#/$defs/integer",
+      "minimum": 1
+    },
+    "rtt_hold_cap_ms": {
+      "description": "왕복 표본의 hold(에코를 붙들어 둔 시간, ms)가 이 값을 넘으면 그 표본을 버린다 → RttHoldCapMs",
+      "$ref": "_common.schema.json#/$defs/integer",
+      "minimum": 1
+    },
+    "queue_rtt_limit_ms": {
+      "description": "자동 매치에 들어갈 수 있는 서버 왕복의 상한(ms) → QueueRttLimitMs",
+      "$ref": "_common.schema.json#/$defs/integer",
+      "minimum": 1
+    },
+    "order_violation_forfeit": {
+      "description": "한 경기에서 순서 위반으로 버린 패킷이 이 수를 넘으면 몰수패 → OrderViolationForfeit",
+      "$ref": "_common.schema.json#/$defs/integer",
+      "minimum": 1
+    },
+    "spectator_delay_seconds": {
+      "description": "관전자에게 확정 입력을 늦춰 보내는 시간(초) → SpectatorDelayTicks(× 60)",
+      "$ref": "_common.schema.json#/$defs/seconds",
+      "exclusiveMinimum": 0
+    },
+    "spectator_keyframe_ticks": {
+      "description": "호스트가 관전 시작용 상태를 보관하는 간격(틱) → SpectatorKeyframeTicks",
+      "$ref": "_common.schema.json#/$defs/integer",
+      "minimum": 1
+    }
+  },
+  "$defs": {
+    "delayStep": {
+      "description": "표의 한 줄. 왕복이 rtt_up_to_ms 이하이면 D = delay_ticks → InputDelayStep",
+      "type": "object",
+      "required": ["rtt_up_to_ms", "delay_ticks"],
+      "additionalProperties": false,
+      "properties": {
+        "rtt_up_to_ms": {
+          "description": "이 왕복(ms) 이하 → RttUpToMs",
+          "$ref": "_common.schema.json#/$defs/integer",
+          "minimum": 1
+        },
+        "delay_ticks": {
+          "description": "입력 지연 D(틱) → DelayTicks",
+          "$ref": "_common.schema.json#/$defs/integer",
+          "minimum": 1
+        }
+      }
+    }
+  }
+}

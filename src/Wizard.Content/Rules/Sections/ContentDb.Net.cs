@@ -17,7 +17,10 @@ namespace Wizard.Content
     //   i32 queue_rtt_limit_ms
     //   i32 order_violation_forfeit
     //   i32 spectator_delay_ticks
-    //   i32 spectator_keyframe_ticks                        위 열 개는 모두 1 이상
+    //   i32 spectator_keyframe_ticks
+    //   i32 clock_sync_samples
+    //   i32 clock_resync_ticks
+    //   i32 clock_slew_max_ppm                              위 열세 개는 모두 1 이상
     // 깨진 바이트(모자람, 남음, 표 순서, 1 미만)는 ContentException.
     public sealed partial class ContentDb
     {
@@ -61,6 +64,9 @@ namespace Wizard.Content
             d.OrderViolationForfeit = NetPositive(ref r);
             d.SpectatorDelayTicks = NetPositive(ref r);
             d.SpectatorKeyframeTicks = NetPositive(ref r);
+            d.ClockSyncSamples = NetPositive(ref r);
+            d.ClockResyncTicks = NetPositive(ref r);
+            d.ClockSlewMaxPpm = NetPositive(ref r);
             if (r.Remaining != 0)
             {
                 throw NetBroken("trailing bytes");

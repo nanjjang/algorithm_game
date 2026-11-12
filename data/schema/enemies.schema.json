@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wizard.invalid/data/schema/enemies.schema.json",
+  "title": "일반 적 (data/sim/enemies.json → 팩 절 5 enemies)",
+  "description": "spec 05 2.1~2.3·2.5·4절, spec 14 3.6, CONTRACTS 2.2 EnemyDef·AttackDef. 수는 원문 단위의 십진으로 적고 DataBuild 가 정수로 바꾼다(tools/Wizard.DataBuild/Convert/EnemiesConverter.cs). 스키마는 꼴과 범위만 본다. 공격 종류와 모양·탄·돌진의 짝, 꼬리표와 넉백 면역, 약점과 저항은 변환기가 본다. 회피 검산(R1~R4)과 속성 분배는 databuild check 의 검증기(M3-BT-01)가 본다.",
+  "type": "object",
+  "required": ["enemies"],
+  "additionalProperties": false,
+  "properties": {
+    "_note": { "$ref": "_common.schema.json#/$defs/note" },
+    "enemies": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/enemy" }
+    }
+  },
+  "$defs": {
+    "optionalCells": {
+      "description": "칸 또는 null(조건 없음)",
+      "anyOf": [
+        { "$ref": "_common.schema.json#/$defs/cells", "exclusiveMinimum": 0 },
+        { "type": "null" }
+      ]
+    },
+    "enemy": {
+      "type": "object",
+      "required": [
+        "id", "role", "base_hp", "move_speed", "attack_damage", "contact_damage", "cost", "first_wave", "times",
+        "weak", "resist", "tags", "knockback_immune", "species_cap", "body_radius", "attacks"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "_note": { "$ref": "_common.schema.json#/$defs/note" },
+        "id": { "description": "적 id(enemy.*, spec 14 3.6) → EnemyTypeId", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^enemy\\." },
+        "role": {
+          "description": "역할 → EnemyDef.EnemyRole(spec 05 2.1 선언 순서)",
+          "enum": ["swarm", "evasive_charger", "armored_heavy", "ranged_cover", "suicide", "sniper", "ambush", "night_swarm", "ring_barrage", "zone_denial", "long_charger", "support"]
+        },
+        "base_hp": { "description": "체력(H(w) 곱하기 전) → BaseHp Raw(× 2^32)", "type": "number", "exclusiveMinimum": 0 },
+        "move_speed": { "description": "이동 속도(칸/초) → MoveSpeedCenti(× 100. 3.0 → 300)", "$ref": "_common.schema.json#/$defs/cellsPerSecond", "minimum": 0 },
+        "attack_damage": { "description": "spec 05 2.5 \"피해\" 열(칸) → AttackDamage", "type": "integer", "minimum": 1, "maximum": 2 },
+        "contact_damage": { "description": "몸 접촉 피해(칸) → ContactDamage. 0 이면 접촉 없음(spec 05 2.2·3.6)", "enum": [0, 1] },
+        "cost": { "description": "스폰 예산 비용 → Cost", "type": "integer", "minimum": 1 },
+        "first_wave": { "description": "첫 등장 웨이브 → FirstWave", "type": "integer", "minimum": 1 },
+        "times": {
+          "description": "나오는 시간대(tod.day, tod.dusk, tod.night) → Times(TimeMask 비트). \"항상\"은 셋 다",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^tod\\." }
+        },
+        "weak": { "description": "약점 속성 id(element.*) → Weak", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^element\\." },
+        "resist": { "description": "저항 속성 id(element.*) → Resist", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^element\\." },
+        "tags": {
+          "description": "바탕 꼬리표 id(tag.*, spec 14 3.9) → BaseTags. 엘리트·보스는 바탕 꼬리표가 아니다",
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^tag\\." }
+        },
+        "knockback_immune": { "description": "넉백 면역 → KnockbackImmune. 중량·뿌리 꼬리표와 같아야 한다(spec 05 2.2)", "type": "boolean" },
+        "species_cap": {
+          "description": "같은 종 동시 상한 → SpeciesCap. null 이면 상한 없음(spec 05 2.5)",
+          "anyOf": [{ "type": "integer", "minimum": 1 }, { "type": "null" }]
+        },
+        "body_radius": { "description": "몸 판정 반지름(칸) → BodyRadius Raw [임시: spec 05 U-04]", "$ref": "_common.schema.json#/$defs/cells", "exclusiveMinimum": 0 },
+        "attacks": {
+          "description": "공격 목록 → Attacks. 나열 순서가 첨자다",
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 16,
+          "items": { "$ref": "#/$defs/attack" }
+        },
+        "ai": { "$ref": "#/$defs/ai" }
+      }
+    },
+    "attack": {
+      "description": "공격 한 줄(spec 05 2.3). 적지 않은 칸은 0, null, false, at_start, self 다",
+      "type": "object",
+      "required": ["key", "kind", "damage", "damage_source", "cooldown_seconds"],
+      "additionalProperties": false,
+      "properties": {
+        "_note": { "$ref": "_common.schema.json#/$defs/note" },
+        "key": { "description": "종 안에서의 공격 열쇠(spec 05 4절의 <종>.<열쇠>에서 뒤쪽). 팩에는 없고 겹치는지만 본다", "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+        "kind": {
+          "description": "공격 종류 → AttackDef.AttackKind(spec 05 2.3 나열 순서)",
+          "enum": ["contact", "dash", "zone", "aimed_shot", "spread", "ring_shot", "lob", "self_destruct", "tongue"]
+        },
+        "shape": {
+          "description": "예고 모양 → Shape. null 이면 예고 없음",
+          "anyOf": [{ "enum": ["circle", "band", "fan", "aim_line", "ring"] }, { "type": "null" }]
+        },
+        "radius": { "description": "Circle·Fan 반지름, Ring 바깥 반지름(칸) → Radius Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "inner_radius": { "description": "Ring 안 반지름(칸) → InnerRadius Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "width": { "description": "Band·AimLine 폭(칸) → Width Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "length": {
+          "description": "Band 길이(칸) → Length Raw. null 이면 벽까지",
+          "anyOf": [{ "$ref": "_common.schema.json#/$defs/cells", "exclusiveMinimum": 0 }, { "type": "null" }]
+        },
+        "fan_degrees": { "description": "부채꼴 전체 각도(도) → FanCenti(× 100)", "$ref": "_common.schema.json#/$defs/degrees", "minimum": 0, "maximum": 180 },
+        "range": { "description": "발동 사거리(칸) → Range Raw", "$ref": "#/$defs/optionalCells" },
+        "trigger_min": { "description": "거리 조건 아래 끝(칸) → TriggerMin Raw", "$ref": "#/$defs/optionalCells" },
+        "trigger_max": { "description": "거리 조건 위 끝(칸) → TriggerMax Raw", "$ref": "#/$defs/optionalCells" },
+        "cast_seconds": { "description": "구역 없는 시전 동작(초) → CastTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "telegraph_seconds": { "description": "예고 길이(초) → TelegraphTicks. 모양이 있으면 0 보다 크다", "$ref": "_common.schema.json#/$defs/seconds" },
+        "lock": { "description": "방향 고정 → Lock", "enum": ["at_start", "last_n_ticks"] },
+        "lock_seconds": { "description": "LastNTicks 의 n(초) → LockTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "anchor": { "description": "구역 위치 → Anchor", "enum": ["self", "player_pos_at_start", "player_pos_lead_ahead", "along_line_to_wall"] },
+        "active_ticks": { "description": "판정 뒤 움직이는 시간(틱) → ActiveTicks. 돌진은 길이 × 60 ÷ 돌진 속도와 같다(1/3초처럼 초로 적으면 끝나지 않는 값이 있어 틱으로 적는다)", "$ref": "_common.schema.json#/$defs/ticks" },
+        "dash_speed": { "description": "돌진 속도(칸/초) → DashSpeedCenti(× 100)", "$ref": "_common.schema.json#/$defs/cellsPerSecond", "minimum": 0 },
+        "recovery_seconds": { "description": "빈틈·경직(초) → RecoveryTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "damage": { "description": "종별 피해(칸) → Damage", "type": "integer", "minimum": 1, "maximum": 3 },
+        "damage_source": { "description": "피해 분류 → Source(spec 05 2.1 DamageSource)", "enum": ["contact", "projectile", "telegraph", "lingering"] },
+        "proj": {
+          "description": "쏘는 탄 → Proj. null 이면 없음",
+          "anyOf": [{ "$ref": "#/$defs/proj" }, { "type": "null" }]
+        },
+        "grazeable": { "description": "스쳐 피하기 대상 → Grazeable", "type": "boolean" },
+        "is_dash": { "description": "돌진 → IsDash", "type": "boolean" },
+        "lob": { "description": "포물선 → Lob", "type": "boolean" },
+        "escape_override_milli": {
+          "description": "검산용 벗어나는 거리(milli 칸) → EscapeOverrideMilli. null 이면 모양에서 계산",
+          "anyOf": [{ "type": "integer", "minimum": 0 }, { "type": "null" }]
+        },
+        "cooldown_seconds": { "description": "재사용 대기(초) → CooldownTicks [임시: spec 05 U-05]", "$ref": "_common.schema.json#/$defs/seconds" }
+      }
+    },
+    "proj": {
+      "type": "object",
+      "required": ["speed", "count", "spread_degrees", "range", "hit_radius"],
+      "additionalProperties": false,
+      "properties": {
+        "_note": { "$ref": "_common.schema.json#/$defs/note" },
+        "speed": { "description": "탄속(칸/초) → SpeedPerTick Raw(× 2^32 ÷ 60)", "$ref": "_common.schema.json#/$defs/cellsPerSecond", "exclusiveMinimum": 0 },
+        "count": { "description": "한 번에 쏘는 탄 수 → Count", "type": "integer", "minimum": 1 },
+        "spread_degrees": { "description": "이웃한 탄 사이 각도(도) → SpreadCenti(× 100)", "$ref": "_common.schema.json#/$defs/degrees", "minimum": 0, "maximum": 360 },
+        "range": { "description": "사거리(칸) → Range Raw", "$ref": "_common.schema.json#/$defs/cells", "exclusiveMinimum": 0 },
+        "hit_radius": { "description": "탄 판정 반지름(칸) → HitRadius Raw", "$ref": "_common.schema.json#/$defs/cells", "exclusiveMinimum": 0 }
+      }
+    },
+    "ai": {
+      "description": "종별 두뇌의 매개변수 → Ai(EnemyDef.AiParams). 적지 않은 칸은 0",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "_note": { "$ref": "_common.schema.json#/$defs/note" },
+        "dodge_distance": { "description": "늑대 회피 대시 거리(칸) → DodgeDistance Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "dodge_cooldown_seconds": { "description": "회피 재사용(초) → DodgeCooldownTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "dodge_window_seconds": { "description": "회피 판단 창(초) → DodgeWindowTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "dodge_dash_seconds": { "description": "회피 대시 이동 시간(초) → DodgeDashTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "armor_half_angle_degrees": { "description": "철갑 반각(도) → ArmorHalfAngleCenti(× 100)", "$ref": "_common.schema.json#/$defs/degrees", "minimum": 0, "maximum": 180 },
+        "armor_damage_ratio": { "description": "철갑이 받는 피해 배율(0.5 = 절반) → ArmorDamagePermille(× 1000)", "$ref": "_common.schema.json#/$defs/ratio", "minimum": 0, "maximum": 1 },
+        "cover_hp_ratio": { "description": "엄폐를 시작하는 체력 비율(0.5 = 절반 이하) → CoverHpPermille(× 1000)", "$ref": "_common.schema.json#/$defs/ratio", "minimum": 0, "maximum": 1 },
+        "cover_offset": { "description": "엄폐물 뒤 거리(칸) → CoverOffset Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "keep_distance_min": { "description": "평소 거리 아래 끝(칸) → KeepDistanceMin Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "keep_distance_max": { "description": "평소 거리 위 끝(칸) → KeepDistanceMax Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "kite_distance_min": { "description": "엄폐물이 없을 때 지키는 거리(칸) → KiteDistanceMin Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 }
+      }
+    }
+  }
+}

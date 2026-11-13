@@ -68,6 +68,7 @@
 | T-63 | 덜 찬 데이터를 전제한 저장소 데이터 시험은 그 데이터를 채우는 작업이 같은 브랜치에서 고친다 | [신규] |
 | T-65 | 개정 장부(결정 기록·열린 질문·작업 그래프)는 경로 겹침 검사에서 빼고, 겹침 규칙은 둘 다 병합 전인 작업에만 건다. 장부의 충돌은 도구가 푼다 | [신규] |
 | T-58 | 그림의 크기는 `AssetKey`의 칸이 아니다. 크기 없는 조회는 가장 작은 그림, `IAssetCatalog`에 크기를 받는 조회 둘. 매니페스트에 없는 그림 자리는 `asset_slots.json` | [신규] |
+| T-55 | `WeatherEventDef`의 칸과 절 16 `weather_events`의 꼴. 규칙에 영향을 주는 사건(별똥 결정)의 수치는 `StarfallDef` 한 곳에만 둔다 | [신규] |
 
 ---
 
@@ -1009,6 +1010,60 @@ public struct DuelNetStats {                          // 한 사람의 통계. �
 11.1절 WZDR의 글머리 "레코드의 순서 = 확정 열의 순서 = `InputOrder` 순이다 …"의 뒤에 붙인다.
 
 > 순번은 실린 값 그대로이고 1 이상이면 된다. 한 슬롯의 순번이 레코드 순서로 늘어난다는 규칙은 없다(3.8절, T-64).
+
+---
+
+## T-55 `WeatherEventDef`의 칸과 절 16 `weather_events`의 꼴. 규칙에 영향을 주는 사건의 수치는 `StarfallDef` 한 곳에만 둔다 [신규]
+
+- **문제**: M8-DAT-03(변덕 8종, 날씨와 돌발 사건, 별똥 데이터)이 변덕과 별똥까지 하고 멈췄다. (1) 카드의 제목과 수락 기준("사건 5종의 수치가 명세와 같다")은 절 16 `weather_events`를 요구하는데 그 절의 파일 여섯이 카드의 `owned_paths`에 없었고 다른 어느 작업에도 없었다. (2) `WeatherEventDef`는 `CONTRACTS.md` 2.2절이 "필드는 명세의 표가 주인"이라며 비워 두었는데, 그 표(`world-characters.md` 2.3절)는 다섯 줄 가운데 셋의 "언제"를 글로만 적었다("하루 1회 이하", "아무 때나 드물게", "날이 바뀔 때"). (3) 다섯 줄 가운데 별똥 결정은 이미 절 15 `starfall`(`StarfallDef`)에 수치가 있다. 같은 수를 두 절에 두면 어긋난다.
+- **결정**:
+  1. **카드의 `owned_paths`에 절 16의 파일 여섯을 더한다**: `data/sim/weather_events.json`, `data/schema/weather_events.schema.json`, `src/Wizard.Content/Defs/WeatherEventDef.cs`, `src/Wizard.Content/Pack/Sections/ContentDb.WeatherEvents.cs`, `tools/Wizard.DataBuild/Convert/WeatherEventsConverter.cs`, `tests/Wizard.Content.Tests/WeatherEventsPackTests.cs`. 절 번호(16), 접근자(`ContentDb.WeatherEvents`), 훅(`LoadWeatherEvents`·`FindWeatherEvents`), `WeatherEventId`는 뼈대에 이미 있어 바뀌는 계약은 없다.
+  2. **`WeatherEventDef`의 칸**(아래 개정문). 원문 표의 세 칸을 그대로 옮긴다: "언제" → `OnDayChange`, `TodMask`, `ChanceBp`, `MaxPerDay` / "내용" → `IsInstant`, `DurationTicks`, `EdgeWidth`, `VariantCount` / "규칙 영향" → `AffectsRules`.
+  3. **규칙에 영향을 주는 사건은 별똥 결정 하나이고 그 수치는 `StarfallDef`가 주인이다.** `event.star_crystal`의 줄은 목록의 자리(id, 시간대, 한 번 일어나고 끝남)만 들고 수치 칸은 0이다(`VariantCount`만 1). 변환기가 그 줄의 수치 칸을 거부하고, `affects_rules`가 참인 줄이 `event.star_crystal`이 아니면 거부한다. 코어는 별똥을 `StarfallDef`와 `RngStream.Event`로 돌리고 이 줄을 읽지 않는다. 두 절의 시간대가 같은지는 테스트가 본다.
+  4. **연출 사건을 뽑는 기본 규칙**(M8-WAV-01이 구현한다. 원문이 정하지 않은 부분은 [임시]이고 `OPEN-QUESTIONS.md` Q-19·Q-20에 올렸다):
+     - 웨이브가 시작되는 틱에, `ContentDb.WeatherEvents`의 순서(`WeatherEventId` 오름차순)로, `AffectsRules`가 거짓이고 `OnDayChange`가 거짓이고 `Allows(그 웨이브의 시간대)`가 참이고 하루 상한(`MaxPerDay`, 0이면 없음)이 남은 사건마다 `RngStream.Weather`로 `Chance(ChanceBp, 10000)`을 한 번 뽑는다. 뽑히면 그 틱에 시작한다. `VariantCount`가 2 이상이면 이어서 `NextInt(VariantCount)`로 변형을 고른다(1이면 뽑지 않는다).
+     - `OnDayChange`인 사건은 날이 바뀐 뒤 첫 웨이브가 시작되는 틱에 같은 방법으로 뽑는다(판의 첫 웨이브는 날이 바뀐 것이 아니다).
+     - 이어지는 사건(`IsInstant`가 거짓)은 `DurationTicks`가 지나거나 그 웨이브가 끝나면 끝난다. `DurationTicks`가 0이면 웨이브가 끝날 때까지다.
+     - 결투에는 없다(`world-characters.md` 2.3절, spec 10 3.1절). 연출 사건은 세계의 규칙 상태(체력, 열, 결정, 적, 점수, 드랍)를 바꾸지 않는다. 하루 안의 횟수와 진행 중인 사건의 남은 틱은 다시 보기에서 같아야 하므로 세계 상태이고 스냅숏과 상태 해시에 들어간다(`CLAUDE.md` 3절).
+  5. **이름 열쇠**: `event.*` 다섯과 훈수의 줄 `event.master_advice.line.1`·`.line.2`(`world-characters.md` 2.3절의 두 줄, spec 14 2.2의 접미사 `.line.<n>`)를 이름 표에 더했다. `VariantCount`(2)는 그 줄의 수와 같아야 하고 테스트가 본다.
+- **절 16의 바이트**(LE. 이 꼴은 절의 주인 작업이 정한다. `howto-data-slice.md` 3절): `u16 개수`, 사건마다(`WeatherEventId` 오름차순) `u8 id`, `u8 affects_rules`, `u8 on_day_change`, `u8 tod_mask`, `i32 chance_bp`, `i32 max_per_day`, `u8 is_instant`, `i32 duration_ticks`, `i64 edge_width_raw`, `i32 variant_count`. 사건 하나가 29바이트다.
+
+| id | 규칙 영향 | 언제 | `ChanceBp` | `MaxPerDay` | 길이 | `EdgeWidth` | `VariantCount` |
+|---|---|---|---|---|---|---|---|
+| `event.shower` | 없음 | 웨이브 시작, 낮·해질녘 | 1,000 [임시] | 1 | 3,600틱(60초) | 0 | 1 |
+| `event.fog` | 없음 | 웨이브 시작, 해질녘 | 2,000 [임시] | 0 | 웨이브 끝까지 [임시] | 3칸 | 1 |
+| `event.star_crystal` | 결정 +1 | 웨이브 시작, 밤 | 0(`StarfallDef.ChanceBp` 5,000) | 0 | 한 번(`StarfallDef`) | 0 | 1 |
+| `event.master_advice` | 없음 | 웨이브 시작, 네 시간대 전부 | 500 [임시] | 0 | 한 번 | 0 | 2 |
+| `event.discarded_item` | 없음 | 날이 바뀔 때 | 10,000 | 0 | 한 번 | 0 | 6(spec 14 4.7 "느루가 버린 물건 6") |
+
+- **대안**: (가) 절 16을 새 작업으로 떼고 M8-DAT-03의 수락 기준에서 사건을 뺀다. (나) 별똥 결정의 수치를 이 절로 옮기고 절 15를 없앤다. (다) 연출 사건의 확률과 길이를 데이터에 두지 않고 표시 계층이 표시용 난수로 정한다. (라) "언제"를 열거형(`WeatherEventTrigger`)과 시간대 배열로 둔다.
+- **이유**: (가)는 같은 묶음의 파일 여섯을 위해 작업과 검토를 하나 더 돌리고, M8-WAV-01("틀 5종, 변덕, 날씨와 사건")의 `deps`도 고쳐야 한다. 카드의 제목과 수락 기준이 이미 이 작업의 일이라고 적었고 빠진 것은 경로뿐이다. (나)는 `CONTRACTS.md` 2.3절의 `Starfall` 접근자와 절 15를 없애는 계약 변경이고, 별똥의 칸 열넷(자리 고르기, 줍는 거리)은 나머지 네 사건에 뜻이 없다. (다)는 spec 01 3절이 `Weather` 흐름을 "다시 보기에서 같게"라고 둔 것과 어긋나고, 기획 수치(60초, 3칸, 하루 1회)가 `data/` 밖으로 나간다(`CLAUDE.md` 5절). (라)는 계약 열거형을 하나 늘린다. 갈래가 둘(웨이브 시작, 날 바뀜)뿐이라 `bool` 하나로 충분하고, 시간대는 넷이라 비트로 두면 `Step` 안에서 할당 없이 본다.
+- **`CONTRACTS.md`는 이 브랜치에서 고치지 않았다.** T-47·T-52·T-53과 같은 까닭이다. 아래 개정문은 2.2절의 빈 선언 `WeatherEventDef`를 채우기만 한다(있던 선언을 바꾸지 않는다). 옮겨 적기 전까지 2.2절은 아래와 같이 읽는다.
+
+```csharp
+// namespace Wizard.Content — CONTRACTS 2.2 개정문(T-55)
+public sealed class WeatherEventDef {                 // world-characters 2.3의 표 5행. ContentDb.WeatherEvents는 WeatherEventId 오름차순
+    public const int ChanceBpMax = 10000;
+    public const int AllTodsMask = 30;                // (1 << Day) | (1 << Dusk) | (1 << Night) | (1 << BossWave)
+    public WeatherEventId Id;
+    public bool AffectsRules;                         // "규칙 영향". 참은 별똥 결정뿐(수치는 StarfallDef)
+    public bool OnDayChange;                          // 참 = 날이 바뀔 때. 거짓 = 웨이브가 시작될 때 뽑는다
+    public int TodMask;                               // 비트 (1 << (int)TimeOfDay). OnDayChange면 0
+    public int ChanceBp;                              // 기회마다의 확률(만분율)
+    public int MaxPerDay;                             // 하루 상한. 0 = 없음
+    public bool IsInstant;                            // 참 = 한 번 일어나고 끝난다
+    public int DurationTicks;                         // 이어지는 길이. 0 = 그 웨이브가 끝날 때까지. IsInstant면 0
+    public Fix64 EdgeWidth;                           // 가장자리에서 덮는 폭(칸). 표시용. 안개 3
+    public int VariantCount;                          // 고르는 변형의 수(1 이상)
+    public bool Allows(TimeOfDay tod);                // 웨이브 시작 때 그 시간대에 뽑는가
+}
+```
+
+- **따라오는 일**:
+  - `tasks.json`: M8-DAT-03의 `owned_paths`에 위 여섯 파일과, 이 결정을 작업 브랜치에서 같이 넣으려고 `DECISIONS-TECH.md`·`OPEN-QUESTIONS.md`·`tasks.json`을 더했다(`check-diff`가 브랜치의 변경을 그 작업의 `owned_paths`로만 본다). 같은 문서를 가진 작업과의 순서를 위해 `deps`에 M2-SPL-01을 더했다(M2-SPL-01 → M1-SIM-08 → … 로 이어진다). `spec_refs`에 `world-characters.md` 2.3절과 spec 01 10.5절을 더했다(사건과 별똥의 원문).
+  - M8-WAV-01은 4번의 규칙으로 구현한다. 날씨의 시작과 끝을 알리는 표시 사건(spec 14 10절의 `weather.started.<event 키>`·`weather.ended.<event 키>`)의 `SimEventType` 번호는 아직 없다. 그 작업이 닿을 때 800번대에 더하는 계약 변경으로 정한다(인자: 사건 id, 변형 번호).
+  - 이름 표의 `event.*` 다섯 열쇠는 M6-TXT-02의 브랜치도 같은 값으로 더했다. 뒤에 들어오는 쪽이 main 위로 옮길 때 같은 줄이 두 번 생기면 한 줄만 남긴다(`PIPELINE.md` 3.8절의 공유 추가 전용 파일 처리).
+  - 확률과 길이를 바꾸는 것은 `data/sim/weather_events.json`만 고치면 된다(코어 버전 해시는 그대로이고 `data_version`이 가른다).
 
 ---
 

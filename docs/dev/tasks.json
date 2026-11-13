@@ -5918,13 +5918,18 @@
    "owner_model": "opus",
    "reviewer_model": "opus",
    "deps": [
-    "M3-DAT-02"
+    "M3-DAT-02",
+    "M2-SPL-01",
+    "M10-ACC-01",
+    "M8-DAT-01"
    ],
    "spec_refs": [
     "docs/spec/07-waves-drops.md §2",
     "docs/spec/07-waves-drops.md §9",
     "docs/monsters.md §4.5",
-    "docs/spec/14-content-ids-assets.md §3.9"
+    "docs/spec/14-content-ids-assets.md §3.9",
+    "docs/world-characters.md §2.3",
+    "docs/spec/01-sim-core.md §10.5"
    ],
    "contracts": [
     "docs/dev/CONTRACTS.md §2.2"
@@ -5941,7 +5946,16 @@
     "src/Wizard.Content/Pack/Sections/ContentDb.Starfall.cs",
     "tools/Wizard.DataBuild/Convert/StarfallConverter.cs",
     "src/Wizard.Content/Defs/StarfallDef.cs",
-    "tests/Wizard.Content.Tests/StarfallPackTests.cs"
+    "tests/Wizard.Content.Tests/StarfallPackTests.cs",
+    "data/sim/weather_events.json",
+    "data/schema/weather_events.schema.json",
+    "src/Wizard.Content/Pack/Sections/ContentDb.WeatherEvents.cs",
+    "tools/Wizard.DataBuild/Convert/WeatherEventsConverter.cs",
+    "src/Wizard.Content/Defs/WeatherEventDef.cs",
+    "tests/Wizard.Content.Tests/WeatherEventsPackTests.cs",
+    "docs/dev/DECISIONS-TECH.md",
+    "docs/dev/OPEN-QUESTIONS.md",
+    "docs/dev/tasks.json"
    ],
    "acceptance": [
     "변덕 8종과 사건 5종의 수치가 명세와 같다. 변덕 데이터에 금지 필드가 없다(DataBuild 검사)"

@@ -1,0 +1,29 @@
+{
+  "_note": "지팡이 겉모습 자료 wand.5(spec 04 12절, spec 14 5.4절, world-characters 3.3절). 단계별 점(head, mutations, expansion)은 그림 매니페스트 art/production/wands/manifest.json 의 현물을 옮겼고 시험이 대조한다. particles 는 spec 04 12.5절 표(대기/총구/흘림/적중/꼬리px). enhance 의 intensity 는 effects.md 4절의 강도(+1 도전은 2절의 예외라 0), scene 과 transition_frames 는 spec 04 18.3절. duel_decor 는 결투 상대 화면의 탄 장식 가장 단순한 형태(DECISIONS 2.7, effects.md 17절: 총구 섬광 그림 1장, 최소형 적중 입자 2, 꼬리·흘림·바닥 흔적 없음)이고 단계와 무관하게 같다. 겉모습(skin)은 기본 하나뿐이라 skins 는 비었다(spec 14 5.4절 [임시]). wand.5 의 +11~+13 꼬리 '—'(길이 미기재, Q-22)는 null 이고 읽는 쪽이 가장 가까운 아래 단계의 값을 물려 쓴다(Wm 4.2 '이후 교체 전까지 상속') [임시]. detached_orb 범위 +10~+13 은 Wm 의 뜬 조각 층 표(구슬 +10~+12, +13)에서 옮겼다. foot_stars 는 spec 04 12.7절(별 최대 7, 빚 고리 최대 2).",
+  "wand": "wand.5",
+  "element": "dark",
+  "growth_axis": "growth.release_darken",
+  "foot_fx_13": "footfx.round_night",
+  "slot_marker": "gold_band",
+  "sheet": { "grip": [16, 48], "hand_cell": [32, 64], "hand_rows": ["down_hold", "down_aim", "right_hold", "right_aim", "up_hold", "up_aim"], "inspection_cell": [192, 192], "inspection_columns": 7, "icon_cell": [64, 64] },
+  "decor": { "trail": "wand/trail_dark", "muzzle": "wand/muzzle_dark", "hit": "player/hit_dark", "foot": "wand/footprint_dark" },
+  "detached": [{ "variant": "detached_orb", "min_stage": 10, "max_stage": 13 }],
+  "foot_stars": { "stage": 13, "max_stars": 7, "max_debt_rings": 2 },
+  "stages": [
+    { "stage": 0, "head": [16, 37], "mutations": [[12, 40], [20, 40]], "expansion": [18, 49], "particles": { "idle": 0, "muzzle": 0, "shed": 0, "hit": 0, "trail_px": 0 }, "duel_decor": { "muzzle": "wand/muzzle_dark", "hit": "player/hit_dark" }, "enhance": { "intensity": null, "scene": null, "transition_frames": null } },
+    { "stage": 1, "head": [16, 36], "mutations": [[12, 39], [20, 39]], "expansion": [18, 49], "particles": { "idle": 1, "muzzle": 0, "shed": 0, "hit": 0, "trail_px": 0 }, "duel_decor": { "muzzle": "wand/muzzle_dark", "hit": "player/hit_dark" }, "enhance": { "intensity": 0, "scene": null, "transition_frames": 6 } },
+    { "stage": 2, "head": [16, 33], "mutations": [[12, 36], [20, 36]], "expansion": [18, 49], "particles": { "idle": 1, "muzzle": 0, "shed": 0, "hit": 0, "trail_px": 4 }, "duel_decor": { "muzzle": "wand/muzzle_dark", "hit": "player/hit_dark" }, "enhance": { "intensity": 1, "scene": null, "transition_frames": 6 } },
+    { "stage": 3, "head": [16, 35], "mutations": [[12, 38], [20, 38]], "expansion": [18, 49], "particles": { "idle": 2, "muzzle": 0, "shed": 0, "hit": 0, "trail_px": 4 }, "duel_decor": { "muzzle": "wand/muzzle_dark", "hit": "player/hit_dark" }, "enhance": { "intensity": 1, "scene": null, "transition_frames": 6 } },
+    { "stage": 4, "head": [16, 33], "mutations": [[12, 36], [20, 36]], "expansion": [18, 49], "particles": { "idle": 3, "muzzle": 0, "shed": 0, "hit": 1, "trail_px": 6 }, "duel_decor": { "muzzle": "wand/muzzle_dark", "hit": "player/hit_dark" }, "enhance": { "intensity": 2, "scene": "milestone", "transition_frames": 6 } },
+    { "stage": 5, "head": [16, 34], "mutations": [[12, 37], [20, 37]], "expansion": [18, 49], "particles": { "idle": 4, "muzzle": 0, "shed": 0, "hit": 1, "trail_px": 6 }, "duel_decor": { "muzzle": "wand/muzzle_dark", "hit": "player/hit_dark" }, "enhance": { "intensity": 2, "scene": null, "transition_frames": 6 } },
+    { "stage": 6, "head": [16, 34], "mutations": [[12, 37], [20, 37]], "expansion": [18, 49], "particles": { "idle": 5, "muzzle": 0, "shed": 0, "hit": 2, "trail_px": 8 }, "duel_decor": { "muzzle": "wand/muzzle_dark", "hit": "player/hit_dark" }, "enhance": { "intensity": 2, "scene": null, "transition_frames": 6 } },
+    { "stage": 7, "head": [16, 30], "mutations": [[12, 33], [20, 33]], "expansion": [18, 49], "particles": { "idle": 6, "muzzle": 0, "shed": 0, "hit": 2, "trail_px": 8 }, "duel_decor": { "muzzle": "wand/muzzle_dark", "hit": "player/hit_dark" }, "enhance": { "intensity": 3, "scene": "milestone", "transition_frames": 6 } },
+    { "stage": 8, "head": [16, 30], "mutations": [[12, 33], [20, 33]], "expansion": [18, 49], "particles": { "idle": 7, "muzzle": 0, "shed": 0, "hit": 3, "trail_px": 8 }, "duel_decor": { "muzzle": "wand/muzzle_dark", "hit": "player/hit_dark" }, "enhance": { "intensity": 3, "scene": null, "transition_frames": 6 } },
+    { "stage": 9, "head": [16, 28], "mutations": [[12, 31], [20, 31]], "expansion": [18, 49], "particles": { "idle": 8, "muzzle": 0, "shed": 0, "hit": 3, "trail_px": 8 }, "duel_decor": { "muzzle": "wand/muzzle_dark", "hit": "player/hit_dark" }, "enhance": { "intensity": 3, "scene": null, "transition_frames": 6 } },
+    { "stage": 10, "head": [16, 24], "mutations": [[12, 27], [20, 27]], "expansion": [18, 49], "particles": { "idle": 10, "muzzle": 0, "shed": 0, "hit": 3, "trail_px": 8 }, "duel_decor": { "muzzle": "wand/muzzle_dark", "hit": "player/hit_dark" }, "enhance": { "intensity": 4, "scene": "milestone", "transition_frames": 6 } },
+    { "stage": 11, "head": [16, 22], "mutations": [[12, 25], [20, 25]], "expansion": [18, 49], "particles": { "idle": 10, "muzzle": 0, "shed": 0, "hit": 4, "trail_px": null }, "duel_decor": { "muzzle": "wand/muzzle_dark", "hit": "player/hit_dark" }, "enhance": { "intensity": 4, "scene": null, "transition_frames": 6 } },
+    { "stage": 12, "head": [16, 22], "mutations": [[12, 25], [20, 25]], "expansion": [18, 49], "particles": { "idle": 12, "muzzle": 0, "shed": 0, "hit": 4, "trail_px": null }, "duel_decor": { "muzzle": "wand/muzzle_dark", "hit": "player/hit_dark" }, "enhance": { "intensity": 4, "scene": null, "transition_frames": 6 } },
+    { "stage": 13, "head": [16, 21], "mutations": [[12, 24], [20, 24]], "expansion": [18, 49], "particles": { "idle": 16, "muzzle": 0, "shed": 0, "hit": 6, "trail_px": null }, "duel_decor": { "muzzle": "wand/muzzle_dark", "hit": "player/hit_dark" }, "enhance": { "intensity": 5, "scene": "stage13", "transition_frames": 12 } }
+  ],
+  "skins": []
+}

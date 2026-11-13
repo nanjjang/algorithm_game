@@ -248,11 +248,8 @@ namespace Wizard.Sim.Tests.Arts.Parser
             }
         }
 
-        // 계약의 ContentDb 판은 비기·트라이 데이터 절이 생기기 전까지 ContentException(M5-DAT-01)
-        [Fact]
-        public void BuildFromContentDb_WithoutTriesSection_IsContentException()
-        {
-            Assert.Throws<ContentException>(() => CommandTrie.Build(CharacterId.Char1, Wizard.Sim.Tests.World.WorldData.RepoDb));
-        }
+        // 계약의 ContentDb 판(CommandTrie.Build(c, ContentDb))은 DataTrieTests 가 본다(M5-DAT-01, T-52 6항): 저장소 팩으로 만든 트라이가
+        // 명세 값 트라이와 노드마다 같고, arts·tries 절을 뺀 팩이면 ContentException 이다. 저장소 팩에 절이 없던 때의 시험
+        // (저장소 팩으로 부르면 ContentException)은 M5-DAT-01 이 절을 넣으면서 그쪽의 "절을 뺀 팩" 시험으로 옮겼다
     }
 }

@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wizard.invalid/data/schema/arts.schema.json",
+  "title": "비기 15종 (data/sim/arts.json → 팩 절 3 arts)",
+  "description": "spec 03 2.2·5.2·12·14·15·16, spec 14 3.4, CONTRACTS 2.2 ArtDef. 수는 원문 단위의 십진으로 적고 DataBuild 가 정수로 바꾼다(tools/Wizard.DataBuild/Convert/ArtsConverter.cs). id 겹침, 종류와 주인·부모 대체의 맞물림, 부모 대체가 경로의 부모 노드 기술인지, 선행 기술이 있는지는 변환기가 본다.",
+  "type": "object",
+  "required": ["arts"],
+  "additionalProperties": false,
+  "properties": {
+    "_note": { "$ref": "_common.schema.json#/$defs/note" },
+    "arts": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/art" }
+    }
+  },
+  "$defs": {
+    "art": {
+      "type": "object",
+      "required": ["id", "kind", "paths", "difficulty", "cost", "credit", "unlock", "effect"],
+      "additionalProperties": false,
+      "properties": {
+        "_note": { "$ref": "_common.schema.json#/$defs/note" },
+        "id": { "description": "비기 id(art.*, spec 14 3.4)", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^art\\." },
+        "kind": { "description": "종류 → ArtDef.Kind(common 공용 ①~⑧, secret 비장 ⑨⑩, unique 고유)", "enum": ["common", "secret", "unique"] },
+        "owner": { "description": "고유 비기의 주인(char.*) → Owner. 공용·비장에는 없다", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^char\\." },
+        "paths": {
+          "description": "트라이에 넣을 경로(spec 03 5.2, 좌우 대칭 모두) → Paths. F 앞, B 뒤, L 좌, R 우. 루트(마력 방출)는 빈 경로 하나",
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 16,
+          "items": {
+            "type": "array",
+            "maxItems": 8,
+            "items": { "enum": ["F", "B", "L", "R"] }
+          }
+        },
+        "just": { "description": "섬 슬롯에 붙는다(뇌광창) → IsJust. 없으면 거짓", "type": "boolean" },
+        "difficulty": { "description": "난이도 → Difficulty(1, 2, 3, 5)", "type": "integer", "minimum": 1 },
+        "cost": {
+          "description": "결정 비용 → CostKind·Cost. 정수면 Fixed, \"all\"이면 결정 전부(AllCrystals, 최소 min_cost)",
+          "oneOf": [
+            { "type": "integer", "minimum": 1 },
+            { "const": "all" }
+          ]
+        },
+        "min_cost": { "description": "cost 가 \"all\"일 때의 최소 결정 수 → MinCost(만개 3)", "type": "integer", "minimum": 1 },
+        "credit": { "description": "그믐의 외상을 쓸 수 있다 → CreditAllowed(만개만 거짓)", "type": "boolean" },
+        "fallback": { "description": "고유 비기의 부모 대체 기술(art.*) → FallbackParent. 경로의 부모 노드에 붙은 K 기술이어야 한다", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^art\\." },
+        "unlock": {
+          "description": "해금(spec 03 15절) → Unlock",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "at_start": { "description": "시작 해금 → AtStart", "type": "boolean" },
+            "prereq": { "description": "후보가 되려면 가져야 하는 기술(art.*) → Prereq", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^art\\." },
+            "min_wave": { "description": "이 번호의 차례부터 후보 → MinWave", "type": "integer", "minimum": 1 }
+          }
+        },
+        "effect": { "description": "효과 값(spec 03 12.2·14.1~14.5) → Effect", "$ref": "#/$defs/effect" },
+        "duel": { "description": "결투에서 effect 와 다른 칸(spec 03 16절, 14절의 결투 줄) → Duel(나머지 칸은 effect 값)", "$ref": "#/$defs/effect" }
+      }
+    },
+    "effect": {
+      "description": "효과 값. 기술마다 쓰는 칸만 적는다(없는 칸은 0)",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "damage": { "description": "비기 배율(T 의 배수) → DamagePermille(× 1000)", "$ref": "_common.schema.json#/$defs/ratio", "minimum": 0 },
+        "side_damage": { "description": "정면 밖 줄기의 배율 → SideDamagePermille(× 1000)", "$ref": "_common.schema.json#/$defs/ratio", "minimum": 0 },
+        "branches": { "description": "트리를 실행하는 줄기 수 → BranchCount", "type": "integer", "minimum": 1 },
+        "branch_angle_degrees": { "description": "이웃 줄기 사이의 각(도) → BranchAngleCenti(× 100)", "$ref": "_common.schema.json#/$defs/degrees", "minimum": 0 },
+        "knockback": { "description": "적을 미는 거리(칸) → Knockback Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "self_move": { "description": "시전자가 움직이는 거리(칸) → SelfMove Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "stagger_seconds": { "description": "경직(초) → StaggerTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "stun_seconds": { "description": "기절(초) → StunTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "boss_halt_seconds": { "description": "보스의 동작 멈춤(초) → BossHaltTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "invuln_seconds": { "description": "시전자 무적(초) → InvulnTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "width": { "description": "폭(칸) → Width Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "thickness": { "description": "두께(칸) → Thickness Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "range": { "description": "사거리(칸) → Range Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "radius": { "description": "반경(칸) → Radius Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "clear_radius": { "description": "적 탄 소거 반경(칸) → ClearRadius Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "offset": { "description": "시야 정면으로 떨어진 거리(칸) → Offset Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "shard_length": { "description": "파편 범위의 길이(칸) → ShardLength Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "pull_distance": { "description": "끌어당기는 최대 거리(칸) → PullDistance Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "duration_seconds": { "description": "지속(초) → DurationTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "interval_seconds": { "description": "간격(초) → IntervalTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "repeat_interval_seconds": { "description": "반복 간격(초) → RepeatIntervalPermilleTicks(틱 × 1000, × 60,000. 0.12초 = 7,200). 정확히 나누어떨어져야 한다", "$ref": "_common.schema.json#/$defs/seconds" },
+        "slow_percent": { "description": "감속(%) → SlowPermille(× 10)", "$ref": "_common.schema.json#/$defs/percent", "minimum": 0, "maximum": 100 },
+        "heat_absorb": { "description": "대신 먹는 열의 합(열) → HeatAbsorbHu(× 120)", "$ref": "_common.schema.json#/$defs/heat", "minimum": 0 },
+        "heat_per_t": { "description": "피해 T 하나에 드는 열(열) → HeatPerTHu(× 120)", "$ref": "_common.schema.json#/$defs/heat", "exclusiveMinimum": 0 },
+        "max_concurrent": { "description": "동시에 있을 수 있는 수 → MaxConcurrent", "type": "integer", "minimum": 1 },
+        "max_copies": { "description": "따라 쏘는 최대 횟수 → MaxCopies", "type": "integer", "minimum": 1 },
+        "prep_seconds": { "description": "판정 뒤 효과까지의 준비(초) → PrepTicks(가장 가까운 틱, spec 03 U-14)", "$ref": "_common.schema.json#/$defs/seconds" },
+        "wall_hp": { "description": "벽 체력(결투 체력 점수) → WallHp", "type": "integer", "minimum": 1 },
+        "telegraph_seconds": { "description": "상대에게 범위를 먼저 보여 주는 시간(초) → TelegraphTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "ignores_armor": { "description": "철갑 무시 → IgnoresArmor", "type": "boolean" }
+      }
+    }
+  }
+}

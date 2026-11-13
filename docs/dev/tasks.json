@@ -1841,7 +1841,8 @@
     "M1-TE-01",
     "M1-CORE-01",
     "M10-ACC-01",
-    "M2-NET-03"
+    "M2-NET-03",
+    "M8-DAT-01"
    ],
    "spec_refs": [
     "docs/dev/ARCHITECTURE.md §11",

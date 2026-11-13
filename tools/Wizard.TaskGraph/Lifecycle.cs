@@ -14,9 +14,8 @@ namespace Wizard.TaskGraph
     // 상태는 StateStore 에만 쓴다. tasks.json 은 읽기만 한다.
     public sealed class Lifecycle
     {
-        // main 의 커밋 제목: <type>(<작업 id>): … (PIPELINE 4.2절)
-        public static readonly Regex CommitSubject = new Regex(
-            "^(feat|fix|test|data|docs|build|refactor|perf|art|chore)\\(([^()\\s]+)\\): ", RegexOptions.CultureInvariant);
+        // main 의 커밋 제목: <type>(<작업 id>): … (PIPELINE 4.2절). validate 의 병합 판정(MergeHistory)과 한 곳의 코드다
+        public static readonly Regex CommitSubject = MergeHistory.CommitSubject;
 
         private readonly RepoLayout _layout;
         private readonly TaskDoc _doc;
@@ -222,17 +221,7 @@ namespace Wizard.TaskGraph
             {
                 throw new TaskGraphException($"'{mainRef}' 이 없다");
             }
-            string subjects = _git.RunChecked("log", "--format=%s", mainRef);
-            var ids = new HashSet<string>(StringComparer.Ordinal);
-            foreach (string line in subjects.Split('\n'))
-            {
-                Match m = CommitSubject.Match(line);
-                if (m.Success && _doc.ById.ContainsKey(m.Groups[2].Value))
-                {
-                    ids.Add(m.Groups[2].Value);
-                }
-            }
-            return ids;
+            return MergeHistory.MergedIds(_git.RunChecked("log", "--format=%s", mainRef), _doc.ById);
         }
     }
 }

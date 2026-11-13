@@ -13,6 +13,9 @@ namespace Wizard.TaskGraph
     //   2. deps 가 있는 작업을 가리키고 순환이 없다(위상정렬)
     //   3. 같은 parallel_group 안의 작업은 서로 의존이 없고(전이 포함) owned_paths 가 겹치지 않는다
     //   4. owned_paths 가 겹치는 두 작업은 deps 로(전이 포함) 순서가 정해져 있다
+    //      3·4의 경로 겹침(T-65 2·4번): owned_paths 의 항목 가운데 개정 장부(Ledger.Paths)와 글자가 같은 것은 세지 않는다
+    //      (docs/dev/ 같은 폴더 무늬는 센다). 겹침 규칙 둘은 둘 다 병합 전인 쌍에만 건다. 병합 여부는 인자로 받은
+    //      MergeHistory 가 정한다(이 함수는 git 을 부르지 않는다). "같은 묶음은 서로 의존이 없다"는 병합 여부와 무관하다.
     //   6. milestones 의 task_count, blocked_on_assets, parallel_groups 가 tasks 에서 계산한 값과 같다. gate 가 그 마일스톤의 작업이다
     //   8. acceptance 가 벡터의 부분집합을 말로 가리키지 않는다
     //   7. vectors 선택자의 문법, 명세의 모든 테스트 벡터가 정확히 한 작업에 배정된다(미배정·이중 배정 0)
@@ -24,8 +27,10 @@ namespace Wizard.TaskGraph
         private static readonly Regex Selector = new Regex("^S([0-9][0-9])(?:§([0-9]+\\.[0-9]+)|:([A-Za-z0-9-]+)(?:\\.\\.([A-Za-z0-9-]+))?)$", RegexOptions.CultureInvariant);
 
         // specsDir 가 null 이면 벡터 배정을 보지 않는다(--no-vectors). schemaPath 가 null 이면 스키마를 보지 않는다.
-        public static ValidationReport Validate(TaskDoc doc, string? schemaPath, string? specsDir)
+        // history 가 null 이면 기록을 보지 않은 것으로 본다(전부 병합 전, 엄격).
+        public static ValidationReport Validate(TaskDoc doc, string? schemaPath, string? specsDir, MergeHistory? history = null)
         {
+            history ??= MergeHistory.NotRead();
             var errors = new List<string>();
             var summary = new List<string>();
 
@@ -140,6 +145,8 @@ namespace Wizard.TaskGraph
 
             // ---------- 3·4. 경로 겹침 ----------
             int overlapPairs = 0;
+            int unmergedPairs = 0;
+            var owned = tasks.Select(t => t.OwnedPaths.Where(p => !Ledger.IsLedger(p)).ToList()).ToList();
             for (int i = 0; i < tasks.Count; i++)
             {
                 for (int j = i + 1; j < tasks.Count; j++)
@@ -147,9 +154,9 @@ namespace Wizard.TaskGraph
                     TaskDef a = tasks[i];
                     TaskDef b = tasks[j];
                     (string, string)? hit = null;
-                    foreach (string pa in a.OwnedPaths)
+                    foreach (string pa in owned[i])
                     {
-                        foreach (string pb in b.OwnedPaths)
+                        foreach (string pb in owned[j])
                         {
                             if (PathPattern.Overlap(pa, pb))
                             {
@@ -172,6 +179,11 @@ namespace Wizard.TaskGraph
                         continue;
                     }
                     overlapPairs++;
+                    if (history.IsMerged(a.Id) || history.IsMerged(b.Id))
+                    {
+                        continue; // 순서는 main 의 기록이 정했다
+                    }
+                    unmergedPairs++;
                     if (sameGroup)
                     {
                         errors.Add($"묶음 {a.ParallelGroup}: {a.Id}와 {b.Id}의 owned_paths가 겹친다 — {hit.Value.Item1} ↔ {hit.Value.Item2}");
@@ -277,7 +289,8 @@ namespace Wizard.TaskGraph
 
             var groups = new HashSet<string>(tasks.Select(t => t.ParallelGroup), StringComparer.Ordinal);
             summary.Add($"작업 {tasks.Count}개, 묶음 {groups.Count}개, 마일스톤 {ms.Count}개");
-            summary.Add($"위상정렬: {(graph.Acyclic ? "됨" : "순환 있음")} / 경로가 겹치는 작업 쌍 {overlapPairs}개(전부 deps로 순서가 있어야 한다)");
+            summary.Add($"위상정렬: {(graph.Acyclic ? "됨" : "순환 있음")} / 경로가 겹치는 작업 쌍 {overlapPairs}개(장부 제외), 그 가운데 둘 다 병합 전인 쌍 {unmergedPairs}개(deps로 순서가 있어야 한다)");
+            summary.Add(history.Summary);
             summary.Add($"벡터: {vectorSummary}");
             return new ValidationReport(errors, summary);
         }

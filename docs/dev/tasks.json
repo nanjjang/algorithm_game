@@ -6303,12 +6303,18 @@
    "reviewer_model": "opus",
    "deps": [
     "M4-UL-01",
-    "M1-CONT-01"
+    "M1-CONT-01",
+    "M2-SPL-01",
+    "M10-ACC-01",
+    "M2-NET-03",
+    "M8-DAT-01"
    ],
    "spec_refs": [
     "docs/spec/14-content-ids-assets.md §4.4",
     "docs/spec/14-content-ids-assets.md §5",
-    "docs/spec/14-content-ids-assets.md §7.8"
+    "docs/spec/14-content-ids-assets.md §7.8",
+    "docs/spec/14-content-ids-assets.md §5.7",
+    "docs/dev/DECISIONS-TECH.md"
    ],
    "contracts": [
     "docs/dev/CONTRACTS.md §13"
@@ -6316,17 +6322,24 @@
    "owned_paths": [
     "src/Wizard.ViewLogic/Assets/",
     "tests/Wizard.ViewLogic.Tests/Assets/",
-    "data/presentation/asset_aliases.json"
+    "data/presentation/asset_aliases.json",
+    "data/schema/asset_aliases.schema.json",
+    "src/Wizard.ViewLogic/Presentation/IAssetCatalog.cs",
+    "docs/dev/DECISIONS-TECH.md",
+    "docs/dev/tasks.json"
    ],
    "acceptance": [
     "art/production/의 매니페스트 다섯 개를 읽어 AssetKey(Pack, Id, Variant, State) → 기록(파일, 사각형, 기준점, 9조각, 프레임 시간)으로 모은다",
     "파일 이름을 해석하지 않는다(UI 변형 열쇠 추출 한 번만 예외, spec 14 5.2절). 별칭(frost → ice, 폴더 열쇠 → char 번호, 블록 → 탄 그림 열쇠)은 asset_aliases.json에 있다",
     "지금 저장소의 매니페스트 다섯 개가 오류 없이 읽힌다",
     "없는 열쇠는 Placeholder 기록을 돌려주고 한 번 기록한다",
+    "같은 (Id, 변형, 상태)를 크기마다 따로 그린 화면 그림은 한 열쇠에 크기별 기록으로 든다. 크기를 주면 그 크기의 기록, 주지 않으면 가장 작은 기록을 준다(매니페스트의 줄 순서에 기대지 않는다). AssetKey에는 크기 칸을 두지 않고 IAssetCatalog에 크기를 받는 조회 둘이 있다(DECISIONS-TECH T-58)",
+    "asset_aliases.json의 스키마(data/schema/asset_aliases.schema.json)가 있고 databuild check를 통과한다",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [
-    "S14§7.8"
+    "S14:TV-180..TV-195",
+    "S14:TV-197..TV-235"
    ],
    "parallel_group": "M9-W01",
    "status": "todo"
@@ -6350,7 +6363,10 @@
     "docs/spec/05-enemies.md §11.18",
     "docs/DECISIONS.md §2.1",
     "docs/DECISIONS.md §2.2",
-    "docs/dev/PIPELINE.md §6"
+    "docs/dev/PIPELINE.md §6",
+    "docs/spec/14-content-ids-assets.md §4.6",
+    "docs/spec/14-content-ids-assets.md §9",
+    "docs/dev/DECISIONS-TECH.md"
    ],
    "contracts": [
     "docs/dev/CONTRACTS.md §13"
@@ -6359,18 +6375,24 @@
     "tools/Wizard.AssetCheck/",
     "tests/Wizard.AssetCheck.Tests/",
     "tools/ci/art-check.sh",
-    "art/production/approved.json"
+    "art/production/approved.json",
+    "data/presentation/asset_slots.json",
+    "data/schema/asset_slots.schema.json"
    ],
    "acceptance": [
     "spec 14 5.7.1절의 검사 다섯 가지를 한다(파일 존재와 PNG 크기, 필터·밉맵·압축 표기, 플레이어 쪽 위험색 0픽셀, 큰 배경의 아틀라스 제외, 콘텐츠 id별 필요한 그림 대조)",
     "`assetcheck report`가 슬롯마다 없음/반입됨/검수됨/실패를 artifacts/asset-report.json으로 낸다. 승인은 approved.json의 (id, 파일 SHA-256)이고 파일이 바뀌면 승인이 풀린다",
     "`assetcheck scaffold <png>`가 파일 이름 규칙에서 매니페스트 항목 초안을 만들어 보여 준다(자동으로 쓰지 않는다)",
     "char.5(그믐) 그림의 고유 색이 16 이하이고 art/player/dark_wizard 원본 팔레트의 부분집합이다. char.5 지팡이 +0의 머리 색이 보라 계열이다(DECISIONS 2.2). 지금 저장소의 원본으로 검사가 돈다",
+    "어느 매니페스트에도 없고 콘텐츠 id 규칙으로도 나오지 않는 그림 자리는 data/presentation/asset_slots.json에 둔다(DECISIONS-TECH T-58). 반응 부품 9줄(spec 14 4.6절 표: 캐릭터, 부품 열쇠, 크기, 장수)이 T-58의 열쇠 `char.N` + `reactive/<부품 열쇠>`로 들어 있고 장수의 합이 71이다(TV-196). 대조 보고서는 이 자리들을 없음으로 낸다",
+    "치장 그림도 플레이어 쪽 그림이다: 위험색 픽셀이 하나라도 있는 치장 그림은 반입 검사에서 실패한다(TV-238)",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [
     "S14§7.6",
-    "S05§11.18"
+    "S05§11.18",
+    "S14:TV-196",
+    "S14:TV-238"
    ],
    "parallel_group": "M9-W02",
    "status": "todo"
@@ -6407,7 +6429,8 @@
     "`tools/ci/art-sync.sh`가 검사를 통과한 파일만 unity/Assets/Art/<묶음>/로 옮기고 MetaGen으로 .meta를 만든다",
     "가져오기 후처리기가 점 필터, 밉맵 없음, 압축 없음, 1칸 = 64px를 강제하고 매니페스트의 사각형·기준점·9조각으로 스프라이트를 자른다",
     "`Wizard.Unity.Editor.ArtImport.Run`(배치 모드)이 카탈로그 에셋을 다시 만든다. 사람이 손으로 고치지 않는다",
-    "IAssetCatalog가 없는 그림에 회청 바둑판 + id 글자를 돌려준다. 대체 그림에 위험색·금색·연두·청록이 없다"
+    "IAssetCatalog가 없는 그림에 회청 바둑판 + id 글자를 돌려준다. 대체 그림에 위험색·금색·연두·청록이 없다",
+    "IAssetCatalog의 크기를 받는 조회 둘(TryGetSprite·TryGetClip의 PixelSize 꼴)을 구현한다. 크기 없는 조회는 그 열쇠의 가장 작은 그림, 크기를 준 조회는 그 크기가 없으면 false다(DECISIONS-TECH T-58). 고르는 규칙은 AssetRegistry의 것을 그대로 쓴다"
    ],
    "vectors": [],
    "parallel_group": "M9-W03",
@@ -6601,7 +6624,8 @@
     "docs/spec/14-content-ids-assets.md §7.5",
     "docs/spec/04-characters-wands.md §13",
     "docs/spec/04-characters-wands.md §15.11",
-    "docs/DECISIONS.md §2.7"
+    "docs/DECISIONS.md §2.7",
+    "docs/spec/14-content-ids-assets.md §7.8"
    ],
    "contracts": [
     "docs/dev/CONTRACTS.md §4.3",
@@ -6629,13 +6653,15 @@
    "acceptance": [
     "한정판 겉모습은 색과 장식만 바꾼다는 표시가 데이터에 있고 단계 실루엣을 가리는 꾸미기는 검사에서 거절된다",
     "후계자 칭호와 전용 겉모습은 계정 귀속 표시가 있다",
+    "출처가 PaidShop뿐인 꾸미기 칸은 옷장 모델에 나오지 않는다. 빈 칸도 자물쇠도 없다(spec 14 3.14절, TV-237)",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [
     "S14§7.5",
     "S04§15.11",
     "S13:TV-197",
-    "S13:TV-199"
+    "S13:TV-199",
+    "S14:TV-237"
    ],
    "parallel_group": "M9-W05",
    "status": "todo"
@@ -10478,7 +10504,9 @@
    "spec_refs": [
     "docs/spec/08-enhance-economy-profile.md §11",
     "docs/spec/12-server-infra.md §10.2",
-    "docs/spec/13-ui-flows.md §15.6"
+    "docs/spec/13-ui-flows.md §15.6",
+    "docs/spec/14-content-ids-assets.md §3.11",
+    "docs/spec/14-content-ids-assets.md §7.8"
    ],
    "contracts": [
     "docs/dev/CONTRACTS.md §6.1",
@@ -10492,9 +10520,13 @@
    ],
    "acceptance": [
     "유료 상품이 0개면 별빛 탭과 잔액을 그리지 않는다. 출시 빌드에는 IPurchaseFlow 구현이 등록되지 않는다",
-    "OfflineBackend에 결제 코드가 없다(의존 검사)"
+    "OfflineBackend에 결제 코드가 없다(의존 검사)",
+    "유료 상품이 0개인 구성에서 화면 목록의 모든 화면 모델을 돌며 별빛 잔액, 유료 탭, 구매 버튼이 어디에도 없음을 확인하는 테스트가 있다(spec 14 TV-236. 상점 한 화면의 같은 조건은 M6-UL-03의 spec 13 TV-198)",
+    "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
-   "vectors": [],
+   "vectors": [
+    "S14:TV-236"
+   ],
    "parallel_group": "M17-W02",
    "status": "todo"
   },

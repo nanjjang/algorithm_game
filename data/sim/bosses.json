@@ -1,0 +1,933 @@
+{
+  "_note": "spec 06 1절(BossDef·PhaseDef·PatternDef), 2절(공통 규칙), 3~8절(보스 6종의 기본·패턴·단계·세부 규칙·검산값), 12절(첫 만남의 코어 시각), spec 14 3.8(id·코드 301~306·순번·속성·약점·저항). 정본 id 는 CONTRACTS 2.1 의 대응표대로다(boss.boar_kiln → boss.kiln_boar, boss.master_phantom → boss.mirror_phantom, boss.star_serpent → boss.night_serpent). 패턴 열쇠(key)는 spec 06 1.5 의 <보스>.<패턴> 에서 뒤쪽이고 팩에는 BossPatternDef.PatternKey 번호로 들어간다. steps 는 차례로 돈다: 다음 단계는 앞 단계의 판정 틱에 시작한다(start_delay_seconds 만큼 늦춘다). repeat 는 그 단계를 몇 번 하는가(0 = 상시 행동이 이어서 계속), repeat_interval_seconds 는 반복의 시작 사이(0 = 앞 반복이 끝난 틱에), telegraph_each_repeat 는 반복마다 예고를 다시 보이는가(아니면 첫 반복 앞에 한 번). count 는 한 번에 까는 구역·띠·졸개의 수다(탄 수는 proj.count). 피해 성장(웨이브 31부터 예고 공격 +1)과 한 번 피해 상한 3칸은 waves.json 의 damage 가 정한다(spec 06 2.7). 처치 보상(골드·점수·재료)은 scoring.json 과 드랍 표의 몫이다(spec 06 2.15). 12절 격노 연출의 크기·색·입자 수는 표시 계층의 값이라 이 절(코어 버전 해시 안)에 두지 않는다. 명세가 정하지 않아 넣은 값은 [임시]로 _note 에 적었다(OPEN-QUESTIONS 에 올린다)",
+  "common": {
+    "_note": "spec 06 2.8(상태 기계: 등장 72틱, 단계 전환 36틱, R5 막힘 3틱마다 다시, 120틱 넘으면 다른 패턴 [임시: U8]), 2.11(대기 1.5초, 고를 것이 없으면 30틱 더 [임시]), 2.12(격노 20초마다 1스택 최대 5, 스택당 대기·연사 간격 −10% 가산식 (10 − n)/10 내림 [임시: U2], 최종 격노 180초 모든 공격 +1칸), 2.3(⑨ 뇌광창의 기절 → 0.3초 동작 멈춤), 2.4(같은 적의 접촉 피해는 1.5초에 1회). 격노·최종 격노 시계는 등장이 끝난 틱부터 센다(2.9, U5). 격노는 예고 시간을 줄이지 않는다(2.12)",
+    "intro_seconds": 1.2,
+    "phase_transition_seconds": 0.6,
+    "wait_seconds": 1.5,
+    "no_candidate_wait_seconds": 0.5,
+    "r5_retry_seconds": 0.05,
+    "r5_repick_seconds": 2.0,
+    "rage_stack_seconds": 20,
+    "rage_max_stacks": 5,
+    "rage_step_ratio": 0.1,
+    "final_rage_seconds": 180,
+    "final_rage_damage_plus": 1,
+    "action_halt_seconds": 0.3,
+    "contact_cooldown_seconds": 1.5
+  },
+  "bosses": [
+    {
+      "id": "boss.kiln_boar",
+      "_note": "spec 06 3절(M 3.3). 웨이브 10(첫 만남 뒤), 70, 130 …. 기본 체력 3000, 속도 2.2(R2: < 3.76), 접촉 피해 2(접촉은 웨이브 성장을 받지 않는다, C3). 몸 판정 반지름 1.0 [임시: 캔버스 192×128 의 짧은 변 ÷ 2 ÷ 64, spec 05 U-04 의 규칙을 따름]. 패턴: triple_charge(삼연 돌진), stomp(발구르기), rockfall(낙석, 2단계). 2단계 돌진 4회(step 1 의 repeat 3, 기절은 마지막 돌진 U26), 2회차 발구르기 고리 두 겹(두 번째는 0.5초 뒤, 15도 어긋남)",
+      "rotation_index": 0,
+      "base_hp": 3000,
+      "hp_scale_anchor_wave": 10,
+      "move_speed": 2.2,
+      "move_speed_on_frost": null,
+      "contact_damage": 2,
+      "body_radius": 1.0,
+      "element": "element.fire",
+      "weak": "element.ice",
+      "resist": "element.fire",
+      "phases": [
+        { "index": 1, "enter_at_hp_percent": 100, "patterns": ["triple_charge", "stomp"], "passives": [], "tags": ["tag.boss"] },
+        {
+          "index": 2,
+          "enter_at_hp_percent": 60,
+          "patterns": ["triple_charge", "stomp", "rockfall"],
+          "passives": [],
+          "tags": ["tag.boss"],
+          "overrides": [{ "pattern": "triple_charge", "step": 1, "key": "repeat", "value": 3 }]
+        }
+      ],
+      "patterns": [
+        {
+          "key": "triple_charge",
+          "_note": "spec 06 3.2·3.4, T110~T117. 첫 돌진 예고 1.0초, 2·3번째 0.7초. 매번 예고 시작 틱의 플레이어 피격 원 중심 쪽으로 방향 고정. 벽까지 16칸/초. 다음 돌진 예고는 앞 돌진이 벽에 닿은 틱에(U27). 마지막 돌진만 벽에 박혀 2.5초 기절, 기절 중 받는 피해 ×1.5(recovery). 마지막이 아닌 돌진은 벽에 닿으면 멈춘다. 지나간 길에 불씨 띠(폭 1.0 → 반폭 0.5, 3초, 접촉 규칙 피해 1, 상한 없음 = max_count 0). 새 돌진 예고가 시작되면 예고 띠 중심선에서 2.0/2 + 1.5 = 2.5칸 안에 걸친 불씨 조각이 꺼진다(clear_hazard_margin 1.5, U30: 1칸 조각 단위). 설치 벽은 경직 없이 부수고 계속 달린다(2.3)",
+          "passive": false,
+          "graze": ["charge"],
+          "recovery_seconds": 2.5,
+          "recovery_damage_ratio": 1.5,
+          "steps": [
+            {
+              "attack": {
+                "key": "charge_first",
+                "kind": "dash",
+                "shape": "band",
+                "width": 2.0,
+                "length": null,
+                "telegraph_seconds": 1.0,
+                "lock": "at_start",
+                "anchor": "self",
+                "active_ticks": 0,
+                "dash_speed": 16,
+                "damage": 2,
+                "damage_source": "telegraph",
+                "grazeable": true,
+                "is_dash": true,
+                "cooldown_seconds": 0,
+                "leaves_hazard": { "kind": "ember_strip", "radius": 0.5, "duration_seconds": 3, "max_count": 0, "contact_cooldown_seconds": 1.5 }
+              },
+              "clear_hazard_margin": 1.5
+            },
+            {
+              "attack": {
+                "key": "charge_next",
+                "kind": "dash",
+                "shape": "band",
+                "width": 2.0,
+                "length": null,
+                "telegraph_seconds": 0.7,
+                "lock": "at_start",
+                "anchor": "self",
+                "active_ticks": 0,
+                "dash_speed": 16,
+                "damage": 2,
+                "damage_source": "telegraph",
+                "grazeable": true,
+                "is_dash": true,
+                "cooldown_seconds": 0,
+                "leaves_hazard": { "kind": "ember_strip", "radius": 0.5, "duration_seconds": 3, "max_count": 0, "contact_cooldown_seconds": 1.5 }
+              },
+              "repeat": 2,
+              "telegraph_each_repeat": true,
+              "clear_hazard_margin": 1.5
+            }
+          ]
+        },
+        {
+          "key": "stomp",
+          "_note": "spec 06 3.2, T118·T119·T126. 앞발을 드는 동작 0.9초 + 자기 둘레 반경 2 예고 원(0.8초는 R1 을 못 넘어 0.9초로 늘렸다, M 8.1). 반경 2 충격(피해 2) + 12방향 고리 탄(속도 5, 30도 = 3칸 지점 1.57칸). 빈틈 0.8초. 고리 탄은 보스 고리라 대(0.18, M 9.4). 2회차의 두 번째 고리는 연사형(2.12: 0.5초, R3 하한 속도 5에서 12틱)",
+          "passive": false,
+          "graze": ["bullet"],
+          "recovery_seconds": 0.8,
+          "recovery_damage_ratio": 1.0,
+          "steps": [
+            {
+              "attack": {
+                "key": "shock",
+                "kind": "zone",
+                "shape": "circle",
+                "radius": 2.0,
+                "telegraph_seconds": 0.9,
+                "lock": "at_start",
+                "anchor": "self",
+                "damage": 2,
+                "damage_source": "telegraph",
+                "cooldown_seconds": 0
+              }
+            },
+            {
+              "attack": {
+                "key": "ring",
+                "kind": "ring_shot",
+                "anchor": "self",
+                "damage": 1,
+                "damage_source": "projectile",
+                "proj": { "speed": 5, "count": 12, "spread_degrees": 30, "range": null, "hit_radius": 0.18 },
+                "grazeable": true,
+                "cooldown_seconds": 0
+              },
+              "rapid_fire": true,
+              "min_interval_ticks": 12
+            }
+          ]
+        },
+        {
+          "key": "rockfall",
+          "_note": "spec 06 3.2·3.4, T120~T124. 반경 1.5 원 6개(1개는 플레이어 위치, 5개 무작위), 예고 1.0초, 피해 1. 무작위 5개는 플레이어 원과 중심 거리 ≥ 3.0, 서로 ≥ 4.0, 벽에서 중심까지 ≥ 1.5, 원 하나당 32회 시도 뒤 생략(U28). 포물선이라 설치 벽을 넘는다. 바위는 4초 동안 장애물(반지름 0.5 [임시: U29])로 남아 양쪽 탄을 막고 R5 는 벽으로 본다. 플레이어 탄으로는 깨지지 않는다(hp 0). 2단계 돌진이 바위를 지나가면 깨져 파편 6발(속도 6, 60도 간격, 3칸 지점 3.14칸, 피해 1 [임시], 파편은 대 0.18, M 9.4)",
+          "passive": false,
+          "graze": ["zone"],
+          "recovery_seconds": 0,
+          "recovery_damage_ratio": 1.0,
+          "steps": [
+            {
+              "attack": {
+                "key": "rock",
+                "kind": "lob",
+                "shape": "circle",
+                "radius": 1.5,
+                "telegraph_seconds": 1.0,
+                "lock": "at_start",
+                "anchor": "player_pos_at_start",
+                "damage": 1,
+                "damage_source": "telegraph",
+                "grazeable": true,
+                "lob": true,
+                "cooldown_seconds": 0
+              },
+              "count": 6,
+              "placement": { "at_player": 1, "min_player_distance": 3.0, "max_player_distance": null, "min_spacing": 4.0, "wall_margin": 1.5, "max_tries": 32 },
+              "obstacle": {
+                "kind": "boulder",
+                "radius": 0.5,
+                "duration_seconds": 4,
+                "hp": 0,
+                "max_count": 0,
+                "blocks_player_shots": true,
+                "blocks_enemy_shots": true,
+                "shards": { "speed": 6, "count": 6, "spread_degrees": 60, "range": null, "hit_radius": 0.18 }
+              }
+            }
+          ]
+        }
+      ],
+      "second_cycle": [
+        { "pattern": "stomp", "step": 1, "key": "repeat", "value": 2 },
+        { "pattern": "stomp", "step": 1, "key": "repeat_interval_seconds", "value": 0.5 },
+        { "pattern": "stomp", "step": 1, "key": "repeat_angle_degrees", "value": 15 }
+      ]
+    },
+    {
+      "id": "boss.mirror_phantom",
+      "_note": "spec 06 4절(M 3.4, GDD 규칙 [확정]), 9절(첫 만남). 웨이브 20, 80, 140 … + 프로필의 첫 웨이브 10(첫 만남). 기본 체력 4000, 속도 2.5, 넉백 면역(보스). 접촉 피해 1 [임시: U13]. 몸 판정 반지름 0.5 [임시: 캔버스 64×96 의 짧은 변 ÷ 2 ÷ 64]. 체력 기준 웨이브 10(대안 20, C2·Q6). 패턴: copy_fire(복사 사격, 상시 — Waiting 에서만, 패턴 중엔 쉼, C6·U16), summon_slimes(이끼 슬라임 6마리, fightTicks 가 1800의 배수가 될 때마다, 상시, 첫 만남엔 없음), mimic_art(2단계부터: ③ 부채 전개·④ 양익 사격·⑧ 팔방 전개 중 해금한 것, 없으면 ① 마력 방출. 같은 기술 연속 금지는 기술 단위, 하나뿐이면 반복 허용), bloom_mimic(3단계: 예고 1.2초 발밑 8방향 선 → 팔방 전개 3회 0.5초 간격 → 빈틈 2.0초, 어긋남 0 U20). 이동: 플레이어와 거리 5칸 유지, 벽에서 1.5칸 안쪽(U14). 2회차 강화는 변이 복사(phantom_copy.copy_mutations_from_cycle 2, 모든 복사에 걸린다)라 second_cycle 은 비어 있다",
+      "rotation_index": 1,
+      "base_hp": 4000,
+      "hp_scale_anchor_wave": 10,
+      "move_speed": 2.5,
+      "move_speed_on_frost": null,
+      "contact_damage": 1,
+      "body_radius": 0.5,
+      "element": "element.arcane",
+      "weak": "element.dark",
+      "resist": "element.arcane",
+      "movement": { "keep_distance": 5, "wall_margin": 1.5 },
+      "phantom_copy": {
+        "_note": "spec 06 4.2·4.4 TransformForPhantom. 발사 간격은 플레이어의 2.5배(올림 U19), 격노로 −10%/스택, 하한 10틱(copy_fire 의 min_interval_ticks). 발사 1회 최대 12개, 속도 6, 피해 1, 유도 없음, 벽 튕김 1회까지. 폭발은 반경 = 플레이어의 60%, 최대 1.5칸, 멈춘 자리에 0.8초 예고 원 뒤 피해 1 [임시: U18]. 연쇄 번개 → 조준 예고선 0.6초 뒤 직선 번개(폭 0.5, 길이 7 [임시: U17]). 분열은 3칸 지점 탄 사이 1.0칸이 되게 갈래 사이를 최소 1/3 rad = 19.099도 → 19.1도(센티도 올림 1910)로 벌린다. 변이는 2회차(웨이브 80 이상)부터 복사한다",
+        "interval_ratio": 2.5,
+        "max_projectiles": 12,
+        "speed": 6,
+        "damage": 1,
+        "bounce_cap": 1,
+        "explosion_radius_ratio": 0.6,
+        "explosion_radius_max": 1.5,
+        "explosion_telegraph_seconds": 0.8,
+        "explosion_damage": 1,
+        "chain_line_telegraph_seconds": 0.6,
+        "chain_line_width": 0.5,
+        "chain_line_length": 7,
+        "split_min_angle_degrees": 19.1,
+        "copy_mutations_from_cycle": 2
+      },
+      "first_encounter": {
+        "_note": "spec 06 9.2·9.5·9.6, 12절(E 15.1), T223~T232. 체력 바 50% 바닥, 싸움은 최대 45초(등장이 끝난 틱부터, C11), 처음부터 3단계 행동 전부 + 격노 5스택(최종 격노 없음), 졸개 없음. 마무리 되비침 3.0초(입력 무시, 체력 0 은 +114틱 C12), 쓰러짐 4.0초 뒤 일어남",
+        "hp_floor_percent": 50,
+        "max_fight_seconds": 45,
+        "rage_stacks": 5,
+        "start_phase": 3,
+        "finisher_seconds": 3.0,
+        "finisher_hp_zero_ticks": 114,
+        "collapse_seconds": 4.0
+      },
+      "phases": [
+        { "index": 1, "enter_at_hp_percent": 100, "patterns": [], "passives": ["copy_fire", "summon_slimes"], "tags": ["tag.boss"] },
+        { "index": 2, "enter_at_hp_percent": 60, "patterns": ["mimic_art"], "passives": ["copy_fire", "summon_slimes"], "tags": ["tag.boss"] },
+        { "index": 3, "enter_at_hp_percent": 25, "patterns": ["mimic_art", "bloom_mimic"], "passives": ["copy_fire", "summon_slimes"], "tags": ["tag.boss"] }
+      ],
+      "patterns": [
+        {
+          "key": "copy_fire",
+          "_note": "spec 06 4.2·4.3·4.4, T130~T145. 상시 행동. 플레이어 지팡이의 컴파일 결과를 같은 Execute 로 진영만 바꿔 쏜다(phantom_copy 의 변환). 조준은 자유 각도, 플레이어 중심(U15). 연사형(2.12): 간격 = 플레이어 간격 × 2.5, 하한 10틱(속도 6에서 같은 방향 탄 사이 1.0칸)",
+          "passive": true,
+          "graze": ["bullet"],
+          "recovery_seconds": 0,
+          "recovery_damage_ratio": 1.0,
+          "steps": [
+            {
+              "copy": { "arts": [], "fallback": null, "warn_seconds": 0 },
+              "repeat": 0,
+              "rapid_fire": true,
+              "min_interval_ticks": 10
+            }
+          ]
+        },
+        {
+          "key": "summon_slimes",
+          "_note": "spec 06 4.2·4.3, T146. 30초(1800틱)마다 이끼 슬라임 6마리(졸개: 꼬리표·상성·점수·골드·드랍 없음, 체력 × H(w) [임시: U10]). 전장 상한은 원문에 없다(field_cap 0 = 없음)",
+          "passive": true,
+          "graze": [],
+          "recovery_seconds": 0,
+          "recovery_damage_ratio": 1.0,
+          "steps": [
+            {
+              "summon": { "enemy": "enemy.slime_moss", "count": 6, "field_cap": 0, "warn_seconds": 0 },
+              "repeat": 0,
+              "repeat_interval_seconds": 30
+            }
+          ]
+        },
+        {
+          "key": "mimic_art",
+          "_note": "spec 06 4.3·4.4, T097~T099·T147. 쓰기 0.8초 전에 머리 위 커맨드 화살표. ③ 세 갈래, ④ 좌우 한 번씩, ⑧ 8방향, ① 트리 1회. 방향 = 쓰기 시작 틱의 플레이어 방향 [임시]. 보스 탄 피해는 모두 1(비기 배율 무시) [임시]. 빈틈 0 [임시: U21]",
+          "passive": false,
+          "graze": ["bullet"],
+          "recovery_seconds": 0,
+          "recovery_damage_ratio": 1.0,
+          "steps": [
+            { "copy": { "arts": ["art.fan", "art.wings", "art.octastar"], "fallback": "art.burst", "warn_seconds": 0.8 } }
+          ]
+        },
+        {
+          "key": "bloom_mimic",
+          "_note": "spec 06 4.3·4.4, T148. 예고 1.2초(발밑 8방향 선) → 팔방 전개 0, 30, 60틱 → 빈틈 2.0초. 8방향 45도 = 3칸 지점 2.36칸",
+          "passive": false,
+          "graze": ["bullet"],
+          "recovery_seconds": 2.0,
+          "recovery_damage_ratio": 1.0,
+          "steps": [
+            {
+              "copy": { "arts": ["art.octastar"], "fallback": null, "warn_seconds": 1.2 },
+              "repeat": 3,
+              "repeat_interval_seconds": 0.5
+            }
+          ]
+        }
+      ],
+      "second_cycle": []
+    },
+    {
+      "id": "boss.spore_queen",
+      "_note": "spec 06 5절(M 3.5). 웨이브 30, 90, 150 …. 기본 체력 4500, 속도 1.0(1단계는 중앙 반경 1칸 안에서만 [임시: U60] = anchor_radius), 접촉 피해 1, 속성 없음. 몸 판정 반지름 1.0 [임시: 캔버스 128×160 의 짧은 변 ÷ 2 ÷ 64]. 1단계 꼬리표 보스 + 뿌리, 2단계 보스(뿌리 뽑음). 2단계 고리 4겹(step 0 의 repeat 4)과 도약. 2회차 포자 구름이 0.8칸/초로 플레이어 쪽으로 흐른다(R5 는 검사 때의 현재 위치로 본다)",
+      "rotation_index": 2,
+      "base_hp": 4500,
+      "hp_scale_anchor_wave": 10,
+      "move_speed": 1.0,
+      "move_speed_on_frost": null,
+      "contact_damage": 1,
+      "body_radius": 1.0,
+      "element": "element.neutral",
+      "weak": "element.fire",
+      "resist": "element.lightning",
+      "phases": [
+        { "index": 1, "enter_at_hp_percent": 100, "patterns": ["spore_ring", "spore_cloud", "summon_sprouts"], "passives": [], "tags": ["tag.boss", "tag.rooted"], "anchor_radius": 1 },
+        {
+          "index": 2,
+          "enter_at_hp_percent": 50,
+          "patterns": ["spore_ring", "spore_cloud", "summon_sprouts", "leap"],
+          "passives": [],
+          "tags": ["tag.boss"],
+          "overrides": [{ "pattern": "spore_ring", "step": 0, "key": "repeat", "value": 4 }]
+        }
+      ],
+      "patterns": [
+        {
+          "key": "spore_ring",
+          "_note": "spec 06 5.2·5.4, T155~T157. 갓이 부푸는 동작 0.7초 → 16방향 고리 3겹(0.6초 간격, 겹마다 11.25도 어긋남), 속도 4, 3칸 지점 1.18칸. 빈틈 1.5초(갓이 접혀 자루가 드러남). 보스 고리 탄은 대(0.18, M 9.4). 연사형(2.12): 겹 사이 36틱, R3 하한 속도 4에서 15틱",
+          "passive": false,
+          "graze": ["bullet"],
+          "recovery_seconds": 1.5,
+          "recovery_damage_ratio": 1.0,
+          "steps": [
+            {
+              "attack": {
+                "key": "ring",
+                "kind": "ring_shot",
+                "cast_seconds": 0.7,
+                "anchor": "self",
+                "damage": 1,
+                "damage_source": "projectile",
+                "proj": { "speed": 4, "count": 16, "spread_degrees": 22.5, "range": null, "hit_radius": 0.18 },
+                "grazeable": true,
+                "cooldown_seconds": 0
+              },
+              "repeat": 3,
+              "repeat_interval_seconds": 0.6,
+              "repeat_angle_degrees": 11.25,
+              "rapid_fire": true,
+              "min_interval_ticks": 15
+            }
+          ]
+        },
+        {
+          "key": "spore_cloud",
+          "_note": "spec 06 5.2·5.4, T158~T160·T165. 반경 2.0 원 3개, 예고 1.0초, 판정 순간 피해 1 [임시]. 5초 남는 포자 안개(접촉 규칙 피해 1), 동시에 6개까지: 넘는 새 구름은 생략, 3개 모두 생략되면 고를 수 없다 [임시: U31]. 위치: 1개는 플레이어 위치, 2개는 무작위(서로 중심 거리 ≥ 4.0, 플레이어 원과 겹치지 않게 = 중심 거리 ≥ 4.0). 벽 거리 0·시도 32회는 [임시](원문 없음, 낙석 U28 의 시도 수를 따름)",
+          "passive": false,
+          "graze": ["zone"],
+          "recovery_seconds": 0,
+          "recovery_damage_ratio": 1.0,
+          "steps": [
+            {
+              "attack": {
+                "key": "cloud",
+                "kind": "zone",
+                "shape": "circle",
+                "radius": 2.0,
+                "telegraph_seconds": 1.0,
+                "lock": "at_start",
+                "anchor": "player_pos_at_start",
+                "damage": 1,
+                "damage_source": "telegraph",
+                "grazeable": true,
+                "cooldown_seconds": 0,
+                "leaves_hazard": { "kind": "spore_cloud", "radius": 2.0, "duration_seconds": 5, "max_count": 6, "contact_cooldown_seconds": 1.5 }
+              },
+              "count": 3,
+              "placement": { "at_player": 1, "min_player_distance": 4.0, "max_player_distance": null, "min_spacing": 4.0, "wall_margin": 0, "max_tries": 32 }
+            }
+          ]
+        },
+        {
+          "key": "summon_sprouts",
+          "_note": "spec 06 5.2·5.4, T161·T162. 땅에 금 4곳 1.0초 → 갓버섯 새싹 4마리(enemy.spore_seedling: 체력 20 × H(w), 속도 2.5, 접촉 1). 전장에 8마리까지, 넘는 만큼 생략, 0마리면 고를 수 없다 [임시: U32]",
+          "passive": false,
+          "graze": [],
+          "recovery_seconds": 0,
+          "recovery_damage_ratio": 1.0,
+          "steps": [
+            { "summon": { "enemy": "enemy.spore_seedling", "count": 4, "field_cap": 8, "warn_seconds": 1.0 } }
+          ]
+        },
+        {
+          "key": "leap",
+          "_note": "spec 06 5.2, T163·T166. 2단계. 플레이어 위치에 그림자 원 반경 3.0, 1.2초 → 착지 피해 2 + 8방향 탄(속도 5, 45도 = 3칸 지점 2.36칸, 보스 고리 대 0.18). 빈틈 1.5초",
+          "passive": false,
+          "graze": ["zone", "bullet"],
+          "recovery_seconds": 1.5,
+          "recovery_damage_ratio": 1.0,
+          "steps": [
+            {
+              "attack": {
+                "key": "land",
+                "kind": "zone",
+                "shape": "circle",
+                "radius": 3.0,
+                "telegraph_seconds": 1.2,
+                "lock": "at_start",
+                "anchor": "player_pos_at_start",
+                "damage": 2,
+                "damage_source": "telegraph",
+                "grazeable": true,
+                "cooldown_seconds": 0
+              }
+            },
+            {
+              "attack": {
+                "key": "burst",
+                "kind": "ring_shot",
+                "anchor": "self",
+                "damage": 1,
+                "damage_source": "projectile",
+                "proj": { "speed": 5, "count": 8, "spread_degrees": 45, "range": null, "hit_radius": 0.18 },
+                "grazeable": true,
+                "cooldown_seconds": 0
+              }
+            }
+          ]
+        }
+      ],
+      "second_cycle": [{ "pattern": "spore_cloud", "step": 0, "key": "hazard_drift_speed", "value": 0.8 }]
+    },
+    {
+      "id": "boss.storm_owl",
+      "_note": "spec 06 6절(M 3.6). 웨이브 40, 100, 160 …. 기본 체력 5000, 공중 이동 속도 3.0, 접촉 피해 1. 공중이면 꼬리표 보스 + 비행(그림자가 판정 위치), 활강 뒤 땅에 내린 2.0초 동안 비행을 뗀다(두뇌의 규칙, U35). 몸 판정 반지름 1.0 [임시: 공중 캔버스 192×128 의 짧은 변 ÷ 2 ÷ 64]. 2단계 활강은 두 줄 동시 십자(step 0 의 count 2, 교차점 벗어나는 거리 √2 × 1.15 = 1.63)와 번개 밭갈이. 2회차 낙뢰 6번",
+      "rotation_index": 3,
+      "base_hp": 5000,
+      "hp_scale_anchor_wave": 10,
+      "move_speed": 3.0,
+      "move_speed_on_frost": null,
+      "contact_damage": 1,
+      "body_radius": 1.0,
+      "element": "element.lightning",
+      "weak": "element.arcane",
+      "resist": "element.lightning",
+      "phases": [
+        { "index": 1, "enter_at_hp_percent": 100, "patterns": ["glide", "feather_fan", "lightning_strike"], "passives": [], "tags": ["tag.boss", "tag.flying"] },
+        {
+          "index": 2,
+          "enter_at_hp_percent": 50,
+          "patterns": ["glide", "feather_fan", "lightning_strike", "lightning_plow"],
+          "passives": [],
+          "tags": ["tag.boss", "tag.flying"],
+          "overrides": [{ "pattern": "glide", "step": 0, "key": "count", "value": 2 }]
+        }
+      ],
+      "patterns": [
+        {
+          "key": "glide",
+          "_note": "spec 06 6.2·6.4, T170~T172. 전장을 가로지르는 띠 폭 2.0, 예고 0.9초. 화면 밖에서 들어와 띠를 따라 지나간다, 3회 연속. 방향: 가로/세로/대각 2 = 4축 중 직전 축이 아닌 것을 난수로, 띠 중심선은 그 틱의 플레이어 위치를 지난다. 속도 16칸/초, 다음 예고는 앞 활강이 화면 밖으로 나간 틱에 [임시: U33]. 십자 활강은 서로 수직인 두 축. 땅 높이 돌진이라 설치 벽에 부딪혀 부수고 계속 간다. 세 번째 뒤 땅에 내려 2.0초",
+          "passive": false,
+          "graze": ["charge"],
+          "recovery_seconds": 2.0,
+          "recovery_damage_ratio": 1.0,
+          "steps": [
+            {
+              "attack": {
+                "key": "glide",
+                "kind": "dash",
+                "shape": "band",
+                "width": 2.0,
+                "length": null,
+                "telegraph_seconds": 0.9,
+                "lock": "at_start",
+                "anchor": "player_pos_at_start",
+                "active_ticks": 0,
+                "dash_speed": 16,
+                "damage": 2,
+                "damage_source": "telegraph",
+                "grazeable": true,
+                "is_dash": true,
+                "cooldown_seconds": 0
+              },
+              "repeat": 3,
+              "telegraph_each_repeat": true
+            }
+          ]
+        },
+        {
+          "key": "feather_fan",
+          "_note": "spec 06 6.2·6.4, T173·T174. 날개를 접는 동작 0.5초 → 5갈래 깃털(20도 간격 = 3칸 지점 1.047칸, 속도 7)을 0.4초 간격으로 3번. 빈틈 0.8초. 깃털 판정 반지름은 원문에 없다 → 소 0.12 [임시](그림 24×12). 연사형: 24틱, R3 하한 속도 7에서 9틱",
+          "passive": false,
+          "graze": ["bullet"],
+          "recovery_seconds": 0.8,
+          "recovery_damage_ratio": 1.0,
+          "steps": [
+            {
+              "attack": {
+                "key": "fan",
+                "kind": "spread",
+                "cast_seconds": 0.5,
+                "anchor": "self",
+                "damage": 1,
+                "damage_source": "projectile",
+                "proj": { "speed": 7, "count": 5, "spread_degrees": 20, "range": null, "hit_radius": 0.12 },
+                "grazeable": true,
+                "cooldown_seconds": 0
+              },
+              "repeat": 3,
+              "repeat_interval_seconds": 0.4,
+              "rapid_fire": true,
+              "min_interval_ticks": 9
+            }
+          ]
+        },
+        {
+          "key": "lightning_strike",
+          "_note": "spec 06 6.2·6.4, T175~T177. 반경 1.5 원, 각 0.8초 예고, 0.4초 간격으로 4번(2회차 6번). 각 원의 위치 = 그 원의 예고 시작 틱의 플레이어 위치 [임시]. 피해 1. 예고 구역을 잇달아 까는 것이라 격노로 간격을 줄이지 않는다(2.12)",
+          "passive": false,
+          "graze": ["zone"],
+          "recovery_seconds": 0,
+          "recovery_damage_ratio": 1.0,
+          "steps": [
+            {
+              "attack": {
+                "key": "strike",
+                "kind": "zone",
+                "shape": "circle",
+                "radius": 1.5,
+                "telegraph_seconds": 0.8,
+                "lock": "at_start",
+                "anchor": "player_pos_at_start",
+                "damage": 1,
+                "damage_source": "telegraph",
+                "grazeable": true,
+                "cooldown_seconds": 0
+              },
+              "repeat": 4,
+              "repeat_interval_seconds": 0.4,
+              "telegraph_each_repeat": true
+            }
+          ]
+        },
+        {
+          "key": "lightning_plow",
+          "_note": "spec 06 6.2·6.4, T178·T179. 2단계. 전장 14칸 높이를 폭 2칸 가로 띠 7줄(0~6)로 나눈다(count 7 = 줄 수). 첫 묶음은 짝수 줄(0,2,4,6) 또는 홀수 줄(1,3,5)을 난수로, 예고 1.0초 뒤 판정. 둘째 묶음(나머지 줄)의 예고는 첫 묶음 판정 +0.8초에 시작, 1.0초 뒤 판정. 빈틈 1.0초 [임시: U34]. 줄 위치는 전장이 정하므로 anchor 는 쓰지 않는다(self)",
+          "passive": false,
+          "graze": ["zone"],
+          "recovery_seconds": 1.0,
+          "recovery_damage_ratio": 1.0,
+          "steps": [
+            {
+              "attack": {
+                "key": "rows_first",
+                "kind": "zone",
+                "shape": "band",
+                "width": 2.0,
+                "length": null,
+                "telegraph_seconds": 1.0,
+                "lock": "at_start",
+                "anchor": "self",
+                "damage": 2,
+                "damage_source": "telegraph",
+                "grazeable": true,
+                "cooldown_seconds": 0
+              },
+              "count": 7
+            },
+            {
+              "attack": {
+                "key": "rows_second",
+                "kind": "zone",
+                "shape": "band",
+                "width": 2.0,
+                "length": null,
+                "telegraph_seconds": 1.0,
+                "lock": "at_start",
+                "anchor": "self",
+                "damage": 2,
+                "damage_source": "telegraph",
+                "grazeable": true,
+                "cooldown_seconds": 0
+              },
+              "count": 7,
+              "start_delay_seconds": 0.8
+            }
+          ]
+        }
+      ],
+      "second_cycle": [{ "pattern": "lightning_strike", "step": 0, "key": "repeat", "value": 6 }]
+    },
+    {
+      "id": "boss.frost_goat",
+      "_note": "spec 06 7절(M 3.7, M 8.2). 웨이브 50, 110, 170 …. 기본 체력 5500, 속도 3.0, 플레이어 피격 원 중심이 서리밭 안이면 2.4(R2: V_frost 2.63 보다 느림, 나가는 틱에 3.0), 접촉 피해 1. 몸 판정 반지름 1.0 [임시: 캔버스 128×160 의 짧은 변 ÷ 2 ÷ 64]. 고르기 규칙(서리밭 안 플레이어에게 숨결 금지, 숨결 직전 뿔 돌진 금지, 기둥 6개면 기둥 금지, 숨결 전 기둥 < 2 면 기둥 먼저)은 두뇌의 규칙이다(7.4, U36). 2단계 숨결 120도(쓰는 시간 = 120 ÷ 45 × 60 = 160틱)와 서리밭. 2회차 기둥 파편 12방향(30도)",
+      "rotation_index": 4,
+      "base_hp": 5500,
+      "hp_scale_anchor_wave": 10,
+      "move_speed": 3.0,
+      "move_speed_on_frost": 2.4,
+      "contact_damage": 1,
+      "body_radius": 1.0,
+      "element": "element.ice",
+      "weak": "element.lightning",
+      "resist": "element.ice",
+      "phases": [
+        { "index": 1, "enter_at_hp_percent": 100, "patterns": ["ice_pillar", "horn_swing", "frost_breath", "horn_charge"], "passives": [], "tags": ["tag.boss"] },
+        {
+          "index": 2,
+          "enter_at_hp_percent": 50,
+          "patterns": ["ice_pillar", "horn_swing", "frost_breath", "horn_charge", "frost_field"],
+          "passives": [],
+          "tags": ["tag.boss"],
+          "overrides": [{ "pattern": "frost_breath", "step": 0, "key": "sweep_degrees", "value": 120 }]
+        }
+      ],
+      "patterns": [
+        {
+          "key": "ice_pillar",
+          "_note": "spec 06 7.2·7.7, T185·T201. 반경 1.0 원 4개, 예고 0.8초, 피해 1. 기둥이 솟아 체력 80(웨이브 배율 없음)의 장애물로 남고(판정 반지름 1.0 [임시: U38]) 양쪽 탄을 모두 막는다. 전장에 6개까지(넘는 만큼 생략). 배치: 플레이어 둘레 거리 2~5칸, 서로 중심 거리 ≥ 3.0 [임시: U39](벽 거리 0·시도 32회는 [임시]). 뿔 돌진에 부딪히거나 체력 0(플레이어 탄 포함 [임시: U38])이면 깨져 파편 8방향(속도 6, 얼음 파편 소 0.12 [임시](그림 16×16), 2회차 12방향)",
+          "passive": false,
+          "graze": ["zone"],
+          "recovery_seconds": 0,
+          "recovery_damage_ratio": 1.0,
+          "steps": [
+            {
+              "attack": {
+                "key": "pillar",
+                "kind": "zone",
+                "shape": "circle",
+                "radius": 1.0,
+                "telegraph_seconds": 0.8,
+                "lock": "at_start",
+                "anchor": "player_pos_at_start",
+                "damage": 1,
+                "damage_source": "telegraph",
+                "grazeable": true,
+                "cooldown_seconds": 0
+              },
+              "count": 4,
+              "placement": { "at_player": 0, "min_player_distance": 2, "max_player_distance": 5, "min_spacing": 3.0, "wall_margin": 0, "max_tries": 32 },
+              "obstacle": {
+                "kind": "ice_pillar",
+                "radius": 1.0,
+                "duration_seconds": 0,
+                "hp": 80,
+                "max_count": 6,
+                "blocks_player_shots": true,
+                "blocks_enemy_shots": true,
+                "shards": { "speed": 6, "count": 8, "spread_degrees": 45, "range": null, "hit_radius": 0.12 }
+              }
+            }
+          ]
+        },
+        {
+          "key": "horn_swing",
+          "_note": "spec 06 7.2·7.6, T186~T188. 90도 부채꼴 길이 5, 예고 1.0초. 예고 시작 틱에 플레이어 피격 원 중심이 서리밭 안이면 1.2초(V_frost 로 1.09초가 걸린다). 피해 2, 빈틈 1.0초. 벗어나는 거리 2.221(가장 불리한 자리)",
+          "passive": false,
+          "graze": ["zone"],
+          "recovery_seconds": 1.0,
+          "recovery_damage_ratio": 1.0,
+          "steps": [
+            {
+              "attack": {
+                "key": "swing",
+                "kind": "zone",
+                "shape": "fan",
+                "radius": 5,
+                "fan_degrees": 90,
+                "telegraph_seconds": 1.0,
+                "lock": "at_start",
+                "anchor": "self",
+                "damage": 2,
+                "damage_source": "telegraph",
+                "grazeable": true,
+                "cooldown_seconds": 0
+              },
+              "frost_telegraph_seconds": 1.2
+            }
+          ]
+        },
+        {
+          "key": "frost_breath",
+          "_note": "spec 06 7.2·7.5, T189~T191. 쓸어 갈 부채꼴 전체 테두리 + 시작 변의 조준선 + 방향 화살표 0.8초(구역 판정이 아니라 탄 줄기의 예고 = cast). 시작 변에서 90도를 초당 45도(75 센티도/틱)로 쓸어 간다(120틱). 탄 줄기 초당 4발(15틱 간격), 속도 5.5, 사거리 8, 서리 숨결은 소 탄 0.12(M 9.4). 1단계 8발, 2단계 11발 [임시: U37]. 기둥 뒤는 안전. 빈틈 1.2초. 연사형: 15틱, R3 하한 11틱(회전 줄기 dt ≥ 1/√(v² + (3ω)²) = 10.03틱 → 11)",
+          "passive": false,
+          "graze": ["bullet"],
+          "recovery_seconds": 1.2,
+          "recovery_damage_ratio": 1.0,
+          "steps": [
+            {
+              "attack": {
+                "key": "breath",
+                "kind": "spread",
+                "cast_seconds": 0.8,
+                "anchor": "self",
+                "damage": 1,
+                "damage_source": "projectile",
+                "proj": { "speed": 5.5, "count": 1, "spread_degrees": 0, "range": 8, "hit_radius": 0.12 },
+                "grazeable": true,
+                "cooldown_seconds": 0
+              },
+              "stream": { "shots_per_second": 4, "sweep_degrees": 90, "sweep_degrees_per_second": 45 },
+              "rapid_fire": true,
+              "min_interval_ticks": 11
+            }
+          ]
+        },
+        {
+          "key": "horn_charge",
+          "_note": "spec 06 7.2, T193·T194·T202. 띠 폭 1.6, 예고 0.9초(경로의 기둥에 자홍 고리 표시). 벽까지 달린다. 돌진 속도는 원문에 없다 → 16칸/초 [임시](가마등 돌진·밤눈 활강과 같다). 부딪힌 기둥은 깨져 파편(기둥의 shards). 피해 돌진 2, 파편 1. 벽에 닿고 빈틈 1.5초. 설치 벽은 경직 없이 부수고 계속 달린다",
+          "passive": false,
+          "graze": ["charge", "bullet"],
+          "recovery_seconds": 1.5,
+          "recovery_damage_ratio": 1.0,
+          "steps": [
+            {
+              "attack": {
+                "key": "charge",
+                "kind": "dash",
+                "shape": "band",
+                "width": 1.6,
+                "length": null,
+                "telegraph_seconds": 0.9,
+                "lock": "at_start",
+                "anchor": "self",
+                "active_ticks": 0,
+                "dash_speed": 16,
+                "damage": 2,
+                "damage_source": "telegraph",
+                "grazeable": true,
+                "is_dash": true,
+                "cooldown_seconds": 0
+              }
+            }
+          ]
+        },
+        {
+          "key": "frost_field",
+          "_note": "spec 06 7.2·7.6·7.7, T195~T199. 2단계. 반경 2.5 원 3개, 예고 1.0초. 8초 남는 서리밭: 피해 없음(damage 0), 안에서 이동 속도 −30%(hazard_speed_ratio 0.7). 동시 상한은 원문에 없다(max_count 0 = 없음). 피해가 없어 접촉 간격은 쓰이지 않는다(공통 접촉 간격 1.5초를 적는다). 배치: 1개는 플레이어 위치, 2개는 무작위로 서로 겹치지 않게(중심 거리 ≥ 5.0) [임시: U39](벽 거리 0·시도 32회는 [임시])",
+          "passive": false,
+          "graze": [],
+          "recovery_seconds": 0,
+          "recovery_damage_ratio": 1.0,
+          "steps": [
+            {
+              "attack": {
+                "key": "field",
+                "kind": "zone",
+                "shape": "circle",
+                "radius": 2.5,
+                "telegraph_seconds": 1.0,
+                "lock": "at_start",
+                "anchor": "player_pos_at_start",
+                "damage": 0,
+                "damage_source": "telegraph",
+                "cooldown_seconds": 0,
+                "leaves_hazard": { "kind": "frost_field", "radius": 2.5, "duration_seconds": 8, "max_count": 0, "contact_cooldown_seconds": 1.5 }
+              },
+              "count": 3,
+              "placement": { "at_player": 1, "min_player_distance": 5.0, "max_player_distance": null, "min_spacing": 5.0, "wall_margin": 0, "max_tries": 32 },
+              "hazard_speed_ratio": 0.7
+            }
+          ]
+        }
+      ],
+      "second_cycle": [
+        { "pattern": "ice_pillar", "step": 0, "key": "shard_count", "value": 12 },
+        { "pattern": "ice_pillar", "step": 0, "key": "shard_spread_degrees", "value": 30 }
+      ]
+    },
+    {
+      "id": "boss.night_serpent",
+      "_note": "spec 06 8절(M 3.8). 웨이브 60, 120, 180 …. 기본 체력 6500(머리와 마디가 함께 쓴다), 속도 3.5, 접촉 피해 1(머리·마디·꼬리는 같은 적, U45). 몸: 머리 0.75, 마디·꼬리 0.5, 마디 10개, 간격 1.0(경로 따라가기) [임시: U40]. 피해 배율 머리 ×1.0, 마디 ×0.5, 꼬리는 마디와 같음 [임시: U40], 탄 한 발당 최대 3마디(머리는 상한과 무관). 2단계 또아리 고리 반경 4.0(원둘레 폭 1.0 → 바깥 4.5, 안 3.5)과 비늘 탄(상시). 2회차 어둠 침 5발",
+      "rotation_index": 5,
+      "base_hp": 6500,
+      "hp_scale_anchor_wave": 10,
+      "move_speed": 3.5,
+      "move_speed_on_frost": null,
+      "contact_damage": 1,
+      "body_radius": 0.75,
+      "element": "element.dark",
+      "weak": "element.lightning",
+      "resist": "element.dark",
+      "body": {
+        "head_radius": 0.75,
+        "segment_radius": 0.5,
+        "tail_radius": 0.5,
+        "segment_count": 10,
+        "segment_spacing": 1.0,
+        "segment_damage_ratio": 0.5,
+        "tail_damage_ratio": 0.5,
+        "max_segment_hits": 3
+      },
+      "phases": [
+        { "index": 1, "enter_at_hp_percent": 100, "patterns": ["coil", "dark_spit", "burrow"], "passives": [], "tags": ["tag.boss"] },
+        {
+          "index": 2,
+          "enter_at_hp_percent": 40,
+          "patterns": ["coil", "dark_spit", "burrow"],
+          "passives": ["scale_volley"],
+          "tags": ["tag.boss"],
+          "overrides": [
+            { "pattern": "coil", "step": 0, "key": "radius", "value": 4.5 },
+            { "pattern": "coil", "step": 0, "key": "inner_radius", "value": 3.5 }
+          ]
+        }
+      ],
+      "patterns": [
+        {
+          "key": "coil",
+          "_note": "spec 06 8.2·8.4, T209·T210·T217. 플레이어 둘레 반경 4.5 고리 예고 1.2초 → 몸으로 고리를 만들어 4초(240틱 = active_ticks) 가둔다: 반경 4.5 원둘레에 폭 1.0 의 닫힌 고리 접촉 구역(바깥 5.0, 안 4.0, 접촉 규칙 피해 1, R5 는 지나갈 수 없는 칸, U41). 고리 R1 의 벗어나는 거리는 고리 폭의 절반 + 피격 반지름 = 0.65 [임시](escape_override_milli 650, spec 05 10.1 에 고리 식이 없다). 가둠이 끝난 틱에 무는 띠 예고(폭 1.5, 0.8초): 머리 위치에서 그 틱의 플레이어 위치를 지나 고리 반대편까지. 무는 돌진 속도는 원문에 없다 → 16칸/초 [임시], 고리 반대편에서 멈춘다(length null, 두뇌가 끊는다). 물고 난 뒤 머리가 1.5초 멈춘다. 2단계 또아리 중 비늘 탄은 고리 바깥쪽으로만",
+          "passive": false,
+          "graze": ["charge"],
+          "recovery_seconds": 1.5,
+          "recovery_damage_ratio": 1.0,
+          "steps": [
+            {
+              "attack": {
+                "key": "ring",
+                "kind": "zone",
+                "shape": "ring",
+                "radius": 5.0,
+                "inner_radius": 4.0,
+                "telegraph_seconds": 1.2,
+                "lock": "at_start",
+                "anchor": "player_pos_at_start",
+                "active_ticks": 240,
+                "damage": 1,
+                "damage_source": "lingering",
+                "escape_override_milli": 650,
+                "cooldown_seconds": 0
+              }
+            },
+            {
+              "attack": {
+                "key": "bite",
+                "kind": "dash",
+                "shape": "band",
+                "width": 1.5,
+                "length": null,
+                "telegraph_seconds": 0.8,
+                "lock": "at_start",
+                "anchor": "self",
+                "active_ticks": 0,
+                "dash_speed": 16,
+                "damage": 2,
+                "damage_source": "telegraph",
+                "grazeable": true,
+                "is_dash": true,
+                "cooldown_seconds": 0
+              }
+            }
+          ]
+        },
+        {
+          "key": "dark_spit",
+          "_note": "spec 06 8.2·8.4, T211·T212. 조준선 0.7초(마지막 0.4초 고정) → 같은 고정 방향으로 3발(2회차 5발)을 0.5초 간격, 속도 9(R3·R4 경계, R4 통과: 조준선 + 24틱 고정, U42). 빈틈 0.6초. 조준선 폭과 탄 판정 반지름은 원문에 없다 → 폭 0.4(고슴도치 조준선과 같다)·소 0.12 [임시](그림 24×12). 연사형: 30틱, R3 하한 속도 9에서 7틱",
+          "passive": false,
+          "graze": ["bullet"],
+          "recovery_seconds": 0.6,
+          "recovery_damage_ratio": 1.0,
+          "steps": [
+            {
+              "attack": {
+                "key": "spit",
+                "kind": "aimed_shot",
+                "shape": "aim_line",
+                "width": 0.4,
+                "length": null,
+                "telegraph_seconds": 0.7,
+                "lock": "last_n_ticks",
+                "lock_seconds": 0.4,
+                "anchor": "self",
+                "damage": 1,
+                "damage_source": "projectile",
+                "proj": { "speed": 9, "count": 1, "spread_degrees": 0, "range": null, "hit_radius": 0.12 },
+                "grazeable": true,
+                "cooldown_seconds": 0
+              },
+              "repeat": 3,
+              "repeat_interval_seconds": 0.5,
+              "rapid_fire": true,
+              "min_interval_ticks": 7
+            }
+          ]
+        },
+        {
+          "key": "burrow",
+          "_note": "spec 06 8.2·8.4, T213·T216. 땅으로 들어가 플레이어 위치에서 3번 솟는다: 반경 2.0 원, 각 0.9초, 피해 2. 첫 원 예고는 잠행 시작 틱, 각 원의 위치 = 그 원 예고 시작 틱의 플레이어 위치, 다음 원 예고는 앞 원이 솟는 틱에(U43). 잠행 중 꼬리표 땅속(피해도 효과도 받지 않는다, 잠행 패턴 동안만). 세 번째에 머리가 2.0초 땅 위에 남는다(이때부터 맞는다)",
+          "passive": false,
+          "graze": ["zone"],
+          "recovery_seconds": 2.0,
+          "recovery_damage_ratio": 1.0,
+          "steps": [
+            {
+              "attack": {
+                "key": "rise",
+                "kind": "zone",
+                "shape": "circle",
+                "radius": 2.0,
+                "telegraph_seconds": 0.9,
+                "lock": "at_start",
+                "anchor": "player_pos_at_start",
+                "damage": 2,
+                "damage_source": "telegraph",
+                "grazeable": true,
+                "cooldown_seconds": 0
+              },
+              "repeat": 3,
+              "telegraph_each_repeat": true
+            }
+          ]
+        },
+        {
+          "key": "scale_volley",
+          "_note": "spec 06 8.2·8.4, T214·T215. 2단계 상시 행동. 보스가 이동 중(속도 > 0)일 때 1.5초(90틱)마다 마디 10개(count 10)가 자홍으로 깜박 0.6초 뒤 바깥쪽으로 1발씩(속도 4). 바깥쪽 = 몸 진행 방향의 법선 중 전장 중심에서 먼 쪽, 또아리 중에는 고리 바깥쪽 [임시: U44]. 비늘 탄 판정 반지름은 원문에 없다 → 소 0.12 [임시]. 연사형: 90틱, R3 하한 속도 4에서 15틱",
+          "passive": true,
+          "graze": ["bullet"],
+          "recovery_seconds": 0,
+          "recovery_damage_ratio": 1.0,
+          "steps": [
+            {
+              "attack": {
+                "key": "scale",
+                "kind": "spread",
+                "cast_seconds": 0.6,
+                "anchor": "self",
+                "damage": 1,
+                "damage_source": "projectile",
+                "proj": { "speed": 4, "count": 1, "spread_degrees": 0, "range": null, "hit_radius": 0.12 },
+                "grazeable": true,
+                "cooldown_seconds": 0
+              },
+              "count": 10,
+              "repeat": 0,
+              "repeat_interval_seconds": 1.5,
+              "rapid_fire": true,
+              "min_interval_ticks": 15
+            }
+          ]
+        }
+      ],
+      "second_cycle": [{ "pattern": "dark_spit", "step": 0, "key": "repeat", "value": 5 }]
+    }
+  ]
+}

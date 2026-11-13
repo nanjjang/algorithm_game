@@ -6,8 +6,8 @@ namespace Wizard.Content
     // 단위: 거리·반지름·폭·길이는 칸 Fix64, 각도는 센티도(CONTRACTS 0.3), 시간은 틱, 이동 속도는 센티 칸/초, 탄속은 틱당 Fix64.
     // spec 05 2.3 에서 null 일 수 있는 칸(shape, length, range, trigger_min·max, proj, escape_override_milli)은 null 로 둔다.
     // spec 05 2.3 의 id(golem_menhir.slam 꼴)는 화면에 보이지 않고 재실행에 쓰이지 않아 팩에 없다. 공격은 EnemyDef.Attacks 의 첨자로 가리킨다.
-    // leaves_hazard(HazardDef)는 그것을 쓰는 종(가시덩굴 등)의 데이터 작업이 타입과 같이 항목 끝에 더한다. 원형 4종에는 없다.
-    // 이 타입이 쓰는 열거형과 탄 정의(ProjDef)는 이 타입 안에 둔다(소유 파일 하나, 공개 최상위 타입 하나).
+    // leaves_hazard(HazardDef)는 판정 뒤 남는 위험 구역(가시덩굴 씨앗의 가시밭, spec 05 4.10)이다. 남기지 않으면 null.
+    // 이 타입이 쓰는 열거형과 탄·남는 구역 정의(ProjDef, HazardDef)는 이 타입 안에 둔다(소유 파일 하나, 공개 최상위 타입 하나).
     public sealed class AttackDef
     {
         public AttackKind Kind;
@@ -35,6 +35,7 @@ namespace Wizard.Content
         public bool Lob;                                    // 포물선(설치 벽을 넘는다)
         public int? EscapeOverrideMilli;                    // 검산용 벗어나는 거리(milli 칸). null 이면 모양에서 계산(spec 05 10.1)
         public int CooldownTicks;                           // 재사용 대기 [임시: spec 05 U-05]
+        public HazardDef? LeavesHazard;                     // 판정 뒤 남는 위험 구역(가시밭). 없으면 null(spec 05 2.3 leaves_hazard)
 
         // spec 05 2.3 kind 의 나열 그대로(값은 선언 순서, 0부터)
         public enum AttackKind : byte
@@ -91,8 +92,27 @@ namespace Wizard.Content
             public Fix64 SpeedPerTick;                      // 탄속(칸/초 ÷ 60). 6.5 → 465,288,124 Raw
             public int Count;                               // 한 번에 쏘는 탄 수
             public int SpreadCenti;                         // 이웃한 탄 사이 각도(술사 20도 = 2000). 한 발이면 0
-            public Fix64 Range;                             // 사거리(칸)
+            public Fix64 Range;                             // 사거리(칸). 0 이면 사거리 제한 없이 벽에 닿을 때까지(고슴도치 가시, spec 05 4.6)
             public Fix64 HitRadius;                         // 탄 판정 반지름(칸)
+        }
+
+        // spec 05 2.1 HazardKind(선언 순서 그대로, 0부터). 서리밭은 보스 데이터가 쓴다
+        public enum HazardKind : byte
+        {
+            ThornField = 0,
+            EmberStrip = 1,
+            SporeCloud = 2,
+            FrostField = 3,
+        }
+
+        // spec 05 2.3 leaves_hazard, 2.4 LingeringHazard, 3.6(접촉 규칙). 남는 구역의 피해는 늘 1칸(spec 05 3.7)이라 칸이 없다
+        public sealed class HazardDef
+        {
+            public HazardKind Kind;
+            public Fix64 Radius;                            // 반지름(칸). 가시밭 1.5
+            public int DurationTicks;                       // 남는 시간. 가시밭 4초 = 240, 꽃 핀 가시덩굴 6초 = 360
+            public int MaxCount;                            // 전장에 동시에 있을 수 있는 수. 넘으면 SpawnTick 이 가장 작은 것부터 지운다(가시밭 3)
+            public int ContactCooldownTicks;                // 같은 구역에서 다시 피해를 받기까지(1.5초 = 90, 구역 Id 별, U-16)
         }
     }
 }

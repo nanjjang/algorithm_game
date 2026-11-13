@@ -1,5 +1,11 @@
 {
   "_note": "spec 02 4.1·4.2 표, spec 01 2.5, spec 14 3.3(id·등급), DECISIONS 2.5. 피격 반지름 0.12·0.15·0.18은 spec 02 4.2 [임시], 그림자 구체 0.25는 [제안](M 3.4). 연쇄 번개의 광선 반폭은 0.12 [임시]. 제어·변형 블록은 투사체 값(피해·간격·속도·사거리·반지름)을 0 으로 둔다. 즉발(연쇄 번개)은 speed 0 + instant. flags·effect·params 는 DECISIONS-TECH T-53: 폭발 반경 2, 전이 3회·반경 3·전이마다 x0.7, 감속 30%·20% 1초, 받는 피해 +15% 3초, 부채꼴 반각 10도·15도는 spec 02 4.1·4.2·9.3 의 값이다. spec 02 18절의 [임시]: 튕김 2회(U6), 관통 +2체(U7), 반지름 x2·상한 x4(U8), 유도 초당 180도·앞 90도·6칸(U9), 부메랑이 돌아와 사라지는 반경 0.5칸·돌아오는 길 9칸(U12). 결투에서 바뀌는 값(감속 절반, 잠식 1.08, 유도 선회 절반)은 결투 규칙 데이터의 몫이다",
+  "spell_rules": {
+    "_note": "DECISIONS-TECH T-57. spec 02 6.2 SF-2(트리 실행 1회당 투사체 최대 64개), 7.1 HT-5(밑줄이 깎는 양은 최대 5), HT-7(거울상은 발사당 열 +50%). 셋 다 [제안] 값이다",
+    "tree_projectile_cap": 64,
+    "underline_max_cut_heat": 5,
+    "mirror_heat_multiplier": 1.5
+  },
   "blocks": [
     { "id": "block.magic_bolt", "kind": "projectile", "rarity": "common", "element": "element.arcane", "heat": 4, "heat_multiplier": 1, "split_count": 1, "base_damage": 10, "interval_seconds": 0.15, "speed": 14, "instant": false, "range": 10, "hit_radius": 0.12, "damage_bonus": 0, "flags": [], "effect": "none" },
     { "id": "block.fireball", "kind": "projectile", "rarity": "rare", "element": "element.fire", "heat": 18, "heat_multiplier": 1, "split_count": 1, "base_damage": 40, "interval_seconds": 0.6, "speed": 9, "instant": false, "range": 8, "hit_radius": 0.18, "damage_bonus": 0, "flags": ["explodes"], "effect": "none", "params": { "explosion_radius": 2 } },

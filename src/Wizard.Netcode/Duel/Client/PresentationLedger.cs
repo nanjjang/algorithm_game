@@ -9,10 +9,13 @@ namespace Wizard.Netcode.Duel
     // EntityId(Source, Target)는 열쇠에 넣지 않는다: 되감기 뒤에 생성 순서가 바뀌면 개체 번호가 달라져서, 예측 하나가 틀렸을 때
     // 같은 틱 뒤의 무관한 이벤트가 전부 번복·재예측으로 깜박이기 때문이다.
     //
+    // 틱마다의 기록은 "Predicted 로 내보냈고 아직 끝이 나지 않은 열쇠"의 모음이다(DECISIONS-TECH T-66, 6.4절 개정문).
     // - 예측 세계가 처음 돈 틱: 그 틱의 이벤트를 전부 Predicted 로 내고 기록한다.
-    // - 예측 세계가 그 틱을 다시 돌림(되감기): 옛 기록에 있고 새 열에 없는 열쇠는 Retracted, 새 열에만 있는 열쇠는 Predicted.
-    //   둘 다에 있는 열쇠는 내지 않는다(이미 그려지고 있다).
-    // - 확정 세계가 그 틱을 지남: 옛 예측 가운데 확정 열에 없는 열쇠는 Retracted, 확정 열은 전부 Confirmed. 기록을 지운다.
+    // - 예측 세계가 그 틱을 다시 돌림(되감기): 기록에 없는 열쇠만 Predicted 로 내고 기록에 더한다. 기록에 있는데 새 열에 없는 열쇠는
+    //   **아무것도 내지 않고 기록에 남긴다**. 다시 돌린 것도 예측이라 다음 되감기나 확정에서 그 열쇠가 돌아올 수 있고,
+    //   여기서 Retracted 를 내면 같은 열쇠가 Retracted 뒤에 Confirmed 로 나온다(NetSim 27 조합 가운데 11 조합에서 났다).
+    // - 확정 세계가 그 틱을 지남: 기록 가운데 확정 열에 없는 열쇠는 Retracted, 확정 열은 전부 Confirmed. 기록을 지운다.
+    //   Retracted 는 여기서만 나온다. 그래서 한 열쇠의 끝은 Confirmed 와 Retracted 가운데 하나이고 한 번뿐이다.
     //   Confirmed 는 확정 세계에서만 나오고, 한 틱은 확정 세계에서 한 번만 지나므로 두 번 나오지 않는다.
     internal sealed class PresentationLedger
     {
@@ -51,21 +54,17 @@ namespace Wizard.Netcode.Duel
             }
             TickRecord scratch = Scratch();
             scratch.Set(events);
-            for (int i = 0; i < old.Count; i++)
-            {
-                if (!scratch.Contains(old.Events[i], old.Ordinals[i]))
-                {
-                    Enqueue(old.Events[i], EventPhase.Retracted, old.Ordinals[i]);
-                }
-            }
             for (int i = 0; i < scratch.Count; i++)
             {
-                if (!old.Contains(scratch.Events[i], scratch.Ordinals[i]))
+                int at = old.IndexOf(scratch.Events[i], scratch.Ordinals[i]);
+                if (at >= 0)
                 {
-                    Enqueue(scratch.Events[i], EventPhase.Predicted, scratch.Ordinals[i]);
+                    old.Events[at] = scratch.Events[i];   // 표시용 인자(개체 번호 등)는 가장 최근 예측의 것으로 둔다. 내지는 않는다
+                    continue;
                 }
+                Enqueue(scratch.Events[i], EventPhase.Predicted, scratch.Ordinals[i]);
+                old.Add(scratch.Events[i], scratch.Ordinals[i]);
             }
-            old.Set(events);
         }
 
         // emit 이 거짓이면(전체 상태로 이미 지난 틱을 다시 지나는 경우) 기록만 지운다
@@ -226,16 +225,38 @@ namespace Wizard.Netcode.Duel
                 }
             }
 
-            public bool Contains(in SimEvent e, ushort ordinal)
+            public bool Contains(in SimEvent e, ushort ordinal) => IndexOf(e, ordinal) >= 0;
+
+            public int IndexOf(in SimEvent e, ushort ordinal)
             {
                 for (int i = 0; i < Count; i++)
                 {
                     if (Ordinals[i] == ordinal && Events[i].Type == e.Type && Events[i].Slot == e.Slot)
                     {
-                        return true;
+                        return i;
                     }
                 }
-                return false;
+                return -1;
+            }
+
+            // 다시 돌린 틱에서 처음 나온 열쇠를 기록 끝에 더한다(서수는 그 열에서 센 값 그대로)
+            public void Add(in SimEvent e, ushort ordinal)
+            {
+                if (Count == Events.Length)
+                {
+                    var events = new SimEvent[Events.Length * 2];
+                    var ordinals = new ushort[Events.Length * 2];
+                    for (int i = 0; i < Count; i++)
+                    {
+                        events[i] = Events[i];
+                        ordinals[i] = Ordinals[i];
+                    }
+                    Events = events;
+                    Ordinals = ordinals;
+                }
+                Events[Count] = e;
+                Ordinals[Count] = ordinal;
+                Count++;
             }
         }
     }

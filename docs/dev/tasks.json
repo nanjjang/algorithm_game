@@ -121,7 +121,7 @@
    "id": "M1",
    "title": "결정론 코어 위의 손맛 시제품 (GDD 16-1, online 11-1)",
    "gate": "M1-INT",
-   "task_count": 30,
+   "task_count": 31,
    "blocked_on_assets": 0,
    "parallel_groups": [
     "M1-W01",
@@ -1839,7 +1839,10 @@
    "deps": [
     "M1-UE-01",
     "M1-TE-01",
-    "M1-CORE-01"
+    "M1-CORE-01",
+    "M10-ACC-01",
+    "M2-NET-03",
+    "M8-DAT-01"
    ],
    "spec_refs": [
     "docs/dev/ARCHITECTURE.md §11",
@@ -1852,14 +1855,21 @@
    "owned_paths": [
     "unity/Assets/Game/App/Headless/",
     "unity/Assets/Tests/EditMode/Golden/",
-    "tools/ci/unity-golden.sh"
+    "tools/ci/unity-golden.sh",
+    "unity/Assets/Game/App/Wizard.Unity.App.asmdef",
+    "tests/Wizard.Core.Tests/Math/CoreArithOps.cs",
+    "tests/Wizard.TestKit/Shared/Arith/CoreArithOps.cs",
+    "docs/dev/DECISIONS-TECH.md",
+    "docs/dev/ARCHITECTURE.md",
+    "docs/dev/tasks.json"
    ],
    "acceptance": [
     "EditMode 테스트가 tests/golden/의 모든 항목을 Mono에서 돌려 기대 해시와 비교한다",
     "플레이어(Mono와 IL2CPP, 각각 arm64와 Intel 64-bit)를 `-batchmode -nographics -golden <폴더>`로 띄우면 같은 항목과 산술 경계 벡터를 돌리고 결과 JSON(조합 이름, 골든별 해시)을 쓰고 불일치면 0이 아닌 코드로 끝난다. x64 플레이어는 Rosetta 2로 돈다",
     "`tools/ci/unity-golden.sh`가 dotnet(arm64, -a x64), Unity Mono(EditMode, arm64 플레이어, x64 플레이어), IL2CPP(arm64, x64)의 결과를 한 표로 비교한다. 여섯 열 이상이 전부 같아야 통과다",
     "mac-il2cpp 모듈이나 x64 dotnet 런타임이 없으면 unity-golden.sh는 건너뛰지 않고 '무엇이 없다'와 설치 명령을 적고 실패한다",
-    "다른 기기(Windows)에서 돌린 결과 JSON을 받아 같은 표에 넣어 비교할 수 있다"
+    "다른 기기(Windows)에서 돌린 결과 JSON을 받아 같은 표에 넣어 비교할 수 있다",
+    "T-61(이 작업이 멈춘 곳을 tech-lead가 풀었다): 골든 실행기는 Wizard.Unity.App 안(Assets/Game/App/Headless/)에 있고 Wizard.Unity.App.asmdef가 Wizard.TestKit.Shared를 참조한다(Assets/Game의 asmdef는 여전히 다섯이다). 산술 연산 표 CoreArithOps는 tests/Wizard.TestKit/Shared/Arith/에 한 벌만 있고 dotnet 시험(ArithGoldenTests), dotnet 골든 실행기, Unity EditMode, 플레이어의 골든 실행기가 같은 소스를 쓴다. unity/Assets 아래에 Raw를 만지는 코드가 없다(FixConvertSearchTests.UnityAssembliesDoNotTouchRawAtAll 통과)"
    ],
    "vectors": [],
    "parallel_group": "M1-W10",
@@ -2003,7 +2013,8 @@
     "M0-INT",
     "FIX-1",
     "FIX-2",
-    "FIX-3"
+    "FIX-3",
+    "FIX-6"
    ],
    "spec_refs": [
     "docs/GDD.md §16",
@@ -2128,6 +2139,39 @@
     "플레이어 빌드 스크립트(unity-player-mono.sh, unity-player-il2cpp.sh)는 Unity를 띄우기 전에 `databuild build`로 팩을 만들고, Ci.BuildPlayer는 그 팩을 unity/Assets/StreamingAssets/content/base.wzpack에 놓은 뒤 빌드한다. 놓은 파일과 그 .meta는 빌드가 끝나면(성공이든 실패든) 지운다: `*.wzpack`은 커밋하지 않고(.gitignore), 실행 뒤 작업 트리에 변경이 남지 않는다",
     "팩이 없거나 읽히지 않으면(ContentPack.Load 실패) 빌드는 건너뛰지 않고 무엇이 없는지 적고 실패한다. 빌드된 Wizard.app 안의 StreamingAssets/content/base.wzpack이 databuild의 출력과 바이트가 같다는 것을 build.json에 SHA-256으로 남기고 스크립트가 대조한다",
     "EditMode 시험: 임시 폴더의 팩으로 놓기와 지우기(실패 경로 포함)를 본다. 빌드된 mono-arm64 플레이어를 띄웠을 때 조립 루트가 팩을 읽고 연습 세션과 세계 표시기를 꽂아 회색 도형(플레이어, 포탑, 슬라임, 탄)과 디버그 글자가 보이는 것은 결과 보고의 사람 확인 항목으로 적는다(화면이 필요하다)"
+   ],
+   "vectors": [],
+   "parallel_group": "M1-W10",
+   "status": "todo"
+  },
+  {
+   "id": "FIX-6",
+   "milestone": "M1",
+   "title": "플레이어 빌드에서 BouncyCastle DLL이 참조되지 않는다: 플러그인 .meta의 serializedVersion이 platformData의 꼴과 다르다",
+   "module": "unity",
+   "owner_agent": "unity-engineer",
+   "owner_model": "opus",
+   "reviewer_model": "opus",
+   "deps": [
+    "M0-BT-01",
+    "M0-UE-01"
+   ],
+   "spec_refs": [
+    "docs/dev/ARCHITECTURE.md §4.2",
+    "docs/dev/DECISIONS-TECH.md"
+   ],
+   "contracts": [],
+   "owned_paths": [
+    "unity/Assets/Plugins/BouncyCastle.Cryptography.dll.meta",
+    "unity/Assets/Editor/Ci/Tests/PluginSetupTests.cs",
+    "unity/Assets/Editor/Ci/Launcher~/unity.sh"
+   ],
+   "acceptance": [
+    "경위(M1-UE-03의 tech-lead 해결에서 찾았다): main(76687e9, M2-NET-02 뒤)에서 `unity.sh build mono arm64|x64`가 실패한다. 플레이어의 스크립트 컴파일이 src/Wizard.Client/Net/Crypto/BouncyCastleAeadCipher.cs에서 CS0246(네임스페이스 Org를 찾을 수 없다)을 낸다. 편집기 컴파일의 Wizard.Client.rsp에는 `-r:Assets/Plugins/BouncyCastle.Cryptography.dll`이 있고 플레이어 컴파일의 rsp에는 없다. unity/Assets/Plugins/BouncyCastle.Cryptography.dll.meta(M0-BT-01이 손으로 썼다)가 `serializedVersion: 2`라고 적고 platformData는 Unity 6의 3판 꼴(`Any:` 아래에 `enabled: 1`)로 적었다. 판 번호와 꼴이 어긋난 것을 원인으로 본다(판 번호만 3으로 바꾸면 플레이어 컴파일에 DLL이 들어간다). BouncyCastle을 실제로 쓰는 코드가 M2-NET-02에서 처음 들어와 그때 드러났다(병합 게이트는 편집기 컴파일과 EditMode만 돌리고 플레이어 빌드는 통합 단계다)",
+    "unity/Assets/Plugins/BouncyCastle.Cryptography.dll.meta를 Unity 6000.3.20f1이 읽는 꼴로 고친다. GUID(5b28f426ae779a137a75d1055a3e4b34)와 isExplicitlyReferenced: 1은 그대로 둔다. tech-lead가 확인한 것: `serializedVersion: 3`으로 한 줄만 바꾸면 Mono arm64·x64 플레이어 빌드가 통과하고 Unity가 그 파일을 고쳐 쓰지 않는다(M1-UE-03의 작업 트리에서 임시로 바꿔 돌린 뒤 되돌렸다). 다른 꼴이 맞다고 판단하면 근거를 결과 보고에 적는다",
+    "EditMode 시험(unity/Assets/Editor/Ci/Tests/PluginSetupTests.cs): Assets/Plugins의 모든 관리 DLL이 편집기와 Standalone 대상(StandaloneOSX, StandaloneWindows64, StandaloneLinux64)에서 켜져 있다(PluginImporter). Wizard.Client.asmdef의 precompiledReferences에 적힌 DLL 가운데 Assets/Plugins에 있는 것이 전부 이 검사에 든다. 고치기 전의 .meta로 돌리면 이 시험이 실패하는 것을 확인하고 결과 보고에 적는다. 이 시험으로 같은 결함이 병합 게이트(EditMode)에서 잡힌다",
+    "`tools/ci/ci.sh run lib/unity-player-mono.sh`가 통과한다(Mono arm64, x64 플레이어 빌드). IL2CPP 빌드는 mac-il2cpp 모듈이 없으면 건너뛰지 않고 무엇이 없는지 적고 실패하는 그대로다",
+    "unity.sh의 되돌리기: 플레이어 빌드가 실패하면 Unity가 남긴 unity/Assets/Resources/(PerformanceTestRunInfo.json, PerformanceTestRunSettings.json과 그 .meta)의 파일은 지워지지만 빈 폴더 unity/Assets/Resources/가 남고, 다음 실행의 metagen이 그 빈 폴더에 unity/Assets/Resources.meta를 만들어 추적하지 않는 파일로 남는다(M1-UE-03의 unity-golden.sh 실행 기록에서 확인). 되돌리기가 자기가 지운 파일의 빈 부모 폴더도 지워서, 실패한 빌드 뒤에도 `git status`가 깨끗하다. 실패한 빌드를 흉내 낸 시험이나 재현 절차를 결과 보고에 적는다"
    ],
    "vectors": [],
    "parallel_group": "M1-W10",

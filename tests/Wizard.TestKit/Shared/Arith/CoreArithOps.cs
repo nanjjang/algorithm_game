@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using Wizard.Core;
-using Wizard.TestKit.Shared.Arith;
 
-namespace Wizard.Core.Tests.Math
+namespace Wizard.TestKit.Shared.Arith
 {
     // 산술 경계 벡터 묶음(tests/golden/arith/*.json)의 연산 이름을 코어 함수에 잇는 표(tests/golden/arith/README.md).
     // 인자와 결과는 Raw(정수)다. 128비트 값은 (hi: long, lo: ulong) 두 칸이다.
-    // Unity 쪽(M1-UE-03)이 같은 소스를 쓸 수 있게 netstandard2.1 + C# 9 의 문법만 쓴다.
+    // 표는 여기 한 벌뿐이다(T-61): dotnet 시험(ArithGoldenTests), dotnet 골든 실행기, Unity EditMode, 플레이어의 골든 실행기가
+    // 같은 소스를 컴파일해 쓴다. unity/Assets 아래에는 Raw 를 만지는 코드를 둘 수 없어서(FixConvertSearchTests) Unity 쪽 사본이 없다.
     public sealed class CoreArithOps : IArithOps
     {
         // 표에 있는 연산 이름 전부. 묶음이 표에 없는 이름을 쓰면 UnknownOp 으로 실패한다.

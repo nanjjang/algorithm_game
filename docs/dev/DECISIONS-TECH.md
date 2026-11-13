@@ -1206,6 +1206,164 @@ u16   echo_hold_ms            그 패킷이 기기에 닿은 뒤 이 패킷을 �
 
 10.3절 `server_time_ms`에 붙인다: 경기 시계의 ms(`HelloAck.match_epoch_server_us`부터 센 서버 시각, 내림). `confirmed_from_tick`에 붙인다: 그 사람의 `ack_confirmed_tick + 1`. ack가 0이면 0이다(틱 0을 받았는지 알 수 없다).
 
+## T-57 주문 컴파일러의 계약 타입을 채우고, `SpellTable`을 세계에 잇고, 컴파일 규칙 값을 blocks 절의 꼬리에 둔다. 시제품은 실제 모듈이 쓸 훅을 비운다 [신규]
+
+번호 T-54(M1-UE-02, M2-NET-03), T-55(M8-DAT-03), T-56(M10-ACC-01)은 같은 때 도는 다른 브랜치가 쓰고 있어(아직 main에 없다) 건너뛰었다. 번호는 더하기만 한다.
+
+- **문제**: M2-SPL-02(주문 컴파일러)가 컴파일 로직과 표를 다 만들고도 막혔다. (1) `CONTRACTS.md` 3.4절이 `SpellScope`·`CompileDiagnostic`·`SpellPreview`를 이름만 적었고, 뼈대의 그 파일들은 "그 영역의 작업이 채운다"는 빈 타입인데 카드의 `owned_paths`에 없었다. `WandCombatProfile`에는 생성자가 없어 기본값밖에 만들 수 없었다. 그래서 구현은 결과를 `SpellModel`·`ScopeModel` 같은 옆 타입으로 냈고 `ISpellCompiler`는 구현되지 않았다(T-52 때의 `ArtVerdict`와 같은 꼴이다). (2) 표를 세계에 이을 수 없었다: 절 6(`SpellTable`)의 상태 훅 넷을 시제품(`Proto/`, M1-SIM-09)이 이미 구현하고 있고 부분 메서드는 구현이 하나뿐이다. 시제품은 M3-CB-02가 지우는데 M3-CB-02는 M2-SPL-04 뒤다. 실행기(M2-SPL-03)와 적 런타임(M3-ENM-01)도 같은 자리에서 멈춘다. 새 핸들이 "세계 생성과 0단계에서만" 생긴다는 것을 지킬 문도 없었다. (3) 컴파일러가 읽는 기획 수치(트리 실행 1회 상한 64, 밑줄이 깎는 양의 상한 5, 거울상의 열 배수 1.5)를 둘 `data/sim/`의 자리가 없었다. (4) 카드의 벡터 가운데 여덟(TV-D14~D16, TV-E07~E11)은 `Execute`의 결과다.
+- **결정**:
+  1. **계약 타입**(아래 개정문). 명세 6.3절의 구조를 `CONTRACTS.md` 0.3절의 단위로 옮긴다: 열은 HU, 배수는 천분율. `SpellScope`와 `ScopeModifiers`는 `CompiledSpell`과 같이 "컴파일러가 채운 뒤 바꾸지 않는" 클래스다(뼈대의 빈 `readonly struct`를 바꾼다. 쓰는 곳이 아직 없었다). `CompileDiagnostic`·`ScopeProjectile`·`CompiledSlot`·`PreviewNode`는 값 구조체다. 옆 타입(`…Model`, `SlotEntry`)은 없앴다.
+  2. **`DiagCode : byte`**는 명세 6.3 표의 순서 그대로 1~8이고(진단 정렬의 둘째 열쇠가 "코드 값 오름차순"이다), 9 `UnknownBlock`을 더한다: 팩에 없는 블록 id(저장 파일·통신의 깨진 값)는 예외가 아니라 진단이다. 명세 표에 없는 값이라 [임시]다(`OPEN-QUESTIONS.md` Q-21). `DiagSeverity { Warning = 1, Error = 2 }`. 이름 표 열쇠(`warn.*`)는 코드에서 ViewLogic이 고른다. 코어는 글자를 갖지 않는다.
+  3. **`CompiledSpell`에 둘을 더한다.** `Slots`(`CompiledSlot[]`, 슬롯 0..L의 블록·몫·스코프 깊이): 글자 출력과 미리보기의 커서 연동, HUD의 회로 점등이 "이 칸이 트리에서 무엇이 되었는가"를 다시 풀지 않고 읽는다. `FireHeatHu`: J 발사 1회가 더하는 열. 거울상 변이가 있으면 총열(밑줄과 분열 배수 뒤)에 배수를 곱한 값이고(spec 02 HT-7, `ShotHeat.ShotHeatHu`의 식) 없으면 `HeatPerShotHu`다. `HeatPerShotHu`는 계약대로 곱하기 전의 값이다. `ExecutedCount(mirrored)`는 가지치기 뒤 트리 실행 1회의 투사체 수다(할당 없음).
+  4. **`ISpellCompiler`의 구현은 `Wizard.Sim.Spell.Compile.SpellCompiler(ContentDb)`**다. 세계 없이 팩만 읽는 순수 함수이고 조립 화면이 그대로 쓴다. 규칙상의 "안 됨"(빈 코어, 칸 수 불일치, 모르는 블록)은 진단이고, 정규 바이트에 담기지 않는 문맥(연결 칸 255개 초과, 감쇠 표가 아닌 `PowBase`)만 부른 코드의 결함으로 `SimInvariantException`이다. 세계의 표도 같은 `SpellCompilerCore`를 부른다.
+  5. **`SpellPreview`는 글자를 담지 않는다.** spec 02 14.4 표의 자료만 준다: 투사체 마디(`PreviewNode`. 마디 번호 = `Nodes`의 색인 = 스코프 깊이 순, 그 안에서 슬롯 순 = `SpellNodeExecuted`의 마디 번호), 스코프(`PreviewScope`: 트리거 칸, 가지 수와 칸, 변형 꼬리의 칸들, 꼬리표, 생략), 진단, 맨 아래 줄의 N과 H. 꼬리표는 `DepthLabelHundredths`다("×0.72" = 72). 감쇠 표의 값은 Q32.32에서 참값보다 조금 작을 수 있어서(0.92 → 0.9199999…) 그냥 내리면 91이 된다. 소수 여섯째 자리로 반올림해 참값의 자릿수를 되찾은 뒤 둘째 자리에서 내린다. 화면의 값(경고 줄 3줄, 꼬리 한 줄 6개와 "+N", 들여쓰기 40px)은 코어에 두지 않는다: `WarningLines(maxLines)`처럼 부르는 쪽이 준다. 그래서 TV-J02·J03의 **글자**("발사 1회 = 투사체 6개 · 열 26.8", "×0.72")는 이 값으로 M4-UL-03이 이름 표의 틀로 만들고, M2-SPL-02의 벡터 시험은 값(6, 26.8 = 3,216 HU, 72, 84)을 본다.
+  6. **글자 출력(spec 02 14.5)의 블록 이름은 spec 14의 id에서 `block.`을 뗀 것이다**(`fireball`, `split_three`). 명세 예시의 `great_fireball`은 `CONTRACTS.md` 2.1절 대응표로 읽는다(`CLAUDE.md` 1절 "명세마다 표현이 다르면 대응표로 바꿔 읽는다"). TV-J01의 기대값은 예시에서 그 이름 하나만 대응표대로 바꾼 것이다. 입력 문법은 명세의 이름(`great_fireball`, `split_3`)도 받는다(`ContentIds`의 별칭). 예시에 없는 줄(변형 `M`, 무시된 제어 `C … ignored`, `omitted`, 진단 줄, 무효일 때의 `SPELL invalid`)은 [임시] 형식이다(14.5절 전체가 [임시]이고 개발용이다).
+  7. **컴파일 규칙 값은 `data/sim/blocks.json`의 `spell_rules`에 두고 팩의 blocks 절(2) 꼬리로 싣는다.** `SpellRulesDef { TreeProjectileCap, UnderlineMaxCutHu, MirrorHeatMulPermille }`, 접근자 `ContentDb.SpellRules`. 꼬리는 없거나 정확히 12바이트다(i32 셋). 원본에 `spell_rules`가 없으면 꼬리도 없고 접근자는 `ContentException`이다(블록 몇 줄만 든 다른 시험의 임시 팩이 그대로 읽힌다). 저장소의 데이터에는 언제나 있고 `BlocksPackTests`가 값(64, 600, 1500)을 대조한다. 셋 다 spec 02의 수다(6.2 SF-2, 7.1 HT-5, HT-7). 거울상의 열 배수는 여기 한 곳에만 둔다(변이 데이터에 다시 두지 않는다).
+  8. **세계의 표**(`Spell/Compile/SimWorld.SpellTable.cs`, 절 6). 상태는 정수뿐이다: 표의 원천(정규 바이트)과 **슬롯별 현재 주문의 핸들**(`TryGetActiveSpell`. 없으면 −1). 절의 내용은 `count`, 항목마다 원천, 플레이어마다(슬롯 순) `i32` 현재 핸들이다. 스냅숏에는 길이와 그 앞머리의 지문(원천 해시를 차례로 이은 값), 현재 핸들이 들어간다. 복원은 길이를 줄이고, 지문이 다르거나 표가 스냅숏보다 짧으면 `SimInvariantException`이다(다른 표에서 뜬 스냅숏이면 핸들이 다른 주문을 가리키게 되는데, 길이만 보면 조용히 넘어간다). 팩에 blocks 절이 없으면 모듈이 꺼지고 절의 내용이 빈다(뼈대 시험의 빈 팩).
+  9. **새 핸들의 문은 둘이다.** 세계 생성: `AddSpellAtCreation`·`SetActiveSpellAtCreation`은 첫 `Step` 전(틱 0)에만 열린다. 0단계: `AddSpell(in RunCommand command, …)`·`SetActiveSpell(in command, …)`은 지금 틱에 적용 중인 명령을 받는다. 명령을 손에 든 것은 `Stage00_*` 훅뿐이라, 5~10단계의 실행 경로는 이 문을 열 수 없다(일부러 명령을 보관해 두지 않는 한). 실행 경로는 `SpellAt`·`TryGetActiveSpell`만 쓰고 할당하지 않는다. 뼈대에 "지금 몇 단계인가"를 더하지 않았다(훅과 `Step`은 그대로다).
+  10. **현재 주문이 바뀌면 열 모듈에 발사 주문을 넣는다**(연산 `SetHeatShot`. Heat는 앞 작업이다): 열 = `FireHeatHu`, 간격 = 코어 블록의 간격. 유효하지 않은 주문이면 비운다(`ClearHeatShot`). `SimWorld.Heat.cs`의 머리 주석이 "주문을 가진 쪽이 넣는다(M2부터 Spell 모듈)"고 적어 둔 자리다.
+  11. **시제품은 실제 모듈이 쓸 훅을 비운다.** 훅 표(`CONTRACTS.md` 3.2절)와 뼈대는 바꾸지 않는다. 실제 모듈의 작업이 그 훅을 구현하기 전에, 시제품의 몸통을 (가) 시제품이 가진 다른 훅으로 합치거나 (나) 실제 모듈이 M3-CB-02 **뒤에야** 오는 훅 자리를 빌려 옮긴다. 빌린 자리는 M3-CB-02가 `Proto/`와 함께 지운다. 실제 모듈은 시제품의 연습 모드에서 할 일이 없다(현재 주문이 없고 적을 만들지 않는다).
+
+| 실제 모듈의 작업 | 비우는 훅 | 시제품의 몸통이 가는 곳 |
+|---|---|---|
+| M2-SPL-02(이 작업) | `Snapshot_*`·`State_*_SpellTable` | 시제품의 Arts 훅(절 7): 준비 표시와 조립을 판정기 상태 앞에 싣는다. 했다 |
+| M2-SPL-03(실행기) | `Stage06_Spell`, `Stage09_Spell`, `Snapshot_*`·`State_*_Spell` | `Stage06_Characters` 자리(빌림), 시제품의 `Stage09_Enemies` 앞머리(합침), 시제품의 Enemies 절(9) 훅(합침) |
+| M3-ENM-01(적 런타임) | `Stage07_Enemies`, `Stage09_Enemies`, `Stage10_Enemies`, `Snapshot_*`·`State_*_Enemies` | `Stage07_Bosses`, `Stage09_Duel`(실제 Enemies 뒤, Graze 앞), `Stage10_Bosses`, Bosses 절(11) 훅 자리(빌림) |
+
+  12. **벡터 배정을 옮긴다**(`PIPELINE.md` 3.7절): TV-D14~D16(거울상·사본 마법진·비기의 `HeatToAdd`)과 TV-E07~E11(화면 상한과 보전, 결투 한 사람당 150, 사본의 64 상한, 비기 예산)은 M2-SPL-03으로. M2-SPL-02에는 16.3절 전부, TV-D01~D13·D17~D19, TV-E01~E06, 16.10절 전부가 남는다. TV-E05는 "거울상 변이가 있어도 거울상이 아닌 쪽의 수는 60"까지를 컴파일 값으로 보고, 비기가 그쪽을 고르는 것은 실행기가 본다.
+- **대안**: (가) 계약 타입과 세계 잇기를 각각 CCR 작업으로 낸다. (나) 옆 타입(`SpellModel`)을 두고 계약 타입으로 옮겨 적는다. (다) 미리보기가 글자("×0.72")를 준다. (라) 규칙 값을 `SimConfig`의 칸으로 두거나 새 팩 절로 둔다. (마) 세계 잇기를 M3-CB-02로 미룬다. (바) 시제품에 자기 훅 줄(`Proto(18)`, `Stage06_Proto` …)을 훅 표에 더한다. (사) 스냅숏에 표의 원천 참조까지 싣는다. (아) 뼈대에 단계 번호를 두어 문을 지킨다.
+- **이유**:
+  - (가) 계약 타입은 구현의 절반이다(옆 타입을 지우고 계약 타입으로 바꾸는 일이 컴파일러 전체를 건드린다). T-52·T-53과 같이 이 작업의 브랜치에 같이 넣는다. 게다가 CCR 작업은 지금 실제 그래프에 더할 수 없다(아래).
+  - (나) 같은 값을 두 타입이 들면 실행기와 화면이 다시 옮겨 적고, 계약의 메서드가 빈 값을 주는 채로 남는다.
+  - (다) 화면에 보이는 글자는 이름 표에만 둔다(`CLAUDE.md` 5절). 코어는 이름 문자열을 갖지 못한다(3절). 내림 규칙은 로직이라 코어가 정수로 주고, 꼴("×", 소수점)은 `Wizard.Text`의 숫자 형식이 정한다.
+  - (라) 조립 화면은 세계도 `SimConfig`도 없이 `ISpellCompiler`만 쓴다(3.4절). 그래서 규칙 값은 `ContentDb`에서 와야 한다. 새 절은 절 번호·목차·뼈대의 `Load` 훅까지 고쳐야 하는데 값은 셋이고 읽는 쪽이 블록과 같다. blocks 절의 꼴은 그 절의 주인이 정하고 끝에 더한다(`howto-data-slice.md` 3절).
+  - (마) 실행기(M2-SPL-03)는 `Execute(SpellHandle …)`를 세계의 표로 풀어야 하고 M3-CB-02는 그 뒤다. 미루면 실행기가 표 없이 만들어진다.
+  - (바) 가장 깨끗하지만 훅 표를 바꾸는 계약 변경이고 `HookTableTests`가 `CONTRACTS.md`의 표를 읽는다. `CONTRACTS.md`는 지금 작업 브랜치에서 고칠 수 없다(아래). 시제품은 지울 코드이고, 옮기는 일은 시제품 폴더 안에서 끝난다. 빌린 자리의 실제 주인(Characters, Bosses, Duel)은 M5·M8·M14라 M3-CB-02 전에는 오지 않는다.
+  - (사) 계약(3.2절)이 길이만 싣는다고 정했고 되감기는 같은 표의 앞머리로만 돌아간다. 지문 하나로 그 전제가 깨진 경우를 드러내는 것으로 충분하다(값 하나, 할당 없음).
+  - (아) 단계 번호를 `Step`에 두는 것은 뼈대의 상태가 하나 느는 계약 변경이다. 문이 명령을 받게 하면 같은 것이 타입으로 지켜지고 뼈대는 그대로다.
+- **`CONTRACTS.md`는 이 브랜치에서 고치지 않았다.** T-47·T-52·T-53과 같은 까닭이다: 작업 브랜치에서 그 파일을 고치면 `check-diff`가 막고, `owned_paths`에 넣으면 `taskgraph`의 시험(`Add_ToCopyOfRealGraph_PassesFullValidationIncludingVectors`)이 깨진다. 그 시험은 실제 그래프에 "`CONTRACTS.md`를 가진 CCR"이 하나라도 있으면 깨지므로 개정문을 옮겨 적을 CCR 작업 자체를 더할 수 없다. 이 한계를 푸는 결함 작업 FIX-5를 더했다. 아래 개정문은 지금의 3.2·3.4절과 2.2·2.3절에 더하기만 한다. 옮겨 적기 전까지 그 절들은 아래 개정문과 같이 읽는다.
+- **따라오는 일**:
+  - FIX-5(build-tools-engineer): `taskgraph`의 시험이 더해 보는 CCR의 `deps`를 실제 그래프에서 고르게 한다. 그 뒤에 tech-lead가 CCR 작업 하나로 T-47·T-52·T-53·T-57의 개정문을 `CONTRACTS.md`에 옮긴다(계약 변경 요청으로 올린다).
+  - 계약 코드: `src/Wizard.Sim/Spell/`의 `WandCombatProfile.cs`, `CompiledSpell.cs`, `SpellScope.cs`, `CompileDiagnostic.cs`, `SpellPreview.cs`와 새 파일 `DiagCode.cs`, `DiagSeverity.cs`, `ScopeProjectile.cs`, `ScopeModifiers.cs`, `SlotRole.cs`, `CompiledSlot.cs`, `PreviewNode.cs`, `PreviewScope.cs`. `src/Wizard.Content/Defs/SpellRulesDef.cs`, `Pack/ContentDb.cs`(접근자), `Pack/Core/ContentDb.Core.cs`(훅 `FindSpellRules`).
+  - 팩의 blocks 절에 꼬리 12바이트가 붙었다. 재실행에 드는 소스와 데이터가 바뀌어 `SimVersion.g.cs`를 다시 만들었다.
+  - 상태 바이트가 바뀐다: 블록이 있는 팩의 모든 세계에서 절 6에 표의 길이(4바이트)와 플레이어마다 현재 핸들(4바이트)이 생기고, 시제품의 준비 표시와 조립은 절 6에서 절 7의 앞으로 옮겨 갔다. 이 브랜치에는 세계 해시의 골든이 없다. M1-TE-01의 브랜치가 만든 `tests/golden/m1/`의 일곱 골든은 이 변경과 만나면 전부 해시가 바뀐다: 뒤에 main에 들어가는 쪽이 `replaycli golden --update`로 다시 만들고 `tests/golden/CHANGELOG.md`에 이 결정을 이유로 적는다(상태가 늘어난 변경이다. `PIPELINE.md` 4.4절).
+  - `tasks.json`: M2-SPL-02의 `owned_paths`에 위 계약 코드, 시제품의 세 파일, blocks 절의 다섯 파일, 그리고 이 결정을 같이 넣으려고 `DECISIONS-TECH.md`·`OPEN-QUESTIONS.md`·`tasks.json`을 더했다(T-52·T-53과 같다. main에 들어간 뒤에는 문서 셋이 필요 없다). 시제품 파일의 순서를 받으려고 `deps`에 M1-SIM-09를 더했다(이미 main에 있어 막지 않는다). 위 표대로 벡터를 옮겼다.
+  - main 위로 옮길 때(T-54·T-56이 먼저 들어갔다) 생긴 순서: M1-UE-02가 `src/Wizard.Sim/Proto/SimWorld.ProtoView.cs`를, M10-ACC-01이 `DECISIONS-TECH.md`를 가져서, M2-SPL-03과 M3-ENM-01의 `deps`에 M1-UE-02를, M2-SPL-02의 `deps`에 M10-ACC-01을 더했다(둘 다 이미 main에 있어 막지 않는다). M2 마일스톤의 `task_count`는 FIX-4와 FIX-5가 같이 들어 15다.
+  - M2-SPL-03: 벡터 여덟, 수락 조건 셋(표에서 읽기, 시제품이 비우는 훅, 옮겨 온 벡터), `owned_paths`에 `src/Wizard.Sim/Proto/`와 그 시험 폴더. spec 02 16.6절의 벡터 가운데 뒤 작업의 기능(변이의 수치, 사본 마법진, 허상의 복사, 결투의 조준 보정)이 있어야 하는 것은 그 작업이 시작될 때 T-53의 9번처럼 옮긴다(변이 데이터는 M5-CHR-05, 사본 마법진은 M5-CHR-02, 허상은 M8-BOS-05, 조준 보정은 M14-DUL-02).
+  - M3-ENM-01: 수락 조건 하나(시제품이 비우는 훅), `owned_paths`에 `src/Wizard.Sim/Proto/`와 그 시험 폴더.
+  - M5-ART-01과 M5-CHR-01의 `deps`에 M3-CB-02를 더했다. 시제품이 Arts 훅(2·5단계, 절 7)을 쓰고 Characters의 6단계 자리를 빌리는데, 두 작업과 M3-CB-02 사이에 순서가 없었다(`deps`가 끝나면 마일스톤이 뒤여도 시작할 수 있다). Bosses(M8-BOS-01)와 Duel(M14-DUL-01)은 M5-CHR-01을 거쳐 순서가 생긴다.
+  - M4-UL-03: 미리보기의 글자는 `SpellPreview`의 값으로 그 작업이 만든다(TV-J02·J03의 글자 대조 포함). 수락 조건 하나.
+  - M4-RUN-01: `Depart`에서 `AddSpell(in command, …)`·`SetActiveSpell(in command, …)`을 부른다. 판 시작의 조립은 세계 생성 쪽 문으로 넣는다. `WandCombatProfile`을 `CharacterDef`와 `WandSnapshot`에서 만드는 것도 그 작업이다(깊이 감쇠와 밑줄은 지팡이 특성·패시브의 id에서 정한다). 수락 조건 하나. 그 전에는 세계가 스스로 현재 주문을 정하지 않는다: 실행기의 시험은 생성 쪽 문으로 넣는다.
+  - M5-CHR-05: 거울상의 열 배수를 변이 데이터에 다시 두지 않는다. 수락 조건 하나.
+  - 0단계의 문을 실제 명령(`Depart`)이 여는 것은 M4-RUN-01에서 처음 확인된다. M2-SPL-02는 문 자체(지금 틱의 명령만 받는다, 첫 `Step` 뒤에는 생성의 문이 닫힌다)와 표의 왕복을 세계 단위로 확인했다.
+
+**`CONTRACTS.md` 3.4절 개정문** (CCR 작업이 옮겨 적는다. 3.4절의 선언에 더한다. `ExecuteOptions`·`ISpellExecutor` 등 적지 않은 것은 그대로다)
+
+```csharp
+// namespace Wizard.Sim.Spell
+public readonly struct WandCombatProfile {            // 필드는 3.4절 그대로
+    public WandCombatProfile(CharacterId character, int baseLinks, int extraSlots, PowBase depthDecay,
+                             bool underlinePassive, MutationSet mutations);
+}
+
+public enum DiagCode : byte {                         // spec 02 6.3 표의 순서. 번호는 더하기만 한다
+    None = 0, CoreEmpty = 1, CoreNotProjectile = 2, SlotCountMismatch = 3, TriggerNoProjectile = 4,
+    NoEffect = 5, SplitDuplicate = 6, TriggerDepth = 7, ProjectileCap = 8, UnknownBlock = 9 /* [임시] Q-21 */ }
+public enum DiagSeverity : byte { Warning = 1, Error = 2 }
+public readonly struct CompileDiagnostic {
+    public readonly DiagCode Code; public readonly DiagSeverity Severity;
+    public readonly int Slot, ScopeDepth;             // 슬롯 0 = 코어, 1..L = 연결 칸
+    public CompileDiagnostic(DiagCode code, DiagSeverity severity, int slot, int scopeDepth);
+}
+
+public readonly struct ScopeProjectile { public readonly BlockId Block; public readonly int Slot; }
+public sealed class ScopeModifiers {                  // 스코프의 변형을 누적한 값(spec 02 6.1, 18절 U6~U8)
+    public int DamageBonusPermille, BounceCount, PierceCount, SizeDoublings;
+    public bool Homing, Frost, TripleHeat, Corrosion;
+    public int[] SourceSlots;                         // 변형 블록의 칸(슬롯 순)
+}
+public sealed class SpellScope {                      // 불변. spec 02 6.3
+    public const int NoSlot = -1;
+    public int Depth;                                 // 0..3
+    public int TriggerSlot, OwnerSlot;                // 없으면 NoSlot
+    public ScopeProjectile[] Projectiles;             // 슬롯 순
+    public ScopeModifiers Mods;
+    public int SplitCount, SplitSlot;                 // 1 / 2 / 3, 유효한 분열의 칸
+    public int SplitHeatMulPermille, FanHalfAngleCenti;   // 분열이 없으면 1000, 0
+    public int HeatSumHu, HeatHu;                     // 블록 열의 합(밑줄 반영), × 분열 배수
+    public int InstancesPerParent, InstancesTotal;
+    public Fix64 DepthMultiplier;                     // PowTable(DepthDecay, Depth)
+    public int FanOffsetCenti(int index);             // 갈래 index의 각도 오프셋(T-53 5번). 갈래 순서가 실행 순서다
+}
+
+public enum SlotRole : byte { Empty = 0, Projectile = 1, Modifier = 2, Split = 3, SplitIgnored = 4, Trigger = 5, TriggerIgnored = 6 }
+public readonly struct CompiledSlot {                 // 슬롯 하나가 트리에서 맡은 몫
+    public readonly int Slot; public readonly BlockId Block; public readonly SlotRole Role;
+    public readonly int ScopeDepth;                   // Trigger는 그것이 연 스코프의 깊이
+}
+
+public sealed class CompiledSpell {                   // 3.4절의 필드에 더한다
+    public int FireHeatHu;                            // J 발사 1회가 더하는 열. 거울상 변이면 HeatPerShotHu × 배수(HT-7)
+    public CompiledSlot[] Slots;                      // 슬롯 0..L. 유효하지 않으면 비어 있다
+    public int ExecutedCount(bool mirrored);          // 가지치기 뒤 트리 실행 1회의 투사체 수. 할당 없음
+}
+
+public readonly struct PreviewNode {                  // 투사체 마디. Index = SpellPreview.Nodes의 색인 = SpellNodeExecuted의 마디 번호
+    public readonly int Index, ScopeDepth, Slot; public readonly BlockId Block;
+    public readonly bool IsOwner, HasWarning;
+}
+public sealed class PreviewScope {
+    public int Depth, TriggerSlot; public bool TriggerHasWarning;
+    public int FirstNode, NodeCount;                  // Nodes[FirstNode .. FirstNode + NodeCount)
+    public int SplitCount, SplitSlot;
+    public int[] ModifierSlots; public bool[] ModifierHasWarning;   // 변형 꼬리(슬롯 순)
+    public int DepthLabelHundredths;                  // "×0.72" = 72. S0은 100
+    public bool Omitted;                              // 상한 가지치기로 실행하지 않는다
+}
+public sealed class SpellPreview {                    // spec 02 14.4. 글자는 담지 않는다
+    public bool IsValid;
+    public PreviewScope[] Scopes; public PreviewNode[] Nodes;
+    public CompileDiagnostic[] Diagnostics;           // 컴파일 결과의 정렬 순서 그대로
+    public int ProjectileCount, HeatPerShotHu;        // 맨 아래 줄의 N과 H
+    public ReadOnlySpan<CompileDiagnostic> WarningLines(int maxLines);
+    public bool SlotHasWarning(int slot); public int NodeOfSlot(int slot);   // 없으면 -1
+}
+
+// namespace Wizard.Sim.Spell.Compile
+public sealed class SpellCompiler : ISpellCompiler {  // 세계 없이 쓴다. 순수 함수
+    public SpellCompiler(ContentDb db);               // 팩에 주문 규칙이 없으면 ContentException
+    public int TreeProjectileCap { get; }
+}
+
+// namespace Wizard.Content — 2.2절과 2.3절에 더한다
+public sealed class SpellRulesDef { public int TreeProjectileCap, UnderlineMaxCutHu, MirrorHeatMulPermille; }   // 64, 600, 1500
+public sealed class ContentDb { public SpellRulesDef SpellRules { get; } }   // blocks 절의 꼬리. 없으면 ContentException
+```
+
+- 진단은 슬롯 번호 오름차순, 같으면 코드 값 오름차순이다(spec 02 6.4). 오류는 첫 오류 하나만 내고 멈춘다.
+- `SpellScope`·`ScopeModifiers`·`PreviewScope`·`SpellPreview`의 필드는 공개이지만 컴파일러가 채운 뒤 아무도 바꾸지 않는다(`CompiledSpell`과 같은 약속이다).
+- 미리보기와 글자 출력은 `CompiledSpell`만 읽는다. 원천을 다시 읽지 않는다.
+
+**`CONTRACTS.md` 3.2절 개정문** ("`SpellTable`은 세계 상태다"의 항목에 더한다)
+
+- 절 6의 내용: `count`, 항목마다 원천의 정규 바이트(`u8 core`, `u8 link_count`, `u8 × link_count`, `u8 character`, `u8 base_links`, `u8 extra_slots`, `u8 depth_decay`, `u8 underline`, `u8 mutation_bits`), 플레이어마다(슬롯 순) `i32` 현재 주문의 핸들(없으면 −1). 팩에 blocks 절이 없으면 내용이 없다.
+- 스냅숏에는 표의 길이, 그 앞머리의 지문, 슬롯별 현재 핸들이 들어간다. `LoadSnapshot`은 받는 세계의 표가 스냅숏의 앞머리와 같을 때만 된다(같은 세계의 되감기, 같은 조건으로 만든 확정 세계와 예측 세계). 아니면 `SimInvariantException`.
+- 세계 안의 문(`internal`. 같은 어셈블리의 모듈이 부른다):
+
+```csharp
+// namespace Wizard.Sim — SimWorld
+internal bool SpellTableOn { get; } internal int SpellCount { get; }
+internal CompiledSpell SpellAt(SpellHandle handle);                       // 실행 경로. 할당 없음. 범위 밖이면 SimInvariantException
+internal bool TryGetActiveSpell(int index, out SpellHandle handle);       // 슬롯의 현재 주문
+internal SpellHandle AddSpellAtCreation(BlockId core, ReadOnlySpan<BlockId> links, in WandCombatProfile profile);   // 첫 Step 전에만
+internal void SetActiveSpellAtCreation(PlayerSlot slot, SpellHandle handle);
+internal SpellHandle AddSpell(in RunCommand command, BlockId core, ReadOnlySpan<BlockId> links, in WandCombatProfile profile);   // 0단계: 적용 중인 명령
+internal void SetActiveSpell(in RunCommand command, PlayerSlot slot, SpellHandle handle);
+```
+
+- 현재 주문을 정하면 열 모듈의 발사 주문이 같이 바뀐다(`SetHeatShot(slot, 코어, FireHeatHu, FireIntervalTicks)`. 유효하지 않으면 `ClearHeatShot`).
+- 시제품(`Proto/`)이 살아 있는 동안의 훅 자리는 T-57의 표를 따른다. 훅 표 자체는 바뀌지 않는다.
+
 ## T-63 덜 찬 데이터를 전제한 저장소 데이터 시험은 그 데이터를 채우는 작업이 같은 브랜치에서 고친다 [신규]
 
 번호 메모: T-61(M1-UE-03)과 T-62(M2-NET-05)는 아직 main에 들어오지 않은 다른 작업 브랜치가 쓰고 있다. 겹치지 않게 T-63을 쓴다.

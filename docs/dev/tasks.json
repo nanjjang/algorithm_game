@@ -141,7 +141,7 @@
    "id": "M2",
    "title": "주문 컴파일러 + 넷코드 뼈대 (GDD 16-2, 멀티플레이 축 선행)",
    "gate": "M2-INT",
-   "task_count": 16,
+   "task_count": 17,
    "blocked_on_assets": 0,
    "parallel_groups": [
     "M2-W01",
@@ -2287,7 +2287,10 @@
    "reviewer_model": "opus",
    "deps": [
     "M2-SPL-01",
-    "M1-SIM-05"
+    "M1-SIM-05",
+    "M1-SIM-09",
+    "M10-ACC-01",
+    "M8-DAT-01"
    ],
    "spec_refs": [
     "docs/spec/02-spell-compiler.md §5",
@@ -2303,11 +2306,39 @@
     "docs/dev/DECISIONS-TECH.md"
    ],
    "contracts": [
-    "docs/dev/CONTRACTS.md §3.4"
+    "docs/dev/CONTRACTS.md §3.4",
+    "docs/dev/CONTRACTS.md §3.2"
    ],
    "owned_paths": [
     "src/Wizard.Sim/Spell/Compile/",
-    "tests/Wizard.Sim.Tests/Spell/Compile/"
+    "tests/Wizard.Sim.Tests/Spell/Compile/",
+    "src/Wizard.Sim/Spell/WandCombatProfile.cs",
+    "src/Wizard.Sim/Spell/CompiledSpell.cs",
+    "src/Wizard.Sim/Spell/SpellScope.cs",
+    "src/Wizard.Sim/Spell/CompileDiagnostic.cs",
+    "src/Wizard.Sim/Spell/SpellPreview.cs",
+    "src/Wizard.Sim/Spell/DiagCode.cs",
+    "src/Wizard.Sim/Spell/DiagSeverity.cs",
+    "src/Wizard.Sim/Spell/ScopeProjectile.cs",
+    "src/Wizard.Sim/Spell/ScopeModifiers.cs",
+    "src/Wizard.Sim/Spell/SlotRole.cs",
+    "src/Wizard.Sim/Spell/CompiledSlot.cs",
+    "src/Wizard.Sim/Spell/PreviewNode.cs",
+    "src/Wizard.Sim/Spell/PreviewScope.cs",
+    "src/Wizard.Sim/Proto/SimWorld.Proto.cs",
+    "src/Wizard.Sim/Proto/SimWorld.ProtoArts.cs",
+    "src/Wizard.Sim/Proto/SimWorld.ProtoSpell.cs",
+    "src/Wizard.Content/Defs/SpellRulesDef.cs",
+    "src/Wizard.Content/Pack/ContentDb.cs",
+    "src/Wizard.Content/Pack/Core/ContentDb.Core.cs",
+    "src/Wizard.Content/Pack/Sections/ContentDb.Blocks.cs",
+    "data/sim/blocks.json",
+    "data/schema/blocks.schema.json",
+    "tools/Wizard.DataBuild/Convert/BlocksConverter.cs",
+    "tests/Wizard.Content.Tests/BlocksPackTests.cs",
+    "docs/dev/DECISIONS-TECH.md",
+    "docs/dev/OPEN-QUESTIONS.md",
+    "docs/dev/tasks.json"
    ],
    "acceptance": [
     "CompiledSpell은 SpellTable에 값으로 들어가고 세계 상태는 SpellHandle(정수)만 가진다",
@@ -2316,12 +2347,17 @@
     "스냅숏 뒤 새 핸들 생성 → 복원 → 다른 순서로 다시 생성해도 해시가 같다. WriteState → 새 세계 ReadState 뒤 모든 핸들이 실행된다(원천에서 다시 컴파일)",
     "새 핸들은 세계 생성과 Step 0단계에서만 생긴다. 5~10단계의 실행 경로에서 컴파일이 일어나지 않는다(할당 0)",
     "분열과 적중 시 발동은 BlockDef.IsSplit·IsTrigger로 가른다. BlockId로 가르지 않는다. 부채꼴 각도는 BlockParams.FanHalfAngleCenti에서 만든다(−반각 ~ +반각을 갈래 수로 고르게 나눈다. DECISIONS-TECH T-53)",
-    "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
+    "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다",
+    "계약 타입이 채워져 있다(DECISIONS-TECH T-57의 CONTRACTS 3.4절 개정문): SpellScope·ScopeProjectile·ScopeModifiers, CompileDiagnostic·DiagCode·DiagSeverity, CompiledSlot·SlotRole, SpellPreview·PreviewScope·PreviewNode, WandCombatProfile의 생성자. ISpellCompiler의 공개 구현은 SpellCompiler(ContentDb)이고 세계 없이 컴파일·미리보기·글자 출력을 한다. 내부 사본 타입(…Model)은 없다",
+    "컴파일 규칙 값(트리 실행 상한 64, 밑줄 상한 5, 거울상 열 배수 1.5)은 data/sim/blocks.json의 spell_rules에서 팩의 blocks 절 꼬리로 들어가고 ContentDb.SpellRules로 읽는다. 코드에 그 수가 없다",
+    "세계의 문: 새 핸들은 AddSpellAtCreation(첫 Step 전)과 AddSpell(in RunCommand, …)(0단계에서 적용 중인 명령)로만 생긴다. 슬롯별 현재 주문의 핸들(TryGetActiveSpell)이 절 6에 들어가고, 현재 주문이 바뀌면 열 모듈에 CompiledSpell.FireHeatHu와 코어의 간격이 들어간다(SetHeatShot)",
+    "미리보기의 글자 벡터(TV-J02 맨 아래 줄, TV-J03 꼬리표)는 SpellPreview의 값(ProjectileCount, HeatPerShotHu, DepthLabelHundredths)으로 시험한다. 글자로 그리는 것은 M4-UL-03이다(코어는 화면 글자를 갖지 않는다)"
    ],
    "vectors": [
     "S02§16.3",
-    "S02§16.4",
-    "S02§16.5",
+    "S02:TV-D01..TV-D13",
+    "S02:TV-D17..TV-D19",
+    "S02:TV-E01..TV-E06",
     "S02§16.10"
    ],
    "parallel_group": "M2-W06",
@@ -2336,7 +2372,8 @@
    "owner_model": "opus",
    "reviewer_model": "opus",
    "deps": [
-    "M2-SPL-02"
+    "M2-SPL-02",
+    "M1-UE-02"
    ],
    "spec_refs": [
     "docs/spec/02-spell-compiler.md §9",
@@ -2351,7 +2388,9 @@
    ],
    "owned_paths": [
     "src/Wizard.Sim/Spell/Exec/",
-    "tests/Wizard.Sim.Tests/Spell/Exec/"
+    "tests/Wizard.Sim.Tests/Spell/Exec/",
+    "src/Wizard.Sim/Proto/",
+    "tests/Wizard.Sim.Tests/Proto/"
    ],
    "acceptance": [
     "투사체 풀이 고정 크기이고 상한을 넘는 발사의 처리 순서가 명세와 같다",
@@ -2359,11 +2398,16 @@
     "실행한 마디마다 SpellNodeExecuted(마디 번호 = SpellPreview의 마디 번호)를 낸다",
     "블록의 동작은 BlockDef.Flags·Effect·Params에서 읽는다(DECISIONS-TECH T-53: 폭발 반경, 전이 횟수·반경, 돌아오는 탄의 소멸 반경·거리, 튕김·관통 횟수, 반지름 배수와 상한, 유도의 선회각·시야·거리). 코드에 그 수를 두지 않는다",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다",
-    "T-54: 플레이어 투사체를 뷰 훅 View_Projectiles_Spell로 ISimView.Projectiles에 낸다(CONTRACTS 3.3 ProjectileView: id 오름차순, Faction.Player, Owner, Core, Element, Dir, Radius, Group = ShotId). 뷰 훅은 상태를 바꾸지 않는다(매 틱 뷰를 읽은 세계와 읽지 않은 세계의 해시가 같다는 시험). 표시에 더 필요한 칸은 ProjectileView에 더하기만 하고 계약 변경으로 올린다"
+    "T-54: 플레이어 투사체를 뷰 훅 View_Projectiles_Spell로 ISimView.Projectiles에 낸다(CONTRACTS 3.3 ProjectileView: id 오름차순, Faction.Player, Owner, Core, Element, Dir, Radius, Group = ShotId). 뷰 훅은 상태를 바꾸지 않는다(매 틱 뷰를 읽은 세계와 읽지 않은 세계의 해시가 같다는 시험). 표시에 더 필요한 칸은 ProjectileView에 더하기만 하고 계약 변경으로 올린다",
+    "TV-D14~D16(거울상·사본 마법진·비기의 HeatToAdd)과 TV-E07~E11(화면 상한 300/150과 보전, 결투 한 사람당 150, 사본의 64 상한, 비기 예산)은 Execute의 값이라 M2-SPL-02에서 옮겨 왔다(DECISIONS-TECH T-57). J 발사의 HeatToAddHu는 CompiledSpell.FireHeatHu(거울상 변이면 이미 x1.5), 열 면제면 0이다. 사본 마법진과 비기는 거울상 쪽 가지치기(MaxDepthMirrored)를 쓰지 않는다(J와 마력 방출만)",
+    "주문은 세계의 표에서 읽는다(DECISIONS-TECH T-57): 6단계는 슬롯의 현재 주문(TryGetActiveSpell)을 SpellAt으로 읽어 실행하고 컴파일하지 않는다. Execute의 SpellHandle도 SpellAt으로 읽는다. 표와 현재 핸들의 상태 훅(절 6)은 M2-SPL-02의 SimWorld.SpellTable.cs에 있고 이 작업은 Spell 절(5)의 훅만 구현한다. 마디 번호는 SpellPreview.Nodes의 색인(스코프 깊이 순, 그 안에서 슬롯 순)이다",
+    "시제품(Proto)이 실행기가 쓸 훅을 비운다(DECISIONS-TECH T-57의 표): Proto의 Stage09_Spell 몸통은 Proto의 Stage09_Enemies 앞머리로 합치고, Spell 절(5)에 쓰던 탄 풀은 Proto의 Enemies 절(9) 훅이 같이 싣고, Stage06_Spell 몸통은 Stage06_Characters 자리를 빌린다(실제 Characters는 M3-CB-02 뒤에 온다). Stage00_Spell은 그대로 둔다. 옮긴 뒤 tests/Wizard.Sim.Tests/Proto/가 통과하고(상태 바이트의 자리가 바뀌는 시험만 고친다) 연습 모드의 동작은 그대로다. 실제 실행기는 현재 주문이 없는 세계(시제품의 연습 모드)에서 아무것도 하지 않는다"
    ],
    "vectors": [
     "S02§16.6",
-    "S02§16.7"
+    "S02§16.7",
+    "S02:TV-D14..TV-D16",
+    "S02:TV-E07..TV-E11"
    ],
    "parallel_group": "M2-W07",
    "status": "todo"
@@ -2834,7 +2878,8 @@
     "M0-BT-05",
     "FIX-2",
     "M0-TL-01",
-    "M8-DAT-01"
+    "M8-DAT-01",
+    "FIX-5"
    ],
    "spec_refs": [
     "docs/dev/DECISIONS-TECH.md",
@@ -2925,6 +2970,35 @@
    "status": "todo"
   },
   {
+   "id": "FIX-5",
+   "milestone": "M2",
+   "title": "taskgraph의 시험이 실제 그래프에 CONTRACTS.md를 가진 작업이 M0-TL-01뿐이라고 가정한다(CCR 작업을 더할 수 없다)",
+   "module": "tools",
+   "owner_agent": "build-tools-engineer",
+   "owner_model": "opus",
+   "reviewer_model": "opus",
+   "deps": [
+    "FIX-2"
+   ],
+   "spec_refs": [
+    "docs/dev/PIPELINE.md §3",
+    "docs/dev/DECISIONS-TECH.md"
+   ],
+   "contracts": [],
+   "owned_paths": [
+    "tools/Wizard.TaskGraph/Tests/AddAndCardTests.cs"
+   ],
+   "acceptance": [
+    "경위: AddAndCardTests.Add_ToCopyOfRealGraph_PassesFullValidationIncludingVectors는 실제 docs/dev/tasks.json에 \"deps [M0-TL-01], owned_paths [docs/dev/CONTRACTS.md]\"인 CCR을 더해 검사를 통과해야 한다. 실제 그래프에 M0-TL-01 말고 CONTRACTS.md를 가진 작업이 하나라도 있으면 \"owned_paths가 겹치는데 deps로 순서가 정해져 있지 않다\"로 이 시험이 실패한다(FIX-2가 주석과 Add_ToCopyOfRealGraph_WhenAnotherTaskAlsoOwnsContracts_FailsOnOverlap으로 고정해 둔 알려진 한계). 그래서 PIPELINE 3.7절의 CCR 작업(CONTRACTS.md를 고치는 작업)을 실제 그래프에 더할 수 없고, 계약 개정이 CONTRACTS.md에 들어가지 못한 채 DECISIONS-TECH의 개정문으로만 쌓였다(T-47, T-52, T-53, T-57)",
+    "그 시험이 더해 보는 CCR의 deps를 실제 그래프에서 고른다: 그 시점에 docs/dev/CONTRACTS.md(또는 그것을 덮는 경로)를 owned_paths에 가진 모든 작업. 그래서 실제 그래프에 CONTRACTS.md를 가진 작업이 몇 개든 시험이 통과한다. 실제 그래프에 그런 CCR이 이미 하나 있는 경우를 흉내 낸 시험이 통과로 바뀐다(지금의 …FailsOnOverlap 시험은 deps를 일부러 빼먹은 경우만 실패로 남긴다)",
+    "taskgraph add 자체의 동작은 바꾸지 않는다(경로가 겹치는데 deps가 없으면 계속 거부한다). 결과 보고에 \"CCR 작업을 더할 때 deps에 넣어야 하는 작업을 찾는 법\"을 한 줄로 적는다(tech-lead가 PIPELINE 3.7절에 옮긴다)",
+    "번호: FIX-3은 M1-UE-02의 브랜치가, FIX-4는 M1-TE-01의 브랜치가 이미 쓰고 있어(아직 main에 없다) 겹치지 않게 FIX-5로 했다"
+   ],
+   "vectors": [],
+   "parallel_group": "M2-W07",
+   "status": "todo"
+  },
+  {
    "id": "M3-ENM-01",
    "milestone": "M3",
    "title": "적 공통 런타임: 상태와 풀, 이동, 접촉, 피해, 상성, 적 탄",
@@ -2933,7 +3007,8 @@
    "owner_model": "opus",
    "reviewer_model": "opus",
    "deps": [
-    "M2-SPL-04"
+    "M2-SPL-04",
+    "M1-UE-02"
    ],
    "spec_refs": [
     "docs/spec/05-enemies.md §1",
@@ -2955,14 +3030,17 @@
    ],
    "owned_paths": [
     "src/Wizard.Sim/Enemies/Core/",
-    "tests/Wizard.Sim.Tests/Enemies/Core/"
+    "tests/Wizard.Sim.Tests/Enemies/Core/",
+    "src/Wizard.Sim/Proto/",
+    "tests/Wizard.Sim.Tests/Proto/"
    ],
    "acceptance": [
     "적 처리는 id 오름차순이고 적 풀과 적 탄 풀은 고정 크기다. 상한 처리가 명세와 같다",
     "IEnemyBrain 계약이 CONTRACTS 3.6절과 같다",
     "엘리트는 바탕 종의 약점·저항으로 속성 배율을 받고, 보스의 졸개는 상성이 없다(배율 1). spec 02 TV-B06·TV-B07(M2-SPL-01에서 옮겨 왔다). 엘리트와 졸개의 데이터가 아직 없으면 spec 02 3.3 표의 값으로 만든 시험용 정의를 쓴다",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다",
-    "T-54: 적을 View_Enemies_Enemies로 ISimView.Enemies에, 적 탄을 View_Projectiles_Enemies로 ISimView.Projectiles에 낸다(CONTRACTS 3.3 EnemyView·ProjectileView: id 오름차순, 종, 몸 반지름, 체력, 공격 준비의 시작 틱과 길이, 적 탄의 Group = CastId). 뷰 훅은 상태를 바꾸지 않는다(해시 시험). 두뇌가 Step 안에서 목록 뷰를 읽으면 Step의 할당 0을 지키도록 버퍼를 미리 잡는 문을 계약 변경으로 올린다"
+    "T-54: 적을 View_Enemies_Enemies로 ISimView.Enemies에, 적 탄을 View_Projectiles_Enemies로 ISimView.Projectiles에 낸다(CONTRACTS 3.3 EnemyView·ProjectileView: id 오름차순, 종, 몸 반지름, 체력, 공격 준비의 시작 틱과 길이, 적 탄의 Group = CastId). 뷰 훅은 상태를 바꾸지 않는다(해시 시험). 두뇌가 Step 안에서 목록 뷰를 읽으면 Step의 할당 0을 지키도록 버퍼를 미리 잡는 문을 계약 변경으로 올린다",
+    "시제품(Proto)이 적 런타임이 쓸 훅을 비운다(DECISIONS-TECH T-57의 표): Proto의 Stage07_Enemies 몸통은 Stage07_Bosses 자리, Stage09_Enemies 몸통은 Stage09_Duel 자리(실제 Enemies 뒤, Graze 앞), Stage10_Enemies 몸통은 Stage10_Bosses 자리, Enemies 절(9)에 쓰던 풀은 Bosses 절(11)의 훅 자리를 빌린다(실제 Bosses·Duel은 M3-CB-02 뒤에 온다). 옮긴 뒤 tests/Wizard.Sim.Tests/Proto/가 통과하고 연습 모드의 동작은 그대로다. 실제 적 런타임은 시제품의 연습 모드에서 적을 만들지 않는다"
    ],
    "vectors": [
     "S05§11.1",
@@ -3528,7 +3606,8 @@
     "무효 명령은 적용되지 않고 CanApply가 거짓이다. 재실행에서 무효 명령이 나오면 RecordCorrupt다",
     "명령과 키가 섞인 판의 실행 중 해시 = 재실행 해시. 야영 화면을 열고 닫기, 연습 들어가기·나오기가 든 판 포함",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다",
-    "T-54: CampView를 View_Camp_Camp로 채운다(Sub, 방금 넘긴 웨이브, 회복 횟수, 해금 차례). 뷰 훅은 상태를 바꾸지 않는다(해시 시험)"
+    "T-54: CampView를 View_Camp_Camp로 채운다(Sub, 방금 넘긴 웨이브, 회복 횟수, 해금 차례). 뷰 훅은 상태를 바꾸지 않는다(해시 시험)",
+    "Depart로 조립이 확정되면 Stage00_Camp가 적용 중인 명령으로 AddSpell(in command, core, links, profile)과 SetActiveSpell(in command, slot, handle)을 부른다(DECISIONS-TECH T-57. 새 핸들의 문은 세계 생성과 0단계뿐이다). 판 시작의 조립은 세계 생성 쪽 문(AddSpellAtCreation, SetActiveSpellAtCreation)으로 넣는다. WandCombatProfile은 CharacterDef(BaseLinkSlots, 패시브, 지팡이 특성)와 WandSnapshot(SlotsExtra, Mutations)에서 만든다"
    ],
    "vectors": [
     "S07§17.11"
@@ -3682,7 +3761,8 @@
     "끌어다 놓기와 키보드 조립이 같은 RunCommand를 만든다. 화면 모델은 세계 상태를 직접 바꾸지 않는다",
     "미리보기 트리는 컴파일러의 진단 출력을 그대로 쓴다(따로 계산하지 않는다)",
     "화면 조작은 SimWorld.CanApply가 참인 RunCommand로만 나간다. 야영 화면 닫기와 연습 들어가기·나오기가 명령으로 나간다. 화면이 따로 상태를 두지 않고 CampView를 읽는다",
-    "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
+    "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다",
+    "컴파일 트리 미리보기는 Wizard.Sim.Spell.Compile.SpellCompiler(ContentDb)의 BuildPreview가 준 SpellPreview를 그린다(DECISIONS-TECH T-57). 코어는 글자를 주지 않는다: 맨 아래 줄 \"발사 1회 = 투사체 N개 · 열 H\"(N = ProjectileCount, H = HeatPerShotHu ÷ 120), 꼬리표 \"×0.72\"(DepthLabelHundredths = 72), 경고 줄(WarningLines(3)의 DiagCode → warn.* 열쇠), 변형 꼬리의 한 줄 6개와 \"+N\"은 이 작업이 이름 표의 틀과 화면 값으로 만든다. spec 02 TV-J02·TV-J03의 글자를 이 모델의 시험에서 대조한다"
    ],
    "vectors": [
     "S13:TV-055..TV-077"
@@ -3933,7 +4013,8 @@
    "reviewer_model": "opus",
    "deps": [
     "M5-DAT-01",
-    "M3-CMB-01"
+    "M3-CMB-01",
+    "M3-CB-02"
    ],
    "spec_refs": [
     "docs/spec/03-command-parser.md §8",
@@ -3957,7 +4038,8 @@
     "spec 03 17절 경계 조건이 전부 테스트로 있다",
     "판정기와 지갑의 상태가 스냅숏·WriteState·해시에 들어간다. 같은 기록의 재실행에서 모든 ArtDecision이 같다(B36)",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다",
-    "T-54: PlayerView의 Preview(지금 K = …)와 Recent(최근 입력 5개)를 View_Player_Arts로 채운다(PlayerViewDraft). 뷰 훅은 상태를 바꾸지 않는다: 미리보기는 판정기의 Preview(상태를 바꾸지 않는 판정)에서 옮긴다(해시 시험)"
+    "T-54: PlayerView의 Preview(지금 K = …)와 Recent(최근 입력 5개)를 View_Player_Arts로 채운다(PlayerViewDraft). 뷰 훅은 상태를 바꾸지 않는다: 미리보기는 판정기의 Preview(상태를 바꾸지 않는 판정)에서 옮긴다(해시 시험)",
+    "순서: 이 작업이 구현하는 훅을 시제품(src/Wizard.Sim/Proto/)이 쓰고 있거나 빌려 쓴다(DECISIONS-TECH T-57의 표). 부분 메서드는 구현이 하나뿐이라 시제품이 지워진 뒤(M3-CB-02)에 시작한다. deps에 M3-CB-02를 더했다"
    ],
    "vectors": [
     "S03:B08..B10",
@@ -4121,7 +4203,8 @@
    "reviewer_model": "opus",
    "deps": [
     "M5-DAT-01",
-    "M3-CMB-01"
+    "M3-CMB-01",
+    "M3-CB-02"
    ],
    "spec_refs": [
     "docs/spec/04-characters-wands.md §3",
@@ -4145,7 +4228,8 @@
     "끓어넘침, 피뢰침 체질, 밑줄, 살얼음, 그림자 계약이 각각 정해진 틱 단계에서만 상태를 바꾼다",
     "피뢰침 체질은 이음 훅 OnGrazeAwarded_Characters에서 발동한다(CONTRACTS 3.2절, T-50). 스침 인정마다 1회이고 비기 스침(AwardSkillGraze)도 같다. 벼락은 콤보에 넣지 않는다",
     "블록을 거치지 않는 패시브 피해(끓어넘침)는 캐릭터의 속성으로 속성 배율을 받는다(spec 02 EL-4, TV-B10. M2-SPL-01에서 옮겨 왔다)",
-    "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
+    "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다",
+    "순서: 이 작업이 구현하는 훅을 시제품(src/Wizard.Sim/Proto/)이 쓰고 있거나 빌려 쓴다(DECISIONS-TECH T-57의 표). 부분 메서드는 구현이 하나뿐이라 시제품이 지워진 뒤(M3-CB-02)에 시작한다. deps에 M3-CB-02를 더했다"
    ],
    "vectors": [
     "S04§15.4",
@@ -4303,7 +4387,8 @@
    "acceptance": [
     "유리 지팡이의 '판 안에서만 강화 −1, 끝나면 복구'와 불안정 핵의 자폭이 SimConfig 스위치로 모드별로 갈린다",
     "변이는 받은 순서를 유지하고 초롱만 3개다",
-    "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
+    "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다",
+    "거울상의 발사당 열 배수(1.5)는 이미 주문 규칙(data/sim/blocks.json의 spell_rules.mirror_heat_multiplier, ContentDb.SpellRules)에 있고 CompiledSpell.FireHeatHu에 반영된다(DECISIONS-TECH T-57). mutations.json에 같은 값을 다시 두지 않는다"
    ],
    "vectors": [
     "S04:N105..N108",

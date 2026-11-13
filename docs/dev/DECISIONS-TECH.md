@@ -1333,7 +1333,7 @@ public interface IAssetCatalog {
 
 ## T-61 머리 없는 골든 실행기는 `Wizard.Unity.App` 안에 있고 `Wizard.TestKit.Shared`를 참조한다. 산술 연산 표 `CoreArithOps`는 `Wizard.TestKit.Shared`에 한 벌만 둔다 [신규]
 
-번호 메모: T-55와 T-57~T-59는 아직 main에 들어오지 않은 다른 작업 브랜치들이 쓰고 있고, T-60은 M2-NET-03이 썼다(위의 시계 맞추기). 겹치지 않게 T-61을 쓴다.
+번호 메모: T-55, T-57~T-59와 T-62는 아직 main에 들어오지 않은 다른 작업 브랜치들이 쓰고 있고, T-60은 M2-NET-03이(위의 시계 맞추기), T-63은 M8-DAT-01이(바로 위의 덜 찬 데이터 시험) 썼다. T-61은 M8-DAT-01보다 먼저 이 브랜치가 잡은 번호라 그대로 쓰고, 절은 먼저 main에 들어온 T-63 뒤에 둔다.
 
 - **문제**: M1-UE-03(Unity 골든)이 구현을 끝내고 멈췄다. 카드의 소유 경로만으로는 Unity에서 컴파일되지 않는다. 올라온 것은 둘이다.
   1. 골든 실행기(`unity/Assets/Game/App/Headless/`)는 `tests/golden/`을 `Wizard.TestKit.Shared`(`GoldenCatalog`, `GoldenRunResult`, `GoldenComparison`, `ArithRunner`)로 읽는다. 그런데 `Wizard.Unity.App.asmdef`의 참조에 `Wizard.TestKit.Shared`가 없고 그 파일은 어느 카드의 소유도 아니다. 실행기에 따로 asmdef를 줄 수도 없다: `ARCHITECTURE.md` 3.1절은 `unity/Assets/Game/`의 어셈블리를 다섯으로, Unity 쪽 테스트 asmdef를 둘로 정했고 `ProjectSetupTests.GameAsmdefs_AreTheFiveLayers`가 그것을 본다.
@@ -1353,7 +1353,7 @@ public interface IAssetCatalog {
 - **`CONTRACTS.md`는 고칠 곳이 없다.** 시그니처, 열거형 번호, 파일·패킷·DB 형식은 그대로다. 바뀐 것은 어셈블리 참조 한 줄과 시험 도구 파일의 자리이고, 그 서술은 `ARCHITECTURE.md` 2절(폴더 그림)·3.1절(Unity 어셈블리 표)·3.3절(프레임워크 표)에 있어 거기를 고쳤다.
 - **따라오는 일**:
   - `tasks.json`: M1-UE-03의 `owned_paths`에 `unity/Assets/Game/App/Wizard.Unity.App.asmdef`, `tests/Wizard.Core.Tests/Math/CoreArithOps.cs`(옮겨서 없어지는 자리), `tests/Wizard.TestKit/Shared/Arith/CoreArithOps.cs`를 더하고 수락 조건 한 줄을 더했다. 참조 한 줄과 표의 이동은 실행기와 한 커밋에 있어야 main이 깨지지 않는다(T-56의 8번과 같은 까닭). 앞의 두 경로를 가진 M1-CORE-01과 M0-TE-01은 이미 `deps`로 앞에 있다. asmdef는 다른 카드가 갖지 않는다.
-  - 이 결정을 같이 넣으려고 `docs/dev`의 세 파일(이 문서, `ARCHITECTURE.md`, `tasks.json`)도 M1-UE-03의 `owned_paths`에 더했다(T-56과 같은 방식. main에 들어간 뒤에는 필요 없다). 같은 문서를 가진 작업들과 순서가 있어야 해서 `deps`에 M10-ACC-01과 M2-NET-03을 더했다(그 앞의 M2-SPL-01, M1-SIM-08, M1-CONT-02, M0-TL-01은 M10-ACC-01의 `deps`를 따라 이어진다. M2-NET-03은 이 문서와 `tasks.json`을 가지고 T-60을 적었다). 둘 다 이미 main에 있어 M1-UE-03과 M1-INT를 막지 않는다. 이 `deps` 두 줄은 문서 파일의 순서를 적은 것이고 골든 실행기가 계정 스키마나 시계 맞추기에 기댄다는 뜻이 아니다. 문서는 문서만 든 커밋으로 따로 두었다.
+  - 이 결정을 같이 넣으려고 `docs/dev`의 세 파일(이 문서, `ARCHITECTURE.md`, `tasks.json`)도 M1-UE-03의 `owned_paths`에 더했다(T-56과 같은 방식. main에 들어간 뒤에는 필요 없다). 같은 문서를 가진 작업들과 순서가 있어야 해서 `deps`에 M10-ACC-01, M2-NET-03, M8-DAT-01을 더했다(그 앞의 M2-SPL-01, M1-SIM-08, M1-CONT-02, M0-TL-01은 M10-ACC-01의 `deps`를 따라 이어진다. M2-NET-03은 이 문서와 `tasks.json`을 가지고 T-60을 적었다. M8-DAT-01은 이 문서와 `tasks.json`을 가지고 T-63을 적었다). 셋 다 이미 main에 있어 M1-UE-03과 M1-INT를 막지 않고, M8-DAT-01의 조상에 M1-UE-03이 없어 고리가 생기지 않는다. 이 `deps` 세 줄은 문서 파일의 순서를 적은 것이고 골든 실행기가 계정 스키마나 시계 맞추기, 적 데이터에 기댄다는 뜻이 아니다. 문서는 문서만 든 커밋으로 따로 두었다.
   - `Wizard.TestKit.Shared`에는 `.meta`를 커밋하지 않는다(metagen의 범위 밖이고 `unity.sh`가 실행 뒤 지운다). 옮긴 파일도 같다.
   - `IArithOps`의 머리 주석("산술 묶음의 주인(M1-CORE-01)이 만든다")은 그대로 맞다: 표를 만든 것은 M1-CORE-01이고 자리만 옮겼다.
   - 찾은 결함(FIX-6으로 더하고 M1-INT의 `deps`에 넣었다): main(M2-NET-02 뒤)에서 Mono 플레이어 빌드가 실패한다. `unity/Assets/Plugins/BouncyCastle.Cryptography.dll.meta`가 `serializedVersion: 2`라고 적고 `platformData`는 3판의 꼴이라, 플레이어의 스크립트 컴파일에 그 DLL이 들어가지 않는다(편집기 컴파일에는 들어간다. 그래서 병합 게이트는 통과했다). 그 파일은 M0-BT-01의 것이라 여기서 고치지 않았다. M1-UE-03의 플레이어 열은 그 한 줄을 작업 트리에서 임시로 `3`으로 바꿔 돌려 확인하고 되돌렸다(Mono arm64·x64 플레이어가 골든 7개와 산술 벡터 141개를 기대와 같게 냈다). FIX-6이 main에 들어가기 전에는 `unity-golden.sh`의 플레이어 열이 "player build failed"로 실패한다. 이것은 M1-UE-03의 결함이 아니다.

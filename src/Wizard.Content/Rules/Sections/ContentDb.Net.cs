@@ -20,7 +20,8 @@ namespace Wizard.Content
     //   i32 spectator_keyframe_ticks
     //   i32 clock_sync_samples
     //   i32 clock_resync_ticks
-    //   i32 clock_slew_max_ppm                              위 열세 개는 모두 1 이상
+    //   i32 clock_slew_max_ppm
+    //   i32 hash_mismatch_flag_over                         위 열네 개는 모두 1 이상(마지막 값은 T-62)
     // 깨진 바이트(모자람, 남음, 표 순서, 1 미만)는 ContentException.
     public sealed partial class ContentDb
     {
@@ -67,6 +68,7 @@ namespace Wizard.Content
             d.ClockSyncSamples = NetPositive(ref r);
             d.ClockResyncTicks = NetPositive(ref r);
             d.ClockSlewMaxPpm = NetPositive(ref r);
+            d.HashMismatchFlagOver = NetPositive(ref r);
             if (r.Remaining != 0)
             {
                 throw NetBroken("trailing bytes");

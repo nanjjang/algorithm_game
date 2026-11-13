@@ -129,7 +129,8 @@ namespace Wizard.Netcode.Tests.Duel.Client
             ledger.OnPredictedTick(10, shifted);
             Assert.Empty(Drain(ledger));
 
-            // 다시 돌림: 슬롯 0 의 두 번째 발사가 사라지고 슬롯 1 에 하나 늘었다
+            // 다시 돌림: 슬롯 0 의 두 번째 발사가 사라지고 슬롯 1 에 하나 늘었다.
+            // 사라진 열쇠는 내지 않는다(번복은 확정 때만 난다, T-66). 새 열쇠만 Predicted 로 나온다
             var changed = new[]
             {
                 Ev(SimEventType.ShotFired, 0, source: 7),
@@ -138,18 +139,56 @@ namespace Wizard.Netcode.Tests.Duel.Client
             };
             ledger.OnPredictedTick(10, changed);
             PresentationEvent[] out3 = Drain(ledger);
-            Assert.Equal(2, out3.Length);
-            Assert.Equal((EventPhase.Retracted, (byte)0, (ushort)1), (out3[0].Phase, out3[0].Event.Slot.Value, out3[0].Ordinal));
-            Assert.Equal((EventPhase.Predicted, (byte)1, (ushort)1), (out3[1].Phase, out3[1].Event.Slot.Value, out3[1].Ordinal));
+            PresentationEvent added = Assert.Single(out3);
+            Assert.Equal((EventPhase.Predicted, (byte)1, (ushort)1), (added.Phase, added.Event.Slot.Value, added.Ordinal));
 
-            // 확정: 확정 열에 없는 예측은 Retracted, 확정 열은 전부 Confirmed. 그 뒤로 그 틱의 기록은 없다
+            // 확정: 내보낸 예측(슬롯 0 의 0·1 번째, 슬롯 1 의 0·1 번째) 가운데 확정 열에 없는 셋은 Retracted, 확정 열은 전부 Confirmed.
+            // 그 뒤로 그 틱의 기록은 없다
             var confirmed = new[] { Ev(SimEventType.ShotFired, 0, source: 3) };
             ledger.OnConfirmedTick(10, confirmed, emit: true);
             PresentationEvent[] out4 = Drain(ledger);
-            Assert.Equal(new[] { EventPhase.Retracted, EventPhase.Retracted, EventPhase.Confirmed }, out4.Select(e => e.Phase).ToArray());
-            Assert.All(out4.Take(2), e => Assert.Equal((byte)1, e.Event.Slot.Value));
+            Assert.Equal(new[] { EventPhase.Retracted, EventPhase.Retracted, EventPhase.Retracted, EventPhase.Confirmed },
+                         out4.Select(e => e.Phase).ToArray());
+            Assert.Equal(new[] { ((byte)0, (ushort)1), ((byte)1, (ushort)0), ((byte)1, (ushort)1) },
+                         out4.Take(3).Select(e => (e.Event.Slot.Value, e.Ordinal)).ToArray());
+            Assert.Equal(((byte)0, (ushort)0), (out4[3].Event.Slot.Value, out4[3].Ordinal));
             ledger.OnConfirmedTick(10, confirmed, emit: false);
             Assert.Empty(Drain(ledger));
+        }
+
+        // T-66: 다시 돌린 틱에서 사라졌던 열쇠가 그다음 되감기에서 돌아와도 새로 내지 않고(이미 그려지고 있다),
+        // 확정 열에 있으면 Confirmed 하나로 끝난다. Retracted 뒤에 Confirmed 가 오는 일이 없다
+        [Fact]
+        public void Ledger_KeyThatVanishesOnRerunAndReturns_IsNeverRetractedThenConfirmed()
+        {
+            var ledger = new PresentationLedger(4);
+            var shot = new[] { Ev(SimEventType.ShotFired, 0, source: 1) };
+            ledger.OnPredictedTick(10, shot);
+            Assert.Equal(EventPhase.Predicted, Assert.Single(Drain(ledger)).Phase);
+
+            ledger.OnPredictedTick(10, System.Array.Empty<SimEvent>());   // 다시 돌린 예측에서는 없다
+            Assert.Empty(Drain(ledger));
+            ledger.OnPredictedTick(10, shot);                             // 그다음 되감기에서 돌아왔다
+            Assert.Empty(Drain(ledger));
+
+            ledger.OnConfirmedTick(10, shot, emit: true);
+            Assert.Equal(EventPhase.Confirmed, Assert.Single(Drain(ledger)).Phase);
+        }
+
+        // T-66: 다시 돌린 틱에서 사라진 열쇠가 확정 열에도 없으면 확정 때 한 번 Retracted 로 끝난다
+        [Fact]
+        public void Ledger_KeyThatVanishesOnRerun_IsRetractedOnceWhenTheTickIsConfirmedWithoutIt()
+        {
+            var ledger = new PresentationLedger(4);
+            ledger.OnPredictedTick(10, new[] { Ev(SimEventType.ShotFired, 0, source: 1) });
+            Drain(ledger);
+            ledger.OnPredictedTick(10, System.Array.Empty<SimEvent>());
+            ledger.OnPredictedTick(10, System.Array.Empty<SimEvent>());
+            Assert.Empty(Drain(ledger));
+
+            ledger.OnConfirmedTick(10, System.Array.Empty<SimEvent>(), emit: true);
+            PresentationEvent r = Assert.Single(Drain(ledger));
+            Assert.Equal((EventPhase.Retracted, 10u, (ushort)0), (r.Phase, r.Event.Tick, r.Ordinal));
         }
 
         [Fact]

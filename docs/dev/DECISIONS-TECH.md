@@ -67,6 +67,7 @@
 | T-56 | `mail_outbox`의 상태는 spec 12의 넷뿐이다: 배달 확인은 `sent` 그대로, 반송은 `sent → dropped`. 시험 대역이 진짜 표로 바뀔 때의 시험 도우미는 그 표를 들이는 작업이 고친다 | [신규] |
 | T-63 | 덜 찬 데이터를 전제한 저장소 데이터 시험은 그 데이터를 채우는 작업이 같은 브랜치에서 고친다 | [신규] |
 | T-65 | 개정 장부(결정 기록·열린 질문·작업 그래프)는 경로 겹침 검사에서 빼고, 겹침 규칙은 둘 다 병합 전인 작업에만 건다. 장부의 충돌은 도구가 푼다 | [신규] |
+| T-58 | 그림의 크기는 `AssetKey`의 칸이 아니다. 크기 없는 조회는 가장 작은 그림, `IAssetCatalog`에 크기를 받는 조회 둘. 매니페스트에 없는 그림 자리는 `asset_slots.json` | [신규] |
 
 ---
 
@@ -1091,6 +1092,69 @@ u16   echo_hold_ms            그 패킷이 기기에 닿은 뒤 이 패킷을 �
   - 기다리는 브랜치들(M1-UE-03, M2-NET-04, M2-NET-05, M2-SPL-02, M5-DAT-01, M8-DAT-02, M8-DAT-03, M9-AST-01, M9-PRS-01)은 고치지 않았다. FIX-7이 main에 들어간 뒤 main 위로 옮기면 새 도구가 같이 따라온다: 겹침은 2·4번으로 통과하고 장부의 충돌은 9번으로 푼다. 그 브랜치들이 장부 때문에 더해 둔 `deps`는 그대로 둔다.
   - FIX-5(M2-SPL-02 브랜치에 있는 카드)는 전제가 바뀐다: 이미 병합된 작업이 `CONTRACTS.md`를 가진 것은 더는 CCR을 막지 않는다. 그 브랜치가 main에 들어온 뒤 tech-lead가 카드의 수락 조건을 고쳐 적는다(이 브랜치에는 그 카드가 없다).
   - 에이전트 정의의 문장이 이 결정과 글자로 어긋난다(integration-engineer의 "그 밖의 충돌은 … 풀지 않고 돌려보내고", "`tasks.json`은 건드리지 않는다"와 `CLAUDE.md` 9·10절). 두 곳은 사용자 승인이 있어야 고치므로 `OPEN-QUESTIONS.md` Q-27에 올렸다. 그때까지 지휘 세션이 통합 담당을 띄울 때 `PIPELINE.md` 3.8절의 장부 줄을 지시에 붙인다. 통합 담당이 장부에 쓰는 것은 `taskgraph resolve`와 `taskgraph recount`의 출력뿐이다.
+
+## T-58 그림의 크기는 `AssetKey`의 칸이 아니다. 크기 없는 조회는 가장 작은 그림이고 `IAssetCatalog`에 크기를 받는 조회 둘을 더한다. 매니페스트에 없는 그림 자리는 `asset_slots.json`에 둔다 [신규]
+
+- **문제**: M9-AST-01(매니페스트 로더와 통합 레지스트리)이 구현과 시험을 끝내고도 작업 게이트 둘에서 멈췄고, 물음 하나를 올렸다. (1) `data/presentation/`의 파일은 `databuild check`가 스키마를 요구하는데(`DataLoader`: `presentation/<이름>.json` → `<이름>.schema.json`) `data/schema/asset_aliases.schema.json`이 카드의 `owned_paths`에 없었다. 같은 폴더의 다른 작업(M9-PRS-01, M9-PRS-02, M9-WLK-01)은 자기 스키마를 가진다. (2) 카드의 벡터 `S14§7.8` 59개 가운데 넷은 이 작업이 만드는 것으로 시험할 수 없다: TV-196(반응 부품 표의 합 71. 어느 매니페스트에도 없는 그림이다, spec 14 C-22), TV-236(유료 상품 0개일 때 어떤 화면에도 별빛이 없다), TV-237(옷장이 PaidShop뿐인 칸을 숨긴다), TV-238(위험색 픽셀이 있는 치장 그림은 반입 검사에서 실패한다). (3) UI 매니페스트는 같은 `(Id, Variant, State)`를 크기마다 따로 그린 것이 20개 있다(K-40의 16·24·32, I-L4의 24·48·128, I-B3·I-M3·I-M5·I-L5의 24·48, K-41·K-43·K-53·K-54·K-71의 16·24, S-0203의 32·64·256·1024). spec 14 4.4절이 "큰 것을 줄이지 않고 크기마다 따로 그린다"고 정한 그림들이다. 그런데 `CONTRACTS.md` 13절의 `AssetKey`와 `IAssetCatalog`에는 크기를 말할 자리가 없다.
+- **결정**:
+  1. **`AssetKey`는 네 칸 그대로다**(`Pack`, `Id`, `Variant`, `State`). 열쇠는 "무슨 그림인가"이고 크기는 "그 그림의 어느 판인가"다. spec 14 5.2절의 `SplitUiName`도 크기를 떼고 `(Variant, State)`만 준다(TV-188~190).
+  2. **레지스트리는 한 열쇠에 크기별 기록을 든다.** `AssetRegistry.TryGet(key, PixelSize)`·`Resolve(key, PixelSize)`가 그 크기의 기록을 준다(없으면 `false` / 그 크기의 대체 기록. 다른 크기를 대신 주지 않는다). `GetAll(key)`는 전부를 매니페스트 순서로 준다. 같은 열쇠·같은 크기를 두 번 넣는 것은 로더의 문제(`AssetLoadProblem`)다.
+  3. **크기 없는 조회는 가장 작은 기록이다**(높이가 가장 작은 것, 같으면 폭이 작은 것). 매니페스트의 줄 순서에 기대지 않는다. 크기가 하나뿐인 열쇠는 그 기록이다.
+  4. **`IAssetCatalog`에 크기를 받는 조회 둘을 더한다**(아래 개정문). 있던 둘은 그대로이고 3번의 규칙을 따른다. 구현(M9-AST-03)은 고르는 규칙을 다시 만들지 않고 `AssetRegistry`의 것을 쓴다.
+  5. **매니페스트에 없고 콘텐츠 id 규칙(spec 14 5.2절 대응표)으로도 나오지 않는 그림 자리는 `data/presentation/asset_slots.json`에 둔다**(스키마 `data/schema/asset_slots.schema.json`). 읽는 쪽은 `assetcheck report`(M9-AST-02)이고 그 자리들을 "없음"으로 낸다. 레지스트리는 이 표를 읽지 않는다(없는 열쇠는 이미 대체 기록이 나온다). 첫 내용은 반응 부품 9줄이다(spec 14 4.6절 표, U-10의 `char.N/reactive/<부품>`). 열쇠는 `AssetKey(Character, "char.N", "reactive/<부품 열쇠>")`이고 부품 열쇠는 아래 표다. 그림이 생기면 캐릭터 매니페스트에 이 열쇠로 들어간다(그때 `PlayerManifestLoader`가 읽는 꼴은 그 작업이 정한다).
+
+| 캐릭터 | 부품 열쇠 | 크기 | 장수 | spec 14 4.6절의 줄 |
+|---|---|---|---|---|
+| `char.1` | `steam` | 16×16 | 12 | 주둥이 김 3단계 × 4프레임 |
+| `char.1` | `lid` | 24×16 | 4 | 들썩이는 뚜껑 |
+| `char.2` | `lantern_orb` | 16×16 | 9 | 등불 알 밝기 3단계 × 2프레임 + 번쩍 3프레임 |
+| `char.3` | `bookmark_cord` | 16×24 | 12 | 책갈피 끈 흔들림 4프레임 × 3방향 |
+| `char.3` | `glyph_shard` | 8×8 | 4 | 떨어져 나가는 글자 조각 |
+| `char.4` | `crown_shard` | 8×12 | 15 | 얼음 왕관 조각 5개 × 크기 3단계 |
+| `char.4` | `frost_step` | 16×8 | 3 | 서리 발자국 |
+| `char.5` | `eye` | 16×8 | 10 | 눈 모양 5종 × 2방향 |
+| `char.5` | `debt_ring` | 16×16 | 2 | 빚 표시 |
+
+  6. **벡터 배정을 옮긴다**(`PIPELINE.md` 3.7절). M9-AST-01에는 매니페스트와 레지스트리만으로 시험되는 55개가 남는다(TV-180~195, TV-197~235).
+
+| 벡터 | 받는 작업 | 까닭 |
+|---|---|---|
+| TV-196 (반응 부품 표, 합 71) | M9-AST-02 | "그릴 것"의 표를 가진 첫 자리다(`assetcheck report`, `PIPELINE.md` 6.4절 ①). 5번의 `asset_slots.json`을 이 작업이 만든다 |
+| TV-238 (위험색 픽셀 1개인 치장 그림 → 반입 검사 실패) | M9-AST-02 | 위험색 검사기와 반입 검사(spec 14 5.7.1절 3번)를 가진 작업이다 |
+| TV-237 (출처가 PaidShop뿐인 칸은 숨긴다) | M9-COS-01 | 옷장 모델과 `CosmeticSource`를 가진 작업이다. 같은 꼴의 spec 13 TV-197을 이미 가진다 |
+| TV-236 (유료 상품 0개 → 어떤 화면에도 별빛 잔액·탭·구매 버튼이 없다) | M17-CLI-01 | 벡터의 `when`이 "화면 목록"이다. 모든 화면 모델이 있고 유료 탭의 자리가 생기는 작업에서 화면 목록을 돌며 확인한다. 상점 한 화면의 같은 조건(spec 13 TV-198)은 M6-UL-03에 그대로 있다 |
+
+- **대안**: (가) `AssetKey`에 크기 칸을 더한다. (나) 크기를 `Variant`에 붙인다(`selection_corner@24`). (다) 크기 없는 조회는 매니페스트 순서의 첫 기록(구현이 처음 택한 것). (라) 크기 없는 조회는 가장 큰 기록. (마) 크기가 여럿인 열쇠를 크기 없이 찾으면 실패로 친다. (바) `IAssetCatalog`는 그대로 두고 화면이 `AssetRegistry`에서 사각형을 받아 직접 자른다. (사) 반응 부품 표를 `asset_aliases.json`에 넣고 TV-196을 M9-AST-01에 둔다. (아) TV-196을 V-01(캐릭터 그림 반입)로, TV-236을 M6-UL-03으로 옮긴다.
+- **이유**:
+  - (가) 열쇠를 적는 모든 곳(바인딩 표, 화면 모델, 겉모습 자료)이 크기를 같이 적어야 하고, 크기가 하나뿐인 그림(전체의 대부분)까지 "크기 0 = 아무거나" 같은 약속이 필요해진다. 같은 그림의 두 크기가 서로 다른 열쇠가 되면 "이 아이콘이 있는가"를 묻는 대조(spec 14 5.7.1절 5번)와 대체 그림의 한 번 기록도 크기마다 갈린다.
+  - (나) TV-188~190이 `Variant`를 크기 없는 이름으로 정했다. 벡터를 구현에 맞춰 고칠 수 없다.
+  - (다) 지금 매니페스트에서 첫 줄은 I-L4가 128, I-B3이 24, S-0203이 1024, K-40이 16이다. 굽는 스크립트가 줄 순서를 바꾸면 화면의 그림이 말없이 바뀐다.
+  - (라)(마) 화면 그림은 정수 배로 키우기만 하고 줄이지 않는다(spec 14 4.3절, 4.4절 "큰 것을 줄이지 않고 크기마다 따로 그린다"). 가장 작은 판은 어느 자리에 놓아도 규칙을 어기지 않는 유일한 판이다. 실패로 치면 크기를 모르는 호출(대조 보고서, 디버그 목록)이 열쇠마다 크기를 먼저 물어야 한다.
+  - (바) `SpriteRef`·`ClipRef`는 Unity 쪽 구현만 만들 수 있는 핸들이고 뷰는 규칙을 갖지 않는다(`CONTRACTS.md` 13절, T-32). 크기를 고르는 길이 카탈로그에 없으면 24px 칸에 48px 아이콘을 줄여 넣거나 뷰가 매니페스트를 다시 읽게 된다.
+  - (사) `asset_aliases.json`은 "콘텐츠 id와 그림 열쇠가 다른 곳"의 표다(`PIPELINE.md` 6.3절). 그릴 것의 목록은 대조 보고서의 입력이고 레지스트리는 그것 없이도 대체 그림을 낸다. 한 파일에 두면 M9-AST-02가 M9-AST-01의 파서와 스키마를 고쳐야 한다.
+  - (아) V-01은 그림이 와야 도는 시각 작업이라 그때까지 71이라는 수를 아무도 대조하지 않는다. 그릴 것의 표는 그림이 오기 전에 있어야 쓸모가 있다. M6-UL-03은 상점 화면만 가지므로 "어떤 화면에도"를 잴 수 없다.
+- **`CONTRACTS.md`는 이 브랜치에서 고치지 않았다.** T-47·T-52·T-53과 같은 까닭이다(작업 브랜치에서 고치면 `check-diff`가 막고, `owned_paths`에 넣으면 `taskgraph`의 시험이 깨진다). 아래 개정문은 13절에 더하기만 한다. 옮겨 적기 전까지 13절은 아래 개정문과 같이 읽는다.
+- **따라오는 일**:
+  - CCR 작업(계약 변경 요청으로 올린다): 아래 개정문을 `CONTRACTS.md` 13절에 옮겨 적고, `ARCHITECTURE.md`의 `data/presentation/` 줄에 `asset_slots`를 더한다. T-47·T-52·T-53의 옮겨 적기와 같이 할 수 있다.
+  - 계약 코드: `src/Wizard.ViewLogic/Presentation/IAssetCatalog.cs`(M9-AST-01의 브랜치에 같이 넣었다. 아직 구현한 곳이 없다).
+  - `tasks.json`: M9-AST-01의 `owned_paths`에 스키마, `IAssetCatalog.cs`, 그리고 이 결정을 같이 넣으려고 `DECISIONS-TECH.md`·`tasks.json`을 더했다(main에 들어간 뒤에는 문서 둘이 필요 없다). 같은 문서를 가진 작업과 순서가 있어야 해서 `deps`에 M2-SPL-01을 더했다(이미 main에 있어 막지 않는다). 위 표대로 벡터를 옮기고 받는 작업(M9-AST-02, M9-COS-01, M17-CLI-01)의 수락 조건에 한 줄씩 더했다. M9-AST-02의 `owned_paths`에 `asset_slots.json`과 그 스키마를 더했다. M9-AST-03의 수락 조건에 4번을 더했다.
+  - M9-AST-02: `asset_slots.json`의 꼴은 이 작업이 정한다(줄마다 묶음, Id, 변형, 프레임 크기, 장수가 있으면 된다). U-10의 다른 자리(야생 물 덧그림, 전장·광장·돌마당, 변덕·틀·시간대 아이콘 …)를 보고서에 올리려면 같은 파일에 더한다. 개수가 "약"으로만 적힌 것(야생 물 약 105장)은 장수를 지어내지 않는다.
+  - 화면 모델과 뷰: 그림을 놓을 칸의 크기를 아는 곳은 크기를 주어 찾는다(I-M3을 24px 칸에 놓을 때 `PixelSize(24, 24)`). 크기 없는 조회를 "아무 크기나"로 쓰지 않는다.
+  - 부품 열쇠 아홉 개는 [임시]다. 그림을 만들 때 사용자가 다른 이름을 쓰면 `asset_slots.json`과 이 표를 같이 고친다(아직 어느 매니페스트에도 없어 바꿀 수 있다).
+
+**`CONTRACTS.md` 13절 개정문** (CCR 작업이 옮겨 적는다. 더하기만 한다)
+
+```csharp
+// namespace Wizard.ViewLogic.Presentation
+public interface IAssetCatalog {
+    bool TryGetSprite(AssetKey key, int frame, out SpriteRef sprite);    // 크기가 여럿이면 가장 작은 그림
+    bool TryGetClip(AssetKey key, out ClipRef clip);
+    bool TryGetSprite(AssetKey key, PixelSize frameSize, int frame, out SpriteRef sprite);   // 프레임 하나의 픽셀 크기. 그 크기가 없으면 false
+    bool TryGetClip(AssetKey key, PixelSize frameSize, out ClipRef clip);
+    AssetKey Placeholder(AssetKey missing);
+}
+// AssetKey는 그대로다. 크기는 열쇠의 칸이 아니다(PixelSize는 Wizard.ViewLogic.Common)
+```
 
 ## 아직 정하지 않은 기술 항목
 

@@ -11,11 +11,12 @@ using Source = Wizard.Content.AttackDef.DamageSource;
 
 namespace Wizard.Content.Tests
 {
-    // data/sim/enemies.json → 팩 절 5 → ContentDb.Enemy 의 왕복(M3-DAT-01: 원형 4종).
-    // 기대값의 출처: spec 05 2.5 표(체력·속도·피해·비용·첫 등장·시간대·약점·저항·꼬리표, 원형 4종 [확정: G 11]),
-    // spec 05 4.1~4.4 의 공격 표와 (나) 상태 기계, spec 14 3.6(id·약점·저항·꼬리표), spec 05 13.1 U-04(몸 반지름)·U-05(재사용 대기)·
-    // U-28·U-34·U-36 [임시]. 정수 단위: 거리는 Raw(× 2^32), 각도는 센티도(× 100), 시간은 틱(× 60), 이동 속도는 센티 칸/초.
-    // 공격 첨자는 data/sim/enemies.json 의 _note 에 적은 순서다(이끼 0 접촉 / 늑대 0 돌진 / 선돌 0 내려찍기 1 휩쓸기 2 접촉 / 술사 0 3갈래 1 접촉).
+    // data/sim/enemies.json → 팩 절 5 → ContentDb.Enemy 의 왕복(M3-DAT-01: 원형 4종, M8-DAT-01: 신규 8종과 졸개).
+    // 기대값의 출처: spec 05 2.5 표(체력·속도·피해·비용·첫 등장·시간대·약점·저항·꼬리표, 원형 4종 [확정: G 11], 신규 8종 [제안]),
+    // spec 05 4.1~4.12 의 공격 표와 (나) 상태 기계, spec 14 3.6(id·약점·저항·꼬리표), spec 05 13.1 U-04(몸 반지름)·U-05(재사용 대기)·
+    // U-28·U-34·U-36·U-43·U-50·U-52·U-53·U-56·U-58·U-60·U-64 [임시], 졸개는 spec 06 5절(spore_queen.summon_sprouts)·spec 05 10.5.
+    // 정수 단위: 거리는 Raw(× 2^32), 각도는 센티도(× 100), 시간은 틱(× 60), 이동 속도는 센티 칸/초, 탄속은 틱당 Raw(× 2^32 ÷ 60).
+    // 공격 첨자는 data/sim/enemies.json 의 _note 에 적은 순서다(주 공격이 0, 접촉이 마지막. 선돌지기만 0 내려찍기 1 휩쓸기 2 접촉).
     public sealed class EnemiesPackTests
     {
         private const long OneRaw = 4_294_967_296L;            // 2^32 (spec 14 0.3)
@@ -41,23 +42,44 @@ namespace Wizard.Content.Tests
 
         // ---- spec 05 2.5 표와 한 줄씩 대조 ----
 
-        // 열: id, 역할, 체력, 속도(칸/초 × 100), 피해, 비용, 첫 등장, 약점, 저항, 꼬리표, 넉백 면역, 종 상한(0 = 없음), 접촉 피해
+        private const EnemyDef.TimeMask Always = EnemyDef.TimeMask.Always;
+        private const EnemyDef.TimeMask DayDusk = EnemyDef.TimeMask.Day | EnemyDef.TimeMask.Dusk;
+        private const EnemyDef.TimeMask DuskNight = EnemyDef.TimeMask.Dusk | EnemyDef.TimeMask.Night;
+
+        // 열: id, 역할, 체력, 속도(칸/초 × 100), 피해, 비용, 첫 등장, 시간대, 약점, 저항, 꼬리표, 넉백 면역, 종 상한(0 = 없음), 접촉 피해
+        // 종 상한은 spec 05 2.5 아래 목록(M 4.3), 넉백 면역은 중량·뿌리(spec 05 2.2), 접촉 피해는 spec 05 3.6(없는 것은 늑대뿐)
         public static IEnumerable<object[]> Spec05Table25()
         {
             // ① 이끼 슬라임: 20, 3.0, 1, 1, 1, 항상, Fire, Frost, -
-            yield return new object[] { EnemyTypeId.SlimeMoss, EnemyDef.EnemyRole.Swarm, 20, 300, 1, 1, 1, Element.Fire, Element.Ice, EnemyTag.None, false, 0, 1 };
+            yield return new object[] { EnemyTypeId.SlimeMoss, EnemyDef.EnemyRole.Swarm, 20, 300, 1, 1, 1, Always, Element.Fire, Element.Ice, EnemyTag.None, false, 0, 1 };
             // ② 덤불 늑대: 45, 4.5, 1, 3, 3, 항상(해질녘에 많음), Lightning, Dark, - / 접촉 없음(spec 05 3.6, 4.2 contact_damage = 0)
-            yield return new object[] { EnemyTypeId.WolfBramble, EnemyDef.EnemyRole.EvasiveCharger, 45, 450, 1, 3, 3, Element.Lightning, Element.Dark, EnemyTag.None, false, 0, 0 };
+            yield return new object[] { EnemyTypeId.WolfBramble, EnemyDef.EnemyRole.EvasiveCharger, 45, 450, 1, 3, 3, Always, Element.Lightning, Element.Dark, EnemyTag.None, false, 0, 0 };
             // ③ 선돌지기: 300, 1.8, 2, 6, 5, 항상, Arcane, Lightning, Heavy / 넉백 면역, 종 상한 3(spec 05 2.5, 4.3)
-            yield return new object[] { EnemyTypeId.GolemMenhir, EnemyDef.EnemyRole.ArmoredHeavy, 300, 180, 2, 6, 5, Element.Arcane, Element.Lightning, EnemyTag.Heavy, true, 3, 1 };
+            yield return new object[] { EnemyTypeId.GolemMenhir, EnemyDef.EnemyRole.ArmoredHeavy, 300, 180, 2, 6, 5, Always, Element.Arcane, Element.Lightning, EnemyTag.Heavy, true, 3, 1 };
             // ④ 갓버섯 술사: 40, 2.5, 1, 4, 3, 항상, Frost, Dark, -
-            yield return new object[] { EnemyTypeId.ShamanCap, EnemyDef.EnemyRole.RangedCover, 40, 250, 1, 4, 3, Element.Ice, Element.Dark, EnemyTag.None, false, 0, 1 };
+            yield return new object[] { EnemyTypeId.ShamanCap, EnemyDef.EnemyRole.RangedCover, 40, 250, 1, 4, 3, Always, Element.Ice, Element.Dark, EnemyTag.None, false, 0, 1 };
+            // ⑤ 꽈리 벌레: 18, 3.6, 1, 2, 2, 항상, Frost, Fire, - / 접촉 1(C-14)
+            yield return new object[] { EnemyTypeId.BugLantern, EnemyDef.EnemyRole.Suicide, 18, 360, 1, 2, 2, Always, Element.Ice, Element.Fire, EnemyTag.None, false, 0, 1 };
+            // ⑥ 솔침 고슴도치: 35, 2.2, 1, 4, 4, 낮·해질녘, Dark, Frost, - / 종 상한 4
+            yield return new object[] { EnemyTypeId.HogNeedle, EnemyDef.EnemyRole.Sniper, 35, 220, 1, 4, 4, DayDusk, Element.Dark, Element.Ice, EnemyTag.None, false, 4, 1 };
+            // ⑦ 화분 족제비: 55, 3.5(땅속), 1, 3, 6, 항상, Lightning, Fire, Burrowed(둔덕일 때) / 지상 접촉 1(U-48)
+            yield return new object[] { EnemyTypeId.WeaselPot, EnemyDef.EnemyRole.Ambush, 55, 350, 1, 3, 6, Always, Element.Lightning, Element.Fire, EnemyTag.Burrowed, false, 0, 1 };
+            // ⑧ 해거름 박쥐: 12, 3.6, 1, 1, 7, 해질녘·밤, Fire, Dark, Flying
+            yield return new object[] { EnemyTypeId.BatDusk, EnemyDef.EnemyRole.NightSwarm, 12, 360, 1, 1, 7, DuskNight, Element.Fire, Element.Dark, EnemyTag.Flying, false, 0, 1 };
+            // ⑨ 도깨비불: 35, 2.0, 1, 4, 8, 밤, Arcane, Lightning, Flying / 종 상한 4
+            yield return new object[] { EnemyTypeId.WispStray, EnemyDef.EnemyRole.RingBarrage, 35, 200, 1, 4, 8, EnemyDef.TimeMask.Night, Element.Arcane, Element.Lightning, EnemyTag.Flying, false, 4, 1 };
+            // ⑩ 가시덩굴: 70, 0, 1, 4, 11, 낮·해질녘, Fire, Arcane, Rooted / 넉백 면역(뿌리), 종 상한 4
+            yield return new object[] { EnemyTypeId.VineThorn, EnemyDef.EnemyRole.ZoneDenial, 70, 0, 1, 4, 11, DayDusk, Element.Fire, Element.Arcane, EnemyTag.Rooted, true, 4, 1 };
+            // ⑪ 엄니 멧돼지: 160, 2.4, 2, 5, 13, 낮·해질녘, Frost, Arcane, Heavy / 넉백 면역, 종 상한 3
+            yield return new object[] { EnemyTypeId.BoarTusk, EnemyDef.EnemyRole.LongCharger, 160, 240, 2, 5, 13, DayDusk, Element.Ice, Element.Arcane, EnemyTag.Heavy, true, 3, 1 };
+            // ⑫ 북두꺼비: 90, 2.0, 1, 5, 15, 항상, Dark, Frost, - / 종 상한 2
+            yield return new object[] { EnemyTypeId.ToadDrum, EnemyDef.EnemyRole.Support, 90, 200, 1, 5, 15, Always, Element.Dark, Element.Ice, EnemyTag.None, false, 2, 1 };
         }
 
         [Theory]
         [MemberData(nameof(Spec05Table25))]
-        public void Archetype_Row_MatchesSpec05Table25(EnemyTypeId id, EnemyDef.EnemyRole role, int hp, int speedCenti, int damage, int cost, int firstWave,
-            Element weak, Element resist, EnemyTag tags, bool knockbackImmune, int speciesCap, int contactDamage)
+        public void Species_Row_MatchesSpec05Table25(EnemyTypeId id, EnemyDef.EnemyRole role, int hp, int speedCenti, int damage, int cost, int firstWave,
+            EnemyDef.TimeMask times, Element weak, Element resist, EnemyTag tags, bool knockbackImmune, int speciesCap, int contactDamage)
         {
             EnemyDef e = RepoDb().Enemy(id);
             Assert.Equal(id, e.Id);
@@ -67,13 +89,52 @@ namespace Wizard.Content.Tests
             Assert.Equal(damage, e.AttackDamage);
             Assert.Equal(cost, e.Cost);
             Assert.Equal(firstWave, e.FirstWave);
-            Assert.Equal(EnemyDef.TimeMask.Always, e.Times);           // 원형 4종은 모두 "항상"
+            Assert.Equal(times, e.Times);
             Assert.Equal(weak, e.Weak);
             Assert.Equal(resist, e.Resist);
             Assert.Equal(tags, e.BaseTags);
             Assert.Equal(knockbackImmune, e.KnockbackImmune);
             Assert.Equal(speciesCap == 0 ? (int?)null : speciesCap, e.SpeciesCap);
             Assert.Equal(contactDamage, e.ContactDamage);
+            Assert.False(e.IsMinion);
+            Assert.Equal(id == EnemyTypeId.BatDusk ? 6 : 1, e.SpawnPackMin);       // 박쥐 6~8마리가 한 묶음(spec 05 4.8, spec 07 2.2)
+            Assert.Equal(id == EnemyTypeId.BatDusk ? 8 : 1, e.SpawnPackMax);
+        }
+
+        [Fact]
+        public void TwelveSpecies_AllInPack_TV_REW_01_Gold()
+        {
+            // spec 05 TV-REW-01: 처치 골드 = 비용 × 2 → 슬라임 2, 늑대 6, 선돌지기 12, 술사 8, 꽈리 4, 고슴도치 8, 족제비 6, 박쥐 2, 도깨비불 8, 가시덩굴 8, 멧돼지 10, 북두꺼비 10
+            ContentDb db = RepoDb();
+            var gold = new[] { 2, 6, 12, 8, 4, 8, 6, 2, 8, 8, 10, 10 };
+            for (int i = 0; i < gold.Length; i++)
+            {
+                Assert.Equal(gold[i], db.Enemy((EnemyTypeId)(i + 1)).Cost * 2);
+            }
+        }
+
+        [Fact]
+        public void SporeSeedling_IsAMinion()
+        {
+            // spec 06 5절 spore_queen.summon_sprouts: 체력 20, 속도 2.5, 접촉(피해 1 [임시]). 판정 반지름 0.25 [임시].
+            // 졸개: 꼬리표·상성·점수·골드·드랍 없음(spec 05 6.1, 1.3 A4, TV-AFF-14, TV-SPC-52)
+            EnemyDef e = RepoDb().Enemy(EnemyTypeId.SporeSeedling);
+            Assert.True(e.IsMinion);
+            Assert.Equal(20 * OneRaw, e.BaseHp.Raw);
+            Assert.Equal(250, e.MoveSpeedCenti);
+            Assert.Equal(1, e.ContactDamage);
+            Assert.Equal(0, e.Cost);
+            Assert.Equal(0, e.FirstWave);
+            Assert.Equal(EnemyDef.TimeMask.None, e.Times);
+            Assert.Equal(Element.None, e.Weak);
+            Assert.Equal(Element.None, e.Resist);
+            Assert.Equal(EnemyTag.None, e.BaseTags);
+            Assert.False(e.KnockbackImmune);
+            Assert.Null(e.SpeciesCap);
+            Assert.Equal(1_073_741_824L, e.BodyRadius.Raw);
+            Assert.Single(e.Attacks);
+            AssertContact(e.Attacks[0]);
+            AssertAiEmpty(e.Ai);
         }
 
         [Theory]
@@ -81,6 +142,14 @@ namespace Wizard.Content.Tests
         [InlineData(EnemyTypeId.WolfBramble, 1_717_986_918L)]     // 0.40 × 2^32 = 1,717,986,918.4
         [InlineData(EnemyTypeId.GolemMenhir, 2_576_980_378L)]     // 0.60 × 2^32 = 2,576,980,377.6
         [InlineData(EnemyTypeId.ShamanCap, 1_288_490_189L)]       // 0.30 × 2^32 = 1,288,490,188.8
+        [InlineData(EnemyTypeId.BugLantern, 1_202_590_843L)]      // 0.28 × 2^32 = 1,202,590,842.88
+        [InlineData(EnemyTypeId.HogNeedle, 1_417_339_208L)]       // 0.33 × 2^32 = 1,417,339,207.68
+        [InlineData(EnemyTypeId.WeaselPot, 1_073_741_824L)]       // 0.25(지상)
+        [InlineData(EnemyTypeId.BatDusk, 1_073_741_824L)]         // 0.25
+        [InlineData(EnemyTypeId.WispStray, 1_073_741_824L)]       // 0.25
+        [InlineData(EnemyTypeId.VineThorn, 1_503_238_554L)]       // 0.35
+        [InlineData(EnemyTypeId.BoarTusk, 2_362_232_013L)]        // 0.55 × 2^32 = 2,362,232,012.8
+        [InlineData(EnemyTypeId.ToadDrum, 1_589_137_900L)]        // 0.37 × 2^32 = 1,589,137,899.52
         public void BodyRadius_IsTheU04Value(EnemyTypeId id, long raw)
         {
             Assert.Equal(raw, RepoDb().Enemy(id).BodyRadius.Raw);
@@ -259,6 +328,223 @@ namespace Wizard.Content.Tests
             Assert.Equal(0, ai.DodgeCooldownTicks);
         }
 
+        [Fact]
+        public void BugLantern_Ignite_And_Sympathetic()
+        {
+            EnemyDef e = RepoDb().Enemy(EnemyTypeId.BugLantern);
+            Assert.Equal(2, e.Attacks.Length);
+            AttackDef a = e.Attacks[0];                                  // bug_lantern.ignite (4.5)
+            Assert.Equal(Kind.SelfDestruct, a.Kind);                     // 터지면 자신도 죽는다
+            Assert.Equal(Shape.Circle, a.Shape);
+            Assert.Equal(7_730_941_133L, a.Radius.Raw);                  // 자기 중심 반경 1.8
+            Assert.Equal(5_153_960_755L, a.Range!.Value.Raw);            // 1.2칸 안이면 점화
+            Assert.Null(a.Length);
+            Assert.Equal(54, a.TelegraphTicks);                          // 예고 0.9초(M 8.1)
+            Assert.Equal(AttackDef.LockMode.AtStart, a.Lock);
+            Assert.Equal(AttackDef.AnchorMode.Self, a.Anchor);
+            Assert.Equal(0, a.RecoveryTicks);
+            Assert.Equal(1, a.Damage);
+            Assert.Equal(Source.Telegraph, a.Source);
+            Assert.Null(a.Proj);
+            Assert.False(a.IsDash);
+            Assert.False(a.Lob);
+            Assert.Null(a.LeavesHazard);
+            Assert.Equal(0, a.CooldownTicks);
+            AssertContact(e.Attacks[1]);                                 // 접촉 1(C-14)
+            Assert.Equal(20 * OneRaw, e.Ai.SympatheticDamage.Raw);       // 유폭: 적에게 20(× H(w))
+            Assert.Equal(24, e.Ai.SympatheticDelayTicks);                // 0.4초
+        }
+
+        [Fact]
+        public void HogNeedle_Snipe_EveryField()
+        {
+            EnemyDef e = RepoDb().Enemy(EnemyTypeId.HogNeedle);
+            Assert.Equal(2, e.Attacks.Length);
+            AttackDef a = e.Attacks[0];                                  // hog_needle.snipe (4.6)
+            Assert.Equal(Kind.AimedShot, a.Kind);
+            Assert.Equal(Shape.AimLine, a.Shape);                        // 조준선
+            Assert.Equal(1_717_986_918L, a.Width.Raw);                   // 폭 0.4
+            Assert.Null(a.Length);                                       // 전장 끝까지
+            Assert.Equal(7 * OneRaw, a.TriggerMin!.Value.Raw);           // 7 ≤ d ≤ 10 에서 쏜다
+            Assert.Equal(10 * OneRaw, a.TriggerMax!.Value.Raw);
+            Assert.Equal(60, a.TelegraphTicks);                          // 1.0초 = 추적 36 + 고정 24
+            Assert.Equal(AttackDef.LockMode.LastNTicks, a.Lock);
+            Assert.Equal(24, a.LockTicks);                               // 마지막 0.4초 고정(R4)
+            Assert.Equal(AttackDef.AnchorMode.Self, a.Anchor);
+            Assert.Equal(84, a.RecoveryTicks);                           // 빈틈 1.4초
+            Assert.Equal(1, a.Damage);
+            Assert.Equal(Source.Projectile, a.Source);
+            Assert.Equal(1_145_324_612L, a.Proj!.SpeedPerTick.Raw);      // 가시 속도 16 = 16 × 2^32 ÷ 60
+            Assert.Equal(1, a.Proj.Count);
+            Assert.Equal(0, a.Proj.SpreadCenti);
+            Assert.Equal(0, a.Proj.Range.Raw);                           // 벽에 박히면 사라진다(사거리 제한 없음)
+            Assert.Equal(515_396_076L, a.Proj.HitRadius.Raw);            // 0.12 [임시: U-43]
+            Assert.True(a.Grazeable);
+            Assert.False(a.IsDash);
+            Assert.Equal(60, a.CooldownTicks);                           // 조준 간격 1.0초 [임시: U-05]
+            AssertContact(e.Attacks[1]);
+            Assert.Equal(7 * OneRaw, e.Ai.KeepDistanceMin.Raw);          // 7~10칸 유지
+            Assert.Equal(10 * OneRaw, e.Ai.KeepDistanceMax.Raw);
+        }
+
+        [Fact]
+        public void WeaselPot_Erupt_And_Burrow()
+        {
+            EnemyDef e = RepoDb().Enemy(EnemyTypeId.WeaselPot);
+            Assert.Equal(2, e.Attacks.Length);
+            AttackDef a = e.Attacks[0];                                  // weasel_pot.erupt (4.7)
+            Assert.Equal(Kind.Zone, a.Kind);
+            Assert.Equal(Shape.Circle, a.Shape);
+            Assert.Equal(5_153_960_755L, a.Radius.Raw);                  // 반경 1.2
+            Assert.Equal(2 * OneRaw, a.Range!.Value.Raw);                // 플레이어 2칸 안
+            Assert.Equal(42, a.TelegraphTicks);                          // 예고 0.7초
+            Assert.Equal(AttackDef.AnchorMode.PlayerPosAtStart, a.Anchor);   // 그 순간의 플레이어 위치
+            Assert.Equal(1, a.Damage);
+            Assert.Equal(Source.Telegraph, a.Source);
+            Assert.Equal(0, a.RecoveryTicks);                            // 지상 96틱은 빈틈이 아니다(U-51)
+            Assert.Equal(0, a.CooldownTicks);
+            AssertContact(e.Attacks[1]);                                 // 지상 접촉 1 [임시: U-48]
+            EnemyDef.AiParams ai = e.Ai;
+            Assert.Equal(96, ai.SurfaceTicks);                           // 지상 1.6초
+            Assert.Equal(30, ai.DigTicks);                               // 파고들기 0.5초
+            Assert.Equal(240, ai.BurrowMaxTicks);                        // 땅속 최대 4초
+            Assert.Equal(180, ai.BurrowRetargetTicks);                   // 3초 더 [임시: U-50]
+        }
+
+        [Fact]
+        public void BatDusk_ContactOnly_Wave_Pack()
+        {
+            EnemyDef e = RepoDb().Enemy(EnemyTypeId.BatDusk);
+            Assert.Single(e.Attacks);
+            AssertContact(e.Attacks[0]);                                 // 예고 없음(R2: 3.6 < V)
+            Assert.Equal(OneRaw, e.Ai.WaveAmplitude.Raw);                // 진폭 1칸
+            Assert.Equal(72, e.Ai.WavePeriodTicks);                      // 주기 1.2초
+            Assert.Equal(6, e.SpawnPackMin);                             // 6~8마리(TV-SPC-31)
+            Assert.Equal(8, e.SpawnPackMax);
+        }
+
+        [Fact]
+        public void WispStray_Ring_And_Blink()
+        {
+            EnemyDef e = RepoDb().Enemy(EnemyTypeId.WispStray);
+            Assert.Equal(2, e.Attacks.Length);
+            AttackDef a = e.Attacks[0];                                  // wisp_stray.ring (4.9, TV-SPC-34)
+            Assert.Equal(Kind.RingShot, a.Kind);
+            Assert.Null(a.Shape);                                        // 시전은 예고 구역이 아니다(U-12)
+            Assert.Equal(36, a.CastTicks);                               // 시전 0.6초
+            Assert.Equal(0, a.TelegraphTicks);
+            Assert.Equal(60, a.RecoveryTicks);                           // 빈틈 1.0초
+            Assert.Equal(1, a.Damage);
+            Assert.Equal(Source.Projectile, a.Source);
+            Assert.Equal(322_122_547L, a.Proj!.SpeedPerTick.Raw);        // 탄 속도 4.5
+            Assert.Equal(8, a.Proj.Count);                               // 8방향
+            Assert.Equal(4500, a.Proj.SpreadCenti);                      // 45도 간격
+            Assert.Equal(9 * OneRaw, a.Proj.Range.Raw);                  // 사거리 9
+            Assert.Equal(515_396_076L, a.Proj.HitRadius.Raw);            // 0.12(소)
+            Assert.True(a.Grazeable);
+            Assert.Equal(150, a.CooldownTicks);                          // 시전 간격 2.5초 [임시: U-05]
+            AssertContact(e.Attacks[1]);
+            EnemyDef.AiParams ai = e.Ai;                                 // wisp_stray.blink (TV-SPC-32·33)
+            Assert.Equal(300, ai.BlinkPeriodTicks);                      // 5초마다
+            Assert.Equal(18, ai.VanishTicks);                            // 사라지기 0.3초
+            Assert.Equal(18, ai.AppearTicks);                            // 나타나기 0.3초
+            Assert.Equal(30, ai.NoCastAfterAppearTicks);                 // 0.5초 시전 금지
+            Assert.Equal(5 * OneRaw, ai.BlinkDistanceMin.Raw);           // 5~7칸
+            Assert.Equal(7 * OneRaw, ai.BlinkDistanceMax.Raw);
+            Assert.Equal(6 * OneRaw, ai.BlinkRetryDistance.Raw);         // [임시: U-56]
+            Assert.Equal(16, ai.BlinkCandidates);
+            Assert.Equal(OneRaw, ai.BlinkWallMargin.Raw);
+            Assert.Equal(5 * OneRaw, ai.KeepDistanceMin.Raw);            // 평소 5~7칸 [임시: U-53]
+            Assert.Equal(7 * OneRaw, ai.KeepDistanceMax.Raw);
+        }
+
+        [Fact]
+        public void VineThorn_Seed_ThornField_Emerge()
+        {
+            EnemyDef e = RepoDb().Enemy(EnemyTypeId.VineThorn);
+            Assert.Equal(2, e.Attacks.Length);
+            AttackDef a = e.Attacks[0];                                  // vine_thorn.seed (4.10)
+            Assert.Equal(Kind.Lob, a.Kind);
+            Assert.True(a.Lob);                                          // 포물선, 설치 벽을 넘는다(X5)
+            Assert.Equal(Shape.Circle, a.Shape);
+            Assert.Equal(6_442_450_944L, a.Radius.Raw);                  // 반경 1.5
+            Assert.Null(a.Range);
+            Assert.Equal(60, a.TelegraphTicks);                          // 예고 1.0초(= 비행 시간, U-58)
+            Assert.Equal(AttackDef.AnchorMode.PlayerPosAtStart, a.Anchor);
+            Assert.Equal(1, a.Damage);
+            Assert.Equal(Source.Telegraph, a.Source);
+            Assert.Null(a.Proj);
+            Assert.Equal(210, a.CooldownTicks);                          // 시전 간격 3.5초(TV-SPC-38)
+            AttackDef.HazardDef h = a.LeavesHazard!;                     // 가시밭(TV-SPC-36·37)
+            Assert.Equal(AttackDef.HazardKind.ThornField, h.Kind);
+            Assert.Equal(6_442_450_944L, h.Radius.Raw);                  // 반경 1.5
+            Assert.Equal(240, h.DurationTicks);                          // 4초
+            Assert.Equal(3, h.MaxCount);                                 // 전장 동시 3개
+            Assert.Equal(90, h.ContactCooldownTicks);                    // 접촉 규칙 1.5초에 1회
+            AssertContact(e.Attacks[1]);
+            Assert.Equal(60, e.Ai.EmergeTicks);                          // 흙 금 1.0초(TV-SPC-35)
+            Assert.Equal(2 * OneRaw, e.Ai.SpawnWallMargin.Raw);          // 벽에서 2칸 이상
+            Assert.Equal(3 * OneRaw, e.Ai.SpawnPlayerMargin.Raw);        // 플레이어 3칸 이상 [임시: U-60]
+        }
+
+        [Fact]
+        public void BoarTusk_Charge_EveryField()
+        {
+            EnemyDef e = RepoDb().Enemy(EnemyTypeId.BoarTusk);
+            Assert.Equal(2, e.Attacks.Length);
+            AttackDef a = e.Attacks[0];                                  // boar_tusk.charge (4.11)
+            Assert.Equal(Kind.Dash, a.Kind);
+            Assert.Equal(Shape.Band, a.Shape);
+            Assert.Equal(6_871_947_674L, a.Width.Raw);                   // 띠 폭 1.6
+            Assert.Null(a.Length);                                       // 벽에 닿을 때까지
+            Assert.Equal(54, a.TelegraphTicks);                          // 예고 0.9초
+            Assert.Equal(AttackDef.LockMode.AtStart, a.Lock);            // 예고 시작 순간 방향 고정
+            Assert.Equal(AttackDef.AnchorMode.Self, a.Anchor);
+            Assert.Equal(0, a.ActiveTicks);                              // 벽에 닿으면 끝난다
+            Assert.Equal(1600, a.DashSpeedCenti);                        // 돌진 속도 16
+            Assert.Equal(120, a.RecoveryTicks);                          // 벽 충돌 기절 2.0초(TV-SPC-41)
+            Assert.Equal(2, a.Damage);
+            Assert.Equal(Source.Telegraph, a.Source);
+            Assert.True(a.IsDash);
+            Assert.True(a.Grazeable);
+            Assert.Equal(180, a.CooldownTicks);                          // 돌진 간격 3.0초 [임시: U-05]
+            AssertContact(e.Attacks[1]);
+            Assert.Equal(1500, e.Ai.StunDamagePermille);                 // 기절 중 받는 피해 × 1.5
+            Assert.Equal(10 * OneRaw, e.Ai.PathDamage.Raw);              // 경로의 적 10(× H(w))
+        }
+
+        [Fact]
+        public void ToadDrum_Tongue_And_Croak()
+        {
+            EnemyDef e = RepoDb().Enemy(EnemyTypeId.ToadDrum);
+            Assert.Equal(2, e.Attacks.Length);
+            AttackDef a = e.Attacks[0];                                  // toad_drum.tongue (4.12)
+            Assert.Equal(Kind.Tongue, a.Kind);
+            Assert.Equal(Shape.Band, a.Shape);
+            Assert.Equal(3_435_973_837L, a.Width.Raw);                   // 띠 폭 0.8
+            Assert.Equal(15_032_385_536L, a.Length!.Value.Raw);          // 길이 3.5
+            Assert.Equal(3 * OneRaw, a.Range!.Value.Raw);                // 3칸 안에서만(TV-SPC-51)
+            Assert.Equal(36, a.TelegraphTicks);                          // 예고 0.6초
+            Assert.Equal(60, a.RecoveryTicks);                           // 빈틈 1.0초
+            Assert.Equal(1, a.Damage);
+            Assert.Equal(Source.Telegraph, a.Source);
+            Assert.False(a.IsDash);
+            Assert.Equal(90, a.CooldownTicks);                           // 혀 간격 [임시: U-05]
+            AssertContact(e.Attacks[1]);
+            EnemyDef.AiParams ai = e.Ai;                                 // toad_drum.croak (TV-SPC-46·47, 3.8)
+            Assert.Equal(360, ai.CroakPeriodTicks);                      // 6초마다
+            Assert.Equal(120, ai.CroakTicks);                            // 2.0초
+            Assert.Equal(4 * OneRaw, ai.BuffRadius.Raw);                 // 반경 4
+            Assert.Equal(240, ai.BuffTicks);                             // 4초
+            Assert.Equal(1200, ai.BuffSpeedPermille);                    // +20%
+            Assert.Equal(370, ai.BuffSpeedCapCenti);                     // 최종 3.7 상한
+            Assert.Equal(700, ai.BuffRecoveryPermille);                  // 빈틈 −30%
+            Assert.Equal(30 * OneRaw, ai.CroakBreakDamage.Raw);          // 누적 30(× H(w))
+            Assert.Equal(60, ai.CroakStaggerTicks);                      // 1.0초 경직
+            Assert.Equal(8 * OneRaw, ai.FollowRadius.Raw);               // [임시: U-64]
+            Assert.Equal(2 * OneRaw, ai.FollowOffset.Raw);
+        }
+
         // 접촉(spec 05 1.1 P3, 3.6, 3.7): 예고·탄 없음, 피해 1, 같은 적에게서 90틱에 1회
         private static void AssertContact(AttackDef a)
         {
@@ -288,6 +574,14 @@ namespace Wizard.Content.Tests
             Assert.Equal(0, ai.KeepDistanceMin.Raw);
             Assert.Equal(0, ai.KeepDistanceMax.Raw);
             Assert.Equal(0, ai.KiteDistanceMin.Raw);
+            Assert.Equal(0, ai.SympatheticDamage.Raw);
+            Assert.Equal(0, ai.SurfaceTicks);
+            Assert.Equal(0, ai.WavePeriodTicks);
+            Assert.Equal(0, ai.BlinkPeriodTicks);
+            Assert.Equal(0, ai.EmergeTicks);
+            Assert.Equal(0, ai.StunDamagePermille);
+            Assert.Equal(0, ai.CroakPeriodTicks);
+            Assert.Equal(0, ai.FollowRadius.Raw);
         }
 
         [Fact]
@@ -295,9 +589,7 @@ namespace Wizard.Content.Tests
         {
             ContentDb db = RepoDb();
             Assert.Throws<ContentException>(() => db.Enemy(EnemyTypeId.None));
-            Assert.Throws<ContentException>(() => db.Enemy(EnemyTypeId.BugLantern));      // 신규 8종은 뒤 작업
-            Assert.Throws<ContentException>(() => db.Enemy(EnemyTypeId.ToadDrum));
-            Assert.Throws<ContentException>(() => db.Enemy(EnemyTypeId.SporeSeedling));
+            Assert.Throws<ContentException>(() => db.Enemy((EnemyTypeId)13));
             Assert.Throws<ContentException>(() => db.Enemy((EnemyTypeId)999));
         }
 
@@ -311,24 +603,49 @@ namespace Wizard.Content.Tests
 
         // ---- 결정성 ----
 
+        // EnemyTypeId 오름차순으로 든 종과 그 공격 수(data/sim/enemies.json 의 _note)
+        private static readonly (EnemyTypeId Id, int Attacks)[] PackOrder =
+        {
+            (EnemyTypeId.SlimeMoss, 1), (EnemyTypeId.WolfBramble, 1), (EnemyTypeId.GolemMenhir, 3), (EnemyTypeId.ShamanCap, 2),
+            (EnemyTypeId.BugLantern, 2), (EnemyTypeId.HogNeedle, 2), (EnemyTypeId.WeaselPot, 2), (EnemyTypeId.BatDusk, 1),
+            (EnemyTypeId.WispStray, 2), (EnemyTypeId.VineThorn, 2), (EnemyTypeId.BoarTusk, 2), (EnemyTypeId.ToadDrum, 2),
+            (EnemyTypeId.SporeSeedling, 1),
+        };
+
         [Fact]
         public void SameData_SameSectionBytes_InIdOrder()
         {
             byte[] s = Section(RepoPack.Value);
             Assert.Equal(s, Section(BuildPack(TestRepo.Root)));
-            Assert.Equal(4, s[0] | (s[1] << 8));
-            // 적 항목: 머리 51바이트 + 공격 143바이트 × 수 + AI 64바이트(절 꼴은 ContentDb.Enemies.cs)
-            Assert.Equal((int)EnemyTypeId.SlimeMoss, s[2] | (s[3] << 8));
-            int wolf = 2 + EntryLength(1);
-            Assert.Equal((int)EnemyTypeId.WolfBramble, s[wolf] | (s[wolf + 1] << 8));
-            int golem = wolf + EntryLength(1);
-            Assert.Equal((int)EnemyTypeId.GolemMenhir, s[golem] | (s[golem + 1] << 8));
-            int shaman = golem + EntryLength(3);
-            Assert.Equal((int)EnemyTypeId.ShamanCap, s[shaman] | (s[shaman + 1] << 8));
-            Assert.Equal(shaman + EntryLength(2), s.Length);
+            Assert.Equal(PackOrder.Length, s[0] | (s[1] << 8));
+            int at = 2;
+            foreach ((EnemyTypeId id, int attacks) in PackOrder)
+            {
+                Assert.Equal((int)id, s[at] | (s[at + 1] << 8));
+                Assert.Equal(attacks, s[at + HeadLength - 1]);
+                at += EntryLength(attacks);
+            }
+            Assert.Equal(at, s.Length);
         }
 
-        private static int EntryLength(int attacks) => 51 + 143 * attacks + 64;
+        // 적 항목(절 꼴은 ContentDb.Enemies.cs): 머리 51바이트(공격 수 u8 까지) + 공격 165바이트 × 수 + AI 248바이트 + 꼬리 9바이트(졸개, 무리 수)
+        private const int HeadLength = 51;
+        private const int AttackLength = 165;
+        private const int AiLength = 248;
+        private const int TailLength = 9;
+
+        private static int EntryLength(int attacks) => HeadLength + AttackLength * attacks + AiLength + TailLength;
+
+        // n 번째 항목(0부터)의 시작
+        private static int EntryStart(int n)
+        {
+            int at = 2;
+            for (int i = 0; i < n; i++)
+            {
+                at += EntryLength(PackOrder[i].Attacks);
+            }
+            return at;
+        }
 
         [Fact]
         public void ReversedSourceOrder_GivesTheSameBytes()
@@ -366,6 +683,25 @@ namespace Wizard.Content.Tests
             // 접촉 공격의 피해는 접촉 피해와 같다 / 접촉 피해가 있는데 접촉 공격이 없다
             Expect(SlimeJson.Replace("\"contact_damage\": 1", "\"contact_damage\": 0"), "/enemies/0/attacks/0/damage", "contact_damage");
             Expect(ShamanJson.Replace(",\n    " + ContactAttack, ""), "/enemies/0/contact_damage", "contact");
+            // 무리 수가 거꾸로다
+            Expect(SlimeJson.Replace("\"body_radius\": 0.35,", "\"body_radius\": 0.35, \"spawn_pack\": [8, 6],"), "/enemies/0/spawn_pack", "무리");
+            // 일반 적에 시간대가 없다 / 비용 0
+            Expect(SlimeJson.Replace("\"times\": [\"tod.day\", \"tod.dusk\", \"tod.night\"]", "\"times\": []"), "/enemies/0/times", "시간대");
+            Expect(SlimeJson.Replace("\"cost\": 1,", "\"cost\": 0,"), "/enemies/0/cost", "1 이상");
+        }
+
+        [Fact]
+        public void Problems_Minion()
+        {
+            Expect(SeedlingJson, null, null);                                                                // 원본 그대로는 통과
+            // 졸개 번호가 아닌데 졸개 표지 / 졸개 번호인데 표지가 없다
+            Expect(SlimeJson.Replace("\"role\": \"swarm\"", "\"minion\": true, \"role\": \"swarm\""), "/enemies/0/minion", "졸개");
+            Expect(SeedlingJson.Replace("\"minion\": true, ", ""), "/enemies/0/minion", "졸개");
+            // 졸개의 비용·시간대·상성·꼬리표
+            Expect(SeedlingJson.Replace("\"cost\": 0,", "\"cost\": 1,"), "/enemies/0/cost", "졸개");
+            Expect(SeedlingJson.Replace("\"times\": []", "\"times\": [\"tod.day\"]"), "/enemies/0/times", "졸개");
+            Expect(SeedlingJson.Replace("\"weak\": \"element.neutral\"", "\"weak\": \"element.fire\""), "/enemies/0/weak", "상성");
+            Expect(SeedlingJson.Replace("\"tags\": []", "\"tags\": [\"tag.flying\"]"), "/enemies/0/tags", "꼬리표");
         }
 
         [Fact]
@@ -401,6 +737,24 @@ namespace Wizard.Content.Tests
         }
 
         [Fact]
+        public void Problems_DashToWall_Lob_Hazard()
+        {
+            Expect(BoarJson, null, null);                                                                    // 원본 그대로는 통과
+            Expect(VineJson, null, null);
+            // 벽까지 달리는 돌진(length null)의 돌진 시간은 0
+            Expect(BoarJson.Replace("\"active_ticks\": 0", "\"active_ticks\": 30"), "/enemies/0/attacks/0/active_ticks", "length null");
+            // 길이가 있는 돌진의 시간은 ceil(길이 × 60 ÷ 속도): 박쥐 여왕 급강하 5칸 ÷ 18 = 16.67 → 17(spec 05 U-76)
+            Expect(BoarJson.Replace("\"length\": null", "\"length\": 5").Replace("\"active_ticks\": 0", "\"active_ticks\": 17").Replace("\"dash_speed\": 16", "\"dash_speed\": 18"), null, null);
+            Expect(BoarJson.Replace("\"length\": null", "\"length\": 5").Replace("\"active_ticks\": 0", "\"active_ticks\": 16").Replace("\"dash_speed\": 16", "\"dash_speed\": 18"),
+                "/enemies/0/attacks/0/active_ticks", "ceil");
+            // 포물선 공격 ⇔ lob
+            Expect(VineJson.Replace("\"lob\": true,", ""), "/enemies/0/attacks/0/lob", "lob");
+            // 남는 구역은 예고 모양이 있는 공격에만
+            Expect(ShamanJson.Replace("\"cooldown_seconds\": 2.0 }", "\"cooldown_seconds\": 2.0, \"leaves_hazard\": " + ThornField + " }"), "/enemies/0/attacks/0/leaves_hazard", "예고 모양");
+            Expect(VineJson.Replace("\"kind\": \"thorn_field\"", "\"kind\": \"lava\""), "/enemies/0/attacks/0/leaves_hazard", "스키마");
+        }
+
+        [Fact]
         public void Problems_Projectiles()
         {
             Expect(ShamanJson, null, null);                                                                  // 원본 그대로는 통과
@@ -408,6 +762,8 @@ namespace Wizard.Content.Tests
                 "/enemies/0/attacks/0/damage", "1칸");
             Expect(ShamanJson.Replace("\"grazeable\": true,", ""), "/enemies/0/attacks/0/grazeable", "P4");
             Expect(ShamanJson.Replace("\"damage_source\": \"projectile\"", "\"damage_source\": \"telegraph\""), "/enemies/0/attacks/0/shape", "예고 모양");
+            // 탄의 사거리 null = 벽까지(고슴도치 가시)는 받는다
+            Expect(ShamanJson.Replace("\"range\": 9, \"hit_radius\"", "\"range\": null, \"hit_radius\""), null, null);
         }
 
         private static void Expect(string enemiesArrayBody, string? pointer, string? text)
@@ -455,6 +811,25 @@ namespace Wizard.Content.Tests
             Array.Copy(good, 2 + entry, swapped, 2, entry);
             Array.Copy(good, 2, swapped, 2 + entry, entry);
             Assert.Throws<ContentException>(() => Load(swapped));
+
+            // 첫 항목의 꼬리: u8 is_minion, i32 spawn_pack_min, i32 spawn_pack_max
+            int tail = 2 + entry - TailLength;
+            Assert.Throws<ContentException>(() => Load(Patched(good, tail, 2)));      // bool 이 0/1 이 아니다
+            Assert.Throws<ContentException>(() => Load(Patched(good, tail + 1, 0)));  // 무리 수 0
+            Assert.Throws<ContentException>(() => Load(Patched(good, tail + 1, 2)));  // 무리 수 아래 끝 > 위 끝
+            Load(Patched(good, tail, 1));                                            // 졸개 표지는 꼴로는 읽힌다(짝은 변환기가 본다)
+            // 첫 항목 공격 0 의 남는 구역(없음): u8 has(공격 시작 + 143) u8 kind i64 radius …
+            int hazard = 2 + HeadLength + 143;
+            Assert.Throws<ContentException>(() => Load(Patched(good, hazard + 2, 1)));    // 없음인데 반지름이 있다
+            Assert.Throws<ContentException>(() => Load(Patched(good, hazard, 2)));        // bool 이 0/1 이 아니다
+            // 가시덩굴(10번째 항목, 첨자 9)의 씨앗: 남는 구역 있음 → 모르는 종류
+            int vine = EntryStart(9) + HeadLength + 143;
+            Assert.Equal(1, good[vine]);
+            Assert.Throws<ContentException>(() => Load(Patched(good, vine + 1, 0xEE)));
+            // 졸개가 아닌 종의 시간대가 비었다(첫 항목) / 졸개(마지막 항목)는 시간대가 비어도 읽힌다
+            Assert.Throws<ContentException>(() => Load(Patched(good, 33, 0)));
+            int seedling = EntryStart(PackOrder.Length - 1);
+            Assert.Equal(0, good[seedling + 31]);                                    // 졸개의 time_mask
         }
 
         private static byte[] Patched(byte[] good, int at, byte value)
@@ -474,7 +849,33 @@ namespace Wizard.Content.Tests
             return s.ToArray();
         }
 
-        // spec 05 4.1·4.2·4.4 의 줄(data/sim/enemies.json 과 같은 값. TestJson_IsTheRepoData 가 앞 둘을 대조한다)
+        // spec 05 4.1·4.2·4.4·4.10·4.11, spec 06 5절의 줄(data/sim/enemies.json 과 같은 값. TestJson_IsTheRepoData 가 앞 둘을 대조한다)
+        private const string ThornField =
+            "{ \"kind\": \"thorn_field\", \"radius\": 1.5, \"duration_seconds\": 4, \"max_count\": 3, \"contact_cooldown_seconds\": 1.5 }";
+
+        private const string VineJson =
+            "{ \"id\": \"enemy.vine_thorn\", \"role\": \"zone_denial\", \"base_hp\": 70, \"move_speed\": 0, \"attack_damage\": 1, \"contact_damage\": 1,\n" +
+            "  \"cost\": 4, \"first_wave\": 11, \"times\": [\"tod.day\", \"tod.dusk\"], \"weak\": \"element.fire\", \"resist\": \"element.arcane\",\n" +
+            "  \"tags\": [\"tag.rooted\"], \"knockback_immune\": true, \"species_cap\": 4, \"body_radius\": 0.35,\n" +
+            "  \"attacks\": [{ \"key\": \"seed\", \"kind\": \"lob\", \"shape\": \"circle\", \"radius\": 1.5, \"telegraph_seconds\": 1.0, \"lock\": \"at_start\",\n" +
+            "    \"anchor\": \"player_pos_at_start\", \"damage\": 1, \"damage_source\": \"telegraph\", \"lob\": true, \"cooldown_seconds\": 3.5, \"leaves_hazard\": " + ThornField + " },\n" +
+            "    " + ContactAttack + "] }";
+
+        private const string BoarJson =
+            "{ \"id\": \"enemy.boar_tusk\", \"role\": \"long_charger\", \"base_hp\": 160, \"move_speed\": 2.4, \"attack_damage\": 2, \"contact_damage\": 1,\n" +
+            "  \"cost\": 5, \"first_wave\": 13, \"times\": [\"tod.day\", \"tod.dusk\"], \"weak\": \"element.ice\", \"resist\": \"element.arcane\",\n" +
+            "  \"tags\": [\"tag.heavy\"], \"knockback_immune\": true, \"species_cap\": 3, \"body_radius\": 0.55,\n" +
+            "  \"attacks\": [{ \"key\": \"charge\", \"kind\": \"dash\", \"shape\": \"band\", \"width\": 1.6, \"length\": null, \"telegraph_seconds\": 0.9, \"lock\": \"at_start\",\n" +
+            "    \"anchor\": \"self\", \"active_ticks\": 0, \"dash_speed\": 16, \"recovery_seconds\": 2.0, \"damage\": 2, \"damage_source\": \"telegraph\",\n" +
+            "    \"grazeable\": true, \"is_dash\": true, \"cooldown_seconds\": 3.0 },\n" +
+            "    " + ContactAttack + "] }";
+
+        private const string SeedlingJson =
+            "{ \"id\": \"enemy.spore_seedling\", \"minion\": true, \"role\": \"swarm\", \"base_hp\": 20, \"move_speed\": 2.5, \"attack_damage\": 1, \"contact_damage\": 1,\n" +
+            "  \"cost\": 0, \"first_wave\": 0, \"times\": [], \"weak\": \"element.neutral\", \"resist\": \"element.neutral\",\n" +
+            "  \"tags\": [], \"knockback_immune\": false, \"species_cap\": null, \"body_radius\": 0.25,\n" +
+            "  \"attacks\": [" + ContactAttack + "] }";
+
         private const string ContactAttack =
             "{ \"key\": \"contact\", \"kind\": \"contact\", \"damage\": 1, \"damage_source\": \"contact\", \"cooldown_seconds\": 1.5 }";
 
@@ -508,7 +909,8 @@ namespace Wizard.Content.Tests
             repo.Write("data/schema/enemies.schema.json", System.IO.File.ReadAllText(TestRepo.Path("data/schema/enemies.schema.json")));
             repo.Write("data/sim/enemies.json", "{ \"enemies\": " + enemiesArray + " }\n");
             repo.Write("data/names/names.ko.json",
-                "{\n  \"enemy.nope\": \"없음\",\n  \"enemy.shaman_cap\": \"갓버섯 술사\",\n  \"enemy.slime_moss\": \"이끼 슬라임\",\n  \"enemy.wolf_bramble\": \"덤불 늑대\",\n  \"~end\": \"\"\n}\n");
+                "{\n  \"enemy.boar_tusk\": \"엄니 멧돼지\",\n  \"enemy.nope\": \"없음\",\n  \"enemy.shaman_cap\": \"갓버섯 술사\",\n  \"enemy.slime_moss\": \"이끼 슬라임\",\n" +
+                "  \"enemy.spore_seedling\": \"갓버섯 새싹\",\n  \"enemy.vine_thorn\": \"가시덩굴\",\n  \"enemy.wolf_bramble\": \"덤불 늑대\",\n  \"~end\": \"\"\n}\n");
             return repo;
         }
     }

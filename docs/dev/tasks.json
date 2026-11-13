@@ -153,6 +153,7 @@
     "M2-W07",
     "M2-W08",
     "M2-W09",
+    "M2-W10",
     "M2-W11"
    ]
   },
@@ -367,7 +368,7 @@
    "id": "M14",
    "title": "결투 (GDD 16-14, online 11-7)",
    "gate": "M14-INT",
-   "task_count": 19,
+   "task_count": 20,
    "blocked_on_assets": 0,
    "parallel_groups": [
     "M14-W01",
@@ -384,7 +385,8 @@
     "M14-W12",
     "M14-W13",
     "M14-W14",
-    "M14-W15"
+    "M14-W15",
+    "M14-W16"
    ]
   },
   {
@@ -2518,7 +2520,8 @@
     "M2-NET-02",
     "M1-SIM-07",
     "M2-DAT-01",
-    "M2-NET-03"
+    "M2-NET-03",
+    "M2-NET-05"
    ],
    "spec_refs": [
     "docs/spec/10-duel.md §14.1",
@@ -2534,6 +2537,12 @@
     "docs/dev/CONTRACTS.md §10"
    ],
    "owned_paths": [
+    "docs/dev/DECISIONS-TECH.md",
+    "docs/dev/tasks.json",
+    "src/Wizard.Sim/Replay/DuelRecordWriter.cs",
+    "src/Wizard.Sim/Replay/WzdrBodyReader.cs",
+    "src/Wizard.Sim/Runtime/Contracts/RecordError.cs",
+    "tests/Wizard.Sim.Tests/Replay/DuelRecordTests.cs",
     "src/Wizard.Netcode/Duel/Host/",
     "tests/Wizard.Netcode.Tests/Duel/Host/",
     "src/Wizard.Netcode/Duel/DuelHostKeys.cs",
@@ -2547,6 +2556,9 @@
     "입력 검증이 CONTRACTS 10.6절의 순서와 같다: 패킷 안의 역행만 패킷 거부(몰수 계수), base_seq와 순번 공백은 유실로 소비, 봉인된 틱과 늦은 시각은 그 이벤트만 버림(순번 소비), 이른 시각, 키 상태 모순 무시, 틱당 8개",
     "spec 01의 T-I06(한 틱 9개의 9번째부터 버림)과 T-I13(순번 규칙)은 서버 수신의 규칙이고 spec 10의 TV-N17·TV-N16과 같은 규칙이다(CONTRACTS 0.3절, 10.6절). 호스트 테스트 폴더에 S01_T_I06__…, S01_T_I13__… 테스트로 둔다: 9번째 키는 수량(reason 3)으로 버려져 확정 열과 WZDR에 없고, 순번 공백은 유실로 소비하고 패킷을 계속 받으며, 한 패킷 안의 역행만 그 패킷을 버린다",
     "ConfirmedInputRecord(WZDR)를 ReplayRunner.RunDuel로 돌리면 호스트의 최종 해시가 나온다",
+    "T-64: 어떤 확정 열에서도 ConfirmedInputRecord가 던지지 않는다. WZDR의 순번은 1 이상이기만 하면 되고 한 슬롯 안에서 늘어난다는 규칙이 없다(DuelRecordWriter.Append와 DuelRecordCodec.TryRead를 DECISIONS-TECH T-64의 개정문대로 고치고 tests/Wizard.Sim.Tests/Replay/DuelRecordTests.cs에 시험을 둔다). 호스트 테스트로 있다: TV-N20의 확정 열(앞 순번 11 → K 순번 10)이 WZDR에 그대로 실리고 다시 돌리면 호스트의 해시가 나온다, 패킷 사이에서 시각을 되돌린 이벤트(순번 1 = 틱 11, 순번 2 = 틱 10)는 순서 위반이 아니고 둘 다 확정되며 기록이 써진다, 한 패킷 안의 순서만 지키는 무작위 패킷 열에서 기록이 늘 읽히고 다시 돌린 해시가 호스트와 같다",
+    "T-64: 생성자는 DuelHostCore(ContentDb, DuelSetup, DuelHostKeys, IAeadCipher)이고 StatsFor는 DuelNetStats를, Status는 DuelHostStatus(NextConfirmTick = 호스트 세계의 SimWorld.Tick, IsOver)를 돌려준다. 네 타입의 칸은 DECISIONS-TECH T-64의 개정문과 같다(DuelPeerKey·DuelHostKeys는 T-62의 5번과 같은 선언). Host/에 계약 타입의 대역(HostPeerKey, HostNetStats)과 6.4절에 없는 공개 속성을 두지 않는다. default(DuelHostKeys)와 같은 token_id는 ArgumentException이다",
+    "T-64: Rekey는 M14-NET-01이 채울 때까지 NotSupportedException을 던지고 관전의 두 문은 false와 0을 돌려준다(자리만 있다는 것을 시험이 고정한다). TryWriteFullState의 tick은 쓴 상태의 SimWorld.Tick이고 그 상태를 새 세계에 읽으면 호스트의 해시가 나온다. ack_confirmed_tick이 0이면 틱 0부터 싣는다. server_time_ms는 경기 시계의 ms(내림)다. 클라이언트 packet_number의 빈 번호를 탓하지 않는다. spec 10 2.8의 state_hash_interval과 future_claim_tolerance는 CCR-2가 NetRuleSet으로 옮길 때까지 DuelHostCore의 상수 둘이다",
     "200ms 연속 유실 중에 키를 누르고 뗀다 → 몰수 0, 유실(reason 5)로 통지, 그 뒤 입력은 정상으로 받는다. 늦은 이벤트 하나 → 그 이벤트만 버려지고 같은 패킷의 다른 이벤트와 뒤따르는 패킷은 받는다",
     "OnPacket의 수신 시각은 인자로 받은 값(기기에 닿은 시각)이고, 호출자가 수신 버퍼를 다 비운 뒤 Advance를 부르는 계약이 테스트로 있다(큐에 밀린 패킷이 늦음으로 판정되지 않는다)",
     "SetInputDelay, MeasuredRttMs(서버가 쌓은 표본. 슬롯마다 Wizard.Netcode.Clock.RttSampleWindow를 두고 MinRttMs를 돌려준다, T-60), 응답 주소 = 태그 검증을 통과한 마지막 패킷의 출발 주소(검증 실패 패킷은 주소를 바꾸지 못한다)",
@@ -2560,7 +2572,7 @@
     "S01:T-I06",
     "S01:T-I13"
    ],
-   "parallel_group": "M2-W04",
+   "parallel_group": "M2-W10",
    "status": "todo"
   },
   {
@@ -9348,7 +9360,8 @@
    "reviewer_model": "fable",
    "deps": [
     "M14-DUL-02",
-    "M2-NET-06"
+    "M2-NET-06",
+    "CCR-2"
    ],
    "spec_refs": [
     "docs/spec/10-duel.md §14.8",
@@ -9365,10 +9378,14 @@
    "owned_paths": [
     "src/Wizard.Netcode/Duel/Lifecycle/",
     "src/Wizard.Netcode/Duel/Spectate/",
-    "tests/Wizard.Netcode.Tests/DuelRules/"
+    "tests/Wizard.Netcode.Tests/DuelRules/",
+    "src/Wizard.Netcode/Duel/Host/",
+    "tests/Wizard.Netcode.Tests/Duel/Host/",
+    "src/Wizard.Netcode/Duel/DuelHostStatus.cs"
    ],
    "acceptance": [
     "끊김 타이머, 재접속(새 키와 전체 상태 받기), 몰수 판정이 DuelHostStatus로 나온다",
+    "T-64: M2-NET-04가 자리만 둔 문을 채운다. DuelHostCore.Rekey(지금은 NotSupportedException), TryWriteSpectatorStart·PollSpectatorChunk(지금은 false와 0), DuelHostStatus의 나머지 칸(끝의 결과, 몰수가 누구인가, 끊김 타이머. 지금은 NextConfirmTick과 IsOver뿐이고 칸은 더하기만 한다). 그래서 src/Wizard.Netcode/Duel/Host/와 DuelHostStatus.cs를 같이 가진다(Lifecycle/·Spectate/의 새 파일만으로는 호스트의 사람별 상태를 고칠 수 없다). 자리만 있다는 것을 고정한 시험(HostContractTests.LifecycleAndSpectatorDoorsAreExplicitPlaceholders)은 채운 동작의 시험으로 바꾼다. 서버가 만든 뗌 이벤트의 순번은 마지막 순번 + 1부터이고, 확정 열과 WZDR의 한 사람 순번이 늘어나기만 한다고 가정하지 않는다",
     "관전 묶음은 120틱 늦은 확정 입력이고 관전 클라이언트가 그것만으로 같은 해시를 낸다",
     "넷코드 매트릭스(M2-NET-06)를 실제 결투 규칙·비기·3틱 상태 지연이 든 경기로 돌려 통과한다. 섬과 만개의 성공 판정이 입력 지연 2·3·4틱 모두에서 통신 없는 실행과 같다",
     "재접속: duel.rejoin → 새 token_id, 새 키, epoch + 1. 프로세스를 죽였다 다시 붙어도 같은 (키, nonce)가 두 번 쓰이지 않고(nonce 중복 0), 순번이 이어지고(next_seq), 해시가 같다",
@@ -9953,6 +9970,50 @@
    "parallel_group": "M14-W15",
    "status": "todo",
    "human_check": "두 기기 실제 회선에서 2인 테스트"
+  },
+  {
+   "id": "CCR-2",
+   "milestone": "M14",
+   "title": "DuelHostCore: 해시 방송 간격과 이른 시각 여유를 NetRuleSet의 데이터로 옮긴다(T-64)",
+   "module": "Wizard.Netcode",
+   "owner_agent": "netcode-engineer",
+   "owner_model": "opus",
+   "reviewer_model": "fable",
+   "deps": [
+    "M2-NET-04",
+    "M2-NET-07"
+   ],
+   "spec_refs": [
+    "docs/spec/10-duel.md §2.8",
+    "docs/spec/10-duel.md §14.6",
+    "docs/spec/10-duel.md §14.8",
+    "docs/dev/DECISIONS-TECH.md"
+   ],
+   "contracts": [
+    "docs/dev/CONTRACTS.md §2.2",
+    "docs/dev/CONTRACTS.md §6.4",
+    "docs/dev/CONTRACTS.md §10.6"
+   ],
+   "owned_paths": [
+    "src/Wizard.Netcode/Duel/Host/",
+    "tests/Wizard.Netcode.Tests/Duel/Host/",
+    "src/Wizard.Content/Rules/Defs/NetRuleSet.cs",
+    "src/Wizard.Content/Rules/Sections/ContentDb.Net.cs",
+    "tools/Wizard.DataBuild/Convert/NetConverter.cs",
+    "data/rules/net.json",
+    "data/schema/net.schema.json",
+    "tests/Wizard.Content.Tests/NetPackTests.cs"
+   ],
+   "acceptance": [
+    "경위(M2-NET-04의 tech-lead 해결, DECISIONS-TECH T-64): spec 10 2.8절의 state_hash_interval(30틱)과 future_claim_tolerance(1틱 = 256 서브틱)가 NetRuleSet에 없어서 DuelHostCore에 상수 둘(StateHashIntervalTicks = 30, 이른 시각 여유 = SimTime.OffsetsPerTick)로 들어가 있다. 팩 절 34의 여섯 파일은 M2-NET-05 브랜치의 CCR-1(T-62의 hash_mismatch_flag_over)도 고치므로 M2-NET-04에서 같이 하지 못했다. 이 작업이 M2-NET-07에 기대는 것은 CCR-1의 뒤에 서기 위해서다(M2-NET-07이 CCR-1에 기댄다)",
+    "NetRuleSet.StateHashIntervalTicks(30)가 data/rules/net.json의 state_hash_interval_ticks에서, NetRuleSet.FutureClaimToleranceOffsets(256)가 future_claim_tolerance_ticks(십진 1.0, 변환기가 × 256)에서 오고 팩 절 34의 끝에 i32 둘로 붙어 왕복한다(간격은 1 이상, 여유는 0 이상. 스키마, 변환기, 절 읽기, NetPackTests를 같이 고친다. howto-data-slice.md의 절차). 그때 절 34의 끝에 이미 붙어 있는 값(T-60의 시계 값 셋, T-62의 hash_mismatch_flag_over)의 뒤에 붙인다",
+    "DuelHostCore가 두 값을 db.Net에서 읽고 상수 둘을 지운다. 넷코드 코드에 30과 '1틱 여유'가 박혀 있지 않다. data/rules/net.json의 _note에 두 값의 출처를 적는다(full_state_gap_ticks의 '해시 방송 간격과 같다'는 설명은 그대로 참이다)",
+    "S10_TV_N25__…(틱 30, 60, 90에 해시, 31에는 없음)와 S10_TV_N19__…(이른 시각의 경계)가 그대로 통과한다. 간격과 여유만 바꾼 팩(손으로 만든 NetRuleSet이 아니다)으로 해시가 그 간격의 틱에만 실리고 이른 시각의 경계가 그 여유만큼 옮겨지는 시험이 있다",
+    "같은 패킷 열과 같은 시각 열이면 같은 출력 열이다. M2-NET-04의 호스트 시험 전부가 그대로 통과한다"
+   ],
+   "vectors": [],
+   "parallel_group": "M14-W16",
+   "status": "todo"
   },
   {
    "id": "M15-RUL-01",

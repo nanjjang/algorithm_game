@@ -315,17 +315,25 @@ namespace Wizard.Sim.Tests.Replay
             w = new ByteWriter();
             w.U8(0x05); w.U8(0); w.U8(0); w.U8(0); w.U8(0x0A); w.U8(1);
             Assert.Equal(RecordError.BadKey, Read(Seal(w, 1)));
-            // 순번 0, 순번 되풀이, uint 를 넘는 순번
+            // 순번 0, uint 를 넘는 순번(u32 의 끝은 된다)
             w = new ByteWriter();
             Rec(w, 0, 0, 5, LogicalKey.Up, true, 0);
             Assert.Equal(RecordError.BadSeq, Read(Seal(w, 1)));
             w = new ByteWriter();
-            Rec(w, 0, 0, 5, LogicalKey.Up, true, 3);
-            Rec(w, 1, 0, 5, LogicalKey.Up, false, 3);
-            Assert.Equal(RecordError.BadSeq, Read(Seal(w, 2)));
-            w = new ByteWriter();
             Rec(w, 0, 0, 5, LogicalKey.Up, true, 1UL << 32);
             Assert.Equal(RecordError.BadSeq, Read(Seal(w, 1)));
+            w = new ByteWriter();
+            Rec(w, 0, 0, 5, LogicalKey.Up, true, uint.MaxValue);
+            Assert.Equal(RecordError.None, Read(Seal(w, 1)));
+            // 한 틱 안에서 (오프셋, 분류, 슬롯)이 같으면 순번이 순서를 정한다: 같은 것 둘, 큰 순번 뒤의 작은 순번은 InputOrder 역행이다
+            w = new ByteWriter();
+            Rec(w, 0, 0, 5, LogicalKey.Up, true, 3);
+            Rec(w, 0, 0, 5, LogicalKey.Left, true, 3);
+            Assert.Equal(RecordError.KeyOrder, Read(Seal(w, 1)));
+            w = new ByteWriter();
+            Rec(w, 0, 0, 5, LogicalKey.Up, true, 4);
+            Rec(w, 0, 0, 5, LogicalKey.Left, true, 3);
+            Assert.Equal(RecordError.KeyOrder, Read(Seal(w, 1)));
             // 같은 틱 안의 InputOrder 역행: 같은 오프셋에서 슬롯 1 뒤의 슬롯 0
             w = new ByteWriter();
             Rec(w, 0, 1, 5, LogicalKey.Up, true, 1);
@@ -363,6 +371,59 @@ namespace Wizard.Sim.Tests.Replay
             }
         }
 
+        // DECISIONS-TECH T-64: WZDR 의 순번은 1 이상이기만 하면 된다. 레코드 순서는 InputOrder 이고 순번은 그 맨 끝 키라서,
+        // 한 슬롯의 순번이 레코드 순서로 늘어난다는 보장이 없다. 그런 확정 열을 쓰는 쪽이 받고, 읽는 쪽이 받고, 재실행이 같은 열을 넣는다
+        [Fact]
+        public void Wzdr_SeqNeedNotIncreasePerSlot_OrderIsInputOrderOnly()
+        {
+            PlayerInput In(byte slot, uint tick, byte offset, LogicalKey key, bool down, uint seq) =>
+                new PlayerInput(new PlayerSlot(slot), new InputEvent(tick, offset, key, down, seq));
+            var column = new[]
+            {
+                In(0, 10, 50, LogicalKey.Up, true, 11),      // spec 10 TV-N20: 같은 (틱, 오프셋)의 K(순번 10)·앞(순번 11) → 앞 → K
+                In(0, 10, 50, LogicalKey.Skill, true, 10),
+                In(1, 10, 60, LogicalKey.Fire, true, 2),     // 패킷 사이에서 시각을 되돌린 사람: 순번 2 가 틱 10, 순번 1 이 틱 11
+                In(1, 11, 0, LogicalKey.Right, true, 1),
+                In(0, 12, 0, LogicalKey.Up, false, 9),       // 뒤 틱의 더 작은 순번
+                In(1, 12, 0, LogicalKey.Fire, false, 2),     // 다른 틱에 되풀이된 순번도 형식은 받는다(한 번만 쓰는 것은 호스트의 10.6 이 지킨다)
+            };
+
+            DuelSetup setup = Setup();
+            var writer = new DuelRecordWriter(setup);
+            SimWorld world = SimWorld.CreateDuel(ReplayKit.Db, SimConfig.ForDuel(ReplayKit.Db, setup.Options), setup);
+            var sink = new RecordingSink();
+            var fed = new List<string>();
+            var hashes = new List<ulong>();
+            int at = 0;
+            const uint ticks = 20;
+            for (uint t = 0; t < ticks; t++)
+            {
+                int from = at;
+                while (at < column.Length && column[at].Event.Tick == t)
+                {
+                    writer.Append(column[at]);
+                    fed.Add(ReplayKit.Describe(world.Tick, column[at]));
+                    at++;
+                }
+                sink.Clear();
+                world.Step(column.AsSpan(from, at - from), ReadOnlySpan<RunCommand>.Empty, sink);
+                hashes.Add(world.ComputeStateHash());
+            }
+            Assert.Equal(column.Length, at);
+            world.MarkOver();
+            ulong final = world.GetDuelOutcome().FinalStateHash;
+            byte[] file = writer.Finish(world.Tick, final).ToArray();
+
+            Assert.True(DuelRecordCodec.TryRead(file, ReplayKit.Generous, out _, out DuelRecordBody? body, out RecordError error), error.ToString());
+            Assert.Equal(column.Length, body!.InputCount);
+            var observer = new HashObserver(ticks);
+            DuelReplayResult r = ReplayRunner.RunDuelCore(ReplayKit.Db, file, ReplayKit.Generous, observer);
+            Assert.Equal(ReplayStatus.Completed, r.Status);
+            Assert.Equal(final, r.Outcome!.FinalStateHash);
+            Assert.Equal(hashes, observer.TickHashes);
+            Assert.Equal(fed, ReplayKit.DescribeInputs(observer.FedAtTick, observer.Fed));   // 순번까지 실린 값 그대로, 같은 순서로 들어갔다
+        }
+
         [Fact]
         public void Writer_RejectsMisuseWithoutRecording()
         {
@@ -377,7 +438,6 @@ namespace Wizard.Sim.Tests.Replay
             Assert.Throws<ArgumentException>(() => writer.Append(In(2, 11, 0, LogicalKey.Up, 1)));              // 슬롯
             Assert.Throws<ArgumentException>(() => writer.Append(In(1, 11, 0, (LogicalKey)9, 1)));              // 키
             Assert.Throws<InvalidOperationException>(() => writer.Append(In(1, 11, 0, LogicalKey.Up, 0)));      // 순번 0
-            Assert.Throws<InvalidOperationException>(() => writer.Append(In(0, 11, 0, LogicalKey.Up, 5)));      // 순번이 늘지 않음
             Assert.Throws<InvalidOperationException>(() => writer.Append(In(1, 9, 0, LogicalKey.Up, 1)));       // 틱 역행
             Assert.Throws<InvalidOperationException>(() => writer.Append(In(1, 10, 49, LogicalKey.Up, 1)));     // 틱 안의 순서 역행
             Assert.Throws<ArgumentException>(() => writer.SetInputDelay(new PlayerSlot(2), 2));

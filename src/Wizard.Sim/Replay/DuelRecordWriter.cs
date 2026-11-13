@@ -4,11 +4,15 @@ using Wizard.Sim.Input;
 
 namespace Wizard.Sim
 {
-    // CONTRACTS 3.8, 11.1, DECISIONS-TECH T-48. WZDR 을 쓰는 쪽(호스트의 확정 열 DuelHostCore.ConfirmedInputRecord, 다시 보기).
+    // CONTRACTS 3.8, 11.1, DECISIONS-TECH T-48·T-64. WZDR 을 쓰는 쪽(호스트의 확정 열 DuelHostCore.ConfirmedInputRecord, 다시 보기).
     // 확정된 입력을 확정 순서(InputOrder 순)대로 받는다. 순번은 받은 값을 그대로 싣는다
     // (결투의 순번은 DuelClientCore 가 매기고, 서버가 만든 뗌 이벤트는 그 사람의 순번 공간을 소비한다. CONTRACTS 10.1).
     //
-    // 읽는 쪽(DuelRecordCodec)이 받지 않을 열은 쓰지 않는다: 잘못 부르면(틱·순서 역행, 슬롯이 0·1 이 아님, 순번이 늘지 않음,
+    // 순번은 1 이상이기만 하면 된다(T-64). 한 슬롯의 순번이 레코드 순서로 늘어난다는 규칙은 없다: 확정 열은 InputOrder 순이고
+    // 순번은 그 정렬 키의 맨 끝이라, 같은 (틱, 오프셋)의 K(순번 10)·앞(순번 11)은 앞 → K 로 실리고(spec 10 TV-N20),
+    // 조작한 클라이언트가 패킷 사이에서 시각을 되돌리면 뒤 틱에 더 작은 순번이 온다(CONTRACTS 10.6 은 한 패킷 안의 역행만 거절한다).
+    //
+    // 읽는 쪽(DuelRecordCodec)이 받지 않을 열은 쓰지 않는다: 잘못 부르면(틱·순서 역행, 슬롯이 0·1 이 아님, 순번 0,
     // 한 사람이 한 틱에 9개째, 범위 밖 키, Finish 뒤의 호출) 아무것도 기록하지 않고 InvalidOperationException·ArgumentException 을 던진다.
     // 호출한 코드의 결함이다(틱 밖에서 부른다).
     public sealed class DuelRecordWriter
@@ -16,7 +20,6 @@ namespace Wizard.Sim
         private readonly byte[] _header;                  // = setup.WriteCanonical 의 바이트
         private readonly ByteWriter _body = new ByteWriter(4096);
         private readonly byte[] _inputDelay = new byte[InputRecordFormat.DuelInputDelayCount];
-        private readonly uint[] _lastSeq = new uint[InputRecordFormat.DuelSlots];
         private readonly int[] _keysThisTick = new int[InputRecordFormat.DuelSlots];
         private PlayerInput _last;
         private bool _any;
@@ -62,9 +65,9 @@ namespace Wizard.Sim
             {
                 throw new ArgumentException("Append: unknown LogicalKey", nameof(input));
             }
-            if (e.Seq == 0 || e.Seq <= _lastSeq[slot])
+            if (e.Seq == 0)
             {
-                throw new InvalidOperationException("Append: seq must increase per slot, starting at 1 or above");
+                throw new InvalidOperationException("Append: seq must be 1 or above");
             }
             bool sameTick = _any && e.Tick == _last.Event.Tick;
             if (_any && InputOrder.Compare(in _last, in input) >= 0)
@@ -83,7 +86,6 @@ namespace Wizard.Sim
                 Array.Clear(_keysThisTick, 0, _keysThisTick.Length);
             }
             _keysThisTick[slot] = keys + 1;
-            _lastSeq[slot] = e.Seq;
             _body.U8(InputRecordFormat.TagDuelInput);
             _body.VarUInt(e.Tick - (_any ? _last.Event.Tick : 0U));
             _body.U8(slot);

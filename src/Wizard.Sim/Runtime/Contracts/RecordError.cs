@@ -21,6 +21,6 @@ namespace Wizard.Sim
         BadSlot = 15,        // WZDR: 슬롯이 0·1 이 아니다
         BadHeader = 16,      // magic·format_version 은 맞는데 머리말이 정규 바이트가 아니다(모자란 길이 포함)
         BadFlags = 17,       // 꼬리말 flags 에 이 형식 판이 모르는 비트
-        BadSeq = 18,         // WZDR: 순번이 0 이거나 그 슬롯에서 늘지 않는다. .wzrc: 순번 공간(uint)을 다 썼다
+        BadSeq = 18,         // WZDR: 순번이 0 이거나 u32 를 넘는다(슬롯 안에서 늘어나야 한다는 규칙은 없다, T-64). .wzrc: 순번 공간(uint)을 다 썼다
     }
 }

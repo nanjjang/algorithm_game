@@ -892,6 +892,126 @@ public sealed class RttSampleWindow {                 // 서버가 사람마다 
 
 ---
 
+## T-64 WZDR의 순번은 1 이상이기만 하면 된다(한 슬롯 안에서 늘어난다는 규칙을 뺀다). 호스트 쪽 계약 타입 넷의 칸(`DuelPeerKey`·`DuelHostKeys`·`DuelNetStats`·`DuelHostStatus`). 해시 방송 간격과 이른 시각 여유는 `NetRuleSet`의 데이터(CCR-2) [신규]
+
+번호 T-61(M1-UE-03), T-62(M2-NET-05), T-63(M8-DAT-01)은 같은 때 도는 브랜치가 쓰고 있어서 T-64를 썼다. T-62가 문서의 끝("아직 정하지 않은 기술 항목" 앞)에 들어오므로, 두 브랜치가 같은 자리를 고치지 않게 이 절은 T-60 뒤에 넣었다.
+
+- **문제**: M2-NET-04(`DuelHostCore`)가 구현과 시험을 끝내고 세 곳에서 막혔다.
+  1. **WZDR의 순번 규칙이 spec 10의 TV-N20과 맞지 않았다.** `CONTRACTS.md` 3.8절·11.1절은 WZDR의 순번이 "슬롯마다 1 이상이고 늘어나기만 한다"이고 레코드의 순서는 `InputOrder`(틱, 오프셋, 키 분류, 슬롯, 순번)라고 적었다. TV-N20과 14.8절 "틱 안 순서"는 같은 (틱, 오프셋)에 K(순번 10), 앞(순번 11)이 오면 서버가 앞 → K로 다시 정렬해 **둘 다 받으라고** 한다. 그 확정 열은 한 슬롯의 순번이 11 → 10으로 줄어들어서 `DuelRecordWriter.Append`가 `InvalidOperationException`으로 거절했고 `ConfirmedInputRecord()`가 던졌다(M2-NET-04가 시험으로 확인했다).
+     - 정직한 클라이언트도 닿는다. `DuelClientCore`는 이벤트의 시각을 직전에 낸 내 이벤트보다 앞서지 않게 **올린다**(6.4절 "버려진 내 입력", 입력 시계의 ±0.5% 보정). 올린 시각이 직전 이벤트와 같아지면 K 다음에 낸 방향 키가 같은 (틱, 오프셋)에 더 큰 순번으로 실린다. 10.2절의 "정직한 클라이언트에서는 순번 순이 (tick, offset, 키 분류) 순과 같다"는 한 번의 `OnLocalInput` 안에서만 참이다.
+     - 조작한 클라이언트는 마음대로 닿는다. 10.6절 (0)은 **한 패킷 안의** 역행만 본다(REVIEW-LOG D01). 순번 1을 틱 11에 내고 다음 패킷에서 순번 2를 틱 10에 내면 둘 다 받아들여지고(둘 다 봉인 전이고 마감 안이면) 확정 열은 틱 10의 순번 2, 틱 11의 순번 1이다. 그 한 사람 때문에 서버가 그 경기의 다시 보기 기록을 쓰다가 예외로 넘어진다.
+  2. **호스트 쪽 계약 타입 넷이 빈 구조체였다.** 6.4절의 생성자가 받는 `DuelHostKeys`, `Rekey`가 받는 `DuelPeerKey`, `StatsFor`가 돌려주는 `DuelNetStats`, `Status`의 `DuelHostStatus`는 칸이 없는 자리 표시였고(`src/Wizard.Netcode/Duel/`) main의 `tasks.json`에서는 어느 작업의 `owned_paths`에도 없었다. 그래서 구현은 같은 꼴의 `HostPeerKey`·`HostNetStats`를 `Host/`에 따로 두고 계약과 다른 생성자를 냈다. 같은 꼴의 문제를 M2-NET-05 브랜치의 T-62가 먼저 정했지만(키 둘의 칸, 소유 경로) 그 브랜치는 아직 main에 없다.
+  3. spec 10 2.8절의 `state_hash_interval`(30틱)과 `future_claim_tolerance`(1틱 = 256 서브틱)가 `NetRuleSet`에 없어서 `DuelHostCore`에 상수로 들어갔다(T-60 따라오는 일 (4)가 "그 값을 쓰는 작업이 닿을 때 본다"로 남긴 것).
+- **결정**:
+  1. **WZDR의 순번은 1 이상의 `u32`이기만 하면 된다.** "한 슬롯 안에서 늘어나기만 한다"를 뺀다. 레코드의 순서는 그대로 `InputOrder` 하나다(틱은 줄지 않고, 한 틱 안에서는 `InputOrder`가 엄격히 늘어난다. 같은 것 둘은 없다). 순번은 그 정렬 키의 **맨 끝**이라서, 분류가 앞서는 이벤트가 더 큰 순번으로 먼저 올 수 있고 뒤 틱에 더 작은 순번이 올 수 있다. 순번은 받은 값 그대로 싣는다(다시 매기지 않는다).
+     - `DuelRecordWriter.Append`가 거절하는 것: 틱·`InputOrder` 역행, 슬롯이 0·1이 아님, **순번 0**, 한 사람 한 틱 9개째, 범위 밖 키. `DuelRecordCodec.TryRead`의 `BadSeq`(18): 순번이 0이거나 `u32`를 넘는다. 번호 18은 그대로이고 뜻이 좁아진다.
+     - "한 사람의 순번은 확정 열에 한 번씩만 나온다"는 **파일 형식의 규칙이 아니라 호스트가 지키는 것**이다(10.6절 (1): 순번은 한 번 소비된다. `p.lastSeq` 이하는 건너뛴다). 읽는 쪽은 그것을 검사하지 않는다(파일 전체에 걸친 집합이 있어야 하고, WZDR은 서버가 만든 파일이며 그 결과로 보상을 정하지 않는다. T-48).
+     - `format_version`은 1 그대로다(읽는 쪽이 받는 열이 넓어졌을 뿐이고, 이 형식으로 나간 파일이 아직 없다).
+  2. **10.6절의 검증 순서는 바꾸지 않는다.** 패킷 사이의 시각 역행은 순서 위반이 아니다(몰수 계수에 넣지 않는다). 그 이벤트도 봉인·늦음·이른 시각·키 상태·수량 검사를 그대로 지나므로, 순번을 거꾸로 매겨서 얻는 것이 없다(같은 이벤트를 순번만 바꿔 낸 것과 판정이 같다). 확정은 틱마다 `InputOrder.Sort`를 거친다(TV-N20).
+  3. **확정 열을 읽는 쪽은 한 사람의 순번이 늘어난다고 가정하지 않는다**(`ServerTick`의 틱별 목록, WZDR, 관전 묶음). 내 이벤트를 확정 열에서 찾을 때는 순번으로 찾고, 순서는 실린 그대로 쓴다. `ServerTick`의 이벤트는 순번을 절댓값(`varuint seq`)으로 싣고 `ServerTickPacket`은 순번 0만 거절하므로 형식은 그대로다.
+  4. **형식으로 적을 수 없는 역행.** 한 패킷 안의 "순번 7 다음 5"(TV-N16, spec 01 T-I13)는 10.2절 형식(`Δseq`는 부호 없는 `varuint`)으로 적으면 32비트를 넘어 도는 값이 되어 코덱이 읽지 못한다. **태그 검증을 통과했는데 10.2절 형식으로 읽히지 않는 `ClientInput`은 10.6절 (0)의 위반으로 센다**(그 패킷만 버리고 `orderViolations += 1`. 봉인·에코·ack를 쓰지 않는다. 알릴 순번을 읽지 못했으므로 reason 4 통지는 없다). 정직한 부호기는 그런 바이트를 만들지 않고 전송 중의 손상은 태그가 잡는다. 형식으로 적을 수 있는 위반(순번이 늘지 않음, (틱, 오프셋) 역행, `base_seq` ≥ 첫 순번)은 reason 4로 알리되, **아직 소비하지 않은 첫 순번**으로 알린다(거부한 패킷은 순번을 소비하지 않는다. 이미 받은 순번을 "버렸다"고 알리지 않는다).
+  5. **이른 시각 검사의 편도 추정**은 `RttSampleWindow.OneWayUs`이고(T-60), 표본이 아직 없으면 0으로 본다(가장 너그러운 쪽. 표본이 생기기 전의 정직한 입력을 버리지 않는다). 확정할 다음 틱에서 256틱 넘게 앞선 유효 틱은 자료구조(대기 고리)의 한도라 이른 시각(reason 2)으로 버린다. 이른 시각 검사를 지난 이벤트는 지금 틱 + D + 1 안이라서 `Advance`를 4초 넘게 부르지 않았을 때만 닿는다.
+  6. **`DuelPeerKey { uint TokenId, Epoch; ReadOnlySpan<byte> Key; bool IsValid }`**, **`DuelHostKeys { DuelPeerKey Slot0, Slot1; For(PlayerSlot) }`**. T-62의 5번과 글자까지 같다(두 브랜치 가운데 어느 쪽이 먼저 들어가도 같은 선언이다). `DuelPeerKey`의 생성자는 32바이트가 아닌 키를 `ArgumentException`으로 거절하고 키를 복사해 둔다. `DuelHostKeys`의 생성자는 두 키가 다 `IsValid`이고 `token_id`가 서로 달라야 한다(아니면 `ArgumentException`). `For`는 슬롯이 0·1이 아니면 `ArgumentOutOfRangeException`. `default`는 생성자를 지나지 않으므로 **`DuelHostCore`의 생성자가 같은 두 조건을 한 번 더 본다**(`default(DuelHostKeys)`는 `ArgumentException`).
+  7. **`DuelNetStats`** = 한 사람의 통계(spec 10 14.8 "패킷 도착 시각 분포, 봉인 마감에 걸린 횟수, 버려진 이벤트 수", `duel_match.net_stats`의 원천). 공개 칸을 가진 값 타입이고 전부 서버가 센 `long`이다(아래 개정문의 열여섯 칸). 경기 처음부터 센 값이고 줄지 않는다. `StatsFor`는 사본을 돌려준다. `net_stats` JSON의 꼴(어느 칸을 어떤 이름으로 싣는가)은 그것을 쓰는 M14-SRV-01이 정한다.
+  8. **`DuelHostStatus { uint NextConfirmTick; bool IsOver }`**. `NextConfirmTick` = 다음에 확정할 틱 = 확정한 틱의 수 = 호스트 세계의 `SimWorld.Tick`(T-62 7번의 틱의 뜻과 같다. 마지막 확정 틱 = 값 − 1). `IsOver` = 세계의 경기 끝. **6.4절이 적은 나머지(끝의 결과, 몰수가 누구인가, 끊김 타이머)의 칸은 그것을 만드는 M14-NET-01이 더한다**(칸은 더하기만 한다). 그것들은 지금 채울 값이 없다: 승자와 라운드는 Duel 모듈(M14-DUL-01)이, 몰수 판정과 끊김 타이머는 M14-NET-01이 만든다. `DuelHostCore`는 6.4절에 없는 공개 속성(구현이 두었던 `NextConfirmTick`, `IsOver`)을 따로 두지 않고 `Status`로만 내보인다.
+  9. **자리만 있는 문.** `Rekey`, `TryWriteSpectatorStart`, `PollSpectatorChunk`는 M14-NET-01이 채운다. 그때까지 `Rekey`는 `NotSupportedException`을 던진다(조용히 넘기면 옛 키로 계속 보내게 되어 10.1절이 금지한 일의 길이 열린다). 관전의 두 문은 `false`와 0을 돌려준다.
+  10. **데이터.** `NetRuleSet`에 `StateHashIntervalTicks`(30)와 `FutureClaimToleranceOffsets`(256)를 더한다. 원본은 `data/rules/net.json`의 `state_hash_interval_ticks`(정수)와 `future_claim_tolerance_ticks`(십진 1.0. 변환기가 × 256으로 입력 단위로 바꾼다)이고 팩 절 34의 끝에 `i32` 둘로 붙는다(간격은 1 이상, 여유는 0 이상). 옮기는 일은 **CCR-2**가 한다(아래). 그때까지 `DuelHostCore`의 두 상수(`StateHashIntervalTicks = 30`, 여유 = `SimTime.OffsetsPerTick`)가 그 값이다.
+- **대안**: (가) 10.6절에 "같은 사람의 앞서 받은 이벤트보다 `InputOrder`가 앞서는 이벤트는 버린다"를 더하고 WZDR의 규칙은 그대로 둔다(M2-NET-04가 적은 다른 길). (나) 호스트가 WZDR에 쓸 때 순번을 확정 순서로 다시 매긴다. (다) "늘어나기만 한다"를 "한 틱 안에서는 아무 순서, 틱 사이에서는 늘어난다"로만 푼다. (라) 읽는 쪽이 한 슬롯의 순번이 겹치지 않는지를 본다. (마) 키 둘을 `DuelHostCore(…, DuelPeerKey slot0, DuelPeerKey slot1, …)`로 받는다. (바) `DuelHostStatus`에 6.4절이 적은 칸(결과, 몰수, 끊김 타이머)을 지금 다 선언한다. (사) 두 넷코드 값을 이 브랜치에서 데이터로 옮긴다. (아) `CONTRACTS.md`를 이 브랜치에서 고친다.
+- **이유**:
+  - (가) TV-N20과 정면으로 어긋난다(앞 → K로 **둘 다** 받는다). 그리고 위 1번처럼 정직한 클라이언트의 올린 시각도 버리게 된다(버려진 입력은 보정 이벤트로 한 번 더 내야 해서 그만큼 늦게 들어간다). 검증 규칙을 늘려서 파일 형식의 제약을 지키는 것은 앞뒤가 바뀐 것이다: 순번은 정렬의 동률을 푸는 값일 뿐이고(3.1절) 세계 상태에도 해시에도 없다.
+  - (나) 확정 열(`ServerTick`으로 두 클라이언트에 나간 것)과 다시 보기 기록이 다른 열이 된다. 클라이언트는 확정 열의 순번으로 자기 이벤트의 생사를 가리므로(6.4절) 기록만 보고는 "어느 입력이 버려졌나"를 다시 짚을 수 없게 된다. 11.1절의 "순번은 실린 값 그대로다"를 지킨다.
+  - (다) 패킷 사이의 시각 역행(위 문제 1의 둘째 줄)에서 똑같이 던진다. 예외가 나는 길이 하나라도 남으면 조작한 한 사람이 상대의 다시 보기 기록까지 못 쓰게 만든다.
+  - (라) 재실행의 결과는 순서로 정해지고 순번의 유일성과 무관하다. 검사하려면 파일 전체에 걸친 집합(할당)이 있어야 하고, 그 검사로 막을 위협이 없다(서버가 만들고 서버가 보관하는 파일이다).
+  - (마) 6.4절의 시그니처(`DuelHostKeys keys`)를 바꿔야 하고, T-62가 이미 같은 칸으로 정했다.
+  - (바) 채울 수 없는 칸을 선언하면 `default` 값이 "몰수 없음", "끊기지 않음"으로 읽힌다. 실제로는 "아직 판정하지 않는다"다. 칸의 뜻(타이머의 단위가 틱인가 시각인가, 몰수의 사유를 어떻게 가르는가)은 그 판정을 만드는 작업이 시험과 함께 정하는 것이 맞다. T-56(`MailDeliveryEvent`)과 같은 길이다.
+  - (사) 절 34의 여섯 파일(`NetRuleSet.cs`, `ContentDb.Net.cs`, `NetConverter.cs`, `net.json`, `net.schema.json`, `NetPackTests.cs`)은 M2-NET-05 브랜치의 CCR-1(T-62: `hash_mismatch_flag_over`)이 가진다. M2-NET-04가 같은 파일을 가지면 두 브랜치가 다 들어온 그래프에서 CCR-1과 M2-NET-04의 경로가 순서 없이 겹친다(`PIPELINE.md` 4.4절. 뒤에 들어가는 쪽이 돌려보내진다). 그래서 CCR-1의 뒤에 서는 작업으로 냈다(아래 CCR-2의 `deps`).
+  - (아) T-47·T-52·T-60·T-62와 같은 까닭이다: 작업 브랜치에서 `CONTRACTS.md`를 고치면 `check-diff`가 막고, 그 파일을 `owned_paths`에 넣으면 `tools/Wizard.TaskGraph`의 시험(`Add_ToCopyOfRealGraph_…`)이 깨진다.
+- **`CONTRACTS.md`는 이 브랜치에서 고치지 않았다.** 옮겨 적기 전까지 2.2절(`NetRuleSet`), 3.8절(`RecordError.BadSeq`, `DuelRecordWriter.Append`, "`DuelRecordCodec.TryRead`도 같은 틀이다" 문단), 6.4절(아래 선언), 10.2절, 10.6절, 11.1절의 WZDR은 아래 개정문으로 읽는다. 시그니처가 바뀌는 선언은 없다. 3.8절·11.1절의 규칙 하나가 넓어지고(순번), 6.4절의 빈 타입 넷에 칸이 생긴다.
+- **따라오는 일**:
+  - CCR 작업(계약 변경 요청으로 올린다): 아래 개정문을 `CONTRACTS.md`에 옮겨 적는다. T-47·T-52·T-53·T-56·T-60·T-62의 옮겨 적기와 같이 할 수 있다.
+  - `tasks.json`(이 브랜치에서 고쳤다):
+    - M2-NET-04: `owned_paths`에 계약 타입 넷(`Duel/DuelHostKeys.cs`, `DuelPeerKey.cs`, `DuelHostStatus.cs`, `DuelNetStats.cs`. T-62가 M2-NET-05 브랜치에서 더한 것과 같은 줄이다), WZDR의 읽기·쓰기와 그 시험(`src/Wizard.Sim/Replay/DuelRecordWriter.cs`, `WzdrBodyReader.cs`, `src/Wizard.Sim/Runtime/Contracts/RecordError.cs`, `tests/Wizard.Sim.Tests/Replay/DuelRecordTests.cs`. M1-SIM-07의 것이고 M1-SIM-07 → M2-NET-04로 순서가 있다), 문서 둘(이 문서, `tasks.json`)을 더했다. 수락 조건 셋(T-64)을 더했다.
+    - **M2-NET-05와의 순서.** 두 작업이 다 문서 둘을 가진다(T-62, T-64). 그래서 M2-NET-04의 `deps`에 M2-NET-05를 더했고, 같은 묶음에 있을 수 없어서 M2-NET-04를 새 묶음 M2-W10으로 옮겼다. M2-NET-05의 묶음을 M2-W03 → M2-W04로 옮긴 것은 T-62가 그 브랜치에서 한 것과 같은 한 줄이다(여기서도 해야 M2-W04가 비지 않는다). 두 브랜치를 합친 그래프가 `taskgraph validate`를 통과하는 것을 `git merge-tree`로 만든 병합 결과로 확인했다(결과 보고).
+    - **CCR-2**(새 작업. `deps` M2-NET-04·M2-NET-07): 결정 10번. M2-NET-07에 기대는 것은 순서 때문이다: M2-NET-05 브랜치가 들어오면 M2-NET-07이 CCR-1에 기대므로(T-62) CCR-2가 CCR-1의 뒤에 서고 절 34의 여섯 파일이 순서 없이 겹치지 않는다. 마일스톤 칸은 M14로 적었다(M2의 `task_count`는 CCR-1이 같은 줄을 고친다. 두 브랜치가 같은 줄을 서로 다른 값으로 고치면 뒤에 들어가는 쪽이 돌려보내진다). 실행 순서는 `deps`가 정한다: M2-NET-04와 M2-NET-07이 끝나면 곧바로 할 수 있다.
+    - M14-NET-01: `deps`에 CCR-2를 더하고 `owned_paths`에 `src/Wizard.Netcode/Duel/Host/`, `tests/Wizard.Netcode.Tests/Duel/Host/`, `src/Wizard.Netcode/Duel/DuelHostStatus.cs`를 더했다. 끊김 타이머·몰수·`Rekey`·관전은 `DuelHostCore`와 `HostPeer`의 상태를 고쳐야 하고(`Lifecycle/`·`Spectate/`의 새 파일만으로는 할 수 없다) `DuelHostStatus`에 칸을 더해야 한다. 자리만 있는 문을 고정한 시험(`HostContractTests.LifecycleAndSpectatorDoorsAreExplicitPlaceholders`)도 그 작업이 바꾼다. 수락 조건 한 줄을 더했다.
+  - M2-NET-05·M2-NET-06·M2-NET-07(클라이언트, 매트릭스, Loopback): 결정 3번. 확정 열의 한 사람 순번이 늘어난다고 가정한 코드나 시험이 있으면 틀린 것이다. M2-NET-06의 매트릭스에 "K 다음에 낸 방향 키가 같은 (틱, 오프셋)으로 올라간" 사례를 넣어 두 클라이언트의 확정 해시가 호스트와 같은지 본다(검토에서 그 작업에 알린다).
+  - 코어 소스(`Replay/`)를 고쳤으므로 `SimVersion.g.cs`를 다시 만들었다(T-41). 세계 상태와 해시에 들어가는 것은 바뀌지 않았다(골든의 기대 해시는 그대로다).
+
+**`CONTRACTS.md` 개정문** (CCR 작업이 옮겨 적는다)
+
+2.2절 `NetRuleSet`에 한 줄을 더한다(T-60·T-62가 더한 줄 뒤. 팩 절 34의 끝에 `i32` 둘). CCR-2가 넣는다.
+
+```csharp
+    public int StateHashIntervalTicks, FutureClaimToleranceOffsets;   // 30, 256(1틱). spec 10 2.8의 state_hash_interval, future_claim_tolerance(T-64)
+```
+
+3.8절. `RecordError.BadSeq`의 주석, `DuelRecordWriter.Append`의 주석, "`DuelRecordCodec.TryRead`도 같은 틀이다" 문단의 순번 문장.
+
+```csharp
+    BadSeq = 18,         // WZDR: 순번이 0이거나 u32를 넘는다(한 슬롯 안에서 늘어나야 한다는 규칙은 없다, T-64). .wzrc: 순번 공간(uint)을 다 썼다
+
+    // 확정된 입력을 확정 순서(InputOrder 순)대로. 순번은 받은 값 그대로(서버가 만든 뗌 이벤트 포함).
+    // 읽는 쪽이 받지 않을 열(틱·순서 역행, 슬롯이 0·1이 아님, 순번 0, 한 사람 한 틱 9개째)은 쓰지 않고 예외를 던진다
+    public void Append(in PlayerInput input);
+```
+
+> `DuelRecordCodec.TryRead`도 같은 틀이다. 다른 점: 레코드는 `0x05`뿐이다. 슬롯은 0·1. 한 틱 안의 순서는 `InputOrder`(오프셋, 분류, 슬롯, 순번)이고 같은 것 둘은 없다. 순번은 1 이상의 `u32`다. **한 슬롯의 순번이 레코드 순서로 늘어난다는 규칙은 없다**: 순번은 `InputOrder`의 맨 끝 키라서 분류가 앞서는 이벤트가 더 큰 순번으로 먼저 올 수 있고(spec 10 TV-N20), 패킷 사이에서 시각을 되돌린 클라이언트의 이벤트는 뒤 틱에 더 작은 순번으로 실린다(10.6절은 한 패킷 안의 역행만 거절한다). 건너뜀도 된다(10.6절의 유실 소비). 한 사람의 순번이 한 번씩만 나오는 것은 호스트가 지키고(10.6절 (1)) 읽는 쪽은 보지 않는다. 키는 **슬롯마다** 한 틱에 8개까지다. 꼬리말 `flags`는 0이다.
+
+6.4절. `DuelHostCore`의 선언 가운데 아래 줄의 주석을 바꾸고 타입 넷을 더한다(`DuelPeerKey`·`DuelHostKeys`는 T-62의 개정문과 같은 선언이다. 한 번만 옮겨 적는다).
+
+```csharp
+// namespace Wizard.Netcode.Duel
+public readonly struct DuelPeerKey {                  // 서버가 만든 한 사람의 키 = (경기, 사람, epoch). duel.setup으로 내려 준 것과 같은 값. default는 IsValid 거짓
+    public readonly uint TokenId, Epoch;
+    public DuelPeerKey(uint tokenId, uint epoch, ReadOnlySpan<byte> key);      // key는 32바이트(아니면 ArgumentException). 복사해 둔다
+    public ReadOnlySpan<byte> Key { get; }
+    public bool IsValid { get; }
+}
+public readonly struct DuelHostKeys {                 // 경기의 두 사람 키. 슬롯 순
+    public readonly DuelPeerKey Slot0, Slot1;
+    public DuelHostKeys(DuelPeerKey slot0, DuelPeerKey slot1);                 // 둘 다 IsValid이고 token_id가 서로 달라야 한다(아니면 ArgumentException)
+    public DuelPeerKey For(PlayerSlot slot);          // 슬롯이 0·1이 아니면 ArgumentOutOfRangeException
+}
+public readonly struct DuelHostStatus {               // 호스트의 진행 상태. 칸은 더하기만 한다: 끝의 결과, 몰수(누가), 끊김 타이머는 M14-NET-01이 더한다
+    public readonly uint NextConfirmTick;             // 다음에 확정할 틱 = 확정한 틱의 수 = 호스트 세계의 SimWorld.Tick. 마지막 확정 틱 = 값 − 1
+    public readonly bool IsOver;                      // 호스트 세계의 경기가 끝났다. 그 뒤로는 틱을 확정하지 않는다
+    public DuelHostStatus(uint nextConfirmTick, bool isOver);
+}
+public struct DuelNetStats {                          // 한 사람의 통계. 서버가 경기 처음부터 센 값(줄지 않는다). duel_match.net_stats의 원천. 칸은 더하기만 한다
+    public long PacketsVerified, PacketsUnauthentic, PacketsReplayed, PacketsMalformed;   // 10.1절. Malformed = 태그는 맞지만 ClientInput 본문 형식이 틀린 패킷(OrderViolations에도 든다)
+    public long OrderViolations;                      // 10.6절 (0)으로 버린 패킷. 몰수는 이것만 센다
+    public long EventsAccepted, EventsLate, EventsEarly, EventsQuantity;       // 받음, reason 1, 2, 3
+    public long SeqsLost;                             // reason 5: 유실로 소비한 순번의 수
+    public long EventsKeyStateIgnored;                // 키 상태 모순(알리지 않는다)
+    public long NoticesOverflowed;                    // 알림 대기열이 차서 알리지 못한 순번의 수
+    public long TicksSealedByDeadline;                // 패킷이 아니라 서버 시각(T + 1틱)으로 닫힌 틱의 수
+    public long ArrivalMarginCount, ArrivalMarginSumUs, ArrivalMarginMinUs;    // 받은 이벤트마다 (그 틱의 마감 − 도착) µs의 개수, 합, 최솟값(개수 0이면 0)
+}
+
+// DuelHostCore
+    public DuelHostCore(ContentDb db, DuelSetup setup, DuelHostKeys keys, IAeadCipher cipher);   // keys가 default이거나 두 token_id가 같으면 ArgumentException
+    public void Rekey(PlayerSlot slot, DuelPeerKey key);           // 재접속: 새 token_id, 새 키, epoch + 1(10.1절). M14-NET-01이 채운다. 그 전에는 NotSupportedException
+    public DuelHostStatus Status { get; }             // 진행, 끝. 끝의 결과, 몰수(누가), 끊김 타이머는 M14-NET-01이 칸을 더한다
+    public DuelNetStats StatsFor(PlayerSlot slot);    // 사본
+    public ReadOnlyMemory<byte> ConfirmedInputRecord();            // WZDR. 경기 중에 불러도 된다(그때까지의 기록). 어떤 확정 열이든 던지지 않는다(T-64)
+```
+
+10.2절의 이벤트 순서 문장.
+
+> 이벤트는 순번 순이고 `(tick, offset)`이 역행하지 않는다(10.6절 (0)). 한 번의 `OnLocalInput`이 매긴 순번은 `(tick, offset, 키 분류)` 순과 같지만, 직전 이벤트의 시각으로 **올린** 이벤트는 같은 `(tick, offset)`에 더 큰 순번으로 실리므로 같은 `(tick, offset)` 안에서 키 분류의 순서는 순번 순과 다를 수 있다. 서버가 `InputOrder`로 다시 정렬한다(spec 10 TV-N20).
+
+10.6절의 글머리에 셋을 더한다.
+
+> - **패킷 사이의 순서는 보지 않는다.** 앞 패킷의 이벤트보다 이른 시각의 이벤트가 뒤 패킷에 더 큰 순번으로 와도 순서 위반이 아니다(그 이벤트는 봉인·늦음·이른 시각 검사를 그대로 지난다). 받은 이벤트는 틱마다 `InputOrder`로 정렬해 확정하므로 **한 사람의 순번은 확정 열에서 늘어나기만 하지 않는다**(TV-N20: 같은 (틱, 오프셋)의 K(10), 앞(11) → 앞(11), K(10)). `ServerTick`, WZDR(11.1절), 관전 묶음을 읽는 쪽은 순번의 단조를 가정하지 않는다(T-64).
+> - 태그 검증을 통과했는데 10.2절 형식으로 읽히지 않는 `ClientInput`은 (0)의 위반으로 센다(그 패킷만 버린다. 알릴 순번이 없어 reason 4 통지는 없다). 한 패킷 안의 순번 역행은 형식(`Δseq`는 부호 없는 `varuint`)으로 적을 수 없어서 이 꼴로 온다. 형식으로 적을 수 있는 위반의 reason 4는 아직 소비하지 않은 첫 순번으로 알린다(거부한 패킷은 순번을 소비하지 않는다).
+> - `p.oneWay`는 `RttSampleWindow.OneWayUs`다. 표본이 아직 없으면 0으로 본다. `+ 256`은 `NetRuleSet.FutureClaimToleranceOffsets`다(CCR-2).
+
+11.1절 WZDR의 글머리 "레코드의 순서 = 확정 열의 순서 = `InputOrder` 순이다 …"의 뒤에 붙인다.
+
+> 순번은 실린 값 그대로이고 1 이상이면 된다. 한 슬롯의 순번이 레코드 순서로 늘어난다는 규칙은 없다(3.8절, T-64).
+
+---
+
 ## T-56 `mail_outbox`의 상태는 spec 12의 넷뿐이다: 배달 확인은 `sent` 그대로, 반송은 `sent → dropped`. 시험 대역이 진짜 표로 바뀔 때의 시험 도우미는 그 표를 들이는 작업이 고친다 [신규]
 
 번호 메모: T-54는 아직 main에 들어오지 않은 다른 작업 브랜치 둘(M1-UE-02, M2-NET-03)이 각자 쓰고 있다. 겹치지 않게 T-56을 쓴다(T-55는 그 둘 가운데 하나를 고쳐 매길 자리로 비워 둔다).

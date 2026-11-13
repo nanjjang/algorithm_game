@@ -21,6 +21,7 @@ namespace Wizard.DataBuild
     // 교차 검사(spec 02 4.2, T-53): 즉발이면 속도 0, 투사체만 피해·간격·속도·사거리·반지름과 표식을 갖는다, 변형만 효과와 피해 보너스를 갖는다,
     //   제어 블록은 분열(갈래 ≥ 2, 열 배수 > 1, 부채꼴 반각)이거나 적중 시 발동(갈래 1, 열 배수 1)이다, 표식·효과와 그 값(params)은 짝이 맞는다,
     //   전이 배율은 코어의 표(PowBase.Chain07)와 같다.
+    // spell_rules(T-57. spec 02 SF-2, HT-5, HT-7) → 절의 꼬리 SpellRulesDef: 상한(정수), 열 → HU, 배수 → 천분율. 원본에 없으면 꼬리를 쓰지 않는다.
     public sealed class BlocksConverter : ISectionConverter
     {
         public ContentSection Section => ContentSection.Blocks;
@@ -51,6 +52,14 @@ namespace Wizard.DataBuild
                     diagnostics.Error(file.RepoPath, entries[k].Pointer + "/id", "블록 '" + ContentIds.ToId(entries[k].Id) + "' 가 두 번 있다");
                 }
             }
+            bool hasRules = file.Root.TryGetProperty("spell_rules", out JsonElement rules);
+            int treeCap = 0, underlineMaxCutHu = 0, mirrorHeatMulPermille = 0;
+            if (hasRules)
+            {
+                treeCap = Int(rules, "tree_projectile_cap");
+                underlineMaxCutHu = Units.HeatToHu(Dec(rules, "underline_max_cut_heat"));
+                mirrorHeatMulPermille = Units.RatioToPermille(Dec(rules, "mirror_heat_multiplier"));
+            }
             if (diagnostics.Count != before)
             {
                 return;
@@ -59,6 +68,13 @@ namespace Wizard.DataBuild
             foreach (Entry e in entries)
             {
                 Write(e, output);
+            }
+            if (hasRules)
+            {
+                // 꼬리. 순서는 읽는 쪽(ContentDb.Blocks.cs)의 머리 주석과 같다. 범위는 스키마가 보았다
+                output.I32(treeCap);
+                output.I32(underlineMaxCutHu);
+                output.I32(mirrorHeatMulPermille);
             }
         }
 

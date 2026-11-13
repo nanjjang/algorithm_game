@@ -19,10 +19,22 @@ namespace Wizard.Content
     //       i32 active_ticks  i32 dash_speed_centi  i32 recovery_ticks  i32 damage  u8 damage_source
     //       u8 has_proj  i64 proj_speed_per_tick_raw  i32 proj_count  i32 proj_spread_centi  i64 proj_range_raw  i64 proj_hit_radius_raw
     //       u8 grazeable  u8 is_dash  u8 lob(각 0 | 1)  opt i32 escape_override_milli  i32 cooldown_ticks
+    //       u8 has_hazard  u8 hazard_kind  i64 hazard_radius_raw  i32 hazard_duration_ticks  i32 hazard_max_count  i32 hazard_contact_cooldown_ticks
     //     AI 매개변수(EnemyDef.AiParams 의 필드 순서):
     //       i64 dodge_distance_raw  i32 dodge_cooldown_ticks  i32 dodge_window_ticks  i32 dodge_dash_ticks
     //       i32 armor_half_angle_centi  i32 armor_damage_permille  i32 cover_hp_permille
     //       i64 cover_offset_raw  i64 keep_distance_min_raw  i64 keep_distance_max_raw  i64 kite_distance_min_raw
+    //       i64 sympathetic_damage_raw  i32 sympathetic_delay_ticks
+    //       i32 surface_ticks  i32 dig_ticks  i32 burrow_max_ticks  i32 burrow_retarget_ticks
+    //       i64 wave_amplitude_raw  i32 wave_period_ticks
+    //       i32 blink_period_ticks  i32 vanish_ticks  i32 appear_ticks  i32 no_cast_after_appear_ticks
+    //       i64 blink_distance_min_raw  i64 blink_distance_max_raw  i64 blink_retry_distance_raw  i32 blink_candidates  i64 blink_wall_margin_raw
+    //       i32 emerge_ticks  i64 spawn_wall_margin_raw  i64 spawn_player_margin_raw
+    //       i32 stun_damage_permille  i64 path_damage_raw
+    //       i32 croak_period_ticks  i32 croak_ticks  i64 buff_radius_raw  i32 buff_ticks  i32 buff_speed_permille  i32 buff_speed_cap_centi
+    //       i32 buff_recovery_permille  i64 croak_break_damage_raw  i32 croak_stagger_ticks  i64 follow_radius_raw  i64 follow_offset_raw
+    //     u8 is_minion(0 | 1)  i32 spawn_pack_min  i32 spawn_pack_max
+    //   시간대는 졸개만 비어 있을 수 있다(보스가 부른다). 무리 수는 1 ≤ min ≤ max.
     // 필드를 더하는 작업은 적 항목 끝(AI 매개변수 뒤) 또는 공격 항목 끝에 더하고 변환기와 이 파일을 같은 커밋에서 고친다.
     // 깨진 바이트(모자람, 남음, 순서, 모르는 열거형 값·비트, 0/1 이 아닌 bool, 없음인데 0 이 아닌 값)는 ContentException.
     // 규칙 검사(약점 ≠ 저항, 모양과 예고, 돌진·탄의 짝 …)는 변환기가 한다. 여기서는 바이트의 꼴만 믿지 않는다.
@@ -91,9 +103,9 @@ namespace Wizard.Content
             d.Cost = EnemyI32(ref r);
             d.FirstWave = EnemyI32(ref r);
             byte times = EnemyU8(ref r);
-            if (times == 0 || (times & ~(byte)EnemyDef.TimeMask.Always) != 0)
+            if ((times & ~(byte)EnemyDef.TimeMask.Always) != 0)
             {
-                throw EnemiesBroken("time mask empty or with unknown bits");
+                throw EnemiesBroken("time mask with unknown bits");
             }
             d.Times = (EnemyDef.TimeMask)times;
             d.Weak = (Element)EnemyEnumByte(ref r, typeof(Element));
@@ -134,9 +146,54 @@ namespace Wizard.Content
             ai.KeepDistanceMin = Fix64.FromRaw(EnemyI64(ref r));
             ai.KeepDistanceMax = Fix64.FromRaw(EnemyI64(ref r));
             ai.KiteDistanceMin = Fix64.FromRaw(EnemyI64(ref r));
+            ai.SympatheticDamage = Fix64.FromRaw(EnemyI64(ref r));
+            ai.SympatheticDelayTicks = EnemyI32(ref r);
+            ai.SurfaceTicks = EnemyI32(ref r);
+            ai.DigTicks = EnemyI32(ref r);
+            ai.BurrowMaxTicks = EnemyI32(ref r);
+            ai.BurrowRetargetTicks = EnemyI32(ref r);
+            ai.WaveAmplitude = Fix64.FromRaw(EnemyI64(ref r));
+            ai.WavePeriodTicks = EnemyI32(ref r);
+            ai.BlinkPeriodTicks = EnemyI32(ref r);
+            ai.VanishTicks = EnemyI32(ref r);
+            ai.AppearTicks = EnemyI32(ref r);
+            ai.NoCastAfterAppearTicks = EnemyI32(ref r);
+            ai.BlinkDistanceMin = Fix64.FromRaw(EnemyI64(ref r));
+            ai.BlinkDistanceMax = Fix64.FromRaw(EnemyI64(ref r));
+            ai.BlinkRetryDistance = Fix64.FromRaw(EnemyI64(ref r));
+            ai.BlinkCandidates = EnemyI32(ref r);
+            ai.BlinkWallMargin = Fix64.FromRaw(EnemyI64(ref r));
+            ai.EmergeTicks = EnemyI32(ref r);
+            ai.SpawnWallMargin = Fix64.FromRaw(EnemyI64(ref r));
+            ai.SpawnPlayerMargin = Fix64.FromRaw(EnemyI64(ref r));
+            ai.StunDamagePermille = EnemyI32(ref r);
+            ai.PathDamage = Fix64.FromRaw(EnemyI64(ref r));
+            ai.CroakPeriodTicks = EnemyI32(ref r);
+            ai.CroakTicks = EnemyI32(ref r);
+            ai.BuffRadius = Fix64.FromRaw(EnemyI64(ref r));
+            ai.BuffTicks = EnemyI32(ref r);
+            ai.BuffSpeedPermille = EnemyI32(ref r);
+            ai.BuffSpeedCapCenti = EnemyI32(ref r);
+            ai.BuffRecoveryPermille = EnemyI32(ref r);
+            ai.CroakBreakDamage = Fix64.FromRaw(EnemyI64(ref r));
+            ai.CroakStaggerTicks = EnemyI32(ref r);
+            ai.FollowRadius = Fix64.FromRaw(EnemyI64(ref r));
+            ai.FollowOffset = Fix64.FromRaw(EnemyI64(ref r));
+            d.IsMinion = EnemyBool(ref r);
+            d.SpawnPackMin = EnemyI32(ref r);
+            d.SpawnPackMax = EnemyI32(ref r);
+            if (d.Times == EnemyDef.TimeMask.None && !d.IsMinion)
+            {
+                throw EnemiesBroken("time mask empty");
+            }
+            if (d.SpawnPackMin < 1 || d.SpawnPackMax < d.SpawnPackMin)
+            {
+                throw EnemiesBroken("spawn pack out of order");
+            }
             return d;
         }
 
+        // 엘리트 절(ContentDb.Elites.cs)도 같은 공격 꼴을 읽는다
         private static AttackDef ReadAttackEntry(ref ByteReader r)
         {
             var a = new AttackDef();
@@ -196,6 +253,31 @@ namespace Wizard.Content
             int escape = EnemyI32(ref r);
             a.EscapeOverrideMilli = hasEscape ? escape : EnemyAbsent(escape);
             a.CooldownTicks = EnemyI32(ref r);
+            bool hasHazard = EnemyBool(ref r);
+            byte hazardKind = EnemyU8(ref r);
+            long hazardRadius = EnemyI64(ref r);
+            int hazardDuration = EnemyI32(ref r);
+            int hazardMax = EnemyI32(ref r);
+            int hazardCooldown = EnemyI32(ref r);
+            if (hasHazard)
+            {
+                if (!Enum.IsDefined(typeof(AttackDef.HazardKind), hazardKind))
+                {
+                    throw EnemiesBroken("unknown enum value");
+                }
+                a.LeavesHazard = new AttackDef.HazardDef
+                {
+                    Kind = (AttackDef.HazardKind)hazardKind,
+                    Radius = Fix64.FromRaw(hazardRadius),
+                    DurationTicks = hazardDuration,
+                    MaxCount = hazardMax,
+                    ContactCooldownTicks = hazardCooldown,
+                };
+            }
+            else if (hazardKind != 0 || hazardRadius != 0 || hazardDuration != 0 || hazardMax != 0 || hazardCooldown != 0)
+            {
+                throw EnemiesBroken("absent hazard with nonzero fields");
+            }
             return a;
         }
 

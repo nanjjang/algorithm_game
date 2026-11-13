@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Wizard.Content;
 using Wizard.DataBuild.Core;
@@ -104,7 +105,7 @@ namespace Wizard.DataBuild.Tests.Evasion
         [Fact]
         public void PartialTable_FeasibleIsOk_InfeasibleFails()
         {
-            // 지금 데이터의 원형 4종: 남은 8종으로 맞출 수 있다
+            // 원형 4종만 든 덜 찬 표(M3-DAT-01 때의 데이터): 남은 8종으로 맞출 수 있다
             var ok = new AffinityTable();
             ok.Rows.AddRange(Enemies12().GetRange(0, 4));
             Assert.False(Run(ok).HasErrors);
@@ -133,15 +134,36 @@ namespace Wizard.DataBuild.Tests.Evasion
             Assert.Equal(expected, AffinityBalance.CanBalance(counts, roster));
         }
 
+        // 저장소 데이터에는 일반 적 12종이 다 있다(M8-DAT-01, DECISIONS-TECH T-63). 표가 다 찼으므로 한 종의 저항만 바꿔도 차이가 2가 된다.
+        // spec 05 2.5 의 저항 분배는 화염 2, 번개 2, 비전 2, 냉기 3, 암흑 3 이다. 이끼 슬라임의 냉기 저항을 암흑으로 바꾸면 냉기 2, 암흑 4.
+        // 덜 찬 표의 "남은 종으로도 맞출 수 없다"는 위 PartialTable_FeasibleIsOk_InfeasibleFails 가 본다
         [Fact]
-        public void Check_FailsOnInfeasibleRepoData()
+        public void Check_FailsOnUnbalancedRepoData()
         {
             using var repo = new RepoDataCopy();
-            repo.ReplaceOnce("data/sim/enemies.json", "\"resist\": \"element.ice\",", "\"resist\": \"element.dark\",");        // 이끼 슬라임
-            repo.ReplaceOnce("data/sim/enemies.json", "\"resist\": \"element.lightning\",", "\"resist\": \"element.dark\",");  // 선돌지기
+            SetResist(repo, "enemy.slime_moss", "element.ice", "element.dark");
             var (code, _, err) = repo.Run("check");
             Assert.Equal(Program.ExitProblems, code);
-            Assert.Contains("FAIL  data/sim/enemies.json: 상성 분배(일반 적 저항, 4/12종): element.fire 0, element.lightning 0, element.arcane 0, element.ice 0, element.dark 4", err);
+            Assert.Contains("FAIL  data/sim/enemies.json: 상성 분배(일반 적 저항, 12/12종): element.fire 2, element.lightning 2, element.arcane 2, element.ice 2, element.dark 4"
+                + " — 속성별 개수 차이 2 > 1", err);
+        }
+
+        // 그 종의 줄 안에서만 저항을 바꾼다. 같은 속성의 저항을 가진 종이 여럿이라 파일 전체에서 한 번만 나오는 글자로는 짚을 수 없다.
+        // 그 종의 "id" 줄이 꼭 한 번 나오고, 바꿀 저항이 다음 종의 "id" 줄보다 앞에 있어야 한다(시험이 엉뚱한 곳을 고치지 않게)
+        private static void SetResist(RepoDataCopy repo, string enemyId, string from, string to)
+        {
+            const string rel = "data/sim/enemies.json";
+            const string idPrefix = "\"id\": \"enemy.";
+            string text = repo.Read(rel);
+            string idLine = "\"id\": \"" + enemyId + "\"";
+            int at = text.IndexOf(idLine, StringComparison.Ordinal);
+            Assert.True(at >= 0, rel + " 에 " + enemyId + " 가 없다");
+            Assert.True(text.IndexOf(idLine, at + idLine.Length, StringComparison.Ordinal) < 0, rel + " 에 " + enemyId + " 가 둘 이상이다");
+            int next = text.IndexOf(idPrefix, at + idLine.Length, StringComparison.Ordinal);
+            string key = "\"resist\": \"" + from + "\"";
+            int r = text.IndexOf(key, at, StringComparison.Ordinal);
+            Assert.True(r >= 0 && (next < 0 || r < next), enemyId + " 의 저항이 " + from + " 가 아니다");
+            repo.Write(rel, text.Substring(0, r) + "\"resist\": \"" + to + "\"" + text.Substring(r + key.Length));
         }
     }
 }

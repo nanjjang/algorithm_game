@@ -104,6 +104,13 @@ namespace Wizard.Content.Tests
         }
 
         [Fact]
+        public void HashMismatchFlag_FollowsSpec10_2_8()
+        {
+            // spec 10 2.8 hash_mismatch_flag "한 경기 3번 넘게, 4회째 표시"(T-62)
+            Assert.Equal(3, RepoNet().HashMismatchFlagOver);
+        }
+
+        [Fact]
         public void Proposed_ValuesNotInTheSpec_AreTheOverseersFirstValues()
         {
             // [총괄 제안]: data/rules/net.json 의 "_note" 가 근거를 적는다. M2-NET-06 의 측정으로 고친다
@@ -143,10 +150,13 @@ namespace Wizard.Content.Tests
         [Fact]
         public void SectionBytes_HaveTheDocumentedLayout()
         {
-            // 절 바이트의 꼴(ContentDb.Net.cs 머리 주석): u16 N + (i32, i32) × N + i32 × 13 = 2 + 24 + 52
+            // 절 바이트의 꼴(ContentDb.Net.cs 머리 주석): u16 N + (i32, i32) × N + i32 × 14 = 2 + 24 + 56
             byte[] s = Section(RepoPack.Value);
-            Assert.Equal(2 + 3 * 8 + 13 * 4, s.Length);
+            Assert.Equal(2 + 3 * 8 + 14 * 4, s.Length);
             Assert.Equal(3, s[0] | (s[1] << 8));
+            // 맨 끝 i32 = hash_mismatch_flag_over(T-62)
+            int last = s.Length - 4;
+            Assert.Equal(3, s[last] | (s[last + 1] << 8) | (s[last + 2] << 16) | (s[last + 3] << 24));
         }
 
         [Fact]
@@ -183,6 +193,29 @@ namespace Wizard.Content.Tests
             using (TempDataRepo repo = Repo(Net(clockResync: "0")))
             {
                 Assert.Contains(Problems(repo.Root), p => p.Contains("data/rules/net.json:/clock_resync_seconds") && p.Contains("스키마"));
+            }
+            using (TempDataRepo repo = Repo(Net(hashFlagOver: "0")))
+            {
+                Assert.Contains(Problems(repo.Root), p => p.Contains("data/rules/net.json:/hash_mismatch_flag_over") && p.Contains("스키마"));
+            }
+        }
+
+        [Fact]
+        public void Problems_HashMismatchFlagIsRequired()
+        {
+            // 한도가 없는 파일(CCR-1 앞의 꼴)은 스키마에서 걸린다(코드에 기본값 3 이 없다)
+            using (TempDataRepo repo = Repo(Net(hashFlagOver: "")))
+            {
+                Assert.Contains(Problems(repo.Root), p => p.Contains("data/rules/net.json") && p.Contains("스키마"));
+            }
+        }
+
+        [Fact]
+        public void Problems_HashMismatchFlagMustBeInteger()
+        {
+            using (TempDataRepo repo = Repo(Net(hashFlagOver: "3.5")))
+            {
+                Assert.Contains(Problems(repo.Root), p => p.Contains("data/rules/net.json:/hash_mismatch_flag_over"));
             }
         }
 
@@ -246,7 +279,7 @@ namespace Wizard.Content.Tests
         {
             // 1.0초 → 60, 20초 → 1200, 2.0초 → 120 (spec 14 0.3: 가장 가까운 정수, 같으면 짝수). 0.0125초 = 0.75틱 → 1
             using (TempDataRepo repo = Repo(Net(silence: "0.0125", grace: "20.5", spectator: "0.025", clockResync: "0.5", clockSamples: "5",
-                clockSlew: "1234")))
+                clockSlew: "1234", hashFlagOver: "7")))
             {
                 var d = new Diagnostics();
                 Pipeline.Output o = Pipeline.Run(repo.Root, ModuleRegistry.Discover(), PackOptions.Default(PackOptions.DefaultDataVersion), d);
@@ -258,6 +291,7 @@ namespace Wizard.Content.Tests
                 Assert.Equal(30, n.ClockResyncTicks);              // 0.5 × 60
                 Assert.Equal(5, n.ClockSyncSamples);               // 정수 그대로
                 Assert.Equal(1234, n.ClockSlewMaxPpm);
+                Assert.Equal(7, n.HashMismatchFlagOver);           // 정수 그대로
             }
         }
 
@@ -284,13 +318,19 @@ namespace Wizard.Content.Tests
             byte[] zero = (byte[])good.Clone();
             zero[26] = 0;
             Assert.Throws<ContentException>(() => Load(zero));
-            // 1 미만: 맨 끝 칸(틱 길이 보정 한도 5,000 = 0x1388)을 0 으로
+            // 1 미만: 끝에서 둘째 칸(틱 길이 보정 한도 5,000 = 0x1388)을 0 으로
             byte[] slew = (byte[])good.Clone();
-            slew[good.Length - 4] = 0;
-            slew[good.Length - 3] = 0;
+            slew[good.Length - 8] = 0;
+            slew[good.Length - 7] = 0;
             Assert.Throws<ContentException>(() => Load(slew));
-            // 시계 칸 셋이 없는 옛 꼴(i32 × 10 까지)
-            Assert.Throws<ContentException>(() => Load(good.AsSpan(0, good.Length - 12).ToArray()));
+            // 1 미만: 맨 끝 칸(해시 불일치 표시 한도 3)을 0 으로
+            byte[] flag = (byte[])good.Clone();
+            flag[good.Length - 4] = 0;
+            Assert.Throws<ContentException>(() => Load(flag));
+            // 한도 칸이 없는 옛 꼴(i32 × 13 까지)
+            Assert.Throws<ContentException>(() => Load(good.AsSpan(0, good.Length - 4).ToArray()));
+            // 시계 칸 셋과 한도가 없는 옛 꼴(i32 × 10 까지)
+            Assert.Throws<ContentException>(() => Load(good.AsSpan(0, good.Length - 16).ToArray()));
         }
 
         // 표를 읽는 규칙의 참조 구현(테스트 전용). 계약: CONTRACTS 2.2 의 주석과 spec 10 14.5
@@ -318,7 +358,7 @@ namespace Wizard.Content.Tests
 
         private static string Net(string table = "", string rollback = "8", string silence = "1.0", string grace = "20",
             string spectator = "2.0", string extra = "", string clockSamples = "16", string clockResync = "1.0",
-            string clockSlew = "5000")
+            string clockSlew = "5000", string hashFlagOver = "3")
         {
             if (table.Length == 0)
             {
@@ -329,7 +369,8 @@ namespace Wizard.Content.Tests
                 + ", \"full_state_gap_ticks\": 30, \"catchup_ticks_per_advance\": 8, \"rtt_hold_cap_ms\": 50"
                 + ", \"queue_rtt_limit_ms\": 120, \"order_violation_forfeit\": 30, \"spectator_delay_seconds\": " + spectator
                 + ", \"spectator_keyframe_ticks\": 60, \"clock_sync_samples\": " + clockSamples
-                + ", \"clock_resync_seconds\": " + clockResync + ", \"clock_slew_max_ppm\": " + clockSlew + extra + " }\n";
+                + ", \"clock_resync_seconds\": " + clockResync + ", \"clock_slew_max_ppm\": " + clockSlew
+                + (hashFlagOver.Length == 0 ? "" : ", \"hash_mismatch_flag_over\": " + hashFlagOver) + extra + " }\n";
         }
 
         private static ContentDb Load(byte[] section) =>

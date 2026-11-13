@@ -6522,7 +6522,8 @@
    "deps": [
     "M4-UL-01",
     "M1-SIM-01",
-    "M2-SPL-01"
+    "M2-SPL-01",
+    "M10-ACC-01"
    ],
    "spec_refs": [
     "docs/dev/ARCHITECTURE.md §9",

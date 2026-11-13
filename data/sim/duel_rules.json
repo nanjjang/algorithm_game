@@ -1,0 +1,124 @@
+{
+  "_note": "결투 규칙(DuelRuleSet, 팩 절 13). spec 10 2.1~2.4절 상수표와 3.4(가시밭)·3.5(야생 난입)·9.2(방 옵션)·7.2~7.3(캐릭터별 결투 값, world-characters 5.4가 유일한 기준) 절, spec 04 8절. 전투 규칙만 둔다(코어 버전 해시 안). 2.5절의 매치·입장 값, 2.6(IL·리그), 2.7(점수·보상), 2.8(넷코드)은 재실행에 영향이 없어 data/rules/ 의 절(leagues, il, season, net …)이 가진다. 공용·고유 비기의 결투 값(반동 사격 넉백 1.5칸, 뇌광창 기절 0.5초, 불가마 감속, 벼락 질주 경직, 베껴 쓰기 8번, 얼음 병풍, 그림자 손)은 arts.json 의 duel 칸이 가진다(spec 03 16절). 스침 감지·이동·자세·냉각·임계·잠금·결정 상한·결정당 콤보는 characters.json 의 값 그대로다(spec 10 7.1). [임시] 값: thorns.lead_seconds(U-02), thorns.ring_max(U-03), wild 의 자리·접촉 간격(U-27), match.intermission_seconds(U-26), combat.homing_turn_multiplier(U-07의 결투 90도/초 ÷ 무한 180도/초), 방 옵션 기본값(U-31).",
+  "match": {
+    "players": 2,
+    "rounds_to_win": 2,
+    "round_seconds": 90,
+    "countdown_seconds": 3,
+    "intermission_seconds": 3,
+    "hp_per_cell": 100,
+    "round_start_heat": 0,
+    "round_start_crystals": 1,
+    "overtime_seconds": 30,
+    "overtime_damage_multiplier": 2
+  },
+  "thorns": {
+    "start_seconds": 60,
+    "lead_seconds": 30,
+    "step_seconds": 5,
+    "damage_interval_seconds": 0.5,
+    "damage_percent": 4,
+    "ring_max": 6
+  },
+  "wild": {
+    "enemy": "enemy.slime_moss",
+    "spawn_interval_seconds": 20,
+    "spawn_count": 4,
+    "contact_damage": 100,
+    "contact_cooldown_seconds": 1,
+    "spawn_points": [
+      { "x": 1.5, "y": 1.5 },
+      { "x": 22.5, "y": 1.5 },
+      { "x": 1.5, "y": 12.5 },
+      { "x": 22.5, "y": 12.5 }
+    ]
+  },
+  "combat": {
+    "enhance_per_stage_percent": 3,
+    "element_multiplier": 1,
+    "burst_window_seconds": 0.5,
+    "burst_cap_percent": 30,
+    "post_hit_invuln_seconds": 0,
+    "hit_radius": 0.30,
+    "hit_center_offset_y": 0.4,
+    "chain_lightning_aim_seconds": 0.25,
+    "chain_lightning_jumps": 0,
+    "homing_turn_multiplier": 0.5,
+    "homing_seconds": 1.5,
+    "ice_spike_slow_percent": 15,
+    "ice_spike_slow_seconds": 1,
+    "frost_slow_percent": 10,
+    "frost_slow_seconds": 1,
+    "erosion_bonus_percent": 8,
+    "erosion_seconds": 3,
+    "status_apply_delay_ticks": 3,
+    "art_prep_ticks": 2,
+    "bullet_cap_per_player": 150,
+    "unstable_core_radius_multiplier": 1.5,
+    "glass_wand_off_seconds": 3
+  },
+  "graze": {
+    "accept_interval_seconds": 1,
+    "combo": 1,
+    "penalty_interval_seconds": 1,
+    "penalty_window_seconds": 1
+  },
+  "aim": {
+    "assist_max_degrees": 10,
+    "assist_fallback_degrees": 15,
+    "aim_line_length": 0.5,
+    "twisted_barrel_jitter_degrees": 25
+  },
+  "room": {
+    "_note": "spec 10 9.2 방 옵션의 선택지와 기본값(기본값은 [임시] U-31). DuelRoomOptions(CONTRACTS 3.9)는 수를 갖지 않고 기본 옵션을 이 값으로 만든다(T-48). null 은 '없음'(DuelRoomOptions.NoCap). 관전 최대 6명은 2.5 room_spectator_max",
+    "rounds": { "choices": [1, 3, 5], "default": 3 },
+    "round_seconds": { "choices": [60, 90, 120], "default": 90 },
+    "hp_multiplier": { "choices": [0.7, 1, 1.5], "default": 1 },
+    "enhance_cap": { "min": 0, "max": 13, "default": 13 },
+    "il_cap": { "min": 0, "max": 237, "default": null },
+    "allow_mutations": { "default": true },
+    "hero_block_cap": { "min": 0, "max": 8, "default": null },
+    "equalize": { "default": false },
+    "wild_intrusion": { "default": false },
+    "thorns_off": { "default": false },
+    "floor_color": { "choices": ["tod.day", "tod.dusk", "tod.night"], "default": "tod.day" },
+    "spectate": { "default": false, "max_spectators": 6 }
+  },
+  "characters": [
+    {
+      "_note": "char.1(달구): 끓어넘침 피해 1.5T 그대로, 넉백 1칸(무한 2칸), 상대 탄 안 지움, 반경 2.5(W 4.1 그대로). 불가마 −10%는 arts.json. 임계 80은 그대로(spec 10 7.3)",
+      "character": "char.1",
+      "penalty_crystal_loss": 1,
+      "penalties_per_crystal_loss": 1,
+      "overflow": { "damage": 1.5, "radius": 2.5, "knockback": 1, "clears_bullets": false }
+    },
+    {
+      "_note": "char.2(초롱): 피뢰침 체질은 인정된 스침에서만, 0.5T, 2초에 1회, 상대가 반경 5 안일 때, 0.25초 고정 조준 원(지름 1칸 = 반지름 0.5) 뒤(spec 10 7.3·7.4). 벼락 질주는 arts.json",
+      "character": "char.2",
+      "penalty_crystal_loss": 1,
+      "penalties_per_crystal_loss": 1,
+      "lightning_rod": { "damage": 0.5, "cooldown_seconds": 2, "aim_seconds": 0.25, "range": 5, "marker_radius": 0.5 }
+    },
+    {
+      "_note": "char.3(갈피): 밑줄, 다섯째 기본 칸, 감쇠 0.92 그대로. 베껴 쓰기 최대 8번은 arts.json(spec 10 7.3)",
+      "character": "char.3",
+      "penalty_crystal_loss": 1,
+      "penalties_per_crystal_loss": 1
+    },
+    {
+      "_note": "char.4(성에): 얼린 결정은 벌칙 2회마다 결정 1개(금, spec 10 5.3·7.2). 살얼음은 얼지 않고 6번 맞히면 1.0초 이동 −30%, 6초 재적용 없음(spec 10 7.3·7.4). 얼음 병풍은 arts.json",
+      "character": "char.4",
+      "penalty_crystal_loss": 1,
+      "penalties_per_crystal_loss": 2,
+      "thin_ice": { "hits": 6, "slow_percent": 30, "slow_seconds": 1, "immune_seconds": 6, "freezes": false }
+    },
+    {
+      "_note": "char.5(그믐): 벌칙 1회에 결정 2개, 그림자 계약 1개당 +3% 그대로, 외상의 빚이 있을 때 벌칙 발동 피격에 +1칸(= hp_per_cell 100)(spec 10 5.3·7.3·7.5). 빚 상한 2는 tries.json. 그림자 손은 arts.json",
+      "character": "char.5",
+      "penalty_crystal_loss": 2,
+      "penalties_per_crystal_loss": 1,
+      "shadow_contract": { "per_crystal_percent": 3 },
+      "on_credit": { "penalty_extra_cells": 1 }
+    }
+  ]
+}

@@ -7,7 +7,9 @@ namespace Wizard.Sim
     // CONTRACTS 11.1 결투 확정 기록(WZDR)의 본문: 0x05 DuelInput(varuint Δtick, u8 slot, u8 offset, u8 key_down, varuint seq)의 열 + 꼬리말.
     // 결투에는 0단계 명령과 일시정지가 없으므로 0x05 밖의 꼬리표는 모르는 꼬리표다.
     // 순서: 레코드 순서 = 확정 열의 순서 = InputOrder 순(틱, 오프셋, 분류, 슬롯, 순번). 같은 것 둘은 없다(Step 의 전제와 같다).
-    // 순번: 슬롯마다 1 이상이고 늘어나기만 한다. 건너뜀은 된다(서버가 유실로 소비한 순번, CONTRACTS 10.6).
+    // 순번: 1 이상의 u32. 실린 값 그대로 읽는다. 한 슬롯의 순번이 레코드 순서로 늘어난다는 규칙은 없다(T-64):
+    // 순번은 InputOrder 의 맨 끝 키라서 같은 (틱, 오프셋)에서 분류가 앞선 이벤트가 더 큰 순번으로 먼저 올 수 있고(spec 10 TV-N20),
+    // 패킷 사이에서 시각을 되돌린 클라이언트의 확정 열은 뒤 틱에 더 작은 순번을 가진다. 건너뜀도 된다(유실로 소비한 순번, CONTRACTS 10.6).
     // 슬롯마다 한 틱에 8개까지. 슬롯은 0·1(결투는 두 사람).
     internal ref struct WzdrBodyReader
     {
@@ -17,7 +19,6 @@ namespace Wizard.Sim
         private uint _base;
         private RecordEntry _last;          // 같은 틱 안의 순서 비교용
         private int _keys0, _keys1;         // 지금 틱의 슬롯별 키 수
-        private uint _seq0, _seq1;          // 슬롯별 마지막 순번(0이면 없음)
 
         public WzdrBodyReader(ReadOnlySpan<byte> body)
         {
@@ -27,8 +28,6 @@ namespace Wizard.Sim
             _last = default;
             _keys0 = 0;
             _keys1 = 0;
-            _seq0 = 0;
-            _seq1 = 0;
             FooterStart = -1;
         }
 
@@ -80,10 +79,9 @@ namespace Wizard.Sim
                 error = RecordError.BadKey;
                 return false;
             }
-            uint lastSeq = slot == 0 ? _seq0 : _seq1;
-            if (seqWide == 0UL || seqWide > uint.MaxValue || (uint)seqWide <= lastSeq)
+            if (seqWide == 0UL || seqWide > uint.MaxValue)
             {
-                error = RecordError.BadSeq;   // 순번은 슬롯마다 1 이상이고 늘어나기만 한다
+                error = RecordError.BadSeq;   // 순번은 1 이상의 u32 다(T-64: 슬롯 안에서 늘어나야 한다는 규칙은 없다)
                 return false;
             }
 
@@ -115,12 +113,10 @@ namespace Wizard.Sim
             if (slot == 0)
             {
                 _keys0 = count;
-                _seq0 = entry.Seq;
             }
             else
             {
                 _keys1 = count;
-                _seq1 = entry.Seq;
             }
             _any = true;
             _base = tick;

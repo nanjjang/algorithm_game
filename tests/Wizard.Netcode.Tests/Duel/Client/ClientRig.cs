@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using Wizard.Content;
 using Wizard.Core;
 using Wizard.DataBuild.Core;
@@ -39,17 +41,19 @@ namespace Wizard.Netcode.Tests.Duel.Client
         private ulong _serverPacketNumber = 1UL;
         private DuelReplayWindow _serverReplay;
 
-        public ClientRig(byte me = 0, int inputDelay = 2, DuelResume? resume = null, ulong seed = 0x5EED_0001UL)
+        // db 가 없으면 저장소 data/ 의 팩. 한도 하나만 바꾼 팩으로 시험할 때 DbWithNet 으로 만든 것을 준다
+        public ClientRig(byte me = 0, int inputDelay = 2, DuelResume? resume = null, ulong seed = 0x5EED_0001UL, ContentDb? db = null)
         {
+            db ??= Db;
             for (int i = 0; i < Key.Length; i++)
             {
                 Key[i] = (byte)(0x40 + i);
             }
             Me = new PlayerSlot(me);
             Keys = new DuelClientKeys(Token, Epoch, Key);
-            Client = new DuelClientCore(Db, Setup(seed), Me, Keys, Cipher, resume);
+            Client = new DuelClientCore(db, Setup(seed), Me, Keys, Cipher, resume);
             Client.SetInputDelay(inputDelay);
-            Server = NewWorld(seed);
+            Server = NewWorld(seed, db);
         }
 
         public static ContentDb Db => DbLazy.Value;
@@ -67,10 +71,55 @@ namespace Wizard.Netcode.Tests.Duel.Client
             },
         };
 
-        public static SimWorld NewWorld(ulong seed = 0x5EED_0001UL)
+        public static SimWorld NewWorld(ulong seed = 0x5EED_0001UL, ContentDb? db = null)
         {
+            db ??= Db;
             DuelSetup s = Setup(seed);
-            return SimWorld.CreateDuel(Db, SimConfig.ForDuel(Db, s.Options), s);
+            return SimWorld.CreateDuel(db, SimConfig.ForDuel(db, s.Options), s);
+        }
+
+        // 저장소 data/ 를 임시 폴더에 복사하고 data/rules/net.json 의 한 줄만 바꿔 만든 팩(손으로 만든 NetRuleSet 이 아니다).
+        // from 은 파일에 꼭 한 번 있어야 한다
+        public static ContentDb DbWithNet(string from, string to)
+        {
+            string root = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "wizard-netcode-client-tests", Guid.NewGuid().ToString("N"));
+            try
+            {
+                CopyDirectory(TestRepo.Path("data"), System.IO.Path.Combine(root, "data"));
+                File.WriteAllText(System.IO.Path.Combine(root, "Wizard.sln"), "");
+                string netPath = System.IO.Path.Combine(root, "data", "rules", "net.json");
+                string net = File.ReadAllText(netPath);
+                int at = net.IndexOf(from, StringComparison.Ordinal);
+                Assert.True(at >= 0 && net.IndexOf(from, at + 1, StringComparison.Ordinal) < 0, "net.json must contain '" + from + "' exactly once");
+                File.WriteAllBytes(netPath, new UTF8Encoding(false).GetBytes(net.Substring(0, at) + to + net.Substring(at + from.Length)));
+                var d = new Diagnostics();
+                Pipeline.Output o = Pipeline.Run(root, ModuleRegistry.Discover(), PackOptions.Default(PackOptions.DefaultDataVersion), d);
+                Assert.False(d.HasErrors, string.Join("\n", d.Sorted()));
+                return ContentDb.Build(ContentPack.Load(o.Pack!));
+            }
+            finally
+            {
+                try
+                {
+                    Directory.Delete(root, true);
+                }
+                catch (IOException)
+                {
+                }
+            }
+        }
+
+        private static void CopyDirectory(string from, string to)
+        {
+            Directory.CreateDirectory(to);
+            foreach (string f in Directory.GetFiles(from))
+            {
+                File.Copy(f, System.IO.Path.Combine(to, System.IO.Path.GetFileName(f)));
+            }
+            foreach (string sub in Directory.GetDirectories(from))
+            {
+                CopyDirectory(sub, System.IO.Path.Combine(to, System.IO.Path.GetFileName(sub)));
+            }
         }
 
         public static InputEvent Ev(uint tick, LogicalKey key, bool down, uint seq, byte offset = 0) =>
@@ -105,10 +154,11 @@ namespace Wizard.Netcode.Tests.Duel.Client
 
         // 확정 틱들을 ServerTick 하나로 봉인한다. hashTick 이 있으면 그 틱의 해시(hashValue 가 있으면 그 값)를 싣는다
         public byte[] ServerTick(IReadOnlyList<ConfirmedTick> ticks, ConfirmedTick? hashOf = null, ulong? hashValue = null,
-                                 uint? fromTick = null, uint serverTimeMs = 0U, short marginMs = 0)
+                                 uint? fromTick = null, uint serverTimeMs = 0U, short marginMs = 0, uint echoClientSendTimeMs = 0U)
         {
             var p = new ServerTickPacket();
             p.ServerTimeMs = serverTimeMs;
+            p.EchoClientSendTimeMs = echoClientSendTimeMs;
             p.MarginMsEstimate = marginMs;
             p.ConfirmedFromTick = fromTick ?? (ticks.Count > 0 ? ticks[0].Tick : 0U);
             foreach (ConfirmedTick t in ticks)

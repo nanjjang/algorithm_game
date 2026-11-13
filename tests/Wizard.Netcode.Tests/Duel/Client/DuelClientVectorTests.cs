@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Wizard.Content;
 using Wizard.Core;
 using Wizard.Netcode.Duel;
 using Wizard.Sim;
@@ -7,14 +8,10 @@ using Xunit;
 
 namespace Wizard.Netcode.Tests.Duel.Client
 {
-    // spec 10 20.14의 TV-N21~TV-N22(M2-NET-05의 벡터)와 TV-N23의 앞부분(전체 상태를 청하고 덮어쓴다, 불일치만 센다).
-    // TV-N23의 배정은 CCR-1이다(T-62: 표시의 한도가 데이터에 들어온 뒤에 마저 본다). 기대값은 명세에서 가져온다.
+    // spec 10 20.14의 TV-N21~TV-N22(M2-NET-05의 벡터)와 TV-N23(전체 상태를 청하고 덮어쓴다, 4번째 불일치에 표시. CCR-1, T-62).
+    // 기대값은 명세에서 가져온다. 표시의 한도(spec 10 2.8 hash_mismatch_flag "3번 넘게")는 팩에서 읽는다(코드와 시험에 3이 없다).
     public sealed class DuelClientVectorTests
     {
-        // spec 10 14.7 "한 경기에 3번 넘게 해시가 어긋난 클라이언트는 기록해 표시한다", TV-N23 "4번째 불일치에 표시".
-        // 코어는 센다(HashMismatchCount). 한도 3(spec 10 2.8 hash_mismatch_flag)은 아직 NetRuleSet 에 없어서 여기서는 명세의 값으로
-        // 셈만 본다. 데이터의 한도와 견준 표시(HashMismatchFlagged)는 CCR-1 이 더하고 이 시험에 그 단언을 붙인다(T-62)
-        private const int MismatchesBeforeFlag = 3;
 
         // TV-N21: 상대 예측 = 직전 키 유지. 확정에서 상대가 틱 T에 J 누름 → T로 되감아 다시 돌림
         [Fact]
@@ -105,54 +102,114 @@ namespace Wizard.Netcode.Tests.Duel.Client
             Assert.False(rig.Client.NeedsFullState);
         }
 
-        // TV-N23: 해시 불일치 → 상태 전체 요청·덮어쓰기. 4번째 불일치에 표시
+        // TV-N23: 해시 불일치 → 상태 전체 요청·덮어쓰기. 4번째 불일치에 표시.
+        // spec 10 14.7 "한 경기에 3번 넘게 해시가 어긋난 클라이언트는 기록해 표시한다". 한도는 저장소 팩의 NetRuleSet 에서 읽는다
         [Fact]
-        public void S10_TV_N23__HashMismatchRequestsFullStateOverwritesAndCountsToFourth()
+        public void S10_TV_N23__HashMismatchRequestsFullStateOverwritesAndFlagsOnFourth()
         {
+            int flagOver = ClientRig.Db.Net.HashMismatchFlagOver;
+            Assert.Equal(3, flagOver);      // spec 10 2.8 hash_mismatch_flag "한 경기 3번 넘게, 4회째 표시"
             var rig = new ClientRig(me: 0);
             uint n = 0;
-            for (int round = 1; round <= MismatchesBeforeFlag + 1; round++)
+            Assert.False(rig.Client.HashMismatchFlagged);
+            for (int round = 1; round <= flagOver + 1; round++)
             {
-                // 30틱을 확정하고 마지막 틱의 해시를 틀리게 보낸다(서버 세계와 내 확정 세계가 갈라진 것과 같다)
-                var ticks = new List<ConfirmedTick>();
-                for (int i = 0; i < 30; i++)
+                MismatchAndRecover(rig, ref n, round);
+                // 1~3번째는 표시하지 않고, 4번째에 선다. 덮어쓴 뒤 해시가 맞아도 표시는 남는다(한 경기의 셈)
+                Assert.Equal(round > 3, rig.Client.HashMismatchFlagged);
+            }
+            Assert.Equal(4, rig.Client.HashMismatchCount);
+            Assert.True(rig.Client.HashMismatchFlagged);
+        }
+
+        // 한도가 다른 규칙(net.json 의 hash_mismatch_flag_over 만 바꾼 팩)에서도 그 값 + 1번째에 선다: 코어에 3이 박혀 있지 않다
+        [Fact]
+        public void S10_TV_N23__FlagFollowsTheLimitInThePack()
+        {
+            const int otherLimit = 5;
+            ContentDb db = ClientRig.DbWithNet("\"hash_mismatch_flag_over\": 3", "\"hash_mismatch_flag_over\": " + otherLimit);
+            Assert.Equal(otherLimit, db.Net.HashMismatchFlagOver);
+            var rig = new ClientRig(me: 0, db: db);
+            uint n = 0;
+            for (int round = 1; round <= otherLimit + 1; round++)
+            {
+                MismatchAndRecover(rig, ref n, round);
+                Assert.Equal(round == otherLimit + 1, rig.Client.HashMismatchFlagged);
+            }
+        }
+
+        // 확정 공백으로 청한 전체 상태는 불일치로 세지 않는다: 몇 번을 청해도 표시가 서지 않는다
+        [Fact]
+        public void S10_TV_N23__GapFullStateRequestsAreNotCounted()
+        {
+            var rig = new ClientRig(me: 0);
+            int gap = ClientRig.Net.GapLimit;
+            int flagOver = ClientRig.Db.Net.HashMismatchFlagOver;
+            uint n = 0;
+            for (int round = 1; round <= flagOver + 1; round++)
+            {
+                // 서버 세계를 공백 한도 + 1틱 앞서 돌리고, 그 다음 틱부터만 보낸다(확정의 첫 틱이 내 확정 틱보다 한도 넘게 앞선다)
+                for (int i = 0; i <= gap; i++)
                 {
                     rig.Client.Advance(n++);
-                    ticks.Add(rig.StepServer());
+                    rig.StepServer();
                 }
-                ConfirmedTick last = ticks[ticks.Count - 1];
-                rig.Deliver(rig.ServerTick(ticks.GetRange(0, ticks.Count - 1)));
-                rig.Deliver(rig.ServerTick(new[] { last }, hashOf: last, hashValue: last.Hash ^ 1UL));
-
+                rig.Client.Advance(n);
+                ConfirmedTick ahead = rig.StepServer();
+                rig.Deliver(rig.ServerTick(new[] { ahead }));
                 Assert.True(rig.Client.NeedsFullState);
-                Assert.Equal(round, rig.Client.HashMismatchCount);
-                Assert.Equal(round > MismatchesBeforeFlag, rig.Client.HashMismatchCount > MismatchesBeforeFlag);
+                Assert.Equal(0, rig.Client.HashMismatchCount);
+                Assert.False(rig.Client.HashMismatchFlagged);
 
-                // 청하는 동안 확정 세계는 멈춘다: 뒤의 확정은 받지 않는다
-                uint confirmedBefore = rig.Client.Advance(n).ConfirmedTick;
-                ConfirmedTick more = rig.StepServer();
-                rig.Deliver(rig.ServerTick(new[] { more }));
-                Assert.Equal(confirmedBefore, rig.Client.Advance(n).ConfirmedTick);
-
-                // 덮어쓰기: 서버 상태 전체 → 호스트와 같은 해시로 이어 간다
                 var w = new ByteWriter();
                 rig.Server.WriteState(w);
                 rig.Client.OnFullState(rig.Server.Tick, w.Written);
                 Assert.False(rig.Client.NeedsFullState);
-                Assert.Equal(rig.Server.ComputeStateHash(), rig.Client.ConfirmedHash(rig.Server.Tick - 1));
-
-                var after = new List<ConfirmedTick>();
-                for (int i = 0; i < 5; i++)
-                {
-                    rig.Client.Advance(n++);
-                    after.Add(rig.StepServer());
-                }
-                rig.Deliver(rig.ServerTick(after, hashOf: after[after.Count - 1]));
-                Assert.False(rig.Client.NeedsFullState);
-                Assert.Equal(round, rig.Client.HashMismatchCount);
-                Assert.Equal(after[after.Count - 1].Hash, rig.Client.ConfirmedHash(after[after.Count - 1].Tick));
             }
-            Assert.Equal(MismatchesBeforeFlag + 1, rig.Client.HashMismatchCount);
+            Assert.Equal(0, rig.Client.HashMismatchCount);
+            Assert.False(rig.Client.HashMismatchFlagged);
+        }
+
+        // 한 번의 불일치: 30틱을 확정하고 마지막 틱의 해시를 틀리게 보낸다(서버 세계와 내 확정 세계가 갈라진 것과 같다) →
+        // 전체 상태를 청하고, 청하는 동안 확정 세계는 멈추고, 받은 상태로 덮어써 서버와 같은 해시로 이어 간다
+        private static void MismatchAndRecover(ClientRig rig, ref uint n, int expectedCount)
+        {
+            var ticks = new List<ConfirmedTick>();
+            for (int i = 0; i < 30; i++)
+            {
+                rig.Client.Advance(n++);
+                ticks.Add(rig.StepServer());
+            }
+            ConfirmedTick last = ticks[ticks.Count - 1];
+            rig.Deliver(rig.ServerTick(ticks.GetRange(0, ticks.Count - 1)));
+            rig.Deliver(rig.ServerTick(new[] { last }, hashOf: last, hashValue: last.Hash ^ 1UL));
+
+            Assert.True(rig.Client.NeedsFullState);
+            Assert.Equal(expectedCount, rig.Client.HashMismatchCount);
+
+            // 청하는 동안 확정 세계는 멈춘다: 뒤의 확정은 받지 않는다
+            uint confirmedBefore = rig.Client.Advance(n).ConfirmedTick;
+            ConfirmedTick more = rig.StepServer();
+            rig.Deliver(rig.ServerTick(new[] { more }));
+            Assert.Equal(confirmedBefore, rig.Client.Advance(n).ConfirmedTick);
+
+            // 덮어쓰기: 서버 상태 전체 → 호스트와 같은 해시로 이어 간다
+            var w = new ByteWriter();
+            rig.Server.WriteState(w);
+            rig.Client.OnFullState(rig.Server.Tick, w.Written);
+            Assert.False(rig.Client.NeedsFullState);
+            Assert.Equal(rig.Server.ComputeStateHash(), rig.Client.ConfirmedHash(rig.Server.Tick - 1));
+
+            var after = new List<ConfirmedTick>();
+            for (int i = 0; i < 5; i++)
+            {
+                rig.Client.Advance(n++);
+                after.Add(rig.StepServer());
+            }
+            rig.Deliver(rig.ServerTick(after, hashOf: after[after.Count - 1]));
+            Assert.False(rig.Client.NeedsFullState);
+            Assert.Equal(expectedCount, rig.Client.HashMismatchCount);
+            Assert.Equal(after[after.Count - 1].Hash, rig.Client.ConfirmedHash(after[after.Count - 1].Tick));
         }
     }
 }

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wizard.invalid/data/schema/tries.schema.json",
+  "title": "캐릭터별 커맨드 트라이 (data/sim/tries.json → 팩 절 14 tries)",
+  "description": "spec 03 1.2(판정기 상수)·5.1(캐릭터별 트라이의 비기)·9.2(빚 상한), CONTRACTS 2.2 TrieDef. 시간은 초로 적고 DataBuild 가 입력 시각 단위(1/15,360초, 가장 가까운 정수)로 바꾼다(tools/Wizard.DataBuild/Convert/TriesConverter.cs). 캐릭터·비기 id 와 겹침은 변환기가 본다.",
+  "type": "object",
+  "required": ["parser", "characters"],
+  "additionalProperties": false,
+  "properties": {
+    "_note": { "$ref": "_common.schema.json#/$defs/note" },
+    "parser": {
+      "description": "판정기 상수(spec 03 1.2)와 외상 빚 상한(9.2). 비교는 '경과 > 한도면 실패'다",
+      "type": "object",
+      "required": [
+        "just_window_seconds", "gap_full_bloom_seconds", "gap_short_seconds", "gap_same_side_seconds", "gap_default_seconds",
+        "art_cooldown_seconds", "k_buffer_window_seconds", "max_debt"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "_note": { "$ref": "_common.schema.json#/$defs/note" },
+        "just_window_seconds": { "description": "섬 창(초) → JustWindowUnits(× 15,360)", "$ref": "_common.schema.json#/$defs/seconds" },
+        "gap_full_bloom_seconds": { "description": "만개의 각 간격(초) → GapFullBloomUnits", "$ref": "_common.schema.json#/$defs/seconds" },
+        "gap_short_seconds": { "description": "짧은 간격(초. 앞→뒤, 옆→앞, 앞→옆, 좌→우, char.1 의 뒤→뒤) → GapShortUnits", "$ref": "_common.schema.json#/$defs/seconds" },
+        "gap_same_side_seconds": { "description": "같은 쪽 옆 두 번(초) → GapSameSideUnits", "$ref": "_common.schema.json#/$defs/seconds" },
+        "gap_default_seconds": { "description": "기본 간격 = 커맨드 초기화 시간(초) → GapDefaultUnits", "$ref": "_common.schema.json#/$defs/seconds" },
+        "art_cooldown_seconds": { "description": "비기 공통 재사용 대기(초) → ArtCooldownUnits", "$ref": "_common.schema.json#/$defs/seconds" },
+        "k_buffer_window_seconds": { "description": "대기 끝 전 K 보관 창(초) → KBufferWindowUnits. 재사용 대기보다 길 수 없다", "$ref": "_common.schema.json#/$defs/seconds" },
+        "max_debt": { "description": "외상 빚 상한(결정 수) → MaxDebt", "$ref": "_common.schema.json#/$defs/nonNegativeInteger" }
+      }
+    },
+    "characters": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["character", "arts"],
+        "additionalProperties": false,
+        "properties": {
+          "_note": { "$ref": "_common.schema.json#/$defs/note" },
+          "character": { "description": "캐릭터 id(char.*) → Character", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^char\\.[1-9][0-9]*$" },
+          "arts": {
+            "description": "이 캐릭터의 트라이에 넣는 비기(art.*) → Arts(ArtId 오름차순으로 바꿔 쓴다). 공용 10 + 고유 1",
+            "type": "array",
+            "minItems": 1,
+            "items": { "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^art\\." }
+          }
+        }
+      }
+    }
+  }
+}

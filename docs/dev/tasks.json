@@ -5310,7 +5310,8 @@
    "reviewer_model": "opus",
    "deps": [
     "M3-DAT-01",
-    "M3-BT-01"
+    "M3-BT-01",
+    "M2-NET-03"
    ],
    "spec_refs": [
     "docs/spec/05-enemies.md §4",
@@ -5320,7 +5321,8 @@
     "docs/monsters.md §3.1",
     "docs/spec/14-content-ids-assets.md §3.6",
     "docs/spec/14-content-ids-assets.md §3.7",
-    "docs/DECISIONS.md §2.5"
+    "docs/DECISIONS.md §2.5",
+    "docs/dev/DECISIONS-TECH.md"
    ],
    "contracts": [
     "docs/dev/CONTRACTS.md §2.2"
@@ -5338,11 +5340,16 @@
     "src/Wizard.Content/Pack/Sections/ContentDb.Elites.cs",
     "tools/Wizard.DataBuild/Convert/ElitesConverter.cs",
     "src/Wizard.Content/Defs/EliteDef.cs",
-    "tests/Wizard.Content.Tests/ElitesPackTests.cs"
+    "tests/Wizard.Content.Tests/ElitesPackTests.cs",
+    "tests/Wizard.DataBuild.Tests/Evasion/AffinityBalanceTests.cs",
+    "docs/dev/DECISIONS-TECH.md",
+    "docs/dev/OPEN-QUESTIONS.md",
+    "docs/dev/tasks.json"
    ],
    "acceptance": [
     "12종과 졸개, 엘리트 12종의 수치가 spec 05 4절·7절과 같다(대조 테스트)",
-    "`databuild check`의 회피 검산 R1~R4와 약점·저항 분배 검사가 통과한다"
+    "`databuild check`의 회피 검산 R1~R4와 약점·저항 분배 검사가 통과한다",
+    "T-63(이 작업이 멈춘 곳을 tech-lead가 풀었다): 12종이 다 찬 저장소 데이터에서 M3-BT-01의 시험(tests/Wizard.DataBuild.Tests/Evasion/)이 전부 통과한다. 덜 찬 표(4/12종)를 전제한 저장소 데이터 시험 하나는 다 찬 표의 시험으로 바꿨다(이끼 슬라임의 저항을 암흑으로 바꾸면 `databuild check`가 '일반 적 저항, 12/12종 … 차이 2 > 1'로 실패한다)"
    ],
    "vectors": [],
    "parallel_group": "M8-W02",

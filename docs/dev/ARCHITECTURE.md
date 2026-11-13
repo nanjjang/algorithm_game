@@ -84,7 +84,7 @@ algorithm_project/
 │  ├ Wizard.ViewLogic.Tests/ 화면 로직의 벡터(spec 13·14). Unity 없이 돈다(T-31)
 │  ├ Wizard.Analyzers.Tests/  Wizard.DataBuild.Tests/  Wizard.AssetCheck.Tests/  Wizard.Perf/
 │  ├ Wizard.Server.Tests/    PostgreSQL을 쓰는 통합 테스트(Docker의 고정 이미지, T-38)
-│  ├ Wizard.TestKit/         테스트 공통. Shared/는 netstandard2.1 + C# 9의 UPM 패키지(골든 읽기를 Unity도 쓴다)
+│  ├ Wizard.TestKit/         테스트 공통. Shared/는 netstandard2.1 + C# 9의 UPM 패키지(골든 읽기와 산술 연산 표를 Unity도 쓴다. T-61)
 │  ├ golden/                 결정론 골든(씨앗, 입력 기록, 기대 해시). dotnet과 Unity가 같이 읽는다
 │  └ fixtures/               프로토콜 JSON 픽스처, 패킷 바이트 픽스처, RFC 벡터
 ├ tools/                     net10.0 콘솔 도구(Wizard.Analyzers만 netstandard2.0)
@@ -146,7 +146,7 @@ Unity 어셈블리(`unity/Assets/Game/`의 asmdef):
 | `Wizard.Unity.Input` | `IInputSource` 구현(Input System 저수준 이벤트의 시각), 키 바인딩 적용. 결투 중에는 입력 폴링을 프레임과 분리한다(CONTRACTS 6.5절) | Core, Sim, Client |
 | `Wizard.Unity.Presentation` | 표시 이벤트 소비, 개체 뷰(보간), 회색 도형 렌더러, `IAssetCatalog`·`IFxPlayer`·`ISfxPlayer`의 Unity 쪽 구현과 빈 구현, 카메라·흔들림·히트스톱(표시 전용). `Fix64 → float` 변환은 `Wizard.ViewLogic.FixConvert`를 쓴다 | ViewLogic과 그 아래 |
 | `Wizard.Unity.UI` | `ScreenHost`와 코드로 만든 uGUI 위젯, 화면 80여 개와 HUD의 **뷰**. `Wizard.ViewLogic`의 모델을 그리고 조작을 모델에 넘기기만 한다. 규칙과 상태 기계는 없다(T-31, T-32) | Presentation, ViewLogic과 그 아래 |
-| `Wizard.Unity.App` | 시작 절차(상태 파일 → 프로필 고르기), 조립 루트(DI), 고정 틱 루프, 머리 없는 골든 실행기 | 위 전부 |
+| `Wizard.Unity.App` | 시작 절차(상태 파일 → 프로필 고르기), 조립 루트(DI), 고정 틱 루프, 머리 없는 골든 실행기 | 위 전부, `Wizard.TestKit.Shared`(골든 실행기만 쓴다. T-61) |
 | `Wizard.Unity.Debug` | 디버그 메뉴(웨이브 건너뛰기, 지급, 해시 표시, 넷 지연 흉내) | App |
 
 화면의 규칙과 상태 기계, 뷰 모델, HUD 모델은 Unity 어셈블리가 아니라 `Wizard.ViewLogic`에 있다(T-31). Unity 어셈블리의 테스트는 `unity/Assets/Tests/{EditMode,PlayMode}`의 asmdef 둘이다.
@@ -198,7 +198,7 @@ Unity 어셈블리(`unity/Assets/Game/`의 asmdef):
 | 공유 어셈블리 | `netstandard2.1` 단일 타깃 | 9.0 | Unity 6000.3.20f1의 컴파일러(Roslyn 4.3.1)는 C# 9로 고정되어 있고 API는 .NET Standard 2.1이다. 다중 타깃과 `#if`를 두면 코어 계산이 런타임마다 달라질 수 있다 |
 | 서버, 도구, 테스트 | `net10.0` | 기본(14) | .NET 10은 LTS이고 SDK 10.0.201이 설치되어 있다 |
 | `tools/Wizard.Analyzers` | `netstandard2.0` | 기본 | 컴파일러 확장은 `netstandard2.0`이어야 한다. `net10.0`이면 RS1041 경고가 오류가 되고 IDE에서 올라오지 않는다. `Microsoft.CodeAnalysis.CSharp`는 Unity의 Roslyn(4.3.1)에 맞춘 판으로 고정한다 |
-| `tests/Wizard.TestKit/Shared` | `netstandard2.1` | 9.0 | 골든 읽기를 dotnet 테스트와 Unity EditMode가 같이 쓴다. Unity는 UPM 패키지(package.json + asmdef)로만 프로젝트 밖의 소스를 컴파일한다. JSON은 Newtonsoft |
+| `tests/Wizard.TestKit/Shared` | `netstandard2.1` | 9.0 | 골든 읽기와 산술 연산 표(`CoreArithOps`)를 dotnet 테스트, Unity EditMode, 플레이어의 골든 실행기가 같이 쓴다(T-61). Unity는 UPM 패키지(package.json + asmdef)로만 프로젝트 밖의 소스를 컴파일한다. JSON은 Newtonsoft |
 
 공유 코드에서 쓰지 않는 문법과 API(Unity가 컴파일하지 못하거나 런타임에 없다):
 

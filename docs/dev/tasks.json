@@ -6305,7 +6305,9 @@
     "M4-UL-01",
     "M1-CONT-01",
     "M2-SPL-01",
-    "M10-ACC-01"
+    "M10-ACC-01",
+    "M2-NET-03",
+    "M8-DAT-01"
    ],
    "spec_refs": [
     "docs/spec/14-content-ids-assets.md §4.4",

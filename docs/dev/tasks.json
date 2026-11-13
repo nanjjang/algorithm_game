@@ -3866,7 +3866,9 @@
    "reviewer_model": "opus",
    "deps": [
     "M1-CONT-03",
-    "M1-SIM-08"
+    "M1-SIM-08",
+    "M2-SPL-01",
+    "M8-DAT-01"
    ],
    "spec_refs": [
     "docs/spec/04-characters-wands.md §2",
@@ -3903,13 +3905,16 @@
     "src/Wizard.Content/Defs/TrieDef.cs",
     "tests/Wizard.Content.Tests/TriesPackTests.cs",
     "src/Wizard.Sim/Arts/Parser/ParserSourceLoader.cs",
-    "tests/Wizard.Sim.Tests/Arts/Parser/DataTrieTests.cs"
+    "tests/Wizard.Sim.Tests/Arts/Parser/DataTrieTests.cs",
+    "tests/Wizard.Sim.Tests/Arts/Parser/TrieStructureVectorTests.cs",
+    "docs/dev/tasks.json"
    ],
    "acceptance": [
     "다섯 캐릭터의 능력치가 spec 04 2절 표와 같다",
     "비기 15종의 비용·난이도·경로·해금 조건이 spec 03 12절·14절과 같다",
     "캐릭터별 트라이가 spec 03 5절과 같고 판정기의 S군 벡터가 데이터로 만든 트라이에서도 통과한다",
     "ParserSourceLoader.FromContent가 arts·tries 절에서 ParserSource(비기 15종의 경로·종류·비용·외상 가부, spec 03 1.2절의 판정기 상수와 9.2절의 빚 상한)를 만들고, CommandTrie.Build(character, ContentDb)로 만든 트라이가 Build(character, ParserSource)에 명세 값을 넣어 만든 것과 노드마다 같다(T-52의 CONTRACTS 3.5절 개정문)",
+    "저장소 팩에 arts·tries 절이 없던 때의 시험(TrieStructureVectorTests.BuildFromContentDb_WithoutTriesSection_IsContentException, M1-SIM-08)은 지우고, 같은 계약(절이 없는 팩이면 ContentException, T-52 6항)을 DataTrieTests가 절을 뺀 팩으로 본다. TrieStructureVectorTests의 S군 벡터 시험은 그대로다",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [

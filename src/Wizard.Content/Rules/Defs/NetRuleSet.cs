@@ -19,5 +19,6 @@ namespace Wizard.Content.Rules
         // 시계 맞추기(spec 10 2.8·14.4, T-60). ClockSyncSamples = 경기 전 Sync 왕복 횟수이자 서버가 사람마다 두는 왕복 표본 창의 크기(16).
         // ClockResyncTicks = 경기 중 다시 재는 간격(60). ClockSlewMaxPpm = 틱 길이 보정의 한도(5,000 = ±0.5%)
         public int ClockSyncSamples, ClockResyncTicks, ClockSlewMaxPpm;
+        public int HashMismatchFlagOver;                  // 3. spec 10 2.8 hash_mismatch_flag: 한 경기의 해시 불일치가 이 횟수를 넘으면(4번째) 표시한다(T-62)
     }
 }

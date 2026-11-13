@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wizard.invalid/data/schema/wand_looks.schema.json",
+  "title": "지팡이 겉모습 자료 (data/presentation/wand_looks/wand_<N>.json, 팩에 들지 않는다)",
+  "description": "(지팡이 종류, 겉모습 id, 단계) → 그림 묶음 열쇠와 붙는 점, 단계별 입자 요청량, 강화 연출 변주(spec 04 12절·18.3절, spec 14 5.4절, world-characters 3.3절, CONTRACTS 13절). 읽는 쪽: Wizard.ViewLogic.Presentation.WandLooks.WandLookLoader. 값의 검사(구간 상한, 위험색, 단계 실루엣)는 WandLookChecks 가 한다.",
+  "type": "object",
+  "required": ["wand", "element", "growth_axis", "foot_fx_13", "slot_marker", "sheet", "decor", "detached", "stages", "skins"],
+  "additionalProperties": false,
+  "$defs": {
+    "point": {
+      "description": "손 그림 칸(32×64) 안의 px 좌표 [x, y]",
+      "type": "array",
+      "items": { "type": "integer", "minimum": 0 },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "size": {
+      "type": "array",
+      "items": { "type": "integer", "minimum": 1 },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "stage": { "type": "integer", "minimum": 0, "maximum": 13 },
+    "fxKey": {
+      "description": "효과 매니페스트 열쇠 \"<묶음>/<열쇠>\" (spec 14 5.6절)",
+      "type": "string",
+      "pattern": "^[a-z]+/[a-z0-9_]+$"
+    },
+    "slug": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "rgb": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+    "particles": {
+      "description": "spec 04 12.5절 지팡이별 단계 요청량. trail_px 가 null 이면 명세가 길이를 적지 않은 칸(Q-22)",
+      "type": "object",
+      "required": ["idle", "muzzle", "shed", "hit", "trail_px"],
+      "additionalProperties": false,
+      "properties": {
+        "idle": { "type": "integer", "minimum": 0 },
+        "muzzle": { "type": "integer", "minimum": 0 },
+        "shed": { "type": "integer", "minimum": 0 },
+        "hit": { "type": "integer", "minimum": 0 },
+        "trail_px": { "type": ["integer", "null"], "minimum": 0 }
+      }
+    },
+    "stagePatch": {
+      "description": "덧씌움의 단계 패치(spec 04 12.3절 PerStage). silhouette_stage 는 패치 그림이 가진 실루엣의 단계이고 stage 와 같아야 한다",
+      "type": "object",
+      "required": ["stage", "silhouette_stage"],
+      "additionalProperties": false,
+      "properties": {
+        "_note": { "$ref": "_common.schema.json#/$defs/note" },
+        "stage": { "$ref": "#/$defs/stage" },
+        "silhouette_stage": { "$ref": "#/$defs/stage" },
+        "palette": { "type": "array", "items": { "$ref": "#/$defs/rgb" } },
+        "ornament": { "$ref": "#/$defs/slug" },
+        "particles": { "$ref": "#/$defs/particles" }
+      }
+    }
+  },
+  "properties": {
+    "_note": { "$ref": "_common.schema.json#/$defs/note" },
+    "wand": { "type": "string", "pattern": "^wand\\.[1-5]$" },
+    "element": { "enum": ["fire", "lightning", "arcane", "ice", "dark"] },
+    "growth_axis": { "type": "string", "pattern": "^growth\\.[a-z0-9_]+$" },
+    "foot_fx_13": { "type": "string", "pattern": "^footfx\\.[a-z0-9_]+$" },
+    "slot_marker": { "$ref": "#/$defs/slug" },
+    "sheet": {
+      "description": "그림 시트의 칸 규격(spec 14 5.4절)",
+      "type": "object",
+      "required": ["grip", "hand_cell", "hand_rows", "inspection_cell", "inspection_columns", "icon_cell"],
+      "additionalProperties": false,
+      "properties": {
+        "grip": { "$ref": "#/$defs/point" },
+        "hand_cell": { "$ref": "#/$defs/size" },
+        "hand_rows": {
+          "type": "array",
+          "items": { "enum": ["down_hold", "down_aim", "right_hold", "right_aim", "up_hold", "up_aim"] },
+          "minItems": 6,
+          "maxItems": 6,
+          "uniqueItems": true
+        },
+        "inspection_cell": { "$ref": "#/$defs/size" },
+        "inspection_columns": { "type": "integer", "minimum": 1 },
+        "icon_cell": { "$ref": "#/$defs/size" }
+      }
+    },
+    "decor": {
+      "description": "탄 장식 묶음의 효과 열쇠. 결투 상대 화면의 가장 단순한 형태는 이 가운데 muzzle(1장)과 hit(최소형)만 쓴다(effects.md 17절, DECISIONS 2.7)",
+      "type": "object",
+      "required": ["trail", "muzzle", "hit", "foot"],
+      "additionalProperties": false,
+      "properties": {
+        "trail": { "$ref": "#/$defs/fxKey" },
+        "muzzle": { "$ref": "#/$defs/fxKey" },
+        "hit": { "$ref": "#/$defs/fxKey" },
+        "foot": { "$ref": "#/$defs/fxKey" }
+      }
+    },
+    "detached": {
+      "description": "본체에서 떨어진 조각 그림(spec 14 5.4절 detachedEffects, asset_aliases.json wand_detached 의 변형)과 그리는 단계 범위",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["variant", "min_stage", "max_stage"],
+        "additionalProperties": false,
+        "properties": {
+          "variant": { "$ref": "#/$defs/slug" },
+          "min_stage": { "$ref": "#/$defs/stage" },
+          "max_stage": { "$ref": "#/$defs/stage" }
+        }
+      }
+    },
+    "footnote_dots_max": { "description": "탄의 각주 점 최대 수(spec 04 12.7절 ScopeDepth 1~3)", "type": "integer", "minimum": 1 },
+    "foot_stars": {
+      "description": "발밑 별(spec 04 12.7절): stage 단계에서 별 = 결정(최대 max_stars), 빚만큼 속 빈 고리(최대 max_debt_rings)",
+      "type": "object",
+      "required": ["stage", "max_stars", "max_debt_rings"],
+      "additionalProperties": false,
+      "properties": {
+        "stage": { "$ref": "#/$defs/stage" },
+        "max_stars": { "type": "integer", "minimum": 1 },
+        "max_debt_rings": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "stages": {
+      "type": "array",
+      "minItems": 14,
+      "maxItems": 14,
+      "items": {
+        "type": "object",
+        "required": ["stage", "head", "mutations", "expansion", "particles", "duel_decor", "enhance"],
+        "additionalProperties": false,
+        "properties": {
+          "stage": { "$ref": "#/$defs/stage" },
+          "head": { "$ref": "#/$defs/point" },
+          "mutations": { "type": "array", "items": { "$ref": "#/$defs/point" }, "minItems": 2, "maxItems": 3 },
+          "expansion": { "$ref": "#/$defs/point" },
+          "particles": { "$ref": "#/$defs/particles" },
+          "duel_decor": {
+            "description": "결투 상대 화면의 탄 장식 가장 단순한 형태(DECISIONS 2.7, effects.md 17절): 총구 섬광 그림 1장과 최소형 적중. 꼬리·흘림·바닥 흔적 칸은 두지 않는다. 다섯 지팡이·모든 단계에서 같은 꼴",
+            "type": "object",
+            "required": ["muzzle", "hit"],
+            "additionalProperties": false,
+            "properties": {
+              "muzzle": { "$ref": "#/$defs/fxKey" },
+              "hit": { "$ref": "#/$defs/fxKey" }
+            }
+          },
+          "enhance": {
+            "description": "강화 연출 변주: 이 단계에 도전할 때의 강도(effects.md 4절. +1 도전은 2절의 예외 0, +0 은 null), 장면(spec 04 18.3절 MilestoneScene·Stage13Achieved), 단계 전환 프레임",
+            "type": "object",
+            "required": ["intensity", "scene", "transition_frames"],
+            "additionalProperties": false,
+            "properties": {
+              "intensity": { "type": ["integer", "null"], "minimum": 0, "maximum": 5 },
+              "scene": { "enum": [null, "milestone", "stage13"] },
+              "transition_frames": { "type": ["integer", "null"], "minimum": 1 }
+            }
+          }
+        }
+      }
+    },
+    "skins": {
+      "description": "덧씌움 0..n(spec 04 12.3절 SkinOverride). 지금은 겉모습 = 기본 하나라 비었다(spec 14 5.4절 [임시])",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["skin_id", "source", "account_bound", "per_stage"],
+        "additionalProperties": false,
+        "properties": {
+          "_note": { "$ref": "_common.schema.json#/$defs/note" },
+          "skin_id": { "type": "integer", "minimum": 1 },
+          "source": { "enum": ["record", "season", "trade", "shop", "default"] },
+          "account_bound": { "type": "boolean" },
+          "palette": { "type": "array", "items": { "$ref": "#/$defs/rgb" } },
+          "ornament": { "$ref": "#/$defs/slug" },
+          "trail_override": { "$ref": "#/$defs/fxKey" },
+          "enhance_fx_override": { "$ref": "#/$defs/slug" },
+          "sound_timbre": { "$ref": "#/$defs/slug" },
+          "per_stage": { "type": "array", "items": { "$ref": "#/$defs/stagePatch" } }
+        }
+      }
+    }
+  }
+}

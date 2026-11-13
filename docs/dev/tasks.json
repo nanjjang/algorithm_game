@@ -141,7 +141,7 @@
    "id": "M2",
    "title": "주문 컴파일러 + 넷코드 뼈대 (GDD 16-2, 멀티플레이 축 선행)",
    "gate": "M2-INT",
-   "task_count": 15,
+   "task_count": 16,
    "blocked_on_assets": 0,
    "parallel_groups": [
     "M2-W01",
@@ -2535,7 +2535,11 @@
    ],
    "owned_paths": [
     "src/Wizard.Netcode/Duel/Host/",
-    "tests/Wizard.Netcode.Tests/Duel/Host/"
+    "tests/Wizard.Netcode.Tests/Duel/Host/",
+    "src/Wizard.Netcode/Duel/DuelHostKeys.cs",
+    "src/Wizard.Netcode/Duel/DuelPeerKey.cs",
+    "src/Wizard.Netcode/Duel/DuelHostStatus.cs",
+    "src/Wizard.Netcode/Duel/DuelNetStats.cs"
    ],
    "acceptance": [
     "소켓과 시계를 모른다(시각은 인자로만 받는다). 같은 패킷 열과 같은 시각 열이면 같은 확정 열이 나온다",
@@ -2546,6 +2550,7 @@
     "200ms 연속 유실 중에 키를 누르고 뗀다 → 몰수 0, 유실(reason 5)로 통지, 그 뒤 입력은 정상으로 받는다. 늦은 이벤트 하나 → 그 이벤트만 버려지고 같은 패킷의 다른 이벤트와 뒤따르는 패킷은 받는다",
     "OnPacket의 수신 시각은 인자로 받은 값(기기에 닿은 시각)이고, 호출자가 수신 버퍼를 다 비운 뒤 Advance를 부르는 계약이 테스트로 있다(큐에 밀린 패킷이 늦음으로 판정되지 않는다)",
     "SetInputDelay, MeasuredRttMs(서버가 쌓은 표본. 슬롯마다 Wizard.Netcode.Clock.RttSampleWindow를 두고 MinRttMs를 돌려준다, T-60), 응답 주소 = 태그 검증을 통과한 마지막 패킷의 출발 주소(검증 실패 패킷은 주소를 바꾸지 못한다)",
+    "T-62: DuelPeerKey(TokenId, Epoch, 32바이트 키의 복사본)와 DuelHostKeys(Slot0, Slot1, For)가 DECISIONS-TECH T-62의 개정문과 같다. DuelHostStatus와 DuelNetStats의 칸은 이 작업이 채우고(계약 코드의 머리 주석) 결과 보고에 적는다. TryWriteFullState의 tick은 쓴 상태의 SimWorld.Tick(다음에 처리할 틱)이고, ServerTick의 hash_tick은 처리한 틱(그 틱의 Step 뒤 해시)이다. server_time_ms는 경기 시계의 ms(HelloAck의 match_epoch_server_us부터)다. ack_confirmed_tick이 0이면 틱 0부터 싣는다(0은 '틱 0까지 받았다'와 '아직 없다'를 가르지 못한다. confirmed_from_tick = ack > 0 ? ack + 1 : 0). 클라이언트의 packet_number에는 빈 번호가 있을 수 있고 그것을 탓하지 않는다(재전송 창은 본 번호와 창보다 오래된 번호만 버린다)",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [
@@ -2570,20 +2575,29 @@
     "M2-NET-01",
     "M2-NET-02",
     "M1-SIM-02",
-    "M2-DAT-01"
+    "M2-DAT-01",
+    "M10-ACC-01",
+    "M8-DAT-01"
    ],
    "spec_refs": [
+    "docs/spec/10-duel.md §14.3",
     "docs/spec/10-duel.md §14.6",
     "docs/spec/10-duel.md §14.7",
     "docs/spec/10-duel.md §14.9",
     "docs/dev/DECISIONS-TECH.md"
    ],
    "contracts": [
-    "docs/dev/CONTRACTS.md §6.4"
+    "docs/dev/CONTRACTS.md §6.4",
+    "docs/dev/CONTRACTS.md §10.1",
+    "docs/dev/CONTRACTS.md §10.2"
    ],
    "owned_paths": [
     "src/Wizard.Netcode/Duel/Client/",
-    "tests/Wizard.Netcode.Tests/Duel/Client/"
+    "tests/Wizard.Netcode.Tests/Duel/Client/",
+    "src/Wizard.Netcode/Duel/DuelClientKeys.cs",
+    "src/Wizard.Netcode/Duel/DuelSendCounter.cs",
+    "docs/dev/DECISIONS-TECH.md",
+    "docs/dev/tasks.json"
    ],
    "acceptance": [
     "확정 세계 1개 + 예측 세계 1개를 둔다. 상대 입력은 '직전 키 상태 유지'로 예측하고, 확정이 예측과 다르면 확정 세계를 예측 세계에 복사해 다시 돌린다(한도 8틱). 해시는 확정 세계에서 계산한다",
@@ -2592,12 +2606,15 @@
     "시계가 둘이다: 입력 시계(멈추지 않는다. 유효 틱과 봉인의 기준)와 예측 틱. 멈춤이 풀리면 한 번의 Advance에서 여러 틱을 돌려 따라잡는다",
     "순번은 여기서 매긴다(OnLocalInput이 QuantizedKey를 받는다). OnLocalInput 직후 PollOutgoing에 그 이벤트가 든 패킷이 있다(다음 틱을 기다리지 않는다)",
     "내 이벤트가 버려지면(확정 열에 없음) 확정 키 상태와 물리 키 상태의 차이를 새 순번의 보정 이벤트로 낸다. 뗌 이벤트 폐기 뒤 2틱 안에 서버와 클라이언트의 KeyState가 같다. 보정 이벤트의 시각은 직전 이벤트보다 앞서지 않는다",
+    "T-62: DuelClientKeys(TokenId, Epoch, 32바이트 키의 복사본, SendCounter)와 DuelSendCounter가 DECISIONS-TECH T-62의 개정문(CONTRACTS 6.4절을 바꿔 읽는다)과 같다. 코어가 보내는 패킷의 번호는 keys.SendCounter에서만 나온다: 연결 절차가 같은 자리에서 받은 번호와 겹치지 않는 테스트가 있다. 채우지 않은 키(default)로는 만들어지지 않는다",
+    "T-62: PollOutgoing(buffer, clientTimeUs). echo_hold_ms는 OnPacket과 PollOutgoing에 받은 두 시각의 차를 ms로 내림한 값이고(음수 0, 65,535 포화) 입력 시계의 틱 수로 어림하지 않는다. client_send_time_ms는 보낸 시각의 ms다",
+    "T-62: HashMismatchCount가 공개 값이고 해시 불일치만 센다(확정 공백으로 청한 전체 상태는 세지 않는다). 데이터의 한도와 견준 표시(spec 10 TV-N23의 뒷부분)는 CCR-1이 더한다",
     "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
    ],
    "vectors": [
-    "S10:TV-N21..TV-N23"
+    "S10:TV-N21..TV-N22"
    ],
-   "parallel_group": "M2-W03",
+   "parallel_group": "M2-W04",
    "status": "todo"
   },
   {
@@ -2658,7 +2675,8 @@
    "deps": [
     "M2-NET-04",
     "M2-NET-05",
-    "M1-CLI-02"
+    "M1-CLI-02",
+    "CCR-1"
    ],
    "spec_refs": [
     "docs/spec/10-duel.md §14.10",
@@ -2677,7 +2695,8 @@
     "LoopbackTransport가 기기 안의 DuelHostCore에 붙고 서버 경기와 같은 패킷 바이트가 오간다",
     "DuelSession.Step이 로컬 입력 → 패킷 → Advance → 이벤트 꺼내기의 순서로 돈다",
     "한 기기 2인(키 배치 둘)과 인위 지연(디버그 값)을 지원한다",
-    "DuelSession은 프레임마다 Drain → Quantize → OnLocalInput → 곧바로 Send 순서다. 키 이벤트가 틱 루프를 기다리지 않는다(ARCHITECTURE 6.1절)"
+    "DuelSession은 프레임마다 Drain → Quantize → OnLocalInput → 곧바로 Send 순서다. 키 이벤트가 틱 루프를 기다리지 않는다(ARCHITECTURE 6.1절)",
+    "T-62: 연결 절차가 같은 키로 보내는 패킷(SyncRequest, Hello)의 번호는 DuelClientKeys.SendCounter에서만 받고, duel.setup 하나에 DuelClientKeys를 한 번만 만든다. 한 경기에서 클라이언트가 보낸 모든 패킷의 (키, packet_number)가 서로 다르다는 테스트가 있다. OnPacket과 PollOutgoing에는 같은 단조 시계의 시각을 준다. 받은 패킷 가운데 ServerTick이 아닌 종류(HelloAck, SyncReply)는 연결 절차가 자기 재전송 창으로 연다. 경기 중 시계 다시 재기는 DrainClockSamples의 표본으로 한다(ServerUs는 경기 시계의 µs다)"
    ],
    "vectors": [],
    "parallel_group": "M2-W05",
@@ -2800,6 +2819,53 @@
    ],
    "vectors": [],
    "parallel_group": "M2-W11",
+   "status": "todo"
+  },
+  {
+   "id": "CCR-1",
+   "milestone": "M2",
+   "title": "DuelClientCore: 해시 불일치 표시의 한도를 데이터로 두고, 경기 중 시계 표본을 내준다(T-62)",
+   "module": "Wizard.Netcode",
+   "owner_agent": "netcode-engineer",
+   "owner_model": "opus",
+   "reviewer_model": "fable",
+   "deps": [
+    "M2-NET-03",
+    "M2-NET-05"
+   ],
+   "spec_refs": [
+    "docs/spec/10-duel.md §2.8",
+    "docs/spec/10-duel.md §14.4",
+    "docs/spec/10-duel.md §14.7",
+    "docs/dev/DECISIONS-TECH.md"
+   ],
+   "contracts": [
+    "docs/dev/CONTRACTS.md §2.2",
+    "docs/dev/CONTRACTS.md §6.4",
+    "docs/dev/CONTRACTS.md §10.4"
+   ],
+   "owned_paths": [
+    "src/Wizard.Netcode/Duel/Client/",
+    "tests/Wizard.Netcode.Tests/Duel/Client/",
+    "src/Wizard.Content/Rules/Defs/NetRuleSet.cs",
+    "src/Wizard.Content/Rules/Sections/ContentDb.Net.cs",
+    "tools/Wizard.DataBuild/Convert/NetConverter.cs",
+    "data/rules/net.json",
+    "data/schema/net.schema.json",
+    "tests/Wizard.Content.Tests/NetPackTests.cs"
+   ],
+   "acceptance": [
+    "경위(M2-NET-05의 tech-lead 해결, DECISIONS-TECH T-62): spec 10 2.8절의 hash_mismatch_flag(한 경기 3번 넘게, 4회째 표시)가 NetRuleSet에 없고, 경기 중 시계 다시 재기(CONTRACTS 10.4절, T-60)에 쓸 ServerTick의 시각 칸을 DuelClientCore만 열 수 있는데 내주는 문이 없다. 둘 다 M2-NET-03이 고친 것(절 34의 꼴, Wizard.Netcode.Clock.ClockSample)이 main에 있어야 해서 M2-NET-05에서 하지 못했다",
+    "NetRuleSet.HashMismatchFlagOver(3)가 data/rules/net.json의 hash_mismatch_flag_over에서 오고 팩 절 34의 끝에 i32 하나로 붙어 왕복한다(1 이상. 스키마, 변환기, 절 읽기, NetPackTests를 같이 고친다. howto-data-slice.md의 절차). 넷코드 코드에 3이 없다",
+    "DuelClientCore.HashMismatchFlagged = HashMismatchCount > HashMismatchFlagOver. S10_TV_N23__… 테스트가 3번째 불일치까지 거짓, 4번째에 참을 단언하고(한도는 팩에서 읽는다) 테스트 안의 상수 MismatchesBeforeFlag를 지운다. 한도가 다른 규칙(손으로 만든 NetRuleSet이 아니라 한도만 바꾼 팩)으로도 그 값 + 1번째에 선다. 확정 공백으로 청한 전체 상태는 세지 않는다",
+    "DuelClientCore.DrainClockSamples(Span<ClockSample>)가 T-62의 개정문대로 있다: 받은 ServerTick마다 echo_client_send_time_ms가 내가 기억한 최근 보낸 시각과 맞으면 표본 하나(T0Us = 기억한 보낸 시각의 µs, ServerUs = server_time_ms × 1,000, T1Us = OnPacket의 clientTimeUs). 맞는 것이 없으면(서버가 아직 내 패킷을 받지 못했다, 너무 오래됐다) 만들지 않는다. 같은 보낸 시각으로 표본을 두 번 만들지 않는다. 꺼내지 않고 쌓이면 가장 오래된 것부터 버린다(크기는 ClockSyncSamples). Step·Advance·OnPacket에서 힙에 할당하지 않는다",
+    "같은 호출 열이면 같은 출력 열이다(시계와 소켓이 없다). M2-NET-05의 기존 테스트가 그대로 통과한다",
+    "vectors에 적힌 명세 벡터 전부가 테스트(S<명세 번호>_<벡터 id>__…)로 있고 통과한다"
+   ],
+   "vectors": [
+    "S10:TV-N23"
+   ],
+   "parallel_group": "M2-W06",
    "status": "todo"
   },
   {

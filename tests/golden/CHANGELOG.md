@@ -8,3 +8,4 @@
 
 - M0-TE-01 | (없음) | 기록 파일을 만든다. 아직 골든이 없다
 - M1-TE-01 | m1/practice-solo, m1/practice-dense, m1/practice-stance, m1/practice-loadout, m1/endless-solo, m1/duel-basic, m1/duel-dense | 첫 골든을 만든다(M1 코어: 이동·자세·과열·스침·판정기와 시제품 내용, 저장소 data/ 의 팩 data_version 1)
+- M2-SPL-02 | m1/practice-solo, m1/practice-dense, m1/practice-stance, m1/practice-loadout, m1/endless-solo, m1/duel-basic, m1/duel-dense | 세계 상태가 늘었다(DECISIONS-TECH T-57): 블록이 있는 팩의 모든 세계에서 절 6(SpellTable)에 표의 길이와 플레이어마다 현재 주문 핸들이 생기고, 시제품의 준비 표시와 조립이 절 6에서 절 7(Arts)의 앞으로 옮겨 갔다. main과 이 브랜치의 replaycli trace를 일곱 골든의 모든 틱에서 비교해 절 6과 절 7의 요약만 다르고 나머지 절(이동·열·스침·적·결투 등)은 모든 틱에서 같다는 것을 확인했다

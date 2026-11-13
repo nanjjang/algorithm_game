@@ -10,7 +10,7 @@ using Wizard.Sim.World;
 namespace Wizard.Sim
 {
     // 손맛 시제품(M1-SIM-09, GDD 16 1단계)의 임시 내용. 이 폴더(Proto/)의 파일 전부가 한 덩어리이고 M3-CB-02 가 통째로 지운다.
-    //   SimWorld.ProtoSpell.cs   — 고정 투사체 2종(마력탄, 화염구)과 3갈래 전환: Stage00_Spell, Stage06_Spell, Stage09_Spell, Spell·SpellTable 절
+    //   SimWorld.ProtoSpell.cs   — 고정 투사체 2종(마력탄, 화염구)과 3갈래 전환: Stage00_Spell, Stage06_Spell, Stage09_Spell, Spell 절
     //   SimWorld.ProtoEnemies.cs — 슬라임 무한 생성, 3갈래 탄 포탑 1개: Stage07_Enemies, Stage09_Enemies, Stage10_Enemies, Enemies 절
     //   SimWorld.ProtoArts.cs    — 판정기 + 임시 효과의 기술 ①②⑥, 섬 간격 보고: Stage02_Arts, Stage05_Arts, Arts 절
     //
@@ -29,7 +29,7 @@ namespace Wizard.Sim
     // 세계 생성 때의 초기화 훅이 계약에 없는 것은 Player·Heat 와 같은 사정이다.
     public sealed partial class SimWorld
     {
-        // ── 상태(Spell 절: 탄 풀, SpellTable 절: 준비 표시와 조립, Enemies 절: 생성기·적·적 탄, Arts 절: 판정기)
+        // ── 상태(Spell 절: 탄 풀, Enemies 절: 생성기·적·적 탄, Arts 절: 준비 표시와 조립, 판정기. 절 6 SpellTable 은 실제 표의 것이다, T-57)
         private readonly ProtoBullet[] _protoBullets = new ProtoBullet[ProtoTuning.BulletCapacity];
         private int _protoBulletCount;
         private readonly ProtoEnemy[] _protoEnemies = new ProtoEnemy[ProtoTuning.EnemyCapacity];

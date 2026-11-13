@@ -196,10 +196,12 @@ namespace Wizard.Sim
             sink.Emit(in e);
         }
 
-        // ── 상태 훅: Arts(7, 스칼라) = 판정기 상태(커서, 방향 시각, 자세, 재사용 대기, 보관된 K)
+        // ── 상태 훅: Arts(7, 스칼라) = 시제품의 준비 표시와 조립(ProtoWriteLoadout), 그 뒤에 판정기 상태(커서, 방향 시각, 자세, 재사용 대기, 보관된 K).
+        //    준비 표시와 조립은 M2-SPL-02 전에는 절 6(SpellTable)에 있었다. 그 절은 이제 실제 표의 것이다(DECISIONS-TECH T-57)
 
         partial void Snapshot_Save_Arts(SimWorld target)
         {
+            ProtoSaveLoadout(target);
             for (int i = 0; i < PlayerCount; i++)
             {
                 target._protoParsers[i].CopyFrom(_protoParsers[i]);
@@ -208,6 +210,7 @@ namespace Wizard.Sim
 
         partial void Snapshot_Load_Arts(SimWorld source)
         {
+            source.ProtoSaveLoadout(this);
             for (int i = 0; i < PlayerCount; i++)
             {
                 _protoParsers[i].CopyFrom(source._protoParsers[i]);
@@ -215,13 +218,14 @@ namespace Wizard.Sim
             Array.Clear(_protoArtPendingCounts, 0, _protoArtPendingCounts.Length);   // 다른 시간선의 임시 값을 남기지 않는다
         }
 
-        // 내용(시제품이 켜져 있을 때만): 플레이어마다(슬롯 순) ICommandParser.WriteState
+        // 내용(시제품이 켜져 있을 때만): 준비 표시와 조립, 플레이어마다(슬롯 순) ICommandParser.WriteState
         partial void State_Write_Arts(ref StateWriter w)
         {
             if (!ProtoOn)
             {
                 return;
             }
+            ProtoWriteLoadout(ref w);
             for (int i = 0; i < PlayerCount; i++)
             {
                 _protoParsers[i].WriteState(ref w);
@@ -234,6 +238,7 @@ namespace Wizard.Sim
             {
                 return;
             }
+            ProtoReadLoadout(ref r);
             Array.Clear(_protoArtPendingCounts, 0, _protoArtPendingCounts.Length);
             for (int i = 0; i < PlayerCount; i++)
             {

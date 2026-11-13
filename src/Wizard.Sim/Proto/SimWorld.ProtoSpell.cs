@@ -289,7 +289,7 @@ namespace Wizard.Sim
             _protoBulletCount = n;
         }
 
-        // ── 상태 훅: Spell(5, 풀) = 플레이어 탄. SpellTable(6, 스칼라) = 시제품의 준비 표시와 조립(컴파일러의 SpellTable 자리)
+        // ── 상태 훅: Spell(5, 풀) = 플레이어 탄
 
         partial void Snapshot_Save_Spell(SimWorld target)
         {
@@ -347,25 +347,18 @@ namespace Wizard.Sim
             _protoBulletCount = n;
         }
 
-        partial void Snapshot_Save_SpellTable(SimWorld target)
+        // ── 시제품의 준비 표시와 조립. 절 6(SpellTable)은 실제 표(Spell/Compile/SimWorld.SpellTable.cs)의 것이라
+        //    시제품의 이 값은 시제품의 Arts 훅(SimWorld.ProtoArts.cs, 절 7)이 판정기 상태 앞에 싣는다(DECISIONS-TECH T-57)
+
+        private void ProtoSaveLoadout(SimWorld target)
         {
             new ReadOnlySpan<ProtoLoadout>(_protoLoadouts).CopyTo(target._protoLoadouts);
             target._protoReady = _protoReady;
         }
 
-        partial void Snapshot_Load_SpellTable(SimWorld source)
+        // 내용: ready bool, 플레이어마다(슬롯 순) ProtoLoadout.Write. 준비 전에는 조립 칸이 기본값이다
+        private void ProtoWriteLoadout(ref StateWriter w)
         {
-            new ReadOnlySpan<ProtoLoadout>(source._protoLoadouts).CopyTo(_protoLoadouts);
-            _protoReady = source._protoReady;
-        }
-
-        // 내용(시제품이 켜져 있을 때만): ready bool, 플레이어마다(슬롯 순) ProtoLoadout.Write. 준비 전에는 조립 칸이 기본값이다
-        partial void State_Write_SpellTable(ref StateWriter w)
-        {
-            if (!ProtoOn)
-            {
-                return;
-            }
             w.Bool(_protoReady);
             for (int i = 0; i < PlayerCount; i++)
             {
@@ -376,12 +369,8 @@ namespace Wizard.Sim
             }
         }
 
-        partial void State_Read_SpellTable(ref StateReader r)
+        private void ProtoReadLoadout(ref StateReader r)
         {
-            if (!ProtoOn)
-            {
-                return;
-            }
             _protoReady = r.Bool();
             for (int i = 0; i < PlayerCount; i++)
             {

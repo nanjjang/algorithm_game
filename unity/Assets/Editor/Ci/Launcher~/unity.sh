@@ -14,6 +14,7 @@
 #               실행 전부터 있던 미커밋 변경은 실행 전 그대로 남는다.
 #   되돌리기 2: src/, tests/, unity/ 에서 실행 전에는 없던 변경(새 파일, 고친 파일)을 지우거나 git 의 내용으로 돌린다.
 #               예: Unity 가 metagen 범위 밖의 패키지(tests/Wizard.TestKit/Shared)에 만든 무작위 GUID 의 .meta.
+#               새 파일을 지워 빈 폴더가 남고 그 폴더가 실행 전에는 없었으면 그 폴더도 지운다(FIX-6).
 # 테스트는 이름이 'Wizard.' 로 시작하는 것만 돈다(-testFilter). testables 의 com.unity.inputsystem 은 InputTestFixture 를 쓰려는 것이고
 #   그 패키지 자체의 테스트는 돌리지 않는다. 실행된 테스트가 0개이거나, 실패·건너뜀이 있는데 종료 코드가 0이면 거짓 통과로 보고 실패한다.
 # 환경 변수: UNITY_EDITOR(편집기 실행 파일. 없으면 ProjectVersion.txt 의 판으로 Hub 경로를 쓴다),
@@ -57,11 +58,29 @@ repo_status() {
 take_snapshot() {
     SNAP="$(/usr/bin/mktemp -d "${TMPDIR:-/tmp}/wizard-unity.XXXXXX")" || die "mktemp failed"
     repo_status > "$SNAP/before.txt" || die "git status failed"
+    # 실행 전에 있던 폴더(되돌리기 2가 지운 파일의 빈 부모 폴더 가운데 실행 뒤에 생긴 것만 지우려고 적는다. FIX-6).
+    # git 이 무시하는 큰 폴더는 상태에 나오지 않으므로 건너뛴다.
+    /usr/bin/find "$ROOT/src" "$ROOT/tests" "$PROJ" \
+        \( -name Library -o -name Temp -o -name Logs -o -name UserSettings -o -name obj -o -name bin -o -name node_modules -o -name .git \) -prune \
+        -o -type d -print > "$SNAP/dirs.txt" 2>/dev/null || die "listing folders failed"
     /bin/mkdir -p "$SNAP/ProjectSettings"
     /bin/cp -Rp "$PROJ/ProjectSettings/." "$SNAP/ProjectSettings/"
     if [ -f "$PROJ/Packages/packages-lock.json" ]; then
         /bin/cp -p "$PROJ/Packages/packages-lock.json" "$SNAP/packages-lock.json"
     fi
+}
+
+# 지운 파일의 부모 폴더가 비었고 실행 전에는 없던 폴더면 지운다. 위로 올라가며 반복한다.
+# 예: 실패한 플레이어 빌드가 남긴 unity/Assets/Resources/. 남기면 다음 실행의 metagen 이 Resources.meta 를 만든다(FIX-6).
+remove_new_empty_parents() {
+    local dir="$1"
+    while :; do
+        case "$dir" in */*) dir="${dir%/*}" ;; *) return 0 ;; esac
+        [ -d "$ROOT/$dir" ] || continue
+        /usr/bin/grep -qxF -- "$ROOT/$dir" "$SNAP/dirs.txt" && return 0
+        /bin/rmdir "$ROOT/$dir" 2>/dev/null || return 0
+        echo "unity.sh: reverted Unity's change: removed new empty folder $dir"
+    done
 }
 
 restore_snapshot() {
@@ -106,6 +125,7 @@ restore_snapshot() {
         fi
         if [ "$code" = "??" ]; then
             /bin/rm -f "${ROOT:?}/${path:?}"
+            remove_new_empty_parents "$path"
         else
             command git -C "$ROOT" checkout -q -- "$path" 2>/dev/null || echo "unity.sh: could not revert $path" >&2
         fi

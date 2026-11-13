@@ -141,7 +141,7 @@
    "id": "M2",
    "title": "주문 컴파일러 + 넷코드 뼈대 (GDD 16-2, 멀티플레이 축 선행)",
    "gate": "M2-INT",
-   "task_count": 16,
+   "task_count": 17,
    "blocked_on_assets": 0,
    "parallel_groups": [
     "M2-W01",
@@ -154,7 +154,8 @@
     "M2-W08",
     "M2-W09",
     "M2-W10",
-    "M2-W11"
+    "M2-W11",
+    "M2-W12"
    ]
   },
   {
@@ -2684,21 +2685,28 @@
    "deps": [
     "M2-NET-04",
     "M2-NET-05",
-    "M2-NET-03"
+    "M2-NET-03",
+    "CCR-1"
    ],
    "spec_refs": [
     "docs/spec/10-duel.md §14",
     "docs/spec/10-duel.md §15",
     "docs/spec/10-duel.md §20.14",
     "docs/online.md §12",
-    "docs/dev/ARCHITECTURE.md §12"
+    "docs/dev/ARCHITECTURE.md §12",
+    "docs/dev/DECISIONS-TECH.md"
    ],
    "contracts": [
     "docs/dev/CONTRACTS.md §6.4"
    ],
    "owned_paths": [
     "tests/Wizard.Netcode.Tests/NetSim/",
-    "tests/Wizard.Netcode.Tests/Matrix/"
+    "tests/Wizard.Netcode.Tests/Matrix/",
+    "src/Wizard.Netcode/Duel/Client/PresentationLedger.cs",
+    "tests/Wizard.Netcode.Tests/Duel/Client/DuelClientLedgerTests.cs",
+    "docs/dev/DECISIONS-TECH.md",
+    "docs/dev/OPEN-QUESTIONS.md",
+    "docs/dev/tasks.json"
    ],
    "acceptance": [
     "NetSim이 호스트 1 + 클라이언트 2를 메모리 안에서 잇고 지연, 지터, 유실, 순서 바뀜, 중복을 씨앗 고정으로 흉내 낸다",
@@ -2770,7 +2778,8 @@
     "M2-SPL-04",
     "M2-NET-06",
     "M2-NET-07",
-    "M1-INT"
+    "M1-INT",
+    "FIX-8"
    ],
    "spec_refs": [
     "docs/GDD.md §16",
@@ -2922,6 +2931,49 @@
     "S10:TV-N23"
    ],
    "parallel_group": "M2-W06",
+   "status": "todo"
+  },
+  {
+   "id": "FIX-8",
+   "milestone": "M2",
+   "title": "수치 조정: 입력 지연 표를 틱의 끝에서 누른 키가 지터 15ms를 견디는 값(3/4/5틱)으로 고친다(T-66, Q-28)",
+   "module": "data",
+   "owner_agent": "test-engineer-opus",
+   "owner_model": "opus",
+   "reviewer_model": "fable",
+   "deps": [
+    "M2-NET-06",
+    "CCR-1"
+   ],
+   "spec_refs": [
+    "docs/spec/10-duel.md §2.8",
+    "docs/spec/10-duel.md §14.5",
+    "docs/spec/10-duel.md §15",
+    "docs/spec/10-duel.md §20.14",
+    "docs/online.md §4.12",
+    "docs/dev/DECISIONS-TECH.md",
+    "docs/dev/OPEN-QUESTIONS.md"
+   ],
+   "contracts": [
+    "docs/dev/CONTRACTS.md §6.5"
+   ],
+   "owned_paths": [
+    "data/rules/net.json",
+    "docs/spec/10-duel.md",
+    "tests/Wizard.Content.Tests/NetPackTests.cs",
+    "tests/Wizard.Netcode.Tests/Clock/ClockSyncTests.cs",
+    "tests/Wizard.Netcode.Tests/Matrix/InputDropRateTests.cs"
+   ],
+   "acceptance": [
+    "경위(M2-NET-06의 tech-lead 해결, DECISIONS-TECH T-66): 누른 순간의 틱 안 위치를 균등 분포로 준 입력의 폐기율이 online 4.12의 표(왕복 ≤60 → 2틱, ≤90 → 3, ≤120 → 4)로는 0이 아니다. 틱의 끝에서 누른 키의 마감 여유가 D틱 − 편도 = 3.3 / 5.0 / 6.7ms뿐이라, 지터 5 / 10 / 15ms에서 왕복 60ms는 3,600개 가운데 18 / 312 / 721개, 왕복 90ms는 0 / 103 / 438개, 왕복 120ms는 0 / 36 / 240개가 늦음으로 버려진다(InputDropRateTests의 MEASURED 줄). PIPELINE 3.7절대로 기준을 낮추지 않고 수치를 고친다",
+    "data/rules/net.json의 input_delay_table을 [임시: OPEN-QUESTIONS Q-28] 60 → 3, 90 → 4, 120 → 5로 고친다(120ms 초과는 마지막 줄의 5틱). D틱 ≥ 편도 + 15ms가 되는 가장 작은 D다. _note에 출처(T-66, Q-28)와 online 4.12의 원래 값을 적는다. 다른 값은 건드리지 않는다. 넷코드 코드에 3 / 4 / 5를 박지 않는다",
+    "spec 10을 표의 새 값으로 고쳐 적는다(값마다 [임시: Q-28, 원문 2/3/4]를 붙인다): 2.8절 input_delay_table, 14.5절의 표와 ChooseD, 15절 표의 D와 마감 여유(36.7 / 38.3 / 40.0ms 이상, 150ms에서 25ms), 20.14절 TV-N01의 then(3 / 3 / 4 / 4 / 5 / 5 / 5). TV-N02~N05와 TV-N07~N09는 D를 given으로 가진 식의 벡터라 고치지 않는다. online.md는 고치지 않는다(원문). 명세의 다른 벡터를 구현에 맞춰 고치지 않는다",
+    "InputDropRateTests에 데이터의 표(ClockSync.ChooseInputDelay가 고른 D, 덮어쓰기 없음)로 왕복 60/90/120ms × 지터 0/5/10/15ms에서 틱 안 균등 위치의 누름 폐기율이 0이라는 단언을 넣는다(M2-NET-06의 수락 조건 문장 그대로. T-66 결정 3번이 이 작업에 남긴 것). 이미 있는 세 시험은 그대로 통과한다",
+    "S10_TV_N01__… 시험과 NetPackTests의 표 대조가 고친 명세 값으로 통과한다. 넷코드 매트릭스 27 조합(NetcodeMatrixTests)과 Wizard.Netcode.Tests 전체가 새 표로 통과한다(확정 해시 = 호스트, 되감기 ≤ 8, Retracted 뒤 Confirmed 없음)",
+    "표의 옛 값(2 / 3 / 4)을 박아 둔 다른 시험이나 코드가 소유 파일 밖에 있으면 고치지 않고 결과 보고에 올린다. 사용자가 Q-28에 (나)나 (다)로 답했으면 표를 고치지 않고 멈춰 tech-lead에게 올린다"
+   ],
+   "vectors": [],
+   "parallel_group": "M2-W12",
    "status": "todo"
   },
   {
@@ -10044,7 +10096,8 @@
    "reviewer_model": "fable",
    "deps": [
     "M2-NET-04",
-    "M2-NET-07"
+    "M2-NET-07",
+    "FIX-8"
    ],
    "spec_refs": [
     "docs/spec/10-duel.md §2.8",

@@ -20,12 +20,18 @@ namespace Wizard.Content
     //       i32 bounce_count  i32 pierce_count  i32 radius_mul_permille  i32 radius_mul_cap_permille
     //       i32 homing_turn_centi_per_tick  i32 homing_cone_half_centi  i64 homing_range_raw  i32 crit_multiplier
     //   항목 하나는 156바이트다. 필드를 더할 때는 항목 끝에 더한다.
+    //   꼬리(T-57. 없거나 정확히 12바이트): 주문 규칙 SpellRulesDef
+    //     i32 tree_projectile_cap(1 이상)  i32 underline_max_cut_hu(0 이상)  i32 mirror_heat_mul_permille(1000 이상)
+    //   원본에 spell_rules 가 없으면 꼬리도 없다(ContentDb.SpellRules 는 ContentException). 저장소의 데이터에는 언제나 있다.
     // 깨진 바이트(모자람, 남음, 순서, 모르는 열거형 값·비트, 음수인 BlockParams 값)는 ContentException.
     // 값끼리의 규칙(폭발 표식이면 반경이 있다 등)은 변환기가 본다. 읽는 쪽은 꼴만 본다.
     public sealed partial class ContentDb
     {
         // BlockId 값으로 찾는 표. 비어 있는 칸은 그 id 가 팩에 없다는 뜻이다
         private BlockDef?[] _blocks = Array.Empty<BlockDef?>();
+
+        // 주문 규칙(절의 꼬리). 꼬리가 없으면 null
+        private SpellRulesDef? _spellRules;
 
         partial void LoadBlocks(ReadOnlySpan<byte> section)
         {
@@ -47,6 +53,11 @@ namespace Wizard.Content
                 previous = (int)d.Id;
                 defs[i] = d;
             }
+            SpellRulesDef? rules = null;
+            if (r.Remaining != 0)
+            {
+                rules = ReadSpellRules(ref r);
+            }
             if (r.Remaining != 0)
             {
                 throw BlocksBroken("trailing bytes");
@@ -57,7 +68,34 @@ namespace Wizard.Content
                 table[(int)d.Id] = d;
             }
             _blocks = table;
+            _spellRules = rules;
         }
+
+        partial void FindSpellRules(ref SpellRulesDef? def)
+        {
+            if (_spellRules != null)
+            {
+                def = _spellRules;
+            }
+        }
+
+        // 꼬리의 범위는 읽는 쪽도 본다: 상한이 0 이하이면 컴파일러의 가지치기가, 배수가 1 미만이면 열이 뜻을 잃는다
+        private static SpellRulesDef ReadSpellRules(ref ByteReader r)
+        {
+            var d = new SpellRulesDef
+            {
+                TreeProjectileCap = BlockI32(ref r),
+                UnderlineMaxCutHu = BlockI32(ref r),
+                MirrorHeatMulPermille = BlockI32(ref r),
+            };
+            if (d.TreeProjectileCap < 1 || d.UnderlineMaxCutHu < 0 || d.MirrorHeatMulPermille < SpellRulesPermilleOne)
+            {
+                throw BlocksBroken("spell rules out of range");
+            }
+            return d;
+        }
+
+        private const int SpellRulesPermilleOne = 1000;   // 천분율 1.0(단위 환산)
 
         partial void FindBlock(BlockId id, ref BlockDef? def)
         {

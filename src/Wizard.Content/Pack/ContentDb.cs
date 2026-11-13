@@ -188,6 +188,18 @@ namespace Wizard.Content
             }
         }
 
+        // 주문 컴파일 규칙(트리 실행 상한, 밑줄 상한, 거울상 열 배수). blocks 절의 꼬리에 있다(T-57).
+        // 꼬리가 없는 팩(시험용)에서는 ContentException
+        public SpellRulesDef SpellRules
+        {
+            get
+            {
+                SpellRulesDef? def = null;
+                FindSpellRules(ref def);
+                return Require(def, ContentSection.Blocks);
+            }
+        }
+
         public SimLimitsDef SimLimits
         {
             get

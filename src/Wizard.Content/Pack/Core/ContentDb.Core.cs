@@ -125,5 +125,6 @@ namespace Wizard.Content
         partial void FindTimeOfDay(TimeOfDay tod, ref TimeOfDayDef? def);
         partial void FindElementRules(ref ElementDef? def);
         partial void FindSimLimits(ref SimLimitsDef? def);
+        partial void FindSpellRules(ref SpellRulesDef? def);       // blocks 절의 꼬리(T-57)
     }
 }

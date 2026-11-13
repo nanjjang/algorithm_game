@@ -1356,6 +1356,7 @@ public interface IAssetCatalog {
   - 이 결정을 같이 넣으려고 `docs/dev`의 세 파일(이 문서, `ARCHITECTURE.md`, `tasks.json`)도 M1-UE-03의 `owned_paths`에 더했다(T-56과 같은 방식. main에 들어간 뒤에는 필요 없다). 같은 문서를 가진 작업들과 순서가 있어야 해서 `deps`에 M10-ACC-01을 더했다(그 앞의 M2-SPL-01, M1-SIM-08, M1-CONT-02, M0-TL-01은 M10-ACC-01의 `deps`를 따라 이어진다). M10-ACC-01은 이미 main에 있어(done) M1-UE-03과 M1-INT를 막지 않는다. 이 `deps` 한 줄은 문서 파일의 순서를 적은 것이고 골든 실행기가 계정 스키마에 기댄다는 뜻이 아니다. 문서는 문서만 든 커밋으로 따로 두었다.
   - `Wizard.TestKit.Shared`에는 `.meta`를 커밋하지 않는다(metagen의 범위 밖이고 `unity.sh`가 실행 뒤 지운다). 옮긴 파일도 같다.
   - `IArithOps`의 머리 주석("산술 묶음의 주인(M1-CORE-01)이 만든다")은 그대로 맞다: 표를 만든 것은 M1-CORE-01이고 자리만 옮겼다.
+  - 찾은 결함(FIX-6으로 더하고 M1-INT의 `deps`에 넣었다): main(M2-NET-02 뒤)에서 Mono 플레이어 빌드가 실패한다. `unity/Assets/Plugins/BouncyCastle.Cryptography.dll.meta`가 `serializedVersion: 2`라고 적고 `platformData`는 3판의 꼴이라, 플레이어의 스크립트 컴파일에 그 DLL이 들어가지 않는다(편집기 컴파일에는 들어간다. 그래서 병합 게이트는 통과했다). 그 파일은 M0-BT-01의 것이라 여기서 고치지 않았다. M1-UE-03의 플레이어 열은 그 한 줄을 작업 트리에서 임시로 `3`으로 바꿔 돌려 확인하고 되돌렸다(Mono arm64·x64 플레이어가 골든 7개와 산술 벡터 141개를 기대와 같게 냈다). FIX-6이 main에 들어가기 전에는 `unity-golden.sh`의 플레이어 열이 "player build failed"로 실패한다. 이것은 M1-UE-03의 결함이 아니다.
   - 골든 기록의 본문을 틱별 열로 펼치는 판독기가 둘이다(dotnet은 `tools/Wizard.ReplayCli/RecordFeed.cs`, Unity는 `App/Headless/GoldenRecord.cs`). 코어의 본문 판독기가 내부(`internal`)라서 생긴 일이고, 두 판독기는 같은 기대 해시로 서로를 확인한다. 하나로 모으려면 코어가 "기록 → 틱별 입력 열"의 공개 문을 내야 하는데 그것은 계약 변경(CONTRACTS 3.8절)이라 여기서 하지 않았다. 필요해지는 작업이 계약 변경 요청으로 올린다.
 
 ## 아직 정하지 않은 기술 항목

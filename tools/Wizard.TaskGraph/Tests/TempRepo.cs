@@ -46,15 +46,23 @@ namespace Wizard.TaskGraph.Tests
 
         public static string GitIn(string dir, params string[] args)
         {
+            ProcResult r = TryGitIn(dir, args);
+            Assert.True(r.ExitCode == 0, $"git {string.Join(" ", args)}: {r.Stderr}");
+            return r.Stdout;
+        }
+
+        // 실패해도 되는 git(rebase 가 충돌로 멈추는 것 등). 편집기는 띄우지 않는다
+        public ProcResult TryGit(params string[] args) => TryGitIn(Dir, args);
+
+        public static ProcResult TryGitIn(string dir, params string[] args)
+        {
             var all = new List<string>
             {
                 "-C", dir, "-c", "user.name=taskgraph-test", "-c", "user.email=test@example.invalid",
                 "-c", "commit.gpgsign=false", "-c", "core.hooksPath=/dev/null",
             };
             all.AddRange(args);
-            ProcResult r = Proc.Run("git", all);
-            Assert.True(r.ExitCode == 0, $"git {string.Join(" ", args)}: {r.Stderr}");
-            return r.Stdout;
+            return Proc.Run("git", all, null, new Dictionary<string, string> { ["GIT_EDITOR"] = "true", ["GIT_SEQUENCE_EDITOR"] = "true" });
         }
 
         public void Commit(string message, string? dir = null)

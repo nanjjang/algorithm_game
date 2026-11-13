@@ -183,7 +183,7 @@ blocked-on-assets ─(에셋 반입)─▶ todo
 6. **병합.** integration-engineer가 승인된 브랜치를 main 위로 옮겨 병합 게이트를 돌리고 병합한 뒤 done으로 바꾼다(3.8절).
 7. **마일스톤 게이트.** 그 마일스톤의 작업이 전부 done이면 `M<N>-INT` 작업이 게이트를 돌리고 tech-lead가 승인한다.
 
-**상태는 `tasks.json`에 두지 않는다**(T-40). `tasks.json`은 구조(정의)만 담고 tech-lead의 작업만 커밋한다. 그 안의 `status`는 처음 분류(`todo`, `blocked-on-assets`)일 뿐이다. 진행 상태(in_progress, review, done)는 git이 추적하지 않는 `.claude/taskstate.json`에 있고 `tools/Wizard.TaskGraph`만 파일 잠금을 잡고 바꾼다. 상태 파일을 잃으면 `taskgraph reconcile`이 main의 커밋 기록에서 done을 다시 만든다. 작업 브랜치는 `tasks.json`을 건드리지 않는다.
+**상태는 `tasks.json`에 두지 않는다**(T-40). `tasks.json`은 구조(정의)만 담고 tech-lead의 작업만 커밋한다. 그 안의 `status`는 처음 분류(`todo`, `blocked-on-assets`)일 뿐이다. 진행 상태(in_progress, review, done)는 git이 추적하지 않는 `.claude/taskstate.json`에 있고 `tools/Wizard.TaskGraph`만 파일 잠금을 잡고 바꾼다. 상태 파일을 잃으면 `taskgraph reconcile`이 main의 커밋 기록에서 done을 다시 만든다. 구현 담당은 `tasks.json`을 건드리지 않는다. tech-lead는 멈춘 작업을 풀 때 그 작업의 브랜치에서 개정 장부(`tasks.json` 포함, 4.4절)를 고친다.
 
 **M0 부트스트랩 절차.** `taskgraph`, `ci.sh`, `vector-coverage`, 훅은 M0-BT-05와 M0-BT-06이 만든다. 그보다 앞서는 작업(M0-TL-02, M0-TL-01, M0-BT-01~04, M0-TE-01)은 도구 없이 아래처럼 한다.
 
@@ -272,7 +272,7 @@ vector-coverage --task <id> 의 출력: 대상 N개, 통과 N개, 빠짐 0개
 
 검토자는 구현자의 설명이 아니라 **변경과 명세**를 본다. 다음을 차례로 확인한다.
 
-1. 변경이 `owned_paths` 안인가(`taskgraph check-diff <id>`).
+1. 변경이 `owned_paths` 안인가(`taskgraph check-diff <id>`). 브랜치가 개정 장부(4.4절)를 고쳤으면 그 커밋이 tech-lead의 결정 커밋이거나 통합 담당이 도구로 푼 것(`taskgraph resolve`, `recount`)인가. 구현 담당이 자기 카드의 `owned_paths`나 `vectors`를 고친 것은 막는 문제다.
 2. 수락 테스트가 실제로 그 조건을 재는가. 테스트가 구현을 따라 쓰이지 않았는가(기대값이 명세에서 왔는가).
 3. 명세의 규칙과 수치가 맞는가. 벡터가 다 있는가.
 4. 계약의 시그니처·순서·형식과 같은가.
@@ -313,13 +313,15 @@ vector-coverage --task <id> 의 출력: 대상 N개, 통과 N개, 빠짐 0개
 | 앞선 작업의 결함을 찾았다 | 자기 작업에서 고치지 않는다. 결함 작업(`FIX-<번호>`)을 더해 그 경로의 주인이 고친다 |
 | 통과 기준을 못 넘는다(손맛, 균형, 넷코드 폐기율) | 수치·규칙을 고치는 작업을 새로 만든다. 기준을 낮추지 않는다 |
 | 벡터를 지금 시점에 시험할 수 없다(뒤 작업의 기능이 필요하다) | 그 벡터를 구현에서 빼지 않는다. tech-lead가 `tasks.json`의 `vectors` 배정을 옮기거나 `deps`를 더한다 |
+| tech-lead가 멈춘 작업을 그 작업의 브랜치에서 푼다 | 결정은 `DECISIONS-TECH.md`의 새 T 절, 사용자에게 물을 것은 `OPEN-QUESTIONS.md`의 새 Q 줄, 카드의 변경은 `tasks.json`에 적고 `docs(<id>): …` 커밋으로 둔다(더하는 자리는 4.4절의 "개정 장부"). 고친 장부 파일을 그 카드의 `owned_paths`에 더한다(`check-diff`가 본다). 장부 때문에 `deps`를 더하지 않는다(T-65). `CONTRACTS.md`는 장부가 아니다: 개정문을 T 절에 적고 CCR 작업이 옮긴다 |
+| 새 번호가 필요하다(T-, Q-, FIX-, CCR-) | 고르기 직전에 `taskgraph next-ids`를 돌려 main과 모든 작업 브랜치·작업 트리에서 쓰인 가장 큰 번호의 다음을 쓴다. `taskgraph add`의 자동 번호도 같은 최댓값을 본다. 번호는 비어도 되고 다시 쓰지 않는다. 같은 번호를 두 브랜치가 쓰면 `taskgraph ledger`와 `taskgraph resolve`가 막는다 |
 
 ### 3.8 결과 통합
 
 순서: **작업 트리 브랜치 → 작업 게이트 → 검토 승인 → main 위로 옮기기 → 병합 게이트 → 병합 → done**.
 
 1. integration-engineer만 main에 넣는다. 한 번에 한 브랜치씩 넣는다.
-2. `task/<id>`를 main 위로 옮긴다. **작업 트리 안에서 한다**: `command git -C <작업 트리 절대 경로> rebase main`(그 브랜치는 작업 트리에 체크아웃되어 있어 main 체크아웃에서는 git이 거부한다). 옮긴 뒤 "다시 만드는 파일"(4.4절)을 다시 만들고, 그 작업 트리에서 `ci.sh full`을 돌린다.
+2. `task/<id>`를 main 위로 옮긴다. **작업 트리 안에서 한다**: `command git -C <작업 트리 절대 경로> rebase main`(그 브랜치는 작업 트리에 체크아웃되어 있어 main 체크아웃에서는 git이 거부한다). 옮기다가 개정 장부(4.4절)가 충돌해 멈추면 그 작업 트리에서 `taskgraph resolve`를 돌리고 이어 간다(아래 표). 옮긴 뒤 "다시 만드는 파일"(4.4절)을 다시 만들고, `taskgraph recount`로 `tasks.json`의 마일스톤 집계를 다시 세고(바뀌었으면 그 브랜치에 `chore(<id>): …` 커밋으로 넣는다), 그 작업 트리에서 `ci.sh full`을 돌린다.
 3. 통과하면 한 커밋으로 합쳐 넣는다(squash). main의 커밋 하나가 작업 하나다. 커밋 메시지는 4.2절 형식이고 본문은 결과 보고의 요약이다.
 4. `taskgraph done <id>`로 상태를 바꾸고 작업 트리와 브랜치를 지운다.
 5. 승인된 브랜치들을 다 넣고 나면 통합 빌드를 한 번 돌린다(7.2절).
@@ -335,7 +337,8 @@ vector-coverage --task <id> 의 출력: 대상 N개, 통과 N개, 빠짐 0개
 |---|---|
 | 공유 추가 전용 파일(4.4절) | 양쪽 줄을 다 살린다. 이름 표는 `databuild names --fix`, 패키지 버전 표는 이름순 정렬 |
 | 다시 만드는 파일(`*.g.cs`, 골든의 기대 해시) | 충돌을 손으로 풀지 않는다. main 위에서 다시 만든다. 골든은 `tests/golden/CHANGELOG.md`의 양쪽 줄을 다 살린다 |
-| 그 밖의 파일 | 소유 규칙 위반이다. 통합 담당이 풀지 않고 나중에 온 브랜치를 담당자에게 돌려보낸다. 같은 파일을 두 작업이 가져야 했다면 `tasks.json`의 `deps`가 빠진 것이므로 tech-lead가 그래프를 고친다 |
+| 개정 장부(4.4절: `DECISIONS-TECH.md`, `OPEN-QUESTIONS.md`, `tasks.json`) | 손으로 풀지 않는다. 옮기기가 멈춘 작업 트리에서 `taskgraph resolve`를 돌린다(T-65). 도구는 양쪽이 더하기만 한 것(새 T 절, 새 Q 줄, 요약 표의 새 줄, 서로 다른 카드, 같은 카드의 서로 다른 칸, 목록 칸의 서로 다른 항목)을 main 쪽 먼저, 옮기는 쪽 다음의 순서로 다 살리고, 마일스톤 집계를 다시 세고, 합친 결과가 `validate`와 `ledger`를 통과해야 쓴다. 푼 파일은 도구가 `git add` 한다. 그다음 `command git -C <작업 트리> rebase --continue`. 도구가 풀지 못한 것(같은 카드의 같은 값을 양쪽이 다르게 고쳤다, 번호가 겹쳤다, 있던 줄을 양쪽이 고쳤다, 합친 그래프가 검사에 실패한다)은 진짜 충돌이다. 풀지 않고 그 브랜치를 tech-lead에게 돌려보낸다 |
+| 그 밖의 파일(`CONTRACTS.md` 같은 `docs/dev/`의 다른 문서도 여기에 든다) | 소유 규칙 위반이다. 통합 담당이 풀지 않고 나중에 온 브랜치를 담당자에게 돌려보낸다. 같은 파일을 병합 전인 두 작업이 가져야 했다면 `tasks.json`의 `deps`가 빠진 것이므로 tech-lead가 그래프를 고친다 |
 
 병합 게이트가 실패하면 넣지 않는다. main은 언제나 `ci.sh full`이 통과하는 상태다.
 
@@ -403,7 +406,7 @@ Co-Authored-By: <그 커밋을 만든 모델의 줄>
 
 충돌은 병합 때 푸는 것이 아니라 생기지 않게 한다.
 
-1. **소유 경로.** 모든 작업은 `owned_paths`만 고친다. `tasks.json`은 "경로가 겹치는 두 작업은 반드시 `deps`로 순서가 정해져 있다"와 "같은 `parallel_group` 안의 경로는 겹치지 않는다"를 지킨다. `taskgraph validate`가 검사하고 `taskgraph check-diff`가 브랜치마다 확인한다.
+1. **소유 경로.** 모든 작업은 `owned_paths`만 고친다. `tasks.json`은 **둘 다 아직 main에 병합되지 않은** 두 작업에 대해 "경로가 겹치면 반드시 `deps`로 순서가 정해져 있다"와 "같은 `parallel_group` 안의 경로는 겹치지 않는다"를 지킨다. 하나가 이미 병합됐으면 순서는 main의 기록이 정했으므로(뒤의 작업은 앞의 작업 위로 옮겨져 고친다) `deps`를 요구하지 않는다. 병합 여부는 main의 커밋 제목 `<type>(<id>): …`로 안다(`taskgraph reconcile`과 같은 판정. 기록을 읽지 못하면 전부 병합 전으로 본다). 개정 장부(아래)는 겹침을 세지 않는다. "같은 `parallel_group`의 작업은 서로 의존하지 않는다"는 병합 여부와 무관하다. `taskgraph validate`와 `check-tasks.mjs`가 같은 것을 검사하고(T-65) `taskgraph check-diff`가 브랜치마다 확인한다.
 2. **뼈대 선행(T-33).** 함께 고칠 수밖에 없는 파일(솔루션, 열거형, 틱 파이프라인, 상태 절 목록, 팩 절 목차, 서버 시작 코드)은 M0~M1에서 한 번에 만들고, 뒤 작업은 자기 폴더에 새 파일만 더한다.
 3. **폴더 하나에 주인 하나.** 모듈은 자기 폴더와 자기 테스트 폴더를 가진다(`src/Wizard.Sim/Heat/` ↔ `tests/Wizard.Sim.Tests/Heat/`).
 4. **번호 미리 주기.** DB 마이그레이션 파일의 번호는 `tasks.json`이 미리 정했다(`0010_accounts.sql`, `0020_inventory.sql` …). 작업이 번호를 고르지 않는다.
@@ -429,6 +432,20 @@ Co-Authored-By: <그 커밋을 만든 모델의 줄>
 | `src/*/Generated/*.g.cs`(`SimVersion.g.cs`, 표) | `versionstamp`, `tablegen` | 코어의 `.cs`를 고친 작업은 `SimVersion.g.cs`를 다시 만들어 같이 커밋한다. 병합 때 통합 담당이 main 위에서 다시 만든다 |
 | `tests/golden/**/expected*.json` | `replaycli golden --update` | 해시가 바뀔 이유가 있는 변경일 때만. `tests/golden/CHANGELOG.md`에 이유를 적는다. 검토 항목 9번이 본다. 통합 빌드가 모든 조합에서 다시 확인한다 |
 
+개정 장부 — tech-lead가 멈춘 작업을 풀 때 그 작업의 브랜치에서 고치는 세 파일이다(T-65). 어느 작업에 결정이 필요할지 미리 알 수 없어서 순서를 `deps`로 미리 정할 수 없다. 그래서 겹침 검사 밖에 두고, 번호와 충돌을 도구로 지킨다.
+
+| 파일 | 더하는 자리 | 지키는 것 |
+|---|---|---|
+| `docs/dev/DECISIONS-TECH.md` | 새 T 절은 `## 아직 정하지 않은 기술 항목` 바로 앞. 요약 표의 새 줄은 표의 끝. 파일 안의 순서는 번호순이 아니라 main에 들어온 순서다(남의 절을 옮기지 않는다) | `taskgraph ledger`: T 번호가 절 제목에서 한 번, 요약 표에서 한 번이고 요약 표의 번호는 절이 있다 |
+| `docs/dev/OPEN-QUESTIONS.md` | 새 Q 줄은 표의 끝 | `taskgraph ledger`: Q 번호가 한 번 |
+| `docs/dev/tasks.json` | 새 카드는 `taskgraph add`. 카드의 값은 tech-lead가 고친다 | `check-tasks.mjs`, `taskgraph validate`. 마일스톤 집계는 `taskgraph recount`가 다시 센다 |
+
+- 장부도 그 카드의 `owned_paths`에 있어야 고칠 수 있다. tech-lead가 작업을 풀 때 고친 장부 파일을 카드에 더한다. 구현 담당은 장부를 고치지 않는다(카드에 장부가 없으면 `check-diff`가 막고, 있으면 검토 1번이 본다).
+- 경로 겹침 검사는 `owned_paths`의 항목 가운데 위 세 경로와 글자가 같은 것을 세지 않는다. 장부를 덮는 폴더 무늬(`docs/dev/`)는 그대로 센다. 장부 때문에 `deps`를 더하지 않는다.
+- 새 번호는 `taskgraph next-ids`가 낸 다음 번호를 쓴다(3.7절).
+- 충돌은 `taskgraph resolve`가 푼다(3.8절). 손으로 풀지 않는다.
+- `CONTRACTS.md`, `ARCHITECTURE.md`, `PIPELINE.md`, `REVIEW-LOG.md`와 그 밖의 문서는 장부가 아니다. 위 1번의 규칙을 그대로 받는다.
+
 `check-diff`가 무시하는 변경(Unity가 스스로 고쳐 쓰는 것. 커밋에 들어 있으면 안 된다): `unity/Packages/packages-lock.json`, `unity/ProjectSettings/ProjectVersion.txt`, `unity/ProjectSettings/*.asset`의 형식 갱신, `unity/Library/`, `unity/*.csproj`, `unity/*.sln`. 스크립트가 실행 뒤 되돌린다(4.3절).
 
 ### 4.5 Unity 프로젝트 규칙
@@ -452,7 +469,7 @@ Co-Authored-By: <그 커밋을 만든 모델의 줄>
 | 통합 빌드 | 승인된 브랜치들을 넣은 뒤 | Unity 플레이어 빌드(Mono, IL2CPP × arm64, x64), 런타임 × 아키텍처 골든, 2인 헤드리스 결투, 성능, PlayMode 테스트 | `tools/ci/ci.sh integration` |
 | 마일스톤 게이트 | `M<N>-INT` | 위 전부 + 그 마일스톤의 완료 기준 + 사람 확인 항목 기록 | `tools/ci/ci.sh gate M<N>` → `docs/dev/gates/M<N>.json` |
 
-`ci.sh`는 `tools/ci/`의 다른 스크립트 가운데 머리말에 `# ci-stage: fast|full|integration`이 적힌 것을 이름순으로 부른다. 새 검사는 스크립트 파일을 더해서 넣는다(`ci.sh`를 고치지 않는다). 스크립트 하나만 돌릴 때는 `ci.sh run <스크립트 이름>`이다. 하위 명령은 없다: 생성 파일 대조는 `tools/ci/gen-check.sh`(fast, M0-BT-03), 이름 검사는 `tools/ci/names-scan.sh`(fast, M1-CONT-02), 작업 그래프 검사는 `tools/ci/tasks-check.sh`(fast, `node tools/check-tasks.mjs`를 부른다)다.
+`ci.sh`는 `tools/ci/`의 다른 스크립트 가운데 머리말에 `# ci-stage: fast|full|integration`이 적힌 것을 이름순으로 부른다. 새 검사는 스크립트 파일을 더해서 넣는다(`ci.sh`를 고치지 않는다). 스크립트 하나만 돌릴 때는 `ci.sh run <스크립트 이름>`이다. 하위 명령은 없다: 생성 파일 대조는 `tools/ci/gen-check.sh`(fast, M0-BT-03), 이름 검사는 `tools/ci/names-scan.sh`(fast, M1-CONT-02), 작업 그래프 검사는 `tools/ci/tasks-check.sh`(fast, `node tools/check-tasks.mjs`를 부른다), 개정 장부 검사는 `tools/ci/ledger-check.sh`(fast, `taskgraph ledger`를 부른다. FIX-7)다.
 
 - 스크립트는 `#!/bin/bash`와 bash 3.2 문법만 쓰는 껍데기다. 단계 실행, 시간 제한(`Process.WaitForExit`), 잠금(파일 배타 열기), 바뀐 경로에 따른 단계 선택은 `tools/Wizard.Ci`(C#)가 한다(T-40).
 - 스크립트와 도구는 저장소 뿌리를 자기 위치에서 구한다. 현재 폴더에 기대지 않는다.
@@ -626,7 +643,7 @@ M0-TL-02는 M0의 첫 작업이다. 그 전에 띄우는 작업 카드에는 원
 
 | # | 게이트 | 통과 조건 | 도구 |
 |---|---|---|---|
-| G0 | 정적 검사 | Debug·Release 빌드 경고 0. 분석기 진단 0(결정론 금지 목록, C# 9 제한, 계층 참조, 결제 값 참조). 저장소의 `.editorconfig`와 `*.csproj`에 WZ 진단을 끄는 설정(`severity`, `NoWarn`, `WarningsNotAsErrors`)이 없다. 생성 파일이 다시 만든 것과 같다. `.meta` 빠짐 0이고 GUID가 계산값과 같다. 이름 표 형식. **제품 코드**(`src/`, `server/`, `unity/Assets/Game/`)의 이름 표 밖 한글 문자열 리터럴 0(`tests/`는 검사하지 않는다. 금칙어·글자 폭 벡터처럼 한글이 있어야 하는 테스트가 있다). 작업용 이름의 로마자 표기가 `src/`, `server/`, `data/`의 식별자에 없다(CONTRACTS 2.1절). `tasks.json` 검사(`check-tasks.mjs`). 에이전트 설정의 설치본 = 원본. 변경이 `owned_paths` 안. 커밋 메시지 형식 | `ci.sh fast` |
+| G0 | 정적 검사 | Debug·Release 빌드 경고 0. 분석기 진단 0(결정론 금지 목록, C# 9 제한, 계층 참조, 결제 값 참조). 저장소의 `.editorconfig`와 `*.csproj`에 WZ 진단을 끄는 설정(`severity`, `NoWarn`, `WarningsNotAsErrors`)이 없다. 생성 파일이 다시 만든 것과 같다. `.meta` 빠짐 0이고 GUID가 계산값과 같다. 이름 표 형식. **제품 코드**(`src/`, `server/`, `unity/Assets/Game/`)의 이름 표 밖 한글 문자열 리터럴 0(`tests/`는 검사하지 않는다. 금칙어·글자 폭 벡터처럼 한글이 있어야 하는 테스트가 있다). 작업용 이름의 로마자 표기가 `src/`, `server/`, `data/`의 식별자에 없다(CONTRACTS 2.1절). `tasks.json` 검사(`check-tasks.mjs`). 개정 장부 검사(`taskgraph ledger`: T·Q 번호 겹침 0, 충돌 표식 0). 에이전트 설정의 설치본 = 원본. 변경이 `owned_paths` 안. 커밋 메시지 형식 | `ci.sh fast` |
 | G1 | 단위·벡터 | 작업의 `vectors`가 가리킨 벡터마다 테스트가 있고 통과한다. 빠짐 0. **전역 빠짐 0**: `docs/spec/*.md`의 "테스트 벡터" 절에 있는 모든 벡터 id가 정확히 한 작업에 배정되어 있다(미배정과 이중 배정 모두 실패) | `dotnet test`, `vector-coverage`, `check-tasks.mjs` |
 | G2 | 결정론 | 7.3절 | `Wizard.Sim.Tests`, 골든, `unity-golden.sh` |
 | G3 | 넷코드 | 7.4절 | `Wizard.Netcode.Tests`, `duel2p.sh`, `duel-net.sh` |
@@ -774,7 +791,7 @@ M0-TL-02는 M0의 첫 작업이다. 그 전에 띄우는 작업 카드에는 원
 
 ### 8.2 마일스톤마다 같이 갈 수 있는 작업
 
-`tasks.json`의 `parallel_group`이 정본이다. 같은 묶음의 작업은 서로 의존이 없고 경로가 겹치지 않는다. 묶음이 달라도 `deps`가 끝났으면 같이 돌 수 있다. 아래는 축으로 본 그림이다.
+`tasks.json`의 `parallel_group`이 정본이다. 같은 묶음의 작업은 서로 의존이 없고 경로가 겹치지 않는다(경로 겹침은 둘 다 병합 전인 작업끼리만 보고 개정 장부는 세지 않는다. 4.4절 1번). 묶음이 달라도 `deps`가 끝났으면 같이 돌 수 있다. 아래는 축으로 본 그림이다.
 
 | # | 전투 | 로그라이크 | 멀티플레이·서버 | UI·Unity | 기반·데이터·테스트 |
 |---|---|---|---|---|---|

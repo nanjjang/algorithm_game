@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wizard.invalid/data/schema/modifiers.schema.json",
+  "title": "야생의 변덕 (data/sim/modifiers.json → 팩 절 9 modifiers)",
+  "description": "spec 07 2.5(ModifierDef 8행), 9절, spec 14 3.9, CONTRACTS 2.2. 변덕마다 한 줄이고 ModifierId(whim.* 코드 1~8)마다 정확히 한 줄이 있어야 한다(변환기가 본다). 효과 칸은 모두 고를 수 있고 적지 않은 칸은 효과 없음이다. 한 줄에 효과가 하나 이상 있어야 한다. 예고 시간을 줄이거나 적을 빠르게 하는 필드는 없다(spec 07 2.5, TV-109): 객체를 닫아 두어 그런 필드는 스키마에서, 스키마가 열려 있어도 변환기에서 거부된다.",
+  "type": "object",
+  "required": ["modifiers"],
+  "additionalProperties": false,
+  "properties": {
+    "_note": { "$ref": "_common.schema.json#/$defs/note" },
+    "modifiers": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/modifier" }
+    }
+  },
+  "$defs": {
+    "species": { "description": "일반 적 종 id(spec 14 3.6)", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^enemy\\." },
+    "damage": { "description": "피해(체력 칸). 어떤 공격도 한 번에 3칸을 넘지 않는다(spec 07 6.3, G11 확정)", "type": "integer", "minimum": 1, "maximum": 3 },
+    "modifier": {
+      "type": "object",
+      "required": ["id", "score_multiplier"],
+      "additionalProperties": false,
+      "properties": {
+        "_note": { "$ref": "_common.schema.json#/$defs/note" },
+        "id": { "description": "변덕 id(spec 14 3.9 whim.*) → ModifierDef.Id", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^whim\\." },
+        "score_multiplier": { "description": "점수 배율(×1.15) → ScorePct(× 100, 정확해야 한다)", "$ref": "_common.schema.json#/$defs/ratio", "exclusiveMinimum": 0 },
+        "only_tod": { "description": "이 시간대에만 후보 → OnlyTod. 없으면 모든 시간대. tod.boss 는 안 된다(보스 웨이브에는 변덕이 없다)", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^tod\\." },
+        "bundle_interval_seconds": { "description": "몰려옴: 묶음 간격(초) → BundleIntervalTicks(× 60)", "$ref": "_common.schema.json#/$defs/seconds", "exclusiveMinimum": 0 },
+        "enemy_hp_multiplier": { "description": "두꺼운 가죽: 적 체력 배율 → EnemyHpPct(× 100, 정확해야 한다)", "$ref": "_common.schema.json#/$defs/ratio", "exclusiveMinimum": 0 },
+        "extra_budget": {
+          "description": "큰 무리: 예산 +percent %, 추가분은 비용 cost_max 이하의 종으로만 → ExtraBudgetPct, ExtraBudgetCostMax",
+          "type": "object",
+          "required": ["percent", "cost_max"],
+          "additionalProperties": false,
+          "properties": {
+            "percent": { "type": "integer", "minimum": 1 },
+            "cost_max": { "type": "integer", "minimum": 1 }
+          }
+        },
+        "extra_elites": { "description": "우두머리 행차: 엘리트 수 더하기 → ExtraElites", "type": "integer", "minimum": 1 },
+        "death_circle": {
+          "description": "마지막 숨: 적이 죽은 자리의 원 → DeathCircleRadius(칸 → Raw), DeathCircleTelegraphTicks, DeathCircleDamage, DeathCircleStaggerTicks(R5 에 걸리면 미루는 간격). 예고는 0 보다 커야 한다",
+          "type": "object",
+          "required": ["radius", "telegraph_seconds", "damage", "stagger_seconds"],
+          "additionalProperties": false,
+          "properties": {
+            "radius": { "$ref": "_common.schema.json#/$defs/cells", "exclusiveMinimum": 0 },
+            "telegraph_seconds": { "$ref": "_common.schema.json#/$defs/seconds", "exclusiveMinimum": 0 },
+            "damage": { "$ref": "#/$defs/damage" },
+            "stagger_seconds": { "$ref": "_common.schema.json#/$defs/seconds", "exclusiveMinimum": 0 }
+          }
+        },
+        "enemy_shots": {
+          "description": "느린 탄막: 적 탄 수 배율, 탄 속도 배율 → EnemyShotCountPct, EnemyShotSpeedPct(× 100, 정확해야 한다). 탄 속도는 1 을 넘지 못한다(적을 빠르게 하지 않는다)",
+          "type": "object",
+          "required": ["count_multiplier", "speed_multiplier"],
+          "additionalProperties": false,
+          "properties": {
+            "count_multiplier": { "$ref": "_common.schema.json#/$defs/ratio", "minimum": 1 },
+            "speed_multiplier": { "$ref": "_common.schema.json#/$defs/ratio", "exclusiveMinimum": 0, "maximum": 1 }
+          }
+        },
+        "weights": {
+          "description": "긴 밤: 스폰 가중치에 곱하는 배율 → WeightSpecies/WeightPct(× 100, 정확해야 한다. EnemyTypeId 오름차순). 종은 한 번만",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["species", "weight"],
+            "additionalProperties": false,
+            "properties": {
+              "species": { "$ref": "#/$defs/species" },
+              "weight": { "$ref": "_common.schema.json#/$defs/ratio", "minimum": 0 }
+            }
+          }
+        },
+        "species_caps": {
+          "description": "긴 밤: 종 상한을 바꾼다 → CapSpecies/Cap(EnemyTypeId 오름차순). 종은 한 번만",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["species", "cap"],
+            "additionalProperties": false,
+            "properties": {
+              "species": { "$ref": "#/$defs/species" },
+              "cap": { "type": "integer", "minimum": 0 }
+            }
+          }
+        },
+        "thorn_border": {
+          "description": "좁은 들: 전장 가장자리 띠의 가시밭 → ThornBorderWidth(칸 → Raw), ThornTelegraphTicks(WavePrelude 예고), ThornContactIntervalTicks, ThornDamage. 예고는 0 보다 커야 한다",
+          "type": "object",
+          "required": ["width", "telegraph_seconds", "contact_interval_seconds", "damage"],
+          "additionalProperties": false,
+          "properties": {
+            "width": { "$ref": "_common.schema.json#/$defs/cells", "exclusiveMinimum": 0 },
+            "telegraph_seconds": { "$ref": "_common.schema.json#/$defs/seconds", "exclusiveMinimum": 0 },
+            "contact_interval_seconds": { "$ref": "_common.schema.json#/$defs/seconds", "exclusiveMinimum": 0 },
+            "damage": { "$ref": "#/$defs/damage" }
+          }
+        }
+      }
+    }
+  }
+}

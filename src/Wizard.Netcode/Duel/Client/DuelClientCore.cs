@@ -2,6 +2,7 @@ using System;
 using Wizard.Content;
 using Wizard.Content.Rules;
 using Wizard.Core;
+using Wizard.Netcode.Clock;
 using Wizard.Protocol;
 using Wizard.Protocol.Duel;
 using Wizard.Sim;
@@ -46,7 +47,11 @@ namespace Wizard.Netcode.Duel
     // 받는 쪽은 ServerTick 만 연다. 다른 종류(HelloAck, SyncReply)는 건드리지 않고 돌려보낸다(연결 절차가 자기 창으로 연다).
     //
     // 시각(T-62). OnPacket 과 PollOutgoing 의 clientTimeUs 는 같은 클라이언트 단조 시계다. 여기서는 두 값의 차(echo_hold_ms)와
-    // 보낸 시각의 표기(client_send_time_ms)에만 쓴다. 틱과 예측은 이 시각을 보지 않는다(입력 시계의 틱은 Advance 의 인자다).
+    // 보낸 시각의 표기(client_send_time_ms), 경기 중 시계 표본(DrainClockSamples)에만 쓴다. 틱과 예측은 이 시각을 보지 않는다
+    // (입력 시계의 틱은 Advance 의 인자다).
+    //
+    // 해시 불일치의 표시(T-62 8번, spec 10 2.8 hash_mismatch_flag·14.7). 한도는 데이터(NetRuleSet.HashMismatchFlagOver)이고
+    // HashMismatchCount 가 그 값을 넘으면(한도 + 1번째) HashMismatchFlagged 가 선다. 확정 공백으로 청한 전체 상태는 세지 않는다.
     public sealed class DuelClientCore
     {
         private const int DuelPlayers = 2;
@@ -64,6 +69,7 @@ namespace Wizard.Netcode.Duel
         private readonly int _rollbackLimit;
         private readonly int _catchupMax;
         private readonly int _gapLimit;
+        private readonly int _hashMismatchFlagOver;
 
         // 입력
         private int _inputDelay;
@@ -104,6 +110,7 @@ namespace Wizard.Netcode.Duel
         private uint _echoServerTimeMs;
         private long _echoReceiveTimeUs;
         private short _marginMs;
+        private readonly ClockSampleLog _clockSamples;
         private readonly ClientInputPacket _outPacket = new ClientInputPacket();
         private readonly ServerTickPacket _inPacket = new ServerTickPacket();
         private readonly ByteWriter _body = new ByteWriter(DuelWire.MaxBodyBytes);
@@ -134,6 +141,8 @@ namespace Wizard.Netcode.Duel
             _rollbackLimit = _net.RollbackLimitTicks;
             _catchupMax = _net.CatchupTicksPerAdvance;
             _gapLimit = _net.FullStateGapTicks;
+            _hashMismatchFlagOver = _net.HashMismatchFlagOver;
+            _clockSamples = new ClockSampleLog(_net.ClockSyncSamples);
 
             SimConfig config = SimConfig.ForDuel(db, setup.Options);
             _confirmed = SimWorld.CreateDuel(db, config, setup);
@@ -209,6 +218,7 @@ namespace Wizard.Netcode.Duel
             _echoServerTimeMs = _inPacket.ServerTimeMs;
             _echoReceiveTimeUs = clientTimeUs;
             _marginMs = _inPacket.MarginMsEstimate;
+            _clockSamples.OnServerTick(_inPacket.EchoClientSendTimeMs, _inPacket.ServerTimeMs, clientTimeUs);
 
             ApplyConfirmedTicks();
             if (_inPacket.HasHash)
@@ -351,6 +361,7 @@ namespace Wizard.Netcode.Duel
                 return 0;                                    // 받은 번호는 버린다. 다시 쓰지 않는다(빈 번호는 받는 쪽 창이 탓하지 않는다)
             }
             _packetDue = false;
+            _clockSamples.OnSent(_outPacket.ClientSendTimeMs, clientTimeUs);   // 실제로 나간 패킷의 보낸 시각만 기억한다
             return n;
         }
 
@@ -373,8 +384,16 @@ namespace Wizard.Netcode.Duel
         public bool NeedsFullState => _needsFullState;
 
         // 이 경기에서 서버 해시와 어긋난 횟수(확정 공백으로 청한 전체 상태는 세지 않는다). spec 10 14.7 "3번 넘게 어긋난 클라이언트는
-        // 기록해 표시한다"의 셈이다. 한도(spec 10 2.8 hash_mismatch_flag)는 데이터 값이고, 그것과 견준 표시는 뒤 작업이 더한다(T-62)
+        // 기록해 표시한다"의 셈이다
         public int HashMismatchCount => _hashMismatchCount;
+
+        // HashMismatchCount > NetRuleSet.HashMismatchFlagOver(spec 10 2.8 hash_mismatch_flag, T-62 8번). 한도는 팩에서 온다
+        public bool HashMismatchFlagged => _hashMismatchCount > _hashMismatchFlagOver;
+
+        // 경기 중 시계 표본(CONTRACTS 10.4, T-62 9번). 받은 ServerTick 하나에 많아야 하나. 가장 오래된 것부터 buffer 에 옮기고
+        // 옮긴 수를 돌려준다. ServerUs 는 경기 시계(HelloAck.match_epoch_server_us 부터 센 서버 시각)의 µs 이고, 서버 시계로 옮기는 것
+        // (+ match_epoch_server_us)은 입력 시계를 모는 쪽이 한다. 꺼내지 않고 ClockSyncSamples 개를 넘으면 가장 오래된 것부터 버린다
+        public int DrainClockSamples(Span<ClockSample> buffer) => _clockSamples.Drain(buffer);
 
         internal uint LastAssignedSeq => _seq.Last;
 

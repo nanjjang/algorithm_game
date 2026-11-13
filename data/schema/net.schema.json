@@ -18,7 +18,8 @@
     "spectator_keyframe_ticks",
     "clock_sync_samples",
     "clock_resync_seconds",
-    "clock_slew_max_ppm"
+    "clock_slew_max_ppm",
+    "hash_mismatch_flag_over"
   ],
   "additionalProperties": false,
   "properties": {
@@ -96,6 +97,11 @@
       "$ref": "_common.schema.json#/$defs/integer",
       "minimum": 1,
       "maximum": 100000
+    },
+    "hash_mismatch_flag_over": {
+      "description": "한 경기의 해시 불일치가 이 횟수를 넘으면(한도 + 1번째) 표시한다(spec 10 2.8 hash_mismatch_flag, T-62) → HashMismatchFlagOver",
+      "$ref": "_common.schema.json#/$defs/integer",
+      "minimum": 1
     }
   },
   "$defs": {

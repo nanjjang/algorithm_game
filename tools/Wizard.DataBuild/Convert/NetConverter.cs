@@ -29,6 +29,7 @@ namespace Wizard.DataBuild
     //   i32 clock_sync_samples
     //   i32 clock_resync_ticks
     //   i32 clock_slew_max_ppm
+    //   i32 hash_mismatch_flag_over                      1 이상(T-62)
     public sealed class NetConverter : ISectionConverter
     {
         public ContentSection Section => ContentSection.Net;
@@ -75,6 +76,7 @@ namespace Wizard.DataBuild
             int clockSamples = Int(root.GetProperty("clock_sync_samples"), "/clock_sync_samples", file, diagnostics);
             int clockResync = Units.SecondsToTicks(root.GetProperty("clock_resync_seconds").GetDecimal());
             int clockSlew = Int(root.GetProperty("clock_slew_max_ppm"), "/clock_slew_max_ppm", file, diagnostics);
+            int hashFlagOver = Int(root.GetProperty("hash_mismatch_flag_over"), "/hash_mismatch_flag_over", file, diagnostics);
 
             // 초를 틱으로 바꾼 값이 0 이 되면(0.001초) 끊김·유예·관전 지연·다시 재는 간격이 사라진다
             RequirePositive(silence, "/disconnect_silence_seconds", file, diagnostics);
@@ -106,6 +108,7 @@ namespace Wizard.DataBuild
             output.I32(clockSamples);
             output.I32(clockResync);
             output.I32(clockSlew);
+            output.I32(hashFlagOver);
         }
 
         // 스키마의 "integer" 는 6.0 도 받으므로 decimal 로 읽어 정수인지 본다(다른 변환기의 Int 도우미와 같다)

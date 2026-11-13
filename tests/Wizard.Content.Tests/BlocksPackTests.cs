@@ -298,7 +298,7 @@ namespace Wizard.Content.Tests
             var longer = new byte[good.Length + 1];
             good.CopyTo(longer, 0);
             Assert.Throws<ContentException>(() => Load(longer));
-            int entry = (good.Length - 2) / 16;
+            int entry = (good.Length - 2 - SpellRulesBytes) / 16;
             // 첫 항목: u8 id(2) kind(3) rarity(4) element(5), i32×3(6..17), i64(18..25), i32(26..29), i64(30..37), u8 is_instant(38),
             //          i64(39..46), i64(47..54), i32(55..58), u16 flags(59..60), u8 effect(61),
             //          BlockParams: i64 explosion_radius(62..69), i32 chain_hops(70..73), … 끝은 i32 crit_multiplier(154..157)
@@ -335,6 +335,87 @@ namespace Wizard.Content.Tests
 
         // 60(BlockParams 앞) + i64 × 5 + i32 × 14 = 60 + 40 + 56
         private const int EntryBytes = 156;
+
+        // 절의 꼬리(T-57): i32 × 3
+        private const int SpellRulesBytes = 12;
+
+        // ── 주문 규칙(절의 꼬리, T-57): spec 02 SF-2 64개, HT-5 최대 5(600 HU), HT-7 +50%(1500) ──
+
+        [Fact]
+        public void SpellRules_RoundTrip_AreTheSpecIntegers()
+        {
+            SpellRulesDef r = RepoDb().SpellRules;
+            Assert.Equal(64, r.TreeProjectileCap);
+            Assert.Equal(600, r.UnderlineMaxCutHu);
+            Assert.Equal(1500, r.MirrorHeatMulPermille);
+            // 꼬리는 항목 16개 뒤의 12바이트다(LE)
+            byte[] s = Section(RepoPack.Value);
+            Assert.Equal(2 + 16 * EntryBytes + SpellRulesBytes, s.Length);
+            int at = 2 + 16 * EntryBytes;
+            Assert.Equal(new byte[] { 64, 0, 0, 0, 0x58, 0x02, 0, 0, 0xDC, 0x05, 0, 0 }, s.AsSpan(at, SpellRulesBytes).ToArray());
+        }
+
+        [Fact]
+        public void SpellRules_MissingInSource_NoTail_AccessorThrows()
+        {
+            using TempDataRepo repo = Repo("[" + MagicBoltJson + "]");
+            byte[] s = Section(BuildPack(repo.Root));
+            Assert.Equal(2 + EntryBytes, s.Length);
+            ContentDb db = Load(s);
+            Assert.Equal(BlockId.MagicBolt, db.Block(BlockId.MagicBolt).Id);
+            Assert.Throws<ContentException>(() => db.SpellRules);
+        }
+
+        [Fact]
+        public void SpellRules_SchemaRejectsOutOfRange()
+        {
+            using (TempDataRepo repo = RepoWithRules("{ \"tree_projectile_cap\": 0, \"underline_max_cut_heat\": 5, \"mirror_heat_multiplier\": 1.5 }"))
+            {
+                Assert.Contains(Problems(repo.Root), p => p.Contains("data/sim/blocks.json:/spell_rules/tree_projectile_cap"));
+            }
+            using (TempDataRepo repo = RepoWithRules("{ \"tree_projectile_cap\": 64, \"underline_max_cut_heat\": -1, \"mirror_heat_multiplier\": 1.5 }"))
+            {
+                Assert.Contains(Problems(repo.Root), p => p.Contains("data/sim/blocks.json:/spell_rules/underline_max_cut_heat"));
+            }
+            using (TempDataRepo repo = RepoWithRules("{ \"tree_projectile_cap\": 64, \"underline_max_cut_heat\": 5, \"mirror_heat_multiplier\": 0.5 }"))
+            {
+                Assert.Contains(Problems(repo.Root), p => p.Contains("data/sim/blocks.json:/spell_rules/mirror_heat_multiplier"));
+            }
+            using (TempDataRepo repo = RepoWithRules("{ \"tree_projectile_cap\": 64, \"underline_max_cut_heat\": 5 }"))
+            {
+                Assert.Contains(Problems(repo.Root), p => p.Contains("data/sim/blocks.json:/spell_rules"));
+            }
+            using (TempDataRepo repo = RepoWithRules("{ \"tree_projectile_cap\": 32, \"underline_max_cut_heat\": 2.5, \"mirror_heat_multiplier\": 2 }"))
+            {
+                Assert.Empty(Problems(repo.Root));
+                SpellRulesDef r = Load(Section(BuildPack(repo.Root))).SpellRules;
+                Assert.Equal(32, r.TreeProjectileCap);
+                Assert.Equal(300, r.UnderlineMaxCutHu);
+                Assert.Equal(2000, r.MirrorHeatMulPermille);
+            }
+        }
+
+        [Fact]
+        public void SpellRules_BrokenTail_ThrowsContentException()
+        {
+            byte[] good = Section(RepoPack.Value);
+            int at = good.Length - SpellRulesBytes;
+            byte[] zeroCap = (byte[])good.Clone();
+            zeroCap[at] = 0;
+            Assert.Throws<ContentException>(() => Load(zeroCap));
+            byte[] negativeCut = (byte[])good.Clone();
+            negativeCut[at + 7] = 0x80;
+            Assert.Throws<ContentException>(() => Load(negativeCut));
+            byte[] lowMirror = (byte[])good.Clone();
+            lowMirror[at + 8] = 0xE7;                             // 999
+            lowMirror[at + 9] = 0x03;
+            Assert.Throws<ContentException>(() => Load(lowMirror));
+            // 꼬리가 반만 있다
+            Assert.Throws<ContentException>(() => Load(good.AsSpan(0, good.Length - 4).ToArray()));
+            // 꼬리를 통째로 뗀 절은 "규칙 없음"으로 읽힌다
+            ContentDb bare = Load(good.AsSpan(0, at).ToArray());
+            Assert.Throws<ContentException>(() => bare.SpellRules);
+        }
 
         // ── 표식·효과·동작 값의 짝(변환기의 교차 검사, T-53) ──
 
@@ -726,11 +807,16 @@ namespace Wizard.Content.Tests
             "  \"split_count\": 1, \"base_damage\": 0, \"interval_seconds\": 0, \"speed\": 0, \"instant\": false, \"range\": 0, \"hit_radius\": 0, \"damage_bonus\": 0,\n" +
             "  \"flags\": [], \"effect\": \"bounce\", \"params\": { \"bounce_count\": 2 } }";
 
-        private static TempDataRepo Repo(string blocksArray)
+        private static TempDataRepo Repo(string blocksArray) => RepoWith("{ \"blocks\": " + blocksArray + " }\n");
+
+        private static TempDataRepo RepoWithRules(string rules) =>
+            RepoWith("{ \"spell_rules\": " + rules + ", \"blocks\": [" + MagicBoltJson + "] }\n");
+
+        private static TempDataRepo RepoWith(string blocksFile)
         {
             var repo = new TempDataRepo();
             repo.Write("data/schema/blocks.schema.json", System.IO.File.ReadAllText(TestRepo.Path("data/schema/blocks.schema.json")));
-            repo.Write("data/sim/blocks.json", "{ \"blocks\": " + blocksArray + " }\n");
+            repo.Write("data/sim/blocks.json", blocksFile);
             repo.Write("data/names/names.ko.json", "{\n  \"block.chain_lightning\": \"연쇄 번개\",\n  \"block.fireball\": \"거대 화염구\",\n  \"block.magic_bolt\": \"마력탄\",\n  \"block.nope\": \"없음\",\n" +
                 "  \"block.split_two\": \"2갈래 분열\",\n  \"block.wall_bounce\": \"벽 튕김\",\n  \"~end\": \"\"\n}\n");
             return repo;

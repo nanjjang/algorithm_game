@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wizard.invalid/data/schema/starfall.schema.json",
+  "title": "별똥 결정 (data/sim/starfall.json → 팩 절 15 starfall)",
+  "description": "world-characters 2.3, spec 01 10.5(원문과 [임시] 표), spec 01 2.3, CONTRACTS 2.2. StarfallDef 하나. 변환기가 보는 것: 떨어지는 때 from ≤ to, 깜빡임 ≤ 놓여 있는 시간, 시간대는 tod.boss 가 아니다.",
+  "type": "object",
+  "required": ["only_tod", "chance_percent", "drop_window_seconds", "telegraph_seconds", "landed_seconds", "blink_seconds", "area", "grid_step", "hazard_clearance", "player_clearance", "retry_seconds", "pick_radius", "crystals"],
+  "additionalProperties": false,
+  "properties": {
+    "_note": { "$ref": "_common.schema.json#/$defs/note" },
+    "only_tod": { "description": "나오는 시간대 id(spec 14 3.9) → OnlyTod", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^tod\\." },
+    "chance_percent": { "description": "웨이브마다 나올 확률(%) → ChanceBp(× 100)", "$ref": "_common.schema.json#/$defs/percent", "minimum": 0, "maximum": 100 },
+    "drop_window_seconds": {
+      "description": "웨이브 시작 뒤 떨어지는 때의 구간(초, 닫힌 구간에서 균등) → DropFromTicks, DropToTicks(× 60)",
+      "type": "object",
+      "required": ["from", "to"],
+      "additionalProperties": false,
+      "properties": {
+        "from": { "$ref": "_common.schema.json#/$defs/seconds" },
+        "to": { "$ref": "_common.schema.json#/$defs/seconds" }
+      }
+    },
+    "telegraph_seconds": { "description": "예고(초) → TelegraphTicks(× 60)", "$ref": "_common.schema.json#/$defs/seconds", "exclusiveMinimum": 0 },
+    "landed_seconds": { "description": "놓여 있는 시간(초) → LandedTicks(× 60)", "$ref": "_common.schema.json#/$defs/seconds", "exclusiveMinimum": 0 },
+    "blink_seconds": { "description": "마지막에 깜빡이는 시간(초) → BlinkTicks(× 60). landed_seconds 이하", "$ref": "_common.schema.json#/$defs/seconds" },
+    "area": {
+      "description": "자리를 고르는 전장 가운데 직사각형(칸) → AreaWidth, AreaHeight(Raw)",
+      "type": "object",
+      "required": ["width", "height"],
+      "additionalProperties": false,
+      "properties": {
+        "width": { "$ref": "_common.schema.json#/$defs/cells", "exclusiveMinimum": 0 },
+        "height": { "$ref": "_common.schema.json#/$defs/cells", "exclusiveMinimum": 0 }
+      }
+    },
+    "grid_step": { "description": "자리 격자 간격(칸) → GridStep(Raw)", "$ref": "_common.schema.json#/$defs/cells", "exclusiveMinimum": 0 },
+    "hazard_clearance": { "description": "적·예고 구역·남는 위험 구역 경계에서 떨어질 거리(칸) → HazardClearance(Raw)", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+    "player_clearance": { "description": "플레이어에게서 떨어질 거리(칸) → PlayerClearance(Raw)", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+    "retry_seconds": { "description": "빈 자리가 없을 때 다시 찾기까지(초) → RetryTicks(× 60)", "$ref": "_common.schema.json#/$defs/seconds", "exclusiveMinimum": 0 },
+    "pick_radius": { "description": "줍는 거리(칸, 판정 중심끼리) → PickRadius(Raw)", "$ref": "_common.schema.json#/$defs/cells", "exclusiveMinimum": 0 },
+    "crystals": { "description": "주우면 얻는 마력 결정 수 → Crystals", "type": "integer", "minimum": 1 }
+  }
+}

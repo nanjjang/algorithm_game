@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wizard.invalid/data/schema/weather_events.schema.json",
+  "title": "날씨와 돌발 사건 (data/sim/weather_events.json → 팩 절 16 weather_events)",
+  "description": "world-characters 2.3(표 5행), spec 14 3.9(event.*), CONTRACTS 2.2, DECISIONS-TECH T-55. 사건마다 한 줄이고 WeatherEventId(코드 1~5)마다 정확히 한 줄이 있어야 한다. 변환기가 보는 것: 겹치는 id, 빠진 id, when 과 tods 의 짝(wave_start 면 tods 가 있고 day_change 면 없다), span 과 duration_seconds 의 짝(timed 일 때만), 규칙에 영향을 주는 사건은 event.star_crystal 뿐이고 그 줄에는 수치를 두지 않는다(starfall.json 이 주인), 그 밖의 줄에는 chance_percent 가 있어야 한다.",
+  "type": "object",
+  "required": ["events"],
+  "additionalProperties": false,
+  "properties": {
+    "_note": { "$ref": "_common.schema.json#/$defs/note" },
+    "events": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/event" }
+    }
+  },
+  "$defs": {
+    "event": {
+      "type": "object",
+      "required": ["id", "affects_rules", "when", "span"],
+      "additionalProperties": false,
+      "properties": {
+        "_note": { "$ref": "_common.schema.json#/$defs/note" },
+        "id": { "description": "사건 id(spec 14 3.9 event.*) → WeatherEventDef.Id", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^event\\." },
+        "affects_rules": { "description": "world-characters 2.3 의 '규칙 영향' 칸 → AffectsRules. true 는 event.star_crystal 뿐이다", "type": "boolean" },
+        "when": { "description": "wave_start = 웨이브가 시작될 때 뽑는다, day_change = 날이 바뀔 때 → OnDayChange", "enum": ["wave_start", "day_change"] },
+        "tods": {
+          "description": "뽑는 웨이브의 시간대 id(spec 14 3.9 tod.*) → TodMask(비트 1 << 코드). when 이 wave_start 일 때만",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^tod\\." }
+        },
+        "chance_percent": { "description": "기회마다 일어날 확률(%) → ChanceBp(× 100)", "$ref": "_common.schema.json#/$defs/percent", "minimum": 0, "maximum": 100 },
+        "max_per_day": { "description": "하루에 일어나는 횟수의 상한 → MaxPerDay. 없으면 상한 없음(0)", "type": "integer", "minimum": 1 },
+        "span": { "description": "instant = 한 번 일어나고 끝난다, wave = 그 웨이브가 끝날 때까지, timed = duration_seconds 동안 → IsInstant, DurationTicks", "enum": ["instant", "wave", "timed"] },
+        "duration_seconds": { "description": "이어지는 길이(초) → DurationTicks(× 60). span 이 timed 일 때만", "$ref": "_common.schema.json#/$defs/seconds", "exclusiveMinimum": 0 },
+        "edge_width": { "description": "전장 가장자리에서 안쪽으로 덮는 폭(칸) → EdgeWidth(Raw). 없으면 0", "$ref": "_common.schema.json#/$defs/cells", "exclusiveMinimum": 0 },
+        "variants": { "description": "일어날 때 고르는 변형의 수 → VariantCount. 없으면 1(변형 없음)", "type": "integer", "minimum": 1 }
+      }
+    }
+  }
+}

@@ -36,3 +36,8 @@ TestResults/
 *.pepper
 appsettings.Local.json
 .env
+
+# 로컬 개발 도구 설정(저장소에 올리지 않는다)
+.claude/
+CLAUDE.md
+docs/dev/agent-config/

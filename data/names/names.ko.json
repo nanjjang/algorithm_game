@@ -206,6 +206,8 @@
   "event.discarded_item": "버린 물건",
   "event.fog": "안개",
   "event.master_advice": "느루의 훈수",
+  "event.master_advice.line.1": "왼쪽이 비었다.",
+  "event.master_advice.line.2": "나 때는 맨손이었다.",
   "event.shower": "소나기",
   "event.star_crystal": "별똥 결정",
   "facility.arena_path": "돌마당 가는 돌길",

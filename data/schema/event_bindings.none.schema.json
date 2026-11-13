@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wizard.invalid/data/schema/event_bindings.none.schema.json",
+  "title": "의도적으로 연출이 없는 표시 사건 (data/presentation/event_bindings.none.json)",
+  "description": "CONTRACTS 13절 빠짐 검사. SimEventType 의 모든 값과 UiEventKeys.All 의 모든 열쇠는 event_bindings.json 에 줄이 있거나 이 목록에 있다(둘 다는 안 된다).",
+  "type": "object",
+  "required": ["none"],
+  "additionalProperties": false,
+  "properties": {
+    "_note": { "$ref": "_common.schema.json#/$defs/note" },
+    "none": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["event", "reason"],
+        "additionalProperties": false,
+        "properties": {
+          "event": { "type": "string", "pattern": "^[a-z][a-z0-9_]*(\\.[a-z0-9_]+)+$", "maxLength": 96 },
+          "reason": {
+            "description": "not_an_event(빈 값), debug_only(디버그 표시 전용), spec_no_presentation(명세가 연출 없음이라 적음), phase_of_core_event(코어 이벤트의 PresentationEvent 단계로 그린다), camera_output(연출 한도 관리기가 내는 결과)",
+            "enum": ["not_an_event", "debug_only", "spec_no_presentation", "phase_of_core_event", "camera_output"]
+          }
+        }
+      }
+    }
+  }
+}

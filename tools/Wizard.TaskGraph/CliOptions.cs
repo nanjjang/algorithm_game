@@ -13,6 +13,8 @@ namespace Wizard.TaskGraph
         public string? Head { get; set; }
         public bool NoVectors { get; set; }
         public bool Json { get; set; }
+        public bool NoHistory { get; set; }
+        public bool Check { get; set; }
         public List<string> Positional { get; } = new List<string>();
 
         public static CliOptions Parse(IReadOnlyList<string> args)
@@ -32,6 +34,8 @@ namespace Wizard.TaskGraph
                     case "--head": o.Head = Value(args, ref i); break;
                     case "--no-vectors": o.NoVectors = true; break;
                     case "--json": o.Json = true; break;
+                    case "--no-history": o.NoHistory = true; break;
+                    case "--check": o.Check = true; break;
                     default:
                         if (a.StartsWith("--", System.StringComparison.Ordinal))
                         {

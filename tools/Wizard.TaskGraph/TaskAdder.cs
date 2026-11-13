@@ -9,6 +9,9 @@ namespace Wizard.TaskGraph
 {
     // taskgraph add: 계약 변경(CCR-<번호>)과 결함(FIX-<번호>) 작업을 tasks.json 에 더한다(PIPELINE 3.7절).
     //   - id 가 "CCR" 이나 "FIX" 이면 다음 번호를 붙인다. 그 밖에는 CCR-<번호> | FIX-<번호> 꼴이고 겹치지 않아야 한다.
+    //     다음 번호는 이 문서와 usedMax(다른 브랜치·작업 트리에서 쓰인 최댓값. Cli 가 next-ids 와 같은 길로 읽어 넘긴다. T-65 6번)의
+    //     최댓값 + 1 이다. usedMax 를 넘기지 않으면 이 문서만 본다. 이 함수는 git 을 부르지 않는다.
+    //   - 검사의 병합 기록(history)도 Cli 가 읽어 넘긴다(T-65 5번). 넘기지 않으면 전부 병합 전으로 본다.
     //   - status 가 없으면 todo, vectors·contracts 가 없으면 빈 배열. 열쇠는 tasks.json 의 순서로 맞춘다.
     //   - 같은 마일스톤의 마지막 작업 뒤에 넣고, 그 마일스톤의 task_count, blocked_on_assets, parallel_groups 를 고친다.
     //   - 더한 뒤의 문서 전체를 validate 와 같은 검사에 통과시켜야 쓴다. 하나라도 틀리면 아무것도 쓰지 않는다.
@@ -23,7 +26,8 @@ namespace Wizard.TaskGraph
             "deps", "spec_refs", "contracts", "owned_paths", "acceptance", "vectors", "parallel_group", "status", "human_check",
         };
 
-        public static AddResult Prepare(string currentText, string sourceName, string inputJson, string? schemaPath, string? specsDir)
+        public static AddResult Prepare(string currentText, string sourceName, string inputJson, string? schemaPath, string? specsDir,
+            MergeHistory? history = null, IReadOnlyDictionary<string, int>? usedMax = null)
         {
             TaskDoc doc = TaskDoc.Parse(currentText, sourceName);
             JsonObject input;
@@ -40,7 +44,7 @@ namespace Wizard.TaskGraph
             string id = TaskDef.Str(input, "id") ?? throw new TaskGraphException("더할 작업에 id 가 없다(CCR, FIX, CCR-<번호>, FIX-<번호>)", TaskGraphException.UsageExitCode);
             if (id == "CCR" || id == "FIX")
             {
-                id = NextId(doc, id);
+                id = NextId(doc, id, usedMax);
             }
             else if (!IdPattern.IsMatch(id))
             {
@@ -83,13 +87,13 @@ namespace Wizard.TaskGraph
             UpdateMilestone(doc.Root, milestone, task);
 
             TaskDoc after = TaskDoc.Parse(JsStyleJson.Serialize(doc.Root, TaskDoc.FileIndent), sourceName);
-            ValidationReport report = GraphValidator.Validate(after, schemaPath, specsDir);
+            ValidationReport report = GraphValidator.Validate(after, schemaPath, specsDir, history);
             return new AddResult(id, after.Serialize(), report);
         }
 
-        private static string NextId(TaskDoc doc, string kind)
+        private static string NextId(TaskDoc doc, string kind, IReadOnlyDictionary<string, int>? usedMax)
         {
-            int max = 0;
+            int max = usedMax != null && usedMax.TryGetValue(kind, out int used) ? Math.Max(0, used) : 0;
             foreach (TaskDef t in doc.Tasks)
             {
                 Match m = IdPattern.Match(t.Id);
@@ -139,19 +143,29 @@ namespace Wizard.TaskGraph
             string group = TaskDef.Str(task, "parallel_group") ?? "";
             if (m["parallel_groups"] is JsonArray groups && !TaskDef.StrList(m, "parallel_groups").Contains(group))
             {
-                List<string> names = TaskDef.StrList(m, "parallel_groups").ToList();
-                bool sorted = names.SequenceEqual(names.OrderBy(x => x, StringComparer.Ordinal));
-                int at = groups.Count;
-                if (sorted)
-                {
-                    at = names.FindIndex(x => string.CompareOrdinal(x, group) > 0);
-                    if (at < 0)
-                    {
-                        at = groups.Count;
-                    }
-                }
-                groups.Insert(at, group);
+                InsertGroup(groups, group);
             }
+        }
+
+        // 마일스톤의 parallel_groups 에 묶음을 넣는 자리: 목록이 이름순이면 이름순 자리, 아니면 끝. recount 도 이 규칙을 쓴다
+        public static void InsertGroup(JsonArray groups, string group)
+        {
+            var names = new List<string>();
+            foreach (JsonNode? n in groups)
+            {
+                names.Add(n is JsonValue v && v.GetValueKind() == JsonValueKind.String ? v.GetValue<string>() : "");
+            }
+            bool sorted = names.SequenceEqual(names.OrderBy(x => x, StringComparer.Ordinal));
+            int at = groups.Count;
+            if (sorted)
+            {
+                at = names.FindIndex(x => string.CompareOrdinal(x, group) > 0);
+                if (at < 0)
+                {
+                    at = groups.Count;
+                }
+            }
+            groups.Insert(at, group);
         }
 
         private static long Count(JsonObject m, string key)

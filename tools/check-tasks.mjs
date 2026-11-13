@@ -2,12 +2,21 @@
 // docs/dev/tasks.json 검사기. node 표준 모듈만 쓴다.
 //
 //   node tools/check-tasks.mjs [--tasks <경로>] [--specs <폴더>] [--no-vectors] [--quiet]
+//                              [--repo <폴더>] [--base <ref>] [--no-history]
+//
+//   --repo <폴더>   병합 기록을 읽을 저장소(기본: 이 파일의 위치에서 구한 뿌리)
+//   --base <ref>    병합 기록의 기준(기본 main). 커밋 제목 <type>(<id>): … 의 id 가 그래프에 있으면 병합된 작업이다
+//   --no-history    기록을 보지 않는다(전부 병합 전으로 보고 엄격하게 검사한다)
+//   기록을 읽지 못하면(git 실패, <base>가 없다) 실패하지 않고 전부 병합 전으로 보며 요약에 그 사실을 적는다.
 //
 // 검사하는 것
 //   1. 유효한 JSON이고 필수 필드가 있다. id가 겹치지 않는다.
 //   2. deps가 가리키는 작업이 있고, 그래프가 위상정렬된다(순환 없음).
 //   3. 같은 parallel_group 안의 작업은 서로 의존이 없고(전이 포함) owned_paths가 겹치지 않는다.
 //   4. owned_paths가 겹치는 두 작업은 deps로(전이 포함) 순서가 정해져 있다.
+//      3·4의 경로 겹침(DECISIONS-TECH T-65 2·4번): owned_paths의 항목 가운데 개정 장부(LEDGER)와 글자가 같은 것은
+//      세지 않는다(docs/dev/ 같은 폴더 무늬는 센다). 겹침 규칙 둘은 둘 다 병합 전인 쌍에만 건다.
+//      "같은 묶음은 서로 의존이 없다"는 병합 여부와 무관하다.
 //   5. owner_agent가 agents에 있고 owner_model이 그 에이전트의 default_model과 같다.
 //   6. milestones의 task_count, blocked_on_assets, parallel_groups가 tasks에서 계산한 값과 같다.
 //   7. vectors: 선택자 문법, 명세의 모든 테스트 벡터가 정확히 한 작업에 배정되어 있다(미배정·이중 배정 0).
@@ -17,7 +26,13 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+
+// 개정 장부(T-65 1번). tools/Wizard.TaskGraph/Ledger.cs 와 같은 목록이다
+const LEDGER = new Set(["docs/dev/DECISIONS-TECH.md", "docs/dev/OPEN-QUESTIONS.md", "docs/dev/tasks.json"]);
+// main의 커밋 제목(PIPELINE 4.2절). tools/Wizard.TaskGraph/MergeHistory.cs 의 CommitSubject 와 같다
+const COMMIT_SUBJECT = /^(feat|fix|test|data|docs|build|refactor|perf|art|chore)\(([^()\s]+)\): /;
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
@@ -27,6 +42,9 @@ const tasksPath = path.resolve(opt("--tasks", path.join(root, "docs/dev/tasks.js
 const specDir = path.resolve(opt("--specs", path.join(root, "docs/spec")));
 const checkVectors = !args.includes("--no-vectors");
 const quiet = args.includes("--quiet");
+const repoDir = path.resolve(opt("--repo", root));
+const baseRef = opt("--base", "main");
+const noHistory = args.includes("--no-history");
 
 const errors = [];
 const warnings = [];
@@ -101,6 +119,27 @@ if (acyclic) for (const id of order) {
 const dependsOn = (a, b) => { const bits = anc.get(a); if (!bits) return false; const i = index.get(b); return (bits[i >>> 5] & (1 << (i & 31))) !== 0; };
 const ordered = (a, b) => dependsOn(a, b) || dependsOn(b, a);
 
+// ---------- 병합 기록(T-65 4·5번) ----------
+// 기록을 읽지 못하면 null: 전부 병합 전으로 본다
+function readSubjects() {
+  const git = (...a) => execFileSync("git", ["-C", repoDir, ...a], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"], maxBuffer: 1 << 28 });
+  try {
+    git("rev-parse", "--verify", "--quiet", baseRef + "^{commit}");
+    return git("log", "--format=%s", baseRef);
+  } catch { return null; }
+}
+const merged = new Set();
+let historySummary;
+if (noHistory) historySummary = "병합 기록: 보지 않았다(--no-history). 전부 병합 전으로 본다";
+else {
+  const subjects = readSubjects();
+  if (subjects === null) historySummary = `병합 기록: ${baseRef}을 읽지 못했다. 전부 병합 전으로 본다`;
+  else {
+    for (const line of subjects.split("\n")) { const m = line.match(COMMIT_SUBJECT); if (m && byId.has(m[2])) merged.add(m[2]); }
+    historySummary = `병합 기록: ${baseRef}의 커밋 제목에서 병합된 작업 ${merged.size}개`;
+  }
+}
+
 // ---------- 3·4. 경로 겹침 ----------
 // 규칙: '/'로 끝나면 폴더 전체. '*'는 한 경로 마디 안에서만 맞는다.
 function segRegex(seg) { return new RegExp("^" + seg.split("*").map((s) => s.replace(/[.+?^${}()|[\]\\]/g, "\\$&")).join("[^/]*") + "$"); }
@@ -123,8 +162,8 @@ function pathsOverlap(pa, pb) {
   const shorter = a.segs.length < b.segs.length ? a : b;
   return shorter.dir;          // 짧은 쪽이 폴더여야 긴 쪽을 품는다
 }
-const parsed = tasks.map((t) => t.owned_paths ?? []);
-let overlapPairs = 0;
+const parsed = tasks.map((t) => (Array.isArray(t.owned_paths) ? t.owned_paths : []).filter((p) => typeof p === "string" && !LEDGER.has(p)));
+let overlapPairs = 0, unmergedPairs = 0;
 for (let i = 0; i < tasks.length; i++) for (let j = i + 1; j < tasks.length; j++) {
   const A = tasks[i], B = tasks[j];
   let hit = null;
@@ -134,6 +173,8 @@ for (let i = 0; i < tasks.length; i++) for (let j = i + 1; j < tasks.length; j++
     err(`묶음 ${A.parallel_group}: ${A.id}와 ${B.id}가 서로 의존한다(같은 묶음은 의존이 없어야 한다)`);
   if (!hit) continue;
   overlapPairs++;
+  if (merged.has(A.id) || merged.has(B.id)) continue;   // 순서는 main의 기록이 정했다
+  unmergedPairs++;
   if (sameGroup) err(`묶음 ${A.parallel_group}: ${A.id}와 ${B.id}의 owned_paths가 겹친다 — ${hit[0]} ↔ ${hit[1]}`);
   else if (acyclic && !ordered(A.id, B.id)) err(`${A.id}와 ${B.id}의 owned_paths가 겹치는데 deps로 순서가 정해져 있지 않다 — ${hit[0]} ↔ ${hit[1]}`);
 }
@@ -240,7 +281,8 @@ if (!quiet) {
   for (const w of warnings) console.log(`warn  ${w}`);
   for (const e of errors) console.log(`FAIL  ${e}`);
   console.log(`\n작업 ${tasks.length}개, 묶음 ${groups.size}개, 마일스톤 ${ms.size}개`);
-  console.log(`위상정렬: ${acyclic ? "됨" : "순환 있음"} / 경로가 겹치는 작업 쌍 ${overlapPairs}개(전부 deps로 순서가 있어야 한다)`);
+  console.log(`위상정렬: ${acyclic ? "됨" : "순환 있음"} / 경로가 겹치는 작업 쌍 ${overlapPairs}개(장부 제외), 그 가운데 둘 다 병합 전인 쌍 ${unmergedPairs}개(deps로 순서가 있어야 한다)`);
+  console.log(historySummary);
   console.log(`벡터: ${vectorSummary}`);
   console.log(errors.length ? `\n실패 ${errors.length}건` : "\n통과");
 }

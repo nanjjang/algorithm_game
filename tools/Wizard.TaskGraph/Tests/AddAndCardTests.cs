@@ -164,6 +164,12 @@ namespace Wizard.TaskGraph.Tests
             return max;
         }
 
+        // 실제 그래프를 쓰는 시험은 실제 저장소의 병합 기록을 읽어 넘긴다(Cli 와 같은 길. T-65 4·5번)
+        private static MergeHistory RealHistory(string text)
+        {
+            return MergeHistoryReader.Read(new Git(Fx.RepoRoot), "main", TaskDoc.Parse(text, "tasks.json"));
+        }
+
         private static string Ccr(int n) => "CCR-" + n.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
         private static int M0TaskCount(string text)
@@ -175,7 +181,7 @@ namespace Wizard.TaskGraph.Tests
         // 실제 그래프 흉내: 그래프에 이미 있던 것처럼 작업 하나를 더한 문서를 돌려준다(검사 전체를 통과해야 한다)
         private static string WithExisting(string text, JsonObject task)
         {
-            AddResult r = TaskAdder.Prepare(text, "tasks.json", task.ToJsonString(), Fx.SchemaPath, Fx.RealSpecsDir);
+            AddResult r = TaskAdder.Prepare(text, "tasks.json", task.ToJsonString(), Fx.SchemaPath, Fx.RealSpecsDir, RealHistory(text));
             Assert.True(r.Report.Ok, string.Join("\n", r.Report.Errors));
             return r.NewText;
         }
@@ -184,7 +190,7 @@ namespace Wizard.TaskGraph.Tests
         private static void AssertAddsNextCcr(string text, int expectedNumber)
         {
             Assert.Equal(expectedNumber, MaxNumber(text, "CCR") + 1); // 기대값 계산 자체를 확인한다
-            AddResult r = TaskAdder.Prepare(text, "tasks.json", ContractsCcr().ToJsonString(), Fx.SchemaPath, Fx.RealSpecsDir);
+            AddResult r = TaskAdder.Prepare(text, "tasks.json", ContractsCcr().ToJsonString(), Fx.SchemaPath, Fx.RealSpecsDir, RealHistory(text));
             Assert.True(r.Report.Ok, string.Join("\n", r.Report.Errors));
             Assert.Equal(Ccr(expectedNumber), r.Id);
             Assert.Equal(M0TaskCount(text) + 1, M0TaskCount(r.NewText));
@@ -222,7 +228,8 @@ namespace Wizard.TaskGraph.Tests
         }
 
         // 위 주석의 "알려진 한계"를 고정한다: M0-TL-01 이 아닌 작업이 CONTRACTS.md 를 갖고 deps 로 이어지지 않으면
-        // 실제 그래프 복사본에 더해 보는 시험은 번호가 아니라 경로 겹침으로 실패한다
+        // 실제 그래프 복사본에 더해 보는 시험은 번호가 아니라 경로 겹침으로 실패한다.
+        // FIX-7(T-65): 병합 기록을 넘겨도 그대로 성립한다. 병합 전인 두 CCR 이 CONTRACTS.md 를 같이 가진다(CONTRACTS.md 는 장부가 아니다)
         [Fact]
         public void Add_ToCopyOfRealGraph_WhenAnotherTaskAlsoOwnsContracts_FailsOnOverlap()
         {
@@ -231,7 +238,7 @@ namespace Wizard.TaskGraph.Tests
             string withContractsCcr = WithExisting(real, Fx.Task("CCR", group: "M0-W10", deps: new[] { "M0-TL-01" },
                 paths: new[] { ContractsPath }, agent: "tech-lead", model: "fable"));
 
-            AddResult r = TaskAdder.Prepare(withContractsCcr, "tasks.json", ContractsCcr().ToJsonString(), Fx.SchemaPath, Fx.RealSpecsDir);
+            AddResult r = TaskAdder.Prepare(withContractsCcr, "tasks.json", ContractsCcr().ToJsonString(), Fx.SchemaPath, Fx.RealSpecsDir, RealHistory(withContractsCcr));
             Assert.Equal(Ccr(ccr0 + 2), r.Id);
             Assert.False(r.Report.Ok);
             Assert.Equal(

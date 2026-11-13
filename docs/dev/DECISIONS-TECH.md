@@ -1331,6 +1331,33 @@ public interface IAssetCatalog {
 // AssetKey는 그대로다. 크기는 열쇠의 칸이 아니다(PixelSize는 Wizard.ViewLogic.Common)
 ```
 
+## T-61 머리 없는 골든 실행기는 `Wizard.Unity.App` 안에 있고 `Wizard.TestKit.Shared`를 참조한다. 산술 연산 표 `CoreArithOps`는 `Wizard.TestKit.Shared`에 한 벌만 둔다 [신규]
+
+번호 메모: T-55와 T-57~T-60은 아직 main에 들어오지 않은 다른 작업 브랜치들이 쓰고 있다. 겹치지 않게 T-61을 쓴다.
+
+- **문제**: M1-UE-03(Unity 골든)이 구현을 끝내고 멈췄다. 카드의 소유 경로만으로는 Unity에서 컴파일되지 않는다. 올라온 것은 둘이다.
+  1. 골든 실행기(`unity/Assets/Game/App/Headless/`)는 `tests/golden/`을 `Wizard.TestKit.Shared`(`GoldenCatalog`, `GoldenRunResult`, `GoldenComparison`, `ArithRunner`)로 읽는다. 그런데 `Wizard.Unity.App.asmdef`의 참조에 `Wizard.TestKit.Shared`가 없고 그 파일은 어느 카드의 소유도 아니다. 실행기에 따로 asmdef를 줄 수도 없다: `ARCHITECTURE.md` 3.1절은 `unity/Assets/Game/`의 어셈블리를 다섯으로, Unity 쪽 테스트 asmdef를 둘로 정했고 `ProjectSetupTests.GameAsmdefs_AreTheFiveLayers`가 그것을 본다.
+  2. 산술 경계 벡터는 연산 이름을 코어 함수에 잇는 표(`IArithOps`의 구현)가 있어야 돈다. 그 표 `CoreArithOps`는 `tests/Wizard.Core.Tests/Math/`(net10.0의 xUnit 프로젝트)에 있어서 Unity가 컴파일하지 못한다. Unity 쪽에 사본을 둘 수도 없다: 표는 `Fix64.Raw`를 읽고 쓰는데 `unity/Assets` 아래의 코드는 `Raw`에 손대지 못한다(`FixConvertSearchTests.UnityAssembliesDoNotTouchRawAtAll`. `Fix64 → float` 변환을 `FixConvert` 한 곳에 묶는 규칙의 울타리다).
+- **결정**:
+  1. **골든 실행기는 `Wizard.Unity.App` 어셈블리 안에 있다**(`ARCHITECTURE.md` 3.1절·4.3절 그대로). `Wizard.Unity.App.asmdef`의 `references`에 `Wizard.TestKit.Shared`를 더한다. `unity/Assets/Game/`의 asmdef는 여전히 다섯이다.
+  2. **`Wizard.TestKit.Shared`를 쓰는 곳은 `Headless/`뿐이다.** `App/Core/`, `App/Boot/`와 다른 Unity 어셈블리(`Input`, `Presentation`, `UI`, `Debug`)는 쓰지 않는다. 의존 방향은 그대로다: `Wizard.TestKit.Shared`는 `Wizard.Core`와 Newtonsoft만 참조하고 `src/`의 어느 패키지도 `Wizard.TestKit.Shared`를 참조하지 않는다.
+  3. **골든 실행기와 `Wizard.TestKit.Shared`는 출시 플레이어에도 들어간다.** `-golden`이 명령 줄에 없으면 실행기는 아무것도 하지 않는다. 정의 기호로 출시 빌드에서 빼지 않는다.
+  4. **`CoreArithOps`는 `tests/Wizard.TestKit/Shared/Arith/CoreArithOps.cs`(네임스페이스 `Wizard.TestKit.Shared.Arith`)에 한 벌만 둔다.** dotnet 시험(`Wizard.Core.Tests`의 `ArithGoldenTests`), dotnet 골든 실행기, Unity EditMode, 플레이어의 골든 실행기가 같은 소스를 컴파일해 쓴다. 표에 연산을 더하는 작업(산술 묶음을 더하는 작업)은 이 파일을 고친다.
+- **대안**: (가) 골든 실행기에 asmdef를 따로 준다(`Wizard.Unity.App.Headless`). (나) `Wizard.TestKit.Shared`를 쓰지 않고 골든 폴더·결과 파일·표 비교의 판독기를 `Headless/`에 다시 쓴다. (다) 실행기와 `Wizard.TestKit.Shared`를 정의 기호(`WIZARD_GOLDEN` 같은 것)가 있을 때만 플레이어에 넣는다. (라) 산술 표의 사본을 Unity 쪽에 두고 `UnityAssembliesDoNotTouchRawAtAll`에 예외 경로를 낸다. (마) `CoreArithOps`를 `src/Wizard.Core`로 옮긴다.
+- **이유**:
+  - (가) 다섯 계층은 "화면·표시·입력·조립·디버그"의 의존 방향을 지키는 틀이고 시험이 그 수를 본다. 실행기는 조립 루트와 같은 층의 일(팩을 읽고 세계를 만들어 돌린다)이라 층을 하나 더 만들 까닭이 없다. 3.1절과 4.3절이 이미 그 자리를 `App/Headless/`로 적었다.
+  - (나) `tests/golden/README.md`가 "읽는 코드는 `tests/Wizard.TestKit/Shared`에 한 벌만 있다. dotnet 테스트와 Unity EditMode·플레이어가 같은 소스를 컴파일해 쓴다"로 정했다. 판독기가 둘이면 형식이 바뀔 때 한쪽만 고쳐져 열 하나가 조용히 다른 것을 비교한다. 골든은 그런 어긋남을 잡으려는 장치다.
+  - (다) T-39는 "배포하는 조합은 그 조합에서 골든을 통과해야 배포할 수 있다"다. 골든을 돌린 바이너리와 배포하는 바이너리가 다른 빌드면(정의 기호가 다르면 다른 빌드다) 확인한 것은 배포하는 것이 아니다. T-44의 플레이어 왕복 테스트도 같은 틀을 쓴다. `Wizard.TestKit.Shared`는 `noEngineReferences`이고 리플렉션 직렬화를 쓰지 않아(`JToken`으로 읽고 쓴다) `link.xml`에 더할 것이 없다. 플레이어에 실리는 것은 판독기와 비교기, 퍼저·벡터 이름 도우미의 코드뿐이고 통신·재화·계정에 닿는 코드는 없다.
+  - (라) 그 시험은 "Unity 쪽 코드가 `Raw`를 만지면 실수 변환이 `FixConvert` 밖으로 샌다"를 막는다. 예외 경로를 내면 울타리가 약해지고, 표가 둘이 되어 dotnet 열과 Unity 열이 같은 이름으로 다른 함수를 부를 수 있다(그러면 "모든 열이 같다"가 뜻을 잃는다).
+  - (마) 표는 시험 도구다(연산 이름 문자열로 가른다). 코어 세 어셈블리에는 이름 문자열에 기댄 로직과 시험용 코드를 두지 않는다(`CLAUDE.md` 3절). 코어의 소스가 바뀌면 `SimVersion`도 바뀐다.
+- **`CONTRACTS.md`는 고칠 곳이 없다.** 시그니처, 열거형 번호, 파일·패킷·DB 형식은 그대로다. 바뀐 것은 어셈블리 참조 한 줄과 시험 도구 파일의 자리이고, 그 서술은 `ARCHITECTURE.md` 2절(폴더 그림)·3.1절(Unity 어셈블리 표)·3.3절(프레임워크 표)에 있어 거기를 고쳤다.
+- **따라오는 일**:
+  - `tasks.json`: M1-UE-03의 `owned_paths`에 `unity/Assets/Game/App/Wizard.Unity.App.asmdef`, `tests/Wizard.Core.Tests/Math/CoreArithOps.cs`(옮겨서 없어지는 자리), `tests/Wizard.TestKit/Shared/Arith/CoreArithOps.cs`를 더하고 수락 조건 한 줄을 더했다. 참조 한 줄과 표의 이동은 실행기와 한 커밋에 있어야 main이 깨지지 않는다(T-56의 8번과 같은 까닭). 앞의 두 경로를 가진 M1-CORE-01과 M0-TE-01은 이미 `deps`로 앞에 있다. asmdef는 다른 카드가 갖지 않는다.
+  - 이 결정을 같이 넣으려고 `docs/dev`의 세 파일(이 문서, `ARCHITECTURE.md`, `tasks.json`)도 M1-UE-03의 `owned_paths`에 더했다(T-56과 같은 방식. main에 들어간 뒤에는 필요 없다). 같은 문서를 가진 작업들과 순서가 있어야 해서 `deps`에 M10-ACC-01을 더했다(그 앞의 M2-SPL-01, M1-SIM-08, M1-CONT-02, M0-TL-01은 M10-ACC-01의 `deps`를 따라 이어진다). M10-ACC-01은 이미 main에 있어(done) M1-UE-03과 M1-INT를 막지 않는다. 이 `deps` 한 줄은 문서 파일의 순서를 적은 것이고 골든 실행기가 계정 스키마에 기댄다는 뜻이 아니다. 문서는 문서만 든 커밋으로 따로 두었다.
+  - `Wizard.TestKit.Shared`에는 `.meta`를 커밋하지 않는다(metagen의 범위 밖이고 `unity.sh`가 실행 뒤 지운다). 옮긴 파일도 같다.
+  - `IArithOps`의 머리 주석("산술 묶음의 주인(M1-CORE-01)이 만든다")은 그대로 맞다: 표를 만든 것은 M1-CORE-01이고 자리만 옮겼다.
+  - 골든 기록의 본문을 틱별 열로 펼치는 판독기가 둘이다(dotnet은 `tools/Wizard.ReplayCli/RecordFeed.cs`, Unity는 `App/Headless/GoldenRecord.cs`). 코어의 본문 판독기가 내부(`internal`)라서 생긴 일이고, 두 판독기는 같은 기대 해시로 서로를 확인한다. 하나로 모으려면 코어가 "기록 → 틱별 입력 열"의 공개 문을 내야 하는데 그것은 계약 변경(CONTRACTS 3.8절)이라 여기서 하지 않았다. 필요해지는 작업이 계약 변경 요청으로 올린다.
+
 ## 아직 정하지 않은 기술 항목
 
 구현을 막지 않는다. 해당 단계에 닿았을 때 정한다.

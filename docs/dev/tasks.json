@@ -1839,7 +1839,8 @@
    "deps": [
     "M1-UE-01",
     "M1-TE-01",
-    "M1-CORE-01"
+    "M1-CORE-01",
+    "M10-ACC-01"
    ],
    "spec_refs": [
     "docs/dev/ARCHITECTURE.md §11",
@@ -1852,14 +1853,21 @@
    "owned_paths": [
     "unity/Assets/Game/App/Headless/",
     "unity/Assets/Tests/EditMode/Golden/",
-    "tools/ci/unity-golden.sh"
+    "tools/ci/unity-golden.sh",
+    "unity/Assets/Game/App/Wizard.Unity.App.asmdef",
+    "tests/Wizard.Core.Tests/Math/CoreArithOps.cs",
+    "tests/Wizard.TestKit/Shared/Arith/CoreArithOps.cs",
+    "docs/dev/DECISIONS-TECH.md",
+    "docs/dev/ARCHITECTURE.md",
+    "docs/dev/tasks.json"
    ],
    "acceptance": [
     "EditMode 테스트가 tests/golden/의 모든 항목을 Mono에서 돌려 기대 해시와 비교한다",
     "플레이어(Mono와 IL2CPP, 각각 arm64와 Intel 64-bit)를 `-batchmode -nographics -golden <폴더>`로 띄우면 같은 항목과 산술 경계 벡터를 돌리고 결과 JSON(조합 이름, 골든별 해시)을 쓰고 불일치면 0이 아닌 코드로 끝난다. x64 플레이어는 Rosetta 2로 돈다",
     "`tools/ci/unity-golden.sh`가 dotnet(arm64, -a x64), Unity Mono(EditMode, arm64 플레이어, x64 플레이어), IL2CPP(arm64, x64)의 결과를 한 표로 비교한다. 여섯 열 이상이 전부 같아야 통과다",
     "mac-il2cpp 모듈이나 x64 dotnet 런타임이 없으면 unity-golden.sh는 건너뛰지 않고 '무엇이 없다'와 설치 명령을 적고 실패한다",
-    "다른 기기(Windows)에서 돌린 결과 JSON을 받아 같은 표에 넣어 비교할 수 있다"
+    "다른 기기(Windows)에서 돌린 결과 JSON을 받아 같은 표에 넣어 비교할 수 있다",
+    "T-61(이 작업이 멈춘 곳을 tech-lead가 풀었다): 골든 실행기는 Wizard.Unity.App 안(Assets/Game/App/Headless/)에 있고 Wizard.Unity.App.asmdef가 Wizard.TestKit.Shared를 참조한다(Assets/Game의 asmdef는 여전히 다섯이다). 산술 연산 표 CoreArithOps는 tests/Wizard.TestKit/Shared/Arith/에 한 벌만 있고 dotnet 시험(ArithGoldenTests), dotnet 골든 실행기, Unity EditMode, 플레이어의 골든 실행기가 같은 소스를 쓴다. unity/Assets 아래에 Raw를 만지는 코드가 없다(FixConvertSearchTests.UnityAssembliesDoNotTouchRawAtAll 통과)"
    ],
    "vectors": [],
    "parallel_group": "M1-W10",

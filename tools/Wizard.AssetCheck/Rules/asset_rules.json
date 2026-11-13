@@ -1,0 +1,47 @@
+{
+  "_note": "반입 검사(tools/Wizard.AssetCheck)의 규칙 표. char5_palette: 그믐 팔레트·지팡이 +0 머리 검사, not_required: 콘텐츠 id 규칙(asset_aliases.json ui_icons)이 만들지만 명세가 그리지 않기로 한 자리.",
+  "char5_palette": {
+    "_note": "그믐(char.5) 팔레트 검사의 기준(DECISIONS 2.2, spec 14 4.1·4.2절, world-characters.md 4.5 확정 팔레트). 원본 팔레트 = art/player/dark_wizard/idle-reference-details.png 의 픽셀에서 뽑아 16색으로 정리한 값(4.5절 표). 원본 그림의 픽셀 색(825색, 반투명 번짐 포함)을 그대로 쓰지 않는 까닭: 정리한 16색 가운데 5색은 원본 픽셀에 그대로 있지 않다(정리 작업이 색을 합쳤다). 검사 대상은 캐릭터 몸과 초상(64px 배율의 도트 그림). 큰 그림(selection 192×192, spec 9절 U-24 '큰 그림에서만 목도리 끝과 세로 눈')과 실루엣(검은 덩어리, 4.1절)은 [임시]로 뺀다. 지팡이 +0 머리: 머리 점 위쪽(y < head.y)의 불투명 픽셀 가운데 외곽선(명도 20% 미만)을 뺀 것의 과반이 보라 계열이어야 한다. 보라 계열 = 색상각 250~300도, 채도 20% 이상 [임시]: 4.5절 결정색 274·279도와 현물 머리 #8A5CFF(257도)·#D9C7FF(259도)를 담고 그믐 후드의 자주(311~316도)는 담지 않는다.",
+    "character": "char.5",
+    "wand": "wand.5",
+    "reference": "art/player/dark_wizard/idle-reference-details.png",
+    "max_colors": 16,
+    "palette": [
+      "#1B0D1B",
+      "#561F4C",
+      "#7A336A",
+      "#B25A9B",
+      "#E2ACFA",
+      "#222641",
+      "#3E4675",
+      "#6271AE",
+      "#CA8F44",
+      "#F8C062",
+      "#704456",
+      "#A47384",
+      "#854972",
+      "#8539BF",
+      "#D68CF9",
+      "#FDF6FF"
+    ],
+    "checked_variants_exclude": [
+      "selection",
+      "silhouette"
+    ],
+    "wand_head": {
+      "stage": 0,
+      "facing": "down",
+      "pose": "hold",
+      "outline_max_value_percent": 20,
+      "purple_hue_from": 250,
+      "purple_hue_to": 300,
+      "purple_min_saturation_percent": 20
+    }
+  },
+  "not_required": [
+    {
+      "slot": "Ui:I-E2/element_neutral",
+      "why": "spec 14 5.2절 I-E2(64)는 무 없음, TV-234"
+    }
+  ]
+}

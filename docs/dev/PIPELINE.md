@@ -348,28 +348,31 @@ vector-coverage --task <id> 의 출력: 대상 N개, 통과 N개, 빠짐 0개
 
 | 항목 | 값 |
 |---|---|
-| 기기 | 맥 한 대(개발과 서버를 겸한다). 서버 배치는 같은 맥미니의 launchd |
+| 기기 | 개발 기기는 macOS와 Windows 11(x64) 둘 다다(T-67). 2026-11-14부터 개발은 Windows 11 PC에서 한다. 서버 배치 대상은 맥미니의 launchd 그대로다. `ci.sh`의 모든 단계는 두 OS에서 같은 스크립트로 돌고, 한쪽에서만 되는 것은 OS 조건으로 나누되 다른 쪽에 같은 성질을 보는 대응 검사를 둔다 |
 | .NET | SDK 10.0.201 (`global.json` 고정) |
-| Unity | 6000.3.20f1. 지금 설치된 것은 macOS의 **Mono 변형뿐**이다(`mac-il2cpp` 모듈이 없다). Windows 모듈은 이 맥에서 `windows-mono`만 가능하다 |
+| Unity | 6000.3.20f1. 맥: `/Applications/Unity/Hub/Editor/<판>/Unity.app`, 설치된 것은 macOS의 **Mono 변형뿐**이다(`mac-il2cpp` 모듈이 없다). Windows PC: `C:/Program Files/Unity/Hub/Editor/<판>/Editor/Unity.exe`, 설치된 것은 `windowsstandalonesupport`의 **Mono 변형뿐**이다(`windows-il2cpp` 모듈이 없다). 다른 곳에 있으면 `UNITY_EDITOR`(편집기 실행 파일) 또는 `WIZARD_UNITY_HUB_EDITORS`(Hub의 Editor 폴더)로 알린다 |
 | DB | 테스트: Docker의 `postgres:17` 고정 태그(`tools/ci/pg-test.sh`. 작업 트리마다 빈 포트, 테스트마다 임시 데이터베이스). Docker가 돌고 있지 않으면 `ci.sh full`은 건너뛰지 않고 실패한다(T-38). 배치: 맥미니에 직접 설치(아직 없다) |
-| 셸 도구 | `/bin/bash`는 3.2.57이다(연관 배열, `mapfile`, `${x,,}` 없음). `timeout`, `flock`도 없다. 스크립트는 bash 3.2 문법만 쓰고 로직·시간 제한·잠금은 `tools/Wizard.Ci`에 둔다(T-40) |
-| x64 | Rosetta 2는 있다. x64 dotnet 런타임은 없다(골든의 x64 열에 필요) |
-| 셸 | zsh의 `git` 함수 래퍼가 깨져 있다. git은 `command git`, 그 밖의 명령은 절대 경로(`/bin/ls`, `/usr/bin/grep`)나 에이전트 도구를 쓴다. `cd` 대신 절대 경로와 `command git -C <경로>`를 쓴다 |
-| 원격 저장소 | 지금 없다. 원격이 생기면 main을 병합 게이트 뒤에만 올린다. 강제 푸시는 하지 않는다 |
+| 셸 도구 | 맥의 `/bin/bash`는 3.2.57이다(연관 배열, `mapfile`, `${x,,}` 없음). `timeout`, `flock`도 없다. Windows PC의 셸은 Git for Windows의 bash 5.2(`C:/Program Files/Git/bin/bash.exe`)다. 스크립트는 두 기기에서 같은 파일이고 `#!/bin/bash`와 bash 3.2 문법만 쓴다. 로직·시간 제한·잠금은 `tools/Wizard.Ci`에 둔다(T-40). 셸을 찾는 순서는 한 곳(`Wizard.Ci`)에 있다: `WIZARD_BASH` > Windows면 Git for Windows의 `bin/bash.exe` > `/bin/bash`. PATH의 `bash`는 쓰지 않는다(Windows에서는 WSL을 띄우는 `System32/bash.exe`가 잡힌다). T-67 |
+| x64 | 맥(arm64): Rosetta 2는 있다. x64 dotnet 런타임은 없다(골든의 x64 열에 필요). Windows PC는 x64라서 그 기기의 dotnet이 곧 x64 열이다. arm64 열은 맥에서만 나온다(T-68) |
+| 셸 | 맥의 zsh에는 `git` 함수 래퍼가 깨져 있다. git은 `command git`, 그 밖의 명령은 절대 경로(`/bin/ls`, `/usr/bin/grep`)나 에이전트 도구를 쓴다. `cd` 대신 절대 경로와 `command git -C <경로>`를 쓴다. Windows에서도 같은 규칙이다: `ci.sh`와 `tools/ci/`의 스크립트는 Git Bash로 부른다(Git Bash에도 `/bin/…`, `/usr/bin/…`이 있다). PowerShell에서는 `& "C:/Program Files/Git/bin/bash.exe" <저장소>/tools/ci/ci.sh fast`로 부른다. 경로는 슬래시로 적는다(`D:/algorithm_game/…`) |
+| 원격 저장소 | GitHub의 `origin`. main을 병합 게이트 뒤에만 올린다. 강제 푸시는 하지 않는다. 올라가 있는 main의 옛 이력은 커밋 제목이 `merge: <type>/<id 소문자> 브랜치를 main에 합친다 — …` 꼴로 다시 쓰여 있다. 병합 판정은 그 꼴도 읽는다(T-69). 새 병합은 4.2절의 `<type>(<id>): …` 꼴이다 |
 
 사용자가 직접 해야 하는 것(에이전트는 `sudo`를 쓰지 않고, 기기에 무엇을 설치하지도 않는다):
 
 | 무엇 | 언제 필요한가 | 메모 |
 |---|---|---|
 | Unity `mac-il2cpp` 모듈 | M1-UE-03(IL2CPP 골든)부터 | sudo 없이 된다: `"/Applications/Unity Hub.app/Contents/MacOS/Unity Hub" -- --headless install-modules --version 6000.3.20f1 -m mac-il2cpp` |
+| Windows PC: Unity `windows-il2cpp` 모듈과 Visual Studio의 C++ 빌드 도구(Windows SDK 포함) | Windows에서 통합 빌드의 IL2CPP 열을 돌릴 때(FIX-11) | `"C:/Program Files/Unity Hub/Unity Hub.exe" -- --headless install-modules --version 6000.3.20f1 -m windows-il2cpp`. 없으면 그 열은 건너뛰지 않고 이 명령을 적고 실패한다 |
+| Git for Windows | Windows PC에서 `ci.sh`를 돌릴 때 | 이미 깔려 있다. 다른 곳에 있으면 `WIZARD_BASH`에 `bash.exe`의 경로를 준다 |
 | x64 dotnet 런타임 | M1-UE-03(골든의 x64 열)부터 | 사용자 폴더에 설치할 수 있다(`dotnet-install.sh --architecture x64 --install-dir <폴더>`) |
-| Docker 실행 | M10-DB-01부터 | 이미 깔려 있다. 돌고 있기만 하면 된다 |
+| Docker 실행 | M10-DB-01부터 | 이미 깔려 있다. 돌고 있기만 하면 된다(두 기기 다 Docker Desktop) |
 | PostgreSQL과 Caddy 설치(배치용) | M10-OPS-01 | |
 | LaunchDaemon plist 설치 | M10-OPS-01 | 로그인 없이 서버를 계속 띄우려면 `/Library/LaunchDaemons`(root 소유)에 넣어야 하고 sudo가 든다. LaunchAgent로는 로그아웃하면 서버가 내려간다. 스크립트는 plist를 만들고 검증하는 데까지만 한다 |
 | 공유기 포트와 도메인 | M10-OPS-01 | |
 | 메일 사업자의 계정, API 키, 발신 도메인의 SPF·DKIM | M10-ACC-05 | 사업자 선택은 `OPEN-QUESTIONS.md` |
-| Windows 기기(또는 가상 머신) | Windows 배포물을 낼 때 | Windows IL2CPP는 Windows에서만 빌드된다. Mono로 낼 때도 골든은 Windows 실기에서 돌린다(T-39) |
+| Windows 기기(또는 가상 머신) | Windows 배포물을 낼 때 | Windows IL2CPP는 Windows에서만 빌드된다. Mono로 낼 때도 골든은 Windows 실기에서 돌린다(T-39). 2026-11-14부터 개발 PC가 이 기기다 |
 | `CLAUDE.md`와 `.claude/agents/`의 승인 | M0-TL-02 | |
+| 맥(arm64) | 통합 빌드의 macOS 열(arm64, Rosetta의 x64)과 서버 배치 | 개발이 Windows PC에서 도는 동안 macOS 열은 맥에서 `tools/ci/unity-golden.sh`를 돌린 결과 파일을 게이트에 붙인다(T-68, `OPEN-QUESTIONS.md` Q-30) |
 
 ### 4.2 브랜치와 커밋
 
@@ -390,6 +393,7 @@ Co-Authored-By: <그 커밋을 만든 모델의 줄>
 - type: `feat`, `fix`, `test`, `data`, `docs`, `build`, `refactor`, `perf`, `art`, `chore`
 - Co-Authored-By 줄: Opus는 `Claude Opus 5.5 <noreply@anthropic.com>`, Fable은 `Claude Fable 5.2 <noreply@anthropic.com>`, Sonnet은 `Claude Sonnet 5.5 <noreply@anthropic.com>`
 - 커밋과 푸시는 사용자가 이 파이프라인을 돌리라고 한 범위에서만 한다. 작업 브랜치 안의 커밋은 담당자가, main의 커밋은 integration-engineer가 만든다.
+- 병합 판정(T-65, T-69): 어떤 작업이 main에 병합됐는지는 main의 커밋 제목에서 읽는다. 위의 `<type>(<작업 id>): …` 꼴, 그리고 다시 쓰인 옛 이력의 `merge: <type>/<작업 id 소문자> 브랜치를 main에 합친다 …` 꼴이다. `taskgraph`(validate, add, resolve, reconcile, done)와 `tools/check-tasks.mjs`가 같은 판정을 한다.
 
 ### 4.3 작업 트리(worktree)
 
@@ -397,7 +401,7 @@ Co-Authored-By: <그 커밋을 만든 모델의 줄>
 - 작업 트리 안의 명령은 전부 절대 경로다: `$WT/tools/ci/ci.sh fast`, `dotnet build $WT/Wizard.sln`, `command git -C $WT …`, `-projectPath $WT/unity`. `ci.sh`와 모든 도구는 저장소의 뿌리를 현재 폴더가 아니라 **자기 위치**에서 구한다(스크립트의 경로, `git -C <자기 폴더> rev-parse --show-toplevel`). 읽기·고치기 도구도 `$WT` 아래 경로만 쓴다.
 - 만들기와 지우기는 `taskgraph start`, `taskgraph done`이 한다.
 - dotnet의 출력은 작업 트리마다 자기 `artifacts/`로 간다. 서로 섞이지 않는다.
-- `unity/` 아래를 가진 작업은 시작할 때 main 쪽의 `unity/Library`를 APFS 복제(`cp -c`)로 가져와 첫 가져오기를 줄인다. `Library`는 커밋하지 않는다.
+- `unity/` 아래를 가진 작업은 시작할 때 main 쪽의 `unity/Library`를 APFS 복제(`cp -c`)로 가져와 첫 가져오기를 줄인다. APFS 복제는 macOS에만 있다. 다른 OS에서는 가져오지 않고 그 사실을 시작 결과에 적는다(통째 복사는 작업 트리마다 수 GB를 쓴다. Unity가 처음부터 가져온다. T-67). `Library`는 커밋하지 않는다.
 - Unity 편집기를 띄우는 작업은 동시에 둘까지만 돌린다 [총괄 제안]. 코어·규칙·넷코드·화면 로직·서버 작업은 Unity를 띄우지 않으므로 이 제한을 받지 않는다.
 - 서버 테스트는 작업 트리마다 다른 임시 데이터베이스 이름과 빈 포트를 쓴다. 유닉스 소켓은 `/tmp/wz/<작업 트리 경로의 해시 8자>-<목적>.sock`에 둔다. macOS의 소켓 경로는 104바이트까지라서 작업 트리의 `artifacts/` 아래에 두면 bind가 실패한다(CONTRACTS 7.3절).
 - Unity는 프로젝트를 열 때 스스로 파일을 고쳐 쓴다(`Packages/packages-lock.json`, `ProjectSettings/*.asset`의 형식 갱신, `ProjectVersion.txt`, `.meta`가 없는 새 파일의 무작위 GUID). 그래서 Unity를 띄우는 모든 스크립트는 **먼저 `metagen`을 돌리고**, 끝난 뒤 위 세 가지의 변경을 되돌린다(`command git -C $WT checkout -- …`). 그 파일을 실제로 고치는 것은 그것을 `owned_paths`에 가진 unity-engineer 작업뿐이다.
@@ -471,9 +475,10 @@ Co-Authored-By: <그 커밋을 만든 모델의 줄>
 
 `ci.sh`는 `tools/ci/`의 다른 스크립트 가운데 머리말에 `# ci-stage: fast|full|integration`이 적힌 것을 이름순으로 부른다. 새 검사는 스크립트 파일을 더해서 넣는다(`ci.sh`를 고치지 않는다). 스크립트 하나만 돌릴 때는 `ci.sh run <스크립트 이름>`이다. 하위 명령은 없다: 생성 파일 대조는 `tools/ci/gen-check.sh`(fast, M0-BT-03), 이름 검사는 `tools/ci/names-scan.sh`(fast, M1-CONT-02), 작업 그래프 검사는 `tools/ci/tasks-check.sh`(fast, `node tools/check-tasks.mjs`를 부른다), 개정 장부 검사는 `tools/ci/ledger-check.sh`(fast, `taskgraph ledger`를 부른다. FIX-7)다.
 
-- 스크립트는 `#!/bin/bash`와 bash 3.2 문법만 쓰는 껍데기다. 단계 실행, 시간 제한(`Process.WaitForExit`), 잠금(파일 배타 열기), 바뀐 경로에 따른 단계 선택은 `tools/Wizard.Ci`(C#)가 한다(T-40).
+- 스크립트는 `#!/bin/bash`와 bash 3.2 문법만 쓰는 껍데기다(Windows의 Git Bash 5.2에서도 같은 파일이 돈다). 단계 실행, 시간 제한(`Process.WaitForExit`), 잠금(파일 배타 열기), 바뀐 경로에 따른 단계 선택은 `tools/Wizard.Ci`(C#)가 한다(T-40).
 - 스크립트와 도구는 저장소 뿌리를 자기 위치에서 구한다. 현재 폴더에 기대지 않는다.
-- 필요한 것이 기기에 없을 때(Docker, `mac-il2cpp`, x64 런타임) 그 검사는 **건너뛰지 않고** 무엇이 없는지와 사용자가 할 일을 적고 실패한다.
+- 두 OS에서 도는 규칙(T-67): (1) 셸은 `Wizard.Ci`가 한 곳에서 찾아(`WIZARD_BASH` > Windows의 Git for Windows `bin/bash.exe` > `/bin/bash`) 검사 스크립트에 `WIZARD_BASH`로 넘긴다. 스크립트를 띄우는 다른 코드(시험 포함)는 `WIZARD_BASH`가 있으면 그것을 쓰고 없으면 같은 순서로 찾는다. (2) 실행기는 스크립트의 경로와 경로가 든 환경 변수(`WIZARD_ROOT`, `WIZARD_CI_NOTE`, `WIZARD_CI_DLL`, `WIZARD_CI_TRX_DIR`)를 슬래시 꼴(`D:/…`)로 넘긴다. 스크립트가 스스로 구한 경로는 `tools/ci/lib/common.sh`의 한 함수가 같은 꼴로 바꾼다(`cygpath -m`이 있으면 그것으로, 없으면 그대로). 컨테이너 안의 경로를 인자로 넘기는 호출(docker)은 그 호출에서만 MSYS의 경로 바꾸기를 끈다. (3) 도구의 표준 출력, 도구가 쓰는 파일, 도구가 화면에 적는 저장소 경로는 어느 OS에서나 LF와 `/`다. 시험이 만드는 임시 git 저장소는 `core.autocrlf=false`로 만든다. (4) 프로젝트 묶음(`WizardGroup`)의 판정은 경로 구분자에 기대지 않는다. 묶음이 비면 분석기가 붙지 않는다. `determinism-guard.sh`가 그것을 잡는다. (5) 한 OS에만 있는 도구(`shasum`, `cp -c`, `arch`, `sysctl`)는 스크립트에 바로 쓰지 않고 `common.sh`의 함수 뒤에 둔다.
+- 필요한 것이 기기에 없을 때(셸, Docker, Unity 편집기, 그 OS의 IL2CPP 모듈, 맥의 x64 런타임) 그 검사는 **건너뛰지 않고** 무엇이 없는지와 사용자가 할 일(그 OS의 설치 명령)을 적고 실패한다. 판정과 문구는 `tools/Wizard.Ci/Requirements.cs` 한 곳에 있다.
 
 배포(M10부터):
 
@@ -553,7 +558,7 @@ Co-Authored-By: <그 커밋을 만든 모델의 줄>
 /bin/cp docs/dev/agent-config/agents/*.md .claude/agents/
 ```
 
-그 뒤 이 두 곳의 변경은 사용자 승인이 있는 tech-lead 작업으로만 한다. 원본(`docs/dev/agent-config/`)을 먼저 고치고 같은 내용을 옮긴다. CI의 `agent-config-check.sh`(fast)가 "설치본과 원본이 바이트 단위로 같다"를 본다. 모델별 변형 에이전트 파일(`*-opus.md`)은 머리말의 `name`·`description`·`model`만 다르고 본문이 기본 파일과 같아야 한다(같은 검사가 본다).
+그 뒤 이 두 곳의 변경은 사용자 승인이 있는 tech-lead 작업으로만 한다. 원본(`docs/dev/agent-config/`)을 먼저 고치고 같은 내용을 옮긴다. CI의 `agent-config-check.sh`(fast)가 "설치본과 원본이 바이트 단위로 같다"를 본다. 2026-11-14(커밋 7e20951)부터 `CLAUDE.md`, `.claude/`, `docs/dev/agent-config/`는 git이 추적하지 않는다(로컬 설정). 그래서 원본 폴더가 있는 체크아웃(메인 저장소)에서는 지금처럼 보고, 원본 폴더도 설치본도 없는 체크아웃(작업 트리, 새로 받은 저장소)에서는 볼 것이 없다는 것을 결과에 적고 통과한다. 설치본만 있고 원본이 없으면 실패한다(T-67). 모델별 변형 에이전트 파일(`*-opus.md`)은 머리말의 `name`·`description`·`model`만 다르고 본문이 기본 파일과 같아야 한다(같은 검사가 본다).
 
 M0-TL-02는 M0의 첫 작업이다. 그 전에 띄우는 작업 카드에는 원본의 2절·2.5절·3절을 그대로 붙인다.
 
@@ -675,6 +680,8 @@ M0-TL-02는 M0의 첫 작업이다. 그 전에 띄우는 작업 카드에는 원
 3. 2인 헤드리스 결투: M3부터 기기 안 호스트로(`duel2p.sh`), M14부터 실제 UDP와 `wizard-duel`로(`duel-net.sh`).
 4. 성능: 틱 시간, 할당, 재실행 속도, (M9부터) Unity 프레임 시간, (M16부터) 부하.
 5. 안정성: 봇 입력의 긴 판을 끝까지 돌려 예외 0, 해시 일치. PlayMode 화면 순회에서 막히는 화면 0.
+
+통합 빌드의 열은 돌리는 기기의 OS가 정한다(T-68). 맥(arm64)에서는 위의 macOS 열 일곱이다. Windows PC(x64)에서는 `windows-dotnet-test-x64`, `windows-mono-editor-x64`, `windows-mono-player-x64`, `windows-il2cpp-player-x64` 넷이고 IL2CPP에는 `windows-il2cpp` 모듈과 C++ 빌드 도구가 있어야 한다(없으면 건너뛰지 않고 실패한다). 다른 OS의 열은 그 기기에서 돌린 결과 파일을 붙여 같은 표로 비교한다. 붙이지 않은 열은 게이트 파일에 "붙지 않음"으로 남고 사람 확인 항목이 된다. 맥미니에 서버를 배치하기 전과 그 OS의 배포물을 내기 전에는 그 열이 있어야 한다(T-39).
 
 ### 7.3 결정론 검증
 

@@ -67,6 +67,9 @@
 | T-56 | `mail_outbox`의 상태는 spec 12의 넷뿐이다: 배달 확인은 `sent` 그대로, 반송은 `sent → dropped`. 시험 대역이 진짜 표로 바뀔 때의 시험 도우미는 그 표를 들이는 작업이 고친다 | [신규] |
 | T-63 | 덜 찬 데이터를 전제한 저장소 데이터 시험은 그 데이터를 채우는 작업이 같은 브랜치에서 고친다 | [신규] |
 | T-65 | 개정 장부(결정 기록·열린 질문·작업 그래프)는 경로 겹침 검사에서 빼고, 겹침 규칙은 둘 다 병합 전인 작업에만 건다. 장부의 충돌은 도구가 푼다 | [신규] |
+| T-67 | 개발 기기는 macOS와 Windows 둘 다다: 셸은 한 곳에서 찾고(`WIZARD_BASH` > Git for Windows > `/bin/bash`), 스크립트에는 슬래시 경로를 주고, 도구의 출력은 LF이고, 프로젝트 묶음은 경로 구분자에 기대지 않는다 | [신규] |
+| T-68 | 통합 빌드의 열은 돌리는 기기의 OS가 정한다. 다른 OS의 열은 그 기기의 결과 파일을 붙인다 | [신규] |
+| T-69 | 병합 판정은 다시 쓰인 이력의 `merge: <type>/<id 소문자> 브랜치를 main에 합친다` 제목도 읽는다 | [신규] |
 | T-58 | 그림의 크기는 `AssetKey`의 칸이 아니다. 크기 없는 조회는 가장 작은 그림, `IAssetCatalog`에 크기를 받는 조회 둘. 매니페스트에 없는 그림 자리는 `asset_slots.json` | [신규] |
 | T-55 | `WeatherEventDef`의 칸과 절 16 `weather_events`의 꼴. 규칙에 영향을 주는 사건(별똥 결정)의 수치는 `StarfallDef` 한 곳에만 둔다 | [신규] |
 
@@ -1448,6 +1451,79 @@ public interface IAssetCatalog {
   - `IArithOps`의 머리 주석("산술 묶음의 주인(M1-CORE-01)이 만든다")은 그대로 맞다: 표를 만든 것은 M1-CORE-01이고 자리만 옮겼다.
   - 찾은 결함(FIX-6으로 더하고 M1-INT의 `deps`에 넣었다): main(M2-NET-02 뒤)에서 Mono 플레이어 빌드가 실패한다. `unity/Assets/Plugins/BouncyCastle.Cryptography.dll.meta`가 `serializedVersion: 2`라고 적고 `platformData`는 3판의 꼴이라, 플레이어의 스크립트 컴파일에 그 DLL이 들어가지 않는다(편집기 컴파일에는 들어간다. 그래서 병합 게이트는 통과했다). 그 파일은 M0-BT-01의 것이라 여기서 고치지 않았다. M1-UE-03의 플레이어 열은 그 한 줄을 작업 트리에서 임시로 `3`으로 바꿔 돌려 확인하고 되돌렸다(Mono arm64·x64 플레이어가 골든 7개와 산술 벡터 141개를 기대와 같게 냈다). FIX-6이 main에 들어가기 전에는 `unity-golden.sh`의 플레이어 열이 "player build failed"로 실패한다. 이것은 M1-UE-03의 결함이 아니다.
   - 골든 기록의 본문을 틱별 열로 펼치는 판독기가 둘이다(dotnet은 `tools/Wizard.ReplayCli/RecordFeed.cs`, Unity는 `App/Headless/GoldenRecord.cs`). 코어의 본문 판독기가 내부(`internal`)라서 생긴 일이고, 두 판독기는 같은 기대 해시로 서로를 확인한다. 하나로 모으려면 코어가 "기록 → 틱별 입력 열"의 공개 문을 내야 하는데 그것은 계약 변경(CONTRACTS 3.8절)이라 여기서 하지 않았다. 필요해지는 작업이 계약 변경 요청으로 올린다.
+
+## T-67 개발 기기는 macOS와 Windows 둘 다다: 셸은 한 곳에서 찾고, 스크립트에는 슬래시 경로를 주고, 도구의 출력은 LF이고, 프로젝트 묶음은 경로 구분자에 기대지 않는다 [신규]
+
+번호 메모: T-66은 아직 main에 들어오지 않은 작업 브랜치(M2-NET-06)가 쓰고 있다(`taskgraph next-ids`).
+
+- **문제**: 2026-11-14에 개발 기기가 맥(zsh, `/bin/bash` 3.2)에서 Windows 11 PC(x64, Git for Windows의 bash 5.2, .NET SDK 10.0.201, Unity 6000.3.20f1, Docker Desktop)로 바뀌었다. 이 PC에서 main(7e20951)의 `tools/ci/ci.sh fast --all`은 검사를 하나도 통과하지 못한다. FIX-9의 작업 트리에서 직접 돌려 확인한 것은 아홉이다.
+  1. **셸이 없다.** `tools/Wizard.Ci/StageRunner.cs`와 `PreCommit.cs`가 `/bin/bash`를 바로 띄운다. Windows에는 그 파일이 없어 첫 검사에서 "`/bin/bash` 을 띄우지 못했다"로 단계 전체가 끝난다. 이름만 `bash`로 바꾸면 PATH에서 `C:\Windows\System32\bash.exe`(WSL을 띄우는 것)가 먼저 잡힌다. 시험도 같다: `Wizard.Ci`의 `ShellScriptTests`·`CiScriptTests`·`HooksTests`·`TaskBranchTests`·`ProcessRunnerTests`·`TempGit`, `tests/Wizard.Server.Tests/Infra/PgTestServer.cs`가 `/bin/bash`를, `Wizard.TaskGraph`의 `CheckDiffTests`·`LifecycleTests`가 `/bin/sh`, `/usr/bin/true`, `/usr/bin/false`, `/usr/bin/env`를 바로 띄운다.
+  2. **역슬래시 경로.** 실행기는 스크립트의 경로를 `Path.Combine`으로 만든 Windows 꼴(`D:\…\tools\ci\tasks-check.sh`)로 넘긴다. 스크립트 머리의 `case "$0" in */*) _here="${0%/*}"`는 `/`가 없는 `$0`을 나누지 못해 `_here="."`가 되고 `./lib/common.sh: No such file or directory`로 죽는다(같은 스크립트를 `D:/…` 꼴로 부르면 통과한다).
+  3. **Windows에서 분석기가 붙지 않는다.** `Directory.Build.props`는 프로젝트 묶음을 `$(_WizardProjectDir.StartsWith('$(WizardRoot)src/'))`로 정한다. Windows에서 `_WizardProjectDir`는 `D:\…\src\Wizard.Core\`이고 비교하는 값은 `D:\…\src/`라서 맞지 않는다. `WizardGroup`이 비고, 그래서 결정론·계층 분석기의 연결(`OutputItemType="Analyzer"`)과 공유 패키지의 `LangVersion 9.0`이 어느 프로젝트에도 걸리지 않는다. `determinism-guard.sh`의 탐침 여덟이 전부 "built successfully; the analyzer did not stop it"로 실패한 까닭이 이것이다. 확인: 탐침 빌드에 `-p:WizardGroup=shared`를 주면 `Wizard.Core`가 WZ0001~WZ0015로 실패한다(기대한 대로다). 지금 이 PC의 "빌드 통과"는 분석기 없이 나온 것이다.
+  4. **CRLF.** 저장소는 `.gitattributes`의 `eol=lf`로 LF로 체크아웃된다. 그러나 .NET의 `Console.WriteLine`과 `Environment.NewLine`은 Windows에서 CRLF를 내고, 스크립트와 시험이 그 출력을 줄로 나눠 읽는다(`GateEnvironmentTests`가 받은 경로가 `"a.txt\r"`). `tests/Wizard.Perf`의 `BaselineFileTests`는 기대 문자열을 `\r\n`으로 만든다(쓰는 쪽은 LF다). 시험이 만드는 임시 git 저장소는 시스템 설정 `core.autocrlf=true`를 물려받는다. 한글을 적는 도구의 출력은 관으로 받으면 깨진다: `taskgraph ledger`와 `vector-coverage`의 표준 출력이 UTF-8이 아니라 Windows의 콘솔 코드 페이지(949)로 나오고, 받는 쪽(`ProcessRunner`, 기록 파일)은 UTF-8로 읽는다.
+  5. **경로를 적는 꼴.** `NextIdsTests`는 `Path.Combine`으로 만든 `D:\…`를 기대하고 도구는 git이 낸 `D:/…`를 적는다.
+  6. **맥에만 있는 것.** `pg-test.sh`의 `/usr/bin/shasum`(Git Bash에는 `sha256sum`만 있다), `tools/Wizard.TaskGraph/Lifecycle.cs`와 `common.sh`의 `/bin/cp -c`(APFS 복제), `Requirements.cs`의 Unity 경로(`/Applications/…/Unity.app/Contents/MacOS/Unity`)·`mac-il2cpp`·`/usr/local/share/dotnet/x64`·Docker 후보 경로·PATH를 `:`로 나누기·`open -a Docker`, 가짜 실행 파일을 `#!/bin/bash` 스크립트와 실행 권한으로 만드는 시험(`RequirementsTests`, `PgTestScriptTests`. 뒤쪽은 `Assert.False(OperatingSystem.IsWindows())`로 Windows를 아예 거절한다).
+  7. **docker 인자.** Git Bash는 `/`로 시작하는 인자를 Windows 경로로 바꾼다. `pg-test.sh`의 `--tmpfs /var/lib/postgresql/data:rw`가 그렇게 망가진다(`MSYS_NO_PATHCONV=1`을 주고 같은 명령을 돌리면 컨테이너가 뜬다).
+  8. **서버 시험.** Docker 데몬이 켜진 뒤에도 `Wizard.Server.Tests` 177개 가운데 141개가 실패한다. 전부 `PgTestServer`가 `/bin/bash`로 `pg-test.sh`를 띄우지 못해서다. 같은 이미지의 컨테이너를 손으로 띄우고 `WIZARD_PG_ADMIN`을 주면 171개가 통과하고 남는 6개는 `PgTestScriptTests`(스크립트를 띄우는 시험)뿐이다. 서버 코드와 DB 시험 자체에는 Windows 문제가 없다.
+  9. **에이전트 설정이 추적되지 않는다.** 커밋 7e20951이 `CLAUDE.md`, `.claude/`, `docs/dev/agent-config/`를 `.gitignore`에 넣었다. 작업 트리와 새로 받은 저장소에는 원본 폴더가 없어서 `agent-config-check.sh`가 "`docs/dev/agent-config/agents` missing"으로 실패한다(메인 저장소에는 추적되지 않는 파일로 남아 있어 통과한다).
+  - 그대로 통과한 것(`dotnet test Wizard.sln -c Debug`, 분석기 없이): Core 238, Sim 938, Content 538, ViewLogic 463, DataBuild 246, Netcode 160, TestKit 150, Text 130, Protocol 129, Client 97, VectorCoverage 43, Rules 2, AssetCheck 1. 실패: `Wizard.Ci` 62/208, `Wizard.TaskGraph` 11/158, `Wizard.Server.Tests` 141/177, `Wizard.Perf` 1/71.
+- **결정**:
+  1. **두 OS를 다 지킨다.** 서버는 맥미니에 배치하고(T-39, PIPELINE 4.6), 개발은 다시 맥으로 갈 수 있다. `tools/ci/`의 스크립트, `tools/`의 도구, 시험은 macOS와 Windows에서 같은 파일로 돈다. 한 OS에서만 뜻이 있는 동작과 시험은 OS 조건으로 나누되 **다른 OS에 같은 성질을 보는 대응을 둔다**. 시험을 OS 조건으로 비워서(바로 `return`) 통과시키지 않는다. 대응이 정말 없는 것(파일의 유닉스 실행 권한)만 그 OS에서 아무것도 보지 않는다.
+  2. **스크립트는 지금 꼴 그대로다**: 첫 줄 `#!/bin/bash`, bash 3.2 문법만(연관 배열, `mapfile`, `${x,,}`, `|&`, `timeout`, `flock` 없음), git은 `command git`, 다른 도구는 `/bin/…`·`/usr/bin/…` 절대 경로(Git Bash에도 그 경로가 있다). bash 5.2에서 3.2의 구문 분석을 확인할 수는 없으므로 3.2 문법은 `ShellScriptTests`의 금지 구문 검사가 두 OS에서 지키고, `bash -n`은 그 기기의 셸로 돌린다(맥에서는 3.2다).
+  3. **셸을 찾는 곳은 하나다**(`tools/Wizard.Ci`의 새 타입 하나. 이름은 구현이 정한다). 순서: (가) 환경 변수 `WIZARD_BASH`. 주어졌는데 그 파일이 없으면 다른 곳을 찾지 않고 실패한다. (나) Windows면 Git for Windows의 `bin/bash.exe`. `git --exec-path`가 낸 폴더(`<Git>/mingw64/libexec/git-core`)에서 위로 올라가 `bin/bash.exe`가 있는 첫 폴더, 없으면 `%ProgramFiles%/Git/bin/bash.exe`. `usr/bin/bash.exe`가 아니라 `bin/bash.exe`다(PATH에 `/usr/bin`과 `/mingw64/bin`을 넣어 주는 쪽). (다) 그 밖의 OS는 `/bin/bash`. **PATH에서 `bash`를 찾지 않는다.** 찾지 못하면 건너뛰지 않고 "무엇이 없는가 + 사용자가 할 일(Git for Windows를 설치하거나 `WIZARD_BASH`를 준다)"을 적고 실패한다. 실행기는 찾은 셸을 `WIZARD_BASH`로 검사 스크립트에 넘긴다. 스크립트를 띄우는 다른 어셈블리(`Wizard.TaskGraph`의 시험, `tests/Wizard.Server.Tests/Infra/PgTestServer.cs`)는 `Wizard.Ci`를 참조하지 않으므로 같은 순서를 작은 도우미로 각자 갖고 이 절을 주석에 적는다. 스크립트 안에서 다른 스크립트를 띄우는 줄(`/bin/bash "$UNITY_SH" …`, `tools/ci.sh`의 `exec /bin/bash`)은 그대로 둔다: Git Bash 안에서는 `/bin/bash`가 자기 자신이다.
+  4. **경로는 실행기에서 한 번, 스크립트에서 한 번 맞춘다.** 실행기(`StageRunner`, `PreCommit`)는 스크립트의 경로와 경로가 든 환경 변수(`WIZARD_ROOT`, `WIZARD_CI_NOTE`, `WIZARD_CI_DLL`, `WIZARD_CI_TRX_DIR`)를 슬래시 꼴(`D:/…`)로 넘긴다. 스크립트가 스스로 구한 경로(`cd … && pwd -P`는 Git Bash에서 `/d/…`를 낸다)는 `tools/ci/lib/common.sh`의 함수 하나가 같은 꼴로 바꾼다: `cygpath`가 있으면 `cygpath -m`, 없으면(맥) 그대로. `ci_root_from`이 그 함수를 거쳐 뿌리를 돌려주고, 뿌리끼리 견주는 곳(`hooks/pre-commit`의 `TOP`과 `ROOT`)은 양쪽을 같은 함수에 넣는다. `WIZARD_ROOT`를 바로 읽는 스크립트(`build.sh`, `test.sh`, `gen-check.sh`, `layout-check.sh`, `determinism-guard.sh`)는 실행기가 준 슬래시 꼴을 받는다. MSYS의 경로 바꾸기는 전체로 끄지 않는다(`/d/…`를 dotnet에 넘기는 줄이 깨진다). 컨테이너 안의 경로를 인자로 넘기는 docker 호출에서만 끈다(`MSYS_NO_PATHCONV=1`, `MSYS2_ARG_CONV_EXCL='*'`. 맥에서는 뜻 없는 변수다).
+  5. **출력은 LF와 `/`다.** `tools/`의 명령 줄 도구는 표준 출력·표준 오류의 줄 끝을 `\n`으로 고정하고, 도구가 쓰는 파일은 `Environment.NewLine`을 쓰지 않는다. 도구가 적는 저장소 경로는 `/` 구분이다. 표준 출력·표준 오류의 문자 인코딩은 BOM 없는 UTF-8로 고정한다(`Console.OutputEncoding`). `tools/`의 도구 전부에 건다: 도구마다 `Main`의 첫 줄에 두거나, 도구 묶음에 공통 소스 하나를 빌드 설정으로 끼워 넣는다(방법은 구현이 고른다. 뒤쪽이면 다른 작업이 가진 도구 폴더를 건드리지 않는다). 시험의 기대값은 OS에 따라 달라지는 값(`Environment.NewLine`, `Path.Combine`으로 만든 표시용 경로)으로 만들지 않는다. 시험이 만드는 임시 git 저장소(`TempGit`, `TempRepo`)는 `core.autocrlf=false`를 그 저장소에 건다.
+  6. **프로젝트 묶음의 판정은 경로 구분자에 기대지 않는다.** `Directory.Build.props`의 `WizardGroup` 조건을 두 OS에서 같은 값이 나오게 고친다(양쪽을 `[MSBuild]::NormalizeDirectory`로 맞추거나 구분자를 `/`로 바꿔 견준다. 방법은 구현이 고른다). 그 뒤 이 PC에서도 분석기가 붙은 `dotnet build Wizard.sln -c Debug|Release -warnaserror`가 경고 0으로 통과해야 한다. 분석기가 Windows 경로 때문에 틀린 진단을 내면 `tools/Wizard.Analyzers`를 고친다. 진단을 끄거나 `src/`를 고치지 않는다(코드가 정말 규칙을 어기고 있으면 올린다).
+  7. **필요한 것의 판정은 OS별로 `Requirements.cs` 한 곳에 둔다.**
+     - `unity`: `UNITY_EDITOR` > `WIZARD_UNITY_HUB_EDITORS`(기본: 맥 `/Applications/Unity/Hub/Editor`, Windows `%ProgramFiles%/Unity/Hub/Editor`) 아래 `<판>/Unity.app/Contents/MacOS/Unity`(맥) 또는 `<판>/Editor/Unity.exe`(Windows).
+     - `il2cpp`: 맥은 지금 그대로(`…/PlaybackEngines/MacStandaloneSupport/Variations/*il2cpp*`, `mac-il2cpp`). Windows는 `<판>/Editor/Data/PlaybackEngines/windowsstandalonesupport/Variations/*il2cpp*`이고 할 일은 `"C:/Program Files/Unity Hub/Unity Hub.exe" -- --headless install-modules --version <판> -m windows-il2cpp`와 Visual Studio의 C++ 빌드 도구다(이 PC에는 `*_mono` 변형뿐이다).
+     - `x64-dotnet`: 기기가 x64면 PATH의 `dotnet`이 `Microsoft.NETCore.App <주 판>.x`를 가지면 된다(`DOTNET_ROOT_X64`가 주어지면 그것을 본다). 기기가 arm64면 지금 그대로다.
+     - `docker`: `WIZARD_DOCKER` > PATH(`Path.PathSeparator`로 나누고 Windows에서는 `docker.exe`도 찾는다) > OS별 기본 자리(맥은 지금의 셋, Windows는 `%ProgramFiles%/Docker/Docker/resources/bin/docker.exe`). "띄운다"의 안내도 OS별이다.
+     - 넷 다, 없으면 건너뛰지 않고 그 OS의 문구로 실패한다. `pg-test.sh`가 테스트에서 직접 불릴 때 쓰는 자체 확인의 문구도 같은 뜻으로 맞춘다.
+  8. **한 OS에만 있는 도구는 `common.sh`의 함수 뒤에 둔다.** SHA-256(`shasum -a 256` > `sha256sum` > `openssl dgst -sha256`), `unity/Library` 가져오기(APFS 복제는 맥에서만. 다른 OS에서는 가져오지 않고 그 사실을 적는다. 통째 복사는 작업 트리마다 수 GB다). `taskgraph start`의 `CloneUnityLibrary`도 같은 규칙이다.
+  9. **`agent-config-check`는 있는 것만 본다.** 원본 폴더(`docs/dev/agent-config/`)가 있으면 지금 그대로 본다. 원본도 설치본(`CLAUDE.md`, `.claude/agents/*.md`)도 없으면 "이 체크아웃에는 에이전트 설정이 없다(git이 추적하지 않는다)"를 결과에 적고 통과한다. 설치본만 있고 원본이 없으면 실패한다. 이것은 기기에 없는 것을 건너뛰는 것이 아니다: 저장소가 그 파일들을 더는 싣지 않는다(사용자의 커밋 7e20951).
+  10. **Unity를 띄우는 스크립트와 통합 단계는 따로 고친다.** `unity/Assets/Editor/Ci/Launcher~/unity.sh`는 `-buildTarget OSXUniversal`, 편집기의 맥 기본 경로, `/`로 시작해야 하는 결과 경로를 갖고 있다. 병합 게이트의 Unity 두 검사(`unity-compile`, `unity-editmode`)를 Windows에서 돌게 하는 일은 FIX-10, 통합 단계(플레이어 빌드, 골든의 열, 성능, PlayMode)는 FIX-11과 T-68이다.
+- **대안**: (가) Windows에서는 WSL 안에서 CI를 돌린다. (나) 스크립트를 PowerShell이나 C#으로 다시 쓴다. (다) 스크립트마다 `$0`의 역슬래시를 고친다. (라) PATH의 `bash`를 쓴다. (마) bash 3.2 제약을 풀고 5.x 문법을 쓴다. (바) `agent-config-check`를 지운다. (사) Windows에서 실패하는 시험을 OS 조건으로 끈다.
+- **이유**:
+  - (가) Unity 편집기, Docker Desktop, .NET SDK가 Windows 쪽에 있다. WSL에서 돌리면 Unity 단계를 띄울 수 없고, 리눅스의 dotnet으로 돌린 결과는 이 PC에서 내는 Windows 플레이어와 다른 조합이다. WSL은 사용자가 따로 설치해야 하는 것이기도 하다.
+  - (나) 스크립트 스물여섯 개와 훅 둘, 그 시험을 다시 쓰는 일이고, 맥으로 돌아가면 두 벌을 지켜야 한다. Git for Windows는 git을 쓰는 한 이미 있다.
+  - (다) 스크립트마다 고치고 새 스크립트마다 다시 틀린다. 넘기는 쪽 한 곳에서 맞추면 스크립트는 맥에서 쓰던 그대로다.
+  - (라) 확인했다: Windows의 PATH에서는 `C:\Windows\System32\bash.exe`가 먼저 잡혀 WSL을 띄우려다 실패한다.
+  - (마) 맥의 `/bin/bash`는 3.2다. 문법을 올리면 맥에서 돌지 않는다.
+  - (바) 메인 저장소에는 원본과 설치본이 둘 다 남아 있고 거기서는 "설치본 = 원본"이 여전히 뜻이 있다(에이전트 지시문이 원본과 달라지면 안 된다).
+  - (사) `CLAUDE.md` 2절. 그리고 3번이 보여 주듯 "Windows에서는 안 본다"는 조용히 꺼진 검사를 만든다. 분석기가 꺼진 것을 잡은 것은 꺼지지 않은 탐침이었다.
+- **`CONTRACTS.md`는 고칠 곳이 없다.** 시그니처, 열거형 번호, 파일·패킷·DB 형식은 그대로다.
+- **따라오는 일**:
+  - `PIPELINE.md` 4.1절(환경 표, 사용자가 할 일), 4.3절(`unity/Library`), 4.6절(두 OS에서 도는 규칙, 필요한 것), 5.5절(에이전트 설정)을 고쳤다.
+  - 작업 FIX-9(build-tools-engineer): 이 절의 1~9번. FIX-10(unity-engineer): `unity.sh`의 컴파일·테스트 모드. FIX-11(unity-engineer): 통합 단계(T-68). FIX-12(build-tools-engineer): 병합 판정(T-69).
+  - FIX-6(진행 중)은 `unity.sh`를 FIX-10·FIX-11과 같이 갖는다. FIX-6의 수락 조건(플레이어 빌드)은 이 PC에서 통합 단계가 돌아야 확인할 수 있으므로 `deps`에 FIX-11을 더해 순서를 준다(FIX-10은 FIX-11을 거쳐 앞선다). 그러면 FIX-6이 같은 묶음(M1-W10)의 FIX-3·M1-UE-03에 전이로 의존하게 되므로 FIX-6의 `parallel_group`을 M1-W11로, 거기 있던 M1-INT를 M1-W12로 옮겼다(묶음 이름만 바뀐다). M1-INT는 FIX-6을 거쳐 FIX-11을 기다린다: M1의 게이트가 요구하는 플레이어 빌드와 골든은 이 PC에서 통합 단계가 돌아야 나온다.
+  - 루트 `CLAUDE.md` 9절의 "이 기기의 zsh"와 `/bin/ls` 서술은 맥의 말이다. Git Bash에서도 그대로 성립하므로(같은 절대 경로가 있다) 고치지 않았다. 고치려면 사용자 승인이 든다.
+  - `.github/workflows/ci.yml`은 그대로 둔다(`macos-15`에서 `tools/ci.sh full`). 맥 쪽의 회귀를 보는 자리다.
+  - 맥에서의 확인은 이 PC에서 할 수 없다. FIX-9의 사람 확인 항목으로 둔다(맥에서 `tools/ci/ci.sh fast --all`).
+
+## T-68 통합 빌드의 열은 돌리는 기기의 OS가 정한다. 다른 OS의 열은 그 기기의 결과 파일을 붙인다 [신규]
+
+- **문제**: 통합 단계(`ci.sh integration`: `unity-golden.sh`, `lib/unity-player-mono.sh`, `lib/unity-player-il2cpp.sh`, `lib/dotnet-x64.sh`, `lib/unity-playmode.sh`, `perf.sh`)와 `unity.sh build|perf`, `Wizard.Unity.Editor.Ci.BuildPlayer`는 macOS만 안다: 요구하는 열이 `macos-…` 일곱, 플레이어는 `Wizard.app`, x64는 `/usr/bin/arch -x86_64`(Rosetta 2), 빌드 대상은 `BuildTarget.StandaloneOSX`, 부하는 `/usr/sbin/sysctl`. Windows PC(x64)에서는 어느 것도 돌지 않고, arm64 열은 이 기기에서 만들 수 없다.
+- **결정**:
+  1. **열의 이름은 지금 꼴 그대로 `<os>-<runtime>-<host>-<arch>`다**(`macos-dotnet-test-arm64`, `macos-mono-player-x64`). `tests/Wizard.TestKit/DotnetCombo.cs`와 `RuntimeCombo`가 이미 `windows`를 낸다.
+  2. **요구하는 열은 돌리는 기기가 정한다.** 맥(arm64): 지금의 일곱. Windows(x64): `windows-dotnet-test-x64`, `windows-mono-editor-x64`, `windows-mono-player-x64`, `windows-il2cpp-player-x64` 넷. Windows의 arm64 플레이어는 열이 아니다(이 기기에서 돌릴 수 없고 배포 대상이 아니다. Q-30).
+  3. **없는 것은 건너뛰지 않는다**(지금 규칙 그대로). Windows의 IL2CPP 열은 `windows-il2cpp` 모듈과 C++ 빌드 도구가 없으면 "무엇이 없는가 + 설치 명령"을 적고 실패한다. 돌 수 있는 열은 다 돌린다.
+  4. **다른 OS의 열은 결과 파일로 붙인다**(T-39가 Windows에 두었던 길을 양쪽에 쓴다). `unity-golden.sh`는 `artifacts/golden/`(또는 지금 쓰는 출력 폴더)에 놓인 다른 OS의 `golden-result.<열>.json`을 같은 표로 비교한다. 해시가 다르면 실패다. 붙지 않은 열은 실패가 아니고, 결과와 게이트 파일에 "붙지 않음"으로 열 이름을 적는다.
+  5. **게이트**: 마일스톤 게이트는 돌린 기기의 열 전부를 요구한다. 다른 OS의 열이 붙지 않았으면 게이트 파일의 사람 확인 항목에 "그 기기에서 `tools/ci/unity-golden.sh`를 돌려 결과 파일을 붙인다"가 남는다 [임시. Q-30]. 맥미니에 서버(검증 워커)를 배치하기 전에는 `macos-dotnet-test-arm64`가, 어떤 OS의 배포물을 내기 전에는 그 OS의 열 전부가 있어야 한다(T-39 그대로. 이것은 임시가 아니다).
+  6. 플레이어 산출물: 맥은 `artifacts/unity/<backend>-<arch>/Wizard.app`, Windows는 `artifacts/unity/<backend>-<arch>/Wizard.exe`(와 `Wizard_Data/`). 팩 대조의 경로(`ContentPackStage.PlayerPackPath`)도 OS별이다.
+  7. `x64-dotnet` 요구는 T-67 7번. x64 기기에서 `lib/dotnet-x64.sh`는 PATH의 dotnet으로 돈다.
+- **대안**: (가) Windows PC에서는 통합 단계를 돌리지 않는다. (나) Windows에서도 맥의 일곱 열을 요구한다(맥이 없으면 모든 게이트가 선다). (다) 붙지 않은 다른 OS의 열을 실패로 친다.
+- **이유**: (가) 통합 단계는 플레이어 빌드와 런타임 사이의 해시 일치를 보는 유일한 자리다. 개발 기기에서 돌지 않으면 FIX-6 같은 결함(플레이어에만 빠지는 DLL)이 다시 숨는다. (나)·(다) 맥이 손에 없는 동안 마일스톤이 전부 선다. 지금까지도 Windows 열 없이 맥의 게이트를 통과시켰다(T-39: 배포 전에만 요구). 다만 서버가 arm64에서 재실행하므로 x64 클라이언트와 arm64 서버의 해시 일치는 배포 전에 반드시 본다. 그래서 5번의 뒷문장은 임시가 아니다.
+- **잃는 것(사용자가 알아야 한다)**: 개발이 Windows PC에서 도는 동안 평소의 게이트는 arm64와 x64의 일치를 보지 않는다(x64만 본다). `.github/workflows/ci.yml`의 `macos-15` 러너가 dotnet 열을 arm64에서 돌리면 그 구멍의 일부를 메운다. Q-30에 올렸다.
+- **따라오는 일**: `PIPELINE.md` 7.2절에 적었다. 작업 FIX-11. `OPEN-QUESTIONS.md` Q-30.
+
+## T-69 병합 판정은 다시 쓰인 이력의 `merge: <type>/<id 소문자> 브랜치를 main에 합친다` 제목도 읽는다 [신규]
+
+- **문제**: GitHub에 올라간 main의 이력은 커밋 제목이 다시 쓰여 있다: `merge: feat/m9-prs-01 브랜치를 main에 합친다 — …` 65개와 `feat: … — <모듈>` 꼴이고, PIPELINE 4.2절의 `<type>(<작업 id>): …`는 하나도 없다. `MergeHistory.CommitSubject`(T-65 4번. `taskgraph validate·add·resolve·reconcile·done`)와 `tools/check-tasks.mjs`는 그 꼴만 읽어서 병합된 작업을 0개로 본다("병합 기록: main의 커밋 제목에서 병합된 작업 0개"). 검사는 엄격한 쪽으로 틀리므로 통과하지만, (1) 이미 끝난 작업과 경로가 겹치는 새 카드마다 `deps`를 손으로 더해야 하고(T-65가 없앤 일이다) (2) `taskgraph reconcile`이 상태 파일을 다시 만들지 못한다(끝난 66개를 지휘 세션이 손으로 맞춰 두었다) (3) 상태가 done인 작업마다 "main에 이 작업의 커밋이 없다" 경고가 난다.
+- **결정**: 병합의 증거는 `<base>`(기본 main)의 커밋 제목 가운데 다음 둘이다. (가) `^(feat|fix|test|data|docs|build|refactor|perf|art|chore)\((<id>)\): ` — 지금 그대로. (나) `^merge: (feat|fix|test|data|docs|build|refactor|perf|art|chore)/(<slug>) 브랜치를 main에 합친다` — `<slug>`는 공백과 `/`가 없는 글자열이고, 그래프의 작업 id를 ASCII 소문자로 바꾼 것과 글자가 같을 때 그 작업이 병합된 것이다. 소문자로 바꾼 꼴이 같은 id가 그래프에 둘이면 (나)는 어느 쪽도 가리키지 않는다. 그래프에 없는 slug와 다른 꼴의 제목은 지금처럼 무시한다. 판정은 한 곳의 코드(`MergeHistory.MergedIds`)이고 `Lifecycle`(reconcile, done)이 그것을 쓴다. `tools/check-tasks.mjs`가 같은 판정을 하고 요약 줄의 문구는 그대로다. 확인한 값: 지금의 main에서 (나)로 읽히는 작업은 65개이고 전부 상태 파일의 done과 맞는다(done인데 병합 커밋이 없는 것은 M0-TL-02 하나: 그 산출물 `CLAUDE.md`·`.claude/agents/`는 지금 추적되지 않는다).
+- **대안**: (가) 이력을 원래 제목으로 되돌린다. (나) 상태 파일(`.claude/taskstate.json`)을 병합의 정본으로 삼는다. (다) 지금처럼 0개로 둔다.
+- **이유**: (가) 강제 푸시다(`CLAUDE.md` 2절). (나) 상태 파일은 추적하지 않는 파일이라 잃을 수 있고, 잃었을 때 다시 만드는 근거가 main의 이력이다(T-40). 둘의 방향을 뒤집으면 근거가 없어진다. (다) T-65가 "한쪽이 병합됐으면 순서는 main의 기록이 정했다"로 없앤 `deps` 덧붙이기가 되살아난다.
+- **따라오는 일**: 작업 FIX-12. 새 병합은 4.2절의 꼴로 커밋한다((나)는 옛 이력을 읽는 길일 뿐이다). 저장소 밖의 실행기가 하는 "이미 병합됐는가" 확인도 같은 두 꼴을 봐야 한다(지휘 세션의 일이다). `PIPELINE.md` 4.1절(원격 저장소)과 4.2절에 적었다.
 
 ## 아직 정하지 않은 기술 항목
 

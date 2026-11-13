@@ -9,16 +9,29 @@ namespace Wizard.TaskGraph.Tests
 {
     // 수락 7: validate 가 node tools/check-tasks.mjs 와 "같은 것을 본다". 같은 입력에 두 도구를 돌려
     // FAIL 줄(스키마 줄 제외)과 요약 줄이 순서까지 같은지 본다. node 가 없으면 건너뛰지 않고 실패한다.
+    // FIX-7(T-65 4·5번): 병합 기록을 같이 넘긴다. node 에는 --repo·--base·--no-history 를, 우리 쪽에는 Cli 와 같은 길
+    // (MergeHistoryReader)로 읽은 기록을 준다. (가) 실제 그래프와 실제 기록 (나) 망가뜨린 복사본과 --no-history
+    // (다) 기록이 있는 TempRepo 의 작은 그래프 (라) <base>가 없는 저장소.
     public sealed class NodeParityTests
     {
         private static readonly string CheckTasks = Path.Combine(Fx.RepoRoot, "tools", "check-tasks.mjs");
 
-        private static (List<string> Fails, List<string> Summary) Node(string tasksPath, string specsDir)
+        // history: null 이면 --no-history, 아니면 (저장소, 기준)
+        private static (List<string> Fails, List<string> Summary) Node(string tasksPath, string specsDir, (string Repo, string Base)? history)
         {
             ProcResult r;
+            var args = new List<string> { CheckTasks, "--tasks", tasksPath, "--specs", specsDir };
+            if (history == null)
+            {
+                args.Add("--no-history");
+            }
+            else
+            {
+                args.AddRange(new[] { "--repo", history.Value.Repo, "--base", history.Value.Base });
+            }
             try
             {
-                r = Proc.Run("node", new[] { CheckTasks, "--tasks", tasksPath, "--specs", specsDir });
+                r = Proc.Run("node", args);
             }
             catch (TaskGraphException e)
             {
@@ -27,9 +40,11 @@ namespace Wizard.TaskGraph.Tests
             return Split(r.Stdout);
         }
 
-        private static (List<string> Fails, List<string> Summary) Ours(string tasksPath, string specsDir)
+        private static (List<string> Fails, List<string> Summary) Ours(string tasksPath, string specsDir, (string Repo, string Base)? history)
         {
-            ValidationReport rep = GraphValidator.Validate(TaskDoc.Load(tasksPath), schemaPath: null, specsDir);
+            TaskDoc doc = TaskDoc.Load(tasksPath);
+            MergeHistory h = history == null ? MergeHistory.NotRead() : MergeHistoryReader.Read(new Git(history.Value.Repo), history.Value.Base, doc);
+            ValidationReport rep = GraphValidator.Validate(doc, schemaPath: null, specsDir, h);
             var w = new StringWriter();
             rep.Print(w);
             (List<string> fails, List<string> summary) = Split(w.ToString());
@@ -42,25 +57,70 @@ namespace Wizard.TaskGraph.Tests
             var lines = output.Split('\n').Select(l => l.TrimEnd('\r')).ToList();
             var fails = lines.Where(l => l.StartsWith("FAIL  ", StringComparison.Ordinal)).ToList();
             var summary = lines.Where(l => l.StartsWith("작업 ", StringComparison.Ordinal) || l.StartsWith("위상정렬", StringComparison.Ordinal)
+                || l.StartsWith("병합 기록:", StringComparison.Ordinal)
                 || l.StartsWith("벡터:", StringComparison.Ordinal) || l == "통과" || l.StartsWith("실패 ", StringComparison.Ordinal)).ToList();
             return (fails, summary);
         }
 
-        private static void AssertSame(string tasksPath, string specsDir, bool expectFailures)
+        private static (List<string> Fails, List<string> Summary) AssertSame(string tasksPath, string specsDir, bool expectFailures, (string Repo, string Base)? history)
         {
-            var node = Node(tasksPath, specsDir);
-            var ours = Ours(tasksPath, specsDir);
+            var node = Node(tasksPath, specsDir, history);
+            var ours = Ours(tasksPath, specsDir, history);
             Assert.Equal(string.Join("\n", node.Fails), string.Join("\n", ours.Fails));
             Assert.Equal(string.Join("\n", node.Summary), string.Join("\n", ours.Summary));
             Assert.Equal(expectFailures, ours.Fails.Count > 0);
+            Assert.Contains(ours.Summary, l => l.StartsWith("병합 기록:", StringComparison.Ordinal));
+            return ours;
         }
 
+        // (가) 실제 그래프와 실제 저장소의 main 기록
         [Fact]
         public void RealTasksJson_SameAsCheckTasks()
         {
-            AssertSame(Fx.RealTasksPath, Fx.RealSpecsDir, expectFailures: false);
+            var ours = AssertSame(Fx.RealTasksPath, Fx.RealSpecsDir, expectFailures: false, (Fx.RepoRoot, "main"));
+            Assert.Contains(ours.Summary, l => l.StartsWith("병합 기록: main의 커밋 제목에서 병합된 작업 ", StringComparison.Ordinal));
         }
 
+        // (다) 기록이 있는 TempRepo 의 작은 그래프: 병합된 작업과의 겹침(통과), 장부 겹침(통과), 병합 전인 겹침(실패)이 섞였다
+        [Fact]
+        public void SmallGraphWithHistory_SameAsCheckTasks()
+        {
+            using TempRepo repo = TempRepo.Create();
+            repo.Write("docs/spec/README.md", "명세 없음\n");
+            string tasks = repo.PathOf("docs/dev/tasks.json");
+            repo.Write("docs/dev/tasks.json", Fx.Text(Fx.Doc(
+                Fx.Task("A-01", group: "G1", paths: new[] { "src/x/" }),
+                Fx.Task("A-02", group: "G2", paths: new[] { "src/x/y.cs" }),
+                Fx.Task("A-03", group: "G1", paths: new[] { "src/x/z.cs" }),
+                Fx.Task("L-01", group: "G3", paths: new[] { Ledger.DecisionsPath, Ledger.TasksPath, "tools/l1/" }),
+                Fx.Task("L-02", group: "G4", paths: new[] { Ledger.DecisionsPath, Ledger.QuestionsPath, Ledger.TasksPath }),
+                Fx.Task("U-01", group: "G5", paths: new[] { "docs/dev/CONTRACTS.md" }),
+                Fx.Task("U-02", group: "G6", paths: new[] { "docs/dev/" }))));
+            repo.Commit("feat(A-01): 병합된 작업");
+            repo.Commit("chore: 형식이 다른 제목");
+            repo.Commit("fix(NOPE-1): 그래프에 없는 id");
+            var ours = AssertSame(tasks, repo.PathOf("docs/spec"), expectFailures: true, (repo.Dir, "main"));
+            Assert.Equal(new[] { "FAIL  U-01와 U-02의 owned_paths가 겹치는데 deps로 순서가 정해져 있지 않다 — docs/dev/CONTRACTS.md ↔ docs/dev/" }, ours.Fails.ToArray());
+            Assert.Contains("병합 기록: main의 커밋 제목에서 병합된 작업 1개", ours.Summary);
+        }
+
+        // (라) <base>가 없는 저장소: 둘 다 읽지 못했다고 적고 엄격하게 본다
+        [Fact]
+        public void MissingBase_SameAsCheckTasks_Strict()
+        {
+            using TempRepo repo = TempRepo.Create();
+            repo.Write("docs/spec/README.md", "명세 없음\n");
+            string tasks = repo.PathOf("docs/dev/tasks.json");
+            repo.Write("docs/dev/tasks.json", Fx.Text(Fx.Doc(
+                Fx.Task("A-01", group: "G1", paths: new[] { "src/x/" }),
+                Fx.Task("A-02", group: "G2", paths: new[] { "src/x/y.cs" }))));
+            repo.Commit("feat(A-01): 병합된 작업");
+            var ours = AssertSame(tasks, repo.PathOf("docs/spec"), expectFailures: true, (repo.Dir, "no-such-base"));
+            Assert.Contains("병합 기록: no-such-base을 읽지 못했다. 전부 병합 전으로 본다", ours.Summary);
+            Assert.Single(ours.Fails);
+        }
+
+        // (나) 실제 그래프의 망가뜨린 복사본, --no-history(병합된 작업끼리의 겹침도 엄격하게 본다)
         [Fact]
         public void BrokenCopiesOfRealGraph_SameDiagnosticsAsCheckTasks()
         {
@@ -103,7 +163,7 @@ namespace Wizard.TaskGraph.Tests
                 mutate(doc);
                 string path = dir.PathOf($"tasks-{i++}.json");
                 File.WriteAllText(path, Fx.Text(doc));
-                AssertSame(path, Fx.RealSpecsDir, expectFailures: true);
+                AssertSame(path, Fx.RealSpecsDir, expectFailures: true, history: null);
             }
         }
 

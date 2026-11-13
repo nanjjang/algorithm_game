@@ -40,17 +40,16 @@
         "move_speed": { "description": "이동 속도(칸/초) → MoveSpeedCenti(× 100. 3.0 → 300)", "$ref": "_common.schema.json#/$defs/cellsPerSecond", "minimum": 0 },
         "attack_damage": { "description": "spec 05 2.5 \"피해\" 열(칸) → AttackDamage", "type": "integer", "minimum": 1, "maximum": 2 },
         "contact_damage": { "description": "몸 접촉 피해(칸) → ContactDamage. 0 이면 접촉 없음(spec 05 2.2·3.6)", "enum": [0, 1] },
-        "cost": { "description": "스폰 예산 비용 → Cost", "type": "integer", "minimum": 1 },
-        "first_wave": { "description": "첫 등장 웨이브 → FirstWave", "type": "integer", "minimum": 1 },
+        "cost": { "description": "스폰 예산 비용 → Cost. 일반 적은 1 이상, 졸개는 0(변환기가 본다)", "type": "integer", "minimum": 0 },
+        "first_wave": { "description": "첫 등장 웨이브 → FirstWave. 일반 적은 1 이상, 졸개는 0(변환기가 본다)", "type": "integer", "minimum": 0 },
         "times": {
-          "description": "나오는 시간대(tod.day, tod.dusk, tod.night) → Times(TimeMask 비트). \"항상\"은 셋 다",
+          "description": "나오는 시간대(tod.day, tod.dusk, tod.night) → Times(TimeMask 비트). \"항상\"은 셋 다. 일반 적은 하나 이상, 졸개는 빈 배열(변환기가 본다)",
           "type": "array",
-          "minItems": 1,
           "uniqueItems": true,
           "items": { "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^tod\\." }
         },
-        "weak": { "description": "약점 속성 id(element.*) → Weak", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^element\\." },
-        "resist": { "description": "저항 속성 id(element.*) → Resist", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^element\\." },
+        "weak": { "description": "약점 속성 id(element.*) → Weak. 졸개는 element.neutral", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^element\\." },
+        "resist": { "description": "저항 속성 id(element.*) → Resist. 졸개는 element.neutral", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^element\\." },
         "tags": {
           "description": "바탕 꼬리표 id(tag.*, spec 14 3.9) → BaseTags. 엘리트·보스는 바탕 꼬리표가 아니다",
           "type": "array",
@@ -70,7 +69,15 @@
           "maxItems": 16,
           "items": { "$ref": "#/$defs/attack" }
         },
-        "ai": { "$ref": "#/$defs/ai" }
+        "ai": { "$ref": "#/$defs/ai" },
+        "minion": { "description": "보스의 졸개(spec 14 3.6 코드 101~) → IsMinion. 적지 않으면 false. 졸개는 비용·첫 등장 0, 시간대 없음, 무속성, 꼬리표 없음", "type": "boolean" },
+        "spawn_pack": {
+          "description": "한 번에 함께 나오는 수 [아래, 위] → SpawnPackMin·Max(spec 07 2.2 spawn_pack). 적지 않으면 [1, 1]",
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "type": "integer", "minimum": 1 }
+        }
       }
     },
     "attack": {
@@ -121,7 +128,25 @@
           "description": "검산용 벗어나는 거리(milli 칸) → EscapeOverrideMilli. null 이면 모양에서 계산",
           "anyOf": [{ "type": "integer", "minimum": 0 }, { "type": "null" }]
         },
-        "cooldown_seconds": { "description": "재사용 대기(초) → CooldownTicks [임시: spec 05 U-05]", "$ref": "_common.schema.json#/$defs/seconds" }
+        "cooldown_seconds": { "description": "재사용 대기(초) → CooldownTicks [임시: spec 05 U-05]", "$ref": "_common.schema.json#/$defs/seconds" },
+        "leaves_hazard": {
+          "description": "판정 뒤 남는 위험 구역 → LeavesHazard. null 이면 없음(spec 05 2.3)",
+          "anyOf": [{ "$ref": "#/$defs/hazard" }, { "type": "null" }]
+        }
+      }
+    },
+    "hazard": {
+      "description": "남는 위험 구역(spec 05 2.1 HazardKind, 2.4 LingeringHazard). 피해는 늘 1칸이라 칸이 없다(spec 05 3.7)",
+      "type": "object",
+      "required": ["kind", "radius", "duration_seconds", "max_count", "contact_cooldown_seconds"],
+      "additionalProperties": false,
+      "properties": {
+        "_note": { "$ref": "_common.schema.json#/$defs/note" },
+        "kind": { "description": "→ AttackDef.HazardKind(spec 05 2.1 선언 순서)", "enum": ["thorn_field", "ember_strip", "spore_cloud", "frost_field"] },
+        "radius": { "description": "반지름(칸) → Radius Raw", "$ref": "_common.schema.json#/$defs/cells", "exclusiveMinimum": 0 },
+        "duration_seconds": { "description": "남는 시간(초) → DurationTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "max_count": { "description": "전장 동시 개수 상한 → MaxCount", "type": "integer", "minimum": 1 },
+        "contact_cooldown_seconds": { "description": "같은 구역의 접촉 피해 간격(초) → ContactCooldownTicks", "$ref": "_common.schema.json#/$defs/seconds" }
       }
     },
     "proj": {
@@ -133,7 +158,10 @@
         "speed": { "description": "탄속(칸/초) → SpeedPerTick Raw(× 2^32 ÷ 60)", "$ref": "_common.schema.json#/$defs/cellsPerSecond", "exclusiveMinimum": 0 },
         "count": { "description": "한 번에 쏘는 탄 수 → Count", "type": "integer", "minimum": 1 },
         "spread_degrees": { "description": "이웃한 탄 사이 각도(도) → SpreadCenti(× 100)", "$ref": "_common.schema.json#/$defs/degrees", "minimum": 0, "maximum": 360 },
-        "range": { "description": "사거리(칸) → Range Raw", "$ref": "_common.schema.json#/$defs/cells", "exclusiveMinimum": 0 },
+        "range": {
+          "description": "사거리(칸) → Range Raw. null 이면 사거리 제한 없이 벽에 닿을 때까지(Raw 0)",
+          "anyOf": [{ "$ref": "_common.schema.json#/$defs/cells", "exclusiveMinimum": 0 }, { "type": "null" }]
+        },
         "hit_radius": { "description": "탄 판정 반지름(칸) → HitRadius Raw", "$ref": "_common.schema.json#/$defs/cells", "exclusiveMinimum": 0 }
       }
     },
@@ -153,7 +181,40 @@
         "cover_offset": { "description": "엄폐물 뒤 거리(칸) → CoverOffset Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
         "keep_distance_min": { "description": "평소 거리 아래 끝(칸) → KeepDistanceMin Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
         "keep_distance_max": { "description": "평소 거리 위 끝(칸) → KeepDistanceMax Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
-        "kite_distance_min": { "description": "엄폐물이 없을 때 지키는 거리(칸) → KiteDistanceMin Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 }
+        "kite_distance_min": { "description": "엄폐물이 없을 때 지키는 거리(칸) → KiteDistanceMin Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "sympathetic_damage": { "description": "꽈리 벌레 유폭이 적에게 주는 피해(H(w) 곱하기 전) → SympatheticDamage Raw(× 2^32)", "type": "number", "minimum": 0 },
+        "sympathetic_delay_seconds": { "description": "유폭 지연(초) → SympatheticDelayTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "surface_seconds": { "description": "족제비 지상 시간(초) → SurfaceTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "dig_seconds": { "description": "족제비 파고들기(초) → DigTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "burrow_max_seconds": { "description": "족제비 한 번의 땅속 최대(초) → BurrowMaxTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "burrow_retarget_seconds": { "description": "족제비 요청이 막힌 뒤 목표를 자기 위치로 바꾸기까지(초) → BurrowRetargetTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "wave_amplitude": { "description": "박쥐 물결 진폭(칸) → WaveAmplitude Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "wave_period_seconds": { "description": "박쥐 물결 주기(초) → WavePeriodTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "blink_period_seconds": { "description": "도깨비불 깜박 주기(초) → BlinkPeriodTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "vanish_seconds": { "description": "사라지기(초) → VanishTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "appear_seconds": { "description": "나타나기(초) → AppearTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "no_cast_after_appear_seconds": { "description": "나타난 뒤 시전 금지(초) → NoCastAfterAppearTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "blink_distance_min": { "description": "깜박 목적지의 플레이어 거리 아래 끝(칸) → BlinkDistanceMin Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "blink_distance_max": { "description": "깜박 목적지의 플레이어 거리 위 끝(칸) → BlinkDistanceMax Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "blink_retry_distance": { "description": "후보가 없을 때 다시 해 보는 반지름(칸) → BlinkRetryDistance Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "blink_candidates": { "description": "깜박 목적지 각도 후보 수 → BlinkCandidates", "type": "integer", "minimum": 0 },
+        "blink_wall_margin": { "description": "깜박 목적지의 벽 거리(칸) → BlinkWallMargin Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "emerge_seconds": { "description": "가시덩굴 등장 흙 금(초) → EmergeTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "spawn_wall_margin": { "description": "등장 자리의 벽 거리(칸) → SpawnWallMargin Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "spawn_player_margin": { "description": "등장 자리의 플레이어 거리(칸) → SpawnPlayerMargin Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "stun_damage_ratio": { "description": "멧돼지 기절 중 받는 피해 배율(1.5) → StunDamagePermille(× 1000)", "$ref": "_common.schema.json#/$defs/ratio", "minimum": 0 },
+        "path_damage": { "description": "멧돼지 돌진 경로의 적이 받는 피해(H(w) 곱하기 전) → PathDamage Raw(× 2^32)", "type": "number", "minimum": 0 },
+        "croak_period_seconds": { "description": "북두꺼비 울음 주기(초) → CroakPeriodTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "croak_seconds": { "description": "우는 시간(초) → CroakTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "buff_radius": { "description": "버프 반경(칸) → BuffRadius Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "buff_seconds": { "description": "버프 지속(초) → BuffTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "buff_speed_ratio": { "description": "버프 이동 속도 배율(1.2) → BuffSpeedPermille(× 1000)", "$ref": "_common.schema.json#/$defs/ratio", "minimum": 0 },
+        "buff_speed_cap": { "description": "버프 뒤 속도 상한(칸/초) → BuffSpeedCapCenti(× 100)", "$ref": "_common.schema.json#/$defs/cellsPerSecond", "minimum": 0 },
+        "buff_recovery_ratio": { "description": "버프 빈틈 배율(0.7) → BuffRecoveryPermille(× 1000)", "$ref": "_common.schema.json#/$defs/ratio", "minimum": 0, "maximum": 1 },
+        "croak_break_damage": { "description": "울음 끊기 누적 피해(H(w) 곱하기 전) → CroakBreakDamage Raw(× 2^32)", "type": "number", "minimum": 0 },
+        "croak_stagger_seconds": { "description": "울음이 끊긴 뒤 경직(초) → CroakStaggerTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "follow_radius": { "description": "따라갈 무리를 세는 반경(칸) → FollowRadius Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "follow_offset": { "description": "무리 중심에서 플레이어 반대쪽 거리(칸) → FollowOffset Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 }
       }
     }
   }

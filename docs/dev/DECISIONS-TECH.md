@@ -926,6 +926,110 @@ public sealed class RttSampleWindow {                 // 서버가 사람마다 
 
 > 발송 재시도, 하루 한도, 반송 처리, `mail_outbox` 상태 전이는 어댑터와 무관한 공통 코드다. 상태 값은 spec 12 8.1절의 넷(`queued`, `sent`, `failed`, `dropped`)뿐이고 전이는 spec 12 2.8절이다: `queued → sent`, 실패하면 `failed`로 두고 1·5·15분 뒤 다시 시도, 4번째 실패·재시도할 수 없는 실패·코드 만료는 `dropped`. 배달 확인 사건은 줄을 바꾸지 않고, 반송·거절 사건은 `sent → dropped`다(`sent_at`은 남는다. T-56).
 
+## T-62 결투 클라이언트의 키와 패킷 번호의 자리(`DuelClientKeys`·`DuelSendCounter`), 호스트 쪽 키의 칸, `PollOutgoing`의 보낸 시각, 틱·해시의 뜻, 해시 불일치의 셈 [신규]
+
+번호 T-55~T-61은 같은 때 도는 브랜치(M8-DAT-03, M10-ACC-01, M2-SPL-02, M9-AST-01, M9-PRS-01, M2-NET-03, M1-UE-03)가 쓰고 있어서 T-62를 썼다.
+
+- **문제**: M2-NET-05(`DuelClientCore`)가 구현과 시험을 끝내고도 공개 생성자에서 막혔다.
+  1. `CONTRACTS.md` 6.4절의 생성자가 받는 `DuelClientKeys`는 칸이 없는 자리 표시였고(`src/Wizard.Netcode/Duel/DuelClientKeys.cs`) 어느 작업의 `owned_paths`에도 없었다. 같은 꼴의 자리 표시 넷(`DuelHostKeys`, `DuelPeerKey`, `DuelHostStatus`, `DuelNetStats`)이 M2-NET-04를 같은 자리에서 막는다.
+  2. 같은 키로 봉인해 보내는 코드가 둘이다: 연결 절차(`SyncRequest` 16회, `Hello`. `Wizard.Client`의 `DuelSession` 쪽)와 `DuelClientCore`(`ClientInput`). 둘이 패킷 번호를 따로 세면 같은 (키, nonce)가 두 번 쓰인다(10.1절이 금지한 바로 그 일). 계약에는 번호를 누가 세는지가 없었다.
+  3. spec 10 2.8절의 `hash_mismatch_flag`(한 경기 3번 넘게, 4회째 표시)가 `NetRuleSet`에 없고, 불일치 횟수를 밖에서 읽을 문이 계약에 없었다(TV-N23).
+  4. `DuelAdvance`의 두 틱, `OnFullState`의 `tick`, `ConfirmedHash`의 `tick`이 "처리한 틱"인지 "다음에 처리할 틱"인지 계약에 없었다.
+  5. (해결하며 찾았다) `ClientInput`의 `echo_hold_ms`와 `client_send_time_ms`를 채울 시각이 코어에 없었다. `PollOutgoing`은 시각을 받지 않아서 구현은 입력 시계의 틱 수로 어림했다(받은 뒤 틱이 넘어갔으면 16ms). `DuelSession`의 호출 순서(받은 패킷 전부 `OnPacket` → `Advance` → 보내기)에서는 거의 모든 프레임에 틱이 한 번 넘어가므로, 실제로 붙든 시간이 1ms여도 16ms로 적힌다. 서버의 왕복 표본은 `도착 − 보낸 시각 − hold`이고 그 최솟값을 쓰므로(10.5절) 왕복이 한 틱 가까이 작게 잡히고, D가 한 단계 낮게 골라져 정직한 입력이 늦음으로 버려진다(실제 왕복 61~75ms가 60ms 이하로 읽힌다).
+- **결정**:
+  1. **`DuelClientKeys { uint TokenId, Epoch; ReadOnlySpan<byte> Key; DuelSendCounter SendCounter; bool IsValid }`**. `duel.setup`(9절)의 `token_id`, `epoch`, `key` 그대로다. 생성자는 32바이트가 아닌 키를 `ArgumentException`으로 거절하고 키를 복사해 둔다. `default`는 `IsValid`가 거짓이고 `DuelClientCore`의 생성자가 `ArgumentException`으로 거절한다(빈 키로 조용히 돌지 않는다).
+  2. **`DuelSendCounter`** 가 한 키의 보내는 방향 `packet_number`를 세는 단 하나의 자리다(`Take()`: 1부터 1씩, 한 번 내준 번호는 다시 내주지 않는다. `Taken`: 마지막으로 내준 번호). `DuelClientKeys`의 생성자가 하나 만들고, 값을 복사해도 같은 자리를 가리킨다. **그 키로 봉인하는 모든 코드는 `keys.SendCounter.Take()`로 번호를 받는다.** `duel.setup` 하나에 `DuelClientKeys`를 한 번만 만든다. 프로세스를 다시 켜 번호를 잃었으면 같은 키로 다시 만들지 않고 `duel.rejoin`으로 새 키를 받는다(10.1절 그대로).
+  3. 받아 놓고 쓰지 못한 번호(봉인 실패)는 버린다. 빈 번호는 허용이다: 받는 쪽의 재전송 창은 이미 본 번호와 창보다 오래된 번호만 버린다. `DuelClientCore.PollOutgoing`은 버퍼가 모자라면 번호를 받기 전에 0을 돌려준다.
+  4. 받는 쪽은 종류로 갈린다. `DuelClientCore.OnPacket`은 `ServerTick`만 열고 자기 재전송 창에 적는다. 다른 종류(`HelloAck`, `SyncReply`)는 건드리지 않고 돌려보낸다(연결 절차가 자기 창으로 연다). 종류는 AAD에 들어 있어 바꿔 칠 수 없으므로 한 번호는 한 창만 지난다.
+  5. **호스트 쪽 키.** `DuelPeerKey { uint TokenId, Epoch; ReadOnlySpan<byte> Key; bool IsValid }`(서버가 만든 한 사람의 키. 생성자와 검사는 `DuelClientKeys`와 같다. 보내는 번호는 `DuelHostCore`가 사람마다 들고 있으므로 셈의 자리는 없다), `DuelHostKeys { DuelPeerKey Slot0, Slot1; For(PlayerSlot) }`(두 `token_id`가 같거나 `IsValid`가 아니면 `ArgumentException`). 세 타입은 서로를 품지 않고 따로 적는다(칸 셋의 되풀이).
+  6. **`PollOutgoing(Span<byte> buffer, long clientTimeUs)`**. `clientTimeUs`는 내보내는 시각이고 `OnPacket`의 `clientTimeUs`(그 패킷이 기기에 닿은 시각)와 **같은 클라이언트 단조 시계**다. `echo_hold_ms = (보낸 시각 − 닿은 시각) / 1,000`의 내림(음수면 0, 65,535에서 포화). `client_send_time_ms = 보낸 시각 / 1,000`의 아랫 32비트. 코어는 이 시각을 두 칸에만 쓴다. 틱과 예측은 `Advance`의 입력 시계 틱만 본다(같은 호출 열이면 같은 출력 열).
+  7. **틱의 뜻.** `DuelAdvance.PredictedTick`·`ConfirmedTick`은 그 세계의 `SimWorld.Tick`(다음에 처리할 틱 = 처리한 틱의 수)이다. "마지막 확정 틱" = `ConfirmedTick − 1`. `OnFullState(tick, state)`와 `DuelHostCore.TryWriteFullState(…, out tick)`, `duel.full_state`의 `tick`은 그 상태의 `SimWorld.Tick`이고, 상태에 든 틱과 다르거나 읽히지 않는 상태는 버린다(확정 세계를 건드리지 않는다). `ServerTick`의 `hash_tick`과 `ConfirmedHash(tick)`의 `tick`은 **처리한 틱**이다(그 틱의 `Step` 뒤 해시, spec 10 14.6). `ConfirmedHash`는 남아 있지 않은 틱에 0을 준다. `DuelResume.ConfirmedTick`은 마지막 확정 틱(처리한 틱)이라 같이 오는 전체 상태의 `tick`은 그 값 + 1이다. `ClientInput.ack_confirmed_tick`(u32)은 "내가 받은 마지막 확정 틱"인데 0은 "틱 0까지 받았다"와 "아직 하나도 받지 못했다"를 가르지 못한다. 클라이언트는 둘 다 0을 적고, **서버는 ack가 0이면 틱 0부터 싣는다**(`confirmed_from_tick = ack > 0 ? ack + 1 : 0`). 틱 0을 이미 받은 클라이언트는 다시 온 틱 0을 건너뛴다(틱 1을 ack할 때까지 한 틱이 겹쳐 실릴 뿐이다).
+  8. **해시 불일치의 셈.** `DuelClientCore.HashMismatchCount`(공개)는 서버 해시와 어긋난 횟수이고 확정 공백으로 청한 전체 상태는 세지 않는다. 한도는 데이터다: `NetRuleSet.HashMismatchFlagOver`(3, `data/rules/net.json`의 `hash_mismatch_flag_over`), 표시는 `HashMismatchFlagged = HashMismatchCount > HashMismatchFlagOver`(4번째에 선다). 한도와 표시는 CCR-1이 더한다(아래).
+  9. **경기 중 시계 표본.** `ServerTick`의 시각 칸은 `DuelClientCore`만 열 수 있으므로 코어가 표본을 내준다: `DrainClockSamples(Span<ClockSample>)`(`Wizard.Netcode.Clock.ClockSample`, T-60). 받은 `ServerTick`의 `echo_client_send_time_ms`가 코어가 기억한 최근 보낸 시각과 맞으면 `T0Us` = 그 패킷의 보낸 시각(µs), `ServerUs = server_time_ms × 1,000`, `T1Us` = 닿은 시각. `server_time_ms`는 경기 시계의 ms(`HelloAck.match_epoch_server_us`부터 센 서버 시각)이고 호스트가 적는다. 서버 시계로 옮기는 것(`+ match_epoch_server_us`)은 입력 시계를 모는 쪽이 한다. CCR-1이 더한다.
+- **대안**: (가) `DuelClientKeys`에 `ulong FirstPacketNumber`를 두고 연결 절차가 쓴 번호의 다음을 넘겨준다(M2-NET-05의 제안). (나) `DuelClientCore`가 그 키의 유일한 봉인자가 된다(`Hello`·`SyncRequest`도 코어의 메서드로 봉인한다). (다) 세 키 타입을 `DuelPeerKey` 하나로 엮는다(`DuelClientKeys`가 `DuelPeerKey`를 품는다). (라) `PollOutgoing`의 시그니처를 그대로 두고 `echo_hold_ms`를 늘 0으로 적는다. (마) 한도 3과 표시를 M2-NET-05에서 같이 넣는다. (바) `CONTRACTS.md`를 이 브랜치에서 고친다.
+- **이유**:
+  - (가) 넘겨준 뒤에는 코어만 보낼 수 있다. 경기가 끝난 뒤의 `Bye`나, 뒤에 생길지 모르는 경기 중 `SyncRequest`를 보내려면 다시 번호를 돌려받는 문이 있어야 하고, 넘겨줄 값을 한 번 잘못 계산하면 조용히 nonce가 겹친다. 셈의 자리가 하나면 누가 언제 보내든 겹치지 않는다.
+  - (나) 대기열 탐침(10.5절)은 `DuelSetup`도 코어도 없는 때에 같은 봉인을 한다. 봉인 코드는 어차피 코어 밖에도 있어야 하고, 코어에 연결 절차의 문을 더하면 "예측과 되감기"라는 한 가지 일이 흐려진다.
+  - (다) `DuelClientKeys`와 `DuelPeerKey`를 엮으면 M2-NET-04와 M2-NET-05가 같은 파일에 기대어 순서가 생긴다. 칸 셋의 되풀이가 그보다 싸다.
+  - (라) 늘 0이면 안전한 쪽이지만(왕복이 붙든 시간만큼 크게 잡힌다) 칸이 뜻을 잃고, T-60의 경기 중 표본(`T0Us`)에 쓸 보낸 시각도 여전히 없다. 시각을 인자로 받는 것은 `OnPacket`과 같은 꼴이라 "소켓도 시계도 모른다"(T-19)를 깨지 않는다.
+  - (마) 절 34의 여섯 파일은 같은 때 도는 M2-NET-03이 고치고 있다(T-60의 시계 값 셋). 두 브랜치가 같은 파일의 같은 자리를 고치면 뒤에 들어가는 쪽이 돌려보내진다(`PIPELINE.md` 3.8절). `ClockSample`도 M2-NET-03이 `Clock/`으로 옮기는 중이다. 그래서 둘 다 M2-NET-03과 M2-NET-05의 뒤에 오는 작업(CCR-1)으로 냈다. TV-N23의 뒷부분("4번째 불일치에 표시")은 데이터의 한도가 있어야 시험할 수 있어서 벡터의 배정을 CCR-1로 옮겼다(`PIPELINE.md` 3.7절). 앞부분(전체 상태를 청하고 덮어쓴다, 불일치만 센다)의 테스트는 M2-NET-05에 이미 있고 그대로 둔다.
+  - (바) T-47·T-52·T-60과 같은 까닭이다: 작업 브랜치에서 `CONTRACTS.md`를 고치면 `check-diff`가 막고, 그 파일을 `owned_paths`에 넣으면 `tools/Wizard.TaskGraph`의 시험이 깨진다.
+- **`CONTRACTS.md`는 이 브랜치에서 고치지 않았다.** 옮겨 적기 전까지 2.2절(`NetRuleSet`), 6.4절(아래에 적힌 선언), 10.2절의 두 칸은 아래 개정문으로 읽는다. 6.4절에서 시그니처가 바뀌는 선언은 하나다: `DuelClientCore.PollOutgoing`에 `long clientTimeUs`가 붙는다. 나머지는 더하기와 뜻 밝히기다. `ARCHITECTURE.md` 6.1절의 틀(`transport.Send(client.PollOutgoing())`)은 보낸 시각을 넘기는 것으로 읽는다.
+- **따라오는 일**:
+  - CCR 작업(계약 변경 요청으로 올린다): 아래 개정문을 `CONTRACTS.md`에 옮겨 적는다. T-47·T-52·T-53·T-56·T-60의 옮겨 적기와 같이 할 수 있다.
+  - `tasks.json`:
+    - M2-NET-05: `owned_paths`에 `src/Wizard.Netcode/Duel/DuelClientKeys.cs`, `src/Wizard.Netcode/Duel/DuelSendCounter.cs`와 이 결정을 같이 넣으려고 문서 둘(이 문서, `tasks.json`)을 더했다. 문서 둘을 가진 M10-ACC-01(그 앞의 M2-SPL-01, M1-SIM-08, M1-CONT-02는 전이로 이어진다)을 `deps`에 더했고, 같은 문서를 가진 M2-SPL-01과 같은 묶음(M2-W03)에 있을 수 없어서 묶음을 M2-W04로 옮겼다(M2-NET-04와 의존도 경로 겹침도 없다). 벡터는 `S10:TV-N21..TV-N22`가 되고 수락 조건 셋(T-62)을 더했다. 같은 때 도는 M2-NET-03도 문서 둘을 가지고 있어서 뒤에 들어가는 쪽을 main 위로 옮길 때 두 문서가 겹친다(양쪽 절을 다 살리고 `deps`에 앞선 쪽을 더한다. 번호는 겹치지 않는다). main 위로 옮기면서 같은 문서 둘을 가진 M8-DAT-01(T-63. 그 조상에 M2-NET-03이 있다)을 `deps`에 더했다(이미 main에 있어 막지 않는다).
+    - M2-NET-04: `owned_paths`에 `Duel/`의 자리 표시 넷(`DuelHostKeys.cs`, `DuelPeerKey.cs`, `DuelHostStatus.cs`, `DuelNetStats.cs`)을 더했다. 키 둘의 칸은 5번이고, `DuelHostStatus`·`DuelNetStats`의 칸은 그 작업이 채워 결과 보고에 적는다(머리 주석 "그 영역의 작업이 채운다". T-56의 `MailDeliveryEvent`와 같은 길).
+    - CCR-1(새 작업, `deps` M2-NET-03·M2-NET-05, 묶음 M2-W06): 8번의 한도와 표시, 9번의 시계 표본. 벡터 `S10:TV-N23`.
+    - M2-NET-07: `deps`에 CCR-1을 더하고(경기 중 시계 표본을 쓴다) 수락 조건 하나를 더했다: 연결 절차의 번호는 `SendCounter`에서 받고, 한 경기에서 보낸 모든 패킷의 (키, 번호)가 서로 다르다는 테스트가 있다.
+  - M14-CLI-01(실제 전송의 연결 절차)과 M14-NET-01(`Bye`)도 2번의 규칙을 따른다. `PIPELINE.md` 7.4절의 "같은 (키, nonce)의 재사용 0"(M14-NET-01, M14-TE-01)이 종단에서 다시 본다.
+  - `DuelClientCore`가 `client_send_time_ms`에 적는 것은 호출자의 단조 시계다. 10.2절의 "경기 시계 기준"을 아래 개정문으로 바꿔 읽는다. 서버는 이 값을 그대로 돌려줄 뿐 판정에 쓰지 않는다(10.5절).
+
+**`CONTRACTS.md` 개정문** (CCR 작업이 옮겨 적는다)
+
+2.2절 `NetRuleSet`에 한 줄을 더한다(T-60의 시계 값 줄 뒤. 팩 절 34의 끝에 `i32` 하나, 1 이상). CCR-1이 넣는다.
+
+```csharp
+    public int HashMismatchFlagOver;                  // 3. spec 10 2.8 hash_mismatch_flag: 한 경기의 해시 불일치가 이 횟수를 넘으면(4번째) 표시한다(T-62)
+```
+
+6.4절. `DuelHostCore`와 `DuelClientCore`의 선언 가운데 아래 줄을 바꾸거나 더하고, 타입 넷을 더한다.
+
+```csharp
+// namespace Wizard.Netcode.Duel
+public sealed class DuelSendCounter {                 // 한 키의 보내는 방향 packet_number를 세는 단 하나의 자리(10.1절). 스레드 하나
+    public ulong Take();                              // 1부터 1씩. 한 번 내준 번호는 다시 내주지 않는다. 받아 놓고 쓰지 못한 번호는 버린다(빈 번호는 허용)
+    public ulong Taken { get; }                       // 지금까지 내준 마지막 번호. 없으면 0
+}
+public readonly struct DuelClientKeys {               // duel.setup이 준 내 키 하나 = (경기, 나, epoch). default는 IsValid 거짓
+    public readonly uint TokenId, Epoch;
+    public DuelClientKeys(uint tokenId, uint epoch, ReadOnlySpan<byte> key);   // key는 32바이트(아니면 ArgumentException). 복사해 둔다. 새 DuelSendCounter를 만든다
+    public ReadOnlySpan<byte> Key { get; }
+    public DuelSendCounter SendCounter { get; }       // 값을 복사해도 같은 자리다. 이 키로 봉인하는 모든 코드가 여기서 번호를 받는다
+    public bool IsValid { get; }
+}
+public readonly struct DuelPeerKey {                  // 서버가 만든 한 사람의 키 = (경기, 사람, epoch). duel.setup으로 내려 준 것과 같은 값. default는 IsValid 거짓
+    public readonly uint TokenId, Epoch;
+    public DuelPeerKey(uint tokenId, uint epoch, ReadOnlySpan<byte> key);      // key는 32바이트(아니면 ArgumentException). 복사해 둔다
+    public ReadOnlySpan<byte> Key { get; }
+    public bool IsValid { get; }
+}
+public readonly struct DuelHostKeys {                 // 경기의 두 사람 키. 슬롯 순
+    public readonly DuelPeerKey Slot0, Slot1;
+    public DuelHostKeys(DuelPeerKey slot0, DuelPeerKey slot1);                 // 둘 다 IsValid이고 token_id가 서로 달라야 한다(아니면 ArgumentException)
+    public DuelPeerKey For(PlayerSlot slot);
+}
+
+// DuelHostCore
+    public bool TryWriteFullState(ByteWriter target, out uint tick);          // tick = 쓴 상태의 SimWorld.Tick(다음에 처리할 틱). duel.full_state의 tick도 같다
+
+// DuelClientCore
+    public DuelClientCore(ContentDb db, DuelSetup setup, PlayerSlot me, DuelClientKeys keys, IAeadCipher cipher, DuelResume? resume = null);   // keys.IsValid가 아니면 ArgumentException
+    public void OnPacket(ReadOnlySpan<byte> packet, long clientTimeUs);       // ServerTick만 연다(다른 종류는 건드리지 않는다). clientTimeUs = 그 패킷이 기기에 닿은 시각(클라이언트 단조 시계)
+    public void OnFullState(uint tick, ReadOnlySpan<byte> state);             // tick = 그 상태의 SimWorld.Tick. 상태의 틱과 다르거나 읽히지 않으면 버린다
+    public int PollOutgoing(Span<byte> buffer, long clientTimeUs);            // clientTimeUs = 내보내는 시각(OnPacket과 같은 시계). 번호는 keys.SendCounter에서 받는다. buffer가 모자라면 0(번호를 쓰지 않는다)
+    public ulong ConfirmedHash(uint tick);            // 확정 세계가 틱 tick을 처리한 뒤의 해시(ServerTick의 hash_tick과 같은 뜻). 남아 있지 않은 틱이면 0
+    public int HashMismatchCount { get; }             // 이 경기에서 서버 해시와 어긋난 횟수. 확정 공백으로 청한 전체 상태는 세지 않는다
+    public bool HashMismatchFlagged { get; }          // HashMismatchCount > NetRuleSet.HashMismatchFlagOver (CCR-1)
+    public int DrainClockSamples(Span<Wizard.Netcode.Clock.ClockSample> buffer);   // 경기 중 시계 표본(10.4절). 받은 ServerTick 하나에 많아야 하나 (CCR-1)
+
+public readonly struct DuelAdvance { … }              // PredictedTick·ConfirmedTick = 그 세계의 SimWorld.Tick(다음에 처리할 틱). 마지막 확정 틱 = ConfirmedTick − 1
+```
+
+6.4절 "세계 둘" 앞에 한 문단을 더한다.
+
+> **키와 패킷 번호.** 한 키(경기, 사람, epoch)로 클라이언트가 보내는 패킷은 연결 절차의 `SyncRequest`·`Hello`·`Bye`와 `DuelClientCore`의 `ClientInput`이다. 번호는 전부 `DuelClientKeys.SendCounter` 한 곳에서 받는다(10.1절: 같은 키에서 `packet_number`는 되돌아가지 않는다). `duel.setup` 하나에 `DuelClientKeys`를 한 번만 만든다. 받는 쪽은 종류로 갈린다: `ServerTick`은 `DuelClientCore`가, 나머지는 연결 절차가 자기 재전송 창으로 연다.
+
+10.2절의 세 칸.
+
+```
+u32   ack_confirmed_tick      내가 받은 마지막 확정 틱. 아직 하나도 받지 못했으면 0(틱 0만 받은 것과 같은 값이다. 서버는 0이면 틱 0부터 다시 싣는다)
+u32   client_send_time_ms     보낸 시각의 ms(클라이언트 단조 시계의 아랫 32비트. PollOutgoing의 clientTimeUs / 1,000 내림). 서버는 그대로 돌려줄 뿐 판정에 쓰지 않는다
+u16   echo_hold_ms            그 패킷이 기기에 닿은 뒤 이 패킷을 보낼 때까지 든 시간(두 시각의 차를 ms로 내림. 음수면 0, 65,535에서 포화). 입력 시계의 틱 수로 어림하지 않는다
+```
+
+10.3절 `server_time_ms`에 붙인다: 경기 시계의 ms(`HelloAck.match_epoch_server_us`부터 센 서버 시각, 내림). `confirmed_from_tick`에 붙인다: 그 사람의 `ack_confirmed_tick + 1`. ack가 0이면 0이다(틱 0을 받았는지 알 수 없다).
+
 ## T-63 덜 찬 데이터를 전제한 저장소 데이터 시험은 그 데이터를 채우는 작업이 같은 브랜치에서 고친다 [신규]
 
 번호 메모: T-61(M1-UE-03)과 T-62(M2-NET-05)는 아직 main에 들어오지 않은 다른 작업 브랜치가 쓰고 있다. 겹치지 않게 T-63을 쓴다.

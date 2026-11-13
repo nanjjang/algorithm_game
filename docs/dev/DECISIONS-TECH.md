@@ -1067,6 +1067,96 @@ public sealed class WeatherEventDef {                 // world-characters 2.3의
 
 ---
 
+## T-59 표시 이벤트 바인딩의 계약을 채운다: `UiEventKeys`는 명세의 이름을 그대로 옮긴다, 바인딩 파일의 그릇, 그림·소리 식별자의 주인, 단계별 연출 규칙. `UiEventKeys.cs`와 "의도적 없음" 스키마는 M9-PRS-01이 가진다 [신규]
+
+번호 T-54~T-58과 Q-14~Q-21은 다른 작업 브랜치가 쓰고 있어서 T-59와 Q-22를 썼다.
+
+- **문제**: M9-PRS-01(표시 이벤트 바인딩 표)이 구현과 시험을 끝내고 `check-diff`의 위반 둘로 멈췄다. (1) 뼈대 커밋이 `UiEventKeys`를 `src/Wizard.ViewLogic/Presentation/UiEventKeys.cs`에 두었고 `CONTRACTS.md` 13절과 그 파일의 주석이 "M9-PRS-01이 채운다"고 적었는데, 카드의 `owned_paths`에는 `Presentation/UiEvents/`만 있었다. (2) `DataLoader`는 `data/presentation/<이름>.json`마다 `data/schema/<이름>.schema.json`을 요구하는데 카드는 `event_bindings.none.json`만 가지고 그 스키마(`event_bindings.none.schema.json`)를 가지지 않았다. 그리고 13절은 바인딩 한 줄의 꼴만 적어서 (3) 파일 전체의 그릇, (4) `fx`·`sfx` 식별자를 어디서 정하는가(`effects.md` 20절의 표에는 한글 이름만 있고 식별자가 없다), (5) 명세의 사건 이름을 `UiEventKeys`의 열쇠로 옮기는 규칙, (6) 예측·확정·번복 단계에서 무엇을 내는가, (7) 라우터의 생성자와 카메라 쪽 출구가 정해져 있지 않았다.
+- **결정**:
+  1. **소유.** `UiEventKeys.cs`는 지금 자리에 둔다(네임스페이스 `Wizard.ViewLogic.Presentation` = 폴더). M9-PRS-01의 `owned_paths`에 이 파일과 `data/schema/event_bindings.none.schema.json`을 더했다. `Presentation/UiEvents/`에는 구역 표 `UiEventZones`가 있다. 뒤 작업이 열쇠를 더해야 하면(명세의 연결점 절에 이름이 늘었을 때) `deps`에 M9-PRS-01을 두고 이 파일과 바인딩 파일 둘을 `owned_paths`로 받는 작업(`CCR-<번호>`)으로 한다. 열쇠는 더하기만 한다.
+  2. **열쇠는 명세의 이름을 그대로 옮긴다.** 각 명세의 연결점 절(spec 04 18.2·18.3, 06 17, 07 20, 08 16, 09 22, 10 23, 11 17, 12 17, 13 21)에서 코어 이벤트(`SimEventType`)가 아닌 이름 하나가 열쇠 하나다. 옮기는 규칙은 넷이고 `tests/Wizard.ViewLogic.Tests/Presentation/UiEvents/UiEventCatalogSpecTests.cs`가 명세 파일을 읽어 양쪽으로 대조한다(명세의 이름이 빠지면 실패, 명세에 없는 열쇠가 있어도 실패).
+     - 점 이름의 앞 마디가 구역(`ui`, `net`, `duel`, `plaza`, `notice`, `trade`, `season`, `run`)이면 그대로 쓴다. 아니면 명세별 표의 구역을 앞에 붙인다(spec 13 `hud.boss_show` → `ui.hud.boss_show`, spec 12 `auth.login.started` → `net.auth.login.started`, spec 10 `league.promoted` → `duel.league.promoted`, spec 08 `enhance.…` → `ui.enhance.…`).
+     - 점 없는 snake 이름의 앞 마디가 구역이면 그 마디를 구역으로 뗀다(spec 11 `plaza_enter` → `plaza.enter`). 아니면 명세별 표의 구역을 붙인다(spec 09 `verify_passed` → `run.verify_passed`, spec 11 `market_listed` → `trade.market_listed`).
+     - PascalCase 이름은 앞 낱말이 구역이면 `구역.snake(나머지)`(spec 04 `PlazaEmoteRaiseWand` → `plaza.emote_raise_wand`), spec 04 18.3(강화 화면)의 이름은 `ui.wand.snake(이름)`이다.
+     - 별칭은 여덟이다. 같은 사건을 두 명세가 다르게 적은 것: spec 01 `InputDroppedByNetwork` = `duel.input_dropped`(spec 10 23.6), spec 07 `revenge_tracker.update` = `ui.revenge.tracker_update`(spec 06), spec 07 `settle.bundle_open`·`settle.bag_screen` = `ui.settlement.bundle_open`·`ui.settlement.bag_open`(spec 13 21.4), spec 09 `run_submit_sent`·`run_submit_ack` = `run.submit.sent`·`run.submit.ack`(spec 12). 작업용 이름이 든 것: spec 11 `notice_nuru_eye_open`·`_close` = `notice.master_eye_open`·`notice.master_eye_close`(`CLAUDE.md` 5절, `CONTRACTS.md` 0.3절의 시설 id와 같은 규칙).
+     - 그 밖에는 합치지 않는다. 같은 일을 층마다 다른 이름으로 적은 것(spec 10 `duel.input_dropped`, spec 12 `duel.net.input_dropped`, spec 13 `hud.duel.input_dropped`)은 열쇠가 셋이다. 각 층은 자기 명세의 열쇠를 올린다(넷코드는 `duel.*`, 화면 모델은 `ui.hud.*`). **연출(그림·소리)은 그 가운데 화면에 가장 가까운 열쇠 한 줄에만 붙인다**(`ui.*`가 있으면 거기). 나머지 줄은 `fx`·`sfx`가 빈 줄로 둔다. 두 줄에 같은 소리를 붙이면 한 번의 일에 소리가 두 번 난다.
+  3. **바인딩 파일의 그릇.** `data/presentation/event_bindings.json`은 `{ "_note"?, "graze_chain": { "window_seconds", "max_step" }, "sfx_catalog": [id…], "fx_catalog": [{ "fx", "src" }…], "bindings": [줄…] }`이고 줄의 꼴은 13절 그대로다(여섯 칸 전부 필수, 모르는 칸은 오류). `shake`는 `none`·`small`·`medium`·`large`·`xlarge`(`effects.md` 0.2절의 소·중·대·특대)다. `event_bindings.none.json`은 `{ "_note"?, "none": [{ "event", "reason" }…] }`이고 `reason`은 `not_an_event`, `debug_only`, `spec_no_presentation`, `phase_of_core_event`, `camera_output` 다섯이다. 한 열쇠는 줄이 있거나 이 목록에 있거나 둘 중 하나다(둘 다면 오류).
+  4. **"의도적 없음"과 빈 줄은 다르다.** 에셋이 아직 없을 뿐인 사건은 `fx`·`sfx`가 빈 **줄**로 둔다(에셋을 꽂을 자리. 지금 860줄 가운데 584줄). "의도적 없음" 목록은 연출이 정말 없는 것만이다: `sim.none`, `debug.command_rejected`, `crystal.gain_blocked`(spec 01 17.2 "연출 없음"), `duel.hit_predicted`·`duel.hit_confirmed`·`duel.hit_rollback`(spec 10 23.3. 코어 이벤트 `player.hit`·`projectile.hit`의 `PresentationEvent` 단계로 그린다), `ui.fx.flash.full`·`ui.fx.flash.border_highlight`·`ui.fx.shake.add`·`ui.fx.hitstop`(spec 13 21.1. 바인딩 줄의 `shake`·`hitstop_ms`를 받은 연출 한도 관리기가 내는 결과라서 다시 바인딩하면 되먹임이 된다).
+  5. **식별자의 주인은 바인딩 파일의 두 카탈로그다.** 소리는 `effects.md` 19절의 사건 번호를 그대로 옮긴다: `E-01` → `sfx_e01`, `T-09a` → `sfx_t09a`(꼴 `sfx_<e|c|t|h|n><두 자리>[a-c]`). `sfx_catalog`는 19절의 번호 전부와 정확히 같아야 한다(시험이 대조한다). 그림은 `fx_catalog`가 20절의 표 줄마다 식별자를 붙인다: `fx`는 `fx_…`(효과 그림) 또는 `ui_…`(20절이 크기를 갖는 1배 화면 요소), `src`는 `"<소절>#<그 표의 몸통 줄 번호>"`(예: `"20.3#4"`). spec 01 17.2절 끝의 식별자(`fx_lock_x`, `fx_lock_steam` …)는 그 이름 그대로다. 20절이 장수를 세는 줄은 전부 식별자가 있어야 하고 `src`가 가리키는 줄이 있어야 한다(시험이 `effects.md`를 읽어 대조한다). 바인딩 줄이 카탈로그에 없는 식별자를 가리키면 읽기 오류다. 에셋 카탈로그(M9-AST-01·02)는 이 식별자를 `AssetKey(Fx, id)`의 `Id`로 쓴다.
+  6. **단계별 연출**(`CONTRACTS.md` 6.4절). 소리, 흔들림, 그림 정지는 `Confirmed`에서만 낸다. `confirmed_only`가 켜진 줄은 그림도 `Confirmed`에서만 낸다. 그 밖의 줄은 `Predicted`에서 그림을 내고 `(Tick, Type, Slot, Ordinal)`을 기억했다가, 같은 열쇠가 `Confirmed`로 오면 다시 그리지 않고, `Retracted`로 오면 `Phase = Retracted`인 `FxRequest`를 보내 0.1초 흐려지게 한다. 예측 없이 `Confirmed`로 온 것은 그때 그린다. spec 10 23.1~23.6의 "확정 필요"가 "예"인 줄은 `confirmed_only`다(시험이 명세의 표를 읽어 대조한다). `RaiseUi`는 늘 `Confirmed`로 본다.
+  7. **연속 스침의 음높이**(T-50의 6번을 받는다). `GrazeChainCounter`가 슬롯마다 센다: `Confirmed`인 `GrazeAwarded`가 같은 슬롯의 앞 것과 틱 차 ≤ `window_seconds × 60`이면 한 단 올리고(`max_step`까지), 아니면 0. 틱이 거꾸로 오면 0부터 다시 센다. 라우터는 그 단을 그 줄의 소리에 `pitchStep`으로 준다. 경계(틱 차가 정확히 창과 같을 때)는 이어진 것으로 본다 [임시](Q-22).
+  8. **라우터와 카메라 출구.** `PresentationEventRouter(EventBindingTable table, IFxPlayer fx, ISfxPlayer sfx, ICameraCueSink? camera = null, Action<string>? onUnbound = null)`이고 `IPresentationEventHandler`를 구현한다. `shake`와 `hitstop_ms`는 `ICameraCueSink`(`Shake(BindingShake)`, `Hitstop(int durationMs, EntityId source, EntityId target)`)로 넘기기만 한다. 폭·길이·누적·줄이기·광과민 한도는 받는 쪽(M9-PRS-02의 연출 한도, M9-PRS-03의 카메라 연결)이 집행한다. 대응이 없는 열쇠는 조용히 지나가고 `onUnbound`가 있으면 열쇠마다 한 번 알린다("의도적 없음"의 열쇠는 알리지 않는다). `Reset()`은 새 판·새 경기·결투 재동기화 때 부른다.
+  9. **표는 글에서 읽는다.** `EventBindingTable.Load(string bindingsJson, string noneJson, List<string> errors)`는 파일을 열지 않는다(파일을 읽어 주는 것은 Unity 쪽과 시험이다). 데이터 오류는 던지지 않고 `errors`에 쌓는다(`CONTRACTS.md` 0.2절). 공유 코드는 `System.Text.Json`을 쓰지 않으므로(ARCHITECTURE 3.3절) 이 두 파일만 읽는 `internal` 읽개(`BindingJson`)를 `Bindings/`에 둔다. `IJsonCodec`은 통신 DTO의 것이라 쓰지 않는다.
+- **`CONTRACTS.md` 13절 개정문**(코드 블록의 `PresentationEventRouter` 아래에 더한다. 통합 때 CCR로 옮긴다):
+
+```csharp
+// namespace Wizard.ViewLogic.Presentation   (파일은 Presentation/Bindings/, Presentation/UiEvents/. T-59)
+public static class UiEventZones {                    // "ui", "net", "duel", "plaza", "notice", "trade", "season", "run"
+    public static IReadOnlyList<string> All { get; }
+    public static bool IsZone(string zone);
+    public static bool IsValidKey(string key);        // <구역>.<마디>[.<마디>…], 마디는 a-z 0-9 _
+}
+public enum BindingShake : byte { None = 0, Small = 1, Medium = 2, Large = 3, XLarge = 4 }
+public sealed class EventBinding {
+    public string EventKey { get; } public IReadOnlyList<string> Fx { get; } public IReadOnlyList<string> Sfx { get; }
+    public BindingShake Shake { get; } public int HitstopMs { get; } public bool ConfirmedOnly { get; }
+    public bool IsPlaceholder { get; }                // fx 와 sfx 가 둘 다 비었다(에셋을 꽂을 자리)
+}
+public readonly struct FxCatalogEntry { public string Fx { get; } public string Src { get; } }      // Src = "20.3#4"
+public readonly struct GrazeChainSettings { public int WindowTicks { get; } public int MaxStep { get; } }
+public sealed class EventBindingTable {
+    public const string BindingsFile = "data/presentation/event_bindings.json";
+    public const string NoneFile = "data/presentation/event_bindings.none.json";
+    public static EventBindingTable Load(string bindingsJson, string noneJson, List<string> errors);   // errors 가 비어야 쓸 수 있는 표다
+    public GrazeChainSettings GrazeChain { get; }
+    public IReadOnlyList<EventBinding> Bindings { get; } public IReadOnlyList<string> NoneKeys { get; }
+    public IReadOnlyList<FxCatalogEntry> FxCatalog { get; } public IReadOnlyList<string> SfxCatalog { get; }
+    public bool TryGet(string eventKey, out EventBinding? binding);
+    public bool IsIntentionallyNone(string eventKey); public string? NoneReason(string eventKey);
+    public bool IsKnownFx(string fxId); public bool IsKnownSfx(string sfxId);
+    public static bool IsEventKey(string key); public static bool IsSfxId(string id); public static bool IsFxId(string id);
+}
+public static class EventBindingCoverage {            // 13절의 빠짐 검사. 비었으면 통과
+    public static List<string> FindProblems(EventBindingTable table);
+    public static List<SimEventType> AllSimEventTypes();              // 값 오름차순
+}
+public sealed class GrazeChainCounter {               // 연속 스침의 단. Confirmed 인 GrazeAwarded 만 넣는다
+    public GrazeChainCounter(GrazeChainSettings settings);
+    public int Next(PlayerSlot slot, uint tick); public int Current(PlayerSlot slot); public void Reset();
+}
+public interface ICameraCueSink {                     // 세기·줄이기·광과민 한도는 받는 쪽이 집행한다
+    void Shake(BindingShake size);
+    void Hitstop(int durationMs, EntityId source, EntityId target);   // 코어 밖 사건이면 둘 다 기본값
+}
+public sealed class PresentationEventRouter : IPresentationEventHandler {
+    public PresentationEventRouter(EventBindingTable table, IFxPlayer fx, ISfxPlayer sfx,
+                                   ICameraCueSink? camera = null, Action<string>? onUnbound = null);
+    public EventBindingTable Table { get; }
+    public int GrazeChainStep(PlayerSlot slot);
+    public void Handle(in PresentationEvent e, ISimView view);
+    public void RaiseUi(string uiEventKey, in UiEventArgs args);
+    public void Reset();
+}
+```
+
+  13절의 글머리표에 더하는 줄: "파일의 그릇, `reason`의 값, 식별자의 꼴과 두 카탈로그, 단계별 연출, 열쇠를 옮기는 규칙과 별칭은 T-59에 있다." 0.3절 통합 표에 더하는 줄: "코어 밖 표시 사건의 이름 | 명세마다 `duel.x`, `hud.x`, `plaza_x`, `PlazaX`, `verify_passed` | `UiEventKeys`의 `<구역>.<snake_case>`. 옮기는 규칙과 별칭은 T-59의 2번".
+- **대안**: (가) `UiEventKeys.cs`를 `Presentation/UiEvents/`로 옮긴다. (나) 같은 일의 이름들을 열쇠 하나로 합친다(`duel.input_dropped` 하나). (다) `fx` 식별자를 바인딩 파일이 아니라 `effects.md` 20절의 표에 칸을 더해 적는다. (라) "의도적 없음"을 따로 두지 않고 빈 줄로 통일한다. (마) 표를 팩(`.wzpack`)의 절로 넣는다.
+- **이유**:
+  - (가)는 뼈대가 만든 파일과 그 `.meta`를 지워야 한다. 공유 `.meta`는 더하기만 할 수 있고(`check-diff`), 네임스페이스가 `Wizard.ViewLogic.Presentation.UiEvents`가 되거나(계약의 네임스페이스와 다르다) "네임스페이스 = 폴더"의 예외가 하나 더 생긴다. 파일 하나를 소유로 더하는 쪽이 고치는 곳이 적다.
+  - (나)는 수락 조건("그 절의 모든 사건 이름이 두 카탈로그 가운데 하나에 있다")을 별칭 표로만 만족하게 되고, 어느 이름들이 "같은 일"인지를 이 작업이 수십 건 판단해야 한다. 층이 다르면 올리는 때도 다르다(넷코드가 버림을 안 순간과 HUD가 1.5초 표시를 시작하는 순간). 그대로 옮기면 대조가 기계적이고 에셋을 꽂을 자리가 빠지지 않는다. 겹치는 소리는 2번의 "한 줄에만 붙인다"로 막는다.
+  - (다)는 기획 문서(`effects.md`)를 고치는 일이다. 문서 우선순위에서 기획 문서는 명세의 출처이고 개발 쪽이 식별자를 적어 넣을 곳이 아니다. 카탈로그의 `src`가 표의 줄을 가리키고 시험이 그 줄이 있는지, 세는 줄이 다 덮였는지를 확인하므로 표가 바뀌면 시험이 알린다.
+  - (라)는 "아직 에셋이 없다"와 "연출이 없는 것이 맞다"를 가르지 못한다. 에셋을 꽂는 사람이 빈 줄을 전부 채워야 할 자리로 읽는다.
+  - (마): 이 표는 재실행 결과에 영향을 주지 않는 표시 데이터다. 팩에 넣으면 그림·소리를 바꿀 때마다 `DataVersion`이 바뀌고 기록의 재실행 검증이 깨진다(`CLAUDE.md` 3절 "재실행에 영향을 주는 값은 `data/sim/`의 절에만").
+- **따라오는 일**:
+  - `tasks.json`: M9-PRS-01의 `owned_paths`에 `src/Wizard.ViewLogic/Presentation/UiEventKeys.cs`, `data/schema/event_bindings.none.schema.json`, 그리고 이 결정을 작업 브랜치에서 같이 넣으려고 `docs/dev/DECISIONS-TECH.md`·`OPEN-QUESTIONS.md`·`tasks.json`을 더했다(T-47·T-53 때와 같다). `deps`에 M2-SPL-01을 더했다(같은 문서를 가진 작업과의 순서).
+  - `CONTRACTS.md`는 고치지 않았다(T-47·T-52·T-53과 같은 까닭). 위 개정문을 13절과 0.3절에 옮기는 것은 CCR 작업으로 한다.
+  - M9-PRS-03(Unity 표시 버스)은 `data/presentation/`의 두 파일의 글을 읽어 `EventBindingTable.Load`에 주고, `errors`가 비지 않으면 개발 빌드에서 기록한다. `ICameraCueSink`를 구현해 M9-PRS-02의 흔들림 누적기와 그림 정지 시계에 잇는다. `onUnbound`는 개발 빌드의 기록에 잇는다.
+  - 화면·넷코드 작업은 사건이 생기면 자기 명세의 열쇠로 `RaiseUi`를 부른다. 열쇠 문자열을 직접 쓰지 않고 `UiEventKeys`의 상수를 쓴다.
+  - 바인딩 줄의 `shake`·`hitstop_ms`·`confirmed_only`와 `fx`의 선택은 [임시]다(Q-22). 조정은 QA에서 데이터만 고친다.
+  - 코어 이벤트(`Handle`)의 `FxRequest.Element`는 `None`이다(`SimEvent`에 속성 칸이 없다). `A`·`B`는 이벤트의 값 그대로 간다. 속성별 그림을 골라야 하는 재생기는 `Handle`이 받은 `ISimView`에서 읽는다(M9-PRS-03). `RaiseUi`는 `UiEventArgs.Element`를 그대로 넘긴다.
+
+---
+
 ## T-56 `mail_outbox`의 상태는 spec 12의 넷뿐이다: 배달 확인은 `sent` 그대로, 반송은 `sent → dropped`. 시험 대역이 진짜 표로 바뀔 때의 시험 도우미는 그 표를 들이는 작업이 고친다 [신규]
 
 번호 메모: T-54는 아직 main에 들어오지 않은 다른 작업 브랜치 둘(M1-UE-02, M2-NET-03)이 각자 쓰고 있다. 겹치지 않게 T-56을 쓴다(T-55는 그 둘 가운데 하나를 고쳐 매길 자리로 비워 둔다).

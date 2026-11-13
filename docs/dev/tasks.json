@@ -6521,7 +6521,10 @@
    "reviewer_model": "opus",
    "deps": [
     "M4-UL-01",
-    "M1-SIM-01"
+    "M1-SIM-01",
+    "M2-SPL-01",
+    "M10-ACC-01",
+    "M8-DAT-01"
    ],
    "spec_refs": [
     "docs/dev/ARCHITECTURE.md §9",
@@ -6552,7 +6555,12 @@
     "tests/Wizard.ViewLogic.Tests/Presentation/Bindings/",
     "data/presentation/event_bindings.none.json",
     "src/Wizard.ViewLogic/Presentation/UiEvents/",
-    "tests/Wizard.ViewLogic.Tests/Presentation/UiEvents/"
+    "tests/Wizard.ViewLogic.Tests/Presentation/UiEvents/",
+    "src/Wizard.ViewLogic/Presentation/UiEventKeys.cs",
+    "data/schema/event_bindings.none.schema.json",
+    "docs/dev/DECISIONS-TECH.md",
+    "docs/dev/OPEN-QUESTIONS.md",
+    "docs/dev/tasks.json"
    ],
    "acceptance": [
     "SimEventType의 모든 값과 UiEventKeys.All의 모든 열쇠에 대해 바인딩 줄이 있거나 '의도적으로 없음' 목록(event_bindings.none.json)에 있다(빠짐 검사 테스트). 두 카탈로그에 같은 열쇠가 없다",

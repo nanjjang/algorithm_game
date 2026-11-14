@@ -310,7 +310,8 @@ namespace Wizard.Solo.Screens.Enhance
             var ward = EnhanceUi.EffectFrame(Ctx, EnhanceUi.GroupRitual, "ward_slot", 0);
             if (ward != null) UiKit.Image(_charmSlot.ContentRoot, ward, 0f, 0f, 48f, 80f);
             EnhanceGfx.Panel(_charmSlot.ContentRoot, 0f, 0f, 48f, 80f, EnhanceFxStyle.WithA(EnhanceFxStyle.WardTeal, 0.45f), true, "CharmEdge");
-            _charmNote = UiKit.Label(Ctx, sr, string.Empty, UiFontId.F12, chx - 56f, sy + 72f, 160f, 0f, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
+            // 부적 칸 아래 한 줄: 제물 쟁반 안쪽(오른쪽 끝 맞춤, 쟁반 아래 테 위)에 둔다 — 쟁반 밖으로 삐져나가지 않게.
+            _charmNote = UiKit.Label(Ctx, sr, string.Empty, UiFontId.F12, chx + 52f - 200f, sy + 66f, 200f, 16f, UiTheme.SlateBlue, TextAnchor.MiddleRight);
             // 기운 칸 0..3
             for (int i = 0; i < AuraMax; i++)
             {

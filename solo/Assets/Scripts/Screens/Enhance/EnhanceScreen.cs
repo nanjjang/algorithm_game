@@ -174,7 +174,21 @@ namespace Wizard.Solo.Screens.Enhance
         bool FastSetting() => SettingsOptions.Str(Settings, OptionKeys.EnhanceRitual) == OptionValues.Fast;
         bool FastAllowHigh() => SettingsOptions.Bool(Settings, OptionKeys.EnhanceFastAllowHigh);
         int EffectsLevel => SettingsOptions.EffectsLevel(Settings);
-        int FlashScale => SettingsOptions.Int(Settings, OptionKeys.FlashScale);
+        /// <summary>
+        /// 번쩍 배율(%). 설정의 "섬광 줄이기"(reduce_flash)가 켜지면 전투 화면(ViewOptions)과 같은 상한 30% 이하로 누른다.
+        /// 강화 화면은 flash_scale을 직접 읽으므로 여기서 같은 규칙을 건다.
+        /// </summary>
+        int FlashScale
+        {
+            get
+            {
+                return EnhanceFlashGuard.EffectiveFlashScalePct(SettingsOptions.Int(Settings, OptionKeys.FlashScale), ReduceFlash);
+            }
+        }
+        /// <summary>섬광 줄이기: 전체 화면 번쩍을 쓰지 않는다(테두리 강조로 바꾼다).</summary>
+        bool ReduceFlash => SettingsOptions.Bool(Settings, OptionKeys.ReduceFlash);
+        /// <summary>국소 빛(마법진 둘레 섬광·빛살)에 곱하는 배율 0..1.</summary>
+        float FlashFactor => Mathf.Clamp01(FlashScale / 100f);
         int ShakeScale => SettingsOptions.Int(Settings, OptionKeys.ShakeScale);
         bool HitstopOn => SettingsOptions.Bool(Settings, OptionKeys.HitstopEnabled);
 

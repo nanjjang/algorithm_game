@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using Wizard.Solo.Data;
 using Wizard.Solo.Meta;
+using Wizard.Solo.UI;
 
 namespace Wizard.Solo.Screens.Hints
 {
@@ -29,6 +31,38 @@ namespace Wizard.Solo.Screens.Hints
         public static string BodyKey(string id) => "str.hint." + id + ".body";
     }
 
+    /// <summary>
+    /// 힌트마다 "자기 문맥 화면". 쪽지는 그 화면이 바탕(창·토스트를 뺀 맨 위)일 때만 보이고, 바탕이 바뀌면 닫힌다(이미 본 것으로 적혔다).
+    /// 줄에서 기다리던 힌트가 문맥을 잃으면 버린다(본 것으로 적지 않아 다음에 그 문맥에서 다시 청해진다).
+    /// 정산·메뉴처럼 판과 무관한 화면에서는 판 힌트가 뜨지 않는다.
+    /// </summary>
+    public static class HintContexts
+    {
+        public static bool Accepts(string id, ScreenId screen)
+        {
+            switch (id)
+            {
+                case HintIds.FirstLoot: return screen == ScreenId.LootPick;
+                case HintIds.FirstCamp: return screen == ScreenId.Camp;
+                case HintIds.FirstArtUnlock: return screen == ScreenId.Camp || screen == ScreenId.Battle;
+                case HintIds.FirstSettlement:
+                case HintIds.FirstBag: return screen == ScreenId.Settlement;
+                case HintIds.FirstDrop:
+                case HintIds.FirstMutation: return screen == ScreenId.Enhance;
+                case HintHost.FirstEnhance: return screen == ScreenId.Enhance || screen == ScreenId.WandPicker;
+                case null: return false;
+                default: return screen == ScreenId.Battle;
+            }
+        }
+    }
+
+    /// <summary>화면 하나의 쪽지 안전 자리(왼쪽 위 x·y와 폭. 높이는 본문 길이로 정한다).</summary>
+    public struct HintSpot
+    {
+        public float X, Y, W;
+        public HintSpot(float x, float y, float w) { X = x; Y = y; W = w; }
+    }
+
     /// <summary>DataSolo/Hints.json.</summary>
     public sealed class HintTuning
     {
@@ -37,6 +71,14 @@ namespace Wizard.Solo.Screens.Hints
         public int StuckMaxShows = 3, DryFireCount = 6, FizzleCount = 3;
         public float DryFireWindowSeconds = 4f, FizzleWindowSeconds = 12f;
         public float CardX = 1376f, CardY = 768f, CardW = 528f, CardH = 156f;
+        /// <summary>화면별 안전 자리(spots). 없는 화면은 card 자리.</summary>
+        public readonly Dictionary<ScreenId, HintSpot> Spots = new Dictionary<ScreenId, HintSpot>();
+
+        public HintSpot SpotFor(ScreenId screen)
+        {
+            HintSpot s;
+            return Spots.TryGetValue(screen, out s) ? s : new HintSpot(CardX, CardY, CardW);
+        }
 
         public static HintTuning From(IContentDb db)
         {
@@ -56,6 +98,17 @@ namespace Wizard.Solo.Screens.Hints
             if (c != null)
             {
                 t.CardX = F(c, "x", t.CardX); t.CardY = F(c, "y", t.CardY); t.CardW = F(c, "w", t.CardW); t.CardH = F(c, "h", t.CardH);
+            }
+            var spots = jo["spots"] as JObject;
+            if (spots != null)
+            {
+                foreach (var kv in spots)
+                {
+                    ScreenId id;
+                    var o = kv.Value as JObject;
+                    if (o == null || !Enum.TryParse(kv.Key, false, out id)) continue;
+                    t.Spots[id] = new HintSpot(F(o, "x", t.CardX), F(o, "y", t.CardY), F(o, "w", t.CardW));
+                }
             }
             return t;
         }

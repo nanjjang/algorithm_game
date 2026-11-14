@@ -64,6 +64,24 @@ namespace Wizard.Solo.Data
             }
         }
 
+        /// <summary>
+        /// 허수아비 DPS(제자리에 선 과녁 하나)로는 가치가 잡히지 않는 효과인가: 벽 튕김(과녁이 벽 앞에 있지 않다), 냉기·감속(과녁이 움직이지 않는다),
+        /// 유도(과녁이 피하지 않는다), 관통(과녁이 하나다), 적중 시 발동(과녁 하나에 뒤 칸이 같은 자리에서 나간다 — 여러 적 상황의 가치).
+        /// 전리품 미리보기가 이런 블록의 DPS 하락을 "허수아비로 못 재는 효과"로 바꿔 보인다.
+        /// </summary>
+        public static bool DummyBlind(BlockDef b)
+        {
+            if (b == null) return false;
+            switch (b.KindEnum)
+            {
+                case BlockKind.Control: return b.IsTrigger;
+                case BlockKind.Projectile: return false;
+                default:
+                    return b.Effect == Ids.BlockEffect.Bounce || b.Effect == Ids.BlockEffect.Frost || b.Effect == Ids.BlockEffect.Homing
+                        || b.Effect == Ids.BlockEffect.Pierce;
+            }
+        }
+
         /// <summary>변형·제어가 무엇에 붙는지(규칙 한 줄): 변형 = 같은 묶음의 모든 투사체, 분열 = 같은 묶음, 트리거 = 뒤 칸 전부.</summary>
         public static Line ScopeRule(BlockDef b)
         {

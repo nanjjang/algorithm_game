@@ -14,6 +14,7 @@ namespace Wizard.Solo.Screens.Camp
     public sealed class ArtTrieView
     {
         /// <summary>판 배치(08 8.4절). 화면 배치 상수.</summary>
+        const float PickBottomGap = 24f;
         public const float W = 912f, GraphH = 600f, DescH = 144f, PickW = 720f, PickH = 400f, CardSize = 320f;
 
         readonly GameContext _ctx;
@@ -37,7 +38,8 @@ namespace Wizard.Solo.Screens.Camp
             _graph = UiKit.Node(_root, "Graph", 16f, 16f, W - 32f, GraphH - 32f);
             UiKit.Panel(ctx, _root, UiPanelKind.Board, 0f, GraphH + 16f, W, DescH);
             _desc = UiKit.Node(_root, "Desc", 16f, GraphH + 24f, W - 32f, DescH - 16f);
-            _pick = UiKit.Node(_root, "Pick", (W - PickW) * 0.5f, (GraphH - PickH) * 0.5f, PickW, PickH);
+            // 고르기 창은 판 아래쪽에 붙인다: 첫 줄 마디(시작 비기와 그 이름)가 창 위 끝에 잘리지 않게.
+            _pick = UiKit.Node(_root, "Pick", (W - PickW) * 0.5f, GraphH - PickH - PickBottomGap, PickW, PickH);
             _pick.gameObject.SetActive(false);
         }
 

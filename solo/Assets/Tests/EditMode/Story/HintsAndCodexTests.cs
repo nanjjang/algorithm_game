@@ -229,5 +229,85 @@ namespace Wizard.Solo.Tests.Story
             string filled = m.Body(names, new object[] { "cap", 95 });
             StringAssert.Contains("95", filled);
         }
+
+        [Test]
+        public void Hints__EachHintBelongsToItsOwnScreen_RunHintsNeverOnSettlementOrMenus()
+        {
+            Assert.IsTrue(HintContexts.Accepts(HintIds.FirstLoot, Wizard.Solo.UI.ScreenId.LootPick));
+            Assert.IsFalse(HintContexts.Accepts(HintIds.FirstLoot, Wizard.Solo.UI.ScreenId.Camp), "전리품 힌트는 야영에 남지 않는다");
+            Assert.IsTrue(HintContexts.Accepts(HintIds.FirstCamp, Wizard.Solo.UI.ScreenId.Camp));
+            Assert.IsFalse(HintContexts.Accepts(HintIds.FirstCamp, Wizard.Solo.UI.ScreenId.Settlement), "야영 힌트는 정산에 뜨지 않는다");
+            Assert.IsFalse(HintContexts.Accepts(HintIds.FirstCamp, Wizard.Solo.UI.ScreenId.Battle));
+            Assert.IsTrue(HintContexts.Accepts(HintIds.FirstSettlement, Wizard.Solo.UI.ScreenId.Settlement));
+            Assert.IsTrue(HintContexts.Accepts(HintIds.FirstBag, Wizard.Solo.UI.ScreenId.Settlement));
+            Assert.IsTrue(HintContexts.Accepts(HintIds.FirstDrop, Wizard.Solo.UI.ScreenId.Enhance));
+            Assert.IsTrue(HintContexts.Accepts(HintHost.FirstEnhance, Wizard.Solo.UI.ScreenId.WandPicker));
+            foreach (var id in new[] { HintIds.FirstLock, HintIds.FirstCrystal, HintIds.FirstBoss, HintIds.StuckDryFire, HintIds.StuckFizzle })
+            {
+                Assert.IsTrue(HintContexts.Accepts(id, Wizard.Solo.UI.ScreenId.Battle), id);
+                foreach (var other in new[] { Wizard.Solo.UI.ScreenId.Settlement, Wizard.Solo.UI.ScreenId.MainMenu, Wizard.Solo.UI.ScreenId.LootPick, Wizard.Solo.UI.ScreenId.Camp, Wizard.Solo.UI.ScreenId.Enhance })
+                    Assert.IsFalse(HintContexts.Accepts(id, other), id + " @ " + other);
+            }
+            var all = new List<string>(HintIds.FirstTime);
+            all.AddRange(HintIds.Stuck);
+            all.Add(HintHost.FirstEnhance);
+            foreach (var id in all)
+            {
+                Assert.IsFalse(HintContexts.Accepts(id, Wizard.Solo.UI.ScreenId.MainMenu), id);
+                Assert.IsFalse(HintContexts.Accepts(id, Wizard.Solo.UI.ScreenId.Title), id);
+            }
+        }
+
+        [Test]
+        public void Hints__SpotsPerScreenFromData_CardAutoClosesWithinTenSeconds()
+        {
+            var t = HintTuning.From(TestContent.Db);
+            Assert.Greater(t.CardSeconds, 0f);
+            Assert.LessOrEqual(t.CardSeconds, 10f, "쪽지는 일정 시간 뒤 스스로 접힌다");
+            foreach (var sc in new[] { Wizard.Solo.UI.ScreenId.Battle, Wizard.Solo.UI.ScreenId.LootPick, Wizard.Solo.UI.ScreenId.Camp, Wizard.Solo.UI.ScreenId.Settlement, Wizard.Solo.UI.ScreenId.Enhance, Wizard.Solo.UI.ScreenId.WandPicker })
+            {
+                Assert.IsTrue(t.Spots.ContainsKey(sc), "안전 자리: " + sc);
+                var s = t.SpotFor(sc);
+                Assert.GreaterOrEqual(s.X, 0f);
+                Assert.LessOrEqual(s.X + s.W, 1920f, sc + " 화면 밖");
+            }
+            // 전리품: 오른쪽 위 기록 판(y < 160) 아래, 카드 열(x < 1480) 오른쪽.
+            var lp = t.SpotFor(Wizard.Solo.UI.ScreenId.LootPick);
+            Assert.GreaterOrEqual(lp.Y, 160f);
+            Assert.GreaterOrEqual(lp.X, 1480f);
+            float shortH = HintHost.BodyHeight("가나다", 300f), longH = HintHost.BodyHeight(new string('가', 80), 300f);
+            Assert.Greater(longH, shortH, "본문이 길면 쪽지가 길어진다");
+        }
+
+        [Test]
+        public void LootPreview__DummyBlindBlocks_AreBounceFrostHomingPierceTrigger()
+        {
+            var db = TestContent.Db;
+            foreach (var id in new[] { "block.wall_bounce", "block.frost", "block.homing", "block.pierce", "block.on_hit_trigger" })
+                Assert.IsTrue(BlockDescriber.DummyBlind(db.Block(id)), id);
+            foreach (var id in new[] { "block.magic_bolt", "block.fireball", "block.double_size", "block.triple_heat", "block.split_two" })
+                Assert.IsFalse(BlockDescriber.DummyBlind(db.Block(id)), id);
+            Assert.IsFalse(BlockDescriber.DummyBlind(null));
+        }
+
+        [Test]
+        public void Enhance__ReduceFlashCapsFlashScaleAtThirtyPercent()
+        {
+            Assert.AreEqual(100, EnhanceFlashGuard.EffectiveFlashScalePct(100, false));
+            Assert.AreEqual(30, EnhanceFlashGuard.EffectiveFlashScalePct(100, true));
+            Assert.AreEqual(20, EnhanceFlashGuard.EffectiveFlashScalePct(20, true), "이미 낮으면 그대로");
+        }
+
+        [Test]
+        public void Enhance__MutationDescriberGivesGainAndCostForEveryMutation()
+        {
+            var db = TestContent.Db;
+            var names = TestContent.Names;
+            foreach (var id in new[] { "mutation.twisted_barrel", "mutation.glass_wand", "mutation.gluttony", "mutation.mirror_image", "mutation.hypersensitive_circuit", "mutation.unstable_core" })
+            {
+                Assert.IsNotNull(MutationDescriber.Gain(names, db, id), id);
+                Assert.IsNotNull(MutationDescriber.Cost(names, db, id), id);
+            }
+        }
     }
 }

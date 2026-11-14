@@ -28,8 +28,9 @@ namespace Wizard.Solo.View.Hud
         // ---- 위 가운데: 웨이브 띠
         public const float BannerW = 600f, BannerH = 102f, BannerBossH = 40f, BannerY = 12f;
         public const float BannerTextY = 4f, BannerTextH = 44f;
-        public const float BannerBarX = 60f, BannerBarY = 58f, BannerBarW = 480f, BannerBarH = 12f;
-        public const float BannerSubY = 82f, BannerSubH = 16f;
+        // 진행 바와 경과 시간 줄은 띠 아래 테(놋쇠 장식 약 8px)에 닿지 않게 4px씩 올렸다(경과 시간이 테에 걸쳐 보이던 것).
+        public const float BannerBarX = 60f, BannerBarY = 54f, BannerBarW = 480f, BannerBarH = 12f;
+        public const float BannerSubY = 78f, BannerSubH = 16f;
 
         // ---- 위 가운데: 보스 판(보스 웨이브에 웨이브 띠 아래)
         public const float BossW = 1040f, BossH = 124f, BossY = 60f;

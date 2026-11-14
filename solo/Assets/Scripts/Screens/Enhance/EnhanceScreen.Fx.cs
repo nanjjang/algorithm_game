@@ -212,7 +212,7 @@ namespace Wizard.Solo.Screens.Enhance
                 {
                     string mid = _wand.Mutations[i].Id;
                     UiKit.Icon(Ctx, holder, mid, 32, 8f, 8f);
-                    UiKit.AttachTooltip(b.gameObject, () => T(mid));
+                    UiKit.AttachTooltip(b.gameObject, () => MutationTip(mid));
                 }
                 b.Picked = has && i == _selectedMutation;
             }
@@ -574,8 +574,7 @@ namespace Wizard.Solo.Screens.Enhance
             var icon = UiKit.IconSprite(Ctx, mid, 64);
             _mutIcon.sprite = icon;
             _mutIcon.color = icon != null ? Color.white : UiTheme.Mutation;
-            string gain = mid != null ? EnhanceNameKeys.IfPresent(names, EnhanceNameKeys.MutationGainPrefix + mid) : null;
-            string cost = mid != null ? EnhanceNameKeys.IfPresent(names, EnhanceNameKeys.MutationCostPrefix + mid) : null;
+            string gain = MutationGain(mid), cost = MutationCost(mid);
             _mutGain.gameObject.SetActive(gain != null);
             _mutGain.SetText(gain ?? string.Empty);
             _mutCost.gameObject.SetActive(cost != null);
@@ -584,6 +583,30 @@ namespace Wizard.Solo.Screens.Enhance
             _mutPush.gameObject.SetActive(push != null);
             _mutPush.SetText(push ?? string.Empty);
             if (_cardFocus.Current == null) _cardFocus.SetCursor(_acceptButton, false);
+        }
+
+        /// <summary>변이의 이득 한 줄: 수치를 데이터(mutations)에서 채우는 MutationDescriber가 먼저, 없으면 강화 화면의 옛 열쇠.</summary>
+        string MutationGain(string mid)
+        {
+            if (mid == null) return null;
+            return MutationDescriber.Gain(Ctx.Names, Ctx.Content, mid) ?? EnhanceNameKeys.IfPresent(Ctx.Names, EnhanceNameKeys.MutationGainPrefix + mid);
+        }
+
+        /// <summary>변이의 대가 한 줄(MutationGain과 같은 순서로 찾는다).</summary>
+        string MutationCost(string mid)
+        {
+            if (mid == null) return null;
+            return MutationDescriber.Cost(Ctx.Names, Ctx.Content, mid) ?? EnhanceNameKeys.IfPresent(Ctx.Names, EnhanceNameKeys.MutationCostPrefix + mid);
+        }
+
+        /// <summary>왼쪽 변이 칸 툴팁: 이름 + 이득 + 대가.</summary>
+        string MutationTip(string mid)
+        {
+            var sb = new System.Text.StringBuilder(T(mid));
+            string gain = MutationGain(mid), cost = MutationCost(mid);
+            if (gain != null) sb.Append('\n').Append(gain);
+            if (cost != null) sb.Append('\n').Append(cost);
+            return sb.ToString();
         }
 
         // ------------------------------------------------------------------ 연출 상태
@@ -649,14 +672,14 @@ namespace Wizard.Solo.Screens.Enhance
         void CoreFlash(Color c, float peak, float dur)
         {
             if (Amount <= 0f) return;
-            _coreColor = c; _corePeak = peak * Mathf.Max(0.5f, Amount); _coreDur = dur; _coreT = 0f;
+            _coreColor = c; _corePeak = peak * Mathf.Max(0.5f, Amount) * FlashFactor; _coreDur = dur; _coreT = 0f;
             SetActiveIfChanged(_coreFlash, true);
         }
 
         void RaysBurst(Color c, float size, float peak, float dur)
         {
             if (Amount <= 0f) return;
-            _raysColor = c; _raysSize = size; _raysPeak = peak; _raysDur = dur; _raysT = 0f;
+            _raysColor = c; _raysSize = size; _raysPeak = peak * FlashFactor; _raysDur = dur; _raysT = 0f;
         }
 
         void DigitSlam(Color flash, float peak)
@@ -811,7 +834,8 @@ namespace Wizard.Solo.Screens.Enhance
                     break;
                 case EnhanceFx.Flash:
                 {
-                    var d = _guard.RequestFlash(c.Alpha, level, FlashScale, fast);
+                    // 섬광 줄이기: 전체 화면 번쩍 없이 테두리 강조만.
+                    var d = ReduceFlash ? new FlashDecision { Border = true } : _guard.RequestFlash(c.Alpha, level, FlashScale, fast);
                     if (d.Border) _borderTicks = EnhanceScreenTuning.Ticks(_t.BorderHighlightSeconds);
                     else if (d.Alpha > 0) { _flashAlpha = d.Alpha; _flashColor = CueColor(c.Color); _flashStart = _guard.Now; }
                     break;

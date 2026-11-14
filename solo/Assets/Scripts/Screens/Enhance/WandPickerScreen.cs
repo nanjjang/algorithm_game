@@ -16,6 +16,7 @@ namespace Wizard.Solo.Screens.Enhance
     /// </summary>
     public sealed class WandPickerScreen : ScreenBase
     {
+        const float SortW = 196f, HeldShare = 0.4f;
         public const float PanelW = 1200f, PanelH = 720f, TabW = 200f, TabH = 56f, RowH = 88f, TopRowH = 48f;
         /// <summary>지팡이 카드 격자(3열). 카드 하나 = 그림·이름·큰 단계·정보 + 아래 단추 줄.</summary>
         public const int GridCols = 3;
@@ -59,12 +60,14 @@ namespace Wizard.Solo.Screens.Enhance
                     UiTheme.SlateBlue, TextAnchor.MiddleRight));
 
             float lx = 16f + TabW + 16f, lw = PanelW - lx - 16f;
-            _sortButton = UiKit.Button(Ctx, _panel, string.Empty, lx, 16f, 240f, TopRowH, CycleSort, UiButtonStyle.Small, Focus, null, UiFontId.F16);
-            float fx = lx + 252f;
+            _sortButton = UiKit.Button(Ctx, _panel, string.Empty, lx, 16f, SortW, TopRowH, CycleSort, UiButtonStyle.Small, Focus, null, UiFontId.F16);
+            float fx = lx + SortW + 12f;
+            // 거르기 토글은 남은 폭을 똑같이 나눈다(글 칸이 "확장 슬롯 있음"을 자르지 않게).
+            float slot = (PanelW - 16f - fx) / FilterOrder.Length;
             for (int i = 0; i < FilterOrder.Length; i++)
             {
                 var f = FilterOrder[i];
-                var tg = UiKit.Toggle(Ctx, _panel, T(FilterKeys[i]), fx + i * 168f, 16f, 160f, TopRowH, false, v => SetFilter(f, v), Focus);
+                var tg = UiKit.Toggle(Ctx, _panel, T(FilterKeys[i]), fx + i * slot, 16f, slot - 4f, TopRowH, false, v => SetFilter(f, v), Focus);
                 _filterToggles.Add(tg);
             }
 
@@ -209,7 +212,8 @@ namespace Wizard.Solo.Screens.Enhance
                 UiKit.Label(Ctx, cr, T(EnhanceNameKeys.MutationPending), UiFontId.F12, 12f, 128f, cw - 24f, 0f, UiTheme.Mutation);
 
             UiKit.Rect(row, 12f, 152f, cw - 24f, 1f, EnhanceFxStyle.WithA(UiTheme.SlateBlue, 0.3f), false, "Sep");
-            float bw = (cw - 36f) * 0.5f, by = 162f;
+            // [떠나보내기]는 경고 삼각 그림이 붙어 글 칸이 좁다 → 든 지팡이 칸보다 넓게 나눈다(글이 "…"로 잘리지 않게).
+            float bw = (cw - 36f) * HeldShare, rw = cw - 36f - bw, by = 162f;
             if (_model.MultiMode)
             {
                 bool checkable = _model.Checkable(e, handCount);
@@ -229,7 +233,7 @@ namespace Wizard.Solo.Screens.Enhance
             }
             if (!_model.MultiMode)
             {
-                var rel = UiKit.Button(Ctx, row, T(EnhanceNameKeys.PickerRelease), 24f + bw, by, bw, 48f, () => ReleaseOne(w.Id), UiButtonStyle.Caution, Focus, null, UiFontId.F16);
+                var rel = UiKit.Button(Ctx, row, T(EnhanceNameKeys.PickerRelease), 24f + bw, by, rw, 48f, () => ReleaseOne(w.Id), UiButtonStyle.Caution, Focus, null, UiFontId.F16);
                 var block = WandPickerModel.CanRelease(e, handCount);
                 if (block != ReleaseBlock.None) rel.SetDisabled(WandPickerModel.ReleaseReasonKey(block));
                 _rowWidgets.Add(rel);

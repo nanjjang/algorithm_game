@@ -21,12 +21,13 @@ namespace Wizard.Solo.Screens.Enhance
     public sealed class EnhanceTutorialScreen : ScreenBase
     {
         public const float Width = 760f, Height = 440f;
+        const float Pad = 28f, BtnW = 180f, BtnH = 56f, Gap = 16f;
         public const string PageTitlePrefix = "str.enhance_tutorial.page.";
         EnhanceTutorialModel _model;
         EnhanceTutorialTuning _tt;
         UiLabel _page, _title, _body, _odds;
         UiButton _prev, _next, _close;
-        RectTransform _card, _focusFrame, _arrowRoot, _map, _mapFocus;
+        RectTransform _card, _focusFrame, _arrowRoot, _map, _mapFocus, _panelRt;
         readonly UImage[] _dim = new UImage[4];
         readonly List<UImage> _frameEdges = new List<UImage>();
         float _age;
@@ -45,19 +46,17 @@ namespace Wizard.Solo.Screens.Enhance
             _focusFrame = UiKit.Node(content, "Focus", 0f, 0f, 0f, 0f);
             for (int i = 0; i < 4; i++) _frameEdges.Add(UiKit.Rect(_focusFrame, 0f, 0f, 0f, 0f, UiTheme.SelectYellow, false, "Edge" + i));
             _arrowRoot = UiKit.Node(content, "Arrow", 0f, 0f, 32f, 32f);
-            BuildMap(content);
-
             _card = UiKit.Node(content, "EnhanceTutorial", 0f, 0f, Width, Height);
             var panel = UiKit.Panel(Ctx, _card, UiPanelKind.Paper, 0f, 0f, Width, Height);
             panel.name = "EnhanceTutorialCard";
-            const float Pad = 28f;
+            _panelRt = panel.rectTransform;
+            BuildMap(_card);
             float l32 = UiTheme.LineHeight(UiFontId.F32), l24 = UiTheme.LineHeight(UiFontId.F24);
             UiKit.LabelKey(Ctx, _card, EnhanceNameKeys.TutorialTitle, UiFontId.F16, Pad, Pad - 4f, Width - 2 * Pad - 160f, 24f, UiTheme.PaperText);
             _page = UiKit.Label(Ctx, _card, string.Empty, UiFontId.F16, Width - Pad - 160f, Pad - 4f, 160f, 24f, UiTheme.PaperText, TextAnchor.MiddleRight);
             _title = UiKit.Label(Ctx, _card, string.Empty, UiFontId.F32, Pad, Pad + 24f, Width - 2 * Pad, l32, UiTheme.PaperText);
             _body = UiKit.Label(Ctx, _card, string.Empty, UiFontId.F16, Pad, Pad + 24f + l32 + 12f, Width - 2 * Pad, 168f, UiTheme.PaperText, TextAnchor.UpperLeft, wrap: true);
             _odds = UiKit.Label(Ctx, _card, string.Empty, UiFontId.F16, Pad, Height - Pad - 56f - 64f, Width - 2 * Pad, 56f, UiTheme.PaperText, TextAnchor.UpperLeft, wrap: true);
-            const float BtnW = 180f, BtnH = 56f, Gap = 16f;
             float by = Height - Pad - BtnH;
             _prev = UiKit.Button(Ctx, _card, T(EnhanceNameKeys.CommonPrev), Pad, by, BtnW, BtnH, () => Turn(false), UiButtonStyle.Large, Focus, null, UiFontId.F24);
             _next = UiKit.Button(Ctx, _card, T(EnhanceNameKeys.CommonNext), Width - Pad - 2 * BtnW - Gap, by, BtnW, BtnH, () => Turn(true), UiButtonStyle.Large, Focus, null, UiFontId.F24);
@@ -105,12 +104,14 @@ namespace Wizard.Solo.Screens.Enhance
         /// <summary>
         /// 강화 화면 밖(지팡이 고르기 위)에서 열렸을 때 쓰는 강화 화면 약도(1/5 크기): 08 10.3절의 칸(위 띠·왼쪽·가운데·오른쪽·아래 띠)을
         /// 회청 테로 그리고, 그 쪽이 가리키는 곳만 선택 노랑으로 채운다. 강화 화면 위에서 열리면 진짜 화면을 직접 가리킨다.
+        /// 약도는 안내 창 안쪽 오른쪽에 테 두른 작은 그림으로 들어간다(창과 한 덩어리 — 화면 위쪽에 따로 떠 있지 않게).
         /// </summary>
-        void BuildMap(RectTransform content)
+        void BuildMap(RectTransform card)
         {
             const float S = MapScale;
             float mw = UiScale.RefWidth * S, mh = UiScale.RefHeight * S;
-            _map = UiKit.Node(content, "EnhanceMap", (UiScale.RefWidth - mw) * 0.5f, MapTop, mw, mh);
+            _map = UiKit.Node(card, "EnhanceMap", Width, MapTop, mw, mh);
+            Outline(_map, -MapFrame, -MapFrame, mw + 2f * MapFrame, mh + 2f * MapFrame, UiTheme.PaperText, MapFrame);
             UiKit.Rect(_map, 0f, 0f, mw, mh, UiTheme.WoodDark, false, "MapBg");
             float[,] areas = { { 0, 0, 1920, 80 }, { 0, 80, 480, 840 }, { 480, 80, 960, 840 }, { 1440, 80, 480, 840 }, { 0, 920, 1920, 160 } };
             for (int i = 0; i < areas.GetLength(0); i++)
@@ -123,7 +124,19 @@ namespace Wizard.Solo.Screens.Enhance
             _map.gameObject.SetActive(false);
         }
 
-        const float MapScale = 0.2f, MapTop = 64f;
+        /// <summary>약도 배율, 창 안에서 약도 위 끝(제목 줄 높이), 약도 테 두께.</summary>
+        const float MapScale = 0.2f, MapTop = 60f, MapFrame = 3f;
+
+        /// <summary>창 크기와 오른쪽 끝에 붙는 것(쪽 번호·다음·닫기)을 폭 cw에 맞춘다(약도가 있으면 창이 약도만큼 넓어진다).</summary>
+        void SizeCard(float cw, float ch)
+        {
+            UiKit.Place(_panelRt, 0f, 0f, cw, ch);
+            UiKit.Place(_page.Rect, cw - Pad - 160f, Pad - 4f, 160f, 24f);
+            float by = ch - Pad - BtnH;
+            UiKit.Place(_prev.Rect, Pad, by, BtnW, BtnH);
+            UiKit.Place(_next.Rect, cw - Pad - 2 * BtnW - Gap, by, BtnW, BtnH);
+            UiKit.Place(_close.Rect, cw - Pad - BtnW, by, BtnW, BtnH);
+        }
 
         static void Outline(RectTransform parent, float x, float y, float w, float h, Color c, float t)
         {
@@ -140,6 +153,7 @@ namespace Wizard.Solo.Screens.Enhance
         {
             if (!OnEnhanceScreen) { LayoutWithMap(pg); return; }
             _map.gameObject.SetActive(false);
+            SizeCard(Width, Height);
             float W = UiScale.RefWidth, H = UiScale.RefHeight;
             bool focus = pg.FocusW > 0f && pg.FocusH > 0f;
             float fx = pg.FocusX, fy = pg.FocusY, fw = pg.FocusW, fh = pg.FocusH;
@@ -201,8 +215,10 @@ namespace Wizard.Solo.Screens.Enhance
                 UiKit.Rect(_mapFocus, x, y, w, h, UiTheme.WithAlpha(UiTheme.SelectYellow, 0.35f), false, "Fill");
                 Outline(_mapFocus, x, y, w, h, UiTheme.SelectYellow, 3f);
             }
-            float cw = pg.CardW > 0f ? pg.CardW : Width, ch = pg.CardH > 0f ? pg.CardH : Height;
-            UiKit.Place(_card, (W - cw) * 0.5f, MapTop + H * MapScale + 24f, cw, ch);
+            float mw = W * MapScale;
+            float cw = Width + mw + Pad, ch = Mathf.Max(Height, MapTop + H * MapScale + MapFrame + Pad + BtnH + Pad);
+            SizeCard(cw, ch);
+            UiKit.Place(_card, (W - cw) * 0.5f, (H - ch) * 0.5f, cw, ch);
         }
 
         public override void Tick(float dt)

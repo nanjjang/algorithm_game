@@ -47,7 +47,9 @@ namespace Wizard.Solo.Screens.Settlement
         void BuildFxRoot(RectTransform content)
         {
             _fxRoot = UiKit.Node(content, "CelebrationFx", 0f, 0f, UiScale.RefWidth, ContentHeight);
-            _fxRoot.SetAsLastSibling();
+            // 축하 그림은 쪽(점수 판·가져가는 것 줄) 뒤, 배경 위에 둔다: 폭발·빛기둥이 줄의 글자를 덮어 읽지 못하게 되지 않게.
+            if (_pages[0] != null) _fxRoot.SetSiblingIndex(_pages[0].GetSiblingIndex());
+            else _fxRoot.SetAsLastSibling();
             _fx = new EnhanceFxPlayer(_fxRoot);
         }
 

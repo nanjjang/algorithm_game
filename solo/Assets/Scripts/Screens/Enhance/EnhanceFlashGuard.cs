@@ -40,6 +40,16 @@ namespace Wizard.Solo.Screens.Enhance
         /// <summary>새 시도가 시작됐다(시도당 번쩍 1회 셈을 비운다).</summary>
         public void NewAttempt() { _attemptFlashes = 0; }
 
+        /// <summary>
+        /// 강화 화면이 쓰는 번쩍 배율(%): 설정 flash_scale에 "섬광 줄이기"(reduce_flash)의 상한(ViewOptions.ReduceFlashCap = 30%)을 건다.
+        /// 섬광 줄이기가 켜지면 전체 화면 번쩍은 아예 쓰지 않는다(화면이 테두리 강조로 바꾼다) — 이 배율은 국소 빛에 곱한다.
+        /// </summary>
+        public static int EffectiveFlashScalePct(int flashScalePct, bool reduceFlash)
+        {
+            int cap = (int)Math.Round(Wizard.Solo.View.ViewOptions.ReduceFlashCap * 100f);
+            return reduceFlash && flashScalePct > cap ? cap : flashScalePct;
+        }
+
         public FlashDecision RequestFlash(double requested, int effectsLevel, int flashScalePct, bool fast)
         {
             var d = new FlashDecision();

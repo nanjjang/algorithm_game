@@ -22,6 +22,7 @@ namespace Wizard.Solo.Screens.Camp
         /// <summary>보관함 줄(08 8.1절 (576,896) 768×64, 12칸). 화면 배치 상수.</summary>
         const float StorageX = 576f, StorageY = 896f, StorageW = 768f, StorageCell = 56f;
         /// <summary>카드 줄의 윗변과 단추 줄(다시 뽑기 가운데, 건너뛰기 양옆). 화면 배치 상수.</summary>
+        const float PurseX = 1184f, TitleY = 112f;
         const float CardsY = 232f, ButtonsY = 712f, ButtonW = 360f, ButtonH = 64f, ButtonGap = 24f;
         /// <summary>등급 빛 번짐의 여백(px)과 세기. 화면 연출 상수.</summary>
         const float RareGlowPad = 36f, HeroGlowPad = 96f, RareGlowAlpha = 0.30f, HeroGlowAlpha = 0.55f;
@@ -62,11 +63,14 @@ namespace Wizard.Solo.Screens.Camp
             UiKit.Rect(content, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, UiTheme.ModalDim, true, "Dim");
             UiBackdrop.VignetteOver(content, 0.7f);
             UiBackdrop.Glow(content, 460f, 60f, 1000f, 220f, UiTheme.WithAlpha(UiTheme.Brass, 0.16f));
-            _title = UiKit.Label(Ctx, content, string.Empty, UiFontId.F48, 560f, 100f, 800f, 56f, UiTheme.Chalk, TextAnchor.MiddleCenter);
+            // 제목 줄은 HUD 위 띠(y 12~114) 아래에서 시작한다(띠의 경과 시간 줄을 덮지 않게).
+            _title = UiKit.Label(Ctx, content, string.Empty, UiFontId.F48, 560f, TitleY, 800f, 56f, UiTheme.Chalk, TextAnchor.MiddleCenter);
             UiKit.DropShadow(_title, 3f);
-            UiKit.AccentRule(content, 760f, 158f, 400f);
-            _counter = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, 760f, 164f, 400f, 32f, UiTheme.Chalk, TextAnchor.MiddleCenter);
-            _purse = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, 1400f, 100f, 400f, 32f, UiTheme.Gold, TextAnchor.MiddleRight);
+            UiKit.AccentRule(content, 760f, TitleY + 58f, 400f);
+            _counter = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, 760f, TitleY + 64f, 400f, 32f, UiTheme.Chalk, TextAnchor.MiddleCenter);
+            // 원정 지갑: 오른쪽 위 HUD 기록 판(지갑·점수·처치)과 겹치지 않게 고른 수 줄 오른쪽(제목 아래)에 아이콘과 함께 둔다.
+            UiKit.Icon(Ctx, content, Ids.Item.Purse, 24, PurseX, TitleY + 68f);
+            _purse = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, PurseX + 32f, TitleY + 64f, 320f, 32f, UiTheme.Gold, TextAnchor.MiddleLeft);
             _overflowTitle = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, 360f, 848f, 1200f, 40f, UiTheme.Amber, TextAnchor.MiddleCenter);
             _cards = UiKit.Node(content, "Cards", 0f, CardsY, UiScale.RefWidth, LootPickModel.CardHeight + 40f);
 
@@ -322,11 +326,17 @@ namespace Wizard.Solo.Screens.Camp
             int dShots = c.ShotsAfter - c.ShotsBefore;
             float dHeat = c.HeatAfter - c.HeatBefore;
             float pct = c.DpsPct;
-            string shots = Signed(dShots);
-            string heat = SignedOne(dHeat);
-            string dps = F("str.format.percent", "n", SignedPct(pct));
-            string line = F("str.loot_pick.preview.delta", "shots", shots, "heat", heat, "dps", dps);
-            Color col = pct > 0.5f ? UiTheme.Good : pct < -0.5f ? UiTheme.Amber : UiTheme.Chalk;
+            // 탄 수가 그대로면 그 항목을 뺀다("탄 0"은 아무것도 알려 주지 않는다).
+            // 허수아비로 가치가 안 잡히는 효과(튕김·냉기·유도·관통·적중 시 발동)는 오르지 않은 DPS를 음수 % 대신 꼬리표로 보인다.
+            bool blind = pct <= 0.5f && BlockDescriber.DummyBlind(Ctx.Content != null ? Ctx.Content.Block(c.BlockId) : null);
+            string sep = T("str.block_desc.sep");
+            var sb = new System.Text.StringBuilder();
+            if (dShots != 0) sb.Append(F("str.loot_pick.preview.shots", "shots", Signed(dShots))).Append(sep);
+            sb.Append(F("str.loot_pick.preview.heat", "heat", SignedOne(dHeat))).Append(sep);
+            if (blind) sb.Append(T("str.loot_pick.preview.dps_blind"));
+            else sb.Append(F("str.loot_pick.preview.dps", "dps", F("str.format.percent", "n", SignedPct(pct))));
+            string line = sb.ToString();
+            Color col = blind ? UiTheme.Chalk : pct > 0.5f ? UiTheme.Good : pct < -0.5f ? UiTheme.Amber : UiTheme.Chalk;
             UiKit.Label(Ctx, cr, line, UiFontId.F12, 12f, y, w - 24f, 34f, col, TextAnchor.UpperLeft, wrap: true);
         }
 

@@ -38,11 +38,15 @@ namespace Wizard.Solo.Screens.Hints
         readonly List<string> _buf = new List<string>();
         readonly List<KeyValuePair<float, string>> _delayed = new List<KeyValuePair<float, string>>();
         ScreenId _lastTop = ScreenId.None;
+        /// <summary>쪽지를 띄운 문맥 화면(바탕이 이것이 아니게 되면 닫는다).</summary>
+        ScreenId _shownIn = ScreenId.None;
         int _enhanceDrops = -1;
         bool _enhanceOfferSeen;
 
         RectTransform _canvasRoot, _card;
         UiLabel _title, _body, _foot;
+        HintSpot _spot;
+        float _cardH;
         UiProgressBar _timer;
         string _showing;
         float _age, _gap;
@@ -104,6 +108,8 @@ namespace Wizard.Solo.Screens.Hints
             if (!HintBook.Enabled(_ctx.Settings != null ? _ctx.Settings.Current : null)) return false;
             if (!HintBook.CanShow(p, id, _t.StuckMaxShows)) return false;
             if (_showing == id || _queue.Contains(id)) return false;
+            // 자기 문맥이 아닌 화면에서는 청하지 않는다(정산·메뉴에 판 힌트가 뜨지 않게).
+            if (!HintContexts.Accepts(id, ContextScreen())) return false;
             _queue.Add(id);
             _queuedAt.Add(_clock);
             return true;
@@ -117,6 +123,7 @@ namespace Wizard.Solo.Screens.Hints
             _clock += dt;
             WatchScreens(dt);
             DropStale();
+            DropOutOfContext();
             // 일시정지·확인 창·안내 같은 창(Modal)이 맨 위면 쪽지를 잠깐 감추고 시계도 멈춘다(창의 글을 가리지 않는다).
             bool held = (_session != null && _session.Paused) || ModalOnTop();
             if (_card != null && _showing != null && _card.gameObject.activeSelf == held) _card.gameObject.SetActive(!held);
@@ -136,6 +143,35 @@ namespace Wizard.Solo.Screens.Hints
                 if (_clock - _queuedAt[i] > _t.QueueMaxWaitSeconds) { _queue.RemoveAt(i); _queuedAt.RemoveAt(i); }
         }
 
+        /// <summary>
+        /// 문맥 화면 = 창(Modal)·토스트·HUD 겹층을 뺀 맨 위 화면(일시정지·안내 창이 떠도 문맥은 그 아래 화면이다).
+        /// 화면 관리자가 없으면 Top.
+        /// </summary>
+        public ScreenId ContextScreen()
+        {
+            var m = _ctx != null ? _ctx.Screens as ScreenManager : null;
+            var entries = m != null && m.Stack != null ? m.Stack.Entries : null;
+            if (entries == null) return _ctx != null && _ctx.Screens != null ? _ctx.Screens.Top : ScreenId.None;
+            for (int i = entries.Count - 1; i >= 0; i--)
+            {
+                var layer = entries[i].Layer;
+                if (layer == ScreenLayer.Modal || layer == ScreenLayer.Toast || layer == ScreenLayer.HudOverlay) continue;
+                return entries[i].Id;
+            }
+            return ScreenId.None;
+        }
+
+        /// <summary>문맥이 바뀌었으면 떠 있는 쪽지는 닫고(이미 본 것으로 적혔다), 줄의 힌트 중 문맥을 잃은 것은 버린다(다음에 그 문맥에서 다시 청해진다).</summary>
+        void DropOutOfContext()
+        {
+            var here = ContextScreen();
+            if (_showing != null && here != _shownIn) Dismiss();
+            for (int i = _queue.Count - 1; i >= 0; i--)
+                if (!HintContexts.Accepts(_queue[i], here)) { _queue.RemoveAt(i); _queuedAt.RemoveAt(i); }
+            for (int i = _delayed.Count - 1; i >= 0; i--)
+                if (!HintContexts.Accepts(_delayed[i].Value, here)) _delayed.RemoveAt(i);
+        }
+
         bool ModalOnTop()
         {
             var m = _ctx != null ? _ctx.Screens as ScreenManager : null;
@@ -147,7 +183,7 @@ namespace Wizard.Solo.Screens.Hints
         {
             var screens = _ctx != null ? _ctx.Screens : null;
             if (screens == null) return;
-            var top = screens.Top;
+            var top = ContextScreen();
             if (top != _lastTop)
             {
                 _lastTop = top;
@@ -222,14 +258,16 @@ namespace Wizard.Solo.Screens.Hints
             _queuedAt.RemoveAt(0);
             var p = _ctx.Profile;
             if (!HintBook.CanShow(p, id, _t.StuckMaxShows)) return;
-            EnsureView();
+            var here = ContextScreen();
+            if (!HintContexts.Accepts(id, here)) return;
+            var names = _ctx.Names;
+            string body = HintText.Body(_ctx, _session != null ? _session.MainWorld : null, id);
+            BuildView(_t.SpotFor(here), names != null ? names.Get(HintIds.TitleKey(id)) : id, body);
             if (_card == null) return;
             _showing = id;
+            _shownIn = here;
             _age = 0f;
             HintBook.MarkShown(p, id, _ctx.Profiles);
-            var names = _ctx.Names;
-            _title.SetText((names != null ? names.Get(MarkKey) : string.Empty) + " " + (names != null ? names.Get(HintIds.TitleKey(id)) : id));
-            _body.SetText(HintText.Body(_ctx, _session != null ? _session.MainWorld : null, id));
             _card.gameObject.SetActive(true);
             UiSounds.Play(_ctx.Sound, UiSounds.Press);
             Layout();
@@ -248,33 +286,73 @@ namespace Wizard.Solo.Screens.Hints
             if (_card == null) return;
             const float slideSeconds = 0.2f;
             float t = Mathf.Clamp01(_age / slideSeconds);
-            float slide = (1f - UiMotion.EaseOutCubic(t)) * (_t.CardW + 24f);
-            UiKit.Place(_card, _t.CardX + slide, _t.CardY, _t.CardW, _t.CardH);
+            float slide = (1f - UiMotion.EaseOutCubic(t)) * (_spot.W + 24f);
+            UiKit.Place(_card, _spot.X + slide, _spot.Y, _spot.W, _cardH);
             if (_timer != null) _timer.Value01 = 1f - Mathf.Clamp01(_age / Mathf.Max(0.01f, _t.CardSeconds));
         }
 
-        void EnsureView()
+        /// <summary>
+        /// 쪽지를 그 화면의 안전 자리(폭)에 맞춰 새로 짓는다. 높이는 본문 줄 수로 정한다(긴 글이 칸 밖으로 넘치지 않게).
+        /// 제목 앞에는 키트 아이콘 I-F2 question(없으면 이름 표의 표시 글자).
+        /// </summary>
+        void BuildView(HintSpot spot, string title, string body)
         {
-            if (_card != null) return;
-            _canvasRoot = UiCanvasFactory.Create(RootName + ".Canvas", SortOrder);
-            _canvasRoot.parent.SetParent(transform, false);
-            float w = _t.CardW, h = _t.CardH;
-            const float Pad = 18f;
-            var btn = UiKit.Button(_ctx, _canvasRoot, null, _t.CardX, _t.CardY, w, h, Dismiss, UiButtonStyle.Plain, null, "");
+            if (_canvasRoot == null)
+            {
+                _canvasRoot = UiCanvasFactory.Create(RootName + ".Canvas", SortOrder);
+                _canvasRoot.parent.SetParent(transform, false);
+            }
+            if (_card != null) { Destroy(_card.gameObject); _card = null; }
+            _spot = spot;
+            float w = spot.W;
+            const float Pad = 18f, IconPx = 24f, Gap = 8f, TimerW = 120f;
+            float l24 = UiTheme.LineHeight(UiFontId.F24), l12 = UiTheme.LineHeight(UiFontId.F12);
+            float bodyW = w - 2f * Pad - 8f;
+            float bodyH = BodyHeight(body, bodyW);
+            float h = Pad + l24 + 4f + bodyH + Gap + l12 + Pad;
+            _cardH = h;
+            var btn = UiKit.Button(_ctx, _canvasRoot, null, spot.X, spot.Y, w, h, Dismiss, UiButtonStyle.Plain, null, "");
             btn.name = "HintCard";
             _card = btn.Rect;
             var root = btn.ContentRoot != null ? btn.ContentRoot : _card;
             UiKit.OrnatePanel(_ctx, root, 0f, 0f, w, h, 2, 6f).raycastTarget = false;
-            float l24 = UiTheme.LineHeight(UiFontId.F24), l16 = UiTheme.LineHeight(UiFontId.F16), l12 = UiTheme.LineHeight(UiFontId.F12);
-            _title = UiKit.Label(_ctx, root, string.Empty, UiFontId.F24, Pad + 4f, Pad - 2f, w - 2f * Pad, l24, UiTheme.Brass);
+            float tx = Pad + 4f;
+            var icon = UiKit.KitSprite(_ctx, "I-F2", "question");
+            string shownTitle = title ?? string.Empty;
+            if (icon.IsValid)
+            {
+                UiKit.Image(root, icon.Sprite, tx, Pad - 2f + (l24 - IconPx) * 0.5f, IconPx, IconPx);
+                tx += IconPx + Gap;
+            }
+            else if (_ctx.Names != null) shownTitle = _ctx.Names.Get(MarkKey) + " " + shownTitle;
+            _title = UiKit.Label(_ctx, root, shownTitle, UiFontId.F24, tx, Pad - 2f, w - tx - Pad, l24, UiTheme.Brass);
             UiKit.DropShadow(_title, 2f);
-            _body = UiKit.Label(_ctx, root, string.Empty, UiFontId.F16, Pad + 4f, Pad + l24 + 4f, w - 2f * Pad - 8f, h - Pad * 2f - l24 - l12 - 8f,
+            _body = UiKit.Label(_ctx, root, body, UiFontId.F16, Pad + 4f, Pad + l24 + 4f, bodyW, bodyH,
                 UiTheme.Chalk, TextAnchor.UpperLeft, true);
+            float footY = h - Pad - l12 + 4f;
             _foot = UiKit.Label(_ctx, root, _ctx.Names != null ? _ctx.Names.Get(CloseHintKey) : CloseHintKey, UiFontId.F12,
-                Pad, h - Pad - l12 + 4f, w - 2f * Pad, l12, UiTheme.SlateBlue, TextAnchor.MiddleRight);
-            _timer = UiKit.ProgressBar(_ctx, root, Pad + 4f, h - Pad + 2f, 160f, 4f, 1f);
+                Pad + TimerW + Gap, footY, w - 2f * Pad - TimerW - Gap, l12, UiTheme.SlateBlue, TextAnchor.MiddleRight);
+            _timer = UiKit.ProgressBar(_ctx, root, Pad + 4f, footY + (l12 - 4f) * 0.5f, TimerW, 4f, 1f);
             _timer.FillColor = UiTheme.Brass;
             _card.gameObject.SetActive(false);
+        }
+
+        /// <summary>
+        /// 본문 높이: 글자 폭 규칙(UiTextFit)으로 줄 수를 세고 낱말 줄바꿈 여유로 한 줄을 더한다.
+        /// 여러 줄 칸은 lineSpacing 1이라 한 줄이 글자 크기 + 2px쯤이다(LineHeight는 한 줄 칸의 높이라 쓰지 않는다).
+        /// </summary>
+        public static float BodyHeight(string body, float widthPx)
+        {
+            float lh = (int)UiFontId.F16 + 2f;
+            if (string.IsNullOrEmpty(body) || widthPx <= 0f) return lh;
+            int lines = 0;
+            var paras = body.Split('\n');
+            for (int i = 0; i < paras.Length; i++)
+            {
+                int px = UiTextFit.WidthPx(paras[i], (int)UiFontId.F16);
+                lines += Mathf.Max(1, Mathf.CeilToInt(px / widthPx));
+            }
+            return (lines + 1) * lh;
         }
     }
 

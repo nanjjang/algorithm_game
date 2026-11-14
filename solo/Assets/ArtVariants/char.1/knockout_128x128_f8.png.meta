@@ -1,0 +1,337 @@
+fileFormatVersion: 2
+guid: c1888580a8cf524799766d4d978c4034
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7932961298956107629
+    second: knockout_128x128_f8_recoil
+  - first:
+      213: -8968083638078482323
+    second: knockout_128x128_f8_buckle
+  - first:
+      213: -4300622591452630542
+    second: knockout_128x128_f8_kneel
+  - first:
+      213: 8948241605641851988
+    second: knockout_128x128_f8_fall
+  - first:
+      213: -2452079282199635838
+    second: knockout_128x128_f8_down
+  - first:
+      213: -2040437748222402284
+    second: knockout_128x128_f8_curl
+  - first:
+      213: -741515755135665675
+    second: knockout_128x128_f8_rise
+  - first:
+      213: -3779044213643928831
+    second: knockout_128x128_f8_rest
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 128
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: knockout_128x128_f8_recoil
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.46875, y: 0.0625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22b8614ec8ed5aed8cce3300aa348ae4
+      internalID: 7932961298956107629
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knockout_128x128_f8_buckle
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.46875, y: 0.0625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94377b5be2485930b0edd1f9d56e6f24
+      internalID: -8968083638078482323
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knockout_128x128_f8_kneel
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.46875, y: 0.0625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 833f6af7013f5ca9894b578f266f80bc
+      internalID: -4300622591452630542
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knockout_128x128_f8_fall
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 128
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.46875, y: 0.0625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1d640208e725b93976410414fb07cc4
+      internalID: 8948241605641851988
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knockout_128x128_f8_down
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.46875, y: 0.0625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a632633848fa5a7ebf2c2a379dcddd47
+      internalID: -2452079282199635838
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knockout_128x128_f8_curl
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.46875, y: 0.0625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2037de081d48576a97595b51250f4b6c
+      internalID: -2040437748222402284
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knockout_128x128_f8_rise
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.46875, y: 0.0625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c070e1deab153278685eef0b12d9e31
+      internalID: -741515755135665675
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knockout_128x128_f8_rest
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.46875, y: 0.0625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4232c6b19a96596c8a0a1db0559eb2a3
+      internalID: -3779044213643928831
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    outline: []
+    customData:
+    physicsShape: []
+    bones: []
+    spriteID: 5d12b8bca98d54f68e4b9743b9c7aa16
+    internalID: 0
+    vertices: []
+    indices:
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      knockout_128x128_f8_recoil: 7932961298956107629
+      knockout_128x128_f8_buckle: -8968083638078482323
+      knockout_128x128_f8_kneel: -4300622591452630542
+      knockout_128x128_f8_fall: 8948241605641851988
+      knockout_128x128_f8_down: -2452079282199635838
+      knockout_128x128_f8_curl: -2040437748222402284
+      knockout_128x128_f8_rise: -741515755135665675
+      knockout_128x128_f8_rest: -3779044213643928831
+      combat_128x128_f12_0: -6872251245459912467
+      combat_128x128_f12_1: 8737547567669707162
+      combat_128x128_f12_10: -2492749947198411662
+      combat_128x128_f12_11: -2538762917359622859
+      combat_128x128_f12_2: -505700265493781659
+      combat_128x128_f12_3: -6046979318077803633
+      combat_128x128_f12_4: -3426884183030932179
+      combat_128x128_f12_5: 1151736356808580428
+      combat_128x128_f12_6: 8729383671941050033
+      combat_128x128_f12_7: 2898432474952583216
+      combat_128x128_f12_8: -8871050767337842810
+      combat_128x128_f12_9: 2319582051892306867
+  mipmapLimitGroupName:
+  pSDRemoveMatte: 0
+  userData:
+  assetBundleName:
+  assetBundleVariant:

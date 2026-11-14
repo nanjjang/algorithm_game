@@ -1,0 +1,441 @@
+fileFormatVersion: 2
+guid: 28c13eb8ac5251f195ffd7ef416a7027
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8904007294687268104
+    second: body_lidless_128x128_f12_down_idle
+  - first:
+      213: -8930587424491586933
+    second: body_lidless_128x128_f12_down_walk_a
+  - first:
+      213: 7622542540825127943
+    second: body_lidless_128x128_f12_down_walk_b
+  - first:
+      213: 7983207507292904852
+    second: body_lidless_128x128_f12_down_cast
+  - first:
+      213: 7917764937770363791
+    second: body_lidless_128x128_f12_right_idle
+  - first:
+      213: 4782395319121353669
+    second: body_lidless_128x128_f12_right_walk_a
+  - first:
+      213: -3802609025475218687
+    second: body_lidless_128x128_f12_right_walk_b
+  - first:
+      213: -4496048627376700532
+    second: body_lidless_128x128_f12_right_cast
+  - first:
+      213: 6357660665015279499
+    second: body_lidless_128x128_f12_up_idle
+  - first:
+      213: -6949621774676969865
+    second: body_lidless_128x128_f12_up_walk_a
+  - first:
+      213: -2442370632132978477
+    second: body_lidless_128x128_f12_up_walk_b
+  - first:
+      213: 4632592383537648203
+    second: body_lidless_128x128_f12_up_cast
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 128
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: body_lidless_128x128_f12_down_idle
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.46875, y: 0.0625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 230a48b50ed5525ba4ee0f56ca95171c
+      internalID: 8904007294687268104
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_lidless_128x128_f12_down_walk_a
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.46875, y: 0.0625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b556caf6a2345c53b2eec6ee79080ff4
+      internalID: -8930587424491586933
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_lidless_128x128_f12_down_walk_b
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.46875, y: 0.0625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b57527efda6d5dd68e342b4551671164
+      internalID: 7622542540825127943
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_lidless_128x128_f12_down_cast
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 256
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.46875, y: 0.0625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9e83974670a5028bc1925244d9c8301
+      internalID: 7983207507292904852
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_lidless_128x128_f12_right_idle
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.46875, y: 0.0625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ed4abbac3a458dc8c25289ef1223741
+      internalID: 7917764937770363791
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_lidless_128x128_f12_right_walk_a
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.46875, y: 0.0625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 704e9ef5651c59e6b8bda51884c7a480
+      internalID: 4782395319121353669
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_lidless_128x128_f12_right_walk_b
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.46875, y: 0.0625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21fd72d2c01c5874b38726760142079a
+      internalID: -3802609025475218687
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_lidless_128x128_f12_right_cast
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 128
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.46875, y: 0.0625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a4274b0bebb5548aff5af65cf825fdc
+      internalID: -4496048627376700532
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_lidless_128x128_f12_up_idle
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.46875, y: 0.0625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5731260586557c9a94c94ee7639fd2b
+      internalID: 6357660665015279499
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_lidless_128x128_f12_up_walk_a
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.46875, y: 0.0625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58fe572aa7b05e219fef9a2f3ae4ee03
+      internalID: -6949621774676969865
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_lidless_128x128_f12_up_walk_b
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.46875, y: 0.0625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f694aca81a9c5af8a9bf1ccc11ff9f05
+      internalID: -2442370632132978477
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_lidless_128x128_f12_up_cast
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.46875, y: 0.0625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c073a130ab2586b92ad6daee53bd776
+      internalID: 4632592383537648203
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    outline: []
+    customData:
+    physicsShape: []
+    bones: []
+    spriteID: c0efe28ef52a534c9de6b8d7e427d7c2
+    internalID: 0
+    vertices: []
+    indices:
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      body_lidless_128x128_f12_down_idle: 8904007294687268104
+      body_lidless_128x128_f12_down_walk_a: -8930587424491586933
+      body_lidless_128x128_f12_down_walk_b: 7622542540825127943
+      body_lidless_128x128_f12_down_cast: 7983207507292904852
+      body_lidless_128x128_f12_right_idle: 7917764937770363791
+      body_lidless_128x128_f12_right_walk_a: 4782395319121353669
+      body_lidless_128x128_f12_right_walk_b: -3802609025475218687
+      body_lidless_128x128_f12_right_cast: -4496048627376700532
+      body_lidless_128x128_f12_up_idle: 6357660665015279499
+      body_lidless_128x128_f12_up_walk_a: -6949621774676969865
+      body_lidless_128x128_f12_up_walk_b: -2442370632132978477
+      body_lidless_128x128_f12_up_cast: 4632592383537648203
+      combat_128x128_f12_0: -6872251245459912467
+      combat_128x128_f12_1: 8737547567669707162
+      combat_128x128_f12_10: -2492749947198411662
+      combat_128x128_f12_11: -2538762917359622859
+      combat_128x128_f12_2: -505700265493781659
+      combat_128x128_f12_3: -6046979318077803633
+      combat_128x128_f12_4: -3426884183030932179
+      combat_128x128_f12_5: 1151736356808580428
+      combat_128x128_f12_6: 8729383671941050033
+      combat_128x128_f12_7: 2898432474952583216
+      combat_128x128_f12_8: -8871050767337842810
+      combat_128x128_f12_9: 2319582051892306867
+  mipmapLimitGroupName:
+  pSDRemoveMatte: 0
+  userData:
+  assetBundleName:
+  assetBundleVariant:

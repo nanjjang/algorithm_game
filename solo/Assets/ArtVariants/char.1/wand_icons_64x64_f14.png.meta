@@ -1,0 +1,493 @@
+fileFormatVersion: 2
+guid: 689cd86fc61e55a59cf0b433da7e5a0f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1408224335274489407
+    second: wand_icons_64x64_f14_plus_00
+  - first:
+      213: -6156486976078637765
+    second: wand_icons_64x64_f14_plus_01
+  - first:
+      213: 2045270275622200869
+    second: wand_icons_64x64_f14_plus_02
+  - first:
+      213: -5633245067358228508
+    second: wand_icons_64x64_f14_plus_03
+  - first:
+      213: 6106780826485563272
+    second: wand_icons_64x64_f14_plus_04
+  - first:
+      213: 1544462211973883975
+    second: wand_icons_64x64_f14_plus_05
+  - first:
+      213: -6033119780785216506
+    second: wand_icons_64x64_f14_plus_06
+  - first:
+      213: 120123340956623567
+    second: wand_icons_64x64_f14_plus_07
+  - first:
+      213: 2684452090306196837
+    second: wand_icons_64x64_f14_plus_08
+  - first:
+      213: 7833213334034474520
+    second: wand_icons_64x64_f14_plus_09
+  - first:
+      213: -5963955502855068988
+    second: wand_icons_64x64_f14_plus_10
+  - first:
+      213: -2859265399364551639
+    second: wand_icons_64x64_f14_plus_11
+  - first:
+      213: -7531304970211170625
+    second: wand_icons_64x64_f14_plus_12
+  - first:
+      213: -2054431917269714628
+    second: wand_icons_64x64_f14_plus_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: wand_icons_64x64_f14_plus_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adb3bf0b75835c14969e6b10e565966f
+      internalID: -1408224335274489407
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_icons_64x64_f14_plus_01
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6be73d63ef865a6992eb3fba738e18d5
+      internalID: -6156486976078637765
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_icons_64x64_f14_plus_02
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 605d755a517657519f57715db8775f9f
+      internalID: 2045270275622200869
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_icons_64x64_f14_plus_03
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 724e03132b665173bbc42c8630ccac02
+      internalID: -5633245067358228508
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_icons_64x64_f14_plus_04
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94df2a2da80a5010aebbf22ed699b136
+      internalID: 6106780826485563272
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_icons_64x64_f14_plus_05
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b06e8e3b3c35a4cbc25dfaadc2a0c15
+      internalID: 1544462211973883975
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_icons_64x64_f14_plus_06
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ebda14b171550628d10317da437cdb6
+      internalID: -6033119780785216506
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_icons_64x64_f14_plus_07
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25511622b3505068a3464a0187d0bbc9
+      internalID: 120123340956623567
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_icons_64x64_f14_plus_08
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fba33e07b20575d9e4d22b7ff675b80
+      internalID: 2684452090306196837
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_icons_64x64_f14_plus_09
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97e16cf28f0751c1833adba0beae7279
+      internalID: 7833213334034474520
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_icons_64x64_f14_plus_10
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a82669b92aed5e58a5b4c39b58bb4841
+      internalID: -5963955502855068988
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_icons_64x64_f14_plus_11
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2feb40918ac5374a8fa9804165f6ab7
+      internalID: -2859265399364551639
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_icons_64x64_f14_plus_12
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 590e09e78f70505cad2b2df20349ad37
+      internalID: -7531304970211170625
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_icons_64x64_f14_plus_13
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e51077245afa5842917111878beccc6a
+      internalID: -2054431917269714628
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    outline: []
+    customData:
+    physicsShape: []
+    bones: []
+    spriteID: 2dc27f70a636586f9bb439bc928fd33f
+    internalID: 0
+    vertices: []
+    indices:
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      wand_icons_64x64_f14_plus_00: -1408224335274489407
+      wand_icons_64x64_f14_plus_01: -6156486976078637765
+      wand_icons_64x64_f14_plus_02: 2045270275622200869
+      wand_icons_64x64_f14_plus_03: -5633245067358228508
+      wand_icons_64x64_f14_plus_04: 6106780826485563272
+      wand_icons_64x64_f14_plus_05: 1544462211973883975
+      wand_icons_64x64_f14_plus_06: -6033119780785216506
+      wand_icons_64x64_f14_plus_07: 120123340956623567
+      wand_icons_64x64_f14_plus_08: 2684452090306196837
+      wand_icons_64x64_f14_plus_09: 7833213334034474520
+      wand_icons_64x64_f14_plus_10: -5963955502855068988
+      wand_icons_64x64_f14_plus_11: -2859265399364551639
+      wand_icons_64x64_f14_plus_12: -7531304970211170625
+      wand_icons_64x64_f14_plus_13: -2054431917269714628
+      combat_128x128_f12_0: -6872251245459912467
+      combat_128x128_f12_1: 8737547567669707162
+      combat_128x128_f12_10: -2492749947198411662
+      combat_128x128_f12_11: -2538762917359622859
+      combat_128x128_f12_2: -505700265493781659
+      combat_128x128_f12_3: -6046979318077803633
+      combat_128x128_f12_4: -3426884183030932179
+      combat_128x128_f12_5: 1151736356808580428
+      combat_128x128_f12_6: 8729383671941050033
+      combat_128x128_f12_7: 2898432474952583216
+      combat_128x128_f12_8: -8871050767337842810
+      combat_128x128_f12_9: 2319582051892306867
+  mipmapLimitGroupName:
+  pSDRemoveMatte: 0
+  userData:
+  assetBundleName:
+  assetBundleVariant:

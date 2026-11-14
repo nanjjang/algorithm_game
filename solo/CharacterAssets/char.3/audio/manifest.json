@@ -1,0 +1,161 @@
+{
+  "character": "char.3",
+  "clips": {
+    "fire_pen_short": {
+      "file": "fire_pen_short.wav",
+      "group": "fire"
+    },
+    "fire_pen_long": {
+      "file": "fire_pen_long.wav",
+      "group": "fire"
+    },
+    "fire_page": {
+      "file": "fire_page.wav",
+      "group": "fire"
+    },
+    "fire_brass": {
+      "file": "fire_brass.wav",
+      "group": "fire"
+    },
+    "fire_bookmark": {
+      "file": "fire_bookmark.wav",
+      "group": "fire"
+    },
+    "fire_quill": {
+      "file": "fire_quill.wav",
+      "group": "fire"
+    },
+    "fire_scroll": {
+      "file": "fire_scroll.wav",
+      "group": "fire"
+    },
+    "fire_book_swipe": {
+      "file": "fire_book_swipe.wav",
+      "group": "fire"
+    },
+    "fire_type_low": {
+      "file": "fire_type_low.wav",
+      "group": "fire"
+    },
+    "fire_type_mid": {
+      "file": "fire_type_mid.wav",
+      "group": "fire"
+    },
+    "fire_type_high": {
+      "file": "fire_type_high.wav",
+      "group": "fire"
+    },
+    "hit_tap": {
+      "file": "hit_tap.wav",
+      "group": "hit"
+    },
+    "hit_stamp": {
+      "file": "hit_stamp.wav",
+      "group": "hit"
+    },
+    "hit_book_close": {
+      "file": "hit_book_close.wav",
+      "group": "hit"
+    },
+    "idle_page": {
+      "file": "idle_page.wav",
+      "group": "idle"
+    },
+    "idle_fan": {
+      "file": "idle_fan.wav",
+      "group": "idle"
+    },
+    "idle_fold": {
+      "file": "idle_fold.wav",
+      "group": "idle"
+    },
+    "idle_resonance": {
+      "file": "idle_resonance.wav",
+      "group": "idle"
+    },
+    "idle_quill": {
+      "file": "idle_quill.wav",
+      "group": "idle"
+    },
+    "enhance_write": {
+      "file": "enhance_write.wav",
+      "group": "enhance"
+    },
+    "enhance_period": {
+      "file": "enhance_period.wav",
+      "group": "enhance"
+    },
+    "enhance_success": {
+      "file": "enhance_success.wav",
+      "group": "enhance"
+    },
+    "enhance_great_success": {
+      "file": "enhance_great_success.wav",
+      "group": "enhance"
+    },
+    "enhance_jam": {
+      "file": "enhance_jam.wav",
+      "group": "enhance"
+    },
+    "enhance_ink_drop": {
+      "file": "enhance_ink_drop.wav",
+      "group": "enhance"
+    },
+    "enhance_erase": {
+      "file": "enhance_erase.wav",
+      "group": "enhance"
+    },
+    "enhance_paper_tear": {
+      "file": "enhance_paper_tear.wav",
+      "group": "enhance"
+    },
+    "enhance_mutation": {
+      "file": "enhance_mutation.wav",
+      "group": "enhance"
+    },
+    "enhance_stage13": {
+      "file": "enhance_stage13.wav",
+      "group": "enhance"
+    },
+    "mutation_glass": {
+      "file": "mutation_glass.wav",
+      "group": "mutation"
+    },
+    "mutation_bite": {
+      "file": "mutation_bite.wav",
+      "group": "mutation"
+    },
+    "signature_book_open": {
+      "file": "signature_book_open.wav",
+      "group": "signature"
+    },
+    "signature_page_burst": {
+      "file": "signature_page_burst.wav",
+      "group": "signature"
+    },
+    "signature_copy_fire": {
+      "file": "signature_copy_fire.wav",
+      "group": "signature"
+    },
+    "fire_ding_c": {
+      "file": "fire_ding_c.wav",
+      "group": "fire"
+    },
+    "fire_ding_d": {
+      "file": "fire_ding_d.wav",
+      "group": "fire"
+    },
+    "fire_ding_e": {
+      "file": "fire_ding_e.wav",
+      "group": "fire"
+    },
+    "fire_ding_g": {
+      "file": "fire_ding_g.wav",
+      "group": "fire"
+    },
+    "fire_ding_a": {
+      "file": "fire_ding_a.wav",
+      "group": "fire"
+    }
+  }
+}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 namespace Wizard.Solo.Art
@@ -32,6 +33,7 @@ namespace Wizard.Solo.Art
         readonly UiManifest _ui;
         readonly WorldManifest _world;
         readonly ArtPresentation _presentation;
+        readonly JObject _textureOverrides;
         readonly string _enhanceBackground;
 
         // 캐시: 열쇠 → 만든 것. 텍스처 열쇠는 Art 기준 경로(확장자 포함).
@@ -57,6 +59,12 @@ namespace Wizard.Solo.Art
         public ArtLibrary(IArtAssetSource source)
         {
             _src = source ?? new ResourcesArtSource();
+            var textureOverrides = _src.LoadText(ArtAliases.ResourceRoot + "solo_texture_overrides");
+            if (textureOverrides != null)
+            {
+                try { _textureOverrides = JObject.Parse(textureOverrides); }
+                catch (Exception e) { Warn("solo_texture_overrides: " + e.Message); }
+            }
             _players = Parse(PlayersDir + "manifest", ManifestParser.ParsePlayers) ?? new PlayerManifest();
             var soloPlayers = _src.LoadText(ArtAliases.ResourceRoot + PlayersDir + "solo_overrides");
             if (soloPlayers != null)
@@ -167,7 +175,8 @@ namespace Wizard.Solo.Art
                 return t;
             }
             if (_missingTextures.Contains(artPath)) return null;
-            t = _src.LoadTexture(ArtAliases.ToResourcePath(artPath));
+            var texturePath = (string)_textureOverrides?[artPath] ?? artPath;
+            t = _src.LoadTexture(ArtAliases.ToResourcePath(texturePath));
             if (t == null)
             {
                 _missingTextures.Add(artPath);

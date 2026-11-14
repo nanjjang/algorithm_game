@@ -1,0 +1,14 @@
+; Godot 4 project for baking pixel-art FX sheets. See bake.sh.
+config_version=5
+
+[application]
+config/name="wizard-fx-bake"
+run/main_scene="res://bake.tscn"
+
+[display]
+window/size/viewport_width=256
+window/size/viewport_height=256
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

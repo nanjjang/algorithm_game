@@ -1,0 +1,2267 @@
+fileFormatVersion: 2
+guid: ef39b6f8cd92ef44daa85b354f9ccbb4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2181660210853533444
+    second: hand_body_only_0
+  - first:
+      213: -6386357101466293282
+    second: hand_body_only_1
+  - first:
+      213: -8712794338963173876
+    second: hand_body_only_2
+  - first:
+      213: -5755723247521988066
+    second: hand_body_only_3
+  - first:
+      213: -3746347900965113332
+    second: hand_body_only_4
+  - first:
+      213: -8509973182868119490
+    second: hand_body_only_5
+  - first:
+      213: -6805585777836679721
+    second: hand_body_only_6
+  - first:
+      213: 6853800731286251673
+    second: hand_body_only_7
+  - first:
+      213: 3017341198755837134
+    second: hand_body_only_8
+  - first:
+      213: 6580588811487237818
+    second: hand_body_only_9
+  - first:
+      213: 5463815152330638590
+    second: hand_body_only_10
+  - first:
+      213: -8233213623852591641
+    second: hand_body_only_11
+  - first:
+      213: 915430255486144239
+    second: hand_body_only_12
+  - first:
+      213: -4463329895902243456
+    second: hand_body_only_13
+  - first:
+      213: -4314275624702422622
+    second: hand_body_only_14
+  - first:
+      213: 2231853317601968354
+    second: hand_body_only_15
+  - first:
+      213: -8851229653400894875
+    second: hand_body_only_16
+  - first:
+      213: -1736612755159999699
+    second: hand_body_only_17
+  - first:
+      213: 3548211877853313255
+    second: hand_body_only_18
+  - first:
+      213: 6661895157169518912
+    second: hand_body_only_19
+  - first:
+      213: -6801666495847966811
+    second: hand_body_only_20
+  - first:
+      213: -5030505357187218120
+    second: hand_body_only_21
+  - first:
+      213: 1037943472909825603
+    second: hand_body_only_22
+  - first:
+      213: -3426631450247695868
+    second: hand_body_only_23
+  - first:
+      213: -3732975455325311745
+    second: hand_body_only_24
+  - first:
+      213: 3449562059752449401
+    second: hand_body_only_25
+  - first:
+      213: 3578598148056107548
+    second: hand_body_only_26
+  - first:
+      213: -4377694150107515090
+    second: hand_body_only_27
+  - first:
+      213: 3242656976524017962
+    second: hand_body_only_28
+  - first:
+      213: -4038330988624868549
+    second: hand_body_only_29
+  - first:
+      213: -667484127720622744
+    second: hand_body_only_30
+  - first:
+      213: 9123515802422986106
+    second: hand_body_only_31
+  - first:
+      213: 9117765152799426500
+    second: hand_body_only_32
+  - first:
+      213: 5373075397169965404
+    second: hand_body_only_33
+  - first:
+      213: -2928388666103967012
+    second: hand_body_only_34
+  - first:
+      213: -360025920012495066
+    second: hand_body_only_35
+  - first:
+      213: -1583516469881203868
+    second: hand_body_only_36
+  - first:
+      213: -434420896992762143
+    second: hand_body_only_37
+  - first:
+      213: 1374294556327640319
+    second: hand_body_only_38
+  - first:
+      213: -8309113479833120959
+    second: hand_body_only_39
+  - first:
+      213: -7197829769442709498
+    second: hand_body_only_40
+  - first:
+      213: -8931623909337541134
+    second: hand_body_only_41
+  - first:
+      213: 3520985163908162943
+    second: hand_body_only_42
+  - first:
+      213: 546058761396909890
+    second: hand_body_only_43
+  - first:
+      213: -362013926193205099
+    second: hand_body_only_44
+  - first:
+      213: -139408683142927168
+    second: hand_body_only_45
+  - first:
+      213: -6813227995909072745
+    second: hand_body_only_46
+  - first:
+      213: -6852728925267397975
+    second: hand_body_only_47
+  - first:
+      213: 9149023767482599462
+    second: hand_body_only_48
+  - first:
+      213: 7946489090539567478
+    second: hand_body_only_49
+  - first:
+      213: -1826628962081436916
+    second: hand_body_only_50
+  - first:
+      213: 7820756704546440820
+    second: hand_body_only_51
+  - first:
+      213: 754390670099067995
+    second: hand_body_only_52
+  - first:
+      213: -1264554531946998467
+    second: hand_body_only_53
+  - first:
+      213: 5398516149531741739
+    second: hand_body_only_54
+  - first:
+      213: -2560410716735209055
+    second: hand_body_only_55
+  - first:
+      213: -2695703845441083213
+    second: hand_body_only_56
+  - first:
+      213: 3437305157133281693
+    second: hand_body_only_57
+  - first:
+      213: -4134634461170764918
+    second: hand_body_only_58
+  - first:
+      213: 6889309659839883206
+    second: hand_body_only_59
+  - first:
+      213: -5932715084014600045
+    second: hand_body_only_60
+  - first:
+      213: 7039842213067306755
+    second: hand_body_only_61
+  - first:
+      213: -2235580733415225170
+    second: hand_body_only_62
+  - first:
+      213: 9030550696034540738
+    second: hand_body_only_63
+  - first:
+      213: 8835194114764810675
+    second: hand_body_only_64
+  - first:
+      213: -2771975995719334272
+    second: hand_body_only_65
+  - first:
+      213: -4134090513920901217
+    second: hand_body_only_66
+  - first:
+      213: -3066630929363549156
+    second: hand_body_only_67
+  - first:
+      213: 3384479828676690454
+    second: hand_body_only_68
+  - first:
+      213: -2216644515512415559
+    second: hand_body_only_69
+  - first:
+      213: 9031853283318250342
+    second: hand_body_only_70
+  - first:
+      213: -1741554180415379929
+    second: hand_body_only_71
+  - first:
+      213: 3506682160856491963
+    second: hand_body_only_72
+  - first:
+      213: -3029231601741688553
+    second: hand_body_only_73
+  - first:
+      213: 4022777499792119764
+    second: hand_body_only_74
+  - first:
+      213: -9104362215315484917
+    second: hand_body_only_75
+  - first:
+      213: 7645817153086356050
+    second: hand_body_only_76
+  - first:
+      213: -8350187323570575019
+    second: hand_body_only_77
+  - first:
+      213: 8610861922287441225
+    second: hand_body_only_78
+  - first:
+      213: -8948101941875324414
+    second: hand_body_only_79
+  - first:
+      213: -2313625823289595936
+    second: hand_body_only_80
+  - first:
+      213: -2481193742551877718
+    second: hand_body_only_81
+  - first:
+      213: -621805965440509587
+    second: hand_body_only_82
+  - first:
+      213: 8250833339045183907
+    second: hand_body_only_83
+  - first:
+      213: 3504735258757993073
+    second: hand_body_only_84
+  - first:
+      213: -5411017570962428746
+    second: hand_body_only_85
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: hand_body_only_0
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 320
+        width: 12
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40757802760d64e10800000000000000
+      internalID: 2181660210853533444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_1
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 320
+        width: 16
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: edbee467d0a1f57a0800000000000000
+      internalID: -6386357101466293282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_2
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 320
+        width: 20
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0ec01906bfe51780800000000000000
+      internalID: -8712794338963173876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_3
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 320
+        width: 16
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e128ef593309f10b0800000000000000
+      internalID: -5755723247521988066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_4
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 320
+        width: 20
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c02b1fdde6c420cc0800000000000000
+      internalID: -3746347900965113332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_5
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 328
+        width: 20
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e30ab0b5a7086e980800000000000000
+      internalID: -8509973182868119490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_6
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 328
+        width: 20
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7dd1897eac3bd81a0800000000000000
+      internalID: -6805585777836679721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_7
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 328
+        width: 24
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99821adb3779d1f50800000000000000
+      internalID: 6853800731286251673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_8
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 328
+        width: 24
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec43efd65dfbfd920800000000000000
+      internalID: 3017341198755837134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_9
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 328
+        width: 24
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab65b9998a2f25b50800000000000000
+      internalID: 6580588811487237818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_10
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 328
+        width: 26
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef48019beee53db40800000000000000
+      internalID: 5463815152330638590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_11
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 328
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e51c5e94dfbdbd80800000000000000
+      internalID: -8233213623852591641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_12
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 328
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fee85ea97f244bc00800000000000000
+      internalID: 915430255486144239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_13
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 325
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0859d5f7b111f02c0800000000000000
+      internalID: -4463329895902243456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_14
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 256
+        width: 12
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a15c766d2d9024c0800000000000000
+      internalID: -4314275624702422622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_15
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 256
+        width: 16
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e0417a74c229fe10800000000000000
+      internalID: 2231853317601968354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_16
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 256
+        width: 20
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 562c2aba68d1a2580800000000000000
+      internalID: -8851229653400894875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_17
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 256
+        width: 16
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2b964076ef46e7e0800000000000000
+      internalID: -1736612755159999699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_18
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 256
+        width: 20
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e8b44757e7cd3130800000000000000
+      internalID: 3548211877853313255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_19
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 264
+        width: 20
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 049fbf5695ec37c50800000000000000
+      internalID: 6661895157169518912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_20
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 264
+        width: 20
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a75e4adb50ab91a0800000000000000
+      internalID: -6801666495847966811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_21
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 264
+        width: 24
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8350828c70e003ab0800000000000000
+      internalID: -5030505357187218120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_22
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 264
+        width: 24
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 346b9bfd614876e00800000000000000
+      internalID: 1037943472909825603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_23
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 264
+        width: 24
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 402fdcfd9d82270d0800000000000000
+      internalID: -3426631450247695868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_24
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 264
+        width: 26
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffc251ef99ec13cc0800000000000000
+      internalID: -3732975455325311745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_25
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 264
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 975a532ba6e4fdf20800000000000000
+      internalID: 3449562059752449401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_26
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 264
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1a41c03e0cb9a130800000000000000
+      internalID: 3578598148056107548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_27
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 261
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e27398f4d5e4f33c0800000000000000
+      internalID: -4377694150107515090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_28
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 192
+        width: 11
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a21082ef65b300d20800000000000000
+      internalID: 3242656976524017962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_29
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 192
+        width: 15
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3b0091ac57f4f7c0800000000000000
+      internalID: -4038330988624868549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_30
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 192
+        width: 18
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 865300ae8be9cb6f0800000000000000
+      internalID: -667484127720622744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_31
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 192
+        width: 15
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a75c51aa84d3d9e70800000000000000
+      internalID: 9123515802422986106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_32
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 192
+        width: 18
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c78b06391fc88e70800000000000000
+      internalID: 9117765152799426500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_33
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 200
+        width: 18
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c59e4bf1b9ff09a40800000000000000
+      internalID: 5373075397169965404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_34
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 200
+        width: 18
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd2d79006064c57d0800000000000000
+      internalID: -2928388666103967012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_35
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 200
+        width: 22
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 627d8bf455ee00bf0800000000000000
+      internalID: -360025920012495066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_36
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 200
+        width: 22
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46310c41928360ae0800000000000000
+      internalID: -1583516469881203868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_37
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 200
+        width: 22
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e66dbfee70a8f9f0800000000000000
+      internalID: -434420896992762143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_38
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 200
+        width: 24
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffc79ae1e99721310800000000000000
+      internalID: 1374294556327640319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_39
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 232
+        width: 18
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14f032c405910bc80800000000000000
+      internalID: -8309113479833120959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_40
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 200
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 600b2aed5fb2c1c90800000000000000
+      internalID: -7197829769442709498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_41
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 200
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f5dc80506f7c0480800000000000000
+      internalID: -8931623909337541134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_42
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 197
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f75aa220a5d0dd030800000000000000
+      internalID: 3520985163908162943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_43
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 128
+        width: 13
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2477d83ec8df39700800000000000000
+      internalID: 546058761396909890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_44
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 128
+        width: 16
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 590728d804ed9faf0800000000000000
+      internalID: -362013926193205099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_45
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 128
+        width: 18
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cc29a29a88b01ef0800000000000000
+      internalID: -139408683142927168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_46
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 128
+        width: 16
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 798d71a5c3d8271a0800000000000000
+      internalID: -6813227995909072745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_47
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 128
+        width: 18
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a2746b895736e0a0800000000000000
+      internalID: -6852728925267397975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_48
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 136
+        width: 18
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 628086694acd7fe70800000000000000
+      internalID: 9149023767482599462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_49
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 136
+        width: 18
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 679b02db9b9974e60800000000000000
+      internalID: 7946489090539567478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_50
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 136
+        width: 22
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0b02ba03a286a6e0800000000000000
+      internalID: -1826628962081436916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_51
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 136
+        width: 22
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 476ce3169c8e88c60800000000000000
+      internalID: 7820756704546440820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_52
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 136
+        width: 22
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b54bf194152287a00800000000000000
+      internalID: 754390670099067995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_53
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 136
+        width: 24
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3550346a56637ee0800000000000000
+      internalID: -1264554531946998467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_54
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 168
+        width: 18
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2e8c0fd5d16bea40800000000000000
+      internalID: 5398516149531741739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_55
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 136
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a105edc408977cd0800000000000000
+      internalID: -2560410716735209055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_56
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 136
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b864d092afe69ad0800000000000000
+      internalID: -2695703845441083213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_57
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 133
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d992c8b24d2c3bf20800000000000000
+      internalID: 3437305157133281693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_58
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 64
+        width: 10
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a83f3d12dd3de96c0800000000000000
+      internalID: -4134634461170764918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_59
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 64
+        width: 14
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c76c6e62aebb9f50800000000000000
+      internalID: 6889309659839883206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_60
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 64
+        width: 17
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39045bf5013caada0800000000000000
+      internalID: -5932715084014600045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_61
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 64
+        width: 14
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3073da0b13b82b160800000000000000
+      internalID: 7039842213067306755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_62
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 64
+        width: 17
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea80416ea2f99f0e0800000000000000
+      internalID: -2235580733415225170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_63
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 72
+        width: 17
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cc9b4b1306f25d70800000000000000
+      internalID: 9030550696034540738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_64
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 72
+        width: 17
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b9ad2c8c3aec9a70800000000000000
+      internalID: 8835194114764810675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_65
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 72
+        width: 20
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0864d39b486f789d0800000000000000
+      internalID: -2771975995719334272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_66
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 72
+        width: 20
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9fbe68b492c0a6c0800000000000000
+      internalID: -4134090513920901217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_67
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 72
+        width: 20
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c144f0eda632175d0800000000000000
+      internalID: -3066630929363549156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_68
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 72
+        width: 22
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 612cfb1f87618fe20800000000000000
+      internalID: 3384479828676690454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_69
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 72
+        width: 8
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ba8093be85ec31e0800000000000000
+      internalID: -2216644515512415559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_70
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 72
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66b31a755b6975d70800000000000000
+      internalID: 9031853283318250342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_71
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 69
+        width: 10
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 726ae3733b1c4d7e0800000000000000
+      internalID: -1741554180415379929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_72
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 0
+        width: 10
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb7ec0a98dc3aa030800000000000000
+      internalID: 3506682160856491963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_73
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 0
+        width: 14
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7119cc368e106f5d0800000000000000
+      internalID: -3029231601741688553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_74
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 0
+        width: 17
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d71b8d82d6c3d730800000000000000
+      internalID: 4022777499792119764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_75
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 0
+        width: 14
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0fc1a95dcec6a180800000000000000
+      internalID: -9104362215315484917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_76
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 0
+        width: 17
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25afc4301366b1a60800000000000000
+      internalID: 7645817153086356050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_77
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 8
+        width: 17
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5592b92dedc2e1c80800000000000000
+      internalID: -8350187323570575019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_78
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 8
+        width: 17
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94551e7cb4def7770800000000000000
+      internalID: 8610861922287441225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_79
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 8
+        width: 20
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20ac98461b4f1d380800000000000000
+      internalID: -8948101941875324414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_80
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 8
+        width: 20
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e727a3629954efd0800000000000000
+      internalID: -2313625823289595936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_81
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 8
+        width: 20
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa7f544ef67019dd0800000000000000
+      internalID: -2481193742551877718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_82
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 8
+        width: 22
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6913b6d4c6ee57f0800000000000000
+      internalID: -621805965440509587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_83
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 8
+        width: 8
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a10db20539d08270800000000000000
+      internalID: 8250833339045183907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_84
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 8
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1729e02262253a030800000000000000
+      internalID: 3504735258757993073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand_body_only_85
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 5
+        width: 10
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6bc2361203438e4b0800000000000000
+      internalID: -5411017570962428746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

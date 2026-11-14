@@ -1,0 +1,372 @@
+using System.Collections.Generic;
+using NUnit.Framework;
+using UnityEngine;
+using Wizard.Solo.Data;
+using Wizard.Solo.Sim;
+using Wizard.Solo.Sim.Waves;
+
+namespace Wizard.Solo.Tests.Waves
+{
+    /// <summary>
+    /// 떼 출현(솔로 조정, Resources/DataSolo/G09.json "horde" 절). 명세 값이 아니라 사용자가 정한 조정이라
+    /// 기대값은 명세 구성(WavePlanner, 손잡이 꺼짐)과 JSON의 손잡이 값에서 센다. 명세 벡터 테스트는 손잡이를 끈 채로 돈다(WaveRig 기본).
+    /// </summary>
+    public class WaveHordeTests
+    {
+        static IContentDb Db => TestContent.Db;
+        static WaveTuning Horde => WaveTuning.From(Db, true);
+
+        static bool IsNormal(WavePlan plan, in WaveEntry e) =>
+            !e.Elite && !e.OutsideBudget && WaveHorde.IsNormalSpecies(Db, Horde, Db.Enemy(e.Species), plan.Whims);
+
+        static int CountNormal(WavePlan plan)
+        {
+            int n = 0;
+            for (int i = 0; i < plan.Entries.Count; i++) if (IsNormal(plan, plan.Entries[i])) n++;
+            return n;
+        }
+
+        static int CountExtras(WavePlan plan)
+        {
+            int n = 0;
+            for (int i = 0; i < plan.Entries.Count; i++) if (WaveHorde.IsExtra(plan.Entries[i])) n++;
+            return n;
+        }
+
+        // ------------------------------------------------------------ 손잡이 읽기
+
+        [Test]
+        public void Horde_Json__KnobsAreReadAndSpecTuningIgnoresThem()
+        {
+            var on = WaveTuning.From(Db, true);
+            Assert.IsTrue(on.HordeEnabled, "G09.json horde.enabled");
+            Assert.AreEqual(2.5f, on.HordeNormalCountMultiplier, 0.0001f);
+            Assert.AreEqual(2f, on.HordeMaxAliveMultiplier, 0.0001f);
+            Assert.AreEqual(6, on.HordePackSizeMin);
+            Assert.AreEqual(12, on.HordePackSizeMax);
+            Assert.AreEqual(2.5f, on.HordePackScatterRadius, 0.0001f);
+            Assert.IsTrue(on.HordeKeepRewardTotal, "기본은 합계 유지");
+            CollectionAssert.Contains(on.HordeNormalRoles, "swarm");
+            Assert.IsTrue(on.HordeMultiplies);
+            Assert.IsTrue(on.HordePacks);
+
+            var spec = WaveTuning.From(Db, false);
+            Assert.IsFalse(spec.HordeEnabled);
+            Assert.IsFalse(spec.HordeMultiplies);
+            Assert.IsFalse(spec.HordePacks);
+            Assert.AreEqual(Db.Waves.MaxAlive, WaveHorde.MaxAlive(spec, Db.Waves.MaxAlive));
+            Assert.AreEqual(Db.Waves.MaxAlive * 2, WaveHorde.MaxAlive(on, Db.Waves.MaxAlive));
+            // "waves" 절(명세 값)은 둘이 같다
+            Assert.AreEqual(on.SpeciesBaseWeight, spec.SpeciesBaseWeight);
+            Assert.AreEqual(on.SpawnRetryCount, spec.SpawnRetryCount);
+        }
+
+        [Test]
+        public void Horde_Json__RewardModeFullAndOutOfRangeValuesClampToSpec()
+        {
+            var t = new WaveTuning();
+            WaveTuning.ReadHorde(Newtonsoft.Json.Linq.JObject.Parse(
+                "{\"enabled\":true,\"normal_count_multiplier\":0.5,\"max_alive_multiplier\":0.1,\"pack_size_min\":5,\"pack_size_max\":2,\"reward_mode\":\"full\"}"), t);
+            Assert.IsTrue(t.HordeEnabled);
+            Assert.AreEqual(1f, t.HordeNormalCountMultiplier, 0.0001f, "배율은 1 아래로 내려가지 않는다");
+            Assert.AreEqual(1f, t.HordeMaxAliveMultiplier, 0.0001f);
+            Assert.AreEqual(5, t.HordePackSizeMin);
+            Assert.AreEqual(5, t.HordePackSizeMax, "최대 < 최소면 최소로");
+            Assert.IsFalse(t.HordeKeepRewardTotal);
+            Assert.IsFalse(t.HordeMultiplies);
+        }
+
+        // ------------------------------------------------------------ 잡몹 수 배율
+
+        [TestCase(1UL, 1)]
+        [TestCase(2UL, 3)]
+        [TestCase(3UL, 9)]
+        [TestCase(4UL, 17)]
+        [TestCase(5UL, 45)]
+        public void Horde_Multiplier__NormalsTimesMultiplierOthersUnchanged(ulong seed, int wave)
+        {
+            var spec = WaveRig.Build(seed, wave);
+            var horde = WaveRig.Build(seed, wave);
+            int added = WaveHorde.Expand(Db, Horde, horde);
+
+            int normals = CountNormal(spec);
+            Assert.Greater(normals, 0, "이 웨이브에 잡몹이 있어야 시험이 된다");
+            int expectTotalNormals = normals * 5 / 2;   // floor(N × 2.5)
+            Assert.AreEqual(expectTotalNormals - normals, added);
+            Assert.AreEqual(spec.Entries.Count + added, horde.Entries.Count);
+            Assert.AreEqual(added, CountExtras(horde));
+
+            // 정예·특수(종 상한·역할 밖)·예산 밖 엘리트는 수가 같다. 종마다 셈
+            var specCount = new Dictionary<string, int>();
+            var hordeCount = new Dictionary<string, int>();
+            for (int i = 0; i < spec.Entries.Count; i++)
+            {
+                var e = spec.Entries[i];
+                if (IsNormal(spec, e)) continue;
+                string key = e.Species + (e.Elite ? "#elite" : "") + (e.OutsideBudget ? "#out" : "");
+                int n; specCount.TryGetValue(key, out n); specCount[key] = n + 1;
+            }
+            for (int i = 0; i < horde.Entries.Count; i++)
+            {
+                var e = horde.Entries[i];
+                if (IsNormal(horde, e) || WaveHorde.IsExtra(e)) continue;
+                string key = e.Species + (e.Elite ? "#elite" : "") + (e.OutsideBudget ? "#out" : "");
+                int n; hordeCount.TryGetValue(key, out n); hordeCount[key] = n + 1;
+            }
+            CollectionAssert.AreEquivalent(specCount, hordeCount);
+
+            // 늘린 엔트리는 잡몹 종이고 원본 바로 뒤, 같은 묶음
+            for (int i = 0; i < horde.Entries.Count; i++)
+            {
+                var e = horde.Entries[i];
+                if (!WaveHorde.IsExtra(e)) continue;
+                Assert.IsTrue(WaveHorde.IsNormalSpecies(Db, Horde, Db.Enemy(e.Species), horde.Whims), e.Species);
+                Assert.Greater(i, 0);
+                int j = i - 1;
+                while (WaveHorde.IsExtra(horde.Entries[j])) j--;
+                Assert.AreEqual(horde.Entries[j].Species, e.Species);
+                Assert.AreEqual(horde.Entries[j].Bundle, e.Bundle);
+            }
+            // 구성의 예산·묶음 수·미리보기는 명세 그대로
+            Assert.AreEqual(spec.Budget, horde.Budget);
+            Assert.AreEqual(spec.BundleCount, horde.BundleCount);
+            CollectionAssert.AreEqual(spec.PreviewSpecies, horde.PreviewSpecies);
+            Assert.AreEqual(WaveRig.Cost(spec, false), WaveRig.Cost(horde, false), "예산 안 비용 합은 명세 그대로(늘린 것은 예산 밖)");
+        }
+
+        [Test]
+        public void Horde_Multiplier__ElitesAndCappedSpeciesNeverMultiply()
+        {
+            // 웨이브 25 + 우두머리 행차: 엘리트 4(예산 안 2, 밖 2)
+            var horde = WaveRig.Build(7, 25, WaveRig.Whims(Ids.Whim.ChiefParade));
+            WaveHorde.Expand(Db, Horde, horde);
+            int elites = 0;
+            for (int i = 0; i < horde.Entries.Count; i++)
+            {
+                var e = horde.Entries[i];
+                if (e.Elite) elites++;
+                if (!WaveHorde.IsExtra(e)) continue;
+                Assert.IsNull(Db.Enemy(e.Species).SpeciesCap, "종 상한이 있는 종은 늘지 않는다: " + e.Species);
+                Assert.AreNotEqual(Ids.Enemy.ShamanCap, e.Species, "역할 밖(ranged_cover)은 늘지 않는다");
+            }
+            Assert.AreEqual(4, elites);
+            // 종 상한(긴 밤 포함)은 늘린 뒤에도 지켜진다
+            var caps = new Dictionary<string, int>();
+            for (int i = 0; i < horde.Entries.Count; i++)
+            {
+                int n; caps.TryGetValue(horde.Entries[i].Species, out n); caps[horde.Entries[i].Species] = n + 1;
+            }
+            foreach (var kv in caps)
+            {
+                int cap = WavePlanner.SpeciesCap(Db, kv.Key, horde.Whims);
+                if (cap > 0) Assert.LessOrEqual(kv.Value, cap, kv.Key);
+            }
+        }
+
+        [Test]
+        public void Horde_Multiplier__BossWaveAndSpecTuningUntouched()
+        {
+            var rig = WaveRig.Create(3, horde: true);
+            var boss = rig.Director.BuildPlan(rig.World, 10);
+            Assert.IsNotNull(boss.BossId);
+            Assert.AreEqual(0, boss.Entries.Count, "보스 웨이브에는 일반 적이 없다");
+
+            var plan = WaveRig.Build(3, 5);
+            int before = plan.Entries.Count;
+            Assert.AreEqual(0, WaveHorde.Expand(Db, WaveTuning.From(Db, false), plan));
+            Assert.AreEqual(before, plan.Entries.Count);
+        }
+
+        [Test]
+        public void Horde_Determinism__BuildPlanTwiceIsIdenticalAndExpandsPlanner()
+        {
+            var rig = WaveRig.Create(11, horde: true);
+            for (int wave = 1; wave <= 25; wave++)
+            {
+                if (DayCycle.IsBossWave(wave)) continue;
+                var a = rig.Director.BuildPlan(rig.World, wave);
+                var b = rig.Director.BuildPlan(rig.World, wave);
+                var c = WaveRig.Build(11, wave);
+                WaveHorde.Expand(Db, Horde, c);
+                Assert.AreEqual(a.Entries.Count, b.Entries.Count, "웨이브 " + wave);
+                Assert.AreEqual(a.Entries.Count, c.Entries.Count, "웨이브 " + wave);
+                for (int i = 0; i < a.Entries.Count; i++)
+                {
+                    Assert.AreEqual(a.Entries[i].Species, b.Entries[i].Species);
+                    Assert.AreEqual(a.Entries[i].Bundle, b.Entries[i].Bundle);
+                    Assert.AreEqual(a.Entries[i].OutsideBudget, b.Entries[i].OutsideBudget);
+                    Assert.AreEqual(a.Entries[i].Species, c.Entries[i].Species);
+                    Assert.AreEqual(a.Entries[i].Bundle, c.Entries[i].Bundle);
+                }
+            }
+        }
+
+        // ------------------------------------------------------------ 동시 생존 상한
+
+        [Test]
+        public void Horde_MaxAlive__CapIsSpecTimesMultiplier()
+        {
+            int cap = Db.Waves.MaxAlive * 2;
+            var rig = WaveRig.Create(1, horde: true);
+            rig.Director.BeginWave(rig.World, WaveRig.SlimePlan(30, cap + 10));
+            rig.Steps(1);
+            Assert.AreEqual(cap, rig.Enemies.Specs.Count);
+            Assert.AreEqual(10, rig.World.Wave.SpawnQueue.Count);
+            rig.World.Enemies[0].Dead = true;
+            rig.Steps(1);
+            Assert.AreEqual(cap + 1, rig.Enemies.Specs.Count, "자리가 나면 한 마리씩");
+
+            // 손잡이를 끈 디렉터는 명세 상한 그대로
+            var spec = WaveRig.Create(1);
+            spec.Director.BeginWave(spec.World, WaveRig.SlimePlan(30, cap + 10));
+            spec.Steps(1);
+            Assert.AreEqual(Db.Waves.MaxAlive, spec.Enemies.Specs.Count);
+        }
+
+        // ------------------------------------------------------------ 무리 출현
+
+        [Test]
+        public void Horde_Pack__BundleOfMinPackSizeComesOutClusteredFromOneEdge()
+        {
+            var t = Horde;
+            for (ulong seed = 1; seed <= 20; seed++)
+            {
+                var rig = WaveRig.Create(seed, horde: true);
+                rig.Director.BeginWave(rig.World, WaveRig.SlimePlan(3, t.HordePackSizeMin));
+                rig.Steps(1);
+                var specs = rig.Enemies.Specs;
+                Assert.AreEqual(t.HordePackSizeMin, specs.Count);
+                // 무리 하나 = 한 자리에서 반경 안: 둘씩 거리 ≤ 지름
+                for (int i = 0; i < specs.Count; i++)
+                {
+                    var p = specs[i].Pos;
+                    Assert.That(p.x, Is.InRange(0f, rig.World.ArenaWidth));
+                    Assert.That(p.y, Is.InRange(0f, rig.World.ArenaHeight));
+                    for (int k = i + 1; k < specs.Count; k++)
+                        Assert.LessOrEqual((specs[k].Pos - p).magnitude, t.HordePackScatterRadius * 2f + 0.001f, "씨앗 " + seed);
+                }
+                // 플레이어(왼쪽 위 (6, 4))에게서 먼 쪽(아래 또는 오른쪽 변 근처)에서 나온다
+                Vector2 c = Vector2.zero;
+                for (int i = 0; i < specs.Count; i++) c += specs[i].Pos;
+                c /= specs.Count;
+                float toBottom = rig.World.ArenaHeight - c.y, toRight = rig.World.ArenaWidth - c.x;
+                Assert.LessOrEqual(Mathf.Min(toBottom, toRight), t.HordePackScatterRadius + 1f, "씨앗 " + seed);
+            }
+        }
+
+        [Test]
+        public void Horde_Pack__LargeBundleSplitsIntoPacksWithinSizeRange()
+        {
+            var t = Horde;
+            var rig = WaveRig.Create(21, horde: true);
+            const int count = 60;
+            rig.Director.BeginWave(rig.World, WaveRig.SlimePlan(30, count));
+            rig.Steps(1);
+            var specs = rig.Enemies.Specs;
+            Assert.AreEqual(count, specs.Count);
+            // 무리 수는 ceil(60/12) 이상, ceil(60/6) 이하 → 서로 멀리 떨어진 자리가 여럿
+            int far = 0;
+            for (int i = 1; i < specs.Count; i++)
+                if ((specs[i].Pos - specs[0].Pos).magnitude > t.HordePackScatterRadius * 2f + 0.001f) far++;
+            Assert.Greater(far, 0, "무리가 하나뿐이면 안 된다");
+        }
+
+        [Test]
+        public void Horde_Pack__ElitesAndNonNormalSpeciesSpawnAlone()
+        {
+            var rig = WaveRig.Create(5, horde: true);
+            var plan = new WavePlan { Wave = 30, Tod = WavePlanner.TodOf(Db, 30), Frame = Ids.Frame.Mixed, BundleCount = 1 };
+            plan.Entries.Add(new WaveEntry { Species = Ids.Enemy.GolemMenhir, Elite = true, Bundle = 0 });
+            plan.Entries.Add(new WaveEntry { Species = Ids.Enemy.ShamanCap, Bundle = 0 });
+            var spawnRig = WaveRig.Create(5);
+            spawnRig.Director.BeginWave(spawnRig.World, plan);
+            rig.Director.BeginWave(rig.World, plan);
+            rig.Steps(1);
+            spawnRig.Steps(1);
+            // 무리 대상이 없으면 난수 소비와 자리가 손잡이를 끈 것과 같다
+            Assert.AreEqual(spawnRig.Enemies.Specs.Count, rig.Enemies.Specs.Count);
+            for (int i = 0; i < rig.Enemies.Specs.Count; i++)
+                Assert.AreEqual(spawnRig.Enemies.Specs[i].Pos, rig.Enemies.Specs[i].Pos);
+        }
+
+        // ------------------------------------------------------------ 보상
+
+        [Test]
+        public void Horde_Reward__KeepTotalExtrasHaveNoRewardOriginalsDo()
+        {
+            var rig = WaveRig.Create(9, horde: true);
+            var plan = rig.Director.BuildPlan(rig.World, 1);
+            var spec = WaveRig.Build(9, 1);
+            rig.Director.BeginWave(rig.World, plan);
+            for (int i = 0; i < 4000 && !rig.World.Wave.AllReleased; i++) rig.Steps(1);
+            rig.Steps(1);
+            Assert.AreEqual(plan.Entries.Count, rig.Enemies.Specs.Count);
+            int rewarded = 0, unrewarded = 0;
+            for (int i = 0; i < rig.Enemies.Specs.Count; i++)
+                if (rig.Enemies.Specs[i].NoReward) unrewarded++; else rewarded++;
+            Assert.AreEqual(spec.Entries.Count, rewarded, "보상 받는 개체 수 = 명세 구성의 수 → 골드·점수·드랍 추첨 합계 유지");
+            Assert.AreEqual(plan.Entries.Count - spec.Entries.Count, unrewarded);
+            Assert.Greater(unrewarded, 0);
+        }
+
+        [Test]
+        public void Horde_Reward__FullModeEveryoneRewarded()
+        {
+            var rig = WaveRig.Create(9, horde: true);
+            var plan = rig.Director.BuildPlan(rig.World, 1);
+            rig.Director.Tuning.HordeKeepRewardTotal = false;
+            rig.Director.BeginWave(rig.World, plan);
+            for (int i = 0; i < 4000 && !rig.World.Wave.AllReleased; i++) rig.Steps(1);
+            rig.Steps(1);
+            Assert.AreEqual(plan.Entries.Count, rig.Enemies.Specs.Count);
+            for (int i = 0; i < rig.Enemies.Specs.Count; i++) Assert.IsFalse(rig.Enemies.Specs[i].NoReward);
+        }
+
+        [Test]
+        public void Horde_Progress__UnrewardedExtrasStillCountInRemainingRatio()
+        {
+            var rig = WaveRig.Create(9, horde: true);
+            var plan = rig.Director.BuildPlan(rig.World, 1);
+            rig.Director.BeginWave(rig.World, plan);
+            rig.Steps(1);
+            Assert.Greater(rig.World.Enemies.Count, 0);
+            Assert.AreEqual(1f, rig.World.Wave.RemainingRatio, 0.001f, "다친 적이 없으면 진행 바는 가득");
+            // 늘린 개체(보상 없음) 하나를 죽이면 바가 준다
+            for (int i = 0; i < rig.World.Enemies.Count; i++)
+                if (rig.World.Enemies[i].NoReward) { rig.World.Enemies[i].Dead = true; break; }
+            rig.Steps(1);
+            Assert.Less(rig.World.Wave.RemainingRatio, 1f);
+        }
+
+        // ------------------------------------------------------------ 결정론
+
+        [Test]
+        public void Horde_Determinism__SameSeedTwoRunsSameSpawns()
+        {
+            List<EnemySpawnSpec> Run()
+            {
+                var rig = WaveRig.Create(4242, horde: true);
+                rig.Director.BeginWave(rig.World, rig.Director.BuildPlan(rig.World, 9));
+                for (int i = 0; i < 600; i++)
+                {
+                    rig.Steps(1);
+                    // 몇 마리씩 죽여 상한·묶음 방출이 돌게 한다(틱 번호로만 정한다)
+                    if (i % 30 == 0)
+                        for (int k = 0; k < rig.World.Enemies.Count; k += 3) rig.World.Enemies[k].Dead = true;
+                }
+                return rig.Enemies.Specs;
+            }
+            var a = Run();
+            var b = Run();
+            Assert.Greater(a.Count, 0);
+            Assert.AreEqual(a.Count, b.Count);
+            for (int i = 0; i < a.Count; i++)
+            {
+                Assert.AreEqual(a[i].DefId, b[i].DefId, "#" + i);
+                Assert.AreEqual(a[i].Pos, b[i].Pos, "#" + i);
+                Assert.AreEqual(a[i].NoReward, b[i].NoReward, "#" + i);
+                Assert.AreEqual(a[i].Elite, b[i].Elite, "#" + i);
+            }
+        }
+    }
+}

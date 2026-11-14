@@ -1,0 +1,23 @@
+{
+  "_note": "06 요약서 4.1·4.3절, 01 요약서 4.1·9.3절, 04 요약서 11절, 00 문서 13절 D-21·D-52·D-58. 회복 비용 = heal_base + heal_per_wave × (방금 넘긴 웨이브), 두 번째부터 × heal_repeat_mul_num / heal_repeat_mul_den(누적 아님), 1회 heal_cells칸. 새벽 야영(보스 뒤) 무료 dawn_free_heal_cells칸. 출발 표식 위 J depart_hold_seconds초. WaveClearing 보통 wave_clear_seconds초 / 보스 처치 boss_clear_seconds초(솔로 임시 D-58: 사망 느린 연출 1.0 + 드랍 1.0) / 복수 처치 revenge_clear_ticks틱, revenge_skip_after_ticks틱 뒤 J로 넘김(05 10.3절). 시간대 전환 4초(야영 중). 좁은 들 예고 3초(180틱). 비기 해금 차례 = 웨이브 1~art_unlock_last_wave를 넘길 때마다 후보 art_candidates개. 체력 0 뒤 정산까지 2.0초(솔로 임시 D-21). 모닥불 = 전장 가운데, fire_interact_radius칸 안 J = 야영 화면. 출발 표식 = 모닥불 + (depart_marker_offset_x, depart_marker_offset_y)칸(시뮬레이션 좌표), depart_marker_radius칸 안(솔로 임시 D-52, 사용자 확인 대기)",
+  "heal_base": 30,
+  "heal_per_wave": 5,
+  "heal_repeat_mul_num": 3,
+  "heal_repeat_mul_den": 2,
+  "heal_cells": 1,
+  "dawn_free_heal_cells": 1,
+  "depart_hold_seconds": 1,
+  "wave_clear_seconds": 1,
+  "tod_transition_seconds": 4,
+  "narrow_field_prelude_seconds": 3,
+  "art_unlock_last_wave": 6,
+  "art_candidates": 2,
+  "downed_to_settlement_seconds": 2.0,
+  "fire_interact_radius": 1.5,
+  "depart_marker_offset_x": 4,
+  "depart_marker_offset_y": 0,
+  "depart_marker_radius": 1.0,
+  "boss_clear_seconds": 2.0,
+  "revenge_clear_ticks": 264,
+  "revenge_skip_after_ticks": 84
+}

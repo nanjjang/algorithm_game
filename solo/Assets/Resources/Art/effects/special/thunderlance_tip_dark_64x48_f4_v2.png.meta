@@ -1,0 +1,567 @@
+fileFormatVersion: 2
+guid: 17453afa1d6315d40a8089ed6cfd7005
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 719764243236295599
+    second: thunderlance_tip_dark_64x48_f4_v2_0
+  - first:
+      213: 3894455167804761281
+    second: thunderlance_tip_dark_64x48_f4_v2_1
+  - first:
+      213: -5766985021492961018
+    second: thunderlance_tip_dark_64x48_f4_v2_2
+  - first:
+      213: -4736211585486033504
+    second: thunderlance_tip_dark_64x48_f4_v2_3
+  - first:
+      213: 452468691644309262
+    second: thunderlance_tip_dark_64x48_f4_v2_4
+  - first:
+      213: -6712796997479195011
+    second: thunderlance_tip_dark_64x48_f4_v2_5
+  - first:
+      213: 5747165638014536258
+    second: thunderlance_tip_dark_64x48_f4_v2_6
+  - first:
+      213: 2707005029439573898
+    second: thunderlance_tip_dark_64x48_f4_v2_7
+  - first:
+      213: 6381002318148129969
+    second: thunderlance_tip_dark_64x48_f4_v2_8
+  - first:
+      213: 4616245036775763135
+    second: thunderlance_tip_dark_64x48_f4_v2_9
+  - first:
+      213: 507597781969145772
+    second: thunderlance_tip_dark_64x48_f4_v2_10
+  - first:
+      213: 8296944438199930044
+    second: thunderlance_tip_dark_64x48_f4_v2_11
+  - first:
+      213: -5905629626868488895
+    second: thunderlance_tip_dark_64x48_f4_v2_12
+  - first:
+      213: -2966197862821839422
+    second: thunderlance_tip_dark_64x48_f4_v2_13
+  - first:
+      213: 1309629176639203262
+    second: thunderlance_tip_dark_64x48_f4_v2_14
+  - first:
+      213: 140090625364182243
+    second: thunderlance_tip_dark_64x48_f4_v2_15
+  - first:
+      213: -355273209746113244
+    second: thunderlance_tip_dark_64x48_f4_v2_16
+  - first:
+      213: -8024188348224376935
+    second: thunderlance_tip_dark_64x48_f4_v2_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: thunderlance_tip_dark_64x48_f4_v2_0
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 3
+        width: 36
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa3902804cd1df900800000000000000
+      internalID: 719764243236295599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thunderlance_tip_dark_64x48_f4_v2_1
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 24
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c4efa66752eb0630800000000000000
+      internalID: 3894455167804761281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thunderlance_tip_dark_64x48_f4_v2_2
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 21
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 601e9e08dad87ffa0800000000000000
+      internalID: -5766985021492961018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thunderlance_tip_dark_64x48_f4_v2_3
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 17
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ade30218a8954eb0800000000000000
+      internalID: -4736211585486033504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thunderlance_tip_dark_64x48_f4_v2_4
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 24
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0fd175b0ed774600800000000000000
+      internalID: 452468691644309262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thunderlance_tip_dark_64x48_f4_v2_5
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 21
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7e91fb52ba57d2a0800000000000000
+      internalID: -6712796997479195011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thunderlance_tip_dark_64x48_f4_v2_6
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 17
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24a003fa2b802cf40800000000000000
+      internalID: 5747165638014536258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thunderlance_tip_dark_64x48_f4_v2_7
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 26
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8f01f06bb6319520800000000000000
+      internalID: 2707005029439573898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thunderlance_tip_dark_64x48_f4_v2_8
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 26
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b4d924eccfdd8850800000000000000
+      internalID: 6381002318148129969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thunderlance_tip_dark_64x48_f4_v2_9
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 19
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbced2d2762301040800000000000000
+      internalID: 4616245036775763135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thunderlance_tip_dark_64x48_f4_v2_10
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 18
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: caf0c0b4e795b0700800000000000000
+      internalID: 507597781969145772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thunderlance_tip_dark_64x48_f4_v2_11
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 3
+        width: 20
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbc4f08e10ba42370800000000000000
+      internalID: 8296944438199930044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thunderlance_tip_dark_64x48_f4_v2_12
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 9
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1452b7bc42dfa0ea0800000000000000
+      internalID: -5905629626868488895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thunderlance_tip_dark_64x48_f4_v2_13
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 3
+        width: 20
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cd3bf462c2f5d6d0800000000000000
+      internalID: -2966197862821839422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thunderlance_tip_dark_64x48_f4_v2_14
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 9
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb721152cccbc2210800000000000000
+      internalID: 1309629176639203262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thunderlance_tip_dark_64x48_f4_v2_15
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 19
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e4c1397ea3b1f100800000000000000
+      internalID: 140090625364182243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thunderlance_tip_dark_64x48_f4_v2_16
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 10
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42dbed6e5e0d11bf0800000000000000
+      internalID: -355273209746113244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thunderlance_tip_dark_64x48_f4_v2_17
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 3
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99fe145163b54a090800000000000000
+      internalID: -8024188348224376935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

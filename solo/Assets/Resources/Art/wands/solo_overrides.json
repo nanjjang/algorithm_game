@@ -1,0 +1,349 @@
+{
+  "sprites": {
+    "seonge": {
+      "hand": {
+        "file": "seonge/hand_v2.png",
+        "cell": [
+          32,
+          64
+        ],
+        "columns": 14,
+        "rows": [
+          "down_hold",
+          "down_aim",
+          "right_hold",
+          "right_aim",
+          "up_hold",
+          "up_aim"
+        ]
+      },
+      "inspection": {
+        "file": "seonge/inspection_v2.png",
+        "cell": [
+          192,
+          192
+        ],
+        "columns": 7,
+        "rows": 2
+      },
+      "icon": {
+        "file": "seonge/icon_v2.png",
+        "cell": [
+          64,
+          64
+        ],
+        "columns": 14
+      },
+      "stages": [
+        {
+          "stage": 0,
+          "head": [
+            16,
+            20
+          ],
+          "mutations": [
+            [
+              12,
+              23
+            ],
+            [
+              20,
+              23
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 1,
+          "head": [
+            16,
+            21
+          ],
+          "mutations": [
+            [
+              12,
+              24
+            ],
+            [
+              20,
+              24
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 2,
+          "head": [
+            16,
+            23
+          ],
+          "mutations": [
+            [
+              12,
+              26
+            ],
+            [
+              20,
+              26
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 3,
+          "head": [
+            16,
+            23
+          ],
+          "mutations": [
+            [
+              12,
+              26
+            ],
+            [
+              20,
+              26
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 4,
+          "head": [
+            16,
+            23
+          ],
+          "mutations": [
+            [
+              12,
+              26
+            ],
+            [
+              20,
+              26
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 5,
+          "head": [
+            16,
+            21
+          ],
+          "mutations": [
+            [
+              12,
+              24
+            ],
+            [
+              20,
+              24
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 6,
+          "head": [
+            16,
+            20
+          ],
+          "mutations": [
+            [
+              12,
+              23
+            ],
+            [
+              20,
+              23
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 7,
+          "head": [
+            16,
+            17
+          ],
+          "mutations": [
+            [
+              12,
+              20
+            ],
+            [
+              20,
+              20
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 8,
+          "head": [
+            16,
+            17
+          ],
+          "mutations": [
+            [
+              12,
+              20
+            ],
+            [
+              20,
+              20
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 9,
+          "head": [
+            16,
+            16
+          ],
+          "mutations": [
+            [
+              12,
+              19
+            ],
+            [
+              20,
+              19
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 10,
+          "head": [
+            16,
+            17
+          ],
+          "mutations": [
+            [
+              12,
+              20
+            ],
+            [
+              20,
+              20
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 11,
+          "head": [
+            16,
+            17
+          ],
+          "mutations": [
+            [
+              12,
+              20
+            ],
+            [
+              20,
+              20
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 12,
+          "head": [
+            16,
+            16
+          ],
+          "mutations": [
+            [
+              12,
+              19
+            ],
+            [
+              20,
+              19
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        },
+        {
+          "stage": 13,
+          "head": [
+            16,
+            17
+          ],
+          "mutations": [
+            [
+              12,
+              20
+            ],
+            [
+              20,
+              20
+            ]
+          ],
+          "expansion": [
+            18,
+            49
+          ]
+        }
+      ]
+    }
+  },
+  "detachedEffects": {
+    "seonge_orbit": {
+      "file": "parts/seonge_orbit_v2.png",
+      "cell": [
+        40,
+        16
+      ],
+      "frames": 8,
+      "anchor": [
+        20,
+        8
+      ]
+    }
+  }
+}

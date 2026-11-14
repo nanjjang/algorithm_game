@@ -1,0 +1,5 @@
+{
+  "_note": "솔로 표시 보충 값(manifest에 없는 것). monster_clip_fps = D-37 솔로 임시 8fps(사용자 확인 대기). monster_clip_once = 반복하지 않는(마지막 프레임에 머무는) 몬스터 클립 이름, 솔로 임시 — 나머지 클립은 반복한다. 읽는 곳: Wizard.Solo.Art.ArtPresentation. Tools/artsync.sh와 ArtSync가 지우지 않는다(artsync.json keep).",
+  "monster_clip_fps": 8,
+  "monster_clip_once": ["death", "phase", "land", "crack", "look", "impact", "emerge", "rise", "sink", "ignite"]
+}

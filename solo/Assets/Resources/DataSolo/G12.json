@@ -1,0 +1,13 @@
+{
+  "_note": "G12(강화 규칙) 보충 수치. solo/enhance.json(EnhanceConfig)에 없는 것만. scar_max = 흔적 조각 상한(07 요약서 4.9절 min(2, record_peak − stage)). owned_forecast_max_attempts = '보유 재화로 평균 N번' 앞으로 굴리기 상한(07 6절 [임시 U-12] 1,000). skip_ignore_ticks = 건너뛰기 무시 구간 0.3초(07 5.4절, TV-Q-01·02), short_result_ticks = 짧은 결과 0.5초, fast_charge_ticks = 빠른 강화 충전 0.3초, fast_attempt_ticks = 빠른 강화 시도 약 0.8초, fast_full_ritual_min_stage = 빠른 강화를 켜도 전체 의식인 현재 단계(+10 이상 도전 = stage 9 이상), plus13_first_lock_ticks = +13 첫 도달 처음 2초는 못 넘김(4.11절), auto_stop_on_drop_default = 이어서 강화 '하락에서 멈춤' 기본 켬 [임시]. log_tail_max = enhance_log_tail에 남기는 줄 수 [솔로 임시: 원문에 값 없음]",
+  "scar_max": 2,
+  "owned_forecast_max_attempts": 1000,
+  "skip_ignore_ticks": 18,
+  "short_result_ticks": 30,
+  "fast_charge_ticks": 18,
+  "fast_attempt_ticks": 48,
+  "fast_full_ritual_min_stage": 9,
+  "plus13_first_lock_ticks": 120,
+  "auto_stop_on_drop_default": true,
+  "log_tail_max": 50
+}

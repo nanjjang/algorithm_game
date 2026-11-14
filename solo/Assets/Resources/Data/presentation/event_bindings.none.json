@@ -1,0 +1,15 @@
+{
+  "_note": "의도적으로 연출이 없는 표시 사건(CONTRACTS 13절 빠짐 검사). SimEventType 의 모든 값과 UiEventKeys.All 의 모든 열쇠는 event_bindings.json 에 줄이 있거나 여기에 있다(둘 다는 안 된다). reason: not_an_event(빈 값), debug_only(디버그 표시 전용), spec_no_presentation(명세가 연출 없음이라 적음: spec 01 17.2 CrystalGainBlocked), phase_of_core_event(spec 10 23.3의 예측·확정·번복 적중은 코어 이벤트 player.hit·projectile.hit 의 PresentationEvent 단계로 그린다. CONTRACTS 6.4), camera_output(spec 13 21.1의 번쩍·흔들림·그림 정지는 바인딩 줄의 shake·hitstop_ms 를 받은 연출 한도 관리기(M9-PRS-02)가 내는 결과다. 다시 바인딩하면 되먹임이 된다).",
+  "none": [
+    { "event": "crystal.gain_blocked", "reason": "spec_no_presentation" },
+    { "event": "debug.command_rejected", "reason": "debug_only" },
+    { "event": "duel.hit_confirmed", "reason": "phase_of_core_event" },
+    { "event": "duel.hit_predicted", "reason": "phase_of_core_event" },
+    { "event": "duel.hit_rollback", "reason": "phase_of_core_event" },
+    { "event": "sim.none", "reason": "not_an_event" },
+    { "event": "ui.fx.flash.border_highlight", "reason": "camera_output" },
+    { "event": "ui.fx.flash.full", "reason": "camera_output" },
+    { "event": "ui.fx.hitstop", "reason": "camera_output" },
+    { "event": "ui.fx.shake.add", "reason": "camera_output" }
+  ]
+}

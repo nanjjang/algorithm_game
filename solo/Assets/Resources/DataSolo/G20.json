@@ -1,0 +1,4 @@
+{
+  "_note": "판 진행 화면(G20)의 수치. checkpoint_wave_interval = 중간 지점 간격(00 문서 D-23 \"웨이브 5의 배수\"). 읽는 곳: Wizard.Solo.Screens.Battle.BattleFlowModel.",
+  "checkpoint_wave_interval": 5
+}

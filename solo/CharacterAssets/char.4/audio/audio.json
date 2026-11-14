@@ -1,0 +1,146 @@
+{
+  "sampleRate": 44100,
+  "channels": 1,
+  "clips": {
+    "fire-tick": {
+      "file": "fire-tick.wav",
+      "seconds": 0.12
+    },
+    "fire-chime": {
+      "file": "fire-chime.wav",
+      "seconds": 0.2
+    },
+    "fire-crystal": {
+      "file": "fire-crystal.wav",
+      "seconds": 0.32
+    },
+    "idle-cold-breath": {
+      "file": "idle-cold-breath.wav",
+      "seconds": 0.48
+    },
+    "idle-powder": {
+      "file": "idle-powder.wav",
+      "seconds": 0.28
+    },
+    "idle-joint-click": {
+      "file": "idle-joint-click.wav",
+      "seconds": 0.1
+    },
+    "idle-orbit": {
+      "file": "idle-orbit.wav",
+      "seconds": 0.26
+    },
+    "idle-low-bell": {
+      "file": "idle-low-bell.wav",
+      "seconds": 0.55
+    },
+    "idle-resonance": {
+      "file": "idle-resonance.wav",
+      "seconds": 0.78
+    },
+    "idle-wind": {
+      "file": "idle-wind.wav",
+      "seconds": 0.7
+    },
+    "idle-wind-chime": {
+      "file": "idle-wind-chime.wav",
+      "seconds": 0.44
+    },
+    "idle-pillar-contact": {
+      "file": "idle-pillar-contact.wav",
+      "seconds": 0.15
+    },
+    "hit-glass-light": {
+      "file": "hit-glass-light.wav",
+      "seconds": 0.17
+    },
+    "hit-glass-heavy": {
+      "file": "hit-glass-heavy.wav",
+      "seconds": 0.25
+    },
+    "upgrade-freeze": {
+      "file": "upgrade-freeze.wav",
+      "seconds": 0.48
+    },
+    "upgrade-success": {
+      "file": "upgrade-success.wav",
+      "seconds": 0.56
+    },
+    "upgrade-grow": {
+      "file": "upgrade-grow.wav",
+      "seconds": 0.66
+    },
+    "upgrade-melt": {
+      "file": "upgrade-melt.wav",
+      "seconds": 0.48
+    },
+    "upgrade-water-drop": {
+      "file": "upgrade-water-drop.wav",
+      "seconds": 0.2
+    },
+    "upgrade-ward-break": {
+      "file": "upgrade-ward-break.wav",
+      "seconds": 0.34
+    },
+    "upgrade-overcharge": {
+      "file": "upgrade-overcharge.wav",
+      "seconds": 0.48
+    },
+    "upgrade-bell": {
+      "file": "upgrade-bell.wav",
+      "seconds": 0.4
+    },
+    "mutation-unstable-core": {
+      "file": "mutation-unstable-core.wav",
+      "seconds": 0.33
+    },
+    "mutation-glass": {
+      "file": "mutation-glass.wav",
+      "seconds": 0.41
+    },
+    "mutation-devour": {
+      "file": "mutation-devour.wav",
+      "seconds": 0.4
+    },
+    "ice-screen-rise": {
+      "file": "ice-screen-rise.wav",
+      "seconds": 0.45
+    },
+    "ice-screen-block": {
+      "file": "ice-screen-block.wav",
+      "seconds": 0.13
+    },
+    "ice-screen-shatter": {
+      "file": "ice-screen-shatter.wav",
+      "seconds": 0.48
+    },
+    "thin-ice-freeze": {
+      "file": "thin-ice-freeze.wav",
+      "seconds": 0.34
+    },
+    "crystal-protected": {
+      "file": "crystal-protected.wav",
+      "seconds": 0.26
+    },
+    "fire-harp-1": {
+      "file": "fire-harp-1.wav",
+      "seconds": 0.27
+    },
+    "fire-harp-2": {
+      "file": "fire-harp-2.wav",
+      "seconds": 0.27
+    },
+    "fire-harp-3": {
+      "file": "fire-harp-3.wav",
+      "seconds": 0.27
+    },
+    "fire-harp-4": {
+      "file": "fire-harp-4.wav",
+      "seconds": 0.27
+    },
+    "fire-harp-5": {
+      "file": "fire-harp-5.wav",
+      "seconds": 0.27
+    }
+  }
+}

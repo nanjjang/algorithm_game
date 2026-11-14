@@ -1,0 +1,273 @@
+{
+  "sampleRate": 44100,
+  "channels": 1,
+  "format": "PCM16",
+  "generator": "Tools/sfx/synth.py",
+  "seed": "wizard-sfx-1",
+  "assets": {
+    "fire_clank": {
+      "file": "fire_clank.wav",
+      "seconds": 0.12,
+      "loop": false,
+      "peakDbfs": -4.2
+    },
+    "fire_clank_hiss": {
+      "file": "fire_clank_hiss.wav",
+      "seconds": 0.145,
+      "loop": false,
+      "peakDbfs": -4.6
+    },
+    "fire_flare": {
+      "file": "fire_flare.wav",
+      "seconds": 0.2,
+      "loop": false,
+      "peakDbfs": -3.6
+    },
+    "fire_whoosh": {
+      "file": "fire_whoosh.wav",
+      "seconds": 0.25,
+      "loop": false,
+      "peakDbfs": -7.2
+    },
+    "fire_thud": {
+      "file": "fire_thud.wav",
+      "seconds": 0.3,
+      "loop": false,
+      "peakDbfs": -6.0
+    },
+    "fire_boom": {
+      "file": "fire_boom.wav",
+      "seconds": 0.4,
+      "loop": false,
+      "peakDbfs": -5.4
+    },
+    "fire_boom_bell": {
+      "file": "fire_boom_bell.wav",
+      "seconds": 0.6,
+      "loop": false,
+      "peakDbfs": -7.2
+    },
+    "hit_ember": {
+      "file": "hit_ember.wav",
+      "seconds": 0.15,
+      "loop": false,
+      "peakDbfs": -4.5
+    },
+    "hit_molten": {
+      "file": "hit_molten.wav",
+      "seconds": 0.22,
+      "loop": false,
+      "peakDbfs": -3.8
+    },
+    "hit_anvil": {
+      "file": "hit_anvil.wav",
+      "seconds": 0.3,
+      "loop": false,
+      "peakDbfs": -6.1
+    },
+    "crit_anvil": {
+      "file": "crit_anvil.wav",
+      "seconds": 0.3,
+      "loop": false,
+      "peakDbfs": -7.2
+    },
+    "lock_hiss": {
+      "file": "lock_hiss.wav",
+      "seconds": 0.6,
+      "loop": false,
+      "peakDbfs": -4.8
+    },
+    "boilover_burst": {
+      "file": "boilover_burst.wav",
+      "seconds": 0.6,
+      "loop": false,
+      "peakDbfs": -2.9
+    },
+    "kiln_place": {
+      "file": "kiln_place.wav",
+      "seconds": 0.5,
+      "loop": false,
+      "peakDbfs": -5.9
+    },
+    "kiln_hum": {
+      "file": "kiln_hum.wav",
+      "seconds": 1.0,
+      "loop": false,
+      "peakDbfs": -2.9
+    },
+    "kiln_end": {
+      "file": "kiln_end.wav",
+      "seconds": 0.455,
+      "loop": false,
+      "peakDbfs": -3.2
+    },
+    "idle_sizzle": {
+      "file": "idle_sizzle.wav",
+      "seconds": 2.0,
+      "loop": true,
+      "peakDbfs": -14.6
+    },
+    "idle_burn": {
+      "file": "idle_burn.wav",
+      "seconds": 2.0,
+      "loop": true,
+      "peakDbfs": -18.1
+    },
+    "idle_bubble": {
+      "file": "idle_bubble.wav",
+      "seconds": 2.0,
+      "loop": true,
+      "peakDbfs": -21.4
+    },
+    "idle_boil": {
+      "file": "idle_boil.wav",
+      "seconds": 2.0,
+      "loop": true,
+      "peakDbfs": -19.7
+    },
+    "idle_kettle": {
+      "file": "idle_kettle.wav",
+      "seconds": 2.0,
+      "loop": true,
+      "peakDbfs": -19.7
+    },
+    "idle_whistle": {
+      "file": "idle_whistle.wav",
+      "seconds": 2.0,
+      "loop": true,
+      "peakDbfs": -20.2
+    },
+    "idle_hum": {
+      "file": "idle_hum.wav",
+      "seconds": 2.0,
+      "loop": true,
+      "peakDbfs": -18.0
+    },
+    "idle_spark_tick": {
+      "file": "idle_spark_tick.wav",
+      "seconds": 0.12,
+      "loop": false,
+      "peakDbfs": -4.6
+    },
+    "idle_lid_clack": {
+      "file": "idle_lid_clack.wav",
+      "seconds": 0.155,
+      "loop": false,
+      "peakDbfs": -5.5
+    },
+    "idle_steam_puff": {
+      "file": "idle_steam_puff.wav",
+      "seconds": 0.25,
+      "loop": false,
+      "peakDbfs": -8.1
+    },
+    "enhance_bellows_1": {
+      "file": "enhance_bellows_1.wav",
+      "seconds": 0.792,
+      "loop": false,
+      "peakDbfs": -5.1
+    },
+    "enhance_bellows_2": {
+      "file": "enhance_bellows_2.wav",
+      "seconds": 1.185,
+      "loop": false,
+      "peakDbfs": -5.8
+    },
+    "enhance_bellows_3": {
+      "file": "enhance_bellows_3.wav",
+      "seconds": 1.775,
+      "loop": false,
+      "peakDbfs": -5.9
+    },
+    "enhance_bellows_4": {
+      "file": "enhance_bellows_4.wav",
+      "seconds": 2.365,
+      "loop": false,
+      "peakDbfs": -4.5
+    },
+    "enhance_bellows_5": {
+      "file": "enhance_bellows_5.wav",
+      "seconds": 3.152,
+      "loop": false,
+      "peakDbfs": -5.5
+    },
+    "enhance_success": {
+      "file": "enhance_success.wav",
+      "seconds": 0.8,
+      "loop": false,
+      "peakDbfs": -2.6
+    },
+    "enhance_fail": {
+      "file": "enhance_fail.wav",
+      "seconds": 0.885,
+      "loop": false,
+      "peakDbfs": -5.0
+    },
+    "enhance_iron_drop": {
+      "file": "enhance_iron_drop.wav",
+      "seconds": 0.297,
+      "loop": false,
+      "peakDbfs": -4.3
+    },
+    "enhance_great_success": {
+      "file": "enhance_great_success.wav",
+      "seconds": 0.9,
+      "loop": false,
+      "peakDbfs": -2.8
+    },
+    "enhance_charm_scorch": {
+      "file": "enhance_charm_scorch.wav",
+      "seconds": 0.5,
+      "loop": false,
+      "peakDbfs": -2.2
+    },
+    "enhance_tongs": {
+      "file": "enhance_tongs.wav",
+      "seconds": 0.235,
+      "loop": false,
+      "peakDbfs": -4.1
+    },
+    "enhance_mutation": {
+      "file": "enhance_mutation.wav",
+      "seconds": 1.0,
+      "loop": false,
+      "peakDbfs": -7.8
+    },
+    "enhance_molten_pour": {
+      "file": "enhance_molten_pour.wav",
+      "seconds": 0.35,
+      "loop": false,
+      "peakDbfs": -5.4
+    },
+    "enhance_ring_jingle": {
+      "file": "enhance_ring_jingle.wav",
+      "seconds": 0.355,
+      "loop": false,
+      "peakDbfs": -3.7
+    },
+    "enhance_milestone_04": {
+      "file": "enhance_milestone_04.wav",
+      "seconds": 1.0,
+      "loop": false,
+      "peakDbfs": -2.7
+    },
+    "enhance_milestone_07": {
+      "file": "enhance_milestone_07.wav",
+      "seconds": 1.2,
+      "loop": false,
+      "peakDbfs": -2.5
+    },
+    "enhance_milestone_10": {
+      "file": "enhance_milestone_10.wav",
+      "seconds": 1.4,
+      "loop": false,
+      "peakDbfs": -2.6
+    },
+    "enhance_stage13": {
+      "file": "enhance_stage13.wav",
+      "seconds": 2.0,
+      "loop": false,
+      "peakDbfs": -4.6
+    }
+  }
+}

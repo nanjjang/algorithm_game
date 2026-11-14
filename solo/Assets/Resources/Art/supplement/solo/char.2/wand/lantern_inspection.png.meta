@@ -1,0 +1,1117 @@
+fileFormatVersion: 2
+guid: 206c1d0a19b24bf48a9115bd952fb1de
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8667637068985165451
+    second: lantern_inspection_0
+  - first:
+      213: -1586237865402543307
+    second: lantern_inspection_1
+  - first:
+      213: 44003138150509351
+    second: lantern_inspection_2
+  - first:
+      213: -5849385014266626298
+    second: lantern_inspection_3
+  - first:
+      213: -1730119214395249243
+    second: lantern_inspection_4
+  - first:
+      213: 5374816129717479643
+    second: lantern_inspection_5
+  - first:
+      213: 1918640361165883120
+    second: lantern_inspection_6
+  - first:
+      213: -3926905136102387481
+    second: lantern_inspection_7
+  - first:
+      213: -8085153370033613844
+    second: lantern_inspection_8
+  - first:
+      213: 5690381972231677808
+    second: lantern_inspection_9
+  - first:
+      213: 5009244286665332192
+    second: lantern_inspection_10
+  - first:
+      213: -5099588103664357400
+    second: lantern_inspection_11
+  - first:
+      213: 1457503680563295483
+    second: lantern_inspection_12
+  - first:
+      213: -4467926052574016447
+    second: lantern_inspection_13
+  - first:
+      213: -7508223672127153052
+    second: lantern_inspection_14
+  - first:
+      213: 7918175269987910451
+    second: lantern_inspection_15
+  - first:
+      213: -7601341172354694949
+    second: lantern_inspection_16
+  - first:
+      213: -3232394431480916708
+    second: lantern_inspection_17
+  - first:
+      213: -5702061959081975618
+    second: lantern_inspection_18
+  - first:
+      213: -7585253496611287276
+    second: lantern_inspection_19
+  - first:
+      213: 1963684794317526707
+    second: lantern_inspection_20
+  - first:
+      213: 1105102099035968938
+    second: lantern_inspection_21
+  - first:
+      213: -8597094910243186455
+    second: lantern_inspection_22
+  - first:
+      213: -2232155516321862120
+    second: lantern_inspection_23
+  - first:
+      213: -2247083087728931718
+    second: lantern_inspection_24
+  - first:
+      213: -9039757432531500614
+    second: lantern_inspection_25
+  - first:
+      213: -2349191381496500601
+    second: lantern_inspection_26
+  - first:
+      213: 4170709055148928892
+    second: lantern_inspection_27
+  - first:
+      213: -3400315820918348350
+    second: lantern_inspection_28
+  - first:
+      213: 5634165084488278077
+    second: lantern_inspection_29
+  - first:
+      213: -5427486107687638014
+    second: lantern_inspection_30
+  - first:
+      213: 971452541086341268
+    second: lantern_inspection_31
+  - first:
+      213: 2314618295427280758
+    second: lantern_inspection_32
+  - first:
+      213: -7756807889178660356
+    second: lantern_inspection_33
+  - first:
+      213: -6193223603043413594
+    second: lantern_inspection_34
+  - first:
+      213: -6625478485364804731
+    second: lantern_inspection_35
+  - first:
+      213: 6402664425697841153
+    second: lantern_inspection_36
+  - first:
+      213: 3914142470944988011
+    second: lantern_inspection_37
+  - first:
+      213: 2306389165795759215
+    second: lantern_inspection_38
+  - first:
+      213: -5301605095265778831
+    second: lantern_inspection_39
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: lantern_inspection_0
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 469
+        width: 9
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b866edabdf1a94870800000000000000
+      internalID: 8667637068985165451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_1
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 469
+        width: 9
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 533586fc01d8cf9e0800000000000000
+      internalID: -1586237865402543307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_2
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 469
+        width: 9
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72ba67afe945c9000800000000000000
+      internalID: 44003138150509351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_3
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 469
+        width: 9
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60ff426225fc2dea0800000000000000
+      internalID: -5849385014266626298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_4
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 469
+        width: 9
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ada4e6bdb16df7e0800000000000000
+      internalID: -1730119214395249243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_5
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 400
+        width: 17
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd8a9d00bce279a40800000000000000
+      internalID: 5374816129717479643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_6
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 400
+        width: 17
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f6050b3e3160aa10800000000000000
+      internalID: 1918640361165883120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_7
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 400
+        width: 17
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e0d5f79594d089c0800000000000000
+      internalID: -3926905136102387481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_8
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 400
+        width: 17
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce31890d8d3cbcf80800000000000000
+      internalID: -8085153370033613844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_9
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 400
+        width: 17
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 077e72b314c48fe40800000000000000
+      internalID: 5690381972231677808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_10
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 331
+        width: 46
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e597db7329648540800000000000000
+      internalID: 5009244286665332192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_11
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 331
+        width: 46
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ef274473af9a39b0800000000000000
+      internalID: -5099588103664357400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_12
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 331
+        width: 46
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf4bcc210e71a3410800000000000000
+      internalID: 1457503680563295483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_13
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 331
+        width: 46
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14ccc916decbef1c0800000000000000
+      internalID: -4467926052574016447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_14
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 331
+        width: 46
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46c9ea8b95e6dc790800000000000000
+      internalID: -7508223672127153052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_15
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 257
+        width: 31
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33389eca47203ed60800000000000000
+      internalID: 7918175269987910451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_16
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 257
+        width: 31
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd04f353a7c928690800000000000000
+      internalID: -7601341172354694949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_17
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 257
+        width: 31
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1511a9f36a3423d0800000000000000
+      internalID: -3232394431480916708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_18
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 257
+        width: 31
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb0a6a9ebd43ed0b0800000000000000
+      internalID: -5702061959081975618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_19
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 257
+        width: 31
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41fc13b1224cbb690800000000000000
+      internalID: -7585253496611287276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_20
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 203
+        width: 30
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b6d1289ae8604b10800000000000000
+      internalID: 1963684794317526707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_21
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 203
+        width: 30
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa5d395018c165f00800000000000000
+      internalID: 1105102099035968938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_22
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 203
+        width: 30
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e8d2ae7abbf0b880800000000000000
+      internalID: -8597094910243186455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_23
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 203
+        width: 30
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81ee436626ac501e0800000000000000
+      internalID: -2232155516321862120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_24
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 203
+        width: 30
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7c012756d1c0d0e0800000000000000
+      internalID: -2247083087728931718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_25
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 132
+        width: 42
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab1434282845c8280800000000000000
+      internalID: -9039757432531500614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_26
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 132
+        width: 42
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78eed7492eef56fd0800000000000000
+      internalID: -2349191381496500601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_27
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 132
+        width: 42
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7f28adc9c551e930800000000000000
+      internalID: 4170709055148928892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_28
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 132
+        width: 42
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c5650ac6c6afc0d0800000000000000
+      internalID: -3400315820918348350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_29
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 132
+        width: 42
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3025d21b43903e40800000000000000
+      internalID: 5634165084488278077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_30
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 75
+        width: 24
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20c29ef1422bda4b0800000000000000
+      internalID: -5427486107687638014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_31
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 75
+        width: 24
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4981a9b60fa4b7d00800000000000000
+      internalID: 971452541086341268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_32
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 75
+        width: 24
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67f2099831d2f1020800000000000000
+      internalID: 2314618295427280758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_33
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 75
+        width: 24
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf1fe8672584a5490800000000000000
+      internalID: -7756807889178660356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_34
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 75
+        width: 24
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a1580632ff3d0aa0800000000000000
+      internalID: -6193223603043413594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_35
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 11
+        width: 31
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58376dcbb629d04a0800000000000000
+      internalID: -6625478485364804731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_36
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 11
+        width: 31
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10010c55f55dad850800000000000000
+      internalID: 6402664425697841153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_37
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 11
+        width: 31
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6b12fcd6d3d15630800000000000000
+      internalID: 3914142470944988011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_38
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 11
+        width: 31
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f64d01df9b0f10020800000000000000
+      internalID: 2306389165795759215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lantern_inspection_39
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 11
+        width: 31
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1734845414aec66b0800000000000000
+      internalID: -5301605095265778831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

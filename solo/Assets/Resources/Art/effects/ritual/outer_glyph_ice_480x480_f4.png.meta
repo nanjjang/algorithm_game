@@ -1,0 +1,917 @@
+fileFormatVersion: 2
+guid: 7caf73a494c232e41997d992191a53a1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8880269575934836004
+    second: outer_glyph_ice_480x480_f4_0
+  - first:
+      213: -6460207284711419905
+    second: outer_glyph_ice_480x480_f4_1
+  - first:
+      213: -5243677311957813231
+    second: outer_glyph_ice_480x480_f4_2
+  - first:
+      213: -1849674968025993879
+    second: outer_glyph_ice_480x480_f4_3
+  - first:
+      213: -4625704902381717996
+    second: outer_glyph_ice_480x480_f4_4
+  - first:
+      213: -7410459044161792357
+    second: outer_glyph_ice_480x480_f4_5
+  - first:
+      213: 2886638539662759046
+    second: outer_glyph_ice_480x480_f4_6
+  - first:
+      213: -8886801725922572688
+    second: outer_glyph_ice_480x480_f4_7
+  - first:
+      213: -2876438770427398293
+    second: outer_glyph_ice_480x480_f4_8
+  - first:
+      213: -5367866245708852137
+    second: outer_glyph_ice_480x480_f4_9
+  - first:
+      213: -4340175152476057562
+    second: outer_glyph_ice_480x480_f4_10
+  - first:
+      213: -4625746793313965444
+    second: outer_glyph_ice_480x480_f4_11
+  - first:
+      213: -5968860365283454971
+    second: outer_glyph_ice_480x480_f4_12
+  - first:
+      213: -3566117627387292906
+    second: outer_glyph_ice_480x480_f4_13
+  - first:
+      213: 4803289391231747285
+    second: outer_glyph_ice_480x480_f4_14
+  - first:
+      213: -6465647299114132162
+    second: outer_glyph_ice_480x480_f4_15
+  - first:
+      213: 7922666469858443224
+    second: outer_glyph_ice_480x480_f4_16
+  - first:
+      213: -7669060056568236163
+    second: outer_glyph_ice_480x480_f4_17
+  - first:
+      213: -7597833911919833607
+    second: outer_glyph_ice_480x480_f4_18
+  - first:
+      213: -8392916309744940968
+    second: outer_glyph_ice_480x480_f4_19
+  - first:
+      213: -3560922044074673956
+    second: outer_glyph_ice_480x480_f4_20
+  - first:
+      213: -608210166439221095
+    second: outer_glyph_ice_480x480_f4_21
+  - first:
+      213: 5376251240450419248
+    second: outer_glyph_ice_480x480_f4_22
+  - first:
+      213: -6710192007862963794
+    second: outer_glyph_ice_480x480_f4_23
+  - first:
+      213: -2882792467659855034
+    second: outer_glyph_ice_480x480_f4_24
+  - first:
+      213: -2833855114271187057
+    second: outer_glyph_ice_480x480_f4_25
+  - first:
+      213: -8498632874208729694
+    second: outer_glyph_ice_480x480_f4_26
+  - first:
+      213: 7868463755002409100
+    second: outer_glyph_ice_480x480_f4_27
+  - first:
+      213: -6257050056753387146
+    second: outer_glyph_ice_480x480_f4_28
+  - first:
+      213: 1950729737313713598
+    second: outer_glyph_ice_480x480_f4_29
+  - first:
+      213: -2225372086158669858
+    second: outer_glyph_ice_480x480_f4_30
+  - first:
+      213: -3544629168809864057
+    second: outer_glyph_ice_480x480_f4_31
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_0
+      rect:
+        serializedVersion: 2
+        x: 1075
+        y: 400
+        width: 121
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42dfd4f212e0d3b70800000000000000
+      internalID: 8880269575934836004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_1
+      rect:
+        serializedVersion: 2
+        x: 1583
+        y: 451
+        width: 119
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fff8263c3bbb856a0800000000000000
+      internalID: -6460207284711419905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_2
+      rect:
+        serializedVersion: 2
+        x: 1732
+        y: 388
+        width: 131
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 118baf75447ba37b0800000000000000
+      internalID: -5243677311957813231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_3
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 327
+        width: 74
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96de0e4aa62a456e0800000000000000
+      internalID: -1849674968025993879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_4
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 353
+        width: 117
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41631c936e13ecfb0800000000000000
+      internalID: -4625704902381717996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_5
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 356
+        width: 77
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b96d72af2c2c82990800000000000000
+      internalID: -7410459044161792357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_6
+      rect:
+        serializedVersion: 2
+        x: 833
+        y: 262
+        width: 74
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6841d8f25766f0820800000000000000
+      internalID: 2886638539662759046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_7
+      rect:
+        serializedVersion: 2
+        x: 1244
+        y: 377
+        width: 91
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0768e012aecbba480800000000000000
+      internalID: -8886801725922572688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_8
+      rect:
+        serializedVersion: 2
+        x: 1458
+        y: 322
+        width: 74
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b677386ad26d418d0800000000000000
+      internalID: -2876438770427398293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_9
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 238
+        width: 56
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 754d6b6f6128185b0800000000000000
+      internalID: -5367866245708852137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_10
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 310
+        width: 58
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62010bda1b994c3c0800000000000000
+      internalID: -4340175152476057562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_11
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 267
+        width: 55
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7a6e9bbccb0ecfb0800000000000000
+      internalID: -4625746793313965444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_12
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 257
+        width: 70
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5001f554f195a2da0800000000000000
+      internalID: -5968860365283454971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_13
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 284
+        width: 73
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 613525879ea928ec0800000000000000
+      internalID: -3566117627387292906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_14
+      rect:
+        serializedVersion: 2
+        x: 1360
+        y: 246
+        width: 45
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d445cd9046b8a240800000000000000
+      internalID: 4803289391231747285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_15
+      rect:
+        serializedVersion: 2
+        x: 1892
+        y: 218
+        width: 27
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3d9655b9086546a0800000000000000
+      internalID: -6465647299114132162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_16
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 156
+        width: 54
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8df7fc1ad27f2fd60800000000000000
+      internalID: 7922666469858443224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_17
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 115
+        width: 58
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d77fc1fc286029590800000000000000
+      internalID: -7669060056568236163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_18
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 167
+        width: 57
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fd0a99ef421f8690800000000000000
+      internalID: -7597833911919833607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_19
+      rect:
+        serializedVersion: 2
+        x: 535
+        y: 142
+        width: 72
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8580218751f568b80800000000000000
+      internalID: -8392916309744940968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_20
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 147
+        width: 72
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd8321a7440159ec0800000000000000
+      internalID: -3560922044074673956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_21
+      rect:
+        serializedVersion: 2
+        x: 961
+        y: 114
+        width: 79
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 998eb9873143f87f0800000000000000
+      internalID: -608210166439221095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_22
+      rect:
+        serializedVersion: 2
+        x: 1336
+        y: 105
+        width: 75
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03aec42c4084c9a40800000000000000
+      internalID: 5376251240450419248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_23
+      rect:
+        serializedVersion: 2
+        x: 1437
+        y: 142
+        width: 32
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea1b9a4cbeb90e2a0800000000000000
+      internalID: -6710192007862963794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_24
+      rect:
+        serializedVersion: 2
+        x: 1829
+        y: 57
+        width: 86
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64b66fb36834ef7d0800000000000000
+      internalID: -2882792467659855034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_25
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 96
+        width: 74
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8f11f8b9cf1ca8d0800000000000000
+      internalID: -2833855114271187057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_26
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 52
+        width: 118
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a5e458bd6ace0a80800000000000000
+      internalID: -8498632874208729694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_27
+      rect:
+        serializedVersion: 2
+        x: 741
+        y: 53
+        width: 119
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8074f4a816623d60800000000000000
+      internalID: 7868463755002409100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_28
+      rect:
+        serializedVersion: 2
+        x: 1064
+        y: 29
+        width: 92
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6796069ef1e7a29a0800000000000000
+      internalID: -6257050056753387146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_29
+      rect:
+        serializedVersion: 2
+        x: 1205
+        y: 0
+        width: 121
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebdff555c52621b10800000000000000
+      internalID: 1950729737313713598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_30
+      rect:
+        serializedVersion: 2
+        x: 1498
+        y: 17
+        width: 100
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed7417fc0e3ed11e0800000000000000
+      internalID: -2225372086158669858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_ice_480x480_f4_31
+      rect:
+        serializedVersion: 2
+        x: 1626
+        y: 1
+        width: 152
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 784999c1d82fecec0800000000000000
+      internalID: -3544629168809864057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

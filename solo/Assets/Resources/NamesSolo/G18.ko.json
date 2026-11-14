@@ -1,0 +1,16 @@
+{
+  "str.main_menu.exit_confirm": "게임을 끝낼까요?",
+  "str.main_menu.pending_settled.art": "새 비기: {name}",
+  "str.main_menu.pending_settled.block": "가방에 담은 블록: {name}",
+  "str.main_menu.pending_settled.crow_bundle": "까마귀 보따리를 받았다",
+  "str.main_menu.pending_settled.gold": "골드 +{n}",
+  "str.main_menu.pending_settled.material": "{name} ×{n}",
+  "str.main_menu.pending_settled.message": "지난 실행이 갑자기 끝나 웨이브 {wave}까지 정산했다.",
+  "str.main_menu.pending_settled.message_no_wave": "지난 실행이 갑자기 끝나 마지막 중간 지점까지 정산했다.",
+  "str.main_menu.pending_settled.nothing": "받은 것은 없다.",
+  "str.main_menu.pending_settled.received": "받은 것",
+  "str.main_menu.pending_settled.revenge_reward": "복수 보상을 받았다",
+  "str.main_menu.pending_settled.title": "지난 원정 자동 정산",
+  "str.main_menu.pending_settled.title_line": "새 칭호: {name}",
+  "~end": ""
+}

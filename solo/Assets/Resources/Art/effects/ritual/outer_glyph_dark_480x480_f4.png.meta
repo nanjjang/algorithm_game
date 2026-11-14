@@ -1,0 +1,917 @@
+fileFormatVersion: 2
+guid: 908574638b19e2f47a0e99ed3130a8f3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8536116651556495860
+    second: outer_glyph_dark_480x480_f4_0
+  - first:
+      213: -4013347545390549129
+    second: outer_glyph_dark_480x480_f4_1
+  - first:
+      213: -8406978175283270544
+    second: outer_glyph_dark_480x480_f4_2
+  - first:
+      213: 3648760175491318781
+    second: outer_glyph_dark_480x480_f4_3
+  - first:
+      213: 2311211720692915289
+    second: outer_glyph_dark_480x480_f4_4
+  - first:
+      213: 5017893601772572043
+    second: outer_glyph_dark_480x480_f4_5
+  - first:
+      213: 7933931990045743824
+    second: outer_glyph_dark_480x480_f4_6
+  - first:
+      213: -1108783445076398847
+    second: outer_glyph_dark_480x480_f4_7
+  - first:
+      213: 1826722585851368958
+    second: outer_glyph_dark_480x480_f4_8
+  - first:
+      213: -5285369370176886455
+    second: outer_glyph_dark_480x480_f4_9
+  - first:
+      213: -1368582714308266959
+    second: outer_glyph_dark_480x480_f4_10
+  - first:
+      213: 3446192984454274626
+    second: outer_glyph_dark_480x480_f4_11
+  - first:
+      213: -8998337310882699495
+    second: outer_glyph_dark_480x480_f4_12
+  - first:
+      213: -980234603126782927
+    second: outer_glyph_dark_480x480_f4_13
+  - first:
+      213: -5747759635552852098
+    second: outer_glyph_dark_480x480_f4_14
+  - first:
+      213: -9211299634208224956
+    second: outer_glyph_dark_480x480_f4_15
+  - first:
+      213: 8948162220729154577
+    second: outer_glyph_dark_480x480_f4_16
+  - first:
+      213: 3407193803226630856
+    second: outer_glyph_dark_480x480_f4_17
+  - first:
+      213: 2652940858924682230
+    second: outer_glyph_dark_480x480_f4_18
+  - first:
+      213: -1954581495163637552
+    second: outer_glyph_dark_480x480_f4_19
+  - first:
+      213: -8082341992647326945
+    second: outer_glyph_dark_480x480_f4_20
+  - first:
+      213: -6710685469975044610
+    second: outer_glyph_dark_480x480_f4_21
+  - first:
+      213: 2362551194873272418
+    second: outer_glyph_dark_480x480_f4_22
+  - first:
+      213: 1083255406747336927
+    second: outer_glyph_dark_480x480_f4_23
+  - first:
+      213: -7717036701201394909
+    second: outer_glyph_dark_480x480_f4_24
+  - first:
+      213: 1614091329675640869
+    second: outer_glyph_dark_480x480_f4_25
+  - first:
+      213: 998024819792233582
+    second: outer_glyph_dark_480x480_f4_26
+  - first:
+      213: -2219659090940437420
+    second: outer_glyph_dark_480x480_f4_27
+  - first:
+      213: 1484506813127379215
+    second: outer_glyph_dark_480x480_f4_28
+  - first:
+      213: -2249099423815770635
+    second: outer_glyph_dark_480x480_f4_29
+  - first:
+      213: -5827897692190498155
+    second: outer_glyph_dark_480x480_f4_30
+  - first:
+      213: 7686277104779796613
+    second: outer_glyph_dark_480x480_f4_31
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_0
+      rect:
+        serializedVersion: 2
+        x: 1075
+        y: 400
+        width: 121
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0e9da6b12f998980800000000000000
+      internalID: -8536116651556495860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_1
+      rect:
+        serializedVersion: 2
+        x: 1583
+        y: 451
+        width: 119
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7777fcccba9bd48c0800000000000000
+      internalID: -4013347545390549129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_2
+      rect:
+        serializedVersion: 2
+        x: 1732
+        y: 388
+        width: 131
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07c67c344e9645b80800000000000000
+      internalID: -8406978175283270544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_3
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 327
+        width: 74
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df380c23c0003a230800000000000000
+      internalID: 3648760175491318781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_4
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 353
+        width: 117
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95cde9c80d2131020800000000000000
+      internalID: 2311211720692915289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_5
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 356
+        width: 77
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8d0c5615a323a540800000000000000
+      internalID: 5017893601772572043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_6
+      rect:
+        serializedVersion: 2
+        x: 833
+        y: 262
+        width: 74
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0dad8c2fb1dfa1e60800000000000000
+      internalID: 7933931990045743824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_7
+      rect:
+        serializedVersion: 2
+        x: 1244
+        y: 377
+        width: 91
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10d236fc45fcc90f0800000000000000
+      internalID: -1108783445076398847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_8
+      rect:
+        serializedVersion: 2
+        x: 1458
+        y: 322
+        width: 74
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef59ad07382d95910800000000000000
+      internalID: 1826722585851368958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_9
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 238
+        width: 56
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94960e79f8896a6b0800000000000000
+      internalID: -5285369370176886455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_10
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 310
+        width: 58
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1347aebb541d10de0800000000000000
+      internalID: -1368582714308266959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_11
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 267
+        width: 55
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24e17d9b24653df20800000000000000
+      internalID: 3446192984454274626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_12
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 257
+        width: 70
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91761b714eb7f1380800000000000000
+      internalID: -8998337310882699495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_13
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 284
+        width: 73
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 134051c62d18562f0800000000000000
+      internalID: -980234603126782927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_14
+      rect:
+        serializedVersion: 2
+        x: 1360
+        y: 246
+        width: 45
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e772b8c701bdb30b0800000000000000
+      internalID: -5747759635552852098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_15
+      rect:
+        serializedVersion: 2
+        x: 1892
+        y: 218
+        width: 27
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 449455749c3ea2080800000000000000
+      internalID: -9211299634208224956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_16
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 156
+        width: 54
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11cb12f51224e2c70800000000000000
+      internalID: 8948162220729154577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_17
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 115
+        width: 58
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ca4c3246b8c84f20800000000000000
+      internalID: 3407193803226630856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_18
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 167
+        width: 57
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fb4352c7a321d420800000000000000
+      internalID: 2652940858924682230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_19
+      rect:
+        serializedVersion: 2
+        x: 535
+        y: 142
+        width: 72
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d038386c7eefd4e0800000000000000
+      internalID: -1954581495163637552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_20
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 147
+        width: 72
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f13880f97c0c5df80800000000000000
+      internalID: -8082341992647326945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_21
+      rect:
+        serializedVersion: 2
+        x: 961
+        y: 114
+        width: 79
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efd13caae1bded2a0800000000000000
+      internalID: -6710685469975044610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_22
+      rect:
+        serializedVersion: 2
+        x: 1336
+        y: 105
+        width: 75
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 268981e5bc779c020800000000000000
+      internalID: 2362551194873272418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_23
+      rect:
+        serializedVersion: 2
+        x: 1437
+        y: 142
+        width: 32
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd042389d0f780f00800000000000000
+      internalID: 1083255406747336927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_24
+      rect:
+        serializedVersion: 2
+        x: 1829
+        y: 57
+        width: 86
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3231d32c10497e490800000000000000
+      internalID: -7717036701201394909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_25
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 96
+        width: 74
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 520ca543387666610800000000000000
+      internalID: 1614091329675640869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_26
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 52
+        width: 118
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e644dbc2942b9dd00800000000000000
+      internalID: 998024819792233582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_27
+      rect:
+        serializedVersion: 2
+        x: 741
+        y: 53
+        width: 119
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45c570a21df2231e0800000000000000
+      internalID: -2219659090940437420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_28
+      rect:
+        serializedVersion: 2
+        x: 1064
+        y: 29
+        width: 92
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f09ca1fc4170a9410800000000000000
+      internalID: 1484506813127379215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_29
+      rect:
+        serializedVersion: 2
+        x: 1205
+        y: 0
+        width: 121
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fddce28df799c0e0800000000000000
+      internalID: -2249099423815770635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_30
+      rect:
+        serializedVersion: 2
+        x: 1498
+        y: 17
+        width: 100
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 592aaad2de52f1fa0800000000000000
+      internalID: -5827897692190498155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_dark_480x480_f4_31
+      rect:
+        serializedVersion: 2
+        x: 1626
+        y: 1
+        width: 152
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5802e9b9d442baa60800000000000000
+      internalID: 7686277104779796613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

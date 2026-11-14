@@ -1,0 +1,14 @@
+{
+  "_note": "소리 섞는 규칙(10 요약서 5.2절 = E 19.5). default_voice_seconds는 원문에 값이 없는 솔로 임시 값(소리 파일이 없어 길이를 모른다). 읽는 곳: Wizard.Solo.Audio.SoundMixConfig.",
+  "sound_mix": {
+    "max_voices": 32,
+    "hit_per_second": 8,
+    "kill_per_second": 6,
+    "telegraph_concurrent": 2,
+    "duck_db": -6,
+    "duck_seconds": 0.4,
+    "max_boost_db": 6,
+    "default_voice_seconds": 1.0,
+    "rate_window_seconds": 1.0
+  }
+}

@@ -1,0 +1,717 @@
+fileFormatVersion: 2
+guid: 675173c41ce1a604f85492dbf3b88a1c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5799833385299579724
+    second: boss.spore_queen_0
+  - first:
+      213: 2878931004433897161
+    second: boss.spore_queen_1
+  - first:
+      213: -6072555859493034924
+    second: boss.spore_queen_2
+  - first:
+      213: -3941952145104285931
+    second: boss.spore_queen_3
+  - first:
+      213: -4335798685179531338
+    second: boss.spore_queen_4
+  - first:
+      213: 5992217507585413837
+    second: boss.spore_queen_5
+  - first:
+      213: -6364545288113059472
+    second: boss.spore_queen_6
+  - first:
+      213: 7545173687613896246
+    second: boss.spore_queen_7
+  - first:
+      213: -3881267013783290665
+    second: boss.spore_queen_8
+  - first:
+      213: 4498468705208351419
+    second: boss.spore_queen_9
+  - first:
+      213: 4790784633822716337
+    second: boss.spore_queen_10
+  - first:
+      213: -271499112216737915
+    second: boss.spore_queen_11
+  - first:
+      213: 4160794797449908003
+    second: boss.spore_queen_12
+  - first:
+      213: -5284895241632566389
+    second: boss.spore_queen_13
+  - first:
+      213: -4064047918973606586
+    second: boss.spore_queen_14
+  - first:
+      213: 7801071860398164494
+    second: boss.spore_queen_15
+  - first:
+      213: -3567065481556315082
+    second: boss.spore_queen_16
+  - first:
+      213: -2034517232912092050
+    second: boss.spore_queen_17
+  - first:
+      213: 7864282263091025464
+    second: boss.spore_queen_18
+  - first:
+      213: -3710151264284544178
+    second: boss.spore_queen_19
+  - first:
+      213: 5585447853255511482
+    second: boss.spore_queen_20
+  - first:
+      213: -3973869516644582644
+    second: boss.spore_queen_21
+  - first:
+      213: -8259090931694925031
+    second: boss.spore_queen_22
+  - first:
+      213: 2301052046261580254
+    second: boss.spore_queen_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: boss.spore_queen_0
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 485
+        width: 108
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bc64c0d34ad28fa0800000000000000
+      internalID: -5799833385299579724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.spore_queen_1
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 485
+        width: 108
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c6142cce7404f720800000000000000
+      internalID: 2878931004433897161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.spore_queen_2
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 485
+        width: 108
+        height: 138
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 454633c9e92f9bba0800000000000000
+      internalID: -6072555859493034924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.spore_queen_3
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 485
+        width: 108
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51f487dc86f5b49c0800000000000000
+      internalID: -3941952145104285931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.spore_queen_4
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 485
+        width: 108
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6bfa440611624d3c0800000000000000
+      internalID: -4335798685179531338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.spore_queen_5
+      rect:
+        serializedVersion: 2
+        x: 651
+        y: 485
+        width: 108
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc251843312a82350800000000000000
+      internalID: 5992217507585413837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.spore_queen_6
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 325
+        width: 108
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 079822108c79ca7a0800000000000000
+      internalID: -6364545288113059472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.spore_queen_7
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 325
+        width: 108
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 636b9da2e77d5b860800000000000000
+      internalID: 7545173687613896246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.spore_queen_8
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 325
+        width: 108
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7dc710df638f22ac0800000000000000
+      internalID: -3881267013783290665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.spore_queen_9
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 325
+        width: 108
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbab7271475cd6e30800000000000000
+      internalID: 4498468705208351419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.spore_queen_10
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 345
+        width: 108
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b12766ed394c7240800000000000000
+      internalID: 4790784633822716337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.spore_queen_11
+      rect:
+        serializedVersion: 2
+        x: 651
+        y: 345
+        width: 108
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 587cc73fef07b3cf0800000000000000
+      internalID: -271499112216737915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.spore_queen_12
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 165
+        width: 108
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32f8b4dc2dc1eb930800000000000000
+      internalID: 4160794797449908003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.spore_queen_13
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 165
+        width: 118
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b83b65f37c748a6b0800000000000000
+      internalID: -5284895241632566389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.spore_queen_14
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 165
+        width: 118
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 645a96f23f99997c0800000000000000
+      internalID: -4064047918973606586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.spore_queen_15
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 171
+        width: 108
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0a04527689f24c60800000000000000
+      internalID: 7801071860398164494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.spore_queen_16
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 171
+        width: 108
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6343749f7dc3f7ec0800000000000000
+      internalID: -3567065481556315082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.spore_queen_17
+      rect:
+        serializedVersion: 2
+        x: 651
+        y: 171
+        width: 108
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e643dd22b51f3c3e0800000000000000
+      internalID: -2034517232912092050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.spore_queen_18
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 1
+        width: 108
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83612f03d0b832d60800000000000000
+      internalID: 7864282263091025464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.spore_queen_19
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 1
+        width: 116
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e437a551515e28cc0800000000000000
+      internalID: -3710151264284544178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.spore_queen_20
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 7
+        width: 30
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abd43c4ca3f738d40800000000000000
+      internalID: 5585447853255511482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.spore_queen_21
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 1
+        width: 62
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0b75a4aabaf9d8c0800000000000000
+      internalID: -3973869516644582644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.spore_queen_22
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 7
+        width: 30
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91b8ca06e80d16d80800000000000000
+      internalID: -8259090931694925031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.spore_queen_23
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 1
+        width: 62
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed17b1305aafeef10800000000000000
+      internalID: 2301052046261580254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

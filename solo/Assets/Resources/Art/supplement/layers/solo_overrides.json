@@ -528,6 +528,2125 @@
         3
       ],
       "useDuring": "walk"
+    },
+    "reactive/seonge/crown_shard": {
+      "sheet": "reactive/seonge/crown_shard/sheet_v2.png",
+      "frameSize": [
+        8,
+        12
+      ],
+      "columns": 8,
+      "frames": [
+        {
+          "key": "small_00",
+          "rect": [
+            0,
+            0,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/small_00.png"
+        },
+        {
+          "key": "small_01",
+          "rect": [
+            8,
+            0,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/small_01.png"
+        },
+        {
+          "key": "small_02",
+          "rect": [
+            16,
+            0,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/small_02.png"
+        },
+        {
+          "key": "small_03",
+          "rect": [
+            24,
+            0,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/small_03.png"
+        },
+        {
+          "key": "small_04",
+          "rect": [
+            32,
+            0,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/small_04.png"
+        },
+        {
+          "key": "medium_00",
+          "rect": [
+            40,
+            0,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/medium_00.png"
+        },
+        {
+          "key": "medium_01",
+          "rect": [
+            48,
+            0,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/medium_01.png"
+        },
+        {
+          "key": "medium_02",
+          "rect": [
+            56,
+            0,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/medium_02.png"
+        },
+        {
+          "key": "medium_03",
+          "rect": [
+            0,
+            12,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/medium_03.png"
+        },
+        {
+          "key": "medium_04",
+          "rect": [
+            8,
+            12,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/medium_04.png"
+        },
+        {
+          "key": "large_00",
+          "rect": [
+            16,
+            12,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/large_00.png"
+        },
+        {
+          "key": "large_01",
+          "rect": [
+            24,
+            12,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/large_01.png"
+        },
+        {
+          "key": "large_02",
+          "rect": [
+            32,
+            12,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/large_02.png"
+        },
+        {
+          "key": "large_03",
+          "rect": [
+            40,
+            12,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/large_03.png"
+        },
+        {
+          "key": "large_04",
+          "rect": [
+            48,
+            12,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/large_04.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        4,
+        6
+      ],
+      "offsets": [
+        [
+          -16,
+          3
+        ],
+        [
+          -10,
+          -4
+        ],
+        [
+          0,
+          -8
+        ],
+        [
+          8,
+          -5
+        ],
+        [
+          17,
+          2
+        ]
+      ],
+      "motion": "offset the five shards out of phase and select size from heat"
+    },
+    "reactive/seonge/frost_footprint": {
+      "sheet": "reactive/seonge/frost_footprint/sheet_v2.png",
+      "frameSize": [
+        16,
+        8
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "00",
+          "rect": [
+            0,
+            0,
+            16,
+            8
+          ],
+          "file": "reactive/seonge/frost_footprint/frames/00.png"
+        },
+        {
+          "key": "01",
+          "rect": [
+            16,
+            0,
+            16,
+            8
+          ],
+          "file": "reactive/seonge/frost_footprint/frames/01.png"
+        },
+        {
+          "key": "02",
+          "rect": [
+            32,
+            0,
+            16,
+            8
+          ],
+          "file": "reactive/seonge/frost_footprint/frames/02.png"
+        }
+      ],
+      "attachment": "feet",
+      "pivot": [
+        8,
+        4
+      ],
+      "durationMs": 500,
+      "frameDurationMs": [
+        167,
+        166,
+        167
+      ],
+      "timingSource": "total lifetime specified; subdivision suggested",
+      "layer": "ground"
+    },
+    "wild-stain/seonge/stage-2/earth_hem": {
+      "sheet": "wild-stain/seonge/stage-2/earth_hem/sheet_v2.png",
+      "frameSize": [
+        11,
+        5
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            11,
+            5
+          ],
+          "file": "wild-stain/seonge/stage-2/earth_hem/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            11,
+            0,
+            11,
+            5
+          ],
+          "file": "wild-stain/seonge/stage-2/earth_hem/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            22,
+            0,
+            11,
+            5
+          ],
+          "file": "wild-stain/seonge/stage-2/earth_hem/frames/up.png"
+        }
+      ],
+      "attachment": "feet",
+      "pivot": [
+        5,
+        2
+      ],
+      "offsetByDirection": {
+        "down": [
+          12,
+          -7
+        ],
+        "right": [
+          -11,
+          -7
+        ],
+        "up": [
+          10,
+          -7
+        ]
+      }
+    },
+    "wild-stain/seonge/stage-2/shard_crack": {
+      "sheet": "wild-stain/seonge/stage-2/shard_crack/sheet_v2.png",
+      "frameSize": [
+        4,
+        6
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            4,
+            6
+          ],
+          "file": "wild-stain/seonge/stage-2/shard_crack/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            4,
+            0,
+            4,
+            6
+          ],
+          "file": "wild-stain/seonge/stage-2/shard_crack/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            8,
+            0,
+            4,
+            6
+          ],
+          "file": "wild-stain/seonge/stage-2/shard_crack/frames/up.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        2,
+        3
+      ],
+      "offsetByDirection": {
+        "down": [
+          8,
+          -5
+        ],
+        "right": [
+          8,
+          -5
+        ],
+        "up": [
+          8,
+          -5
+        ]
+      }
+    },
+    "wild-stain/seonge/stage-3/fur_collar": {
+      "sheet": "wild-stain/seonge/stage-3/fur_collar/sheet_v2.png",
+      "frameSize": [
+        12,
+        6
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            12,
+            6
+          ],
+          "file": "wild-stain/seonge/stage-3/fur_collar/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            12,
+            0,
+            12,
+            6
+          ],
+          "file": "wild-stain/seonge/stage-3/fur_collar/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            24,
+            0,
+            12,
+            6
+          ],
+          "file": "wild-stain/seonge/stage-3/fur_collar/frames/up.png"
+        }
+      ],
+      "attachment": "shoulder",
+      "pivot": [
+        6,
+        3
+      ],
+      "offsetByDirection": {
+        "down": [
+          -8,
+          2
+        ],
+        "right": [
+          -8,
+          2
+        ],
+        "up": [
+          7,
+          3
+        ]
+      }
+    },
+    "wild-stain/seonge/stage-3/sixth_crown_shard": {
+      "sheet": "wild-stain/seonge/stage-3/sixth_crown_shard/sheet_v2.png",
+      "frameSize": [
+        8,
+        12
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            8,
+            12
+          ],
+          "file": "wild-stain/seonge/stage-3/sixth_crown_shard/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            8,
+            0,
+            8,
+            12
+          ],
+          "file": "wild-stain/seonge/stage-3/sixth_crown_shard/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            16,
+            0,
+            8,
+            12
+          ],
+          "file": "wild-stain/seonge/stage-3/sixth_crown_shard/frames/up.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        4,
+        6
+      ],
+      "offsetByDirection": {
+        "down": [
+          21,
+          -1
+        ],
+        "right": [
+          21,
+          -1
+        ],
+        "up": [
+          -21,
+          -1
+        ]
+      }
+    },
+    "wild-stain/seonge/stage-4/snowflake_track": {
+      "sheet": "wild-stain/seonge/stage-4/snowflake_track/sheet_v2.png",
+      "frameSize": [
+        16,
+        8
+      ],
+      "columns": 8,
+      "frames": [
+        {
+          "key": "down_00",
+          "rect": [
+            0,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/seonge/stage-4/snowflake_track/frames/down_00.png"
+        },
+        {
+          "key": "down_01",
+          "rect": [
+            16,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/seonge/stage-4/snowflake_track/frames/down_01.png"
+        },
+        {
+          "key": "down_02",
+          "rect": [
+            32,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/seonge/stage-4/snowflake_track/frames/down_02.png"
+        },
+        {
+          "key": "right_00",
+          "rect": [
+            48,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/seonge/stage-4/snowflake_track/frames/right_00.png"
+        },
+        {
+          "key": "right_01",
+          "rect": [
+            64,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/seonge/stage-4/snowflake_track/frames/right_01.png"
+        },
+        {
+          "key": "right_02",
+          "rect": [
+            80,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/seonge/stage-4/snowflake_track/frames/right_02.png"
+        },
+        {
+          "key": "up_00",
+          "rect": [
+            96,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/seonge/stage-4/snowflake_track/frames/up_00.png"
+        },
+        {
+          "key": "up_01",
+          "rect": [
+            112,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/seonge/stage-4/snowflake_track/frames/up_01.png"
+        },
+        {
+          "key": "up_02",
+          "rect": [
+            0,
+            8,
+            16,
+            8
+          ],
+          "file": "wild-stain/seonge/stage-4/snowflake_track/frames/up_02.png"
+        }
+      ],
+      "attachment": "feet",
+      "pivot": [
+        8,
+        4
+      ],
+      "offsetByDirection": {
+        "down": [
+          0,
+          0
+        ],
+        "right": [
+          0,
+          0
+        ],
+        "up": [
+          0,
+          0
+        ]
+      },
+      "fps": 6,
+      "timingSource": "0.5 second track from spec",
+      "inheritsStages": [
+        2,
+        3
+      ],
+      "replaces": "frost_footprint"
+    },
+    "equipment/seonge/pillar-grip": {
+      "sheet": "equipment/seonge/pillar-grip/sheet_v2.png",
+      "frameSize": [
+        12,
+        12
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            12,
+            12
+          ],
+          "file": "equipment/seonge/pillar-grip/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            12,
+            0,
+            12,
+            12
+          ],
+          "file": "equipment/seonge/pillar-grip/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            24,
+            0,
+            12,
+            12
+          ],
+          "file": "equipment/seonge/pillar-grip/frames/up.png"
+        }
+      ],
+      "attachment": "hand",
+      "pivot": [
+        5,
+        6
+      ],
+      "wandStage": 13,
+      "clips": [
+        "idle",
+        "walk",
+        "stance_walk"
+      ],
+      "anchorBehavior": "apply overlay above base hand; preserve hand socket"
+    },
+    "reactive/seonge/body": {
+      "sheet": "reactive/seonge/body_without_crown_v2.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "columns": 12,
+      "pivot": [
+        30,
+        60
+      ],
+      "frames": [
+        {
+          "key": "frame_000",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_001",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_002",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_003",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_004",
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_005",
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_006",
+          "rect": [
+            384,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_007",
+          "rect": [
+            448,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_008",
+          "rect": [
+            512,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_009",
+          "rect": [
+            576,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_010",
+          "rect": [
+            640,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_011",
+          "rect": [
+            704,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_012",
+          "rect": [
+            0,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_013",
+          "rect": [
+            64,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_014",
+          "rect": [
+            128,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_015",
+          "rect": [
+            192,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_016",
+          "rect": [
+            256,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_017",
+          "rect": [
+            320,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_018",
+          "rect": [
+            384,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_019",
+          "rect": [
+            448,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_020",
+          "rect": [
+            512,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_021",
+          "rect": [
+            576,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_022",
+          "rect": [
+            640,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_023",
+          "rect": [
+            704,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_024",
+          "rect": [
+            0,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_025",
+          "rect": [
+            64,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_026",
+          "rect": [
+            128,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_027",
+          "rect": [
+            192,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_028",
+          "rect": [
+            256,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_029",
+          "rect": [
+            320,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_030",
+          "rect": [
+            384,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_031",
+          "rect": [
+            448,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_032",
+          "rect": [
+            512,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_033",
+          "rect": [
+            576,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_034",
+          "rect": [
+            640,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_035",
+          "rect": [
+            704,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_036",
+          "rect": [
+            0,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_037",
+          "rect": [
+            64,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_038",
+          "rect": [
+            128,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_039",
+          "rect": [
+            192,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_040",
+          "rect": [
+            256,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_041",
+          "rect": [
+            320,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_042",
+          "rect": [
+            384,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_043",
+          "rect": [
+            448,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_044",
+          "rect": [
+            512,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_045",
+          "rect": [
+            576,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_046",
+          "rect": [
+            640,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_047",
+          "rect": [
+            704,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_048",
+          "rect": [
+            0,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_049",
+          "rect": [
+            64,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_050",
+          "rect": [
+            128,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_051",
+          "rect": [
+            192,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_052",
+          "rect": [
+            256,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_053",
+          "rect": [
+            320,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_054",
+          "rect": [
+            384,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_055",
+          "rect": [
+            448,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_056",
+          "rect": [
+            512,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_057",
+          "rect": [
+            576,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_058",
+          "rect": [
+            640,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_059",
+          "rect": [
+            704,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_060",
+          "rect": [
+            0,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_061",
+          "rect": [
+            64,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_062",
+          "rect": [
+            128,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_063",
+          "rect": [
+            192,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_064",
+          "rect": [
+            256,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_065",
+          "rect": [
+            320,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_066",
+          "rect": [
+            384,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_067",
+          "rect": [
+            448,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_068",
+          "rect": [
+            512,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_069",
+          "rect": [
+            576,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_070",
+          "rect": [
+            640,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_071",
+          "rect": [
+            704,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_072",
+          "rect": [
+            0,
+            384,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_073",
+          "rect": [
+            64,
+            384,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_074",
+          "rect": [
+            128,
+            384,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_075",
+          "rect": [
+            192,
+            384,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_076",
+          "rect": [
+            256,
+            384,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_077",
+          "rect": [
+            320,
+            384,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_078",
+          "rect": [
+            384,
+            384,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_079",
+          "rect": [
+            448,
+            384,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_080",
+          "rect": [
+            512,
+            384,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_081",
+          "rect": [
+            576,
+            384,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_082",
+          "rect": [
+            640,
+            384,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_083",
+          "rect": [
+            704,
+            384,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_084",
+          "rect": [
+            0,
+            448,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_085",
+          "rect": [
+            64,
+            448,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_086",
+          "rect": [
+            128,
+            448,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_087",
+          "rect": [
+            192,
+            448,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_088",
+          "rect": [
+            256,
+            448,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_089",
+          "rect": [
+            320,
+            448,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_090",
+          "rect": [
+            384,
+            448,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_091",
+          "rect": [
+            448,
+            448,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_092",
+          "rect": [
+            512,
+            448,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_093",
+          "rect": [
+            576,
+            448,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_094",
+          "rect": [
+            640,
+            448,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_095",
+          "rect": [
+            704,
+            448,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_096",
+          "rect": [
+            0,
+            512,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_097",
+          "rect": [
+            64,
+            512,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_098",
+          "rect": [
+            128,
+            512,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_099",
+          "rect": [
+            192,
+            512,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_100",
+          "rect": [
+            256,
+            512,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_101",
+          "rect": [
+            320,
+            512,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_102",
+          "rect": [
+            384,
+            512,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_103",
+          "rect": [
+            448,
+            512,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_104",
+          "rect": [
+            512,
+            512,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_105",
+          "rect": [
+            576,
+            512,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_106",
+          "rect": [
+            640,
+            512,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_107",
+          "rect": [
+            704,
+            512,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_108",
+          "rect": [
+            0,
+            576,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_109",
+          "rect": [
+            64,
+            576,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_110",
+          "rect": [
+            128,
+            576,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_111",
+          "rect": [
+            192,
+            576,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_112",
+          "rect": [
+            256,
+            576,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_113",
+          "rect": [
+            320,
+            576,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_114",
+          "rect": [
+            384,
+            576,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_115",
+          "rect": [
+            448,
+            576,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_116",
+          "rect": [
+            512,
+            576,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_117",
+          "rect": [
+            576,
+            576,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_118",
+          "rect": [
+            640,
+            576,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_119",
+          "rect": [
+            704,
+            576,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_120",
+          "rect": [
+            0,
+            640,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_121",
+          "rect": [
+            64,
+            640,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_122",
+          "rect": [
+            128,
+            640,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_123",
+          "rect": [
+            192,
+            640,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_124",
+          "rect": [
+            256,
+            640,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_125",
+          "rect": [
+            320,
+            640,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_126",
+          "rect": [
+            384,
+            640,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_127",
+          "rect": [
+            448,
+            640,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_128",
+          "rect": [
+            512,
+            640,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_129",
+          "rect": [
+            576,
+            640,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_130",
+          "rect": [
+            640,
+            640,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_131",
+          "rect": [
+            704,
+            640,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_132",
+          "rect": [
+            0,
+            704,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_133",
+          "rect": [
+            64,
+            704,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_134",
+          "rect": [
+            128,
+            704,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_135",
+          "rect": [
+            192,
+            704,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_136",
+          "rect": [
+            256,
+            704,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_137",
+          "rect": [
+            320,
+            704,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_138",
+          "rect": [
+            384,
+            704,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_139",
+          "rect": [
+            448,
+            704,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_140",
+          "rect": [
+            512,
+            704,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_141",
+          "rect": [
+            576,
+            704,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_142",
+          "rect": [
+            640,
+            704,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_143",
+          "rect": [
+            704,
+            704,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_144",
+          "rect": [
+            0,
+            768,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_145",
+          "rect": [
+            64,
+            768,
+            64,
+            64
+          ]
+        },
+        {
+          "key": "frame_146",
+          "rect": [
+            128,
+            768,
+            64,
+            64
+          ]
+        }
+      ]
+    },
+    "reactive/chorong/head_lantern": {
+      "sheet": "reactive/chorong/head_lantern/sheet_v2.png",
+      "frameSize": [
+        16,
+        16
+      ],
+      "columns": 9,
+      "frames": [
+        {
+          "key": "dim_00",
+          "rect": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/chorong/head_lantern/frames/dim_00.png"
+        },
+        {
+          "key": "dim_01",
+          "rect": [
+            16,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/chorong/head_lantern/frames/dim_01.png"
+        },
+        {
+          "key": "lit_00",
+          "rect": [
+            32,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/chorong/head_lantern/frames/lit_00.png"
+        },
+        {
+          "key": "lit_01",
+          "rect": [
+            48,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/chorong/head_lantern/frames/lit_01.png"
+        },
+        {
+          "key": "bright_00",
+          "rect": [
+            64,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/chorong/head_lantern/frames/bright_00.png"
+        },
+        {
+          "key": "bright_01",
+          "rect": [
+            80,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/chorong/head_lantern/frames/bright_01.png"
+        },
+        {
+          "key": "flash_00",
+          "rect": [
+            96,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/chorong/head_lantern/frames/flash_00.png"
+        },
+        {
+          "key": "flash_01",
+          "rect": [
+            112,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/chorong/head_lantern/frames/flash_01.png"
+        },
+        {
+          "key": "flash_02",
+          "rect": [
+            128,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/chorong/head_lantern/frames/flash_02.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        8,
+        8
+      ],
+      "offsetByDirection": {
+        "down": [
+          23,
+          17
+        ],
+        "right": [
+          -19,
+          17
+        ],
+        "up": [
+          20,
+          17
+        ]
+      },
+      "mirrorFor": [
+        "right"
+      ],
+      "wandFlashDelayMs": 100,
+      "simultaneousOnGraze": true,
+      "movementLag": "half-phase runtime follow",
+      "flashFrameDurationMs": 50,
+      "timingSource": "flash frame duration suggested"
     }
   }
 }

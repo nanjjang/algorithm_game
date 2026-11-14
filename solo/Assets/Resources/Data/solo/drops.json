@@ -1,0 +1,91 @@
+{
+  "_note": "06 요약서 0.2절(등급 안 추첨 순서), 4.4절(전리품 카드), 4.5절(판 중 드랍), 5.2절(재료 표 6.3-A~D), 5.3절(귀환 가방), 05 요약서 10.3절(복수 보상). 카드 등급 확률은 r = Random(0,100) 한 번에 일반·희귀·영웅 % (rarity_by_day의 day_from 이상인 마지막 줄). 확정 칸은 일반을 뺀 비율(희귀 : 영웅)로 고르고 boss_hero_guarantee_wave 이상 보스는 영웅. 처치 골드 = 비용 × gold_per_cost(엘리트는 × elite_gold_mul), 보스 처치 골드 = boss_gold_per_s10 × (9 + w). 체력 조각 확률 = 비용 × health_shard_bp_per_cost bp, 엘리트 health_shard_elite_bp. 귀환 가방 칸 = min(bag_slot_cap, cleared / bag_waves_per_slot), 영웅 한도 = cleared / bag_waves_per_hero. 빌린 블록: 웨이브 borrowed_block_wave(1일째 w6) 클리어에만, borrowed_block_rarity 등급 균등 1장. 재료 표의 줄: fixed > 0 이면 확정 그 수, 아니면 bp = min(bp_cap, bp_base + bp_per_day × (d − bp_day_offset))로 독립 1회(0 이하면 추첨 생략), 줄 순서 고정(하급, 중급, 상급, 상급 추가, 부적). 엘리트 줄은 한 마리마다",
+  "rarity_order": {
+    "common": ["block.magic_bolt", "block.split_two", "block.wall_bounce", "block.double_size", "block.pierce", "block.frost"],
+    "rare": ["block.fireball", "block.boomerang", "block.split_three", "block.on_hit_trigger", "block.ice_spike", "block.shadow_orb"],
+    "hero": ["block.chain_lightning", "block.homing", "block.triple_heat", "block.corrosion"]
+  },
+  "cards_normal": 4,
+  "cards_elite": 5,
+  "cards_boss": 5,
+  "cards_phantom_first": 4,
+  "cards_pick": 2,
+  "boss_hero_guarantee_wave": 30,
+  "rarity_by_day": [
+    { "day_from": 1, "common": 78, "rare": 22, "hero": 0 },
+    { "day_from": 2, "common": 73, "rare": 25, "hero": 2 },
+    { "day_from": 3, "common": 70, "rare": 26, "hero": 4 },
+    { "day_from": 4, "common": 70, "rare": 25, "hero": 5 }
+  ],
+  "reroll_gold": 30,
+  "storage_cap": 12,
+  "discard_gold_common": 5,
+  "discard_gold_rare": 15,
+  "discard_gold_hero": 50,
+  "discard_gold_borrowed": 50,
+  "borrowed_block_wave": 6,
+  "borrowed_block_rarity": "hero",
+  "borrowed_block_count": 1,
+  "gold_per_cost": 2,
+  "elite_gold_mul": 3,
+  "wave_clear_gold": 20,
+  "boss_gold_per_s10": 20,
+  "health_shard_bp_per_cost": 30,
+  "health_shard_elite_bp": 1000,
+  "health_shard_per_wave": 1,
+  "health_shard_heal_cells": 1,
+  "bag_waves_per_slot": 3,
+  "bag_slot_cap": 12,
+  "bag_waves_per_hero": 10,
+  "materials": {
+    "crow_bundle": {
+      "wave": 3,
+      "rows": [ { "item": "mat.stone_low", "fixed": 3 } ]
+    },
+    "fifth_wave_slot": 5,
+    "fifth_wave": [
+      { "day_from": 1, "day_to": 1, "rows": [ { "item": "mat.stone_low", "fixed": 1 } ] },
+      { "day_from": 2, "day_to": 2, "rows": [ { "item": "mat.stone_low", "fixed": 1 }, { "item": "mat.stone_mid", "fixed": 1 } ] },
+      { "day_from": 3, "day_to": null, "rows": [
+        { "item": "mat.stone_mid", "fixed": 1 },
+        { "item": "mat.stone_high", "bp_base": 0, "bp_per_day": 500, "bp_day_offset": 2, "bp_cap": 2500 }
+      ] }
+    ],
+    "boss_kill": [
+      { "day_from": 1, "day_to": 1, "rows": [
+        { "item": "mat.stone_low", "fixed": 1 },
+        { "item": "mat.stone_mid", "bp_base": 5000, "bp_per_day": 0, "bp_day_offset": 0, "bp_cap": 5000 },
+        { "item": "charm.safeguard", "bp_base": 0, "bp_per_day": 200, "bp_day_offset": 0, "bp_cap": 1000 }
+      ] },
+      { "day_from": 2, "day_to": 2, "rows": [
+        { "item": "mat.stone_mid", "fixed": 1 },
+        { "item": "mat.stone_high", "bp_base": 2000, "bp_per_day": 0, "bp_day_offset": 0, "bp_cap": 2000 },
+        { "item": "charm.safeguard", "bp_base": 0, "bp_per_day": 200, "bp_day_offset": 0, "bp_cap": 1000 }
+      ] },
+      { "day_from": 3, "day_to": null, "rows": [
+        { "item": "mat.stone_mid", "fixed": 1 },
+        { "item": "mat.stone_high", "fixed": 1 },
+        { "item": "mat.stone_high", "is_extra": true, "bp_base": 0, "bp_per_day": 1000, "bp_day_offset": 3, "bp_cap": 5000 },
+        { "item": "charm.safeguard", "bp_base": 0, "bp_per_day": 200, "bp_day_offset": 0, "bp_cap": 1000 }
+      ] }
+    ],
+    "phantom_first": [ { "item": "mat.stone_low", "fixed": 1 } ],
+    "elite_min_wave": 12,
+    "elite_kill": [
+      { "day_from": 2, "day_to": 2, "rows": [
+        { "item": "mat.stone_low", "bp_base": 1000, "bp_per_day": 0, "bp_day_offset": 0, "bp_cap": 1000 },
+        { "item": "mat.stone_mid", "bp_base": 800, "bp_per_day": 0, "bp_day_offset": 0, "bp_cap": 800 }
+      ] },
+      { "day_from": 3, "day_to": null, "rows": [
+        { "item": "mat.stone_mid", "bp_base": 500, "bp_per_day": 0, "bp_day_offset": 0, "bp_cap": 500 },
+        { "item": "mat.stone_high", "bp_base": 200, "bp_per_day": 50, "bp_day_offset": 3, "bp_cap": 500 },
+        { "item": "charm.safeguard", "bp_base": 50, "bp_per_day": 0, "bp_day_offset": 0, "bp_cap": 50 }
+      ] }
+    ]
+  },
+  "revenge_reward": [
+    { "item": "mat.stone_mid", "count": 3 },
+    { "item": "mat.stone_high", "count": 1 },
+    { "item": "charm.safeguard", "count": 1 }
+  ]
+}

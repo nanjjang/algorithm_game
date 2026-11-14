@@ -1,0 +1,11 @@
+{
+  "_note": "UI 기반의 솔로 임시 값(요약서에 수치가 없다. QA에서 사용자가 정한다). 읽는 곳: Wizard.Solo.UI.UiTuning.",
+  "ui": {
+    "key_repeat_delay_seconds": 0.4,
+    "key_repeat_interval_seconds": 0.1,
+    "tooltip_delay_seconds": 0.3,
+    "press_flash_seconds": 0.1,
+    "disabled_reason_seconds": 2.0,
+    "toast_slide_seconds": 0.2
+  }
+}

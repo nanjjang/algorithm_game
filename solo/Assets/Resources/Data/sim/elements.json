@@ -1,0 +1,5 @@
+{
+  "_note": "DECISIONS 2.5, spec 02 3.3 AF-1: 약점 속성 피해 x1.25, 저항 속성 x0.8, 나머지는 x1. 무속성(Element.None)과 결투는 배율 1(AF-7, AF-8)이라 데이터에 없다. 적마다의 약점·저항 배치(상성 표 18행)는 적 데이터(enemies)의 몫이다",
+  "weak_multiplier": 1.25,
+  "resist_multiplier": 0.8
+}

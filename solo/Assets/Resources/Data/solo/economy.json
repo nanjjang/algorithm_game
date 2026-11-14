@@ -1,0 +1,16 @@
+{
+  "_note": "07 요약서 2절(shop.*, library.*, appraisal.*, release.*, crystal.*)·7.3·7.4·8절. 감정가·떠나보내기 환급 표는 7.4절 표 그대로(첨자 = 단계 0..13, 환급 = 감정가 × 10% 내림, +0은 0). 상점 주 경계는 기기 현지 시간 월요일 00:00 [임시 U-07] — shop_week_start_day_of_week는 System.DayOfWeek 번호(월요일 = 1). 솔로 제외: shop.nickname_change_gold, fee.*, market.*, trade.*, season_coin.*, notice.*, payments_enabled",
+  "shop_charm_gold": 10000,
+  "shop_charm_weekly_limit": 3,
+  "shop_wand_plus0_gold": 500,
+  "shop_library_step_blocks": 50,
+  "shop_library_step_gold": 2000,
+  "shop_week_start_day_of_week": 1,
+  "library_base_cap": 100,
+  "appraisal_wand_factor": 0.5,
+  "appraisal_wand_plus0": 250,
+  "release_refund_pct": 10,
+  "crystal_gold_each": 5,
+  "appraisal_by_stage": [250, 50, 261, 683, 1574, 3400, 6748, 12494, 22068, 38047, 64624, 106720, 169656, 258309],
+  "release_refund_by_stage": [0, 5, 26, 68, 157, 340, 674, 1249, 2206, 3804, 6462, 10672, 16965, 25830]
+}

@@ -1,0 +1,3767 @@
+fileFormatVersion: 2
+guid: 82a06e55eef4346489073ea84c441b15
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7334506374821819395
+    second: body_without_kettle_lid_0
+  - first:
+      213: 3903323125848494431
+    second: body_without_kettle_lid_1
+  - first:
+      213: -6841071198370833119
+    second: body_without_kettle_lid_2
+  - first:
+      213: 2630374776576513449
+    second: body_without_kettle_lid_3
+  - first:
+      213: -5034097377661536080
+    second: body_without_kettle_lid_4
+  - first:
+      213: 1896277840270638872
+    second: body_without_kettle_lid_5
+  - first:
+      213: -3107139323070886584
+    second: body_without_kettle_lid_6
+  - first:
+      213: -2672025411054453590
+    second: body_without_kettle_lid_7
+  - first:
+      213: -5056297347426885805
+    second: body_without_kettle_lid_8
+  - first:
+      213: -5889820515972297020
+    second: body_without_kettle_lid_9
+  - first:
+      213: -3246223665943463587
+    second: body_without_kettle_lid_10
+  - first:
+      213: -4132158523727206836
+    second: body_without_kettle_lid_11
+  - first:
+      213: -3722942846275450305
+    second: body_without_kettle_lid_12
+  - first:
+      213: -3205471024268310039
+    second: body_without_kettle_lid_13
+  - first:
+      213: -472257207230536467
+    second: body_without_kettle_lid_14
+  - first:
+      213: -2998520638283745297
+    second: body_without_kettle_lid_15
+  - first:
+      213: -3742332952994506297
+    second: body_without_kettle_lid_16
+  - first:
+      213: -7060242055991429137
+    second: body_without_kettle_lid_17
+  - first:
+      213: -1749934754435325845
+    second: body_without_kettle_lid_18
+  - first:
+      213: -5770721166399867276
+    second: body_without_kettle_lid_19
+  - first:
+      213: 1479495402257003874
+    second: body_without_kettle_lid_20
+  - first:
+      213: 6914009352112726034
+    second: body_without_kettle_lid_21
+  - first:
+      213: -4123293662009858511
+    second: body_without_kettle_lid_22
+  - first:
+      213: 8190723860191683173
+    second: body_without_kettle_lid_23
+  - first:
+      213: -5259167617142717993
+    second: body_without_kettle_lid_24
+  - first:
+      213: 9127722346996678174
+    second: body_without_kettle_lid_25
+  - first:
+      213: -6006920737888343779
+    second: body_without_kettle_lid_26
+  - first:
+      213: -3515489304884712489
+    second: body_without_kettle_lid_27
+  - first:
+      213: -4055068262840922216
+    second: body_without_kettle_lid_28
+  - first:
+      213: 5353135163420374782
+    second: body_without_kettle_lid_29
+  - first:
+      213: 7383728623074193808
+    second: body_without_kettle_lid_30
+  - first:
+      213: -9049584124500543890
+    second: body_without_kettle_lid_31
+  - first:
+      213: -8539297790532708386
+    second: body_without_kettle_lid_32
+  - first:
+      213: 7136212560366634782
+    second: body_without_kettle_lid_33
+  - first:
+      213: 6349202156951515272
+    second: body_without_kettle_lid_34
+  - first:
+      213: -5024645987752345528
+    second: body_without_kettle_lid_35
+  - first:
+      213: -5337062044883046228
+    second: body_without_kettle_lid_36
+  - first:
+      213: -5894137210474002017
+    second: body_without_kettle_lid_37
+  - first:
+      213: 6401996458593970660
+    second: body_without_kettle_lid_38
+  - first:
+      213: 5380520871306285080
+    second: body_without_kettle_lid_39
+  - first:
+      213: 4581362022585390325
+    second: body_without_kettle_lid_40
+  - first:
+      213: 3070838560390841795
+    second: body_without_kettle_lid_41
+  - first:
+      213: -5219845670098085155
+    second: body_without_kettle_lid_42
+  - first:
+      213: 648925929707208643
+    second: body_without_kettle_lid_43
+  - first:
+      213: 2878589408714900082
+    second: body_without_kettle_lid_44
+  - first:
+      213: 4672331116379660947
+    second: body_without_kettle_lid_45
+  - first:
+      213: 4213380087686361524
+    second: body_without_kettle_lid_46
+  - first:
+      213: 6371514973342047570
+    second: body_without_kettle_lid_47
+  - first:
+      213: -9069356374125398507
+    second: body_without_kettle_lid_48
+  - first:
+      213: -1914563679698688809
+    second: body_without_kettle_lid_49
+  - first:
+      213: 2031055103056846970
+    second: body_without_kettle_lid_50
+  - first:
+      213: -8835108097006511170
+    second: body_without_kettle_lid_51
+  - first:
+      213: -1666245838665021897
+    second: body_without_kettle_lid_52
+  - first:
+      213: -7605800997779601017
+    second: body_without_kettle_lid_53
+  - first:
+      213: -2057191009488333169
+    second: body_without_kettle_lid_54
+  - first:
+      213: -4464822546202890582
+    second: body_without_kettle_lid_55
+  - first:
+      213: -1824269657488539024
+    second: body_without_kettle_lid_56
+  - first:
+      213: 1616914083571883565
+    second: body_without_kettle_lid_57
+  - first:
+      213: -5749675913374607974
+    second: body_without_kettle_lid_58
+  - first:
+      213: -7979290706418616182
+    second: body_without_kettle_lid_59
+  - first:
+      213: 571472145524894932
+    second: body_without_kettle_lid_60
+  - first:
+      213: -4926073614465309264
+    second: body_without_kettle_lid_61
+  - first:
+      213: 3089424736156732534
+    second: body_without_kettle_lid_62
+  - first:
+      213: 8742650083676796203
+    second: body_without_kettle_lid_63
+  - first:
+      213: -5503339472557156174
+    second: body_without_kettle_lid_64
+  - first:
+      213: 3979666891141648845
+    second: body_without_kettle_lid_65
+  - first:
+      213: -3622336624973565484
+    second: body_without_kettle_lid_66
+  - first:
+      213: 8419130429653698011
+    second: body_without_kettle_lid_67
+  - first:
+      213: -8811510463849883071
+    second: body_without_kettle_lid_68
+  - first:
+      213: -2786075672774543757
+    second: body_without_kettle_lid_69
+  - first:
+      213: 2629109969900642823
+    second: body_without_kettle_lid_70
+  - first:
+      213: 750998746396221593
+    second: body_without_kettle_lid_71
+  - first:
+      213: -8130857650584158540
+    second: body_without_kettle_lid_72
+  - first:
+      213: 7015271508982612878
+    second: body_without_kettle_lid_73
+  - first:
+      213: -8138324589788140684
+    second: body_without_kettle_lid_74
+  - first:
+      213: -235165497306313209
+    second: body_without_kettle_lid_75
+  - first:
+      213: 8862159721967633290
+    second: body_without_kettle_lid_76
+  - first:
+      213: -977443401526309027
+    second: body_without_kettle_lid_77
+  - first:
+      213: 5392273094601875972
+    second: body_without_kettle_lid_78
+  - first:
+      213: -2537879096730486553
+    second: body_without_kettle_lid_79
+  - first:
+      213: 1600885207777525079
+    second: body_without_kettle_lid_80
+  - first:
+      213: -4761119203233135403
+    second: body_without_kettle_lid_81
+  - first:
+      213: -3520990334151269794
+    second: body_without_kettle_lid_82
+  - first:
+      213: -8029510836118452077
+    second: body_without_kettle_lid_83
+  - first:
+      213: -2979472113563600960
+    second: body_without_kettle_lid_84
+  - first:
+      213: 1836052236984902566
+    second: body_without_kettle_lid_85
+  - first:
+      213: 2159014669549753455
+    second: body_without_kettle_lid_86
+  - first:
+      213: 2462564264742037092
+    second: body_without_kettle_lid_87
+  - first:
+      213: 2064969876713081429
+    second: body_without_kettle_lid_88
+  - first:
+      213: 4200319313100629578
+    second: body_without_kettle_lid_89
+  - first:
+      213: 3581291840574645552
+    second: body_without_kettle_lid_90
+  - first:
+      213: -8193210482586561419
+    second: body_without_kettle_lid_91
+  - first:
+      213: 1367496996841056083
+    second: body_without_kettle_lid_92
+  - first:
+      213: -5614145498970794301
+    second: body_without_kettle_lid_93
+  - first:
+      213: 5805537130917238816
+    second: body_without_kettle_lid_94
+  - first:
+      213: 4682979381984948438
+    second: body_without_kettle_lid_95
+  - first:
+      213: -816688553756175884
+    second: body_without_kettle_lid_96
+  - first:
+      213: -1021672886235164210
+    second: body_without_kettle_lid_97
+  - first:
+      213: 4441243403051635713
+    second: body_without_kettle_lid_98
+  - first:
+      213: -7992134149873205847
+    second: body_without_kettle_lid_99
+  - first:
+      213: -5825530420778801859
+    second: body_without_kettle_lid_100
+  - first:
+      213: 7543892144334351854
+    second: body_without_kettle_lid_101
+  - first:
+      213: 4704252985855947825
+    second: body_without_kettle_lid_102
+  - first:
+      213: 7248378866008831418
+    second: body_without_kettle_lid_103
+  - first:
+      213: 2800970425177739897
+    second: body_without_kettle_lid_104
+  - first:
+      213: 1283779123139213330
+    second: body_without_kettle_lid_105
+  - first:
+      213: -8567568828512019303
+    second: body_without_kettle_lid_106
+  - first:
+      213: 7045772590527265112
+    second: body_without_kettle_lid_107
+  - first:
+      213: 9151511158387816009
+    second: body_without_kettle_lid_108
+  - first:
+      213: -7442601199670870385
+    second: body_without_kettle_lid_109
+  - first:
+      213: -499737649313845014
+    second: body_without_kettle_lid_110
+  - first:
+      213: -1374275173270884551
+    second: body_without_kettle_lid_111
+  - first:
+      213: -6286658697050261103
+    second: body_without_kettle_lid_112
+  - first:
+      213: -1109332129891199433
+    second: body_without_kettle_lid_113
+  - first:
+      213: -7982735922286654218
+    second: body_without_kettle_lid_114
+  - first:
+      213: 5879820855598463272
+    second: body_without_kettle_lid_115
+  - first:
+      213: 2059572300976347060
+    second: body_without_kettle_lid_116
+  - first:
+      213: -6858305382575076124
+    second: body_without_kettle_lid_117
+  - first:
+      213: 8687062055669512168
+    second: body_without_kettle_lid_118
+  - first:
+      213: 4986804562842510703
+    second: body_without_kettle_lid_119
+  - first:
+      213: -2610519193869309085
+    second: body_without_kettle_lid_120
+  - first:
+      213: 704993693457664542
+    second: body_without_kettle_lid_121
+  - first:
+      213: -807764442178269322
+    second: body_without_kettle_lid_122
+  - first:
+      213: 3581955285859103305
+    second: body_without_kettle_lid_123
+  - first:
+      213: -8495156213502241275
+    second: body_without_kettle_lid_124
+  - first:
+      213: -7083911724814129134
+    second: body_without_kettle_lid_125
+  - first:
+      213: -6110858709713510154
+    second: body_without_kettle_lid_126
+  - first:
+      213: 812567977433320770
+    second: body_without_kettle_lid_127
+  - first:
+      213: 7381911283344565855
+    second: body_without_kettle_lid_128
+  - first:
+      213: 1786746525133440882
+    second: body_without_kettle_lid_129
+  - first:
+      213: 3898806017317335800
+    second: body_without_kettle_lid_130
+  - first:
+      213: 8804618744575132298
+    second: body_without_kettle_lid_131
+  - first:
+      213: -911922732034814020
+    second: body_without_kettle_lid_132
+  - first:
+      213: -6138904537573012301
+    second: body_without_kettle_lid_133
+  - first:
+      213: -5535423790233516937
+    second: body_without_kettle_lid_134
+  - first:
+      213: 4614775258270144203
+    second: body_without_kettle_lid_135
+  - first:
+      213: 1427951929862071273
+    second: body_without_kettle_lid_136
+  - first:
+      213: 8213630322775847283
+    second: body_without_kettle_lid_137
+  - first:
+      213: -5853049133357636518
+    second: body_without_kettle_lid_138
+  - first:
+      213: 3572395683632607264
+    second: body_without_kettle_lid_139
+  - first:
+      213: -2970668282343599164
+    second: body_without_kettle_lid_140
+  - first:
+      213: 3793463680935152255
+    second: body_without_kettle_lid_141
+  - first:
+      213: -8304128134898435888
+    second: body_without_kettle_lid_142
+  - first:
+      213: 8883898864368247876
+    second: body_without_kettle_lid_143
+  - first:
+      213: 4415253591635727871
+    second: body_without_kettle_lid_144
+  - first:
+      213: 7556258622678000752
+    second: body_without_kettle_lid_145
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: body_without_kettle_lid_0
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 771
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 304b71220b669c560800000000000000
+      internalID: 7334506374821819395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_1
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 772
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5154c7c3b36b2630800000000000000
+      internalID: 3903323125848494431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_2
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 772
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12d53f99df1af01a0800000000000000
+      internalID: -6841071198370833119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_3
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 771
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a59df74ce7f08420800000000000000
+      internalID: 2630374776576513449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_4
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 771
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b832c75b1b432ab0800000000000000
+      internalID: -5034097377661536080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_5
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 772
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81fb6c816aee05a10800000000000000
+      internalID: 1896277840270638872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_6
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 772
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84d46bc7f3931e4d0800000000000000
+      internalID: -3107139323070886584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_7
+      rect:
+        serializedVersion: 2
+        x: 458
+        y: 771
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aac384fab0f0bead0800000000000000
+      internalID: -2672025411054453590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_8
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 771
+        width: 49
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35fded71a5c64d9b0800000000000000
+      internalID: -5056297347426885805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_9
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 772
+        width: 49
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cec9a24277234ea0800000000000000
+      internalID: -5889820515972297020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_10
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 772
+        width: 49
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5939f966c813f2d0800000000000000
+      internalID: -3246223665943463587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_11
+      rect:
+        serializedVersion: 2
+        x: 706
+        y: 771
+        width: 49
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4623ad37bf97a6c0800000000000000
+      internalID: -4132158523727206836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_12
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 707
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3a8ba0d433755cc0800000000000000
+      internalID: -3722942846275450305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_13
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 707
+        width: 50
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e90ea43611e383d0800000000000000
+      internalID: -3205471024268310039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_14
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 707
+        width: 50
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de4e76872943279f0800000000000000
+      internalID: -472257207230536467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_15
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 707
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe77b67cd5d1366d0800000000000000
+      internalID: -2998520638283745297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_16
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 707
+        width: 50
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c91689c100901cc0800000000000000
+      internalID: -3742332952994506297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_17
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 707
+        width: 50
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe77b50c14bf40e90800000000000000
+      internalID: -7060242055991429137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_18
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 707
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b60a5c5cc9bf6b7e0800000000000000
+      internalID: -1749934754435325845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_19
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 707
+        width: 50
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47678ea7ca74aefa0800000000000000
+      internalID: -5770721166399867276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_20
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 707
+        width: 50
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2653a5aca39388410800000000000000
+      internalID: 1479495402257003874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_21
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 707
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 210686eafde73ff50800000000000000
+      internalID: 6914009352112726034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_22
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 708
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1366843b24e17c6c0800000000000000
+      internalID: -4123293662009858511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_23
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 708
+        width: 50
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 562aa0c54fb4ba170800000000000000
+      internalID: 8190723860191683173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_24
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 643
+        width: 49
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d188fd9aeea307b0800000000000000
+      internalID: -5259167617142717993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_25
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 643
+        width: 49
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1eb1252d1f2cae70800000000000000
+      internalID: 9127722346996678174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_26
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 643
+        width: 49
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d19ec383a6123aca0800000000000000
+      internalID: -6006920737888343779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_27
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 643
+        width: 49
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7db69a26a19763fc0800000000000000
+      internalID: -3515489304884712489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_28
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 643
+        width: 49
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89f086d46e089b7c0800000000000000
+      internalID: -4055068262840922216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_29
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 643
+        width: 49
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef6f25aa1182a4a40800000000000000
+      internalID: 5353135163420374782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_30
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 643
+        width: 50
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 091b830ef06487660800000000000000
+      internalID: 7383728623074193808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_31
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 643
+        width: 51
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e66712e7f2b696280800000000000000
+      internalID: -9049584124500543890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_32
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 643
+        width: 50
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed7150417e15e7980800000000000000
+      internalID: -8539297790532708386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_33
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 643
+        width: 51
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e17855ea38be80360800000000000000
+      internalID: 7136212560366634782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_34
+      rect:
+        serializedVersion: 2
+        x: 651
+        y: 643
+        width: 50
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8803d34e8b5ec1850800000000000000
+      internalID: 6349202156951515272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_35
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 643
+        width: 51
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8400ee9881fd44ab0800000000000000
+      internalID: -5024645987752345528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_36
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 579
+        width: 50
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca0b68ed852fee5b0800000000000000
+      internalID: -5337062044883046228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_37
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 580
+        width: 51
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9909408f61d33ea0800000000000000
+      internalID: -5894137210474002017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_38
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 579
+        width: 49
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e96dcf1cd578d850800000000000000
+      internalID: 6401996458593970660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_39
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 579
+        width: 48
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81059c8a9337baa40800000000000000
+      internalID: 5380520871306285080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_40
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 579
+        width: 49
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f4daa78c74449f30800000000000000
+      internalID: 4581362022585390325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_41
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 579
+        width: 48
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c50ba2966fcd9a20800000000000000
+      internalID: 3070838560390841795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_42
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 579
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dda517bd4026f87b0800000000000000
+      internalID: -5219845670098085155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_43
+      rect:
+        serializedVersion: 2
+        x: 458
+        y: 580
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cffcb5e1b2710900800000000000000
+      internalID: 648925929707208643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_44
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 580
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27247a8d0ddc2f720800000000000000
+      internalID: 2878589408714900082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_45
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 579
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39260d0356477d040800000000000000
+      internalID: 4672331116379660947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_46
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 580
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b1ff36cddee87a30800000000000000
+      internalID: 4213380087686361524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_47
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 580
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25d922b4c1b2c6850800000000000000
+      internalID: 6371514973342047570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_48
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 515
+        width: 49
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 516b4d2ed6c232280800000000000000
+      internalID: -9069356374125398507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_49
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 516
+        width: 49
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d4e1b32a7a1e65e0800000000000000
+      internalID: -1914563679698688809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_50
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 516
+        width: 49
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a70a2f0fad1cf2c10800000000000000
+      internalID: 2031055103056846970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_51
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 515
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebbdfb50ff3636580800000000000000
+      internalID: -8835108097006511170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_52
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 516
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73606e5ec3e40e8e0800000000000000
+      internalID: -1666245838665021897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_53
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 516
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 789090f2a44c27690800000000000000
+      internalID: -7605800997779601017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_54
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 516
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8612542da36373e0800000000000000
+      internalID: -2057191009488333169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_55
+      rect:
+        serializedVersion: 2
+        x: 458
+        y: 515
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aaeeb64cc83c902c0800000000000000
+      internalID: -4464822546202890582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_56
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 516
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0724fd27964eea6e0800000000000000
+      internalID: -1824269657488539024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_57
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 516
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2ed0afcace607610800000000000000
+      internalID: 1616914083571883565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_58
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 516
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a95dfa9483c0530b0800000000000000
+      internalID: -5749675913374607974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_59
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 515
+        width: 49
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a88b75ce06dd34190800000000000000
+      internalID: -7979290706418616182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_60
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 452
+        width: 49
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4dcaa0973e64ee700800000000000000
+      internalID: 571472145524894932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_61
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 452
+        width: 49
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b5ee58a52213abb0800000000000000
+      internalID: -4926073614465309264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_62
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 452
+        width: 49
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67c4de6dd67dfda20800000000000000
+      internalID: 3089424736156732534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_63
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 451
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2538193ee1245970800000000000000
+      internalID: 8742650083676796203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_64
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 452
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b858db58e530a3b0800000000000000
+      internalID: -5503339472557156174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_65
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 452
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc191eac3fd9a3730800000000000000
+      internalID: 3979666891141648845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_66
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 452
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d130931800eabdc0800000000000000
+      internalID: -3622336624973565484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_67
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 451
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd5c031f482c6d470800000000000000
+      internalID: 8419130429653698011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_68
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 451
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14a17932be937b580800000000000000
+      internalID: -8811510463849883071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_69
+      rect:
+        serializedVersion: 2
+        x: 587
+        y: 451
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3767ae6dfeed559d0800000000000000
+      internalID: -2786075672774543757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_70
+      rect:
+        serializedVersion: 2
+        x: 651
+        y: 452
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 702ad5786997c7420800000000000000
+      internalID: 2629109969900642823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_71
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 452
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 990e5b181651c6a00800000000000000
+      internalID: 750998746396221593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_72
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 388
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bef9a1cb04692f80800000000000000
+      internalID: -8130857650584158540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_73
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 387
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e83c3d7d4404b5160800000000000000
+      internalID: 7015271508982612878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_74
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 387
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47be9de77ecde0f80800000000000000
+      internalID: -8138324589788140684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_75
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 387
+        width: 49
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70e01a5e9368cbcf0800000000000000
+      internalID: -235165497306313209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_76
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 388
+        width: 49
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a83c7aa3057bcfa70800000000000000
+      internalID: 8862159721967633290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_77
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 388
+        width: 49
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5f89ffa76c6f62f0800000000000000
+      internalID: -977443401526309027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_78
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 388
+        width: 49
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40224af5fc335da40800000000000000
+      internalID: 5392273094601875972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_79
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 387
+        width: 49
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e87d746864a7ccd0800000000000000
+      internalID: -2537879096730486553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_80
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 387
+        width: 49
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75db1c75d9c773610800000000000000
+      internalID: 1600885207777525079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_81
+      rect:
+        serializedVersion: 2
+        x: 581
+        y: 388
+        width: 49
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d48ff56f4b1dedb0800000000000000
+      internalID: -4761119203233135403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_82
+      rect:
+        serializedVersion: 2
+        x: 651
+        y: 387
+        width: 49
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e52645332fde22fc0800000000000000
+      internalID: -3520990334151269794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_83
+      rect:
+        serializedVersion: 2
+        x: 709
+        y: 388
+        width: 49
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 398820dcf62719090800000000000000
+      internalID: -8029510836118452077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_84
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 323
+        width: 49
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c7fbdc06e9c6a6d0800000000000000
+      internalID: -2979472113563600960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_85
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 324
+        width: 47
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a3eb8e18c7fa7910800000000000000
+      internalID: 1836052236984902566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_86
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 323
+        width: 49
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f64de5b276c56fd10800000000000000
+      internalID: 2159014669549753455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_87
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 323
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 466258cc629cc2220800000000000000
+      internalID: 2462564264742037092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_88
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 323
+        width: 51
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55a8d55892f38ac10800000000000000
+      internalID: 2064969876713081429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_89
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 323
+        width: 52
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a46639839288a4a30800000000000000
+      internalID: 4200319313100629578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_90
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 323
+        width: 39
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 035e47a54fd43b130800000000000000
+      internalID: 3581291840574645552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_91
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 323
+        width: 39
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 574db6fb97edb4e80800000000000000
+      internalID: -8193210482586561419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_92
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 323
+        width: 51
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 357ef18f5435af210800000000000000
+      internalID: 1367496996841056083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_93
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 323
+        width: 51
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c6dc78e96c8612b0800000000000000
+      internalID: -5614145498970794301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_94
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 323
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02899a2f249619050800000000000000
+      internalID: 5805537130917238816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_95
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 259
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d0f0b9bfe84df040800000000000000
+      internalID: 4682979381984948438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_96
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 259
+        width: 50
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f15c3d561a8aa4f0800000000000000
+      internalID: -816688553756175884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_97
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 259
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec11e4b4ce942d1f0800000000000000
+      internalID: -1021672886235164210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_98
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 259
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10490f7285772ad30800000000000000
+      internalID: 4441243403051635713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_99
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 259
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9adf987b55c361190800000000000000
+      internalID: -7992134149873205847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_100
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 259
+        width: 50
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d356f3182fe872fa0800000000000000
+      internalID: -5825530420778801859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_101
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 259
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eeda8ee9fe941b860800000000000000
+      internalID: 7543892144334351854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_102
+      rect:
+        serializedVersion: 2
+        x: 458
+        y: 259
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 134b38b9a2dd84140800000000000000
+      internalID: 4704252985855947825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_103
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 259
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab5b7e1dc2a679460800000000000000
+      internalID: 7248378866008831418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_104
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 259
+        width: 50
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9721813f2cb0fd620800000000000000
+      internalID: 2800970425177739897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_105
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 259
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21876cc8f46e0d110800000000000000
+      internalID: 1283779123139213330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_106
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 259
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99cd4db1b81e91980800000000000000
+      internalID: -8567568828512019303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_107
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 195
+        width: 50
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 859bf8a47dc97c160800000000000000
+      internalID: 7045772590527265112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_108
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 195
+        width: 51
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 946bab969e2b00f70800000000000000
+      internalID: 9151511158387816009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_109
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 195
+        width: 50
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8eb8b834a196b890800000000000000
+      internalID: -7442601199670870385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_110
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 195
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae072c371439019f0800000000000000
+      internalID: -499737649313845014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_111
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 195
+        width: 50
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93fec89d2089dece0800000000000000
+      internalID: -1374275173270884551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_112
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 195
+        width: 51
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 199f232293d41c8a0800000000000000
+      internalID: -6286658697050261103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_113
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 195
+        width: 51
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73658eb2e4cda90f0800000000000000
+      internalID: -1109332129891199433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_114
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 195
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fc8a5819ff973190800000000000000
+      internalID: -7982735922286654218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_115
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 198
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82931e06ae1599150800000000000000
+      internalID: 5879820855598463272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_116
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 195
+        width: 50
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b7ddec7812159c10800000000000000
+      internalID: 2059572300976347060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_117
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 198
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ec8676679762d0a0800000000000000
+      internalID: -6858305382575076124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_118
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 195
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e7b4f1e9e4ae8870800000000000000
+      internalID: 8687062055669512168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_119
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 131
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6566842450b43540800000000000000
+      internalID: 4986804562842510703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_120
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 131
+        width: 50
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36ba412df9295cbd0800000000000000
+      internalID: -2610519193869309085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_121
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 131
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1a4f6b6704a8c900800000000000000
+      internalID: 704993693457664542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_122
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 131
+        width: 50
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67fc5c1058e3ac4f0800000000000000
+      internalID: -807764442178269322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_123
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 131
+        width: 50
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 942f6feba59a5b130800000000000000
+      internalID: 3581955285859103305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_124
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 131
+        width: 50
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5061fbede642b1a80800000000000000
+      internalID: -8495156213502241275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_125
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 131
+        width: 51
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 218aa3681d3e0bd90800000000000000
+      internalID: -7083911724814129134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_126
+      rect:
+        serializedVersion: 2
+        x: 458
+        y: 131
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f0ace6516ed13ba0800000000000000
+      internalID: -6110858709713510154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_127
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 132
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24d45c23542d64b00800000000000000
+      internalID: 812567977433320770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_128
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 131
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f56633f7331d17660800000000000000
+      internalID: 7381911283344565855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_129
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 132
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2770e3e7f7ccbc810800000000000000
+      internalID: 1786746525133440882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_130
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 131
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f2fa5e7a675b1630800000000000000
+      internalID: 3898806017317335800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_131
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 71
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a82852d691a403a70800000000000000
+      internalID: 8804618744575132298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_132
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 73
+        width: 50
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbf06765b133853f0800000000000000
+      internalID: -911922732034814020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_133
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 69
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bc4def29da3ecaa0800000000000000
+      internalID: -6138904537573012301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_134
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 67
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77482e504693e23b0800000000000000
+      internalID: -5535423790233516937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_135
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 67
+        width: 50
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc61473b5a9fa0040800000000000000
+      internalID: 4614775258270144203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_136
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 67
+        width: 51
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e323cfe6ba11d310800000000000000
+      internalID: 1427951929862071273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_137
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 67
+        width: 51
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3717e69c24dacf170800000000000000
+      internalID: 8213630322775847283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_138
+      rect:
+        serializedVersion: 2
+        x: 458
+        y: 67
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a546f41f2dac5cea0800000000000000
+      internalID: -5853049133357636518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_139
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 71
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0207f0862f2b39130800000000000000
+      internalID: 3572395683632607264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_140
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 73
+        width: 50
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c3d36dbfe016c6d0800000000000000
+      internalID: -2970668282343599164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_141
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 69
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7a4c728e1715a430800000000000000
+      internalID: 3793463680935152255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_142
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 67
+        width: 50
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d83d0e557fc1cc80800000000000000
+      internalID: -8304128134898435888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_143
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 3
+        width: 50
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4446a2fb2f2f94b70800000000000000
+      internalID: 8883898864368247876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_144
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 3
+        width: 51
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff517b2afb1264d30800000000000000
+      internalID: 4415253591635727871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_kettle_lid_145
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 3
+        width: 51
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07464bbbe293dd860800000000000000
+      internalID: 7556258622678000752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

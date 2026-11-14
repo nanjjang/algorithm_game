@@ -1,0 +1,19 @@
+{
+  "str.settlement.bag.auto": "자동 담기",
+  "str.settlement.bag.bag_title": "가방",
+  "str.settlement.bag.hero_count": "영웅 {used} / {max}",
+  "str.settlement.bag.leftover_title": "담지 못한 것",
+  "str.settlement.bag.locked_note": "가방을 확정했다",
+  "str.settlement.bag.no_slots": "이번 판에는 가방 칸이 없다",
+  "str.settlement.bag.wild_empty": "들고 온 야생 블록이 없다",
+  "str.settlement.bag.wild_title": "야생 블록",
+  "str.settlement.enhance_hint": "받은 강화석은 강화 화면에서 쓴다",
+  "str.settlement.take.bagged": "가방에 담은 블록",
+  "str.settlement.take.bundle_open": "꾸러미 열기",
+  "str.settlement.take.headwear": "머리 장식 {name}",
+  "str.settlement.take.item_count": "{name} ×{n}",
+  "str.settlement.take.new_title": "새 칭호",
+  "str.settlement.take.nothing": "가져가는 것이 없다",
+  "str.settlement.take.title_label": "칭호 {name}",
+  "~end": ""
+}

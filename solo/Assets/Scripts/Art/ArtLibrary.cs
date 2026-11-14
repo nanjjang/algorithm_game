@@ -80,8 +80,22 @@ namespace Wizard.Solo.Art
                 }
             }
             _wands = Parse(WandsDir + "manifest", ManifestParser.ParseWands) ?? new WandManifest();
+            var soloWands = Parse(WandsDir + "solo_overrides", ManifestParser.ParseWands, optional: true);
+            if (soloWands != null)
+            {
+                foreach (var sprite in soloWands.Sprites) _wands.Sprites[sprite.Key] = sprite.Value;
+                foreach (var detached in soloWands.Detached) _wands.Detached[detached.Key] = detached.Value;
+            }
             _monsters = Parse(MonstersDir + "manifest", ManifestParser.ParseMonsters) ?? new MonsterManifest();
             _effects = Parse(EffectsDir + "manifest", j => ManifestParser.ParseEffects(j, EffectsDir)) ?? new EffectManifest();
+            var soloEffects = Parse(EffectsDir + "solo_overrides", j => ManifestParser.ParseEffects(j, EffectsDir), optional: true);
+            if (soloEffects != null)
+                foreach (var group in soloEffects.Groups)
+                {
+                    if (_effects.ByName.TryGetValue(group.Name, out var original)) ApplyEffectOverrides(original, group);
+                    else AddGroup(group);
+                }
+            LoadSoloSupplement();
             _ui = Parse(UiDir + "manifest", ManifestParser.ParseUi) ?? new UiManifest();
             _world = Parse(WorldDir + "manifest", ManifestParser.ParseWorld) ?? new WorldManifest();
 
@@ -98,15 +112,7 @@ namespace Wizard.Solo.Art
                 try
                 {
                     var overrides = ManifestParser.ParseLayers(soloLayers, LayersGroup, LayersDir);
-                    foreach (var entry in overrides.Entries)
-                    {
-                        if (layers.ByKey.TryGetValue(entry.Key, out var original))
-                        {
-                            layers.Entries[layers.Entries.IndexOf(original)] = entry;
-                            layers.ByKey[entry.Key] = entry;
-                        }
-                        else layers.Add(entry);
-                    }
+                    ApplyEffectOverrides(layers, overrides);
                 }
                 catch (Exception e)
                 {
@@ -126,12 +132,25 @@ namespace Wizard.Solo.Art
             _effects.ByName[g.Name] = g;
         }
 
-        T Parse<T>(string artPathNoExt, Func<string, T> parse) where T : class
+        static void ApplyEffectOverrides(EffectGroup original, EffectGroup overrides)
+        {
+            foreach (var entry in overrides.Entries)
+            {
+                if (original.ByKey.TryGetValue(entry.Key, out var previous))
+                {
+                    original.Entries[original.Entries.IndexOf(previous)] = entry;
+                    original.ByKey[entry.Key] = entry;
+                }
+                else original.Add(entry);
+            }
+        }
+
+        T Parse<T>(string artPathNoExt, Func<string, T> parse, bool optional = false) where T : class
         {
             string json = _src.LoadText(ArtAliases.ResourceRoot + artPathNoExt);
             if (json == null)
             {
-                Warn("manifest 없음: " + artPathNoExt);
+                if (!optional) Warn("manifest 없음: " + artPathNoExt);
                 return null;
             }
             try { return parse(json); }
@@ -141,6 +160,14 @@ namespace Wizard.Solo.Art
                 return null;
             }
         }
+
+        readonly HashSet<string> _misses = new HashSet<string>();
+
+        /// <summary>찾지 못해 대체 그림을 준 요청(같은 것은 한 번). 로그는 남기지 않는다 — 그림이 아직 없는 것(09 요약서 9절)도 여기 든다.
+        /// 통합 확인용: 열쇠를 잘못 적은 곳(변형·상태 이름)을 찾는 데 쓴다.</summary>
+        public IReadOnlyCollection<string> Misses => _misses;
+
+        void Miss(string what) { _misses.Add(what); }
 
         void Warn(string msg)
         {
@@ -197,9 +224,16 @@ namespace Wizard.Solo.Art
 
         /// <summary>시트의 한 칸을 잘라 캐시한다. 그림이 없거나 rect가 시트 밖이면 대체 그림(캐시하지 않는다 — 대체 그림은 따로 캐시된다).</summary>
         Sprite Cut(string key, string artPath, PixelRect r, Vector2 pivot, Vector4 border, string group = null,
-            float pixelsPerUnit = RectMath.PixelsPerUnit)
+            float pixelsPerUnit = RectMath.PixelsPerUnit, float pixelScale = 1f)
         {
             if (_sprites.TryGetValue(key, out var s) && s != null) return s;
+            if (pixelScale > 1f)
+            {
+                // 논리 rect(64px 기준) → 시트 rect. PPU도 같은 배수라 화면 크기는 그대로다. pivot은 정규화 값이라 그대로.
+                r = new PixelRect(Mathf.RoundToInt(r.X * pixelScale), Mathf.RoundToInt(r.Y * pixelScale),
+                    Mathf.RoundToInt(r.W * pixelScale), Mathf.RoundToInt(r.H * pixelScale));
+                pixelsPerUnit *= pixelScale;
+            }
             var tex = Tex(artPath, group);
             if (tex == null) return Placeholder(r.W, r.H);
             if (!RectMath.Fits(r, tex.width, tex.height))
@@ -268,7 +302,8 @@ namespace Wizard.Solo.Art
             for (int i = 0; i < frames.Length; i++)
             {
                 var f = c.Frames[i];
-                frames[i] = Cut(key + "|" + i, PlayersDir + pc.Body, f.Rect, RectMath.ToPivot(f.Feet, f.Rect.W, f.Rect.H), Vector4.zero);
+                frames[i] = Cut(key + "|" + i, PlayersDir + pc.Body, f.Rect, RectMath.ToPivot(f.Feet, f.Rect.W, f.Rect.H), Vector4.zero,
+                    null, RectMath.PixelsPerUnit, pc.PixelScale);
             }
             if (frames.Length == 0) return PlaceholderAnim(key, canvas, canvas);
             return CacheAnim(key, new SpriteAnim { Frames = frames, Fps = c.Fps, Loop = c.Loop });
@@ -284,7 +319,9 @@ namespace Wizard.Solo.Art
             int cell = tex.height;
             int count = Math.Max(1, tex.width / Math.Max(1, cell));
             int k = expression < 0 ? 0 : expression >= count ? count - 1 : expression;
-            return Cut("chp|" + pc.Folder + "|" + k, PlayersDir + pc.Portrait, RectMath.StripFrame(k, cell, cell), Center, Vector4.zero);
+            // 해상도 배수가 있는 캐릭터는 초상도 같은 배수(PPU 64×배수)로 만든다(칸 크기는 시트 높이 그대로).
+            return Cut("chp|" + pc.Folder + "|" + k, PlayersDir + pc.Portrait, RectMath.StripFrame(k, cell, cell), Center, Vector4.zero,
+                null, RectMath.PixelsPerUnit * pc.PixelScale);
         }
 
         public Sprite CharacterSelection(string charId)
@@ -440,6 +477,7 @@ namespace Wizard.Solo.Art
             if (group != null && key != null && _effects.ByName.TryGetValue(group, out var g)) g.ByKey.TryGetValue(key, out e);
             if (e == null || e.Frames.Count == 0)
             {
+                Miss("fx " + group + "/" + key);
                 int w = e != null && e.Size.X > 0 ? e.Size.X : 32, h = e != null && e.Size.Y > 0 ? e.Size.Y : 32;
                 return PlaceholderAnim(animKey, w, h);
             }
@@ -449,7 +487,7 @@ namespace Wizard.Solo.Art
                 if (filter != null && (e.FrameKeys == null || i >= e.FrameKeys.Count || !e.FrameKeys[i].StartsWith(filter, StringComparison.Ordinal))) continue;
                 var r = e.Frames[i];
                 var pivot = e.HasPivot ? RectMath.ToPivot(e.Pivot, r.W, r.H) : Center;
-                list.Add(Cut(animKey + "|" + i, e.Path, r, pivot, Vector4.zero, group));
+                list.Add(Cut(animKey + "|" + i, e.Path, r, pivot, Vector4.zero, group, RectMath.PixelsPerUnit, e.PixelScale));
             }
             if (list.Count == 0) return PlaceholderAnim(animKey, Math.Max(1, e.Size.X), Math.Max(1, e.Size.Y));
             return CacheAnim(animKey, new SpriteAnim { Frames = list.ToArray(), Fps = e.Fps, Loop = e.Loop }, group);

@@ -1,0 +1,842 @@
+fileFormatVersion: 2
+guid: 1d2fd5b99d14f4a408033dd4e988f592
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7035437298817765548
+    second: break_pieces_arcane_64x64_f18_0
+  - first:
+      213: -1532713859415094879
+    second: break_pieces_arcane_64x64_f18_1
+  - first:
+      213: -3713621039336879664
+    second: break_pieces_arcane_64x64_f18_2
+  - first:
+      213: -8996991831094324671
+    second: break_pieces_arcane_64x64_f18_3
+  - first:
+      213: -7633450429578911480
+    second: break_pieces_arcane_64x64_f18_4
+  - first:
+      213: 4460013780179137959
+    second: break_pieces_arcane_64x64_f18_5
+  - first:
+      213: -2350883585422862736
+    second: break_pieces_arcane_64x64_f18_6
+  - first:
+      213: -6349023248063969764
+    second: break_pieces_arcane_64x64_f18_7
+  - first:
+      213: 141524761388945755
+    second: break_pieces_arcane_64x64_f18_8
+  - first:
+      213: 8110595086048355564
+    second: break_pieces_arcane_64x64_f18_9
+  - first:
+      213: 360661922201934557
+    second: break_pieces_arcane_64x64_f18_10
+  - first:
+      213: -2815195507050820107
+    second: break_pieces_arcane_64x64_f18_11
+  - first:
+      213: 5730246017693745922
+    second: break_pieces_arcane_64x64_f18_12
+  - first:
+      213: -2396224517754282663
+    second: break_pieces_arcane_64x64_f18_13
+  - first:
+      213: 7581942123771655820
+    second: break_pieces_arcane_64x64_f18_14
+  - first:
+      213: -318900947379800625
+    second: break_pieces_arcane_64x64_f18_15
+  - first:
+      213: -922716464239569856
+    second: break_pieces_arcane_64x64_f18_16
+  - first:
+      213: 5413018440119832331
+    second: break_pieces_arcane_64x64_f18_17
+  - first:
+      213: -5819882530618962954
+    second: break_pieces_arcane_64x64_f18_18
+  - first:
+      213: 7363953515144462555
+    second: break_pieces_arcane_64x64_f18_19
+  - first:
+      213: 2704005483108158875
+    second: break_pieces_arcane_64x64_f18_20
+  - first:
+      213: -6706812911144190889
+    second: break_pieces_arcane_64x64_f18_21
+  - first:
+      213: -6962361678770892656
+    second: break_pieces_arcane_64x64_f18_22
+  - first:
+      213: -1268867236443105587
+    second: break_pieces_arcane_64x64_f18_23
+  - first:
+      213: -5045039468637992892
+    second: break_pieces_arcane_64x64_f18_24
+  - first:
+      213: -7253110222437904124
+    second: break_pieces_arcane_64x64_f18_25
+  - first:
+      213: 8302310584286876056
+    second: break_pieces_arcane_64x64_f18_26
+  - first:
+      213: 1186744716452519478
+    second: break_pieces_arcane_64x64_f18_27
+  - first:
+      213: 7776148025370933034
+    second: break_pieces_arcane_64x64_f18_28
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_0
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 22
+        width: 23
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca0119ba2f4e2a160800000000000000
+      internalID: 7035437298817765548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_1
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 25
+        width: 22
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a9ce339dd4babae0800000000000000
+      internalID: -1532713859415094879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_2
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 25
+        width: 24
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d988ef1751967cc0800000000000000
+      internalID: -3713621039336879664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_3
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 27
+        width: 15
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14218840993442380800000000000000
+      internalID: -8996991831094324671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_4
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 28
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 801656e2749801690800000000000000
+      internalID: -7633450429578911480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_5
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 27
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a5bce427e625ed30800000000000000
+      internalID: 4460013780179137959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_6
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 28
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 076d296a5dbff5fd0800000000000000
+      internalID: -2350883585422862736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_7
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 28
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1643749efcb3e7a0800000000000000
+      internalID: -6349023248063969764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_8
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 26
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b519289450cc6f100800000000000000
+      internalID: 141524761388945755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_9
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 29
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce4e0fc424f9e8070800000000000000
+      internalID: 8110595086048355564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_10
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 25
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dda1bdc7b14510500800000000000000
+      internalID: 360661922201934557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_11
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 27
+        width: 33
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fdc5f41a9a6ee8d0800000000000000
+      internalID: -2815195507050820107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_12
+      rect:
+        serializedVersion: 2
+        x: 528
+        y: 30
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2038b38946ce58f40800000000000000
+      internalID: 5730246017693745922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_13
+      rect:
+        serializedVersion: 2
+        x: 554
+        y: 28
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95d9c213f76eebed0800000000000000
+      internalID: -2396224517754282663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_14
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 24
+        width: 20
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c86faf2d038783960800000000000000
+      internalID: 7581942123771655820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_15
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 25
+        width: 25
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc534e82749039bf0800000000000000
+      internalID: -318900947379800625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_16
+      rect:
+        serializedVersion: 2
+        x: 725
+        y: 27
+        width: 23
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0449898b34ad133f0800000000000000
+      internalID: -922716464239569856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_17
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 25
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0f4bf58797ee1b40800000000000000
+      internalID: 5413018440119832331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_18
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 27
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fb84f76caf9b3fa0800000000000000
+      internalID: -5819882530618962954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_19
+      rect:
+        serializedVersion: 2
+        x: 853
+        y: 28
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd0cca4c4b4023660800000000000000
+      internalID: 7363953515144462555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_20
+      rect:
+        serializedVersion: 2
+        x: 869
+        y: 29
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9dce5319ae868520800000000000000
+      internalID: 2704005483108158875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_21
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 29
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75c3f38013d9ce2a0800000000000000
+      internalID: -6706812911144190889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_22
+      rect:
+        serializedVersion: 2
+        x: 927
+        y: 25
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 090911bf0f8b06f90800000000000000
+      internalID: -6962361678770892656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_23
+      rect:
+        serializedVersion: 2
+        x: 978
+        y: 28
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc65da0a8f3146ee0800000000000000
+      internalID: -1268867236443105587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_24
+      rect:
+        serializedVersion: 2
+        x: 993
+        y: 26
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 448c102455b6cf9b0800000000000000
+      internalID: -5045039468637992892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_25
+      rect:
+        serializedVersion: 2
+        x: 1037
+        y: 28
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40195da6ea6c75b90800000000000000
+      internalID: -7253110222437904124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_26
+      rect:
+        serializedVersion: 2
+        x: 1060
+        y: 26
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89192672d7bb73370800000000000000
+      internalID: 8302310584286876056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_27
+      rect:
+        serializedVersion: 2
+        x: 1098
+        y: 26
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63e593f280a287010800000000000000
+      internalID: 1186744716452519478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_arcane_64x64_f18_28
+      rect:
+        serializedVersion: 2
+        x: 1129
+        y: 29
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a27f615ed6d6aeb60800000000000000
+      internalID: 7776148025370933034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

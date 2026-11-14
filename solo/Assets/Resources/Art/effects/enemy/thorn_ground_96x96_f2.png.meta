@@ -1,0 +1,917 @@
+fileFormatVersion: 2
+guid: 0e8d36c6d9e1e2c488de65aad0ba9d4e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8022504641839332545
+    second: thorn_ground_96x96_f2_0
+  - first:
+      213: 5647438053919738711
+    second: thorn_ground_96x96_f2_1
+  - first:
+      213: 5392490063294207579
+    second: thorn_ground_96x96_f2_2
+  - first:
+      213: 5747011711250778655
+    second: thorn_ground_96x96_f2_3
+  - first:
+      213: 8875436771097147591
+    second: thorn_ground_96x96_f2_4
+  - first:
+      213: -5936660787194675948
+    second: thorn_ground_96x96_f2_5
+  - first:
+      213: 4230223528738542096
+    second: thorn_ground_96x96_f2_6
+  - first:
+      213: -3305215635287143669
+    second: thorn_ground_96x96_f2_7
+  - first:
+      213: -2883134595477907297
+    second: thorn_ground_96x96_f2_8
+  - first:
+      213: -2408746130061245030
+    second: thorn_ground_96x96_f2_9
+  - first:
+      213: -1094686879072980475
+    second: thorn_ground_96x96_f2_10
+  - first:
+      213: -5483346655243207261
+    second: thorn_ground_96x96_f2_11
+  - first:
+      213: 7566911022633646235
+    second: thorn_ground_96x96_f2_12
+  - first:
+      213: 2961197803585823181
+    second: thorn_ground_96x96_f2_13
+  - first:
+      213: -3508403277405587471
+    second: thorn_ground_96x96_f2_14
+  - first:
+      213: -3941791416213933602
+    second: thorn_ground_96x96_f2_15
+  - first:
+      213: 6951043308086739060
+    second: thorn_ground_96x96_f2_16
+  - first:
+      213: 1057357640425665789
+    second: thorn_ground_96x96_f2_17
+  - first:
+      213: -8678526410486468110
+    second: thorn_ground_96x96_f2_18
+  - first:
+      213: -2580183792249382999
+    second: thorn_ground_96x96_f2_19
+  - first:
+      213: 5427291460181525234
+    second: thorn_ground_96x96_f2_20
+  - first:
+      213: 8926159496774018684
+    second: thorn_ground_96x96_f2_21
+  - first:
+      213: -4001828401339030741
+    second: thorn_ground_96x96_f2_22
+  - first:
+      213: 4975260104545098338
+    second: thorn_ground_96x96_f2_23
+  - first:
+      213: 6537369877389399377
+    second: thorn_ground_96x96_f2_24
+  - first:
+      213: -7770612233737893464
+    second: thorn_ground_96x96_f2_25
+  - first:
+      213: -7350641337267025150
+    second: thorn_ground_96x96_f2_26
+  - first:
+      213: -3802891304140596953
+    second: thorn_ground_96x96_f2_27
+  - first:
+      213: -1384826345044589835
+    second: thorn_ground_96x96_f2_28
+  - first:
+      213: -7252115512749327797
+    second: thorn_ground_96x96_f2_29
+  - first:
+      213: -9148081217945736775
+    second: thorn_ground_96x96_f2_30
+  - first:
+      213: 2922221762887999730
+    second: thorn_ground_96x96_f2_31
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_0
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 72
+        width: 29
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1cc71c97779a55f60800000000000000
+      internalID: 8022504641839332545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_1
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 81
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75bc8e61dfabf5e40800000000000000
+      internalID: 5647438053919738711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_2
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 72
+        width: 29
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5699755429f5da40800000000000000
+      internalID: 5392490063294207579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_3
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 81
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1acc11d3bc71cf40800000000000000
+      internalID: 5747011711250778655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_4
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 62
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c87faf18b2eb2b70800000000000000
+      internalID: 8875436771097147591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_5
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 68
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41d3543c77ebc9da0800000000000000
+      internalID: -5936660787194675948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_6
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 67
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 012d5fef2e5c4ba30800000000000000
+      internalID: 4230223528738542096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_7
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 62
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0b84a834e38122d0800000000000000
+      internalID: -3305215635287143669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_8
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 68
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9856e46c5c0df7d0800000000000000
+      internalID: -2883134595477907297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_9
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 67
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a954a93282a629ed0800000000000000
+      internalID: -2408746130061245030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_10
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 54
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 502f2985514eec0f0800000000000000
+      internalID: -1094686879072980475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_11
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 51
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3adf6e1e44d37e3b0800000000000000
+      internalID: -5483346655243207261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_12
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 57
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b98f01fdb71130960800000000000000
+      internalID: 7566911022633646235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_13
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 49
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc1666896b9481920800000000000000
+      internalID: 2961197803585823181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_14
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 54
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f77c69bec5af4fc0800000000000000
+      internalID: -3508403277405587471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_15
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 51
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed172e96791fb49c0800000000000000
+      internalID: -3941791416213933602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_16
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 57
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 470cddc7f01177060800000000000000
+      internalID: 6951043308086739060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_17
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 49
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df4fd1efb2d7cae00800000000000000
+      internalID: 1057357640425665789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_18
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 44
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f1bb11e53eaf8780800000000000000
+      internalID: -8678526410486468110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_19
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 44
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a751c7e288513cd0800000000000000
+      internalID: -2580183792249382999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_20
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 22
+        width: 30
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f281a8f3dc915b40800000000000000
+      internalID: 5427291460181525234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_21
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 25
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c76e1bdf4c610eb70800000000000000
+      internalID: 8926159496774018684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_22
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 20
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b232e168546a678c0800000000000000
+      internalID: -4001828401339030741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_23
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 22
+        width: 30
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26a559c74bcab0540800000000000000
+      internalID: 4975260104545098338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_24
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 25
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 155522b544769ba50800000000000000
+      internalID: 6537369877389399377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_25
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 20
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a98fb8085d392490800000000000000
+      internalID: -7770612233737893464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_26
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 12
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20b85ec26a64df990800000000000000
+      internalID: -7350641337267025150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_27
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 6
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7291749e18a693bc0800000000000000
+      internalID: -3802891304140596953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_28
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 7
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f2c30cb6cb18cce0800000000000000
+      internalID: -1384826345044589835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_29
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 12
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4af9705d5f4b5b90800000000000000
+      internalID: -7252115512749327797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_30
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 6
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b9ebe3d99c7b0180800000000000000
+      internalID: -9148081217945736775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: thorn_ground_96x96_f2_31
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 7
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f0ead3f531dd8820800000000000000
+      internalID: 2922221762887999730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

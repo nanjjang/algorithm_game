@@ -1,0 +1,38 @@
+{
+  "_note": "07 요약서 2절(S8 6.9 config 키 그대로), 4.2·4.3·4.7·4.8·4.10·4.11절. 확률은 %, 첨자 = 현재 단계 0..12(도전 +1..+13). 비용 골드 = cost_coeff × (현재 단계 + 1)^2. 강화석 등급: 현재 단계 ≤ stone_tier_bounds[0] 하급, ≤ [1] 중급, 그 밖 상급. mutation_cap_default·mutation_cap은 characters.json max_mutations와 같은 값. stage_damage_base 1.15 = 무한 웨이브 피해 배율 밑(4.10절), stage_damage_mul은 같은 절의 표(1.15^n, 소수 넷째 자리). 다섯 지팡이가 같은 값을 쓴다",
+  "base_prob": [100, 90, 75, 60, 50, 40, 32, 25, 18, 12, 8, 5, 3],
+  "prob_cap_pct": 95,
+  "great_ratio_pct": 15,
+  "mutation_ratio_pct": 25,
+  "aura_step_pct": 15,
+  "aura_max": 3,
+  "drop_safe_max_stage": 3,
+  "floor_gap": 2,
+  "cost_coeff": 100,
+  "stone_tier_bounds": [4, 8],
+  "stones_per_attempt": 1,
+  "slot_extra_max": 3,
+  "mutation_cap_default": 2,
+  "mutation_cap": { "char.2": 3 },
+  "great_slot_min_stage": 0,
+  "max_stage": 13,
+  "stage_damage_base": 1.15,
+  "stage_damage_mul": [1.0000, 1.1500, 1.3225, 1.5209, 1.7490, 2.0114, 2.3131, 2.6600, 3.0590, 3.5179, 4.0456, 4.6524, 5.3503, 6.1528],
+  "milestones": [4, 7, 10, 13],
+  "sacrifice": {
+    "max_blocks": 5,
+    "score_common": 4,
+    "score_rare": 8,
+    "score_hero": 14,
+    "same_element": 5,
+    "cap": 40
+  },
+  "carve": {
+    "min_stage": 7,
+    "base_pct": 40,
+    "step_pct": 20,
+    "gold_coeff": 20000,
+    "high_stones": 2
+  },
+  "mutation_remove_gold": 3000
+}

@@ -1,0 +1,11 @@
+{
+  "enemy.dummy": "연습 허수아비",
+  "str.battle_hud.death_line": "오늘은 여기까지 위대했다.",
+  "str.battle_hud.heat_lock_line.char.1": "아직 안 끓었어!",
+  "str.battle_hud.now_k_fizzle": "불발",
+  "str.battle_hud.now_k_fizzle_late": "불발({n}번째 입력이 {sec}초 늦음)",
+  "str.battle_hud.now_k_just": "섬:",
+  "str.enhance.fail_line": "원래 그런 거다.",
+  "str.enhance.plus13_line": "…그건 나도 못 해 봤다.",
+  "str.settlement.best_line": "어제보다 조금 더 엄청났다."
+}

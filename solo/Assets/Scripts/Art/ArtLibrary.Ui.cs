@@ -20,6 +20,10 @@ namespace Wizard.Solo.Art
             var e = UiSelect.Pick(_ui.Of(id), variant, state, sizePx);
             if (e == null)
             {
+                // UI manifest에 없는 것(I-M10·I-M12 …)은 솔로 보충 아이콘(supplement/solo)에서 찾는다.
+                var extra = SoloIcon(UiKey(id, variant));
+                if (extra != null)
+                    return new UiSprite { Sprite = extra, NineSlice = false, Width = (int)extra.rect.width, Height = (int)extra.rect.height };
                 Miss("ui " + id + "/" + (variant ?? "*") + "/" + (state ?? "*"));
                 int s = sizePx > 0 ? sizePx : 48;
                 return new UiSprite { Sprite = Placeholder(s, s), NineSlice = false, Width = s, Height = s };
@@ -37,7 +41,11 @@ namespace Wizard.Solo.Art
         public SpriteAnim UiAnim(string id, string variant = null, string state = null, int sizePx = 0)
         {
             var e = UiSelect.Pick(_ui.Of(id), variant, state, sizePx);
-            if (e == null) return PlaceholderAnim("uia|" + id, sizePx > 0 ? sizePx : 48, sizePx > 0 ? sizePx : 48);
+            if (e == null)
+            {
+                if (SoloIconEntry(UiKey(id, variant)) != null) return Effect(SoloIconsGroup, UiKey(id, variant));
+                return PlaceholderAnim("uia|" + id, sizePx > 0 ? sizePx : 48, sizePx > 0 ? sizePx : 48);
+            }
             string key = "uia|" + e.File;
             if (_anims.TryGetValue(key, out var cached)) return cached;
             var frames = new Sprite[Math.Max(1, e.Frames)];
@@ -116,6 +124,9 @@ namespace Wizard.Solo.Art
                 var e = UiSelect.Pick(all, v, null, sizePx);
                 if (e != null) return UiFromEntry(e, 0).Sprite;
             }
+            // 시간대·변덕·웨이브 틀(I-W3·I-W1·I-W2)은 UI manifest에 없고 솔로 보충 아이콘에 콘텐츠 id 열쇠로 있다(09 9절).
+            var solo = SoloIcon(contentId);
+            if (solo != null) return solo;
             return Placeholder(sizePx, sizePx);
         }
 
@@ -132,7 +143,13 @@ namespace Wizard.Solo.Art
         public Sprite Background(string key)
         {
             if (key == null) return Placeholder(BackgroundW, BackgroundH);
-            if (key == TitleKey) key = TitleUiId;
+            if (key == TitleKey)
+            {
+                // 솔로 타이틀 그림(solo/TitleScreenBackground.png 사본)이 있으면 그것, 없으면 UI external S-0201.
+                foreach (var path in TitleSoloPaths)
+                    if (Tex(path, null, optional: true) != null) return CutWhole("bg|" + path, path);
+                key = TitleUiId;
+            }
             if (key == WorkbenchKey)
                 return _enhanceBackground != null ? CutWhole("bg|" + key, _enhanceBackground) : Placeholder(BackgroundW, BackgroundH);
             if (_ui.External.TryGetValue(key, out var ext))
@@ -150,6 +167,8 @@ namespace Wizard.Solo.Art
 
         public const string TitleKey = "title", WorkbenchKey = "enhance.workbench";
         const string TitleUiId = "S-0201";
+        /// <summary>"title"이 먼저 찾는 솔로 교체 그림(앞쪽이 우선). 사용자 교체본(_v2) → solo/TitleScreenBackground.png 사본.</summary>
+        static readonly string[] TitleSoloPaths = { "backgrounds/title_1920x1080_v2.png", "backgrounds/title_solo_1672x941.png" };
         const int BackgroundW = 1920, BackgroundH = 1080;
 
         // ---------- 글꼴 ----------

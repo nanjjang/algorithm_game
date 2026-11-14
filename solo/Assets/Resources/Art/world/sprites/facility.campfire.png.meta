@@ -1,0 +1,1517 @@
+fileFormatVersion: 2
+guid: 74561c4d648331c42924a30ef4889e98
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1004043645587855729
+    second: facility.campfire_0
+  - first:
+      213: -6270968745626438148
+    second: facility.campfire_1
+  - first:
+      213: 4241253998012542238
+    second: facility.campfire_2
+  - first:
+      213: 3172204466013157531
+    second: facility.campfire_3
+  - first:
+      213: 866613543912661145
+    second: facility.campfire_4
+  - first:
+      213: 3850569648767314671
+    second: facility.campfire_5
+  - first:
+      213: -6352389225853489619
+    second: facility.campfire_6
+  - first:
+      213: -2708316919942860815
+    second: facility.campfire_7
+  - first:
+      213: -6067534146371210677
+    second: facility.campfire_8
+  - first:
+      213: -3864201517327916249
+    second: facility.campfire_9
+  - first:
+      213: 7025110072039666439
+    second: facility.campfire_10
+  - first:
+      213: -8621123237220535675
+    second: facility.campfire_11
+  - first:
+      213: 6878609127417203686
+    second: facility.campfire_12
+  - first:
+      213: -3186105639842354727
+    second: facility.campfire_13
+  - first:
+      213: 4501146256475215818
+    second: facility.campfire_14
+  - first:
+      213: 7820137883719123205
+    second: facility.campfire_15
+  - first:
+      213: -815952311895664519
+    second: facility.campfire_16
+  - first:
+      213: 5394889207106395599
+    second: facility.campfire_17
+  - first:
+      213: 4641723254808826639
+    second: facility.campfire_18
+  - first:
+      213: -8282870500391024076
+    second: facility.campfire_19
+  - first:
+      213: 8434582705106781267
+    second: facility.campfire_20
+  - first:
+      213: -161968283720107786
+    second: facility.campfire_21
+  - first:
+      213: 1375604440959226970
+    second: facility.campfire_22
+  - first:
+      213: 6417430011035998784
+    second: facility.campfire_23
+  - first:
+      213: 6648122241860155584
+    second: facility.campfire_24
+  - first:
+      213: -4029220346004319551
+    second: facility.campfire_25
+  - first:
+      213: 1713114335913852819
+    second: facility.campfire_26
+  - first:
+      213: 4135848806047428993
+    second: facility.campfire_27
+  - first:
+      213: 1487801827219024109
+    second: facility.campfire_28
+  - first:
+      213: 1700476294387487216
+    second: facility.campfire_29
+  - first:
+      213: -233537594635078275
+    second: facility.campfire_30
+  - first:
+      213: -8550110104427480159
+    second: facility.campfire_31
+  - first:
+      213: -5394036494143557813
+    second: facility.campfire_32
+  - first:
+      213: 3809213416320035617
+    second: facility.campfire_33
+  - first:
+      213: -5256440216922179459
+    second: facility.campfire_34
+  - first:
+      213: 8918488877722514810
+    second: facility.campfire_35
+  - first:
+      213: 1351933942371575935
+    second: facility.campfire_36
+  - first:
+      213: 3592333512085600645
+    second: facility.campfire_37
+  - first:
+      213: -2896910286154291030
+    second: facility.campfire_38
+  - first:
+      213: 3687617036538046606
+    second: facility.campfire_39
+  - first:
+      213: 3479702560820320608
+    second: facility.campfire_40
+  - first:
+      213: 4178981057676626227
+    second: facility.campfire_41
+  - first:
+      213: -3320607531022868806
+    second: facility.campfire_42
+  - first:
+      213: -7565713325952661300
+    second: facility.campfire_43
+  - first:
+      213: 5404022090823954916
+    second: facility.campfire_44
+  - first:
+      213: 7741037600383020936
+    second: facility.campfire_45
+  - first:
+      213: -6380064056272520766
+    second: facility.campfire_46
+  - first:
+      213: -2134749850682892965
+    second: facility.campfire_47
+  - first:
+      213: -9073999061741133623
+    second: facility.campfire_48
+  - first:
+      213: -112464586469876476
+    second: facility.campfire_49
+  - first:
+      213: -8370209491812278743
+    second: facility.campfire_50
+  - first:
+      213: 2098525930882280547
+    second: facility.campfire_51
+  - first:
+      213: -3880039032078982672
+    second: facility.campfire_52
+  - first:
+      213: 7969513907054937317
+    second: facility.campfire_53
+  - first:
+      213: -261066196702751924
+    second: facility.campfire_54
+  - first:
+      213: -3790429991500818077
+    second: facility.campfire_55
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: facility.campfire_0
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 58
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f866fbdbf9be012f0800000000000000
+      internalID: -1004043645587855729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_1
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 30
+        width: 28
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf5fb5f962b09f8a0800000000000000
+      internalID: -6270968745626438148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_2
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 58
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1d2eb14a06fbda30800000000000000
+      internalID: 4241253998012542238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_3
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 58
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b983f9f972fe50c20800000000000000
+      internalID: 3172204466013157531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_4
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 30
+        width: 28
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 990e47a3d64d60c00800000000000000
+      internalID: 866613543912661145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_5
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 58
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fea2da1c1b8ff6530800000000000000
+      internalID: 3850569648767314671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_6
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 58
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2eebfdc7a7c7d7a0800000000000000
+      internalID: -6352389225853489619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_7
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 30
+        width: 28
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ff20af4c102a6ad0800000000000000
+      internalID: -2708316919942860815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_8
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 64
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b42bdfe47d9cbcba0800000000000000
+      internalID: -6067534146371210677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_9
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 58
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 723e42381399f5ac0800000000000000
+      internalID: -3864201517327916249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_10
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 58
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70371ffc3643e7160800000000000000
+      internalID: 7025110072039666439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_11
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 30
+        width: 28
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 582ba98a71e9b5880800000000000000
+      internalID: -8621123237220535675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_12
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 58
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6eb46749e8ab57f50800000000000000
+      internalID: 6878609127417203686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_13
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 58
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d9e3502dcda8c3d0800000000000000
+      internalID: -3186105639842354727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_14
+      rect:
+        serializedVersion: 2
+        x: 562
+        y: 30
+        width: 28
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac7d8431ca8477e30800000000000000
+      internalID: 4501146256475215818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_15
+      rect:
+        serializedVersion: 2
+        x: 599
+        y: 58
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50147ade8f5b68c60800000000000000
+      internalID: 7820137883719123205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_16
+      rect:
+        serializedVersion: 2
+        x: 670
+        y: 58
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 978dcc702b72da4f0800000000000000
+      internalID: -815952311895664519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_17
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 30
+        width: 28
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcd5a28862f7eda40800000000000000
+      internalID: 5394889207106395599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_18
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 64
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f03dc8415b6ba6040800000000000000
+      internalID: 4641723254808826639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_19
+      rect:
+        serializedVersion: 2
+        x: 727
+        y: 58
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43a81a71a255d0d80800000000000000
+      internalID: -8282870500391024076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_20
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 42
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3540b8e2848ad0570800000000000000
+      internalID: 8434582705106781267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_21
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 42
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f8bbff34b290cdf0800000000000000
+      internalID: -161968283720107786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_22
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 42
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5413d663f0271310800000000000000
+      internalID: 1375604440959226970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_23
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 42
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04a5bb2189a4f0950800000000000000
+      internalID: 6417430011035998784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_24
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 42
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c8b279a4ffd24c50800000000000000
+      internalID: 6648122241860155584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_25
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 42
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c2d2aa61755518c0800000000000000
+      internalID: -4029220346004319551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_26
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 42
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39f36cb796436c710800000000000000
+      internalID: 1713114335913852819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_27
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 42
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1813e21939c756930800000000000000
+      internalID: 4135848806047428993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_28
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 42
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de8219f01ebb5a410800000000000000
+      internalID: 1487801827219024109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_29
+      rect:
+        serializedVersion: 2
+        x: 621
+        y: 42
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f150f32e2e499710800000000000000
+      internalID: 1700476294387487216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_30
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 42
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d75b3168bce42ccf0800000000000000
+      internalID: -233537594635078275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_31
+      rect:
+        serializedVersion: 2
+        x: 749
+        y: 42
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ab3f131928e75980800000000000000
+      internalID: -8550110104427480159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_32
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 12
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4f641d23688425b0800000000000000
+      internalID: -5394036494143557813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_33
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 12
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12b68698b6b0dd430800000000000000
+      internalID: 3809213416320035617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_34
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 12
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d78b647f87f5d07b0800000000000000
+      internalID: -5256440216922179459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_35
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 12
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a753ce1d166d4cb70800000000000000
+      internalID: 8918488877722514810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_36
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 12
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f78e9daf1c803c210800000000000000
+      internalID: 1351933942371575935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_37
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 12
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 589f796db488ad130800000000000000
+      internalID: 3592333512085600645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_38
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 12
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa82997717b1cc7d0800000000000000
+      internalID: -2896910286154291030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_39
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 12
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e88678a282c0d2330800000000000000
+      internalID: 3687617036538046606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_40
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 12
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06956b5fa036a4030800000000000000
+      internalID: 3479702560820320608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_41
+      rect:
+        serializedVersion: 2
+        x: 615
+        y: 12
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 339c6e97129bef930800000000000000
+      internalID: 4178981057676626227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_42
+      rect:
+        serializedVersion: 2
+        x: 654
+        y: 12
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abe15ea3b05dae1d0800000000000000
+      internalID: -3320607531022868806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_43
+      rect:
+        serializedVersion: 2
+        x: 743
+        y: 12
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc8072e90df210790800000000000000
+      internalID: -7565713325952661300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_44
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 1
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e1fce9b571fefa40800000000000000
+      internalID: 5404022090823954916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_45
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 1
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88fa5cb0fa0bd6b60800000000000000
+      internalID: 7741037600383020936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_46
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 1
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c973a93b857577a0800000000000000
+      internalID: -6380064056272520766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_47
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 1
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5d5ab93258df52e0800000000000000
+      internalID: -2134749850682892965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_48
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 1
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c021b0fdeda21280800000000000000
+      internalID: -9073999061741133623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_49
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 1
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40dd6a1fd02707ef0800000000000000
+      internalID: -112464586469876476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_50
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 1
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92e1de080da07db80800000000000000
+      internalID: -8370209491812278743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_51
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 1
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36c2f2637367f1d10800000000000000
+      internalID: 2098525930882280547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_52
+      rect:
+        serializedVersion: 2
+        x: 553
+        y: 1
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f12842ce05572ac0800000000000000
+      internalID: -3880039032078982672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_53
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 1
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e48b869ca6699e60800000000000000
+      internalID: 7969513907054937317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_54
+      rect:
+        serializedVersion: 2
+        x: 681
+        y: 1
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c439ba26da1806cf0800000000000000
+      internalID: -261066196702751924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: facility.campfire_55
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 1
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3695b9a5100b56bc0800000000000000
+      internalID: -3790429991500818077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

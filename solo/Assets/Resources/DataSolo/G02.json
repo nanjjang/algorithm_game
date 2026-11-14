@@ -1,0 +1,5 @@
+{
+  "_note": "주문 모듈(G02)의 Def에 없는 명세 수치. crit_multiplier 2 = 임계 배율(02 요약서 6.1절 '피해 ×2', 03 요약서 9절. 과열 3배의 3은 blocks.json block.triple_heat params.crit_multiplier, 유리 지팡이 +1은 mutations.json). heat_max 100 = 열 최대·잠금 경계(02 요약서 6.1절. 임계 사격 가능 횟수와 허수아비 DPS 계산이 읽는다). 읽는 곳: Wizard.Solo.Sim.Spells.SpellTuning",
+  "crit_multiplier": 2,
+  "heat_max": 100
+}

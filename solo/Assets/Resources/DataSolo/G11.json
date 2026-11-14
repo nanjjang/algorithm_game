@@ -1,0 +1,17 @@
+{
+  "_note": "G11(점수·정산)의 Def에 없는 수치. 01 요약서 4.6절(시작 웨이브: skip은 start_skip_step 단위, skip × start_skip_limit_den ≤ best × start_skip_limit_num), 6.3절(건너뛴 점수 = (보스 ? boss_kill + wave_clear : B(w) × kill_per_cost + wave_clear) × S10(w) × skip_score_percent ÷ 1000 내림. 3200 × 19 × 60 ÷ 1000 = 3,648), 5.2절(첫 만남 = 웨이브 phantom_first_wave), 10.5절(기록 칭호 웨이브 10·30·100, 야생 물 누적 웨이브 0/100/500/2000), 00 문서 D-25(손맛 칭호: 만개 누적 100회, 같은 날의 하루 속 순번 8·9 무피격 — 솔로 임시), D-55(판 목록 최근 100판 — 솔로 임시)",
+  "skip_score_percent": 60,
+  "start_skip_step": 10,
+  "start_skip_limit_num": 7,
+  "start_skip_limit_den": 10,
+  "phantom_first_wave": 10,
+  "run_history_cap": 100,
+  "record_titles": [
+    { "title": "title.record.first_night", "wave": 10 },
+    { "title": "title.record.three_nights", "wave": 30 },
+    { "title": "title.record.ten_days", "wave": 100 }
+  ],
+  "bloom_title_count": 100,
+  "flawless_night_slots": [8, 9],
+  "wild_stain_total_waves": [0, 100, 500, 2000]
+}

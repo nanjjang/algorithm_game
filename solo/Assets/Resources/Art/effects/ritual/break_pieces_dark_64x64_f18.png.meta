@@ -1,0 +1,842 @@
+fileFormatVersion: 2
+guid: d85d9c14542d5564c8f572faa2e8c946
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 867582453809750075
+    second: break_pieces_dark_64x64_f18_0
+  - first:
+      213: 6659347212203993141
+    second: break_pieces_dark_64x64_f18_1
+  - first:
+      213: 1552086186003699909
+    second: break_pieces_dark_64x64_f18_2
+  - first:
+      213: 5376287783534071218
+    second: break_pieces_dark_64x64_f18_3
+  - first:
+      213: 6771744544417265659
+    second: break_pieces_dark_64x64_f18_4
+  - first:
+      213: -7107870400924345006
+    second: break_pieces_dark_64x64_f18_5
+  - first:
+      213: 1360848526047197766
+    second: break_pieces_dark_64x64_f18_6
+  - first:
+      213: 705960139925375306
+    second: break_pieces_dark_64x64_f18_7
+  - first:
+      213: -3924379030711191281
+    second: break_pieces_dark_64x64_f18_8
+  - first:
+      213: 4180583501116532997
+    second: break_pieces_dark_64x64_f18_9
+  - first:
+      213: -4287415408677351975
+    second: break_pieces_dark_64x64_f18_10
+  - first:
+      213: 7777787595015910081
+    second: break_pieces_dark_64x64_f18_11
+  - first:
+      213: 4087832050189035937
+    second: break_pieces_dark_64x64_f18_12
+  - first:
+      213: -8118656496226603664
+    second: break_pieces_dark_64x64_f18_13
+  - first:
+      213: 2454384691923665069
+    second: break_pieces_dark_64x64_f18_14
+  - first:
+      213: 4560426614134466969
+    second: break_pieces_dark_64x64_f18_15
+  - first:
+      213: -5699108744189798308
+    second: break_pieces_dark_64x64_f18_16
+  - first:
+      213: -5886187197233954782
+    second: break_pieces_dark_64x64_f18_17
+  - first:
+      213: -5696371465489899617
+    second: break_pieces_dark_64x64_f18_18
+  - first:
+      213: 3714334415814999684
+    second: break_pieces_dark_64x64_f18_19
+  - first:
+      213: -619809780747514406
+    second: break_pieces_dark_64x64_f18_20
+  - first:
+      213: -5362878646569173505
+    second: break_pieces_dark_64x64_f18_21
+  - first:
+      213: 8526982933504958204
+    second: break_pieces_dark_64x64_f18_22
+  - first:
+      213: 3144407218740080007
+    second: break_pieces_dark_64x64_f18_23
+  - first:
+      213: -7623213253062838212
+    second: break_pieces_dark_64x64_f18_24
+  - first:
+      213: -8856202717417929032
+    second: break_pieces_dark_64x64_f18_25
+  - first:
+      213: 1445730299538439784
+    second: break_pieces_dark_64x64_f18_26
+  - first:
+      213: 1704074365255965955
+    second: break_pieces_dark_64x64_f18_27
+  - first:
+      213: -7571141632780063451
+    second: break_pieces_dark_64x64_f18_28
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_0
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 22
+        width: 23
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3021b425a54a0c00800000000000000
+      internalID: 867582453809750075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_1
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 25
+        width: 22
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 538286bb101ca6c50800000000000000
+      internalID: 6659347212203993141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_2
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 25
+        width: 24
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c89a81b92e1a8510800000000000000
+      internalID: 1552086186003699909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_3
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 27
+        width: 15
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bd02db11496c9a40800000000000000
+      internalID: 5376287783534071218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_4
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 28
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf73eafe8c11afd50800000000000000
+      internalID: 6771744544417265659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_5
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 27
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25d146b8785cb5d90800000000000000
+      internalID: -7107870400924345006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_6
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 28
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64a382c3684b2e210800000000000000
+      internalID: 1360848526047197766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_7
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 28
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4946d5c1031cc900800000000000000
+      internalID: 705960139925375306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_8
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 26
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f09b776501ec989c0800000000000000
+      internalID: -3924379030711191281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_9
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 29
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 509e8e96b8a640a30800000000000000
+      internalID: 4180583501116532997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_10
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 25
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9dd0049c66a0084c0800000000000000
+      internalID: -4287415408677351975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_11
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 27
+        width: 33
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c2fc53fb9040fb60800000000000000
+      internalID: 7777787595015910081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_12
+      rect:
+        serializedVersion: 2
+        x: 528
+        y: 30
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a969f46795eab830800000000000000
+      internalID: 4087832050189035937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_13
+      rect:
+        serializedVersion: 2
+        x: 554
+        y: 28
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07deef06eecb45f80800000000000000
+      internalID: -8118656496226603664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_14
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 24
+        width: 20
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da044489fd9bf0220800000000000000
+      internalID: 2454384691923665069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_15
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 25
+        width: 25
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 999e8b7e7d3e94f30800000000000000
+      internalID: 4560426614134466969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_16
+      rect:
+        serializedVersion: 2
+        x: 725
+        y: 27
+        width: 23
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c589e36dac2b8e0b0800000000000000
+      internalID: -5699108744189798308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_17
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 25
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2200b633eef005ea0800000000000000
+      internalID: -5886187197233954782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_18
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 27
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9f9dc2355c62f0b0800000000000000
+      internalID: -5696371465489899617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_19
+      rect:
+        serializedVersion: 2
+        x: 853
+        y: 28
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48e39a7c877fb8330800000000000000
+      internalID: 3714334415814999684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_20
+      rect:
+        serializedVersion: 2
+        x: 869
+        y: 29
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: add4b3ec94ef567f0800000000000000
+      internalID: -619809780747514406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_21
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 29
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffd77b1e84a3395b0800000000000000
+      internalID: -5362878646569173505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_22
+      rect:
+        serializedVersion: 2
+        x: 927
+        y: 25
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfe9165dccde55670800000000000000
+      internalID: 8526982933504958204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_23
+      rect:
+        serializedVersion: 2
+        x: 978
+        y: 28
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78d2d26a4bd23ab20800000000000000
+      internalID: 3144407218740080007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_24
+      rect:
+        serializedVersion: 2
+        x: 993
+        y: 26
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c38b3249fe7e43690800000000000000
+      internalID: -7623213253062838212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_25
+      rect:
+        serializedVersion: 2
+        x: 1037
+        y: 28
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b68479fc82781580800000000000000
+      internalID: -8856202717417929032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_26
+      rect:
+        serializedVersion: 2
+        x: 1060
+        y: 26
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86ef1013c04401410800000000000000
+      internalID: 1445730299538439784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_27
+      rect:
+        serializedVersion: 2
+        x: 1098
+        y: 26
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30d5eeb4b9616a710800000000000000
+      internalID: 1704074365255965955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_dark_64x64_f18_28
+      rect:
+        serializedVersion: 2
+        x: 1129
+        y: 29
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52d29f17cc6ede690800000000000000
+      internalID: -7571141632780063451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,62 @@
+{
+  "_note": "튜토리얼(허수아비 방 5단계)과 첫 만남·복수 연출(G25)의 수치. 요약서 값: 풍선 (560,200) 800×120(08 6.1·6.4절), 대사 판 (480,920) 960×96 24px(08 6.1절), 처음 쪽지 480×96·240틱(08 6.3·13.1절, TV-236), 되비침 만개 24/54/84틱·0.5초 간격(05 10.2절, 10 3.8절), 되비침 번쩍 흰 25%·0.05초 켜짐·0.30초 꺼짐(10 3.8절), 거울 금 0.4초(05 10.2절), 쓰러짐 2.60초 은색 가루 24개·3.20초부터 0.8초에 색이 돌아옴(10 3.8절), 복수 0/60/84/144/264틱·84틱부터 넘기기(05 10.3절, camp.json과 같은 값), 등장 이름 띠·복수 한마디 1.2초(05 10.3절, 10 3.8절), 번쩍 한도(08 14.1절: 1초 2회·간격 24틱·Full 0.35·Reduced 0.15·Minimal 테두리 8px 9틱), 최종 격노 가장자리 자홍 8px(05 8.3절), 흔들림 대 12px(TV-186)·0.35초(08 18.1 M-07). 솔로 임시(요약서에 값 없음, 사용자가 QA에서 정한다): tutorial.advance_delay_seconds(완료 뒤 다음 단계로 넘기기까지), story.intro_band_rect·title_band_rect(띠 자리), reflection_burst_life_ticks(만개 한 번이 보이는 길이 = 간격 30틱), collapse_overlay_alpha·collapse_fade_in_ticks(무채색 전환을 셰이더 없이 회색 덮개로 대신한 세기), revenge.flash_opacity(복수 흰 번쩍 세기 — 첫 만남 번쩍과 같은 25%), shard_count·ornament·crack·shard 크기와 흩어지는 거리, ornament_offset_cells(머리 옆 자리), input_locked_offset_px(입력 무시 표시 자리 — HUD의 결정 칸 위), particle_px·dissolve_rise_px, dissolve_life_ticks.",
+  "tutorial": {
+    "step_count": 5,
+    "advance_delay_seconds": 1.0,
+    "balloon_rect": [560, 200, 800, 120]
+  },
+  "story": {
+    "intro_band_rect": [480, 232, 960, 96],
+    "intro_revenge_line_seconds": 1.2,
+    "dialog_rect": [480, 920, 960, 96],
+    "mirror_crack_seconds": 0.4,
+    "reflection_burst_ticks": [24, 54, 84],
+    "reflection_burst_life_ticks": 30,
+    "reflection_burst_radius_px": 160,
+    "reflection_hp_zero_ticks": 114,
+    "reflection_flash_opacity": 0.25,
+    "flash_on_ticks": 3,
+    "flash_off_ticks": 18,
+    "collapse_ticks": 240,
+    "collapse_overlay_alpha": 0.35,
+    "collapse_fade_in_ticks": 6,
+    "collapse_color_return_tick": 192,
+    "collapse_dissolve_tick": 156,
+    "dissolve_count": 24,
+    "dissolve_life_ticks": 30,
+    "first_note_ticks": 240,
+    "first_note_slide_seconds": 0.2,
+    "revenge": {
+      "slow_end_tick": 60,
+      "flash_tick": 60,
+      "ornament_start_tick": 84,
+      "ornament_end_tick": 144,
+      "band_start_tick": 144,
+      "end_tick": 264,
+      "skip_hint_tick": 84,
+      "flash_opacity": 0.25,
+      "shard_count": 12,
+      "ornament_px": 24,
+      "ornament_offset_cells": [0.5, -1.25],
+      "crack_px": 96,
+      "shard_px": 8,
+      "shard_spread_px": 220
+    },
+    "input_locked_offset_px": [0, -140],
+    "particle_px": 6,
+    "dissolve_rise_px": 64,
+    "title_band_rect": [560, 400, 800, 64],
+    "flash_limits": {
+      "full_cap": 0.35,
+      "reduced_cap": 0.15,
+      "max_per_window": 2,
+      "window_ticks": 60,
+      "min_interval_ticks": 24,
+      "border_px": 8,
+      "border_ticks": 9
+    },
+    "final_rage_edge_px": 8,
+    "shake_big_px": 12,
+    "shake_big_seconds": 0.35
+  }
+}

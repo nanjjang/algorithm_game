@@ -1,0 +1,59 @@
+{
+  "_note": "콘텐츠 id 와 그림 열쇠가 다른 곳(PIPELINE 6.3, spec 14 3.1·5.2~5.6절). 읽는 쪽: Wizard.ViewLogic.Assets.AssetAliases. 작업용 이름의 로마자 폴더 열쇠는 그림 매니페스트가 정한 것이라 여기에만 적는다(CONTRACTS 2.1). character_sheets, ui_external_size, wand_up_split 은 매니페스트가 적지 않은 규격을 spec 14 4.6절 표와 TV-183 에서 옮긴 [임시] 값이다.",
+  "element": {
+    "arcane": "arcane",
+    "dark": "dark",
+    "fire": "fire",
+    "frost": "ice",
+    "ice": "ice",
+    "lightning": "lightning",
+    "neutral": "neutral",
+    "shadow": "dark"
+  },
+  "character_folder": {
+    "dalgu": "char.1",
+    "chorong": "char.2",
+    "galpi": "char.3",
+    "seonge": "char.4",
+    "geumeum": "char.5"
+  },
+  "wand_folder": {
+    "dalgu": "wand.1",
+    "chorong": "wand.2",
+    "galpi": "wand.3",
+    "seonge": "wand.4",
+    "geumeum": "wand.5"
+  },
+  "wand_detached": {
+    "chorong_max_lightning": { "wand": "wand.2", "variant": "detached_max_lightning" },
+    "seonge_orbit": { "wand": "wand.4", "variant": "detached_orbit" },
+    "geumeum_orb": { "wand": "wand.5", "variant": "detached_orb" }
+  },
+  "block_projectile_fx": {
+    "_note": "spec 14 5.6절 [조율: C-02]. block.boomerang 은 탄 그림이 없고, piercing 의 대응 블록은 미정(U-17)이라 줄이 없다",
+    "block.magic_bolt": "player/mana_bolt",
+    "block.fireball": "player/fireball",
+    "block.chain_lightning": "player/chain_lightning",
+    "block.ice_spike": "player/ice_lance",
+    "block.shadow_orb": "player/shadow_orb"
+  },
+  "ui_icons": [
+    { "content_prefix": "block.", "icons": ["I-B1", "I-B2"], "variant_prefix": "block_" },
+    { "content_prefix": "art.", "icons": ["I-T1", "I-T2"], "variant_prefix": "" },
+    { "content_prefix": "element.", "icons": ["I-E1", "I-E2", "I-E3"], "variant_prefix": "element_", "key_overrides": { "dark": "shadow", "ice": "frost" } },
+    { "content_prefix": "passive.", "icons": ["I-S2"], "variant_prefix": "" },
+    { "content_prefix": "wand_trait.", "icons": ["I-S3"], "variant_prefix": "" },
+    { "content_prefix": "currency.", "icons": ["I-C3", "I-C2", "I-C1"], "variant_prefix": "" }
+  ],
+  "character_sheets": {
+    "portrait": { "cell": [64, 64], "frames": 4 },
+    "selection": { "cell": [192, 192], "frames": 1 },
+    "silhouette": { "cell": [32, 32], "frames": 1 }
+  },
+  "ui_external_size": {
+    "S-0201": [1920, 1080]
+  },
+  "wand_up_split": {
+    "wand.2": { "split_y": 28, "offset_x": 6 }
+  }
+}

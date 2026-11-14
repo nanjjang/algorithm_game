@@ -33,7 +33,8 @@ namespace Wizard.Solo.Tests.Art
             Assert.AreEqual(0, _art.LoadedTextureCount);
             Assert.AreEqual(0, _art.CachedSpriteCount);
             Assert.AreEqual(5, _art.Players.Characters.Count);
-            Assert.AreEqual(9, _art.Effects.Groups.Count, "효과 7묶음 + 보강 2묶음(enhance, layers)");
+            // 효과 7묶음 + 보강 2묶음(enhance, layers) + 솔로 보충 4묶음(ambient, icons, char.1, char.2 — supplement/solo manifest).
+            Assert.AreEqual(13, _art.Effects.Groups.Count, "효과 7 + 보강 2 + 솔로 보충 4");
             Assert.IsEmpty(_art.Warnings, string.Join("\n", _art.Warnings));
         }
 
@@ -46,16 +47,20 @@ namespace Wizard.Solo.Tests.Art
             Assert.IsTrue(a.Loop);
             Assert.AreEqual(1, _src.TextureLoads.Count);
             var s = a.Frames[0];
-            Assert.AreEqual(new Rect(0, 832 - 64, 64, 64), s.rect);
-            Assert.AreEqual(30f, s.pivot.x, 1e-4f);
-            Assert.AreEqual(4f, s.pivot.y, 1e-4f);
-            Assert.AreEqual(64f, s.pixelsPerUnit);
-            // 칸 1 = (64, 0)
-            Assert.AreEqual(new Rect(64, 768, 64, 64), a.Frames[1].rect);
+            // 제자 1은 2배 해상도 교체본(players/dalgu/body_v2.png 1536×768, pixelScale 2)을 쓴다:
+            // 논리 칸 64px·발 점 (30,4)는 그대로이고, 자를 때 rect·pivot은 ×2, PPU는 64×2라 화면 크기는 같다.
+            Assert.AreEqual(new Rect(0, 768 - 128, 128, 128), s.rect);
+            Assert.AreEqual(60f, s.pivot.x, 1e-4f);
+            Assert.AreEqual(8f, s.pivot.y, 1e-4f);
+            Assert.AreEqual(128f, s.pixelsPerUnit);
+            Assert.AreEqual(s.rect.width / s.pixelsPerUnit, 1f, 1e-4f, "화면 크기는 논리 64px 칸 = 1칸");
             // 캐시: 다시 불러도 같은 것, 텍스처를 다시 읽지 않는다
             Assert.AreSame(a, _art.CharacterClip(Ids.Char.C1, "idle", Facing3.Down));
             var right = _art.CharacterClip(Ids.Char.C1, "idle", Facing3.Right);
-            Assert.AreEqual(new Rect(256, 768, 64, 64), right.Frames[0].rect); // 칸 4
+            // 교체본 시트는 칸 배치가 원본과 달라 칸 번호 대신: 같은 시트, 같은 칸 크기, 아래와 다른 칸.
+            Assert.AreSame(s.texture, right.Frames[0].texture);
+            Assert.AreEqual(s.rect.size, right.Frames[0].rect.size);
+            Assert.AreNotEqual(s.rect.position, right.Frames[0].rect.position);
             Assert.AreEqual(1, _src.TextureLoads.Count);
             // 아래 방향만 있는 클립은 위를 물어도 아래 클립
             Assert.AreEqual(6, _art.CharacterClip(Ids.Char.C1, "death", Facing3.Up).Frames.Length);

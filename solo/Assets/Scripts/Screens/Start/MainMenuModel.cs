@@ -49,6 +49,12 @@ namespace Wizard.Solo.Screens.Start
             StartNameKeys.MainMenuSeason, StartNameKeys.MainMenuMarket
         };
 
+        /// <summary>WP4 조각(NamesSolo/Meta.ko.json): 원정 카드의 다음 목표, 서버 전용 한 줄.</summary>
+        public const string GoalTitleKey = "str.main_menu.goal.title", GoalRevengeKey = "str.main_menu.goal.revenge",
+            GoalRevengeNextKey = "str.main_menu.goal.revenge_next", GoalFreeKey = "str.main_menu.goal.free",
+            GoalChallengeKey = "str.main_menu.goal.challenge", GoalAllDoneKey = "str.main_menu.goal.all_done",
+            ServerLineKey = "str.main_menu.server_line", ServerLineSepKey = "str.main_menu.server_line_sep";
+
         public MainMenuEntry Expedition;
         public readonly List<MainMenuEntry> Items = new List<MainMenuEntry>();
         public MainMenuEntry ServerOnly;
@@ -62,6 +68,11 @@ namespace Wizard.Solo.Screens.Start
         /// <summary>단 칭호 id(없으면 null).</summary>
         public string EquippedTitle;
         public bool RunActive;
+        /// <summary>복수 중일 때 허상(웨이브 20)까지 남은 웨이브 = 20 − 전 캐릭터 최고 웨이브(최소 1). 복수 중이 아니면 0.</summary>
+        public int RevengeWavesLeft;
+        /// <summary>지금 캐릭터의 다음 도전 과제(다 이뤘으면 "모두" 과제, 그것도 없으면 null).</summary>
+        public Wizard.Solo.Meta.Records.ChallengeDef NextChallenge;
+        public Wizard.Solo.Meta.Records.ChallengeProgress NextChallengeProgress;
 
         /// <summary>커서가 도는 순서(원정 카드, 묶음 상자, 목록, 나가기).</summary>
         public IEnumerable<MainMenuEntry> All
@@ -96,12 +107,21 @@ namespace Wizard.Solo.Screens.Start
 
             m.BestWave = BestWaveOf(profile);
             m.Tracker = RevengeTracker.Build(profile, db);
+            if (m.Tracker.State == RevengeState.Pursuing)
+            {
+                int left = RevengeTracker.PhantomWave - m.BestWave;
+                m.RevengeWavesLeft = left < 1 ? 1 : left;
+            }
             if (profile != null)
             {
                 m.Gold = profile.Currencies != null ? profile.Currencies.Gold : 0;
                 m.Character = profile.LastCharacter >= 1 ? profile.LastCharacter : 1;
                 // 단계 칭호는 붙인 때의 구간이 아니라 지금 든 지팡이 단계로 다시 정한다(가지지 않은 칭호면 없음).
                 m.EquippedTitle = Wizard.Solo.Screens.Meta.TitleModel.Resolve(profile, Wizard.Solo.Screens.Meta.TitleModel.Milestones(db));
+                var defs = Wizard.Solo.Meta.Records.ChallengeBook.Load(db);
+                m.NextChallenge = Wizard.Solo.Meta.Records.ChallengeBook.Next(profile, defs, m.Character)
+                    ?? Wizard.Solo.Meta.Records.ChallengeBook.Next(profile, defs, 0);
+                if (m.NextChallenge != null) m.NextChallengeProgress = Wizard.Solo.Meta.Records.ChallengeBook.Progress(profile, m.NextChallenge);
             }
             return m;
         }
@@ -126,6 +146,26 @@ namespace Wizard.Solo.Screens.Start
             return names != null
                 ? names.Format(StartNameKeys.RevengeTrackerShort, "n", Tracker.Progress, "max", Tracker.ProgressMax)
                 : StartNameKeys.RevengeTrackerShort;
+        }
+
+        /// <summary>원정 카드의 복수 목표 줄(복수 중이 아니면 null — 첫 만남 전에는 허상을 알리지 않는다).</summary>
+        public string RevengeGoalLine(INameTable names)
+        {
+            if (RevengeWavesLeft <= 0) return null;
+            if (names == null) return GoalRevengeKey;
+            return BestWave >= RevengeTracker.PhantomWave - 1
+                ? names.Get(GoalRevengeNextKey)
+                : names.Format(GoalRevengeKey, "n", RevengeWavesLeft);
+        }
+
+        /// <summary>원정 카드의 다음 도전 과제 줄("다음 도전 과제 · 이름 — 설명").</summary>
+        public string ChallengeGoalLine(INameTable names)
+        {
+            if (NextChallenge == null) return null;
+            if (names == null) return GoalChallengeKey;
+            return names.Format(GoalChallengeKey, "name", names.Get(Wizard.Solo.Meta.Records.ChallengeBook.NameKey(NextChallenge.Id)),
+                "desc", Wizard.Solo.Meta.Records.ChallengeText.Describe(names, NextChallenge),
+                "who", NextChallenge.Character >= 1 ? names.Get(Ids.Char.Of(NextChallenge.Character)) : names.Get(Wizard.Solo.Screens.Meta.MetaKeys.RecordsChallengeAll));
         }
 
         /// <summary>그 항목이 여는 화면과 인자(00 문서 8.1절 표의 열쇠·형). 나가기·꺼진 항목은 None.</summary>

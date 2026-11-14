@@ -94,9 +94,23 @@ namespace Wizard.Solo.Screens.Camp
                 BorrowedTag(ctx, b.ContentRoot, 2f, 2f, 1);
             }
             else UiFrame.Create(b.ContentRoot, RarityColor(rarity), RarityFrameThickness(rarity));
+            if (item.Stars > 0) StarBadge(ctx, b.ContentRoot, size - (size >= 64f ? 30f : 24f), size - (size >= 64f ? 18f : 15f), item.Stars, size >= 64f ? 14f : 12f);
             string name = ctx != null && ctx.Names != null ? ctx.Names.Get(item.BlockId) : item.BlockId;
+            if (item.Stars > 0 && ctx != null && ctx.Names != null) name += " " + ctx.Names.Format("str.block.stars", "n", item.Stars);
             UiKit.AttachTooltip(b.gameObject, () => name);
             return b;
+        }
+
+        /// <summary>판 한정 블록 성장 표식 "★n"(칸 오른쪽 아래, 어두운 받침 위 금빛 글자). h = 글자 칸 높이(px).</summary>
+        public static UiLabel StarBadge(GameContext ctx, RectTransform parent, float x, float y, int stars, float h)
+        {
+            string text = ctx != null && ctx.Names != null ? ctx.Names.Format("str.block.stars", "n", stars) : stars.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            float w = h * 2.2f;
+            var bg = UiKit.Rect(parent, x - 2f, y - 1f, w, h + 2f, UiTheme.WithAlpha(UiTheme.Ink, 0.78f), false, "StarBadge");
+            var font = h >= 18f ? UiFontId.F16 : UiFontId.F12;
+            var l = UiKit.Label(ctx, bg.rectTransform, text, font, 0f, 0f, w, h + 2f, UiTheme.Gold, TextAnchor.MiddleCenter);
+            l.name = "Stars";
+            return l;
         }
 
         /// <summary>"빌림" 꼬리표(UI I-M10/borrowed_tag 32×16, 보충 그림)를 scale 정수배로 놓는다. 그림이 없으면 아무것도 놓지 않는다(점선 테와 글자가 남는다).</summary>

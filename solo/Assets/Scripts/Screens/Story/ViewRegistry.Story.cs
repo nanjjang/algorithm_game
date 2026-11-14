@@ -8,6 +8,8 @@ namespace Wizard.Solo.View
         static partial void AddStory(List<IWorldViewLayer> layers)
         {
             layers.Add(new global::Wizard.Solo.Screens.Story.StoryLayer());
+            // 튜토리얼 판의 전장 위 표시(이동 목표 고리, 표적 고리, 칭찬 반짝). 다른 판에서는 그리지 않는다.
+            layers.Add(new global::Wizard.Solo.Screens.Story.TutorialLayer());
         }
     }
 }

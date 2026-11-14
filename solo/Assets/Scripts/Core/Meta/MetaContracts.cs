@@ -266,6 +266,8 @@ namespace Wizard.Solo.Meta
         public bool FromCheckpoint;
         /// <summary>기록 화면의 판 목록에 붙인 줄.</summary>
         public RunRecordData Record;
+        /// <summary>이 정산으로 이룬 도전 과제 id(DataSolo/Challenges.json 순서). 보상은 이미 프로필에 들어갔다.</summary>
+        public List<string> NewChallenges = new List<string>();
     }
 
     /// <summary>판 종료 → 프로필. 구현 폴더 Meta/Settlement. 재료는 판 씨앗이 아니라 기기 난수로 정산 때 뽑는다.</summary>

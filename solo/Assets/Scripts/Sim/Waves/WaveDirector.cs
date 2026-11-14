@@ -90,10 +90,23 @@ namespace Wizard.Solo.Sim.Waves
         {
             Bind(w);
             if (_db == null) return base.BuildPlan(w, wave);
-            var plan = WavePlanner.Build(_db, _tuning, w.Mods.Bosses, w.Seed, wave, IsPhantomFirst(w, wave));
+            var plan = WavePlanner.Build(_db, _tuning, w.Mods.Bosses, w.Seed, wave, IsPhantomFirst(w, wave), BossPreviewOverrides(w, wave));
             // 떼 출현(솔로 조정): 명세 구성 위에 잡몹만 덧붙인다. 난수 없음 → 야영 미리보기와 실제가 같다.
             WaveHorde.Expand(_db, _tuning, plan);
             return plan;
+        }
+
+        /// <summary>
+        /// 보스 시연(솔로 조정, G09.json boss_preview): 다음 웨이브가 보스 웨이브면 그 보스의 패턴 일부를 쓰는 일반 적을 고정 개수로 더한다.
+        /// 고를 보스는 보스 웨이브가 실제로 쓸 값(Bosses.SelectBoss — 순수 함수)과 같다. 없으면 null(명세 그대로).
+        /// </summary>
+        PlanOverrides BossPreviewOverrides(SimWorld w, int wave)
+        {
+            if (_tuning.BossPreview.Count == 0 || DayCycle.IsBossWave(wave) || !DayCycle.IsBossWave(wave + 1)) return null;
+            string boss = w.Mods.Bosses != null ? w.Mods.Bosses.SelectBoss(_db, wave + 1, IsPhantomFirst(w, wave + 1)) : null;
+            List<SpeciesCountDef> list;
+            if (boss == null || !_tuning.BossPreview.TryGetValue(boss, out list)) return null;
+            return new PlanOverrides { ExtraFixed = list };
         }
 
         /// <summary>프로필이 처음 닿는 첫 보스 웨이브(10)인가: 판 시작 때 고정한 값이고, 이 판에서 이미 치렀으면 아니다.</summary>

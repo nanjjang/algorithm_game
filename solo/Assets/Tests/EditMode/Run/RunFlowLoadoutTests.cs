@@ -70,6 +70,7 @@ namespace Wizard.Solo.Tests.RunModuleTests
                 r.Run.Storage.Add(new WildBlock { Uid = r.Run.NextWildUid++, BlockId = Ids.Block.Frost, Rarity = Ids.Rarity.Common });
             r.Depart();
             r.ToLoot();
+            r.ForceCards(Ids.Block.Fireball, Ids.Block.IceSpike);   // 보관함·대기 칸에 없는 블록(별 겹치기 없이 2칸)
             r.PickAndConfirm();
             Assert.AreEqual(RunPhase.Camp, r.Run.Phase, "버릴 블록을 고르라고 하지 않는다");
             Assert.AreEqual(12, r.Run.Storage.Count);
@@ -231,7 +232,10 @@ namespace Wizard.Solo.Tests.RunModuleTests
             var r = Rig.InCombatAt(1, c => { c.WandStage = 7; c.RunId = "run-abc"; c.WandId = 9001; c.CharId = Ids.Char.C3; });
             r.Kill(2);
             r.Kill(1, elite: true);
-            r.ToCamp();
+            r.ToLoot();
+            r.ForceCards(Ids.Block.Fireball, Ids.Block.IceSpike);   // 조립에 없는 블록 2장(별 겹치기 없이 보관함 2칸)
+            r.PickAndConfirm();
+            Assert.AreEqual(RunPhase.Camp, r.Run.Phase);
             r.Cmd(RunCommandKind.LoadoutMove, Storage + 0, 2);
             r.Step();
             r.Depart();

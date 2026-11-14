@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Wizard.Solo.Sim;
+using Wizard.Solo.Sim.Run;
 using Wizard.Solo.UI;
 
 namespace Wizard.Solo.Screens.Story
@@ -20,9 +21,13 @@ namespace Wizard.Solo.Screens.Story
         public const string SkipTitleKey = "str.tutorial.skip_confirm.title";
         public const string SkipBodyKey = "str.tutorial.skip_confirm.body";
         public const string StepSound = "ui.hud.tutorial_step";
+        /// <summary>도입 대사 줄 넘김·실수 알림(있는 화면 소리 사건을 쓴다).</summary>
+        public const string LineSound = "ui.common.press";
+        public const string SetbackSound = "ui.common.input_error";
 
         readonly GameContext _ctx;
         readonly StoryTuning _tuning;
+        readonly TutorialPlan _plan;
         TutorialFlowModel _model;
         RunConfig _realCfg;
         RunConfig _tutorialCfg;
@@ -37,7 +42,14 @@ namespace Wizard.Solo.Screens.Story
         {
             _ctx = ctx;
             _tuning = tuning ?? StoryTuning.From(ctx != null ? ctx.Content : null);
+            _plan = TutorialPlan.From(ctx != null ? ctx.Content : null);
         }
+
+        public TutorialPlan Plan => _plan;
+        /// <summary>단계가 끝났을 때(칭찬 반짝) 화면이 듣는다. 인자 = 단계.</summary>
+        public event Action<int> StepCompleted;
+        /// <summary>실수(넘침·피격·불발)를 화면이 듣는다(흔들림).</summary>
+        public event Action<TutorialSetback> SetbackRaised;
 
         public TutorialFlowModel Model => _model;
         public RunConfig RealConfig => _realCfg;
@@ -64,8 +76,13 @@ namespace Wizard.Solo.Screens.Story
             }
         }
 
-        public TutorialBalloon Balloon() =>
-            _model != null ? _model.Balloon(CurrentStep, _ctx != null ? _ctx.Names : null) : new TutorialBalloon();
+        public TutorialBalloon Balloon()
+        {
+            var w = World;
+            if (_model == null || w == null) return new TutorialBalloon();
+            var p = w.Players != null && w.Players.Length > 0 ? w.Players[0] : null;
+            return _model.Balloon(CurrentStep, w.Tick, _ctx != null ? _ctx.Names : null, p != null && p.Locked);
+        }
 
         /// <summary>화면 OnEnter. 튜토리얼 방을 열었으면 true, 열지 못해 진짜 판으로 바로 넘어갔으면 false.</summary>
         public bool Enter(ScreenArgs args)
@@ -74,7 +91,8 @@ namespace Wizard.Solo.Screens.Story
             _running = false;
             _confirmOpen = false;
             _realCfg = args != null ? args.Get<RunConfig>(ScreenArgKeys.RunConfig) : null;
-            _model = new TutorialFlowModel(_tuning.TutorialStepCount, _tuning.TutorialAdvanceDelayTicks);
+            _model = new TutorialFlowModel(_plan, Ticks(_plan.AdvanceDelaySeconds, _tuning.TutorialAdvanceDelayTicks),
+                Ticks(_plan.HintAfterSeconds, 0), Ticks(_plan.SetbackHintSeconds, 0));
             _tutorialCfg = BuildTutorialConfig(_realCfg);
             var session = Session;
             if (_tutorialCfg == null || session == null)
@@ -92,6 +110,8 @@ namespace Wizard.Solo.Screens.Story
             _running = true;
             return true;
         }
+
+        static int Ticks(float seconds, int fallback) => seconds > 0f ? SimConst.Ticks(seconds) : fallback;
 
         RunConfig BuildTutorialConfig(RunConfig real)
         {
@@ -134,17 +154,54 @@ namespace Wizard.Solo.Screens.Story
             if (s != null && s.InputScreen == ScreenId.Tutorial) s.InputScreen = _prevInputScreen;
         }
 
-        /// <summary>IGameSession.SimEventRaised. 튜토리얼 세계의 TutorialStepDone만 본다.</summary>
+        /// <summary>IGameSession.SimEventRaised. 튜토리얼 세계의 완료(TutorialStepDone)·진척(PracticeReport)·불발(ArtFizzled)을 본다.</summary>
         public void OnSimEvent(SimWorld world, SimEvent e)
         {
-            if (!_running || _model == null || e.Type != SimEventType.TutorialStepDone) return;
+            if (!_running || _model == null) return;
             var w = World;
             if (w != null && world != null && !ReferenceEquals(world, w)) return;
             int current = world != null && world.Run != null ? world.Run.TutorialStep : CurrentStep;
-            bool last;
-            if (!_model.OnStepDone(e.A, current, e.Tick, out last)) return;
-            PlaySound(StepSound);
-            if (last) CloseCampIfOpen();
+            switch (e.Type)
+            {
+                case SimEventType.PracticeReport:
+                    if (e.Id == TutorialReportKeys.Progress) _model.OnProgress(e.A, e.B, (int)e.F, e.Tick);
+                    else if (e.Id == TutorialReportKeys.Setback)
+                    {
+                        _model.OnSetback(e.A, (TutorialSetback)e.B, e.Tick);
+                        PlaySound(SetbackSound);
+                        SetbackRaised?.Invoke((TutorialSetback)e.B);
+                    }
+                    return;
+                case SimEventType.ArtFizzled:
+                    if (e.A == (int)ArtFizzleReason.NoCrystal)
+                    {
+                        _model.OnSetback(current, TutorialSetback.Fizzle, e.Tick);
+                        PlaySound(SetbackSound);
+                        SetbackRaised?.Invoke(TutorialSetback.Fizzle);
+                    }
+                    return;
+                case SimEventType.TutorialStepDone:
+                    bool last;
+                    if (!_model.OnStepDone(e.A, current, e.Tick, out last)) return;
+                    PlaySound(StepSound);
+                    StepCompleted?.Invoke(e.A);
+                    if (last) CloseCampIfOpen();
+                    return;
+            }
+        }
+
+        /// <summary>도입 대사에서 J(다음 줄). 마지막 줄 뒤면 다음 단계로 넘긴다. 소비했으면 true.</summary>
+        public bool NextIntroLine()
+        {
+            if (!_running || _model == null) return false;
+            var w = World;
+            if (w == null || _plan.IdOf(CurrentStep) != TutorialStepIds.Intro) return false;
+            var act = _model.NextIntroLine(CurrentStep);
+            PlaySound(LineSound);
+            if (act.Kind == TutorialActionKind.None) return true;
+            w.Enqueue(new RunCommand(RunCommandKind.TutorialAdvance, act.Next));
+            if (act.Kind == TutorialActionKind.AdvanceAndFinish) FinishNow();
+            return true;
         }
 
         void CloseCampIfOpen()

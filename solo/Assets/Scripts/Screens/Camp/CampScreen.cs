@@ -415,7 +415,17 @@ namespace Wizard.Solo.Screens.Camp
             UiKit.Label(Ctx, _descRoot, tag, UiFontId.F16, 128f, 52f, 400f, 24f, CampViews.RarityColor(card.Rarity));
             CampViews.ElementGlyph(Ctx, _descRoot, card.Element, 540f, 20f);
             for (int i = 0; i < card.StatLines.Count; i++)
-                UiKit.Label(Ctx, _descRoot, T(card.StatLines[i].Key) + " " + card.StatLines[i].Value, UiFontId.F16, 128f + i * 160f, 88f, 150f, 24f);
+                UiKit.Label(Ctx, _descRoot, T(card.StatLines[i].Key) + " " + card.StatLines[i].Value, UiFontId.F16, 128f + i * 160f, 80f, 150f, 24f);
+            // 효과 한 줄 + 붙는 규칙, 판 한정 별(★)이면 그 몫(BlockDescriber — 블록 데이터에서 만든다).
+            var def = Ctx.Content != null ? Ctx.Content.Block(item.BlockId) : null;
+            string desc = BlockDescriber.Text(Ctx.Names, def, true);
+            if (item.Stars > 0)
+            {
+                var sl = BlockDescriber.StarLine(def, item.Stars, BlockDescriber.Stars(Ctx.Content));
+                if (sl.Key != null) desc += T("str.ui.hint.sep") + sl.Format(Ctx.Names);
+                CampViews.StarBadge(Ctx, _descRoot, 20f, 108f, item.Stars, 18f);
+            }
+            UiKit.Label(Ctx, _descRoot, desc, UiFontId.F12, 128f, 106f, CenterW - 144f, 40f, UiTheme.Chalk, TextAnchor.UpperLeft, wrap: true);
         }
 
         void RebuildPreview()
@@ -533,13 +543,17 @@ namespace Wizard.Solo.Screens.Camp
                 if (v.FrameId != null) { UiKit.Icon(Ctx, _nextWaveRoot, v.FrameId, WaveIconPx, ix, 8f); ix -= WaveIconPx + 4f; }
                 if (v.TodId != null) UiKit.Icon(Ctx, _nextWaveRoot, v.TodId, WaveIconPx, ix, 8f);
                 y += 28f;
-                if (v.Whims.Count > 0)
+                // 변덕: 이름(호박색) + 무엇이 달라지는지 한 줄(Data.WhimDescriber — 수치는 modifiers.json에서).
+                for (int i = 0; i < v.Whims.Count; i++)
                 {
-                    string wl = string.Empty;
-                    for (int i = 0; i < v.Whims.Count; i++) wl += (i > 0 ? T("str.ui.hint.sep") : string.Empty) + T(v.Whims[i]);
-                    UiKit.Label(Ctx, _nextWaveRoot, wl, UiFontId.F16, 16f, y, ColW - 32f, 24f, UiTheme.Amber);
-                    y += 28f;
+                    UiKit.Label(Ctx, _nextWaveRoot, T(v.Whims[i]), UiFontId.F16, 16f, y, ColW - 32f, 24f, UiTheme.Amber);
+                    y += 24f;
+                    string effect = global::Wizard.Solo.Data.WhimDescriber.OneLine(Ctx.Names, Ctx.Content, v.Whims[i]);
+                    if (effect == null) continue;
+                    UiKit.Label(Ctx, _nextWaveRoot, effect, UiFontId.F12, 16f, y, ColW - 32f, 16f, UiTheme.SlateBlue);
+                    y += 20f;
                 }
+                if (v.Whims.Count > 0) y += 4f;
                 if (v.BossId != null)
                 {
                     UiKit.Label(Ctx, _nextWaveRoot, T(v.BossId), UiFontId.F24, 16f, y, ColW - 32f, 32f);

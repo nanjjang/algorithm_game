@@ -9,6 +9,7 @@ using Wizard.Solo.Screens.Prep;
 using Wizard.Solo.Screens.Settings;
 using Wizard.Solo.Screens.Start;
 using Wizard.Solo.Sim;
+using Wizard.Solo.Sim.Run;
 using Wizard.Solo.UI;
 
 namespace Wizard.Solo.Tests.PlayMode.Flow
@@ -95,7 +96,6 @@ namespace Wizard.Solo.Tests.PlayMode.Flow
             yield return k.WaitTop(ScreenId.Tutorial);
             yield return k.WaitUntil(() => k.World != null && k.World.Run.Phase == RunPhase.Practice, "튜토리얼 방");
             yield return k.Seconds(0.5f);
-            yield return k.Shot("07-tutorial-step1");
             yield return Tutorial(k);
 
             // ---- 진짜 판(원정): 웨이브 1
@@ -167,6 +167,19 @@ namespace Wizard.Solo.Tests.PlayMode.Flow
             yield return k.WaitTop(ScreenId.Pause);
             yield return k.Seconds(0.3f);
             yield return k.Shot("15-pause");
+            // 조작·도감(배운 것 다시 보기): 조작 → 비기 → 변덕 분류를 본다.
+            k.Click("str.pause.codex");
+            yield return k.WaitTop(ScreenId.Codex);
+            yield return k.Seconds(0.3f);
+            yield return k.Shot("15b-codex-controls");
+            for (int i = 0; i < 4; i++) k.Key(MenuKey.NextTab);
+            yield return k.Seconds(0.2f);
+            yield return k.Shot("15c-codex-arts");
+            for (int i = 0; i < 3; i++) k.Key(MenuKey.NextTab);
+            yield return k.Seconds(0.2f);
+            yield return k.Shot("15d-codex-whims");
+            k.Key(MenuKey.Back);
+            yield return k.WaitTop(ScreenId.Pause);
             k.Click("str.pause.give_up");
             yield return k.WaitTop(ScreenId.ConfirmDialog);
             yield return k.Shot("16-give-up-confirm");
@@ -194,6 +207,8 @@ namespace Wizard.Solo.Tests.PlayMode.Flow
             FlowKit.Log("after run: gold " + k.Ctx.Profile.Currencies.Gold + ", stone_low " + k.Ctx.Profile.Items[Ids.Item.StoneLow].Qty);
             k.Ctx.Profile.Currencies.Gold += 20000;
             k.Ctx.Profile.Items[Ids.Item.StoneLow].Qty += 10;
+            // 강화 첫 안내(4쪽)를 보려고 첫 강화 묶음을 받은 것으로 둔다(정산이 주는 때와 같은 표시, 08 9.3절).
+            k.Ctx.Profile.Flags.CrowBundleGiven = true;
             k.Ctx.Profiles.Save();
             yield return k.Frames(2);
             k.Click(StartNameKeys.MainMenuEnhance);
@@ -201,8 +216,14 @@ namespace Wizard.Solo.Tests.PlayMode.Flow
             if (k.Screens.Top == ScreenId.EnhanceTutorial)
             {
                 yield return k.Seconds(0.3f);
-                yield return k.Shot("21-enhance-tutorial");
-                k.Key(MenuKey.Confirm);
+                yield return k.Shot("21-enhance-tutorial-1");
+                for (int pg = 2; pg <= 4; pg++)
+                {
+                    k.Key(MenuKey.NextTab);
+                    yield return k.Seconds(0.3f);
+                    yield return k.Shot("21-enhance-tutorial-" + pg);
+                }
+                k.Key(MenuKey.Back);
                 yield return k.WaitTop(ScreenId.WandPicker);
             }
             yield return k.Seconds(0.3f);
@@ -313,57 +334,116 @@ namespace Wizard.Solo.Tests.PlayMode.Flow
             }
         }
 
-        /// <summary>튜토리얼 다섯 단계를 실제 입력으로 마친다(08 6.4절 완료 조건).</summary>
+        /// <summary>
+        /// 튜토리얼 관문(DataSolo/Tutorial.json 단계 표)을 실제 입력으로 마친다: 스승 대사(J) → 고리까지 걷기 → 허수아비 맞히기 →
+        /// 꾹 눌러 과열 → 끊어 쏘기 → 느린 탄 스치기 → 콤보로 결정 → K → 자세 → 반전 자세 → 커맨드(뒤, K) → 블록 끼우기.
+        /// </summary>
         static IEnumerator Tutorial(FlowKit k)
         {
-            float end = Time.realtimeSinceStartup + 90f;
+            float end = Time.realtimeSinceStartup + 240f;
+            var plan = TutorialPlan.From(k.Ctx.Content);
             int lastStep = -1;
             int phaseTick = 0;
             bool campShot = false;
+            int dodgeUntil = -1, dodgeCast = -1;
+            bool dodgeLeft = false;
+            var shotSteps = new HashSet<string>
+            {
+                TutorialStepIds.Intro, TutorialStepIds.Move, TutorialStepIds.Fire, TutorialStepIds.Overheat, TutorialStepIds.Crit,
+                TutorialStepIds.Graze, TutorialStepIds.Combo, TutorialStepIds.Command
+            };
             while (k.Screens.Top == ScreenId.Tutorial || k.Screens.Top == ScreenId.Camp || k.Screens.Top == ScreenId.ConfirmDialog)
             {
-                Assert.Less(Time.realtimeSinceStartup, end, "튜토리얼이 끝나야 한다(단계 " + lastStep + ")");
+                Assert.Less(Time.realtimeSinceStartup, end, "튜토리얼이 끝나야 한다(단계 " + lastStep + " " + plan.IdOf(lastStep) + ")");
                 var w = k.World;
                 if (w == null || w.Run == null || w.Run.Config.Mode != RunMode.Tutorial) { yield return null; continue; }
                 int step = w.Run.TutorialStep;
+                string id = plan.IdOf(step);
                 if (step != lastStep)
                 {
-                    FlowKit.Log("tutorial step " + step);
+                    FlowKit.Log("tutorial step " + step + " " + id);
                     k.ReleaseAll();
                     lastStep = step;
                     phaseTick = w.Tick;
                     yield return k.Frames(2);
-                    if (step >= 2 && step <= 5) yield return k.Shot("07-tutorial-step" + step);
                     continue;
                 }
                 int t = w.Tick - phaseTick;
-                switch (step)
+                if (t >= (id == TutorialStepIds.Intro ? 4 : 40) && id != null && shotSteps.Remove(id)) { yield return k.Shot("07-tutorial-" + step.ToString("00") + "-" + id); continue; }
+                var p = w.P0;
+                EnemyState dummy = null;
+                foreach (var e in w.Enemies) if (!e.Dead && e.DefId == Ids.Enemy.Dummy) dummy = e;
+                Vector2 stand = dummy != null ? dummy.Pos + new Vector2(0f, -4f) : p.Pos;
+                switch (id)
                 {
-                    case 1: // 1칸 이상 이동 + 발사 1회
-                        k.SetKey(LogicalKey.Right, t < 40);
-                        k.SetKey(LogicalKey.Fire, t >= 45 && t < 50);
+                    case TutorialStepIds.Intro:
+                        if (t > 20 && t % 25 == 0) k.Key(MenuKey.Confirm);
                         break;
-                    case 2: // 자세(Shift)를 누른 채 1칸 이동
-                        k.SetKey(LogicalKey.Stance, true);
-                        k.SetKey(LogicalKey.Left, t > 4 && t < 60);
+                    case TutorialStepIds.Move:
+                        k.WalkTo(plan.MoveTarget(w), plan.MoveTargetRadius * 0.5f);
                         break;
-                    case 3: // 임계 사격 1회: 쏘다 보면 열이 임계에 든다
-                        k.SetKey(LogicalKey.Fire, true);
-                        break;
-                    case 4: // 반동 사격: 오른쪽을 보고 → 자세 → 뒤(왼쪽) → K
+                    case TutorialStepIds.Fire:
+                    case TutorialStepIds.Overheat:
+                    case TutorialStepIds.Crit:
+                    case TutorialStepIds.Combo:
                     {
-                        int c = t % 60;
-                        k.SetKey(LogicalKey.Right, c < 4);
-                        k.SetKey(LogicalKey.Stance, c >= 6 && c < 30);
-                        k.SetKey(LogicalKey.Left, c >= 10 && c < 13);
-                        k.SetKey(LogicalKey.Skill, c >= 14 && c < 17);
+                        bool feather = id == TutorialStepIds.Crit || id == TutorialStepIds.Combo;
+                        if (!AimAtDummy(k, p, stand)) { k.SetKey(LogicalKey.Fire, false); break; }
+                        bool fire = !feather || (!p.Locked && p.Spell != null && p.HeatHu + p.Spell.HeatPerShotHu <= Wizard.Solo.Sim.Player.PlayerTuning.HeatMaxHu);
+                        k.SetKey(LogicalKey.Fire, fire);
                         break;
                     }
-                    case 5: // 블록 끼우기: [조립 열기](J) → 야영(튜토리얼 모드) → 보관함 칸 J
+                    case TutorialStepIds.Graze:
+                    {
+                        // 허수아비 위 4칸에 서서 아래를 본다. 탄이 1.3칸 안에 오면 옆으로 반 걸음(좌우 번갈아) 비켜 스친다.
+                        EnemyShotEntity near = null;
+                        float nd = float.MaxValue;
+                        foreach (var s in w.EnemyShots)
+                        {
+                            float d = (s.Pos - p.Pos).magnitude;
+                            if (d < nd && Vector2.Dot(s.Vel, p.Pos - s.Pos) > 0f) { nd = d; near = s; }
+                        }
+                        if (near != null && nd < 1.3f && near.CastId != dodgeCast)
+                        {
+                            dodgeCast = near.CastId;
+                            dodgeUntil = w.Tick + 5;
+                            dodgeLeft = !dodgeLeft;
+                        }
+                        if (w.Tick < dodgeUntil)
+                        {
+                            k.SetKey(LogicalKey.Up, false); k.SetKey(LogicalKey.Down, false);
+                            k.SetKey(LogicalKey.Left, dodgeLeft); k.SetKey(LogicalKey.Right, !dodgeLeft);
+                        }
+                        else if (near == null || nd > 2.5f) AimAtDummy(k, p, stand);
+                        else { k.SetKey(LogicalKey.Left, false); k.SetKey(LogicalKey.Right, false); k.SetKey(LogicalKey.Up, false); k.SetKey(LogicalKey.Down, false); }
+                        break;
+                    }
+                    case TutorialStepIds.Art:
+                        k.SetKey(LogicalKey.Skill, t % 40 >= 20 && t % 40 < 23);
+                        break;
+                    case TutorialStepIds.Stance:
+                        k.SetKey(LogicalKey.Stance, t > 2);
+                        k.SetKey(LogicalKey.Left, t > 6 && (t / 40) % 2 == 0);
+                        k.SetKey(LogicalKey.Right, t > 6 && (t / 40) % 2 == 1);
+                        break;
+                    case TutorialStepIds.Reverse:
+                        k.SetKey(LogicalKey.Reverse, t > 2);
+                        k.SetKey(LogicalKey.Fire, t > 8);
+                        break;
+                    case TutorialStepIds.Command:
+                    {
+                        int c = t % 60;
+                        k.SetKey(LogicalKey.Stance, c >= 4 && c < 40);
+                        LogicalKey back = BackKeyOf(p.InStance ? p.LockedFacing : p.Facing);
+                        k.SetKey(back, c >= 12 && c < 15);
+                        k.SetKey(LogicalKey.Skill, c >= 17 && c < 20);
+                        break;
+                    }
+                    case TutorialStepIds.Block:
                         if (k.Screens.Top == ScreenId.Tutorial && t > 30 && (t % 30) == 0) k.Key(MenuKey.Confirm);
                         if (k.Screens.Top == ScreenId.Camp)
                         {
-                            if (!campShot) { campShot = true; yield return k.Seconds(0.3f); yield return k.Shot("07-tutorial-step5-camp"); }
+                            if (!campShot) { campShot = true; yield return k.Seconds(0.3f); yield return k.Shot("07-tutorial-12-block-camp"); }
                             var refs = FlowKit.Field<Dictionary<UiButton, int>>(k.TopScreen, "_cellRefs");
                             foreach (var kv in refs) if (kv.Value == 100) { k.Activate(kv.Key, "튜토리얼 보관함 칸"); break; }
                             yield return k.Seconds(0.5f);
@@ -374,6 +454,26 @@ namespace Wizard.Solo.Tests.PlayMode.Flow
             }
             k.ReleaseAll();
             FlowKit.Log("tutorial done, top " + k.Screens.Top);
+        }
+
+        /// <summary>허수아비 위 4칸에 서서 아래(허수아비 쪽)를 본다. 자리에 서서 아래를 보고 있으면 true.</summary>
+        static bool AimAtDummy(FlowKit k, PlayerState p, Vector2 stand)
+        {
+            if (!k.WalkTo(stand, 0.3f)) return false;
+            if (p.Facing != Dir8.S) { k.SetKey(LogicalKey.Down, true); return false; }
+            k.SetKey(LogicalKey.Down, false);
+            return true;
+        }
+
+        static LogicalKey BackKeyOf(Dir8 facing)
+        {
+            switch (facing)
+            {
+                case Dir8.N: return LogicalKey.Down;
+                case Dir8.S: return LogicalKey.Up;
+                case Dir8.E: return LogicalKey.Left;
+                default: return LogicalKey.Right;
+            }
         }
     }
 }

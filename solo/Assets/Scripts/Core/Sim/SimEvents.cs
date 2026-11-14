@@ -35,7 +35,7 @@ namespace Wizard.Solo.Sim
         GrazeBuffStarted,           // S, A = 틱
         GrazeBuffEnded,             // S
         LockBrokenByGraze,          // S
-        PlayerHit,                  // S, A = 피해(점), B = 남은 체력(점), E = 때린 적 id, P = 온 쪽
+        PlayerHit,                  // S, A = 피해(점), B = 남은 체력(점), E = 때린 적 id, F = PlayerDamageSource(정수, 판 끝 요약의 사인), P = 온 쪽
         InvulnEnded,                // S
         PlayerDowned,               // S
         PlayerRose,                 // S (첫 만남 일어남)

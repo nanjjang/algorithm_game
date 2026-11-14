@@ -20,7 +20,7 @@ namespace Wizard.Solo.Screens.Settlement
     /// Esc로 정산을 건너뛸 수 없다(확정 전 Esc는 아무 일도 없다). K·Q = 앞 쪽, E = [다음].
     /// 솔로 제외 항목(검증 대기, 시즌 주화)은 그리지 않는다.
     /// </summary>
-    public sealed class SettlementScreen : ScreenBase
+    public sealed partial class SettlementScreen : ScreenBase
     {
         // 자리(08 요약서 9.1~9.3절의 화면 좌표 − 위 띠 80px = Content 좌표)
         const float Top = TopBarHeight;
@@ -106,6 +106,7 @@ namespace Wizard.Solo.Screens.Settlement
             BuildRecord(_pages[0]);
             BuildBag(_pages[1]);
             BuildTakeaways(_pages[2]);
+            BuildFxRoot(content);
         }
 
         void BuildRecord(RectTransform page)
@@ -118,14 +119,18 @@ namespace Wizard.Solo.Screens.Settlement
             _startLine = UiKit.Label(Ctx, page, string.Empty, UiFontId.F24, RecordX, RecordY + RecordH, RecordW, slh, UiTheme.SlateBlue,
                 TextAnchor.MiddleCenter);
 
-            // 쓰러진 캐릭터 받침 + 캐릭터 큰 그림 + 지팡이.
-            UiKit.Panel(Ctx, page, UiPanelKind.Recess, ArtX, ArtY, ArtSize, ArtSize);
+            // 쓰러진 캐릭터 받침 + 캐릭터 큰 그림 + 지팡이(판 끝 요약이 있으면 그 칸이 대신 선다 — SettlementScreen.Recap.cs).
+            _artObjects.Add(UiKit.Panel(Ctx, page, UiPanelKind.Recess, ArtX, ArtY, ArtSize, ArtSize).gameObject);
             _charImage = UiKit.Image(page, null, ArtX, ArtY, ArtSize, ArtSize, Color.white);
+            _artObjects.Add(_charImage.gameObject);
             float wy = ArtY + ArtSize + RowGap;
-            UiKit.Panel(Ctx, page, UiPanelKind.Recess, ArtX + (ArtSize - WandSize) * 0.5f, wy, WandSize, WandSize);
+            _artObjects.Add(UiKit.Panel(Ctx, page, UiPanelKind.Recess, ArtX + (ArtSize - WandSize) * 0.5f, wy, WandSize, WandSize).gameObject);
             _wandImage = UiKit.Image(page, null, ArtX + (ArtSize - WandSize) * 0.5f, wy, WandSize, WandSize, Color.white);
+            _artObjects.Add(_wandImage.gameObject);
             _nameLine = UiKit.Label(Ctx, page, string.Empty, UiFontId.F24, ArtX, wy + WandSize + RowGap, ArtSize, slh, UiTheme.Chalk,
                 TextAnchor.MiddleCenter);
+            _artObjects.Add(_nameLine.gameObject);
+            BuildRecapBox(page);
 
             _scoreBox = UiKit.OrnatePanel(Ctx, page, ScoreX, ScoreY, ScoreW, ScoreH, 1).rectTransform;
             _scoreBox.name = "ScoreBreakdown";
@@ -205,6 +210,7 @@ namespace Wizard.Solo.Screens.Settlement
             _model = new SettlementModel(Ctx != null ? Ctx.Settlement : null, Ctx != null ? Ctx.Content : null,
                 () => Ctx != null ? Ctx.Profile : null, Ctx != null ? Ctx.Sound : null, EndRun);
             _model.Begin(summary);
+            PrepareRecap(summary);
             FillRecord();
             BuildWildCells();
             ShowPage();
@@ -247,6 +253,7 @@ namespace Wizard.Solo.Screens.Settlement
                     ? new[] { new UiKeyHint(Key.J, SettlementNameKeys.CommonNext) }
                     : KeyHints);
             _model.OnPageShown();
+            ScheduleCelebration();
         }
 
         List<UiWidget> PageWidgets(SettlementPage p)
@@ -329,6 +336,7 @@ namespace Wizard.Solo.Screens.Settlement
             _bestLine.SetText(_model.NewBest ? T(SettlementNameKeys.BestLine) : string.Empty);
 
             FillTracker(_trackerBox, TrackerW, TrackerH, _trackerObjects);
+            FillRecap();
         }
 
         /// <summary>복수 추적기 큰 꼴(08 요약서 13.2절). 값은 모델의 RevengeTrackerView(= Meta.RevengeTracker.Build)만.</summary>
@@ -541,6 +549,7 @@ namespace Wizard.Solo.Screens.Settlement
                     for (int i = 0; i < r.NewArts.Count; i++) arts.Add(T(r.NewArts[i]));
                     ListRow(T(SettlementNameKeys.TakeNewArt), arts, null);
                 }
+                ChallengeRows();
                 if (_model.NewTitles.Count > 0)
                 {
                     var titles = new List<string>();
@@ -635,6 +644,7 @@ namespace Wizard.Solo.Screens.Settlement
         public override void Tick(float dt)
         {
             base.Tick(dt);
+            TickCelebration(dt);
             if (_bundleImage == null || _bundleClock == float.MaxValue) return;
             _bundleClock += dt;
             _bundleImage.sprite = BundleFrame();

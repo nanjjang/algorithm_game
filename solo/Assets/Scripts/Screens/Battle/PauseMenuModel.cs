@@ -5,7 +5,7 @@ using Wizard.Solo.UI;
 namespace Wizard.Solo.Screens.Battle
 {
     /// <summary>일시정지 메뉴의 항목(08 요약서 7절, 무한 웨이브). 순서가 화면의 위→아래 순서다.</summary>
-    public enum PauseItem { Resume = 0, Settings = 1, Controls = 2, GiveUp = 3, ToMenu = 4 }
+    public enum PauseItem { Resume = 0, Settings = 1, Controls = 2, GiveUp = 3, ToMenu = 4, Codex = 5 }
 
     /// <summary>일시정지 메뉴의 구성(순수).</summary>
     public static class PauseMenuModel
@@ -13,9 +13,9 @@ namespace Wizard.Solo.Screens.Battle
         public const string TitleKey = "str.pause.title";
         public const string GiveUpConfirmKey = "str.pause.give_up_confirm";
 
-        static readonly PauseItem[] ItemTable = { PauseItem.Resume, PauseItem.Settings, PauseItem.Controls, PauseItem.GiveUp, PauseItem.ToMenu };
+        static readonly PauseItem[] ItemTable = { PauseItem.Resume, PauseItem.Settings, PauseItem.Controls, PauseItem.Codex, PauseItem.GiveUp, PauseItem.ToMenu };
 
-        /// <summary>무한 웨이브의 버튼 다섯: 계속, 설정, 조작 보기, 판 포기, 메인 메뉴로.</summary>
+        /// <summary>무한 웨이브의 버튼 여섯: 계속, 설정, 조작 보기, 조작·도감(배운 것 다시 보기), 판 포기, 메인 메뉴로.</summary>
         public static PauseItem[] Items => (PauseItem[])ItemTable.Clone();
 
         public static string LabelKey(PauseItem item)
@@ -27,6 +27,7 @@ namespace Wizard.Solo.Screens.Battle
                 case PauseItem.Controls: return "str.pause.controls";
                 case PauseItem.GiveUp: return "str.pause.give_up";
                 case PauseItem.ToMenu: return "str.pause.to_menu";
+                case PauseItem.Codex: return "str.pause.codex";
             }
             return string.Empty;
         }
@@ -62,6 +63,7 @@ namespace Wizard.Solo.Screens.Battle
                 case PauseItem.Resume: Resume(); break;
                 case PauseItem.Settings: Screens?.Push(ScreenId.Settings, ScreenArgs.From(ScreenId.Pause)); break;
                 case PauseItem.Controls: Screens?.Push(ScreenId.ControlsView, ScreenArgs.From(ScreenId.Pause)); break;
+                case PauseItem.Codex: Screens?.Push(ScreenId.Codex, ScreenArgs.From(ScreenId.Pause)); break;
                 case PauseItem.GiveUp:
                 case PauseItem.ToMenu:
                     AskGiveUp(item);

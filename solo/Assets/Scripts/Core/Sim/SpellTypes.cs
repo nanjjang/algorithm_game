@@ -51,6 +51,11 @@ namespace Wizard.Solo.Sim
     {
         public BlockDef Block;
         public int Slot;
+        /// <summary>그 칸 블록의 판 한정 별(★).</summary>
+        public int Stars;
+        /// <summary>별이 곱하는 기본 피해 배율. 0 = 1(별 없음).</summary>
+        public float StarDamageMul;
+        public float DamageScale => StarDamageMul > 0f ? StarDamageMul : 1f;
     }
 
     /// <summary>실행 트리의 스코프 하나(S0~S3 한 줄 사슬).</summary>
@@ -98,6 +103,8 @@ namespace Wizard.Solo.Sim
         public readonly List<SpellDiagnostic> Diagnostics = new List<SpellDiagnostic>();
         /// <summary>컴파일에 쓴 슬롯(0 = 코어). HUD 회로·트리 미리보기용.</summary>
         public string[] SlotBlockIds;
+        /// <summary>컴파일에 쓴 칸마다 별 수(0 = 코어). 컴파일 문맥 SlotStars의 사본(없으면 전부 0).</summary>
+        public int[] SlotStars;
         public float DepthDecay;
     }
 
@@ -110,6 +117,8 @@ namespace Wizard.Solo.Sim
         public bool Underline;
         /// <summary>깊이 감쇠(0.85, 지팡이 특성 0.92).</summary>
         public float DepthDecay;
+        /// <summary>칸마다 판 한정 블록 성장 별 수(0 = 코어, 1..L = 연결 칸). null = 전부 0. Traits.CompileContext는 채우지 않고 부르는 쪽이 조립에서 넣는다.</summary>
+        public int[] SlotStars;
     }
 
     /// <summary>트리 실행 요청. 03 요약서 6절 Execute의 인자.</summary>

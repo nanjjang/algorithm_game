@@ -10,6 +10,9 @@ namespace Wizard.Solo.Screens.Meta
         // ---- 기록 (08 11.1절)
         public const string RecordsTitle = "str.records.title";
         public const string RecordsTabAll = "str.records.tab.all";
+        /// <summary>WP4 조각(NamesSolo/Meta.ko.json): 도전 과제 탭과 그 판.</summary>
+        public const string RecordsTabChallenges = "str.records.tab.challenges", RecordsChallengeAll = "str.records.challenge.all",
+            RecordsChallengeDoneCount = "str.records.challenge.done_count";
         public const string RecordsBestScore = "str.records.best_score", RecordsBestWave = "str.records.best_wave",
             RecordsTotalWaves = "str.records.total_waves", RecordsTitles = "str.records.titles";
         public const string RecordsDate = "str.records.date", RecordsCharacter = "str.records.character",

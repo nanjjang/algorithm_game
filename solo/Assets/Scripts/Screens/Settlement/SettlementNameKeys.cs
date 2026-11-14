@@ -80,6 +80,9 @@ namespace Wizard.Solo.Screens.Settlement
         public const string TakeNothing = "str.settlement.take.nothing";
         public const string TakeHeadwear = "str.settlement.take.headwear";
         public const string TakeTitle = "str.settlement.take.title_label";
+        // WP4 조각(NamesSolo/Meta.ko.json): 새로 이룬 도전 과제 줄.
+        public const string TakeChallenges = "str.settlement.take.challenges";
+        public const string TakeChallengeLine = "str.settlement.take.challenge_line";
 
         // ---------------------------------------------------------------- 소리(event_bindings.json 열쇠, 08 9.3·13.2절)
         public const string SoundPage = "ui.settlement.page";

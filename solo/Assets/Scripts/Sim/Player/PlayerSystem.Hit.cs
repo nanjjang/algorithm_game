@@ -41,7 +41,7 @@ namespace Wizard.Solo.Sim.Player
                 ResetCombo(w, p, ComboResetReason.Hit);
                 LoseCrystalsOnHit(w, p, tune);
                 p.HitThisTick = true;
-                w.Emit(SimEventType.PlayerHit, p.Slot, entityId: hit.SourceEnemyId, a: dmg, b: p.Hp, pos: hit.FromPos);
+                w.Emit(SimEventType.PlayerHit, p.Slot, entityId: hit.SourceEnemyId, a: dmg, b: p.Hp, f: (int)hit.Source, pos: hit.FromPos);
 
                 w.Mods.Traits.OnPlayerHit(w, p);
                 w.Mods.Run.OnPlayerHit(w, p);
@@ -74,7 +74,7 @@ namespace Wizard.Solo.Sim.Player
             p.Moving = false;
             ResetCombo(w, p, ComboResetReason.Hit);
             p.HitThisTick = true;
-            w.Emit(SimEventType.PlayerHit, p.Slot, a: dmg, b: 0, pos: p.Pos);
+            w.Emit(SimEventType.PlayerHit, p.Slot, a: dmg, b: 0, f: (int)source, pos: p.Pos);
             w.Emit(SimEventType.PlayerDowned, p.Slot);
         }
 

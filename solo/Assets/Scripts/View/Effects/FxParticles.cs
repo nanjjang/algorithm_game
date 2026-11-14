@@ -34,6 +34,8 @@ namespace Wizard.Solo.View.Effects
             Sprite sprite = null, bool additive = false, Color? outline = null, float outlinePx = 0f)
         {
             if (_s == null || _s.Budget == null || life <= 0f) return false;
+            // 프레임당 입자 상한(우선순위 낮은 분류부터 버린다)
+            if (_s.Governor != null && !_s.Governor.AllowParticles(FxGovernor.PriorityOf(category))) return false;
             int token;
             if (!_s.Budget.TryAcquire(category, _s.Time, life, out token)) return false;
             var vc = _s.Vc;
@@ -59,8 +61,11 @@ namespace Wizard.Solo.View.Effects
                 mpb.SetFloat(SpriteShaderProps.OutlineSize, outlinePx);
                 sr.SetPropertyBlock(mpb);
             }
-            var p = new P { Sr = sr, Token = token, Pos = simPos, Vel = velCellsPerSec, Life = life, Color = color, Alpha = color.a };
-            sr.color = color;
+            // 환경 입자 밖은 내 이펙트 → '내 이펙트 불투명도'
+            float alpha0 = category == ParticleBudgetConfig.CatEnvironment ? color.a : ReadabilityOptions.MyFxAlpha(color.a, _s.MyFxAlpha);
+            var p = new P { Sr = sr, Token = token, Pos = simPos, Vel = velCellsPerSec, Life = life, Color = color, Alpha = alpha0 };
+            var c0 = color; c0.a = alpha0;
+            sr.color = c0;
             sr.transform.localPosition = vc.ToView(simPos);
             _live.Add(p);
             _byToken[token] = p;

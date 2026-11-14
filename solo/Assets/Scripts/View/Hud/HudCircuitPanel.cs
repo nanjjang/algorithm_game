@@ -29,6 +29,9 @@ namespace Wizard.Solo.View.Hud
         readonly UiFrame[] _litFrames = new UiFrame[HudLayout.CircuitMaxCells];
         readonly float[] _litGlow = new float[HudLayout.CircuitMaxCells];
         readonly string[] _blockIds = new string[HudLayout.CircuitMaxCells];
+        // 판 한정 블록 성장(★) 표식: 칸 오른쪽 아래 작은 금빛 글자.
+        readonly UiLabel[] _stars = new UiLabel[HudLayout.CircuitMaxCells];
+        readonly int[] _starShown = new int[HudLayout.CircuitMaxCells];
         readonly UImage _underline;
         readonly UiSprite _empty, _filled;
         int _underlineSlot = -1;
@@ -61,6 +64,15 @@ namespace Wizard.Solo.View.Hud
             int links = p.Loadout != null && p.Loadout.Links != null ? p.Loadout.Links.Length : 0;
             return links > 0 ? links : -1;
         }
+        /// <summary>칸(0 = 코어, 1..L)의 판 한정 별(★). 없으면 0.</summary>
+        public static int StarsAt(PlayerState p, int cell)
+        {
+            if (p == null || p.Loadout == null) return 0;
+            if (cell == 0) return p.Loadout.Core.Stars;
+            var links = p.Loadout.Links;
+            return links != null && cell - 1 < links.Length && cell >= 1 ? links[cell - 1].Stars : 0;
+        }
+
         /// <summary>지금 켜진 칸(-1 = 없음).</summary>
         public int LitCell { get; private set; } = -1;
 
@@ -105,6 +117,8 @@ namespace Wizard.Solo.View.Hud
                 _icons[i] = HudArt.Image(node, "Icon", pad, pad, ip, ip, null, UiTheme.SlateBlue);
                 HudArt.SetActive(_icons[i], false);
                 _litFrames[i] = UiFrame.Create(node, UiTheme.WithAlpha(UiTheme.Chalk, 0f), 3);
+                _stars[i] = UiKit.Label(ctx, node, string.Empty, UiFontId.F12, cp - 30f, cp - 17f, 30f, 16f, UiTheme.Gold, TextAnchor.MiddleRight, outline: true);
+                _stars[i].name = "Stars";
             }
             _underline = UiKit.Rect(_cellsRoot, 0, cp + 3, cp, UnderlineH, UiTheme.Chalk, false, "Underline");
             HudArt.SetActive(_underline, false);
@@ -205,6 +219,13 @@ namespace Wizard.Solo.View.Hud
                     HudArt.SetKit(_cells[i], block != null ? _filled : _empty, block != null ? UiTheme.Wood : HudColors.CircuitOff);
                     HudArt.SetActive(_icons[i], block != null);
                     if (block != null) HudArt.SetSprite(_icons[i], _art.Icon(block, (int)HudOverlayLayout.CellIconPx), UiTheme.SlateBlue);
+                }
+                int st = block != null ? StarsAt(p, i) : 0;
+                if (_starShown[i] != st)
+                {
+                    _starShown[i] = st;
+                    var names = _art.Ctx != null ? _art.Ctx.Names : null;
+                    _stars[i].SetText(st > 0 ? (names != null ? names.Format("str.block.stars", "n", st) : st.ToString(System.Globalization.CultureInfo.InvariantCulture)) : string.Empty);
                 }
                 _cells[i].color = _cells[i].sprite != null ? Color.Lerp(Color.white, UiTheme.Chalk * 1.2f, _litGlow[i] * 0.5f) : (i == lit ? HudColors.CircuitOn : _cells[i].color);
             }

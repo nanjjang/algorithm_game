@@ -44,6 +44,10 @@ namespace Wizard.Solo.Data
 
         readonly Func<string, string> _readSoloExtra;
         readonly Action<string> _logError;
+        /// <summary>솔로 재미 조정 손잡이(DataSolo/FunPass.json)를 덮어쓰는가(<see cref="TuningPatches"/>).</summary>
+        readonly bool _applyTuning;
+        JArray _tuningPatches;
+        readonly List<string> _appliedTuning = new List<string>();
         readonly Dictionary<string, JObject> _soloExtraCache = new Dictionary<string, JObject>();
         readonly JsonSerializer _serializer;
         readonly List<string> _errors = new List<string>();
@@ -71,9 +75,10 @@ namespace Wizard.Solo.Data
         List<WeatherEventDef> _weatherEvents = new List<WeatherEventDef>();
         List<ArenaDef> _arenas = new List<ArenaDef>();
 
-        ContentDb(Func<string, string> readSoloExtra, Action<string> logError)
+        ContentDb(Func<string, string> readSoloExtra, Action<string> logError, bool applyTuning)
         {
             _readSoloExtra = readSoloExtra;
+            _applyTuning = applyTuning;
             _logError = logError ?? (m => Debug.LogError(m));
             _serializer = JsonSerializer.Create(CreateSettings());
         }
@@ -92,8 +97,8 @@ namespace Wizard.Solo.Data
 
         // ------------------------------------------------------------------ 읽기
 
-        /// <summary>Resources/Data의 TextAsset으로 읽는다(부팅 경로).</summary>
-        public static ContentDb LoadFromResources(Action<string> logError = null)
+        /// <summary>Resources/Data의 TextAsset으로 읽는다(부팅 경로). 게임은 재미 조정 손잡이(FunPass.json)를 켠다.</summary>
+        public static ContentDb LoadFromResources(Action<string> logError = null, bool applyTuning = true)
         {
             return Load(
                 rel =>
@@ -106,14 +111,15 @@ namespace Wizard.Solo.Data
                     var ta = Resources.Load<TextAsset>(ResourcesSoloExtraRoot + "/" + name);
                     return ta != null ? ta.text : null;
                 },
-                logError);
+                logError, applyTuning);
         }
 
         /// <summary>
         /// 폴더에서 File IO로 읽는다(테스트·도구용). dataDir = …/Assets/Resources/Data. 보충 조각 폴더를 주지 않으면
-        /// dataDir 옆의 DataSolo(…/Assets/Resources/DataSolo)를 쓴다.
+        /// dataDir 옆의 DataSolo(…/Assets/Resources/DataSolo)를 쓴다. applyTuning = 재미 조정 손잡이를 덮어쓰는가
+        /// (기본 꺼짐: 명세 벡터 테스트가 명세 값 그대로 돈다. 손잡이 결과를 재는 테스트만 켠다).
         /// </summary>
-        public static ContentDb LoadFromDirectory(string dataDir, string soloExtraDir = null, Action<string> logError = null)
+        public static ContentDb LoadFromDirectory(string dataDir, string soloExtraDir = null, Action<string> logError = null, bool applyTuning = false)
         {
             if (soloExtraDir == null)
             {
@@ -131,16 +137,17 @@ namespace Wizard.Solo.Data
                     string p = Path.Combine(soloExtraDir, name + ".json");
                     return File.Exists(p) ? File.ReadAllText(p, Encoding.UTF8) : null;
                 },
-                logError);
+                logError, applyTuning);
         }
 
         /// <summary>
         /// 읽는 함수를 직접 준다(rel = Paths.* 상대 경로, 없으면 null을 돌려준다). logError = 오류 알림(null이면 Debug.LogError).
         /// </summary>
-        public static ContentDb Load(Func<string, string> readData, Func<string, string> readSoloExtra, Action<string> logError = null)
+        public static ContentDb Load(Func<string, string> readData, Func<string, string> readSoloExtra, Action<string> logError = null,
+            bool applyTuning = false)
         {
             if (readData == null) throw new ArgumentNullException(nameof(readData));
-            var db = new ContentDb(readSoloExtra, logError);
+            var db = new ContentDb(readSoloExtra, logError, applyTuning);
             db.LoadAll(readData);
             for (int i = 0; i < db._errors.Count; i++) db._logError(db._errors[i]);
             return db;
@@ -148,6 +155,22 @@ namespace Wizard.Solo.Data
 
         /// <summary>읽는 동안 생긴 오류(파일 없음·파싱 실패·중복 id). 비어 있어야 정상.</summary>
         public IReadOnlyList<string> LoadErrors => _errors;
+
+        /// <summary>재미 조정 손잡이를 켜고 읽었는가.</summary>
+        public bool TuningEnabled => _applyTuning && _tuningPatches != null;
+        /// <summary>실제로 적용된 손잡이 id(파일 순서. 보충 조각 손잡이는 그 조각을 처음 읽을 때 더해진다).</summary>
+        public IReadOnlyList<string> AppliedTuning => _appliedTuning;
+
+        void LoadTuning()
+        {
+            if (!_applyTuning || _readSoloExtra == null) return;
+            string text = null;
+            try { text = _readSoloExtra(TuningPatches.ExtraName); }
+            catch (Exception e) { _errors.Add("ContentDb: cannot read tuning: " + e.Message); }
+            if (text == null) return;
+            try { _tuningPatches = TuningPatches.EnabledPatches(JObject.Parse(text)); }
+            catch (Exception e) { _errors.Add("ContentDb: cannot parse tuning: " + e.Message); }
+        }
 
         void LoadAll(Func<string, string> read)
         {
@@ -163,6 +186,15 @@ namespace Wizard.Solo.Data
                 texts[rel] = text;
             }
 
+            LoadTuning();
+            if (_tuningPatches != null)
+                for (int i = 0; i < Paths.All.Length; i++)
+                {
+                    string rel = Paths.All[i];
+                    texts[rel] = TuningPatches.ApplyToText(_tuningPatches, rel, texts[rel], _errors, _appliedTuning);
+                }
+
+            // 손잡이를 덮어쓴 뒤의 글로 센다(조정이 바뀌면 데이터 판도 바뀐다).
             DataVersion = ComputeDataVersion(texts);
 
             var blocks = Parse<BlocksFile>(texts, Paths.Blocks);
@@ -427,6 +459,12 @@ namespace Wizard.Solo.Data
                 {
                     string text = _readSoloExtra(name);
                     if (text != null) result = JObject.Parse(text);
+                    if (result != null && _tuningPatches != null)
+                    {
+                        var errs = new List<string>();
+                        TuningPatches.ApplyToToken(_tuningPatches, TuningPatches.SoloExtraPrefix + name, result, errs, _appliedTuning);
+                        for (int i = 0; i < errs.Count; i++) { _errors.Add(errs[i]); _logError(errs[i]); }
+                    }
                 }
                 catch (Exception e)
                 {

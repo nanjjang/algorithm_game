@@ -30,6 +30,11 @@ namespace Wizard.Solo.Sim.Player
         public int RingBrinkFromHu = HeatMaxHu;
         public int DebtExtraDamageCells;
         public int GrazeCastForgetTicks;
+        /// <summary>
+        /// 솔로 조정(G01 graze_heat_relief, 기본 0 = 명세 그대로): 임계 구간 안(열 &gt; 임계 시작)에서 스치면 열을 이만큼(HU) 덜어 낸다.
+        /// 임계 시작 아래로는 내리지 않는다 → 스침이 임계 몰아 쏘기를 늘려 준다. 낮을 때 올리기·잠금 깨기(02 요약서 7.2절)는 그대로.
+        /// </summary>
+        public int GrazeHeatReliefHu;
 
         public static PlayerTuning From(IContentDb db)
         {
@@ -61,6 +66,7 @@ namespace Wizard.Solo.Sim.Player
                 t.RingBrinkFromHu = SimConst.HeatToHu(Num(extra, "ring_brink_from", HeatScaleMax));
                 t.DebtExtraDamageCells = (int)Num(extra, "debt_extra_damage_cells", 0f);
                 t.GrazeCastForgetTicks = SimConst.Ticks(Num(extra, "graze_cast_forget_seconds", 0f));
+                t.GrazeHeatReliefHu = SimConst.HeatToHu(Num(extra, "graze_heat_relief", 0f));
             }
             return t;
         }

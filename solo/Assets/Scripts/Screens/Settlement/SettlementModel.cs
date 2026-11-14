@@ -82,6 +82,12 @@ namespace Wizard.Solo.Screens.Settlement
         public bool NewBest { get; private set; }
         public RevengeTrackerView Tracker { get; private set; }
         public int CharacterNumber { get; private set; }
+        /// <summary>판 끝 요약("이번 판 돌아보기"). BuildRecap 전에는 null — 화면은 그때 1쪽의 캐릭터 그림을 그린다.</summary>
+        public RunRecap Recap { get; private set; }
+        /// <summary>그 판의 표시 통계(없으면 null).</summary>
+        public Wizard.Solo.View.Stats.RunStats Stats { get; private set; }
+        /// <summary>가방을 확정한(Commit) 바로 뒤, 세션을 닫기 전에 한 번 부른다(화면이 판 끝 요약의 개인 최고를 적는다).</summary>
+        public Action AfterCommit;
 
         // ---------------------------------------------------------------- 2쪽 귀환 가방
         public readonly List<BagEntry> Candidates = new List<BagEntry>();
@@ -209,6 +215,25 @@ namespace Wizard.Solo.Screens.Settlement
             }
         }
 
+        /// <summary>판 끝 요약을 만든다(Begin 뒤). 개인 최고는 정산 전 캐릭터 기록과 견준다.</summary>
+        public void BuildRecap(Wizard.Solo.View.Stats.RunStats stats, RecapTuning tuning)
+        {
+            Stats = stats;
+            ProfileData p = _profile != null ? _profile() : null;
+            CharacterRecord rec = p != null && CharacterNumber > 0 ? p.Character(CharacterNumber) : null;
+            Recap = RunRecap.Build(Summary, stats, rec, NewBest, tuning);
+        }
+
+        /// <summary>이번 정산으로 이룬 도전 과제(확정 전이면 빈 목록).</summary>
+        public List<string> NewChallenges => Result != null && Result.NewChallenges != null ? Result.NewChallenges : new List<string>();
+
+        /// <summary>3쪽 축하: 새 도전 과제·칭호·비기, 복수 보상.</summary>
+        public bool CelebrateTakeaways => Result != null && (NewChallenges.Count > 0 || NewTitles.Count > 0 || RevengeReward
+            || (Result.NewArts != null && Result.NewArts.Count > 0));
+
+        /// <summary>1쪽 축하: 점수·웨이브 최고 기록, 판 끝 요약의 개인 최고.</summary>
+        public bool CelebrateRecord => NewBest || (Recap != null && Recap.AnyNewBest);
+
         // ================================================================ 쪽 넘김
 
         /// <summary>[다음]. 2쪽 → 3쪽이면 가방을 확정한다(Commit 한 번). 쪽이 바뀌었으면 true.</summary>
@@ -260,6 +285,7 @@ namespace Wizard.Solo.Screens.Settlement
             }
             else BundleOpened = true;
             RebuildTracker();
+            if (Result != null) AfterCommit?.Invoke();
             _endRun?.Invoke();
         }
 

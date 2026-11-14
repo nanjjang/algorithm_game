@@ -27,26 +27,31 @@ namespace Wizard.Solo.Sim.Waves
         public static bool IsExtra(in WaveEntry entry) => entry.OutsideBudget && !entry.Elite;
 
         /// <summary>
-        /// 구성을 제자리에서 불린다. 보스 웨이브·꺼짐이면 그대로. 잡몹 엔트리 i(구성 순서로 센 잡몹만)의 사본 수
-        /// = floor((i+1)·m) − floor(i·m) (m = 배율 천분율/1000) → 잡몹 N마리면 합계 floor(N·m)마리. 사본은 원본 바로 뒤, 같은 묶음.
-        /// 미리보기 종 목록은 바뀌지 않는다(같은 종만 는다). 늘린 수를 돌려준다.
+        /// 구성을 제자리에서 불린다. 보스 웨이브·꺼짐이면 그대로. 잡몹 엔트리의 배율 m = 웨이브 곡선 값(역할 상한 적용).
+        /// 같은 m을 쓰는 잡몹끼리 구성 순서로 센 i번째의 사본 수 = floor((i+1)·m) − floor(i·m) → 그 무리 N마리면 합계 floor(N·m)마리.
+        /// 사본은 원본 바로 뒤, 같은 묶음. 미리보기 종 목록은 바뀌지 않는다(같은 종만 는다). 늘린 수를 돌려준다.
         /// </summary>
         public static int Expand(IContentDb db, WaveTuning t, WavePlan plan)
         {
             if (db == null || t == null || plan == null || plan.BossId != null || !t.HordeMultiplies) return 0;
-            int mul = (int)Math.Round(t.HordeNormalCountMultiplier * Permille, MidpointRounding.AwayFromZero);
-            if (mul <= Permille) return 0;
             var src = new List<WaveEntry>(plan.Entries);
             plan.Entries.Clear();
-            long index = 0;
+            // 배율(천분율)마다 따로 센 색인 — 같은 배율의 잡몹끼리 누적 내림 분배
+            var index = new Dictionary<int, long>();
             int added = 0;
             for (int i = 0; i < src.Count; i++)
             {
                 var e = src[i];
                 plan.Entries.Add(e);
-                if (e.Elite || e.OutsideBudget || !IsNormalSpecies(db, t, db.Enemy(e.Species), plan.Whims)) continue;
-                long copies = (index + 1) * mul / Permille - index * mul / Permille;
-                index++;
+                if (e.Elite || e.OutsideBudget) continue;
+                var def = db.Enemy(e.Species);
+                if (!IsNormalSpecies(db, t, def, plan.Whims)) continue;
+                int mul = (int)Math.Round(t.HordeMultiplier(plan.Wave, def.Role) * Permille, MidpointRounding.AwayFromZero);
+                if (mul <= Permille) continue;
+                long k0;
+                index.TryGetValue(mul, out k0);
+                long copies = (k0 + 1) * mul / Permille - k0 * mul / Permille;
+                index[mul] = k0 + 1;
                 for (long k = 1; k < copies; k++)
                 {
                     plan.Entries.Add(new WaveEntry { Species = e.Species, Elite = false, OutsideBudget = true, Bundle = e.Bundle });
@@ -54,6 +59,19 @@ namespace Wizard.Solo.Sim.Waves
                 }
             }
             return added;
+        }
+
+        /// <summary>그 구성에서 종 하나의 명세 잡몹 수(원본)와 떼 출현이 늘린 수. 보상 나누기(split)와 빠른 처리 목표가 쓴다.</summary>
+        public static void CountSpecies(WavePlan plan, string species, out int originals, out int extras)
+        {
+            originals = extras = 0;
+            if (plan == null) return;
+            for (int i = 0; i < plan.Entries.Count; i++)
+            {
+                var e = plan.Entries[i];
+                if (e.Species != species || e.Elite) continue;
+                if (e.OutsideBudget) extras++; else originals++;
+            }
         }
 
         /// <summary>동시 생존 상한(명세 max_alive × 배율, 반올림. 명세 값 아래로는 내려가지 않는다).</summary>

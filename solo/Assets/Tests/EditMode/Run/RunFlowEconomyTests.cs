@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using Wizard.Solo.Sim;
+using Wizard.Solo.Sim.Run;
 
 namespace Wizard.Solo.Tests.RunModuleTests
 {
@@ -422,32 +423,30 @@ namespace Wizard.Solo.Tests.RunModuleTests
             }
         }
 
-        // TV-212: 1일째 확정 칸 = 희귀 100%
+        // TV-212(명세: 1일째 확정 칸 = 희귀 100%)를 조정했다: DataSolo/Loot.json boss_hero_guarantee_wave 10 →
+        // 웨이브 10 보스(첫 만남이 아닌 판)의 확정 칸 = 영웅(지휘 세션 WP2 측정: 웨이브 8~15 성장감 부족).
         [Test]
-        public void S07_TV_212__GuaranteedSlot_Day1_AlwaysRare()
+        public void S07_TV_212__GuaranteedSlot_Wave10Boss_HeroByTuning()
         {
             for (ulong seed = 1; seed <= 60; seed++)
             {
                 var r = AtLoot(10, false, seed);
-                Assert.AreEqual(Ids.Rarity.Rare, r.Run.Loot.Cards[4].Rarity, "씨앗 " + seed);
+                Assert.AreEqual(Ids.Rarity.Hero, r.Run.Loot.Cards[4].Rarity, "씨앗 " + seed);
             }
+            var t = LootTuning.From(TestContent.Db);
+            Assert.AreEqual(30, TestContent.Db.Drops.BossHeroGuaranteeWave, "명세 값은 그대로 남는다");
+            Assert.AreEqual(10, t.HeroGuaranteeWave(TestContent.Db));
         }
 
-        // TV-213: 2일째 확정 칸 = Random(0,27) < 25 희귀, 아니면 영웅(일반 없음)
+        // TV-213(명세: 2일째 확정 칸 = 희귀 25 : 영웅 2)도 조정으로 웨이브 20 보스 확정 칸 = 영웅.
         [Test]
-        public void S07_TV_213__GuaranteedSlot_Day2_RareOrHero_NeverCommon()
+        public void S07_TV_213__GuaranteedSlot_Wave20Boss_HeroByTuning()
         {
-            int rare = 0, hero = 0, n = 600;
-            for (ulong seed = 1; seed <= (ulong)n; seed++)
+            for (ulong seed = 1; seed <= 60; seed++)
             {
                 var r = AtLoot(20, false, seed);
-                string rarity = r.Run.Loot.Cards[4].Rarity;
-                Assert.AreNotEqual(Ids.Rarity.Common, rarity);
-                if (rarity == Ids.Rarity.Rare) rare++; else hero++;
+                Assert.AreEqual(Ids.Rarity.Hero, r.Run.Loot.Cards[4].Rarity, "씨앗 " + seed);
             }
-            Assert.AreEqual(n, rare + hero);
-            // 영웅 2/27 ≈ 7.4%
-            Assert.That(hero / (float)n, Is.InRange(0.035f, 0.12f));
         }
 
         // TV-214: w ≥ 30 보스의 확정 칸 = 영웅
@@ -463,7 +462,7 @@ namespace Wizard.Solo.Tests.RunModuleTests
             }
         }
 
-        // 날별 등급 확률: 1일째 78/22/0, 4일째 이후 70/25/5
+        // 날별 등급 확률(DataSolo/Loot.json 조정): 1일째 75/22/3, 4일째 이후 66/27/7
         [Test]
         public void S07_4_4__RarityOddsByDay()
         {
@@ -480,8 +479,9 @@ namespace Wizard.Solo.Tests.RunModuleTests
             }
             int total = common + rare + hero;
             Assert.AreEqual(2000, total);
-            Assert.AreEqual(0, hero, "1일째에는 영웅이 없다");
-            Assert.That(common / (float)total, Is.InRange(0.74f, 0.82f));
+            // 조정(DataSolo/Loot.json rarity_by_day): 1일째 75/22/3 — 영웅이 소량 나온다.
+            Assert.That(hero / (float)total, Is.InRange(0.015f, 0.05f), "1일째 영웅 소량(3%)");
+            Assert.That(common / (float)total, Is.InRange(0.71f, 0.79f));
 
             common = rare = hero = 0;
             for (ulong seed = 1; seed <= 500; seed++)
@@ -495,9 +495,10 @@ namespace Wizard.Solo.Tests.RunModuleTests
                 }
             }
             total = common + rare + hero;
-            Assert.That(common / (float)total, Is.InRange(0.66f, 0.74f));
-            Assert.That(rare / (float)total, Is.InRange(0.21f, 0.29f));
-            Assert.That(hero / (float)total, Is.InRange(0.03f, 0.075f));
+            // 4일째 이후 58/32/10(조정 값 — 날이 갈수록 희귀·영웅이 늘게, Loot.json _note). 한 제시 안 중복 없음은 등급을 바꾸지 않는다(등급 안 블록이 남아 있는 한).
+            Assert.That(common / (float)total, Is.InRange(0.54f, 0.62f));
+            Assert.That(rare / (float)total, Is.InRange(0.28f, 0.36f));
+            Assert.That(hero / (float)total, Is.InRange(0.075f, 0.125f));
         }
 
         // 빌린 블록: 1일째 웨이브 6에만, 영웅 4종 균등 1장. 시작 11 이후의 16·26엔 없다(10 요약서 6절)
@@ -519,6 +520,7 @@ namespace Wizard.Solo.Tests.RunModuleTests
             Assert.IsNull(AtLoot(26).Run.Loot.BorrowedBlockId);
 
             var got = AtLoot(6);
+            got.ForceCards(Ids.Block.IceSpike, Ids.Block.ShadowOrb);   // 겹치기(별)가 아닌 새 블록 2장
             got.PickAndConfirm();
             Assert.AreEqual(RunPhase.Camp, got.Run.Phase);
             Assert.AreEqual(3, got.Run.Storage.Count, "고른 2장 + 빌린 1장");
@@ -552,6 +554,8 @@ namespace Wizard.Solo.Tests.RunModuleTests
             Assert.IsFalse(r.Run.Loot.Cards[0].Picked);
             Assert.IsTrue(r.Run.Loot.Cards[3].Picked);
 
+            r.Run.Loot.Cards[1].BlockId = Ids.Block.Fireball;   // 지금 조립에 없는 블록(겹치기 없이 보관함으로)
+            r.Run.Loot.Cards[3].BlockId = Ids.Block.Pierce;
             string id1 = r.Run.Loot.Cards[1].BlockId, id3 = r.Run.Loot.Cards[3].BlockId;
             r.Cmd(RunCommandKind.LootConfirm);
             r.Step();
@@ -564,7 +568,7 @@ namespace Wizard.Solo.Tests.RunModuleTests
             Assert.IsNull(r.Run.Loot);
         }
 
-        // TV-192: 지갑 < 30이면 다시 뽑기 불가 / 08 TV-062: 100 → 70
+        // TV-192: 지갑 < 30이면 다시 뽑기 불가 / 08 TV-062: 100 → 70. 조정(DataSolo/Loot.json): 같은 제시에서 다시 뽑을 때마다 +15(30, 45, 60 …)
         [Test]
         public void S07_TV_192__Reroll_Needs30Gold_KeepsGuaranteedSlot()
         {
@@ -593,16 +597,15 @@ namespace Wizard.Solo.Tests.RunModuleTests
                 Assert.IsFalse(r.Run.Loot.Cards[i].Picked, "고른 것은 비운다");
             }
             Assert.IsTrue(r.Run.Loot.Cards[4].Guaranteed, "확정 칸은 유지");
-            Assert.AreEqual(Ids.Rarity.Rare, r.Run.Loot.Cards[4].Rarity);
-            // 횟수 무제한: 두 번 더
+            Assert.AreEqual(Ids.Rarity.Hero, r.Run.Loot.Cards[4].Rarity, "웨이브 10 보스 확정 칸 = 영웅(Loot.json boss_hero_guarantee_wave 10)");
+            Assert.AreEqual(45, r.Run.Loot.RerollCost, "두 번째는 30 + 15");
+            // 값이 오른다: 70 − 45 = 25, 그다음 60은 못 낸다
             r.Cmd(RunCommandKind.LootReroll);
             r.Cmd(RunCommandKind.LootReroll);
             r.Step();
-            Assert.AreEqual(10, r.Run.Purse);
-            Assert.AreEqual(3, r.Run.Loot.Rerolls);
-            r.Cmd(RunCommandKind.LootReroll);
-            r.Step();
-            Assert.AreEqual(10, r.Run.Purse);
+            Assert.AreEqual(25, r.Run.Purse);
+            Assert.AreEqual(2, r.Run.Loot.Rerolls);
+            Assert.AreEqual(60, r.Run.Loot.RerollCost);
         }
 
         static void FillStorage(Rig r, int count, string blockId, string rarity, bool borrowed = false)
@@ -628,6 +631,7 @@ namespace Wizard.Solo.Tests.RunModuleTests
             r.Step();
             Assert.AreEqual(12, r.Run.Storage.Count, "확정 전에는 버리지 못한다");
 
+            r.ForceCards(Ids.Block.IceSpike, Ids.Block.ShadowOrb);   // 보관함·조립에 없는 블록(겹치기 없이 칸을 쓴다)
             r.PickAndConfirm();
             Assert.AreEqual(RunPhase.LootPick, r.Run.Phase, "버릴 블록을 골라야 야영으로 간다");
             Assert.AreEqual(2, r.Run.Loot.OverflowToDiscard);
@@ -657,6 +661,7 @@ namespace Wizard.Solo.Tests.RunModuleTests
             FillStorage(r, 1, Ids.Block.MagicBolt, rarity, borrowed);
             FillStorage(r, 10, Ids.Block.MagicBolt, Ids.Rarity.Common);
             int purse = r.Run.Purse;
+            r.ForceCards(Ids.Block.IceSpike, Ids.Block.Frost);
             r.PickAndConfirm();
             Assert.AreEqual(1, r.Run.Loot.OverflowToDiscard);
             r.Cmd(RunCommandKind.LootDiscard, 100);

@@ -110,6 +110,7 @@ namespace Wizard.Solo.Screens.Enhance
             BuildLeft(content);
             BuildStage(content);
             BuildRight(content);
+            BuildRecordPanel(content);   // 기록 칸·경고 줄(EnhanceScreen.Records.cs)
             BuildBottom(content, W);
             BuildCards(content);
 

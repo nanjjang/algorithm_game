@@ -153,6 +153,10 @@ namespace Wizard.Solo.Screens.Camp
                 var d = ArtTrieModel.Describe(_ctx != null ? _ctx.Content : null, node, node != null && node.View.JustArtId == art);
                 UiKit.Label(_ctx, b.ContentRoot, CommandText(d), UiFontId.F16, 8f, 184f, CardSize - 16f, 24f, UiTheme.Chalk, TextAnchor.MiddleCenter);
                 UiKit.Label(_ctx, b.ContentRoot, CostText(d), UiFontId.F16, 8f, 216f, CardSize - 16f, 24f, UiTheme.Chalk, TextAnchor.MiddleCenter);
+                // 무엇을 하는 비기인지 한 줄(Data.ArtDescriber — 수치는 arts.json에서).
+                string effect = global::Wizard.Solo.Data.ArtDescriber.OneLine(_ctx != null ? _ctx.Names : null, _ctx != null ? _ctx.Content : null, art);
+                if (effect != null)
+                    UiKit.Label(_ctx, b.ContentRoot, effect, UiFontId.F16, 12f, 244f, CardSize - 24f, 48f, UiTheme.SlateBlue, TextAnchor.UpperCenter, true);
                 _pickButtons.Add(b);
             }
             if (_pickButtons.Count > 0) _focus?.SetCursor(_pickButtons[0], false);

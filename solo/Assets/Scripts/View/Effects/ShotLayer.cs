@@ -216,6 +216,8 @@ namespace Wizard.Solo.View.Effects
                 t.localRotation = Quaternion.Euler(0f, 0f, angle);
                 t.localScale = new Vector3(sizeMul, sizeMul, 1f);
                 var c = v.Anim == null ? _t.ElementPrimary(el) : Color.white;
+                // 내 탄 색이 위험색(적 공격·예고 전용)에 들면 디버그 경고 + 주황 쪽으로 고친다
+                if (_s.ColorGuard != null && !_s.ColorGuard.Check(c, "shot.body." + el)) c = JuiceLayer.Safe(c);
                 c.a = a;
                 v.Body.color = c;
                 // 서리 붙은 탄 = 흰 하늘 테(03 14절)
@@ -233,6 +235,7 @@ namespace Wizard.Solo.View.Effects
                 if (v.Glow == null) v.Glow = _vc.Pool.Rent(_art.Circle(Mathf.RoundToInt(_t.F("shots", "night_glow_radius_px"))), SortBands.PlayerShots);
                 v.Glow.transform.localPosition = vp;
                 var gc = _t.ElementSecondary(el);
+                if (_s.ColorGuard != null && !_s.ColorGuard.Check(gc, "shot.glow." + el)) gc = JuiceLayer.Safe(gc);
                 gc.a = glow * a;
                 v.Glow.color = gc;
             }

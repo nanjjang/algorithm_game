@@ -196,7 +196,9 @@ namespace Wizard.Solo.Tests.ViewWorld
             var body = f.Body.transform.localPosition;
             Assert.AreEqual(12f, body.x, 1e-5f);
             Assert.AreEqual(6.6f, body.y, 1e-5f, "판정 중심 (12,7) → 발 (12, 7.4) → Unity y 6.6");
-            Assert.AreEqual(SortBands.Bodies + SortBands.YOrder(7.4f), f.Body.sortingOrder);
+            // 가독성 정렬: 플레이어는 적 몸 띠(Bodies + YOrder 0~139) 위
+            Assert.AreEqual(Wizard.Solo.View.Effects.FxLayers.PlayerBody, f.Body.sortingOrder);
+            Assert.Greater(f.Body.sortingOrder, SortBands.Bodies + SortBands.YOrder(14f));
             Assert.AreEqual(SortBands.Shadows, f.Shadow.sortingOrder);
             Assert.AreEqual("idle", f.CurrentClip.Clip);
             Assert.IsNotNull(f.Body.sprite);

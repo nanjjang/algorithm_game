@@ -24,7 +24,7 @@ namespace Wizard.Solo.Sim.Run
         {
             RunScratch s;
             if (_scratch.TryGetValue(w, out s)) return s;
-            s = new RunScratch { Tuning = RunTuning.From(w.Content) };
+            s = new RunScratch { Tuning = RunTuning.From(w.Content), Plan = TutorialPlan.From(w.Content) };
             _scratch.Add(w, s);
             return s;
         }
@@ -154,6 +154,14 @@ namespace Wizard.Solo.Sim.Run
             w.Mods.Traits.OnWaveStart(w);
             for (int i = 0; i < w.Players.Length; i++)
                 if (w.Players[i].Active) w.Mods.Arts.OnCommandReset(w, w.Players[i], CommandResetReason.WaveStart);
+            // 솔로 조정(G10 wave_start_crystal_until_wave, 기본 0 = 명세 그대로): 초반 웨이브는 결정 1개를 쥐고 시작해 첫 웨이브부터 K를 쓴다.
+            // 결정이 없을 때만 1개(웨이브 끝 환전 전에 쓰지 않으면 골드가 된다 — 명세의 환전 규칙 그대로).
+            if (wave <= s.Tuning.WaveStartCrystalUntilWave)
+                for (int i = 0; i < w.Players.Length; i++)
+                {
+                    var p = w.Players[i];
+                    if (p.Active && p.Crystals <= 0) w.Mods.Player.GainCrystal(w, p, CrystalSource.Combo);
+                }
             SetPhase(w, RunPhase.WavePrelude);
         }
 
@@ -344,7 +352,8 @@ namespace Wizard.Solo.Sim.Run
             // 6. 웨이브 점수
             if (isBoss && !phantomFirst) stats.BossKilled = true;
             ScoreBreakdown breakdown;
-            int score = w.Mods.Score.WaveScore(db, stats, out breakdown);
+            // 떼 출현이 늘린 만큼 빠른 처리 목표를 늘린다(솔로 조정, 꺼져 있으면 stats 그대로).
+            int score = w.Mods.Score.WaveScore(db, FastClearStats(w, s, stats), out breakdown);
             run.Score += score;
             run.WaveResults.Add(new WaveResult { Wave = wave, Stats = stats, Score = breakdown, GoldEarned = s.WaveGold });
             w.Emit(SimEventType.ScoreChanged, a: run.Score);
@@ -534,8 +543,14 @@ namespace Wizard.Solo.Sim.Run
             stats.KillCount++;
             run.TotalKills++;
 
+            // 떼 출현 나누기(솔로 조정 split): 원래 한 마리 몫을 무리 전체가 나눈다. 아니면 1/1(명세 그대로).
+            HordeShare share;
+            int shareNum, shareDen;
+            HordeShareOf(w, s, e, out share, out shareNum, out shareDen);
+
             // 골드는 처치 순간 지갑에(동전은 연출)
             int gold = cost * drops.GoldPerCost * (elite ? drops.EliteGoldMul : 1);
+            if (share != null) gold = SplitPay(share.GoldAcc, e.DefId, gold, shareNum, shareDen);
             if (gold > 0)
             {
                 GainGold(w, s, gold, e.Pos);
@@ -546,7 +561,9 @@ namespace Wizard.Solo.Sim.Run
             bool stalled = w.Wave.Stalled
                 || (db.Waves.StallSeconds > 0f && w.Wave.WaveTick >= SimConst.Ticks(db.Waves.StallSeconds));
             int raw = cost * db.Scoring.KillPerCost * (elite ? db.Waves.EliteCostMul : 1);
-            stats.KillScoreX2 += raw * (stalled ? 1 : 2);
+            int rawX2 = raw * (stalled ? 1 : 2);
+            if (share != null) rawX2 = SplitPay(share.ScoreAcc, e.DefId, rawX2, shareNum, shareDen);
+            stats.KillScoreX2 += rawX2;
 
             if (elite)
             {
@@ -558,6 +575,7 @@ namespace Wizard.Solo.Sim.Run
             if (!w.Wave.HealthShardDropped && FirstHurtPlayer(w) != null)
             {
                 int bp = elite ? drops.HealthShardEliteBp : cost * drops.HealthShardBpPerCost;
+                if (share != null) bp = SplitPay(share.ShardAcc, e.DefId, bp, shareNum, shareDen);
                 if (w.Rng(RngStream.Drops).RollBp(bp))
                 {
                     w.Wave.HealthShardDropped = true;
@@ -614,9 +632,9 @@ namespace Wizard.Solo.Sim.Run
             if (run == null || run.Phase == RunPhase.RunEnded) return;
             // 만개 발동 수(손맛 칭호의 재료, 00 문서 D-25).
             if (artId == Ids.Art.Bloom) run.BloomCasts++;
-            // 튜토리얼 ④ 반동 사격 1번(08 요약서 6.4절). 단계가 바뀌면 ResetTutorialProgress가 비운다.
-            if (run.Phase == RunPhase.Practice && run.Config != null && run.Config.Mode == RunMode.Tutorial && artId == Ids.Art.Recoil)
-                Scratch(w).TutRecoil = true;
+            // 튜토리얼 관문(비기 단계·커맨드 단계)의 진척. RunFlow.Practice.cs.
+            if (run.Phase == RunPhase.Practice && run.Config != null && run.Config.Mode == RunMode.Tutorial)
+                TutorialOnArtFired(w, Scratch(w), artId);
         }
 
         public override void OnCrystalsSpent(SimWorld w, PlayerState p, int count)
@@ -625,6 +643,7 @@ namespace Wizard.Solo.Sim.Run
             if (run == null || run.Phase != RunPhase.Practice || count <= 0) return;
             // 연습 수치판 "결정 1개당 피해"(08 요약서 8.5절)의 분모.
             Scratch(w).CrystalsSpent += count;
+            if (run.Config != null && run.Config.Mode == RunMode.Tutorial) Scratch(w).TutSpent += count;
         }
 
         // ------------------------------------------------------------ 요약

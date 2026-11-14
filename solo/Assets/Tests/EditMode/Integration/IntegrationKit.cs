@@ -39,12 +39,14 @@ namespace Wizard.Solo.Tests.Integration
         readonly bool[] _dirDown = new bool[4];
         bool _fireDown;
 
-        public static IContentDb Db => TestContent.Db;
+        /// <summary>이 벌이 쓰는 콘텐츠. 기본은 명세 값(TestContent.Db). 재미 조정 손잡이를 재는 테스트는 FunPassKit.TunedDb를 준다.</summary>
+        public readonly IContentDb Db;
         public ProfileData Profile => Store.Current;
         public PlayerState P => W.P0;
 
-        public IntegrationKit()
+        public IntegrationKit(IContentDb db = null)
         {
+            Db = db ?? TestContent.Db;
             Root = Path.Combine(Path.GetTempPath(), "wizard-solo-integ-" + Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(Root);
             Store = NewStore();
@@ -180,10 +182,10 @@ namespace Wizard.Solo.Tests.Integration
         }
 
         /// <summary>가장 가까운 적 쪽으로 걸으며 J를 누르고 있는다(전투 중). 적이 없으면 멈춘다.</summary>
-        public void CombatBot()
+        public void CombatBot(bool fire = true)
         {
             var e = NearestEnemy();
-            SetKey(LogicalKey.Fire, true);
+            SetKey(LogicalKey.Fire, fire);
             if (e == null)
             {
                 for (int i = 0; i < 4; i++) SetKey((LogicalKey)i, false);

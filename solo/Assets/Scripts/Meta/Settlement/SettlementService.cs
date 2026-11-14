@@ -478,6 +478,10 @@ namespace Wizard.Solo.Meta.Settlement
                 if (!p.Titles.Owned.Contains(newTitles[i])) p.Titles.Owned.Add(newTitles[i]);
             result.NewTitles = newTitles;
 
+            // 8b. 도전 과제: 판 요약을 캐릭터 누적 기록에 더하고, 새로 이룬 과제의 보상(칭호·꾸미기·서고 칸)을 넣는다(DataSolo/Challenges.json).
+            Records.ChallengeBook.AddRunCounters(rec, summary);
+            result.NewChallenges = Records.ChallengeBook.Evaluate(p, Records.ChallengeBook.Load(Db), nowIso);
+
             // 9. 새 비기(판 중 RecordArtUnlock이 이미 적었어도 빠진 것이 없게 한 번 더 맞춘다).
             if (summary.NewArts != null)
                 for (int i = 0; i < summary.NewArts.Count; i++)

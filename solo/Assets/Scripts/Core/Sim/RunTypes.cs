@@ -9,7 +9,9 @@ namespace Wizard.Solo.Sim
     {
         public string Core;
         public List<string> Links = new List<string>();
-        public LoadoutSpec Clone() => new LoadoutSpec { Core = Core, Links = new List<string>(Links) };
+        /// <summary>칸마다 판 한정 블록 성장 별 수(0 = 코어, 1..L = 연결 칸). null이거나 짧으면 0. 야영에서 연 연습이 지금 판의 별을 그대로 쓴다.</summary>
+        public List<int> Stars;
+        public LoadoutSpec Clone() => new LoadoutSpec { Core = Core, Links = new List<string>(Links), Stars = Stars != null ? new List<int>(Stars) : null };
     }
 
     /// <summary>약점·저항 "알아냄" 기록의 열쇠(00 문서 D-54). 예: "enemy.slime_moss|weak".</summary>
@@ -61,6 +63,18 @@ namespace Wizard.Solo.Sim
         public int AcquiredWave;
         /// <summary>출발 조립에서 뺀 서고 블록이다(RunState.LibraryBench에만 있다). 보관함 12칸·귀환 가방·버림 골드·판 끝 요약에 들지 않는다.</summary>
         public bool FromLibrary;
+        /// <summary>판 한정 블록 성장(★, 0~상한). 같은 블록을 전리품에서 또 고르면 오른다. 지팡이 단계와 무관하고 판이 끝나면 사라진다.</summary>
+        public int Stars;
+    }
+
+    /// <summary>전리품 카드가 지금 조립과 맞물리는 까닭.</summary>
+    public enum LootSynergy
+    {
+        None,
+        /// <summary>같은 속성의 변형·투사체가 서로에게 효과가 있다(화염구 + 크기 2배 등).</summary>
+        Element,
+        /// <summary>데이터가 짝으로 적은 조합(관통 + 마력탄 등).</summary>
+        Pair
     }
 
     public sealed class LootCard
@@ -70,6 +84,15 @@ namespace Wizard.Solo.Sim
         /// <summary>확정 등급 칸(다시 뽑아도 등급이 유지된다).</summary>
         public bool Guaranteed;
         public bool Picked;
+        /// <summary>지금 조립과 맞물림(제시할 때 정한다). 짝 블록은 SynergyPartnerId.</summary>
+        public LootSynergy Synergy;
+        public string SynergyPartnerId;
+        /// <summary>이 판에서 이 맞물림(카드 블록 + 짝)을 처음 본다.</summary>
+        public bool SynergyFirst;
+        /// <summary>이미 가진 같은 블록이 있어 고르면 그 블록의 별이 이 값이 된다(1~상한). 0 = 새 블록으로 들어간다.</summary>
+        public int StarTarget;
+        /// <summary>운 보정이 이 카드의 종류를 맞물림 쪽에서 뽑았다(시험·기록용).</summary>
+        public bool PityBoosted;
     }
 
     /// <summary>전리품 고르기 한 번의 상태.</summary>
@@ -79,6 +102,13 @@ namespace Wizard.Solo.Sim
         public readonly List<LootCard> Cards = new List<LootCard>();
         public int PickCount;
         public int Rerolls;
+        /// <summary>지금 다시 뽑기 값(골드). 이 제시에서 다시 뽑을 때마다 오른다(06 4.4절 30골드 + 조정 손잡이 DataSolo/Loot.json).</summary>
+        public int RerollCost;
+        /// <summary>건너뛰기 보상: 골드와 체력 칸(제시할 때 정한다).</summary>
+        public int SkipGold;
+        public int SkipHealCells;
+        /// <summary>지금 카드들을 뽑을 때 걸린 운 보정(카드 한 장당 bp). 0 = 보정 없음. 맞물림 없는 제시가 이어지면 오른다.</summary>
+        public int PityBp;
         /// <summary>그냥 받는 빌린 블록(1일째 웨이브 6). 없으면 null.</summary>
         public string BorrowedBlockId;
         /// <summary>보관함이 넘쳐 버릴 블록을 골라야 하는 수.</summary>
@@ -109,7 +139,10 @@ namespace Wizard.Solo.Sim
         /// <summary>PracticeSetOption: A = PracticeOption, B = 1 켬 / 0 끔.</summary>
         PracticeReset, PracticeSetOption,
         /// <summary>화면이 다음 튜토리얼 단계로 넘긴다(완료 뒤 넘김과 건너뛰기 둘 다). A = 넘어갈 단계(6 = 끝).</summary>
-        TutorialAdvance
+        TutorialAdvance,
+        /// <summary>전리품을 건너뛰고 작은 확정 보상을 받는다. A = 0 골드(LootOffer.SkipGold) / 1 체력(SkipHealCells, 가득이면 거절). Slot = 플레이어.
+        /// 빌린 블록은 그대로 받는다. 넘침 처리 중에는 받지 않는다.</summary>
+        LootSkip
     }
 
     /// <summary>

@@ -183,7 +183,8 @@ namespace Wizard.Solo.Sim.Spells
                 IsCrit = isCrit,
                 BaseMul = ctx.BaseMul,
                 CritBonus = ctx.CritBonus,
-                DamageMul = ctx.BaseMul * ScopeFactor(t, scope, isCrit, ctx.CritBonus) * comp,
+                // 판 한정 블록 성장(★): 그 칸 투사체의 기본 피해 배율(sp.DamageScale)도 탄 배율에 넣는다.
+                DamageMul = ctx.BaseMul * ScopeFactor(t, scope, isCrit, ctx.CritBonus) * comp * sp.DamageScale,
                 HitEffect = hitEffect
             };
             w.Projectiles.Add(pr);
@@ -290,7 +291,7 @@ namespace Wizard.Solo.Sim.Spells
                 var s = spell.Scopes[d];
                 if (s.Projectiles.Count == 0) continue;
                 float blockSum = 0f;
-                for (int i = 0; i < s.Projectiles.Count; i++) blockSum += s.Projectiles[i].Block.BaseDamage;
+                for (int i = 0; i < s.Projectiles.Count; i++) blockSum += s.Projectiles[i].Block.BaseDamage * s.Projectiles[i].DamageScale;
                 // InstancesTotal = (부모 탄 수) × 투사체 수 × 분열 수 → 투사체 종류마다 InstancesTotal / 투사체 수 발.
                 float copies = s.InstancesTotal / (float)s.Projectiles.Count;
                 sum += blockSum * copies * baseMul * ScopeFactor(t, s, isCrit, derived.CritBonus);

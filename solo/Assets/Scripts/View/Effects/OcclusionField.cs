@@ -28,6 +28,12 @@ namespace Wizard.Solo.View.Effects
 
         public float OutsideCap, InsideCap, FlashCap, MaskPad, MinVisibleAlpha;
         public int FlashTicks;
+        /// <summary>적 탄 둘레(EnemyShotPad칸)의 상한(솔로 가독성 보강: 내 빛·폭발이 적 탄 밑을 하얗게 덮어 탄이 묻히지 않게). 0 이하 = 안 씀.</summary>
+        public float EnemyShotCap = 0.5f, EnemyShotPad = 0.35f;
+        /// <summary>적 탄 자리 격자(칸 = 1/ShotGridPerCell). 매 프레임 RebuildMask가 다시 채운다.</summary>
+        public const int ShotGridPerCell = 2;
+        readonly HashSet<int> _shotCells = new HashSet<int>();
+        public int EnemyShotCells => _shotCells.Count;
 
         readonly List<MaskShape> _mask = new List<MaskShape>();
         readonly List<Live> _live = new List<Live>();
@@ -48,7 +54,7 @@ namespace Wizard.Solo.View.Effects
 
         // ------------------------------------------------------------ 마스크
 
-        public void ClearMask() => _mask.Clear();
+        public void ClearMask() { _mask.Clear(); _shotCells.Clear(); }
         public void AddMask(MaskShape s) => _mask.Add(s);
 
         /// <summary>지금 세계의 예고 구역·남는 위험 구역으로 마스크를 다시 만든다(매 프레임).</summary>
@@ -73,6 +79,44 @@ namespace Wizard.Solo.View.Effects
                 if (h.Dead) continue;
                 _mask.Add(new MaskShape { Shape = h.Shape, Pos = h.Pos, Dir = h.Dir, Radius = h.Radius, Width = h.Width, Length = h.Length });
             }
+            _shotCells.Clear();
+            if (EnemyShotCap > 0f)
+                for (int i = 0; i < w.EnemyShots.Count; i++)
+                {
+                    var s = w.EnemyShots[i];
+                    if (s == null || s.Dead) continue;
+                    AddEnemyShot(s.Pos, s.Radius);
+                }
+        }
+
+        /// <summary>적 탄 하나를 격자에 찍는다(반지름 + EnemyShotPad 안의 칸).</summary>
+        public void AddEnemyShot(Vector2 pos, float radius)
+        {
+            float r = Mathf.Max(0f, radius) + EnemyShotPad;
+            int x0 = Mathf.FloorToInt((pos.x - r) * ShotGridPerCell), x1 = Mathf.FloorToInt((pos.x + r) * ShotGridPerCell);
+            int y0 = Mathf.FloorToInt((pos.y - r) * ShotGridPerCell), y1 = Mathf.FloorToInt((pos.y + r) * ShotGridPerCell);
+            for (int y = y0; y <= y1; y++)
+                for (int x = x0; x <= x1; x++) _shotCells.Add(CellKey(x, y));
+        }
+
+        static int CellKey(int x, int y) => (x + 2048) | ((y + 2048) << 12);
+
+        bool NearEnemyShot(Vector2 p) =>
+            _shotCells.Count > 0 && _shotCells.Contains(CellKey(Mathf.FloorToInt(p.x * ShotGridPerCell), Mathf.FloorToInt(p.y * ShotGridPerCell)));
+
+        /// <summary>원(가운데 + 둘레 8점) 위에서 가장 낮은 상한 — 큰 효과가 예고에 조금만 걸쳐도 옅어진다.</summary>
+        public float CapAtDisc(Vector2 center, float radius)
+        {
+            float cap = CapAt(center);
+            if (radius <= 0.5f) return cap;
+            float rr = radius * 0.75f;
+            for (int i = 0; i < 8 && cap > FlashCap; i++)
+            {
+                float a = i * (Mathf.PI * 0.25f);
+                float c = CapAt(center + new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * rr);
+                if (c < cap) cap = c;
+            }
+            return cap;
         }
 
         /// <summary>그 자리의 불투명도 상한.</summary>
@@ -85,7 +129,9 @@ namespace Wizard.Solo.View.Effects
                 if (_mask[i].Flashing) return FlashCap;
                 inside = true;
             }
-            return inside ? InsideCap : OutsideCap;
+            if (inside) return InsideCap;
+            if (NearEnemyShot(p)) return Mathf.Min(OutsideCap, EnemyShotCap);
+            return OutsideCap;
         }
 
         public static bool Contains(MaskShape s, Vector2 p, float pad)
@@ -125,7 +171,7 @@ namespace Wizard.Solo.View.Effects
         public float Admit(Vector2 center, float radius, float wanted)
         {
             if (wanted <= 0f || radius <= 0f) return 0f;
-            float cap = CapAt(center);
+            float cap = CapAtDisc(center, radius);
             float covered = Coverage(center, radius);
             float allowed = cap - covered;
             if (allowed > wanted) allowed = wanted;
@@ -169,7 +215,7 @@ namespace Wizard.Solo.View.Effects
             for (int i = 0; i < _live.Count; i++) if (_live[i].Handle == handle) { _live.RemoveAt(i); return; }
         }
 
-        public void Clear() { _live.Clear(); _mask.Clear(); }
+        public void Clear() { _live.Clear(); _mask.Clear(); _shotCells.Clear(); }
 
         /// <summary>두 원이 겹친 넓이.</summary>
         public static float CircleOverlap(Vector2 c1, float r1, Vector2 c2, float r2)

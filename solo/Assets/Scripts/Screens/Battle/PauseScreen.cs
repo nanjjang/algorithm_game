@@ -9,13 +9,13 @@ namespace Wizard.Solo.Screens.Battle
 {
     /// <summary>
     /// 일시정지(ScreenId.Pause, Modal). 08 요약서 7절.
-    /// 가운데 480×560: 버튼 다섯(계속, 설정, 조작 보기, 판 포기(조심), 메인 메뉴로). Esc = [계속].
-    /// 왼쪽 400×560: 지금 판 요약(캐릭터 초상·이름, 지팡이 아이콘·단계, 조립 블록 아이콘 줄, 지금 점수, 누적 일시정지 시간 — 매 프레임).
+    /// 가운데 480×640: 버튼 여섯(계속, 설정, 조작 보기, 조작·도감, 판 포기(조심), 메인 메뉴로). Esc = [계속].
+    /// 왼쪽 400×640: 지금 판 요약(캐릭터 초상·이름, 지팡이 아이콘·단계, 조립 블록 아이콘 줄, 지금 점수, 누적 일시정지 시간 — 매 프레임).
     /// 여는 것은 Battle뿐이다(Paused = true는 Battle이 이미 했다).
     /// </summary>
     public sealed class PauseScreen : ScreenBase
     {
-        public const float MenuW = 480f, MenuH = 560f, SummaryW = 400f, SummaryH = 560f, Gap = 16f;
+        public const float MenuW = 480f, MenuH = 640f, SummaryW = 400f, SummaryH = 640f, Gap = 16f;
         const float Pad = 24f, ButtonW = 400f, ButtonH = 64f, ButtonGap = 16f;
         const int PortraitPx = 64, WandIconPx = 64, BlockIconPx = 32;
         const float BlockGap = 8f;

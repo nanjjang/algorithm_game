@@ -160,16 +160,19 @@ namespace Wizard.Solo.Sim.Player
                 lo.Links = new SlotItem[linkSlotCount > 0 ? linkSlotCount : 0];
                 return lo;
             }
-            lo.Core = new SlotItem { BlockId = string.IsNullOrEmpty(spec.Core) ? null : spec.Core };
+            lo.Core = new SlotItem { BlockId = string.IsNullOrEmpty(spec.Core) ? null : spec.Core, Stars = StarOf(spec, 0) };
             int n = spec.Links != null ? spec.Links.Count : 0;
             lo.Links = new SlotItem[n];
             for (int i = 0; i < n; i++)
             {
                 string id = spec.Links[i];
-                lo.Links[i] = new SlotItem { BlockId = string.IsNullOrEmpty(id) ? null : id };
+                lo.Links[i] = new SlotItem { BlockId = string.IsNullOrEmpty(id) ? null : id, Stars = string.IsNullOrEmpty(id) ? 0 : StarOf(spec, i + 1) };
             }
             return lo;
         }
+
+        /// <summary>출발 조립의 칸 별(야영에서 연 연습이 지금 판의 ★을 가져온다). 없으면 0.</summary>
+        static int StarOf(LoadoutSpec spec, int slot) => spec.Stars != null && slot < spec.Stars.Count ? spec.Stars[slot] : 0;
 
         /// <summary>조립이 바뀌었다: 다시 컴파일하고 LoadoutChanged를 낸다. 컴파일 문맥은 Traits.CompileContext 하나로만 만든다.</summary>
         public override void RecompileSpell(SimWorld w, PlayerState p)
@@ -177,6 +180,7 @@ namespace Wizard.Solo.Sim.Player
             Bind(w, p);
             RunLoadout lo = p.Loadout ?? (p.Loadout = new RunLoadout());
             SpellCompileContext ctx = w.Mods.Traits.CompileContext(p.Derived, p.Wand.LinkSlotCount);
+            ctx.SlotStars = lo.SlotStars();   // 판 한정 블록 성장(★, 전리품 겹치기)
             string core = lo.Core.IsEmpty ? null : lo.Core.BlockId;
             SlotItem[] links = lo.Links ?? (lo.Links = new SlotItem[0]);
             var ids = new string[links.Length];

@@ -9,7 +9,7 @@
     "rooted_player_clearance": 3,
     "prop_variants": 6
   },
-  "_horde_note": "\"horde\" 절 = 떼 출현. 명세 값이 아니라 사용자가 정한 솔로 조정이다(\"적들이 더 떼로 우르르 몰려오면 좋겠다\"). waves.json의 명세 값은 그대로 두고 그 위에 덧붙인다. enabled = false면 명세 그대로. normal_count_multiplier = 잡몹 엔트리 수 배율(1 이상, 누적 내림 분배라 난수 없음). normal_roles = 잡몹으로 치는 enemies.json role(종 상한이 있는 종·졸개·엘리트·보스는 늘지 않는다). max_alive_multiplier = 동시 생존 상한(max_alive 40) 배율. pack_size_min·pack_size_max = 한 가장자리 자리에서 뭉쳐 나오는 잡몹 수의 범위(최대 1이면 무리 출현 없음). pack_scatter_radius = 무리 자리에서 흩어지는 최대 거리(칸, 전장 안쪽으로만). reward_mode = keep_total(늘어난 적은 골드·점수·체력 조각 추첨 없음 → 처치 보상 합계 = 명세 구성의 합계) 또는 full(늘어난 적도 한 마리마다 보통 보상). 읽는 곳: WaveTuning.ReadHorde, WaveHorde, WaveDirector.",
+  "_horde_note": "\"horde\" 절 = 떼 출현. 명세 값이 아니라 사용자가 정한 솔로 조정이다(\"적들이 더 떼로 우르르 몰려오면 좋겠다\"). waves.json의 명세 값은 그대로 두고 그 위에 덧붙인다. enabled = false면 명세 그대로. normal_count_multiplier = 잡몹 엔트리 수 배율(1 이상, 누적 내림 분배라 난수 없음). normal_roles = 잡몹으로 치는 enemies.json role(종 상한이 있는 종·졸개·엘리트·보스는 늘지 않는다). max_alive_multiplier = 동시 생존 상한(max_alive 40) 배율. pack_size_min·pack_size_max = 한 가장자리 자리에서 뭉쳐 나오는 잡몹 수의 범위(최대 1이면 무리 출현 없음). pack_scatter_radius = 무리 자리에서 흩어지는 최대 거리(칸, 전장 안쪽으로만). reward_mode = keep_total(늘어난 적은 골드·점수·체력 조각 추첨 없음 → 처치 보상 합계 = 명세 구성의 합계) 또는 full(늘어난 적도 한 마리마다 보통 보상). split(재미 조정 기본값) = 원래 한 마리 몫의 골드·점수·체력 조각 확률을 그 종의 무리 전체(원본 + 늘린 사본)에 나눈다 — 마리마다 작은 보상이 튀고 다 잡으면 합계 = 명세 구성의 합계, 소수점은 종마다 누적기(Run). normal_count_multiplier_by_wave = 웨이브별 배율 곡선 [[웨이브, 배율]…](점 사이 직선, 끝 밖은 끝 값. 있으면 normal_count_multiplier 대신). role_multiplier_cap = 역할별 배율 상한. scale_fast_clear_target = 빠른 처리 목표 시간(60초) × (늘린 뒤 잡몹 수 ÷ 명세 잡몹 수). 재미 조정(Docs/11-fun-pass.md C절)의 전 → 후: reward_mode keep_total → split(늘어난 적은 보상 0이라 처치 쾌감·분당 보상이 급락했다), 배율 2.5 고정 → 1.6(웨이브 1)·1.9(9)·2.2(19)·2.5(30) 곡선(초반이 2.5배로 늘어져 지루했다, 뒤로 갈수록 떼가 커지게), evasive_charger 2.5 → 상한 1.5(웨이브 3·4 늑대 20마리 급등), 빠른 처리 목표 보정 없음 → 있음(떼 출현으로 60초 목표가 사실상 사라졌다). 읽는 곳: WaveTuning.ReadHorde, WaveHorde, WaveDirector, RunFlow.HordeReward.",
   "horde": {
     "enabled": true,
     "normal_count_multiplier": 2.5,
@@ -18,6 +18,9 @@
     "pack_size_min": 6,
     "pack_size_max": 12,
     "pack_scatter_radius": 2.5,
-    "reward_mode": "keep_total"
+    "reward_mode": "split",
+    "normal_count_multiplier_by_wave": [[1, 1.6], [8, 1.8], [15, 1.8], [19, 2.2], [30, 2.5]],
+    "role_multiplier_cap": { "evasive_charger": 1.5 },
+    "scale_fast_clear_target": true
   }
 }

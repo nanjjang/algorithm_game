@@ -21,7 +21,9 @@ namespace Wizard.Solo.Screens.Settings
         /// <summary>계정(오프라인): 저장 파일 위치.</summary>
         SavePath = 4,
         /// <summary>계정(오프라인): [저장 파일 되돌리기].</summary>
-        RestoreSave = 5
+        RestoreSave = 5,
+        /// <summary>[힌트 다시 보기]: 본 문맥 힌트 표시를 지운다(Screens/Hints.HintBook.ResetAll).</summary>
+        ResetHints = 6
     }
 
     /// <summary>옵션 줄의 위젯 꼴(OptionSpec의 꼴 그대로).</summary>
@@ -49,6 +51,8 @@ namespace Wizard.Solo.Screens.Settings
     public static class SettingsModel
     {
         public const string CatAccount = "account";
+        public const string ResetHintsKey = "str.settings.opt.reset_hints";
+        public const string ResetHintsDoneKey = "str.settings.reset_hints_done";
 
         /// <summary>왼쪽 분류 6개(순서 그대로).</summary>
         public static readonly string[] Categories =
@@ -83,6 +87,8 @@ namespace Wizard.Solo.Screens.Settings
                 {
                     Kind = SettingsRowKind.Option, Spec = s, NameKey = OptionNameKey(s.Key), DescKey = DescKey(s.Key), Widget = WidgetOf(s)
                 });
+                if (s.Key == OptionKeys.ContextHints)
+                    rows.Add(new SettingsRow { Kind = SettingsRowKind.ResetHints, NameKey = ResetHintsKey, DescKey = DescKey("reset_hints") });
                 if (s.Key == OptionKeys.WindowMode)
                     rows.Add(new SettingsRow
                     {

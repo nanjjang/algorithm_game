@@ -107,7 +107,9 @@ namespace Wizard.Solo.Tests.ScreensEnhance
             s.OnEnter(ScreenArgs.From(ScreenId.WandPicker));
             Assert.AreEqual(4, s.Model.Pages);
             Assert.AreEqual("1 / 4", s.Model.PageLabel(kit.Ctx.Names));
-            Assert.IsNull(s.Model.Body(kit.Ctx.Names), "본문 값이 없으면 줄을 숨긴다(N-05)");
+            // 본문 열쇠는 NamesSolo/Tutorial.ko.json에 생겼다(08 10.11절의 미정을 채움). 값이 없는 표에서는 여전히 줄을 숨긴다(N-05).
+            Assert.IsNotNull(s.Model.Body(kit.Ctx.Names), "쪽 본문이 있다");
+            Assert.IsNull(s.Model.Body(new G23Names(null)), "본문 값이 없으면 줄을 숨긴다(N-05)");
             var withBody = new G23Names(kit.Ctx.Names).Set("str.enhance_tutorial.page.1.body", "b");
             Assert.AreEqual("b", s.Model.Body(withBody));
             Assert.IsTrue(s.OnBack());

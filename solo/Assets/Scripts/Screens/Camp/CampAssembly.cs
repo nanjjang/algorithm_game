@@ -12,6 +12,8 @@ namespace Wizard.Solo.Screens.Camp
         public bool Borrowed;
         /// <summary>판 중 야생 블록(보관함에서 온 것). false = 서고 블록.</summary>
         public bool Wild;
+        /// <summary>판 한정 블록 성장(★). 0 = 없음.</summary>
+        public int Stars;
         public bool IsEmpty => string.IsNullOrEmpty(BlockId);
     }
 
@@ -120,20 +122,20 @@ namespace Wizard.Solo.Screens.Camp
             if (SlotRefs.IsWand(r, LinkCount))
             {
                 var s = r == SlotRefs.Core ? _p.Loadout.Core : _p.Loadout.Links[r - 1];
-                return new AssemblyItem { BlockId = s.BlockId, Borrowed = s.Borrowed, Wild = s.WildUid != 0 };
+                return new AssemblyItem { BlockId = s.BlockId, Borrowed = s.Borrowed, Wild = s.WildUid != 0, Stars = s.Stars };
             }
             if (SlotRefs.IsStorage(r))
             {
                 int i = SlotRefs.IndexOf(r);
                 if (i < 0 || i >= _w.Run.Storage.Count) return default;
                 var wb = _w.Run.Storage[i];
-                return new AssemblyItem { BlockId = wb.BlockId, Borrowed = wb.Borrowed, Wild = true };
+                return new AssemblyItem { BlockId = wb.BlockId, Borrowed = wb.Borrowed, Wild = true, Stars = wb.Stars };
             }
             if (SlotRefs.IsBench(r))
             {
                 int i = SlotRefs.IndexOf(r);
                 if (i < 0 || i >= _w.Run.LibraryBench.Count) return default;
-                return new AssemblyItem { BlockId = _w.Run.LibraryBench[i].BlockId };
+                return new AssemblyItem { BlockId = _w.Run.LibraryBench[i].BlockId, Stars = _w.Run.LibraryBench[i].Stars };
             }
             return default;
         }

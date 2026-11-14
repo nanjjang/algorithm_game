@@ -16,6 +16,8 @@ namespace Wizard.Solo.Sim.Run
         public int TutorialLastStep;
         public int RevengeWave;
         public float PracticeDpsMinSeconds;
+        /// <summary>솔로 조정: 이 웨이브까지는 결정 1개를 쥐고 시작한다(0 = 없음, 명세 그대로).</summary>
+        public int WaveStartCrystalUntilWave;
 
         public static RunTuning From(IContentDb db)
         {
@@ -32,6 +34,7 @@ namespace Wizard.Solo.Sim.Run
             t.TutorialLastStep = (int)F(jo, "tutorial_last_step");
             t.RevengeWave = (int)F(jo, "revenge_wave");
             t.PracticeDpsMinSeconds = F(jo, "practice_dps_min_seconds");
+            t.WaveStartCrystalUntilWave = (int)F(jo, "wave_start_crystal_until_wave");
             return t;
         }
 
@@ -49,11 +52,15 @@ namespace Wizard.Solo.Sim.Run
     internal sealed class RunScratch
     {
         public RunTuning Tuning = new RunTuning();
+        /// <summary>튜토리얼 단계 표(DataSolo/Tutorial.json). Mode == Tutorial일 때만 읽는다.</summary>
+        public TutorialPlan Plan = new TutorialPlan();
 
         // ---- 웨이브
         public int PreludeTicks;
         /// <summary>이번 웨이브에 지갑에 들어온 골드(처치 + 클리어 + 보스 + 환전). WaveResult.GoldEarned.</summary>
         public int WaveGold;
+        /// <summary>떼 출현 보상 나누기(RunFlow.HordeReward.cs). 웨이브 구성이 바뀌면 새로 만든다.</summary>
+        public RunFlow.HordeShare HordeShare;
         /// <summary>지금의 WaveClearing이 복수 처치 연출인가(J로 넘길 수 있다).</summary>
         public bool RevengeClearing;
         // 전리품 생성에 쓰는 방금 넘긴 웨이브의 사실(Bosses.Dismiss·Waves.EndWave 뒤에도 남게 따로 든다)
@@ -66,6 +73,13 @@ namespace Wizard.Solo.Sim.Run
 
         /// <summary>이 판에서 얻은 야생 블록 전부(uid → 기록). 지팡이에 끼워 보관함에서 빠진 것의 등급·얻은 웨이브를 잃지 않게.</summary>
         public readonly Dictionary<int, WildBlock> WildByUid = new Dictionary<int, WildBlock>();
+
+        // ---- 전리품 개편(DataSolo/Loot.json)
+        public LootTuning Loot;
+        /// <summary>맞물림 카드가 하나도 없던 제시(다시 뽑기 포함)가 이어진 수. 운 보정이 읽는다.</summary>
+        public int LootDryOffers;
+        /// <summary>이 판에서 이미 보인 맞물림(카드 블록 + 짝). 조회만 한다(순회하지 않는다).</summary>
+        public readonly HashSet<string> SeenSynergy = new HashSet<string>();
 
         // ---- 연습 방 수치판
         public int DummyId;
@@ -87,6 +101,21 @@ namespace Wizard.Solo.Sim.Run
         public bool TutRecoil;
         public bool TutInserted;
         public int TutStepStartTick;
+        // 관문 진척(단계가 바뀌면 비운다)
+        public int TutHits;
+        public int TutCritStreak;
+        public int TutGrazes;
+        public int TutGrazePendingUntil;
+        public int TutLastGrazeBuffTick;
+        public bool TutWasLocked;
+        public bool TutLockSeen;
+        public int TutCrystalsAtStart;
+        public int TutSpent;
+        public bool TutArtPaid;
+        public bool TutCommandArt;
+        public int TutReverseShots;
+        public int TutProgressSent = -1;
+        public bool TutStepPrepared;
         /// <summary>TutorialStepDone을 이미 낸 단계(0 = 없음).</summary>
         public int TutDoneStep;
 
@@ -104,6 +133,9 @@ namespace Wizard.Solo.Sim.Run
         {
             TutMoved = 0f; TutStanceMoved = 0f; TutShots = 0; TutCritShots = 0;
             TutRecoil = false; TutInserted = false; TutStepStartTick = tick;
+            TutHits = 0; TutCritStreak = 0; TutGrazes = 0; TutGrazePendingUntil = -1; TutLastGrazeBuffTick = int.MinValue;
+            TutWasLocked = false; TutLockSeen = false; TutCrystalsAtStart = 0; TutSpent = 0; TutArtPaid = false; TutCommandArt = false;
+            TutReverseShots = 0; TutProgressSent = -1; TutStepPrepared = false;
         }
     }
 }

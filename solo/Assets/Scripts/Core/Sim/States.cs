@@ -35,6 +35,8 @@ namespace Wizard.Solo.Sim
         public string BlockId;
         public int WildUid;
         public bool Borrowed;
+        /// <summary>판 한정 블록 성장(★). 야생 블록이면 WildBlock.Stars와 같은 값을 든다. 컴파일 문맥 SlotStars로 넘어간다.</summary>
+        public int Stars;
         public bool IsEmpty => string.IsNullOrEmpty(BlockId);
     }
 
@@ -48,6 +50,15 @@ namespace Wizard.Solo.Sim
             var ids = new string[Links.Length];
             for (int i = 0; i < Links.Length; i++) ids[i] = Links[i].BlockId;
             return ids;
+        }
+        /// <summary>칸마다 별 수(0 = 코어, 1..L = 연결 칸). 컴파일 문맥 SlotStars용.</summary>
+        public int[] SlotStars()
+        {
+            int n = Links != null ? Links.Length : 0;
+            var stars = new int[n + 1];
+            stars[0] = Core.Stars;
+            for (int i = 0; i < n; i++) stars[i + 1] = Links[i].Stars;
+            return stars;
         }
     }
 

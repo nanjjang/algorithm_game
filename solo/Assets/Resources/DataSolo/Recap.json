@@ -1,0 +1,9 @@
+{
+  "_note": "WP4 판 끝 요약의 규칙 문턱(솔로 임시). many_hits: 같은 것에 이만큼 맞으면 '많이 맞음'. low_graze_per_wave: 넘긴 웨이브당 스침이 이보다 적으면 스침 권함. heat_locks_many: 과열 잠금이 이만큼이면 열 관리 권함. short_run_wave: 이 웨이브 전에 끝나면 '짧은 판'. graze_chain_praise: 스침 연속이 이만큼이면 스승이 칭찬. boss_pattern_window_seconds: 보스 패턴 시작 뒤 이 초 안의 피격은 그 패턴으로 본다.",
+  "many_hits": 2,
+  "low_graze_per_wave": 2,
+  "heat_locks_many": 4,
+  "short_run_wave": 3,
+  "graze_chain_praise": 15,
+  "boss_pattern_window_seconds": 4
+}

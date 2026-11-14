@@ -35,14 +35,16 @@ namespace Wizard.Solo.Screens.Camp
         {
             if (rules == null || p == null) return Empty();
             var lo = p.Loadout ?? new RunLoadout();
-            return Run(rules, db, p.Def, p.Derived, lo.Links.Length, lo.Core.BlockId, lo.LinkIds());
+            return Run(rules, db, p.Def, p.Derived, lo.Links.Length, lo.Core.BlockId, lo.LinkIds(), lo.SlotStars());
         }
 
+        /// <summary>stars = 칸마다 판 한정 별(0 = 코어, 1..L). null = 별 없음.</summary>
         public static SpellPreviewResult Run(SimModuleSet rules, IContentDb db, CharacterDef ch, PlayerDerived derived,
-            int linkSlotCount, string core, IReadOnlyList<string> links)
+            int linkSlotCount, string core, IReadOnlyList<string> links, int[] stars = null)
         {
             var r = new SpellPreviewResult { Derived = derived };
             r.Context = rules.Traits.CompileContext(derived, linkSlotCount);
+            r.Context.SlotStars = stars;
             r.Spell = rules.Spells.Compile(db, string.IsNullOrEmpty(core) ? null : core, links ?? new string[0], r.Context)
                       ?? new CompiledSpell();
             r.Stats = rules.Spells.ComputeStats(db, r.Spell, ch, derived);

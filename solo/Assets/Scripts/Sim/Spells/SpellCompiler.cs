@@ -26,6 +26,11 @@ namespace Wizard.Solo.Sim.Spells
             spell.SlotBlockIds[0] = string.IsNullOrEmpty(core) ? null : core;
             for (int i = 0; i < linkCount; i++)
                 spell.SlotBlockIds[i + 1] = string.IsNullOrEmpty(links[i]) ? null : links[i];
+            // 판 한정 블록 성장(★): 칸마다 별 수. 상한으로 자르고, 빈 칸은 0.
+            spell.SlotStars = new int[linkCount + 1];
+            if (ctx.SlotStars != null)
+                for (int i = 0; i < spell.SlotStars.Length && i < ctx.SlotStars.Length; i++)
+                    spell.SlotStars[i] = spell.SlotBlockIds[i] != null ? tuning.ClampStars(ctx.SlotStars[i]) : 0;
             float decay = ctx.DepthDecay > 0f ? ctx.DepthDecay : tuning.DepthDecayDefault;
             spell.DepthDecay = decay;
 
@@ -43,8 +48,8 @@ namespace Wizard.Solo.Sim.Spells
             var mods = new List<ModEntry>();
             var cur = new SpellScope { Depth = 0, TriggerSlot = -1 };
             scopes.Add(cur);
-            AddProjectile(cur, coreDef, 0);
-            cur.HeatSumHu += coreDef.HeatHu;
+            AddProjectile(cur, coreDef, 0, spell.SlotStars[0], tuning);
+            cur.HeatSumHu += StarHeatHu(coreDef.HeatHu, spell.SlotStars[0], tuning);
 
             for (int slot = 1; slot <= linkCount; slot++)
             {
@@ -53,7 +58,8 @@ namespace Wizard.Solo.Sim.Spells
                 BlockDef b = db.Block(id);
                 if (b == null) continue; // 모르는 id는 빈 칸으로 본다(저장 파일 방어)
 
-                int h = b.HeatHu;
+                int stars = spell.SlotStars[slot];
+                int h = b.KindEnum != BlockKind.Control ? StarHeatHu(b.HeatHu, stars, tuning) : b.HeatHu;
                 // 밑줄(HT-5/6): 맨 끝 연결 칸의 투사체·변형 열을 min(상한, ceil(h/2)) 깎는다. 분열 배수는 깎은 뒤 곱한다.
                 if (ctx.Underline && slot == linkCount && b.KindEnum != BlockKind.Control)
                     h -= UnderlineCutHu(h, tuning.UnderlineMaxCutHu);
@@ -61,11 +67,12 @@ namespace Wizard.Solo.Sim.Spells
                 switch (b.KindEnum)
                 {
                     case BlockKind.Projectile:
-                        AddProjectile(cur, b, slot);
+                        AddProjectile(cur, b, slot, stars, tuning);
                         cur.HeatSumHu += h;
                         break;
                     case BlockKind.Modifier:
                         Accumulate(ref cur.Mods, b);
+                        cur.Mods.DamageBonusSum += tuning.StarModifierDamageBonus * stars;
                         mods.Add(new ModEntry { Block = b, Slot = slot, Scope = cur.Depth });
                         cur.HeatSumHu += h;
                         break;
@@ -79,6 +86,8 @@ namespace Wizard.Solo.Sim.Spells
                                 break;
                             }
                             cur = new SpellScope { Depth = cur.Depth + 1, TriggerSlot = slot };
+                            // 별 단 트리거: 그 하위 스코프의 탄이 피해 보너스를 받는다(부모 변형이 이어지지 않는 CP-3과 별개인 트리거 자신의 몫).
+                            cur.Mods.DamageBonusSum += tuning.StarTriggerDamageBonus * stars;
                             scopes.Add(cur);
                         }
                         else if (b.IsSplit)
@@ -88,7 +97,7 @@ namespace Wizard.Solo.Sim.Spells
                             {
                                 cur.SplitCount = b.SplitCount;
                                 cur.SplitSlot = slot;
-                                cur.HeatMul = b.HeatMultiplier;
+                                cur.HeatMul = StarSplitHeatMul(b.HeatMultiplier, stars, tuning);
                                 cur.FanHalfAngleDegrees = b.Params != null ? b.Params.FanHalfAngleDegrees : 0f;
                             }
                             else
@@ -126,7 +135,7 @@ namespace Wizard.Solo.Sim.Spells
             // 표준 T의 바탕(D-07): 루트 스코프만, 분열 반영, 거울상 제외.
             var root = scopes[0];
             float baseSum = 0f;
-            for (int i = 0; i < root.Projectiles.Count; i++) baseSum += root.Projectiles[i].Block.BaseDamage;
+            for (int i = 0; i < root.Projectiles.Count; i++) baseSum += root.Projectiles[i].Block.BaseDamage * root.Projectiles[i].DamageScale;
             spell.StandardTBase = baseSum * root.SplitCount * (1f + root.Mods.DamageBonusSum);
 
             SortDiagnostics(diags);
@@ -177,10 +186,32 @@ namespace Wizard.Solo.Sim.Spells
             return spell;
         }
 
-        static void AddProjectile(SpellScope s, BlockDef b, int slot)
+        static void AddProjectile(SpellScope s, BlockDef b, int slot, int stars, SpellTuning tuning)
         {
             if (s.Projectiles.Count == 0) s.OwnerSlot = slot;
-            s.Projectiles.Add(new ScopeProjectile { Block = b, Slot = slot });
+            s.Projectiles.Add(new ScopeProjectile
+            {
+                Block = b, Slot = slot, Stars = stars,
+                StarDamageMul = 1f + tuning.StarProjectileDamage * stars
+            });
+        }
+
+        /// <summary>별이 깎은 블록 열(HU): h × (1 − 깎기 × ★), 0 아래로 가지 않는다. 밑줄은 이 값에서 깎는다.</summary>
+        public static int StarHeatHu(int heatHu, int stars, SpellTuning tuning)
+        {
+            if (stars <= 0 || heatHu <= 0 || tuning.StarHeatCut <= 0f) return heatHu;
+            double f = 1.0 - (double)tuning.StarHeatCut * stars;
+            if (f < 0.0) f = 0.0;
+            return (int)Math.Round(heatHu * f, MidpointRounding.AwayFromZero);
+        }
+
+        /// <summary>별 단 분열의 열 배수: 1 + (배수 − 1) × (1 − 깎기 × ★). 1 아래로 가지 않는다.</summary>
+        public static float StarSplitHeatMul(float heatMul, int stars, SpellTuning tuning)
+        {
+            if (stars <= 0 || tuning.StarSplitHeatMulCut <= 0f || heatMul <= 1f) return heatMul;
+            float f = 1f - tuning.StarSplitHeatMulCut * stars;
+            if (f < 0f) f = 0f;
+            return 1f + (heatMul - 1f) * f;
         }
 
         static void Accumulate(ref ScopeModifiers m, BlockDef b)

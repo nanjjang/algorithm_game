@@ -55,6 +55,14 @@ namespace Wizard.Solo.Screens.Enhance
         /// <summary>그 쪽의 본문(없으면 null = 줄을 숨긴다).</summary>
         public string Body(INameTable names) => EnhanceNameKeys.IfPresent(names, EnhanceNameKeys.TutorialBody(Page));
 
+        /// <summary>그 쪽의 본문을 값(enhance.json의 수치)으로 채운다. 열쇠가 없으면 null.</summary>
+        public string Body(INameTable names, object[] args)
+        {
+            string key = EnhanceNameKeys.TutorialBody(Page);
+            if (names == null || !names.Has(key)) return null;
+            return names.Format(key, args ?? new object[0]);
+        }
+
         /// <summary>닫는다: 플래그를 한 번만 적고 저장한다.</summary>
         public bool Close(ProfileData p, IProfileStore store)
         {

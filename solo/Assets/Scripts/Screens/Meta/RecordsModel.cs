@@ -37,6 +37,9 @@ namespace Wizard.Solo.Screens.Meta
         /// <summary>탭 수 = 전체 + 캐릭터 다섯.</summary>
         public const int TabCount = 1 + Ids.Char.Count;
         public const int AllTab = 0;
+        /// <summary>캐릭터 탭 뒤의 "도전 과제" 탭(WP4). 탭 줄 전체 = TabCount + 1.</summary>
+        public const int ChallengeTab = TabCount;
+        public const int TabCountWithChallenges = TabCount + 1;
 
         /// <summary>요약 판에 그리는 줄의 이름 열쇠(순서 그대로). 결투 전적(.duel_record)·시즌 결과(.season_result)는 넣지 않는다.</summary>
         public static readonly string[] SummaryRowKeys =
@@ -55,7 +58,8 @@ namespace Wizard.Solo.Screens.Meta
         public static int CharacterOfTab(int tab) => tab >= 1 && tab <= Ids.Char.Count ? tab : AllTab;
 
         /// <summary>탭 이름 열쇠.</summary>
-        public static string TabKey(int tab) => tab == AllTab ? MetaKeys.RecordsTabAll : MetaKeys.Character(tab);
+        public static string TabKey(int tab) =>
+            tab == ChallengeTab ? MetaKeys.RecordsTabChallenges : tab == AllTab ? MetaKeys.RecordsTabAll : MetaKeys.Character(tab);
 
         public static RecordsSummary Summary(ProfileData p, int tab, IReadOnlyList<int> stainThresholds, IReadOnlyList<int> milestones)
         {

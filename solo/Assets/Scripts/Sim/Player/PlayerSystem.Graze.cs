@@ -86,6 +86,8 @@ namespace Wizard.Solo.Sim.Player
                 w.Emit(SimEventType.LockBrokenByGraze, p.Slot);
             }
             else if (p.HeatHu < crit && !HeatFrozen(w)) p.HeatHu = crit;   // 낮을 때만 올린다
+            else if (p.HeatHu > crit && tune.GrazeHeatReliefHu > 0 && !HeatFrozen(w))
+                p.HeatHu = Mathf.Max(crit, p.HeatHu - tune.GrazeHeatReliefHu);   // 솔로 조정: 임계 구간에서 스치면 열을 덜어 낸다
 
             // 면제는 겹치지 않는다(참/거짓).
             if (!p.HeatExemptArmed)

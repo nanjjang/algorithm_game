@@ -146,9 +146,11 @@ namespace Wizard.Solo.View.Effects
                 float left = f.Life - f.Age;
                 if (left < f.Spec.FadeOut) a *= Mathf.Clamp01(left / f.Spec.FadeOut);
             }
+            // 내 이펙트(넓이 셈에 드는 7·8층)는 '내 이펙트 불투명도'를 곱한 뒤 자리 상한을 건다(옵션으로 못 올림)
+            if (f.Spec.CountsOcclusion) a = ReadabilityOptions.MyFxAlpha(a, _s.MyFxAlpha);
             if (f.OccHandle != 0 && _s.Occlusion != null)
             {
-                float cap = _s.Occlusion.CapAt(f.Pos);
+                float cap = f.OccRadius >= 1f ? _s.Occlusion.CapAtDisc(f.Pos, f.OccRadius) : _s.Occlusion.CapAt(f.Pos);
                 if (a > cap) a = cap;
                 _s.Occlusion.UpdateLive(f.OccHandle, f.Pos, f.OccRadius, a);
             }

@@ -122,6 +122,7 @@ namespace Wizard.Solo.Screens.Enhance
             RefreshExpected();
             RefreshTally();
             RefreshCards();
+            RefreshRecordPanel();
         }
 
         /// <summary>버튼 안의 바뀌는 그림 자리(버튼 자신의 글자·바탕은 건드리지 않는다).</summary>

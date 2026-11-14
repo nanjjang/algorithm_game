@@ -178,6 +178,15 @@ namespace Wizard.Solo.View.Effects
             return n;
         }
 
+        /// <summary>그 적의 숫자가 합칠 창 안에 떠 있는가(새 숫자가 아니라 갱신이 된다).</summary>
+        public bool HasMergeTarget(int enemyId, int tick)
+        {
+            if (enemyId <= 0) return false;
+            for (int i = _live.Count - 1; i >= 0; i--)
+                if (_live[i].EnemyId == enemyId && _live[i].Kind != DamageNumberKind.Gold && tick - _live[i].StartTick <= _windowTicks) return true;
+            return false;
+        }
+
         public void Remove(int handle)
         {
             for (int i = 0; i < _live.Count; i++) if (_live[i].Handle == handle) { _live.RemoveAt(i); return; }

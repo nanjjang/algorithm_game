@@ -147,7 +147,8 @@ namespace Wizard.Solo.View.World
             var center = WorldViewRules.InterpolatedCenter(p, alpha);
             var feetSim = WorldViewRules.FeetSim(center, _t.FeetBelowCenterCells);
             var feet = _vc.ToView(feetSim);
-            int order = SortBands.Bodies + SortBands.YOrder(feetSim.y);
+            // 플레이어는 적 몸 띠 위(적 사이에 묻혀도 보이게 — View/Effects/FxLayers.PlayerBody)
+            int order = Wizard.Solo.View.Effects.FxLayers.PlayerBody;
             float z = _t.LayerZStep;
 
             _body.sprite = WorldDraw.FrameAt(anim, idx);

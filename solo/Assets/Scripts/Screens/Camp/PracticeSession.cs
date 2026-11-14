@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Wizard.Solo.Meta;
 using Wizard.Solo.Sim;
 using Wizard.Solo.UI;
@@ -89,6 +90,8 @@ namespace Wizard.Solo.Screens.Camp
             spec.Core = string.IsNullOrEmpty(p.Loadout.Core.BlockId) ? null : p.Loadout.Core.BlockId;
             var ids = p.Loadout.LinkIds();
             for (int i = 0; i < ids.Length; i++) spec.Links.Add(string.IsNullOrEmpty(ids[i]) ? null : ids[i]);
+            // 판 한정 별(★)도 연습에 그대로 가져간다(허수아비 수치가 야영 수치판과 같게).
+            spec.Stars = new List<int>(p.Loadout.SlotStars());
             return spec;
         }
 

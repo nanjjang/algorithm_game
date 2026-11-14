@@ -7,6 +7,7 @@ namespace Wizard.Solo.Sim.Run
     // 명령의 인자(RunTypes.cs의 주석에 없는 것은 여기가 정한다):
     //   LootPick / LootUnpick   A = 카드 번호(0부터)
     //   LootReroll, LootConfirm 인자 없음
+    //   LootSkip                Slot = 플레이어, A = 0 골드 / 1 체력(RunFlow.SkipModeGold/SkipModeHeal)
     //   LootDiscard             A = 버릴 보관함 자리(SlotRef 100 + i, 또는 i 그대로). LootConfirm 뒤 Loot.OverflowToDiscard &gt; 0일 때만
     //   CampOpen / CampClose / CampDepart  인자 없음
     //   CampHeal                Slot = 회복할 플레이어
@@ -45,7 +46,10 @@ namespace Wizard.Solo.Sim.Run
                     if (run.Phase == RunPhase.LootPick) CmdLootPick(w, cmd.A, false);
                     break;
                 case RunCommandKind.LootReroll:
-                    if (run.Phase == RunPhase.LootPick) CmdLootReroll(w);
+                    if (run.Phase == RunPhase.LootPick) CmdLootReroll(w, s);
+                    break;
+                case RunCommandKind.LootSkip:
+                    if (run.Phase == RunPhase.LootPick) CmdLootSkip(w, s, cmd.Slot, cmd.A);
                     break;
                 case RunCommandKind.LootDiscard:
                     if (run.Phase == RunPhase.LootPick) CmdLootDiscard(w, s, cmd.A);
@@ -163,9 +167,9 @@ namespace Wizard.Solo.Sim.Run
         WildBlock WildOf(SimWorld w, RunScratch s, SlotItem item)
         {
             WildBlock wb;
-            if (s.WildByUid.TryGetValue(item.WildUid, out wb)) return wb;
+            if (s.WildByUid.TryGetValue(item.WildUid, out wb)) { wb.Stars = item.Stars; return wb; }
             BlockDef def = w.Content.Block(item.BlockId);
-            wb = new WildBlock { Uid = item.WildUid, BlockId = item.BlockId, Rarity = def != null ? def.Rarity : null, Borrowed = item.Borrowed, AcquiredWave = w.Run.LastClearedWave };
+            wb = new WildBlock { Uid = item.WildUid, BlockId = item.BlockId, Rarity = def != null ? def.Rarity : null, Borrowed = item.Borrowed, AcquiredWave = w.Run.LastClearedWave, Stars = item.Stars };
             s.WildByUid[wb.Uid] = wb;
             return wb;
         }
@@ -174,7 +178,7 @@ namespace Wizard.Solo.Sim.Run
         static WildBlock BenchOf(SimWorld w, SlotItem item)
         {
             BlockDef def = w.Content.Block(item.BlockId);
-            return new WildBlock { Uid = w.Run.NextWildUid++, BlockId = item.BlockId, Rarity = def != null ? def.Rarity : null, FromLibrary = true };
+            return new WildBlock { Uid = w.Run.NextWildUid++, BlockId = item.BlockId, Rarity = def != null ? def.Rarity : null, FromLibrary = true, Stars = item.Stars };
         }
 
         bool StorageHasRoom(SimWorld w) => w.Run.Storage.Count < w.Content.Drops.StorageCap;
@@ -254,7 +258,7 @@ namespace Wizard.Solo.Sim.Run
             if (!Fits(w.Content, slotRef, wb.BlockId)) return false;
             SlotItem old = GetSlot(lo, slotRef);
             s.WildByUid[wb.Uid] = wb;
-            SetSlot(lo, slotRef, new SlotItem { BlockId = wb.BlockId, WildUid = wb.Uid, Borrowed = wb.Borrowed });
+            SetSlot(lo, slotRef, new SlotItem { BlockId = wb.BlockId, WildUid = wb.Uid, Borrowed = wb.Borrowed, Stars = wb.Stars });
             if (old.IsEmpty)
             {
                 run.Storage.RemoveAt(index);
@@ -277,7 +281,7 @@ namespace Wizard.Solo.Sim.Run
             if (!Fits(w.Content, slotRef, lb.BlockId)) return false;
             SlotItem old = GetSlot(lo, slotRef);
             if (!old.IsEmpty && old.WildUid != 0 && !StorageHasRoom(w)) return false;
-            SetSlot(lo, slotRef, new SlotItem { BlockId = lb.BlockId });
+            SetSlot(lo, slotRef, new SlotItem { BlockId = lb.BlockId, Stars = lb.Stars });
             if (old.IsEmpty)
             {
                 run.LibraryBench.RemoveAt(index);

@@ -27,9 +27,9 @@ namespace Wizard.Solo.Sim.Run
 
             if (cfg.Mode == RunMode.Tutorial)
             {
-                // D-59: 결정 무한(④ 반동 사격), 보관함에 끼워 볼 블록 1개(⑤).
-                run.PracticeInfiniteCrystal = true;
-                run.TutorialStep = Mathf.Clamp(cfg.TutorialStep, 1, s.Tuning.TutorialLastStep + 1);
+                // 튜토리얼 판(DataSolo/Tutorial.json 단계 표). 결정 무한·적 탄 쏘기는 단계마다 ApplyTutorialRules가 정한다
+                // (결정을 모아 쓰는 단계에서는 실전처럼 결정이 줄어야 한다). 보관함에 끼워 볼 블록 1개(블록 단계, D-59).
+                run.TutorialStep = Mathf.Clamp(cfg.TutorialStep, 1, TutorialCount(s) + 1);
                 if (practice != null && !string.IsNullOrEmpty(practice.TutorialBlockId))
                 {
                     BlockDef def = w.Content.Block(practice.TutorialBlockId);
@@ -107,7 +107,7 @@ namespace Wizard.Solo.Sim.Run
             var run = w.Run;
             if (run.Config == null || run.Config.Mode != RunMode.Tutorial) return;
             // 완료 전에 넘기는 것(건너뛰기)도 받는다. 마지막 단계 + 1 = 끝.
-            int next = Mathf.Clamp(step, 1, s.Tuning.TutorialLastStep + 1);
+            int next = Mathf.Clamp(step, 1, TutorialCount(s) + 1);
             if (next == run.TutorialStep) return;
             run.TutorialStep = next;
             s.ResetTutorialProgress(w.Tick);
@@ -170,15 +170,11 @@ namespace Wizard.Solo.Sim.Run
                     if (p.InStance) s.TutStanceMoved += moved;
                     if (fired) s.TutShots++;
                     if (crit) s.TutCritShots++;
+                    if (i == 0) TickTutorialGate(w, s, p, fired, crit, dealt > 0f);
                 }
 
                 s.LastPos[i] = p.Pos;
                 s.HasLast[i] = true;
-            }
-
-            if (tutorial)
-            {
-                CheckTutorialStep(w, s);
             }
 
             if (w.Tick >= s.NextReportTick)
@@ -188,26 +184,160 @@ namespace Wizard.Solo.Sim.Run
             }
         }
 
-        /// <summary>지금 단계의 완료 조건(08 요약서 6.4절)을 보고 TutorialStepDone을 단계마다 한 번 낸다.</summary>
-        void CheckTutorialStep(SimWorld w, RunScratch s)
+        // ------------------------------------------------------------ 튜토리얼 관문
+
+        static int TutorialCount(RunScratch s) => s.Plan != null && s.Plan.Count > 0 ? s.Plan.Count : s.Tuning.TutorialLastStep;
+
+        static string TutorialStepId(SimWorld w, RunScratch s) => s.Plan != null ? s.Plan.IdOf(w.Run.TutorialStep) : null;
+
+        /// <summary>
+        /// 단계별 연습 설정(튜토리얼 판에서만 — 실전 규칙은 그대로): 도입 대사 중에는 공격 잠금, 스침 단계에만 허수아비가 느린 탄을 쏜다,
+        /// 결정 무한은 커맨드·블록 단계에만(결정을 모아 쓰는 단계에서는 실전처럼 줄어든다). 매 틱 다시 적는다.
+        /// </summary>
+        static void ApplyTutorialRules(SimWorld w, PlayerState p, string id)
+        {
+            var run = w.Run;
+            p.AttackLocked = id == TutorialStepIds.Intro;
+            run.PracticeEnemyFire = id == TutorialStepIds.Graze;
+            run.PracticeInfiniteCrystal = id == TutorialStepIds.Command || id == TutorialStepIds.Block;
+            run.PracticeHeatFreeze = false;
+        }
+
+        /// <summary>단계에 들어선 첫 틱의 준비.</summary>
+        static void PrepareTutorialStep(SimWorld w, RunScratch s, PlayerState p, string id)
+        {
+            s.TutStepPrepared = true;
+            switch (id)
+            {
+                case TutorialStepIds.Graze:
+                    // 맞아도 다시 해 볼 수 있게 체력을 채워 둔다.
+                    w.Mods.Player.Heal(w, p, p.MaxHpCells);
+                    s.TutLastGrazeBuffTick = p.GrazeBuffUntilTick;
+                    break;
+                case TutorialStepIds.Combo:
+                    // 앞 단계에서 모인 콤보·결정은 비우고 처음부터 모으게 한다.
+                    w.Mods.Player.ResetCombo(w, p, ComboResetReason.Timeout);
+                    p.Crystals = 0;
+                    s.TutCrystalsAtStart = 0;
+                    break;
+                case TutorialStepIds.Art:
+                    s.TutSpent = 0;
+                    break;
+                case TutorialStepIds.Command:
+                    // 스승이 결정을 빌려 준다(이 단계만 결정 무한 — 실패해도 다시 해 볼 수 있다).
+                    for (int k = 0; k < s.Plan.CommandGrantCrystals; k++) w.Mods.Player.GainCrystal(w, p, CrystalSource.Combo);
+                    break;
+            }
+        }
+
+        /// <summary>RunFlow.OnArtFired에서(튜토리얼 판일 때만).</summary>
+        void TutorialOnArtFired(SimWorld w, RunScratch s, string artId)
+        {
+            if (artId == Ids.Art.Recoil) s.TutRecoil = true;
+            string id = TutorialStepId(w, s);
+            if (id == TutorialStepIds.Art && s.TutSpent > 0) s.TutArtPaid = true;
+            if (id == TutorialStepIds.Command && artId != Ids.Art.Burst) s.TutCommandArt = true;
+        }
+
+        /// <summary>지금 단계의 관문을 센다(상태 변화로). 진척이 바뀌면 PracticeReport(Progress), 실수는 PracticeReport(Setback).</summary>
+        void TickTutorialGate(SimWorld w, RunScratch s, PlayerState p, bool fired, bool crit, bool dummyHit)
         {
             var run = w.Run;
             int step = run.TutorialStep;
-            if (step < 1 || step > s.Tuning.TutorialLastStep || s.TutDoneStep == step) return;
-            float cells = s.Tuning.TutorialMoveCells;
-            bool done;
-            switch (step)
+            string id = TutorialStepId(w, s);
+            ApplyTutorialRules(w, p, id);
+            if (id == null || s.TutDoneStep == step) return;
+            if (!s.TutStepPrepared) PrepareTutorialStep(w, s, p, id);
+
+            var plan = s.Plan;
+            int progress = 0;
+            bool done = false;
+            switch (id)
             {
-                case 1: done = s.TutMoved >= cells && s.TutShots >= 1; break;        // ① 1칸 이상 이동 + 발사 1회
-                case 2: done = s.TutStanceMoved >= cells; break;                      // ② 자세를 누른 채 1칸 이동
-                case 3: done = s.TutCritShots >= 1; break;                            // ③ 임계 사격 1회
-                case 4: done = s.TutRecoil; break;                                    // ④ 반동 사격 1회
-                default: done = s.TutInserted; break;                                 // ⑤ 빈 칸에 블록 1개 끼움
+                case TutorialStepIds.Intro:
+                    // 화면이 대사를 다 보이면 TutorialAdvance로 넘긴다(완료 판정 없음).
+                    break;
+                case TutorialStepIds.Move:
+                    done = (p.Pos - plan.MoveTarget(w)).magnitude <= plan.MoveTargetRadius;
+                    break;
+                case TutorialStepIds.Fire:
+                    if (dummyHit) s.TutHits++;
+                    progress = s.TutHits;
+                    done = s.TutHits >= plan.FireHits;
+                    break;
+                case TutorialStepIds.Overheat:
+                    if (p.Locked) s.TutLockSeen = true;
+                    progress = p.Locked ? 1 : 0;
+                    done = s.TutLockSeen && !p.Locked;
+                    break;
+                case TutorialStepIds.Crit:
+                    if (fired)
+                    {
+                        bool lockedNow = p.Locked && p.LockStartTick == w.Tick;
+                        if (lockedNow)
+                        {
+                            s.TutCritStreak = 0;
+                            EmitTutorialSetback(w, step, TutorialSetback.Overflow);
+                        }
+                        else if (crit) s.TutCritStreak++;
+                    }
+                    progress = s.TutCritStreak;
+                    done = s.TutCritStreak >= plan.CritGoal(p);
+                    break;
+                case TutorialStepIds.Graze:
+                    if (p.GrazeBuffUntilTick != s.TutLastGrazeBuffTick && p.GrazeBuffUntilTick > w.Tick)
+                    {
+                        s.TutLastGrazeBuffTick = p.GrazeBuffUntilTick;
+                        s.TutGrazePendingUntil = w.Tick + SimConst.Ticks(plan.GrazeConfirmSeconds);
+                    }
+                    if (p.HitThisTick)
+                    {
+                        s.TutGrazePendingUntil = -1;
+                        EmitTutorialSetback(w, step, TutorialSetback.Hit);
+                    }
+                    else if (s.TutGrazePendingUntil >= 0 && w.Tick >= s.TutGrazePendingUntil)
+                    {
+                        s.TutGrazePendingUntil = -1;
+                        s.TutGrazes++;
+                    }
+                    progress = s.TutGrazes;
+                    done = s.TutGrazes >= plan.GrazeGoal;
+                    break;
+                case TutorialStepIds.Combo:
+                    done = p.Crystals > s.TutCrystalsAtStart;
+                    progress = done ? plan.GoalOf(id, p) : Mathf.Min(p.Combo, plan.GoalOf(id, p));
+                    break;
+                case TutorialStepIds.Art:
+                    done = s.TutArtPaid;
+                    break;
+                case TutorialStepIds.Stance:
+                    done = s.TutStanceMoved >= plan.StanceCells;
+                    break;
+                case TutorialStepIds.Reverse:
+                    if (fired && p.Stance == StanceState.Reverse) s.TutReverseShots++;
+                    progress = s.TutReverseShots;
+                    done = s.TutReverseShots >= plan.ReverseShots;
+                    break;
+                case TutorialStepIds.Command:
+                    done = s.TutCommandArt;
+                    break;
+                case TutorialStepIds.Block:
+                    done = s.TutInserted;
+                    break;
+            }
+
+            if (progress != s.TutProgressSent)
+            {
+                s.TutProgressSent = progress;
+                w.Emit(SimEventType.PracticeReport, p.Slot, a: step, b: progress, f: plan.GoalOf(id, p), id: TutorialReportKeys.Progress);
             }
             if (!done) return;
             s.TutDoneStep = step;
             w.Emit(SimEventType.TutorialStepDone, a: step);
         }
+
+        static void EmitTutorialSetback(SimWorld w, int step, TutorialSetback why) =>
+            w.Emit(SimEventType.PracticeReport, a: step, b: (int)why, id: TutorialReportKeys.Setback);
 
         void EmitPracticeReport(SimWorld w, RunScratch s)
         {

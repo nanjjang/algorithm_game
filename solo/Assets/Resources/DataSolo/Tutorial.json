@@ -1,0 +1,22 @@
+{
+  "_note": "튜토리얼(첫 판 전 허수아비 방) 관문과 화면 안내의 수치. 원문(08 요약서 6.4절)은 다섯 단계와 [임시] 완료 조건만 적었고 횟수·시간 값이 없다(U-53) → 아래는 솔로 임시 값(사용자 QA에서 조정). steps = 단계 순서(1부터, id가 화면 글 열쇠 str.tutorial.gate.<id>.*의 이름). 읽는 곳: Wizard.Solo.Sim.Run.TutorialPlan(시뮬레이션의 완료 판정)과 Wizard.Solo.Screens.Story(풍선·힌트). move_target_offset = 전장 가운데에서 목표 지점까지(칸, x 오른쪽 +, y 아래 +), move_target_radius = 닿았다고 보는 거리(칸). fire_hits = 허수아비를 맞힌 틱 수. crit_extra_shots = '잠기지 않고 임계 사격' 목표 = (열 한 번 차는 동안 꾹 눌러 나오는 임계 수) + 이 값 → 꾹 눌러서는 통과할 수 없다. graze_goal = 맞지 않고 스친 횟수, graze_confirm_seconds = 스친 뒤 이만큼 안 맞아야 1회로 센다. reverse_shots = 반전 자세로 쏜 발 수. stance_cells = 자세로 걸을 거리(칸). command_grant_crystals = 커맨드 단계에서 스승이 빌려 주는 결정. intro_lines = 스승 대사 줄 수(str.tutorial.intro.line.N). advance_delay_seconds = 완료 칭찬을 보여 주고 다음 단계로 넘기기까지. hint_after_seconds = 진척 없이 이만큼 지나면 힌트 한 줄. setback_hint_seconds = 실수(넘침·피격·불발) 직후 힌트를 보여 주는 시간. praise_seconds = 성공 반짝 길이. command_art_id = 커맨드 단계에서 가르치는 비기(뒤, K). balloon = 풍선 자리(px, 1920×1080 왼쪽 위 원점), dialog = 스승 대사 판 자리.",
+  "steps": ["intro", "move", "fire", "overheat", "crit", "graze", "combo", "art", "stance", "reverse", "command", "block"],
+  "move_target_offset_x": -6,
+  "move_target_offset_y": 3,
+  "move_target_radius": 0.75,
+  "fire_hits": 8,
+  "crit_extra_shots": 3,
+  "graze_goal": 3,
+  "graze_confirm_seconds": 0.6,
+  "stance_cells": 2,
+  "reverse_shots": 3,
+  "command_grant_crystals": 2,
+  "command_art_id": "art.recoil",
+  "intro_lines": 3,
+  "advance_delay_seconds": 1.4,
+  "hint_after_seconds": 5,
+  "setback_hint_seconds": 4,
+  "praise_seconds": 1.0,
+  "balloon": { "x": 480, "y": 108, "w": 960, "h": 200 },
+  "dialog": { "x": 400, "y": 790, "w": 1120, "h": 156 }
+}

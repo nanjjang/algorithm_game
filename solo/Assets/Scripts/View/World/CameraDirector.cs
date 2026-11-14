@@ -8,7 +8,9 @@ namespace Wizard.Solo.View
     /// - 따라가기: 플레이어(여럿이면 평균) + 바라보는 쪽으로 조금 앞(look-ahead). 지수 감쇠로 부드럽게.
     /// - 전장 경계: 보이는 사각형이 전장(view 좌표 0..W × 0..H) 밖으로 나가지 않게 가둔다. 전장이 화면보다 좁은 축은 가운데에 둔다.
     /// - 동적 줌: wantZoomMul(보스전·넓은 예고 = 1 미만)으로 천천히 바꾼다. 줌 펀치(비기·큰 처치)는 잠깐 더 당겼다가 돌아온다.
-    /// - 픽셀 맞춤: 위치를 화면 1px 격자에 맞춘다.
+    /// - 픽셀 맞춤: 위치를 화면 1px 격자에 맞춘다. 1칸의 화면 px가 64의 정수 배가 아니면(줌 1.5 = 그림 1px이 화면 1.5px)
+    ///   화면 px 격자와 그림 px 격자가 함께 맞는 가장 작은 걸음(1.5배면 그림 2px = 화면 3px)에 맞춘다 — 카메라가 움직여도
+    ///   그림 px이 화면 px에 걸치는 무늬가 바뀌지 않아 픽셀 그림이 떨리지 않는다(Docs/11-fun-pass.md E절).
     /// 모든 수치는 Juice.json camera 절(표시 전용, 솔로 임시).
     /// </summary>
     public sealed class CameraDirector
@@ -24,6 +26,13 @@ namespace Wizard.Solo.View
         public bool PixelSnap = true;
         /// <summary>위 HUD 띠가 아래 띠보다 두꺼운 만큼 플레이어를 가려지지 않은 영역 가운데에 두는 치우침(기준 화면 px, + = 카메라를 위로).</summary>
         public float HudBiasPx = 12f;
+        /// <summary>그림 1px의 화면 px 수가 이만큼 정수에 가까우면 정수로 본다(맞춤 걸음 찾기).</summary>
+        public const float TexelAlignEpsilon = 0.02f;
+        /// <summary>맞춤 걸음을 찾을 때 볼 그림 px 수의 상한(이 안에서 못 찾으면 화면 1px 격자).</summary>
+        public const int TexelAlignMaxTexels = 8;
+        /// <summary>그림 1칸 = 64px(00 문서 7절).</summary>
+        public const float ArtPixelsPerUnit = 64f;
+
         /// <summary>움직임 연출 배율(줌 펀치에만). 흔들림 옵션과 연출 감도에서 호스트가 넣는다. 0이면 펀치 없음.</summary>
         public float MotionScale = 1f;
 
@@ -103,11 +112,28 @@ namespace Wizard.Solo.View
             Vector2 outPos = _pos;
             if (PixelSnap)
             {
-                outPos.x = Mathf.Round(outPos.x * ppu) / ppu;
-                outPos.y = Mathf.Round(outPos.y * ppu) / ppu;
+                float step = SnapStep(ppu);
+                outPos.x = Mathf.Round(outPos.x / step) * step;
+                outPos.y = Mathf.Round(outPos.y / step) * step;
                 outPos = Clamp(outPos, halfW, halfH, arenaW, arenaH);
             }
             Position = outPos;
+        }
+
+        /// <summary>
+        /// 픽셀 맞춤 걸음(칸). 그림 1px = 화면 ppu/64 px. n그림 px이 정수 화면 px이 되는 가장 작은 n(1..8)을 찾아 n/64칸 —
+        /// 정수 배 줌이면 n = 1(그림 1px), 1.5배면 n = 2(화면 3px). 못 찾으면(펀치·동적 줌 도중) 화면 1px.
+        /// </summary>
+        public static float SnapStep(float ppu)
+        {
+            if (ppu <= 0f) return 1f;
+            float texel = ppu / ArtPixelsPerUnit;
+            for (int n = 1; n <= TexelAlignMaxTexels; n++)
+            {
+                float px = texel * n;
+                if (px >= 1f - TexelAlignEpsilon && Mathf.Abs(px - Mathf.Round(px)) <= TexelAlignEpsilon) return Mathf.Round(px) / ppu;
+            }
+            return 1f / ppu;
         }
 
         /// <summary>보이는 사각형(가운데 c, 반너비·반높이)이 전장 안에 있게 가운데를 옮긴다. 전장이 더 좁은 축은 전장 가운데.</summary>

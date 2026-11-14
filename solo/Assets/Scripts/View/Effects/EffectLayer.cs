@@ -93,6 +93,10 @@ namespace Wizard.Solo.View.Effects
         public int FlashesSubmitted { get; private set; }
         public bool HasDropPillar(int dropId) { DropView d; return _drops.TryGetValue(dropId, out d) && d.Pillar != null; }
         public string DamageNumberGlyphs(int index) => index >= 0 && index < _numbers.Count ? _numbers[index].Spec.Glyphs : null;
+        /// <summary>점검용: index번째 숫자의 첫 글리프 배율(0 = 없음).</summary>
+        public float DamageNumberScaleAt(int index) => index >= 0 && index < _numbers.Count && _numbers[index].Glyphs.Count > 0 && _numbers[index].Glyphs[0] != null
+            ? _numbers[index].Glyphs[0].transform.localScale.x : 0f;
+        public Vector2 DamageNumberPosAt(int index) => index >= 0 && index < _numbers.Count ? _numbers[index].Pos : Vector2.zero;
         public DamageNumberKind DamageNumberKindAt(int index) => index >= 0 && index < _numbers.Count ? _numbers[index].Spec.Kind : DamageNumberKind.Normal;
 
         public void Build(ViewContext vc, SimWorld w)
@@ -175,6 +179,7 @@ namespace Wizard.Solo.View.Effects
         {
             if (_vc == null) return;
             _w = w;
+            if (_s.Governor != null) _s.Governor.BeginFrame(OnScreenEnemies(w));
             _s.Advance(dt);
             if (_s.Occlusion != null) _s.Occlusion.RebuildMask(w);
             FlushKills(w);
@@ -212,6 +217,25 @@ namespace Wizard.Solo.View.Effects
 
         // ------------------------------------------------------------ 도우미
 
+        /// <summary>카메라에 보이는 적 수(군중 감쇠의 입력). 카메라가 없으면 전체 수.</summary>
+        int OnScreenEnemies(SimWorld w)
+        {
+            if (w == null) return 0;
+            var cam = _vc != null ? _vc.Camera : null;
+            if (cam == null || !cam.orthographic) return w.Enemies.Count;
+            float halfH = cam.orthographicSize, halfW = halfH * cam.aspect;
+            Vector3 cp = cam.transform.position;
+            int n = 0;
+            for (int i = 0; i < w.Enemies.Count; i++)
+            {
+                var en = w.Enemies[i];
+                if (en == null || en.Hp <= 0f) continue;
+                Vector3 v = _vc.ToView(en.Pos);
+                if (Mathf.Abs(v.x - cp.x) <= halfW && Mathf.Abs(v.y - cp.y) <= halfH) n++;
+            }
+            return n;
+        }
+
         string FxEl(string elementId)
         {
             string k = ArtAliases.ElementFxKey(elementId);
@@ -240,6 +264,8 @@ namespace Wizard.Solo.View.Effects
         {
             if (string.IsNullOrEmpty(level) || level == EventBinding.ShakeNone) return;
             float px = _t.F("shake_px", level);
+            // 프레임 상한: 짧은 창 안에서는 이미 보낸 것보다 센 것만(겹쳐 쌓이지 않는다), 세기 상한
+            if (px > 0f && _s.Governor != null) px = _s.Governor.Shake(px, _s.Time);
             if (px > 0f && _vc.Shake != null) _vc.Shake(px, _t.F("shake_seconds"));
         }
 
@@ -249,6 +275,14 @@ namespace Wizard.Solo.View.Effects
             int ms = _s.Data.Bindings.HitstopMs(bindingKey);
             if (ms <= 0 || _vc.HitStop == null) return;
             float sec = ms / 1000f;
+            // 무게 비례: 피격 = 줄이지 않음, 비기 = 군중 감쇠 없음, 치명 타격 = 붐비면 줄임. 한 번 상한.
+            if (_s.Governor != null)
+            {
+                bool hurt = bindingKey == "player.hit";
+                bool crit = bindingKey == "heat.crit_hit";
+                sec = _s.Governor.HitStop(sec, hurt ? FxPriority.PlayerHurt : FxPriority.Crit, !crit);
+                if (sec <= 0f) return;
+            }
             if (!unbudgeted) sec = _s.HitStopBudget.Request(sec, Now(tick));
             if (sec > 0f) _vc.HitStop(sec);
         }
@@ -285,6 +319,8 @@ namespace Wizard.Solo.View.Effects
         /// <summary>도형 고리(퍼지거나 오므라듦).</summary>
         bool SpawnRing(Vector2 pos, float fromRadius, float toRadius, int ringPx, Color color, float life, int order, bool counts, System.Func<Vector2?> follow = null)
         {
+            // 내 이펙트 고리(7·8층)는 얇은 안티에일리어스 선(RingMeshFx: 동시 상한·합치기·예고 위 옅어짐). 나머지(스침·내 표시)는 그림 고리.
+            if (counts && _s.Rings != null) return _s.Rings.Add(pos, fromRadius, toRadius, life, color, 0f, follow, ringPx * 0.5f);
             if (_art == null) return false;
             float maxR = Mathf.Max(fromRadius, toRadius);
             int rPx = Mathf.Max(1, Mathf.RoundToInt(maxR * SimConst.PixelsPerUnit));
@@ -366,6 +402,7 @@ namespace Wizard.Solo.View.Effects
                 int n = big ? _s.Data.Budget.HitMergedParticles
                     : EffectOptionRules.HitParticles(_s.Data.Budget, tier.Hit, crit, weak, resist, load.HitDecor, _s.Options.WandFxLevel);
                 Color pc = crit ? Color.white : armored ? _t.Col("colors", "armored") : weak ? _t.ElementSecondary(elId) : elColor;
+                if (_s.Governor != null && !crit) n = Mathf.RoundToInt(n * _s.Governor.CountScale(FxPriority.NormalHit));
                 _s.Particles.Burst(ParticleBudgetConfig.CatHit, n, pos, _t.F("hits", "particle_speed_cells"), _s.Data.Budget.LifeHit, pc,
                     _t.F("hits", "particle_px"), SortBands.Bursts, null, true);
             }
@@ -383,13 +420,19 @@ namespace Wizard.Solo.View.Effects
         void AddDamageNumber(int enemyId, int tick, DamageNumberKind kind, int amount, bool armored, bool corroded, string elId, Vector2 pos)
         {
             if (!DamageNumberRules.Visible(_s.Options.DamageNumberMode, kind)) return;
+            float sizeOpt = DamageNumberSizeScale;
+            if (sizeOpt <= 0f) return; // 설정 '피해 숫자' 끄기
+            // 프레임당 새 숫자 상한: 이미 떠 있는 같은 적의 숫자에 합치는 것·치명·약점·큰 피해·골드는 늘 된다
+            bool important = kind != DamageNumberKind.Normal && kind != DamageNumberKind.Resist
+                             || (_juice.F("damage_pop", "big_damage") > 0f && amount >= _juice.F("damage_pop", "big_damage"));
+            if (!important && _s.Governor != null && !_merger.HasMergeTarget(enemyId, tick) && !_s.Governor.AllowNumber(false)) return;
             bool merged; int evicted;
             var live = _merger.Add(enemyId, tick, kind, amount, armored, corroded, elId, out merged, out evicted);
             if (evicted != 0)
                 for (int i = 0; i < _numbers.Count; i++) if (_numbers[i].Handle == evicted) { KillNumber(i); break; }
             NumView v = null;
             if (merged) for (int i = 0; i < _numbers.Count; i++) if (_numbers[i].Handle == live.Handle) { v = _numbers[i]; break; }
-            if (v == null) { v = new NumView { Handle = live.Handle, Pos = pos }; _numbers.Add(v); }
+            if (v == null) { v = new NumView { Handle = live.Handle, Pos = StackedPos(pos) }; _numbers.Add(v); }
             v.Age = 0f;
             v.Life = _t.F("damage_numbers", "life_seconds");
             v.Spec = DamageNumberRules.Build(_t, live.Kind, live.Amount, live.Armored, live.Corroded, live.ElementId);
@@ -405,12 +448,42 @@ namespace Wizard.Solo.View.Effects
                 if (size <= 0f) size = 1f;
                 if (crit) size *= _juice.F("damage_pop", "crit_scale") > 0f ? _juice.F("damage_pop", "crit_scale") : 1f;
                 if (big) size *= _juice.F("damage_pop", "big_scale") > 0f ? _juice.F("damage_pop", "big_scale") : 1f;
-                v.Size = size;
+                v.Size = size * sizeOpt;
                 if (!merged) v.Drift = UnityEngine.Random.Range(-1f, 1f) * _juice.F("damage_pop", "drift");
                 if (big && !crit && live.Kind == DamageNumberKind.Normal && !live.Armored)
                     v.Color = JuiceLayer.Safe(EffectsTuning.ParseColor(_juice.S("damage_pop", "big_color"), v.Color));
             }
+            if (!_popOn) v.Size = sizeOpt;
             LayoutNumber(v);
+        }
+
+        /// <summary>설정 '피해 숫자'(작게 = 기본 / 크게 / 끄기 = 0)의 크기 배율. 값은 Juice.json damage_pop.small_scale / large_scale.</summary>
+        float DamageNumberSizeScale => ReadabilityOptions.DamageNumberSizeScale(_s.Options.DamageNumberSize,
+            _juice.F("damage_pop", "small_scale"), _juice.F("damage_pop", "large_scale"));
+
+        /// <summary>
+        /// 숫자 겹침 방지: 막 뜬(stack_seconds 안) 다른 숫자가 stack_cells 안에 있으면 한 칸씩 위로 올린다(최대 stack_max번).
+        /// 같은 적의 연속 피해는 합쳐서 하나로 남는다(DamageNumberMerger).
+        /// </summary>
+        Vector2 StackedPos(Vector2 pos)
+        {
+            float cell = _juice.F("damage_pop", "stack_cells"), young = _juice.F("damage_pop", "stack_seconds");
+            int max = _juice.I("damage_pop", "stack_max");
+            if (cell <= 0f || max <= 0) return pos;
+            for (int step = 0; step < max; step++)
+            {
+                bool hit = false;
+                for (int i = 0; i < _numbers.Count; i++)
+                {
+                    var o = _numbers[i];
+                    if (o.Age > young) continue;
+                    Vector2 d = o.Pos - pos;
+                    if (Mathf.Abs(d.x) < cell * 1.6f && Mathf.Abs(d.y) < cell) { hit = true; break; }
+                }
+                if (!hit) break;
+                pos.y -= cell; // 시뮬레이션 y는 아래가 + → 빼면 위로
+            }
+            return pos;
         }
 
         Color ColorFor(DamageNumberSpec s)
@@ -433,7 +506,7 @@ namespace Wizard.Solo.View.Effects
             string text = v.Spec.Glyphs ?? string.Empty;
             // 글리프 수 맞추기
             while (v.Glyphs.Count > text.Length) { _vc.Pool.Return(v.Glyphs[v.Glyphs.Count - 1]); v.Glyphs.RemoveAt(v.Glyphs.Count - 1); }
-            while (v.Glyphs.Count < text.Length) v.Glyphs.Add(_vc.Pool.Rent(null, SortBands.DamageNumbers + 1));
+            while (v.Glyphs.Count < text.Length) v.Glyphs.Add(_vc.Pool.Rent(null, FxLayers.DamageNumbers + 1));
             for (int i = 0; i < text.Length; i++)
             {
                 int gi = DamageNumberRules.GlyphIndex(order, text[i]);
@@ -447,13 +520,13 @@ namespace Wizard.Solo.View.Effects
             }
             if (v.Spec.Kind == DamageNumberKind.Weak && v.Spec.ElementId != null)
             {
-                if (v.Icon == null) v.Icon = _vc.Pool.Rent(_art.Icon(v.Spec.ElementId, _t.I("damage_numbers", "weak_icon_px")), SortBands.DamageNumbers + 1);
+                if (v.Icon == null) v.Icon = _vc.Pool.Rent(_art.Icon(v.Spec.ElementId, _t.I("damage_numbers", "weak_icon_px")), FxLayers.DamageNumbers + 1);
             }
             else if (v.Icon != null) { _vc.Pool.Return(v.Icon); v.Icon = null; }
             if (v.Spec.Corroded && glyphs != null && glyphs.Frames != null)
             {
                 int ui = DamageNumberRules.GlyphIndex(order, DamageNumberRules.Up);
-                if (v.Corroded == null && ui >= 0 && ui < glyphs.Frames.Length) v.Corroded = _vc.Pool.Rent(glyphs.Frames[ui], SortBands.DamageNumbers + 2);
+                if (v.Corroded == null && ui >= 0 && ui < glyphs.Frames.Length) v.Corroded = _vc.Pool.Rent(glyphs.Frames[ui], FxLayers.DamageNumbers + 2);
             }
             else if (v.Corroded != null) { _vc.Pool.Return(v.Corroded); v.Corroded = null; }
             if (v.Spec.Prefix != null && v.Prefix == null)
@@ -482,7 +555,7 @@ namespace Wizard.Solo.View.Effects
             float a = fade > 0f && left < fade ? Mathf.Clamp01(left / fade) : 1f;
             a = EffectOptionRules.DamageNumberAlpha(a, _s.Options.DamageNumberOpacity);
             float glyphPx = _t.F("damage_numbers", "glyph_px");
-            float scale = (v.Spec.Scale > 0f ? v.Spec.Scale : 1f) * popMul;
+            float scale = (v.Spec.Scale > 0f ? v.Spec.Scale : 1f) * (_popOn ? popMul : (v.Size > 0f ? v.Size : 1f));
             Vector3 basePos = _vc.ToView(v.Pos) + new Vector3(driftX, rise, 0f);
             int n = v.Glyphs.Count;
             int total = n + (v.Icon != null ? 1 : 0);
@@ -556,11 +629,11 @@ namespace Wizard.Solo.View.Effects
             var m = new AffinityMarker { EnemyId = e.EntityId, StartTick = e.Tick, Pos = e.Pos, Affinity = (Affinity)e.A };
             if (_art != null && _vc.Pool != null)
             {
-                m.Icon = _vc.Pool.Rent(_art.Icon(e.Id ?? Ids.Element.Neutral, _t.I("affinity_glyph", "icon_px")), SortBands.DamageNumbers + 3);
+                m.Icon = _vc.Pool.Rent(_art.Icon(e.Id ?? Ids.Element.Neutral, _t.I("affinity_glyph", "icon_px")), FxLayers.DamageNumbers + 3);
                 var glyphs = Fx("status", "damage_glyphs");
                 int gi = DamageNumberRules.GlyphIndex(_t.S("damage_numbers", "glyph_order"), m.Affinity == Affinity.Resist ? DamageNumberRules.Down : DamageNumberRules.Up);
                 if (glyphs != null && glyphs.Frames != null && gi >= 0 && gi < glyphs.Frames.Length)
-                    m.Mark = _vc.Pool.Rent(glyphs.Frames[gi], SortBands.DamageNumbers + 3);
+                    m.Mark = _vc.Pool.Rent(glyphs.Frames[gi], FxLayers.DamageNumbers + 3);
             }
             _markers.Add(m);
             PlaceMarker(w, m);

@@ -127,6 +127,13 @@ namespace Wizard.Solo.Screens.Settings
                     w = b;
                     break;
                 }
+                case SettingsRowKind.ResetHints:
+                    w = UiKit.Button(Ctx, rt, T(SettingsModel.ResetHintsKey), WidgetX, wy, WidgetW, WidgetH, () =>
+                    {
+                        global::Wizard.Solo.Screens.Hints.HintBook.ResetAll(Ctx != null ? Ctx.Profile : null, Ctx != null ? Ctx.Profiles : null);
+                        Screens?.Toast(T(SettingsModel.ResetHintsDoneKey));
+                    }, UiButtonStyle.Medium, Focus, null, UiFontId.F16);
+                    break;
                 case SettingsRowKind.RestoreSave:
                     w = UiKit.Button(Ctx, rt, T(SettingsKeys.AccountRestoreSave), WidgetX, wy, WidgetW, WidgetH, AskRestore,
                         UiButtonStyle.Caution, Focus, null, UiFontId.F16);

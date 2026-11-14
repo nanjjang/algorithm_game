@@ -12,6 +12,8 @@ namespace Wizard.Solo.Sim.Spells
     public sealed class SpellTuning
     {
         public const string ExtraName = "G02";
+        /// <summary>전리품 개편 조각(DataSolo/Loot.json)의 star 절: 판 한정 블록 성장이 블록 수치에 닿는 몫.</summary>
+        public const string LootExtraName = "Loot";
         const float PercentToRatio = 0.01f;
 
         public float DepthDecayDefault = 1f;
@@ -35,6 +37,10 @@ namespace Wizard.Solo.Sim.Spells
         public float RecoilKnockback;
         public int RecoilStaggerTicks;
         public float MirrorHeatMul = 1f;
+
+        // 판 한정 블록 성장(★). 조각이 없으면 0 = 별이 아무것도 바꾸지 않는다.
+        public int StarMax;
+        public float StarProjectileDamage, StarHeatCut, StarModifierDamageBonus, StarSplitHeatMulCut, StarTriggerDamageBonus;
 
         public static SpellTuning From(IContentDb db)
         {
@@ -103,10 +109,25 @@ namespace Wizard.Solo.Sim.Spells
                 t.RecoilStaggerTicks = SimConst.Ticks(recoil.Effect.StaggerSeconds);
             }
 
+            JObject loot = db.SoloExtra(LootExtraName);
+            JObject star = loot != null ? loot["star"] as JObject : null;
+            if (star != null)
+            {
+                t.StarMax = (int)Number(star, "max", 0f);
+                t.StarProjectileDamage = Number(star, "projectile_damage_per_star", 0f);
+                t.StarHeatCut = Number(star, "heat_cut_per_star", 0f);
+                t.StarModifierDamageBonus = Number(star, "modifier_damage_bonus_per_star", 0f);
+                t.StarSplitHeatMulCut = Number(star, "split_heat_mul_cut_per_star", 0f);
+                t.StarTriggerDamageBonus = Number(star, "trigger_damage_bonus_per_star", 0f);
+            }
+
             var mut = db.Mutations;
             if (mut != null && mut.MirrorImageHeatMul > 0f) t.MirrorHeatMul = mut.MirrorImageHeatMul;
             return t;
         }
+
+        /// <summary>칸의 별 수를 0..StarMax로 자른다.</summary>
+        public int ClampStars(int stars) => stars <= 0 ? 0 : stars > StarMax ? StarMax : stars;
 
         /// <summary>감속 %(0~100) → 세기(0~1).</summary>
         public static float PercentRatio(float percent) => percent * PercentToRatio;

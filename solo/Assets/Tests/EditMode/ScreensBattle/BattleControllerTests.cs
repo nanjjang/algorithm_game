@@ -253,7 +253,8 @@ namespace Wizard.Solo.Tests.ScreensBattle
         public void S08_7_PAUSE06__PauseMenuHasFiveItemsInOrder()
         {
             var items = PauseMenuModel.Items;
-            CollectionAssert.AreEqual(new[] { PauseItem.Resume, PauseItem.Settings, PauseItem.Controls, PauseItem.GiveUp, PauseItem.ToMenu }, items);
+            CollectionAssert.AreEqual(new[] { PauseItem.Resume, PauseItem.Settings, PauseItem.Controls, PauseItem.Codex, PauseItem.GiveUp, PauseItem.ToMenu }, items);
+            Assert.AreEqual("str.pause.codex", PauseMenuModel.LabelKey(PauseItem.Codex));
             Assert.AreEqual("str.pause.resume", PauseMenuModel.LabelKey(PauseItem.Resume));
             Assert.AreEqual("str.pause.settings", PauseMenuModel.LabelKey(PauseItem.Settings));
             Assert.AreEqual("str.pause.controls", PauseMenuModel.LabelKey(PauseItem.Controls));

@@ -202,17 +202,36 @@ namespace Wizard.Solo.View.Effects
         /// <summary>그림 정지 예산·번쩍 관리기의 시계(틱 초) — EffectLayer와 같은 시계를 써야 1초 창이 맞는다.</summary>
         double NowSec => _w != null ? _w.Tick * (double)SimConst.TickSeconds : 0d;
         int Count(float n) => Mathf.Max(0, Mathf.RoundToInt(n * Level));
+        /// <summary>군중 감쇠를 더한 입자 수(장식·일반 타격은 화면 위 적이 많을수록 준다).</summary>
+        int Count(float n, FxPriority p) => Mathf.Max(0, Mathf.RoundToInt(n * Level * (_s.Governor != null ? _s.Governor.CountScale(p) : 1f)));
+        FxPriority PriOf(string budgetCategory)
+        {
+            switch (budgetCategory)
+            {
+                case ParticleBudgetConfig.CatHit: return FxPriority.NormalHit;
+                case ParticleBudgetConfig.CatKill: return FxPriority.NormalHit;
+                case ParticleBudgetConfig.CatArt: return FxPriority.Crit;
+                default: return FxPriority.Decor;
+            }
+        }
         static float Or(float v, float fallback) => v > 0f ? v : fallback;
         float FlashScale => Mathf.Clamp01(_s.Options.FlashScale);
 
         Color JCol(string a, string b, Color fallback)
         {
             string s = _j != null ? _j.S(a, b) : null;
-            return Safe(EffectsTuning.ParseColor(s, fallback));
+            return Guard(EffectsTuning.ParseColor(s, fallback), "Juice." + a + "." + b);
         }
 
-        Color ElPrimary(string el) => Safe(_t.ElementPrimary(el ?? Ids.Element.Neutral));
-        Color ElSecondary(string el) => Safe(_t.ElementSecondary(el ?? Ids.Element.Neutral));
+        Color ElPrimary(string el) => Guard(_t.ElementPrimary(el ?? Ids.Element.Neutral), "element_primary." + el);
+        Color ElSecondary(string el) => Guard(_t.ElementSecondary(el ?? Ids.Element.Neutral), "element_secondary." + el);
+
+        /// <summary>플레이어 쪽 색 검사(위험색이면 디버그 경고 한 번) 뒤 Safe로 고친다.</summary>
+        Color Guard(Color c, string where)
+        {
+            if (_s.ColorGuard != null) _s.ColorGuard.Check(c, where);
+            return Safe(c);
+        }
 
         /// <summary>플레이어 쪽 색이 위험색이면 주황 쪽(25도)으로 옮긴다(루트 CLAUDE.md 2.5절).</summary>
         public static Color Safe(Color c)
@@ -240,14 +259,20 @@ namespace Wizard.Solo.View.Effects
             if (cf != null) cf.Punch(amount * Mathf.Min(1f, Level));
         }
 
-        void ShakePx(float px)
+        /// <summary>흔들림: 프레임 상한(짧은 창 안에서는 더 센 것만)·세기 상한·장식은 군중 감쇠를 거친다. 방향·감쇠·전역 배율은 호스트.</summary>
+        void ShakePx(float px, FxPriority p = FxPriority.Crit)
         {
-            if (px > 0f && _vc.Shake != null) _vc.Shake(px, _t.F("shake_seconds"));
+            if (px <= 0f || _vc.Shake == null) return;
+            if (_s.Governor != null) px = _s.Governor.Shake(px, _s.Time, p);
+            if (px > 0f) _vc.Shake(px, _t.F("shake_seconds"));
         }
 
-        void HitStop(float seconds, bool budgeted)
+        /// <summary>그림 정지: 무게 비례(일반 타격·장식 없음), 붐비면 줄이고, 한 번 상한. budgeted면 1초 0.1초 예산(10 3.4절)도 거친다.</summary>
+        void HitStop(float seconds, bool budgeted, FxPriority p = FxPriority.Crit, bool boss = false)
         {
             if (seconds <= 0f || _vc.HitStop == null) return;
+            if (_s.Governor != null) seconds = _s.Governor.HitStop(seconds, p, boss);
+            if (seconds <= 0f) return;
             if (budgeted && _s.HitStopBudget != null) seconds = _s.HitStopBudget.Request(seconds, NowSec);
             if (seconds > 0f) _vc.HitStop(seconds);
         }
@@ -255,6 +280,7 @@ namespace Wizard.Solo.View.Effects
         void ScreenFlash(Color color, float opacity)
         {
             if (opacity <= 0f || _s.Flash == null || _fx == null || _fx.Overlay == null) return;
+            if (_s.Options.ReduceFlash) return; // 섬광 줄이기: 전체 화면 번쩍 없음
             var res = _s.Flash.Submit(new FlashRequest
             {
                 Opacity = opacity, OnSeconds = _s.Flash.MaxOnSeconds, OffSeconds = Mathf.Max(_s.Flash.MinOffSeconds, J("flash_off_seconds")),
@@ -266,7 +292,7 @@ namespace Wizard.Solo.View.Effects
         // ------------------------------------------------------------ 조각 하나
 
         Bit Spawn(Sprite sprite, SpriteAnim anim, Vector2 simPos, Vector2 vel, float life, float scaleFrom, float scaleTo, Color color, int order,
-            bool additive, string budget = null, float drag = 0f, float gravity = 0f, bool occlusion = false)
+            bool additive, string budget = null, float drag = 0f, float gravity = 0f, bool occlusion = false, FxPriority priority = FxPriority.Decor)
         {
             if (life <= 0f || _pool == null) return null;
             Sprite first = anim != null ? anim.At(0f) : sprite;
@@ -274,6 +300,8 @@ namespace Wizard.Solo.View.Effects
             int token = 0;
             if (budget != null)
             {
+                // 프레임당 입자 상한(낮은 순위부터 버린다) → 입자 예산
+                if (_s.Governor != null && !_s.Governor.AllowParticles(priority)) return null;
                 if (_s.Budget == null || !_s.Budget.TryAcquire(budget, _s.Time, life, out token)) return null;
             }
             float alpha = color.a;
@@ -354,9 +382,11 @@ namespace Wizard.Solo.View.Effects
             float a = b.Alpha;
             float fk = b.Hold > 0f ? Mathf.Clamp01((k - b.Hold) / Mathf.Max(1e-3f, 1f - b.Hold)) : k;
             a *= 1f - fk * fk;
+            a = ReadabilityOptions.MyFxAlpha(a, _s.MyFxAlpha); // 내 이펙트 불투명도(상한은 그 뒤)
             if (b.Occ != 0 && _s.Occlusion != null)
             {
-                float cap = _s.Occlusion.CapAt(b.Pos);
+                float cap = b.OccR >= 1f ? _s.Occlusion.CapAtDisc(b.Pos, b.OccR * Mathf.Max(0.01f, sc / Mathf.Max(0.01f, Mathf.Max(b.ScaleFrom, b.ScaleTo))))
+                    : _s.Occlusion.CapAt(b.Pos);
                 if (a > cap) a = cap;
                 _s.Occlusion.UpdateLive(b.Occ, b.Pos, b.OccR * Mathf.Max(0.01f, sc / Mathf.Max(0.01f, Mathf.Max(b.ScaleFrom, b.ScaleTo))), a);
             }
@@ -406,7 +436,9 @@ namespace Wizard.Solo.View.Effects
         /// <summary>퍼지는 고리(반지름 칸).</summary>
         Bit Shockwave(Vector2 pos, float fromR, float toR, float life, Color c, float delay = 0f, bool sheet = false)
         {
-            if (sheet && life > 0f)
+            // 큰 고리(폭발·충격파)는 얇은 안티에일리어스 선 — 동시 상한·합치기·예고 위 자동 옅어짐(RingMeshFx).
+            bool bigRing = _s.Rings != null && Mathf.Max(fromR, toR) >= _s.Rings.BigMinCells;
+            if (!bigRing && sheet && life > 0f)
             {
                 // 사용자 그림 shockwave_ring(128px 5장, 옅은 파랑 — 색은 입히지 않는다). 끝 장의 고리 = 그림 지름 거의 전부.
                 var probe = CombatFxArt.Anim(_art, CombatFxArt.Shockwave, 12f);
@@ -420,6 +452,7 @@ namespace Wizard.Solo.View.Effects
                     return sb;
                 }
             }
+            if (_s.Rings != null) { _s.Rings.Add(pos, fromR, toR, life, c, delay); return null; }
             var r = Ring;
             if (r == null) return null;
             var b = Spawn(r, null, pos, Vector2.zero, life, Fit(r, fromR * 2f), Fit(r, toR * 2f), c, SortBands.Bursts + 5, false, null, 0f, 0f, true);
@@ -429,9 +462,10 @@ namespace Wizard.Solo.View.Effects
 
         /// <summary>불꽃·파편 n개를 흩뿌린다. dir이 0이 아니면 그쪽 ±spreadDeg 안으로.</summary>
         int Sparks(string budget, int n, Vector2 pos, Vector2 dirSim, float spreadDeg, float speedMin, float speedMax, float life, float sizeCells,
-            Color a, Color b, float drag, float gravity, float stretch, bool additive, Sprite sprite = null)
+            Color a, Color b, float drag, float gravity, float stretch, bool additive, Sprite sprite = null, FxPriority? priority = null)
         {
             if (n <= 0) return 0;
+            FxPriority pri = priority ?? PriOf(budget);
             var spr = sprite != null ? sprite : (additive ? ProcSprites.SoftDot : ProcSprites.HardDot);
             float baseAng = dirSim.sqrMagnitude > 1e-6f ? Mathf.Atan2(dirSim.y, dirSim.x) : 0f;
             bool cone = dirSim.sqrMagnitude > 1e-6f;
@@ -444,7 +478,7 @@ namespace Wizard.Solo.View.Effects
                 float l = life * Random.Range(0.7f, 1.15f);
                 float sz = sizeCells * Random.Range(0.7f, 1.3f);
                 var c = Color.Lerp(a, b, Random.value);
-                var bit = Spawn(spr, null, pos, v, l, Fit(spr, sz), Fit(spr, sz * 0.4f), c, SortBands.Bursts + 10, additive, budget, drag, gravity);
+                var bit = Spawn(spr, null, pos, v, l, Fit(spr, sz), Fit(spr, sz * 0.4f), c, SortBands.Bursts + 10, additive, budget, drag, gravity, false, pri);
                 if (bit == null) break;
                 bit.AlignToVel = stretch > 0f;
                 bit.Stretch = stretch;
@@ -484,10 +518,11 @@ namespace Wizard.Solo.View.Effects
             Vector2 dir = Vector2.zero;
             var p = Player(w, e.Slot);
             if (p != null) dir = e.Pos - p.Pos;
-            int n = Count(J("hit", "sparks") + (crit ? J("hit", "crit_sparks") : 0f) + (weak ? J("hit", "weak_sparks") : 0f));
+            FxPriority hitPri = crit ? FxPriority.Crit : FxPriority.NormalHit;
+            int n = Count(J("hit", "sparks") + (crit ? J("hit", "crit_sparks") : 0f) + (weak ? J("hit", "weak_sparks") : 0f), hitPri);
             Sparks(ParticleBudgetConfig.CatHit, n, e.Pos, dir, Or(J("hit", "spread_deg"), 70f), J("hit", "speed_min"), J("hit", "speed_max"),
                 Or(J("hit", "spark_seconds"), 0.25f), Or(J("hit", "spark_cells"), 0.1f) * Mathf.Sqrt(k), crit ? Color.white : c1, c0,
-                J("hit", "drag"), 0f, J("hit", "stretch"), true);
+                J("hit", "drag"), 0f, J("hit", "stretch"), true, null, hitPri);
             if (crit)
             {
                 Shockwave(e.Pos, 0.1f, Or(J("hit", "crit_ring_cells"), 0.9f), Or(J("hit", "crit_ring_seconds"), 0.16f), WithA(Color.white, 0.9f), 0f, true);
@@ -496,6 +531,8 @@ namespace Wizard.Solo.View.Effects
         }
 
         static Color WithA(Color c, float a) { c.a = a > 0f ? a : c.a; return c; }
+        /// <summary>알파를 그대로 넣는다(0이면 0 — WithA는 0을 '그대로'로 읽는다).</summary>
+        static Color SetA(Color c, float a) { c.a = Mathf.Max(0f, a); return c; }
 
         // ------------------------------------------------------------ 처치
 
@@ -586,11 +623,11 @@ namespace Wizard.Solo.View.Effects
 
             // ④ 파편(중력으로 떨어진다)과 위로 오르는 불씨
             int debris = EffectOptionRules.KillShardCount(_s.Options.KillShards,
-                Count(J("kill", "debris") + J("streak", "debris_per_kill") * (Mathf.Min(_streak, cap) - 1) + (elite ? J("kill", "elite_debris") : 0f)));
+                Count(J("kill", "debris") + J("streak", "debris_per_kill") * (Mathf.Min(_streak, cap) - 1) + (elite ? J("kill", "elite_debris") : 0f), FxPriority.NormalHit));
             Sparks(ParticleBudgetConfig.CatKill, debris, center, Vector2.zero, 180f, J("kill", "debris_speed_min") * Mathf.Sqrt(mul), J("kill", "debris_speed_max") * Mathf.Sqrt(mul),
                 Or(J("kill", "debris_seconds"), 0.6f), Or(J("kill", "debris_cells"), 0.12f), c0, Color.white, J("kill", "debris_drag"), J("kill", "debris_gravity"),
                 J("kill", "debris_stretch"), false);
-            int embers = EffectOptionRules.KillShardCount(_s.Options.KillShards, Count(J("kill", "embers") * mul));
+            int embers = EffectOptionRules.KillShardCount(_s.Options.KillShards, Count(J("kill", "embers") * mul, FxPriority.Decor));
             for (int i = 0; i < embers; i++)
             {
                 var s = ProcSprites.SoftDot;
@@ -610,8 +647,8 @@ namespace Wizard.Solo.View.Effects
                         Spawn(null, smoke, center + Random.insideUnitCircle * 0.6f, Random.insideUnitCircle * 0.6f, smoke.Duration > 0f ? smoke.Duration * 1.5f : 0.5f,
                             Fit(f, 1.6f), Fit(f, 2.2f), new Color(1f, 1f, 1f, 0.8f), SortBands.Bursts, false, null, 2f, -0.5f, true);
                     }
-                ShakePx(J("kill", "elite_shake_px"));
-                HitStop(J("kill", "elite_hitstop"), true);
+                ShakePx(J("kill", "elite_shake_px"), FxPriority.Crit);
+                HitStop(J("kill", "elite_hitstop"), true, FxPriority.Crit);
                 Punch(J("kill", "elite_punch"));
             }
             else Punch(J("kill", "punch") * mul);
@@ -620,14 +657,14 @@ namespace Wizard.Solo.View.Effects
             int every = Mathf.Max(2, Mathf.RoundToInt(Or(J("streak", "milestone_every"), 5f)));
             if (_streak % every == 0)
             {
-                ShakePx(J("streak", "milestone_shake_px"));
-                HitStop(J("streak", "milestone_hitstop"), true);
+                ShakePx(J("streak", "milestone_shake_px"), FxPriority.Decor);
+                HitStop(J("streak", "milestone_hitstop"), true, FxPriority.Crit);
                 Punch(J("streak", "milestone_punch"));
                 var pp = Player(w, 0);
                 Vector2 at = pp != null ? pp.Pos : center;
                 Shockwave(at, 0.3f, Or(J("streak", "milestone_ring_cells"), 3.5f), Or(J("streak", "milestone_ring_seconds"), 0.45f), WithA(JCol("streak", "milestone_color", Color.white), 0.85f));
-                Sparks(ParticleBudgetConfig.CatKill, Count(J("streak", "milestone_sparks")), at, Vector2.zero, 180f, 6f, 12f, 0.5f, 0.12f,
-                    JCol("streak", "milestone_color", Color.white), c1, 3f, 0f, 0.05f, true);
+                Sparks(ParticleBudgetConfig.CatKill, Count(J("streak", "milestone_sparks"), FxPriority.Decor), at, Vector2.zero, 180f, 6f, 12f, 0.5f, 0.12f,
+                    JCol("streak", "milestone_color", Color.white), c1, 3f, 0f, 0.05f, true, null, FxPriority.Decor);
             }
         }
 
@@ -653,8 +690,8 @@ namespace Wizard.Solo.View.Effects
             Sparks(ParticleBudgetConfig.CatKill, Count(J("boss_kill", "debris")), pos, Vector2.zero, 180f, 6f, 16f, 0.9f, 0.16f, c0, Color.white, 2f, 8f, 0.04f, false);
             Sparks(ParticleBudgetConfig.CatArt, Count(J("boss_kill", "sparks")), pos, Vector2.zero, 180f, 8f, 20f, 0.7f, 0.18f, c1, Color.white, 3f, 0f, 0.06f, true);
             ScreenFlash(JCol("boss_kill", "flash_color", Color.white), J("boss_kill", "flash_opacity"));
-            ShakePx(J("boss_kill", "shake_px"));
-            if (_vc.HitStop != null && J("boss_kill", "hitstop") > 0f) _vc.HitStop(J("boss_kill", "hitstop"));
+            ShakePx(J("boss_kill", "shake_px"), FxPriority.PlayerHurt);
+            HitStop(J("boss_kill", "hitstop"), false, FxPriority.Crit, true); // 보스: 예산 밖, 군중 감쇠 없음, 한 번 상한만
             Punch(J("boss_kill", "punch"));
             var cf = CameraFx.Of(_vc);
             if (cf != null) { var v = _vc.ToView(pos); cf.Focus(new Vector2(v.x, v.y), Or(J("boss_kill", "focus_weight"), 0.6f), Or(J("boss_kill", "focus_seconds"), 1.2f)); }
@@ -688,7 +725,7 @@ namespace Wizard.Solo.View.Effects
                 var mb = Spawn(null, mz, tip, Vector2.zero, mz.Duration, sc, sc, tint ? ElSecondary(el) : Color.white, SortBands.PlayerShots + 6, true);
                 if (mb != null) { mb.Rot = Mathf.Atan2(vf.y, vf.x) * Mathf.Rad2Deg; mb.Hold = 0.8f; ApplyBit(mb); }
             }
-            Sparks(ParticleBudgetConfig.CatShot, Count(J("muzzle", "sparks") * k), tip, f, Or(J("muzzle", "spread_deg"), 25f), J("muzzle", "speed_min"), J("muzzle", "speed_max"),
+            Sparks(ParticleBudgetConfig.CatShot, Count(J("muzzle", "sparks") * k, FxPriority.Decor), tip, f, Or(J("muzzle", "spread_deg"), 25f), J("muzzle", "speed_min"), J("muzzle", "speed_max"),
                 Or(J("muzzle", "spark_seconds"), 0.12f), Or(J("muzzle", "spark_cells"), 0.08f), ElSecondary(el), ElPrimary(el), 8f, 0f, 0.06f, true);
             if (crit) Punch(J("muzzle", "crit_punch"));
         }
@@ -696,7 +733,8 @@ namespace Wizard.Solo.View.Effects
         void UpdateShotGlows(SimWorld w, float alpha, float dt)
         {
             if (w == null) return;
-            float opacity = EffectOptionRules.MyBulletAlpha(1f, _s.Options.MyBulletOpacity);
+            // 탄 빛·꼬리는 내 이펙트: 내 탄 투명도 × 내 이펙트 불투명도, 그 자리 누적 상한(예고 안 40%·번쩍 0%·적 탄 둘레)
+            float opacity = EffectOptionRules.MyBulletAlpha(1f, _s.Options.MyBulletOpacity) * _s.MyFxAlpha;
             bool trail = _s.Options.BulletTrail != OptionValues.Off;
             float trailK = _s.Options.BulletTrail == OptionValues.Short ? 0.5f : 1f;
             int maxGlows = Mathf.Max(0, Mathf.RoundToInt(Or(J("shot_glow", "max"), 160f)));
@@ -720,6 +758,7 @@ namespace Wizard.Solo.View.Effects
                 Color c0 = ElPrimary(el), c1 = ElSecondary(el);
                 Vector2 sim = ViewMath.Lerp(pr.PrevPos, pr.Pos, alpha);
                 Vector3 vp = _vc.ToView(sim);
+                float capHere = _s.Occlusion != null ? _s.Occlusion.CapAt(sim) : 1f;
                 float pulse = 1f + Mathf.Sin(_clock * 18f + pr.Id) * 0.08f;
                 float glowCells = Mathf.Clamp(pr.Radius * Or(J("shot_glow", "radius_mul"), 3.2f), J("shot_glow", "min_cells"), Or(J("shot_glow", "max_cells"), 1.6f)) * pulse;
                 if (pr.IsCrit) glowCells *= 1.3f;
@@ -728,7 +767,7 @@ namespace Wizard.Solo.View.Effects
                     g.Glow.transform.localPosition = vp;
                     float s = Fit(ProcSprites.SoftDot, glowCells);
                     g.Glow.transform.localScale = new Vector3(s, s, 1f);
-                    g.Glow.color = WithA(c0, J("shot_glow", "alpha") * opacity * Mathf.Min(1f, Level + 0.3f));
+                    g.Glow.color = SetA(c0, Mathf.Min(capHere, J("shot_glow", "alpha") * opacity * Mathf.Min(1f, Level + 0.3f)));
                 }
                 Vector2 dir = pr.Dir.sqrMagnitude > 1e-6f ? pr.Dir.normalized : Vector2.zero;
                 if (g.Streak != null)
@@ -745,11 +784,11 @@ namespace Wizard.Solo.View.Effects
                         tr.localPosition = _vc.ToView(back);
                         tr.localRotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(vd.y, vd.x) * Mathf.Rad2Deg);
                         tr.localScale = new Vector3(Fit(ProcSprites.SoftDot, len), Fit(ProcSprites.SoftDot, width), 1f);
-                        g.Streak.color = WithA(c1, J("shot_glow", "trail_alpha") * opacity);
+                        g.Streak.color = SetA(c1, Mathf.Min(capHere, J("shot_glow", "trail_alpha") * opacity));
                     }
                 }
                 // 지나간 자리에 떨어지는 불티
-                g.ShedAcc += dt * J("shot_glow", "shed_per_second") * Level;
+                g.ShedAcc += dt * J("shot_glow", "shed_per_second") * Level * (_s.Governor != null ? _s.Governor.DecorScale : 1f);
                 while (g.ShedAcc >= 1f)
                 {
                     g.ShedAcc -= 1f;
@@ -780,7 +819,7 @@ namespace Wizard.Solo.View.Effects
             Glow(e.Pos, r * 0.6f, r * Or(J("explosion", "glow_mul"), 2.2f), Or(J("explosion", "glow_seconds"), 0.2f), WithA(ElSecondary(el), J("explosion", "glow_alpha")),
                 SortBands.Bursts + 1);
             Shockwave(e.Pos, r * 0.3f, r * Or(J("explosion", "ring_mul"), 1.3f), Or(J("explosion", "ring_seconds"), 0.3f), WithA(ElSecondary(el), 0.85f), 0f, true);
-            Sparks(ParticleBudgetConfig.CatHit, Count(J("explosion", "sparks")), e.Pos, Vector2.zero, 180f, r * 3f, r * 6f, 0.4f, 0.12f, ElPrimary(el), Color.white, 4f, 0f, 0.05f, true);
+            Sparks(ParticleBudgetConfig.CatHit, Count(J("explosion", "sparks"), FxPriority.NormalHit), e.Pos, Vector2.zero, 180f, r * 3f, r * 6f, 0.4f, 0.12f, ElPrimary(el), Color.white, 4f, 0f, 0.05f, true);
             Punch(J("explosion", "punch"));
         }
 
@@ -804,7 +843,7 @@ namespace Wizard.Solo.View.Effects
             Sparks(ParticleBudgetConfig.CatArt, Count(J("art", "sparks") * k), pos, Vector2.zero, 180f, J("art", "speed_min"), J("art", "speed_max"),
                 Or(J("art", "spark_seconds"), 0.5f), Or(J("art", "spark_cells"), 0.14f), c1, c0, 3f, 0f, 0.06f, true);
             Punch(J("art", "punch") * Mathf.Min(1.5f, k));
-            HitStop(J("art", "hitstop"), true);
+            HitStop(J("art", "hitstop"), true, FxPriority.Crit, true);
         }
 
         void OnArtPulse(SimWorld w, in SimEvent e)
@@ -823,7 +862,7 @@ namespace Wizard.Solo.View.Effects
             var p = Player(w, e.Slot);
             if (p == null) return;
             Color c = JCol("graze", "color", new Color32(0x9F, 0xF6, 0xFF, 0xFF));
-            Sparks(ParticleBudgetConfig.CatHit, Count(J("graze", "sparks")), p.Pos, e.Pos - p.Pos, 60f, 3f, 7f, 0.25f, 0.08f, c, Color.white, 6f, 0f, 0.05f, true);
+            Sparks(ParticleBudgetConfig.CatHit, Count(J("graze", "sparks")), p.Pos, e.Pos - p.Pos, 60f, 3f, 7f, 0.25f, 0.08f, c, Color.white, 6f, 0f, 0.05f, true, null, FxPriority.Graze);
         }
 
         // ------------------------------------------------------------ 드랍
@@ -841,7 +880,7 @@ namespace Wizard.Solo.View.Effects
         void OnDropSpawned(in SimEvent e)
         {
             var c = DropColor((DropKind)e.A);
-            Sparks(ParticleBudgetConfig.CatEnvironment, Count(J("drops", "spawn_stars")), e.Pos, Vector2.zero, 180f, 1.5f, 4f, 0.5f, 0.25f, c, Color.white, 4f, -1f, 0f, true, ProcSprites.Star);
+            Sparks(ParticleBudgetConfig.CatEnvironment, Count(J("drops", "spawn_stars"), FxPriority.Decor), e.Pos, Vector2.zero, 180f, 1.5f, 4f, 0.5f, 0.25f, c, Color.white, 4f, -1f, 0f, true, ProcSprites.Star);
             Shockwave(e.Pos, 0.1f, Or(J("drops", "spawn_ring_cells"), 0.8f), 0.3f, WithA(c, 0.8f));
         }
 
@@ -854,7 +893,7 @@ namespace Wizard.Solo.View.Effects
             var c = DropColor((DropKind)e.A);
             Shockwave(pos, 0.1f, Or(J("drops", "pick_ring_cells"), 1.1f), 0.25f, WithA(c, 0.9f));
             Glow(pos, 0.4f, 1.4f, 0.15f, WithA(c, 0.8f), SortBands.Bursts + 1);
-            for (int i = 0; i < Count(J("drops", "pick_stars")); i++)
+            for (int i = 0; i < Count(J("drops", "pick_stars"), FxPriority.Decor); i++)
             {
                 var s = ProcSprites.Star;
                 Vector2 v = new Vector2(Random.Range(-2f, 2f), -Random.Range(2f, 5f));
@@ -937,7 +976,7 @@ namespace Wizard.Solo.View.Effects
             Color c = JCol("wave_start", "color", new Color32(0xE8, 0xF4, 0xFF, 0xFF));
             Shockwave(at, 0.5f, Or(J("wave_start", "ring_cells"), 8f), Or(J("wave_start", "ring_seconds"), 0.7f), WithA(c, 0.8f));
             Shockwave(at, 0.3f, Or(J("wave_start", "ring_cells"), 8f) * 0.6f, Or(J("wave_start", "ring_seconds"), 0.7f), WithA(c, 0.6f), 0.12f);
-            Sparks(ParticleBudgetConfig.CatArt, Count(J("wave_start", "sparks")), at, Vector2.zero, 180f, 4f, 10f, 0.6f, 0.12f, c, Color.white, 3f, 0f, 0.05f, true);
+            Sparks(ParticleBudgetConfig.CatArt, Count(J("wave_start", "sparks"), FxPriority.Decor), at, Vector2.zero, 180f, 4f, 10f, 0.6f, 0.12f, c, Color.white, 3f, 0f, 0.05f, true);
             Punch(J("wave_start", "punch"));
         }
 
@@ -949,7 +988,7 @@ namespace Wizard.Solo.View.Effects
             Shockwave(at, 0.4f, Or(J("wave_clear", "ring_cells"), 9f), Or(J("wave_clear", "ring_seconds"), 0.8f), WithA(gold, 0.9f));
             Shockwave(at, 0.3f, Or(J("wave_clear", "ring_cells"), 9f) * 0.55f, Or(J("wave_clear", "ring_seconds"), 0.8f), WithA(Color.white, 0.8f), 0.15f);
             // 금빛 분수: 위로 솟았다 떨어진다
-            int n = Count(J("wave_clear", "fountain"));
+            int n = Count(J("wave_clear", "fountain"), FxPriority.Decor);
             for (int i = 0; i < n; i++)
             {
                 var s = i % 3 == 0 ? ProcSprites.Star : ProcSprites.SoftDot;

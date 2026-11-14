@@ -15,7 +15,9 @@ namespace Wizard.Solo.UI
         ConfirmDialog, Tooltip, SaveRestored, ShopBuyConfirm,
         Tutorial,
         /// <summary>한 줄 알림(IScreenManager.Toast가 직접 올린다. Register 하지 않는다).</summary>
-        Toast
+        Toast,
+        /// <summary>조작·도감(일시정지 메뉴): 배운 것 다시 보기 — 조작, 과열, 스침, 콤보·결정, 비기, 블록, 변이, 변덕, 약점·저항.</summary>
+        Codex
     }
 
     public enum ScreenLayer { Fullscreen = 0, Panel = 1, HudOverlay = 2, Modal = 3, Toast = 4 }

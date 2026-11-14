@@ -66,6 +66,8 @@ namespace Wizard.Solo.Tests.ScreensMeta
             {
                 "str.settings.opt.window_mode", "str.settings.opt.resolution", "str.settings.opt.motion_preset", "str.settings.opt.shake_scale",
                 "str.settings.opt.flash_scale", "str.settings.opt.hitstop_enabled",
+                "str.settings.opt.context_hints", "str.settings.opt.reset_hints",
+                "str.settings.opt.reduce_flash", // 솔로 가독성 보강
                 "str.settings.opt.vol_master", "str.settings.opt.vol_bgm", "str.settings.opt.vol_sfx", "str.settings.opt.vol_wand",
                 "str.settings.opt.vol_ui", "str.settings.opt.vol_enemy",
                 "str.settings.opt.key_rebind",
@@ -74,6 +76,7 @@ namespace Wizard.Solo.Tests.ScreensMeta
                 "str.settings.opt.ground_marks", "str.settings.opt.kill_shards", "str.settings.opt.art_name_popup",
                 "str.settings.opt.combo_position", "str.settings.opt.clone_zone_opacity", "str.settings.opt.weather_particles",
                 "str.settings.opt.telegraph_fill", "str.settings.opt.colorblind_assist",
+                "str.settings.opt.my_fx_opacity", "str.settings.opt.damage_number_size", // 솔로 가독성 보강
                 "str.settings.opt.enhance_ritual", "str.settings.opt.enhance_fast_allow_high", "str.settings.trace_note",
                 "str.settings.account.save_path", "str.settings.account.restore_save"
             };

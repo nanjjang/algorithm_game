@@ -40,6 +40,8 @@ namespace Wizard.Solo.Meta
         public List<string> KnownAffinities = new List<string>();
         /// <summary>원정 준비에서 마지막으로 고른 캐릭터(1~5). 메인 메뉴 "연습"·"조립과 서고"의 처음 캐릭터(00 문서 D-56).</summary>
         public int LastCharacter = 1;
+        /// <summary>도전 과제(DataSolo/Challenges.json). 이룬 과제 id와 이룬 날. 옛 저장에는 없어 빈 값으로 읽힌다(더하기만).</summary>
+        public ChallengesData Challenges = new ChallengesData();
         [JsonExtensionData] public IDictionary<string, JToken> Extra;
 
         public CharacterRecord Character(int number) => Characters.Find(c => c.Id == number);
@@ -68,6 +70,20 @@ namespace Wizard.Solo.Meta
         public int TotalWaves;
         public int WildStainStageMax = 1;
         public int WildStainWorn = 1;
+        /// <summary>누적 스침·처치·엘리트 처치(정산 때 판의 웨이브 결과를 더한다). 도전 과제가 읽는다. 옛 저장에는 없어 0.</summary>
+        public int TotalGrazes;
+        public int TotalKills;
+        public int TotalElites;
+        /// <summary>이 캐릭터로 웨이브 20 허상을 잡은 적이 있다(캐릭터별 도전 과제).</summary>
+        public bool RevengeDone;
+        /// <summary>한 판에서 가장 많이 스친 수, 한 판에서 맞지 않고 넘긴 웨이브 수의 최고, 맞지 않고 잡은 보스 웨이브 수(도전 과제).</summary>
+        public int BestRunGrazes;
+        public int BestRunNoHitWaves;
+        public int BossNoHitClears;
+        /// <summary>판 끝 요약의 개인 최고(표시 통계 — 정산 화면이 판 끝에 적는다): 한 방 피해, 스침 연속, 콤보.</summary>
+        public int BestHit;
+        public int BestGrazeChain;
+        public int BestCombo;
     }
 
     public sealed class WandData
@@ -94,7 +110,64 @@ namespace Wizard.Solo.Meta
         public string AcquiredAt;
         public int Version = 1;
 
+        /// <summary>이 지팡이의 강화 기록(시도·결과 수, 도전 단계별 표기 확률 합과 성공 수). 강화 서비스가 시도마다 적는다. 옛 저장에는 없어 빈 기록.</summary>
+        public WandEnhanceStats EnhanceStats = new WandEnhanceStats();
+
         public bool HasMutation(string mutationId) => Mutations.Exists(m => m.Id == mutationId);
+    }
+
+    /// <summary>
+    /// 지팡이 한 자루의 강화 기록(강화 화면의 기록 칸). 확률·판정에는 쓰지 않는다 — 보여 주기만 한다.
+    /// 성공 = 성공 + 대성공, 유지 = 하락 없음 + 부적이 막음 + (거절한) 변이가 하락 없이 끝남, 하락 = 단계가 내려감, 변이 = 받은 변이.
+    /// </summary>
+    public sealed class WandEnhanceStats
+    {
+        public int Attempts;
+        public int Successes;
+        public int GreatSuccesses;
+        public int Keeps;
+        public int Drops;
+        public int Mutations;
+        /// <summary>도전 단계(+1~+13)별. 순서 없음 — Target으로 찾는다.</summary>
+        public List<StageEnhanceStats> Stages = new List<StageEnhanceStats>();
+
+        public StageEnhanceStats Stage(int target)
+        {
+            if (Stages == null) Stages = new List<StageEnhanceStats>();
+            for (int i = 0; i < Stages.Count; i++) if (Stages[i] != null && Stages[i].Target == target) return Stages[i];
+            var s = new StageEnhanceStats { Target = target };
+            Stages.Add(s);
+            return s;
+        }
+
+        public StageEnhanceStats Find(int target)
+        {
+            if (Stages == null) return null;
+            for (int i = 0; i < Stages.Count; i++) if (Stages[i] != null && Stages[i].Target == target) return Stages[i];
+            return null;
+        }
+    }
+
+    public sealed class StageEnhanceStats
+    {
+        /// <summary>도전 단계(이 시도가 성공하면 닿는 단계 = 시도 전 단계 + 1).</summary>
+        public int Target;
+        public int Attempts;
+        /// <summary>성공 + 대성공.</summary>
+        public int Successes;
+        /// <summary>시도마다 화면에 보인 성공 확률(%)의 합. 평균 표기 확률 = 합 ÷ 시도.</summary>
+        public long ShownPctSum;
+    }
+
+    /// <summary>도전 과제 진행(이룬 것만 적는다 — 진행 값은 캐릭터 기록에서 다시 계산한다).</summary>
+    public sealed class ChallengesData
+    {
+        public List<string> Done = new List<string>();
+        /// <summary>Done과 같은 순서의 이룬 시각(기기 현지, ISO 8601).</summary>
+        public List<string> DoneAt = new List<string>();
+        [JsonExtensionData] public IDictionary<string, JToken> Extra;
+
+        public bool IsDone(string id) => Done != null && Done.Contains(id);
     }
 
     public sealed class MutationEntry
@@ -171,6 +244,8 @@ namespace Wizard.Solo.Meta
         public bool OfflineGuideSeen;
         /// <summary>하급 강화석을 한 번이라도 받았다(정산의 강화 안내를 처음 한 번만 띄운다). 07 요약서 9절 보충.</summary>
         public bool LowStoneReceived;
+        /// <summary>문맥 힌트(Screens/Hints)를 보인 횟수(힌트 id → 횟수). 처음 한 번 힌트는 1이면 다시 띄우지 않는다. 설정·도감의 [힌트 다시 보기]가 비운다.</summary>
+        public Dictionary<string, int> HintsSeen = new Dictionary<string, int>();
         [JsonExtensionData] public IDictionary<string, JToken> Extra;
     }
 

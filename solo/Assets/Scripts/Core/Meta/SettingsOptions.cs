@@ -27,11 +27,15 @@ namespace Wizard.Solo.Meta
             BulletTrail = "bullet_trail", GroundMarks = "ground_marks", KillShards = "kill_shards",
             ArtNamePopup = "art_name_popup", ComboPosition = "combo_position", CloneZoneOpacity = "clone_zone_opacity",
             WeatherParticles = "weather_particles", TelegraphFill = "telegraph_fill", ColorblindAssist = "colorblind_assist";
+        // 전투 보기 — 솔로 가독성 보강(내 이펙트가 적·적 탄·예고를 가리지 않게)
+        public const string MyFxOpacity = "my_fx_opacity", DamageNumberSize = "damage_number_size", ReduceFlash = "reduce_flash";
         // 대화와 공개(오프라인에서도 보이는 두 줄)
         public const string EnhanceRitual = "enhance_ritual", EnhanceFastAllowHigh = "enhance_fast_allow_high";
         // 화면이 기억하는 값(설정 화면에 줄을 그리지 않는 숨김 옵션)
         /// <summary>지팡이 목록 정렬(08 요약서 5.3절 "키 wand_list.sort"). 원정 준비와 강화의 지팡이 고르기가 같이 쓴다.</summary>
         public const string WandListSort = "wand_list.sort";
+        /// <summary>문맥 힌트(처음 일어난 일을 한 번 알려 주는 쪽지)를 띄운다. 기본 켬.</summary>
+        public const string ContextHints = "context_hints";
     }
 
     /// <summary>열거형 옵션의 값 이름(= 이름 표 str.settings.value.&lt;값&gt;).</summary>
@@ -42,6 +46,7 @@ namespace Wizard.Solo.Meta
             NearCharacter = "near_character", Hud = "hud", Fast = "fast", Windowed = "windowed", Fullscreen = "fullscreen",
             Default = "default", Alternate = "alternate", Custom = "custom",
             StageDesc = "stage_desc", StageAsc = "stage_asc", Recent = "recent";
+        public const string Large = "large", Small = "small";
     }
 
     /// <summary>옵션 한 줄의 꼴. Choices가 있으면 고르기, Min &lt; Max면 숫자(슬라이더), 둘 다 아니면 켬/끔.</summary>
@@ -101,6 +106,8 @@ namespace Wizard.Solo.Meta
                 Number(OptionKeys.ShakeScale, CatDisplay, Full, 0, Full),
                 Number(OptionKeys.FlashScale, CatDisplay, Full, 0, Full),
                 Toggle(OptionKeys.HitstopEnabled, CatDisplay, true),
+                Toggle(OptionKeys.ContextHints, CatDisplay, true),
+                Toggle(OptionKeys.ReduceFlash, CatDisplay, false),
                 Number(OptionKeys.VolMaster, CatSound, Full, 0, Full),
                 Number(OptionKeys.VolBgm, CatSound, Full, 0, Full),
                 Number(OptionKeys.VolSfx, CatSound, Full, 0, Full),
@@ -122,6 +129,8 @@ namespace Wizard.Solo.Meta
                 Toggle(OptionKeys.WeatherParticles, CatCombatView, true),
                 Number(OptionKeys.TelegraphFill, CatCombatView, 70, 70, 90, new[] { 70, 80, 90 }),
                 Toggle(OptionKeys.ColorblindAssist, CatCombatView, false),
+                Number(OptionKeys.MyFxOpacity, CatCombatView, 85, 0, Full),
+                Choice(OptionKeys.DamageNumberSize, CatCombatView, OptionValues.Small, OptionValues.Large, OptionValues.Small, OptionValues.Off),
                 Choice(OptionKeys.EnhanceRitual, CatChatPrivacy, OptionValues.Full, OptionValues.Full, OptionValues.Fast),
                 Toggle(OptionKeys.EnhanceFastAllowHigh, CatChatPrivacy, false),
             };

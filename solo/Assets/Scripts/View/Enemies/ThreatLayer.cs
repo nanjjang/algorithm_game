@@ -115,7 +115,8 @@ namespace Wizard.Solo.View.Enemies
             _flash = new FlashLimiter(_t.FlashLimitPx2, _t.FlashWindowTicks);
             foreach (var b in new[] { _fill, _edge, _stripes, _star }) b.CircleSegments = _t.CircleSegments;
             _fillSlot = new MeshSlot(_pool, SortBands.TelegraphFill + OZoneFill, _root);
-            _edgeSlot = new MeshSlot(_pool, SortBands.TelegraphEdge + OEdgeZone, _root);
+            // 예고 테두리는 적 탄 위(가독성: 적 예고 > 적 탄 > 내 것 — View/Effects/FxLayers)
+            _edgeSlot = new MeshSlot(_pool, Effects.FxLayers.TelegraphEdge + OEdgeZone, _root);
             _stripeSlot = new MeshSlot(_pool, SortBands.EnemyShots + OShotStripe, _root);
             _starSlot = new MeshSlot(_pool, SortBands.TelegraphFill + OStarRing, _root);
             if (w != null) Sync(w, 1f, 0f); // 이벤트 없이 지금 상태에서 집어 든다

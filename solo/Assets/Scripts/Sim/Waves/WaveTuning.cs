@@ -19,6 +19,10 @@ namespace Wizard.Solo.Sim.Waves
         public const string RewardKeepTotal = "keep_total";
         /// <summary>horde.reward_mode 값: 늘어난 적도 한 마리마다 보통 보상(합계가 배율만큼 는다).</summary>
         public const string RewardFull = "full";
+        /// <summary>horde.reward_mode 값: 원래 한 마리 몫 골드·점수·체력 조각 확률을 무리 전체(원본 + 늘린 사본)에 나눈다.
+        /// 마리마다 작은 보상이 튀고 합계는 명세 구성과 같다(소수점은 Run의 누적기가 결정론적으로 나른다).</summary>
+        public const string RewardSplit = "split";
+        const string BossPreviewSection = "boss_preview";
 
         /// <summary>종 기본 가중치(06 요약서 1.5절 [임시 U-01]).</summary>
         public int SpeciesBaseWeight = 100;
@@ -49,11 +53,59 @@ namespace Wizard.Solo.Sim.Waves
         public int HordePackSizeMax = 1;
         /// <summary>무리 한 마리가 무리 자리에서 흩어지는 최대 거리(칸). 전장 안쪽으로만 흩어진다.</summary>
         public float HordePackScatterRadius;
-        /// <summary>true = 배율로 늘어난 적은 보상 없음(합계 유지). false = 늘어난 적도 보통 보상.</summary>
+        /// <summary>true = 배율로 늘어난 적은 보상 없음(합계 유지, keep_total). false = 늘어난 적도 보상(full 또는 split).</summary>
         public bool HordeKeepRewardTotal = true;
+        /// <summary>reward_mode = split: 늘어난 적도 보상을 받되 한 무리가 원래 한 마리 몫을 나눈다(Run이 나눈다).</summary>
+        public bool HordeSplitReward;
+        /// <summary>
+        /// 웨이브별 잡몹 배율 곡선(normal_count_multiplier_by_wave: [[웨이브, 배율], …], 웨이브 오름차순). 점 사이는 직선, 양 끝 밖은 끝 값.
+        /// 비어 있으면 <see cref="HordeNormalCountMultiplier"/> 하나.
+        /// </summary>
+        public readonly List<KeyValuePair<int, float>> HordeMultiplierByWave = new List<KeyValuePair<int, float>>();
+        /// <summary>역할별 배율 상한(role_multiplier_cap: {역할: 상한}). 곡선 값이 이보다 크면 이 값.</summary>
+        public readonly Dictionary<string, float> HordeRoleMultiplierCap = new Dictionary<string, float>();
+        /// <summary>빠른 처리 목표 시간(scoring.json fast_clear.target_seconds)에 그 웨이브의 떼 배율(늘린 뒤 잡몹 수 ÷ 명세 잡몹 수)을 곱하는가.</summary>
+        public bool HordeScaleFastClearTarget;
+
+        /// <summary>
+        /// 보스 시연(boss_preview 절, 솔로 조정): 보스 웨이브 바로 앞 웨이브에 그 보스의 패턴을 미리 보여 주는 일반 적을 고정 개수로 넣는다
+        /// (예산 안, 종 상한은 지킨다). 열쇠 = 보스 id. 비어 있으면 없음.
+        /// </summary>
+        public readonly Dictionary<string, List<SpeciesCountDef>> BossPreview = new Dictionary<string, List<SpeciesCountDef>>();
+
+        /// <summary>그 웨이브·역할의 잡몹 배율(1 이상). 꺼져 있으면 1.</summary>
+        public float HordeMultiplier(int wave, string role)
+        {
+            if (!HordeEnabled) return 1f;
+            float m = HordeNormalCountMultiplier;
+            var c = HordeMultiplierByWave;
+            if (c.Count > 0)
+            {
+                if (wave <= c[0].Key) m = c[0].Value;
+                else if (wave >= c[c.Count - 1].Key) m = c[c.Count - 1].Value;
+                else
+                    for (int i = 1; i < c.Count; i++)
+                    {
+                        if (wave > c[i].Key) continue;
+                        float t = (wave - c[i - 1].Key) / (float)System.Math.Max(1, c[i].Key - c[i - 1].Key);
+                        m = c[i - 1].Value + (c[i].Value - c[i - 1].Value) * t;
+                        break;
+                    }
+            }
+            float cap;
+            if (role != null && HordeRoleMultiplierCap.TryGetValue(role, out cap) && m > cap) m = cap;
+            return System.Math.Max(1f, m);
+        }
 
         /// <summary>떼 출현이 실제로 무엇이든 바꾸는가.</summary>
-        public bool HordeMultiplies => HordeEnabled && HordeNormalCountMultiplier > 1f;
+        public bool HordeMultiplies => HordeEnabled && (HordeNormalCountMultiplier > 1f || MaxCurve() > 1f);
+
+        float MaxCurve()
+        {
+            float m = 1f;
+            for (int i = 0; i < HordeMultiplierByWave.Count; i++) if (HordeMultiplierByWave[i].Value > m) m = HordeMultiplierByWave[i].Value;
+            return m;
+        }
         public bool HordePacks => HordeEnabled && HordePackSizeMax > 1;
 
         public static WaveTuning From(IContentDb db) => From(db, true);
@@ -75,7 +127,11 @@ namespace Wizard.Solo.Sim.Waves
                 t.RootedPlayerClearance = Float(sec, "rooted_player_clearance", t.RootedPlayerClearance);
                 t.PropVariants = Int(sec, "prop_variants", t.PropVariants);
             }
-            if (includeHorde) ReadHorde(root[HordeSection] as JObject, t);
+            if (includeHorde)
+            {
+                ReadHorde(root[HordeSection] as JObject, t);
+                ReadBossPreview(root[BossPreviewSection] as JObject, t);
+            }
             return t;
         }
 
@@ -91,12 +147,57 @@ namespace Wizard.Solo.Sim.Waves
             t.HordePackSizeMax = System.Math.Max(t.HordePackSizeMin, Int(h, "pack_size_max", 1));
             t.HordePackScatterRadius = System.Math.Max(0f, Float(h, "pack_scatter_radius", 0f));
             var mode = h["reward_mode"];
-            t.HordeKeepRewardTotal = mode == null || mode.Type != JTokenType.String || mode.Value<string>() != RewardFull;
+            string m = mode != null && mode.Type == JTokenType.String ? mode.Value<string>() : null;
+            t.HordeKeepRewardTotal = m != RewardFull && m != RewardSplit;
+            t.HordeSplitReward = m == RewardSplit;
+            t.HordeMultiplierByWave.Clear();
+            var curve = h["normal_count_multiplier_by_wave"] as JArray;
+            if (curve != null)
+                for (int i = 0; i < curve.Count; i++)
+                {
+                    var pt = curve[i] as JArray;
+                    if (pt == null || pt.Count < 2 || !IsNumber(pt[0]) || !IsNumber(pt[1])) continue;
+                    int wave = pt[0].Value<int>();
+                    if (t.HordeMultiplierByWave.Count > 0 && wave <= t.HordeMultiplierByWave[t.HordeMultiplierByWave.Count - 1].Key) continue;
+                    t.HordeMultiplierByWave.Add(new KeyValuePair<int, float>(wave, System.Math.Max(1f, pt[1].Value<float>())));
+                }
+            t.HordeRoleMultiplierCap.Clear();
+            var caps = h["role_multiplier_cap"] as JObject;
+            if (caps != null)
+                foreach (var kv in caps)
+                    if (IsNumber(kv.Value)) t.HordeRoleMultiplierCap[kv.Key] = System.Math.Max(1f, kv.Value.Value<float>());
+            var fast = h["scale_fast_clear_target"];
+            t.HordeScaleFastClearTarget = fast != null && fast.Type == JTokenType.Boolean && fast.Value<bool>();
             t.HordeNormalRoles.Clear();
             var roles = h["normal_roles"] as JArray;
             if (roles != null)
                 for (int i = 0; i < roles.Count; i++)
                     if (roles[i].Type == JTokenType.String) t.HordeNormalRoles.Add(roles[i].Value<string>());
+        }
+
+        /// <summary>"boss_preview" 절: { "enabled": bool, "bosses": { 보스 id: [ { species, min, max }, … ] } }.</summary>
+        public static void ReadBossPreview(JObject b, WaveTuning t)
+        {
+            t.BossPreview.Clear();
+            if (b == null) return;
+            var en = b["enabled"];
+            if (en == null || en.Type != JTokenType.Boolean || !en.Value<bool>()) return;
+            var bosses = b["bosses"] as JObject;
+            if (bosses == null) return;
+            foreach (var kv in bosses)
+            {
+                var arr = kv.Value as JArray;
+                if (arr == null) continue;
+                var list = new List<SpeciesCountDef>();
+                for (int i = 0; i < arr.Count; i++)
+                {
+                    var o = arr[i] as JObject;
+                    if (o == null || o["species"] == null) continue;
+                    int min = Int(o, "min", 1);
+                    list.Add(new SpeciesCountDef { Species = (string)o["species"], Min = min, Max = System.Math.Max(min, Int(o, "max", min)) });
+                }
+                if (list.Count > 0) t.BossPreview[kv.Key] = list;
+            }
         }
 
         static bool IsNumber(JToken v) => v != null && (v.Type == JTokenType.Integer || v.Type == JTokenType.Float);

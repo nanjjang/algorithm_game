@@ -12,7 +12,7 @@ namespace Wizard.Solo.Screens.Meta
     /// 결투 전적·시즌 결과 줄과 [다시 보기] 단추는 그리지 않는다(D-51, N-10, N-11). 규칙은 RecordsModel.
     /// Q/E = 탭, 위·아래 = 목록 굴리기, J = 얻은 칭호 줄(→ TitlePicker), Esc·K = 나가기.
     /// </summary>
-    public sealed class RecordsScreen : ScreenBase
+    public sealed partial class RecordsScreen : ScreenBase
     {
         // 08 11.1절 자리(1920×1080 기준) → 내용 좌표(위 띠 80을 뺀다).
         const float Top = TopBarHeight;
@@ -35,13 +35,15 @@ namespace Wizard.Solo.Screens.Meta
 
         protected override void BuildContent(RectTransform content)
         {
-            var labels = new List<string>(RecordsModel.TabCount);
-            for (int i = 0; i < RecordsModel.TabCount; i++) labels.Add(T(RecordsModel.TabKey(i)));
-            float tabW = (TabsW - TabGap * (RecordsModel.TabCount - 1)) / RecordsModel.TabCount;
+            int tabs = RecordsModel.TabCountWithChallenges;
+            var labels = new List<string>(tabs);
+            for (int i = 0; i < tabs; i++) labels.Add(T(RecordsModel.TabKey(i)));
+            float tabW = (TabsW - TabGap * (tabs - 1)) / tabs;
             Tabs = UiKit.Tabs(Ctx, content, labels, TabsX, TabsY, tabW, TabsH, SelectTab, 0, false, TabGap);
 
             BuildSummary(content);
             BuildList(content);
+            BuildChallengeBoard(content);
         }
 
         void BuildSummary(RectTransform content)
@@ -86,6 +88,7 @@ namespace Wizard.Solo.Screens.Meta
         {
             var board = UiKit.Plate(Ctx, content, UiPanelKind.Board, ListX, ListY, ListW, ListH).rectTransform;
             board.name = "RunList";
+            _listBoard = board;
             float x = Pad;
             float lh = UiTheme.LineHeight(UiFontId.F16);
             for (int i = 0; i < RecordsModel.ColumnKeys.Length; i++)
@@ -116,6 +119,11 @@ namespace Wizard.Solo.Screens.Meta
         void Refresh()
         {
             var p = Ctx != null ? Ctx.Profile : null;
+            bool challenges = _tab == RecordsModel.ChallengeTab;
+            _summary.gameObject.SetActive(!challenges);
+            if (_listBoard != null) _listBoard.gameObject.SetActive(!challenges);
+            if (_challengeBoard != null) _challengeBoard.gameObject.SetActive(challenges);
+            if (challenges) { FillChallenges(p); return; }
             var db = Ctx != null ? Ctx.Content : null;
             var thresholds = WardrobeModel.StainThresholds(db);
             var milestones = TitleModel.Milestones(db);

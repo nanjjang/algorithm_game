@@ -184,6 +184,7 @@ namespace Wizard.Solo.Meta.Enhance
 
             FinishStageChange(w, r, recordBefore);
             FillBalances(p, w, r);
+            Records.EnhanceRecordBook.NoteAttempt(w, r);   // 보여 주기만 하는 기록(판정·확률과 무관)
             Log(p, LogEnhance, w, r);
             Save();
             return Result<EnhanceResult>.Success(r);
@@ -239,6 +240,7 @@ namespace Wizard.Solo.Meta.Enhance
 
             FinishStageChange(w, r, recordBefore);
             FillBalances(p, w, r);
+            Records.EnhanceRecordBook.NoteResolve(w, r);   // 보여 주기만 하는 기록(판정·확률과 무관)
             Log(p, LogMutation, w, r);
             Save();
             return Result<EnhanceResult>.Success(r);

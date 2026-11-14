@@ -330,6 +330,17 @@ namespace Wizard.Solo.Tests.RunModuleTests
             W.Step();
         }
 
+        /// <summary>지금 제시의 앞 카드들을 정해진 블록으로 바꾼다(별 겹치기·보관함 수를 정확히 보려는 시험용). 등급은 블록의 등급.</summary>
+        public void ForceCards(params string[] blockIds)
+        {
+            Assert.IsNotNull(Run.Loot);
+            for (int i = 0; i < blockIds.Length && i < Run.Loot.Cards.Count; i++)
+            {
+                Run.Loot.Cards[i].BlockId = blockIds[i];
+                Run.Loot.Cards[i].Rarity = Db.Block(blockIds[i]).Rarity;
+            }
+        }
+
         /// <summary>전투 → 클리어 → 전리품 2장 → 야영.</summary>
         public void ToCamp()
         {

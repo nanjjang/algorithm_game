@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using Wizard.Solo.Screens.Story;
 using Wizard.Solo.Sim;
+using Wizard.Solo.Sim.Run;
 using Wizard.Solo.UI;
 
 namespace Wizard.Solo.Tests.Story
@@ -12,24 +13,47 @@ namespace Wizard.Solo.Tests.Story
     /// </summary>
     public sealed class TutorialFlowTests
     {
-        const int Delay = 60;
+        static TutorialPlan Plan => TutorialPlan.From(TestContent.Db);
+        static int Delay => SimConst.Ticks(Plan.AdvanceDelaySeconds);
+        static int Count => Plan.Count;
+        static int StepOf(string id) => Plan.StepOf(id);
+        const int Hint = 300, Setback = 240;
+
+        static TutorialFlowModel Model() => new TutorialFlowModel(Plan, Delay, Hint, Setback);
 
         // ------------------------------------------------------------ 순수 모델: 단계 진행표
 
         [Test]
-        public void S08_U53__StepTableAdvancesOneToFiveThenEnds()
+        public void Tutorial__PlanHasAllGatesInTeachingOrder()
         {
-            var m = new TutorialFlowModel(5, Delay);
+            var plan = Plan;
+            CollectionAssert.AreEqual(new[]
+            {
+                TutorialStepIds.Intro, TutorialStepIds.Move, TutorialStepIds.Fire, TutorialStepIds.Overheat, TutorialStepIds.Crit,
+                TutorialStepIds.Graze, TutorialStepIds.Combo, TutorialStepIds.Art, TutorialStepIds.Stance, TutorialStepIds.Reverse,
+                TutorialStepIds.Command, TutorialStepIds.Block
+            }, plan.Steps);
+            Assert.Greater(plan.FireHits, 0);
+            Assert.Greater(plan.GrazeGoal, 0);
+            Assert.Greater(plan.CritExtraShots, 0, "꾹 눌러 통과하지 못하게 덧 횟수가 있어야 한다");
+            Assert.Greater(plan.IntroLines, 0);
+            Assert.Greater(plan.HintAfterSeconds, 0f);
+        }
+
+        [Test]
+        public void S08_U53__StepTableAdvancesThenEnds()
+        {
+            var m = Model();
             int tick = 100;
-            for (int step = 1; step <= 5; step++)
+            for (int step = 1; step <= Count; step++)
             {
                 bool last;
                 Assert.IsTrue(m.OnStepDone(step, step, tick, out last), "step " + step);
-                Assert.AreEqual(step == 5, last);
+                Assert.AreEqual(step == Count, last);
                 Assert.AreEqual(TutorialActionKind.None, m.Poll(tick + Delay - 1).Kind, "잠깐 뒤에 넘긴다");
                 var a = m.Poll(tick + Delay);
                 Assert.AreEqual(step + 1, a.Next);
-                Assert.AreEqual(step == 5 ? TutorialActionKind.AdvanceAndFinish : TutorialActionKind.Advance, a.Kind);
+                Assert.AreEqual(step == Count ? TutorialActionKind.AdvanceAndFinish : TutorialActionKind.Advance, a.Kind);
                 Assert.AreEqual(TutorialActionKind.None, m.Poll(tick + Delay + 1).Kind, "한 번만");
                 tick += 500;
             }
@@ -39,65 +63,140 @@ namespace Wizard.Solo.Tests.Story
         [Test]
         public void S08_U53__DoneOfAnotherStepIsIgnored()
         {
-            var m = new TutorialFlowModel(5, Delay);
+            var m = Model();
             bool last;
             Assert.IsFalse(m.OnStepDone(3, 2, 10, out last), "지금 단계(2)가 아닌 완료");
             Assert.IsFalse(m.OnStepDone(0, 1, 10, out last));
-            Assert.IsFalse(m.OnStepDone(6, 1, 10, out last));
+            Assert.IsFalse(m.OnStepDone(Count + 1, 1, 10, out last));
             Assert.IsTrue(m.OnStepDone(2, 2, 10, out last));
             Assert.IsFalse(m.OnStepDone(2, 2, 11, out last), "같은 단계 두 번");
         }
 
         [Test]
-        public void S08_6_4__BalloonKeysAndLoadoutButtonOnStep5()
+        public void Tutorial__BalloonKeysPerGate_LoadoutButtonOnlyOnBlockStep()
         {
-            var names = new StoryFakeNames();
-            var m = new TutorialFlowModel(5, Delay);
-            for (int s = 1; s <= 5; s++)
+            var names = TestContent.Names;
+            var m = Model();
+            for (int s = 1; s <= Count; s++)
             {
-                var b = m.Balloon(s, names);
+                string id = Plan.IdOf(s);
+                var b = m.Balloon(s, 0, names, false);
                 Assert.IsTrue(b.Visible);
-                Assert.AreEqual("str.tutorial.step." + s, b.TitleKey);
-                Assert.AreEqual(s == 5, b.ShowOpenLoadout);
+                Assert.AreEqual(Count, b.Total);
+                Assert.AreEqual("str.tutorial.gate." + id + ".title", b.TitleKey);
+                Assert.IsTrue(names.Has(b.TitleKey), b.TitleKey);
+                Assert.IsNotNull(b.BodyKey, "본문(1~2문장)이 모든 단계에 있다: " + id);
+                Assert.AreEqual(id == TutorialStepIds.Intro, b.IsIntro);
+                Assert.AreEqual(id == TutorialStepIds.Block, b.ShowOpenLoadout, id);
+                if (id != TutorialStepIds.Intro)
+                {
+                    Assert.IsNotNull(b.GoalKey, "화면 안 목표가 있다: " + id);
+                    Assert.IsTrue(names.Has(TutorialFlowModel.HintKeyOf(id)), "막혔을 때 힌트: " + id);
+                    Assert.IsTrue(names.Has(TutorialFlowModel.DoneKeyOf(id)), "칭찬: " + id);
+                }
             }
-            Assert.IsFalse(m.Balloon(6, names).Visible, "6 = 끝");
-            Assert.IsFalse(m.Balloon(0, names).Visible);
-            Assert.IsTrue(m.CanOpenLoadout(5));
-            Assert.IsFalse(m.CanOpenLoadout(4));
+            Assert.IsFalse(m.Balloon(Count + 1, 0, names, false).Visible, "마지막 + 1 = 끝");
+            Assert.IsFalse(m.Balloon(0, 0, names, false).Visible);
+            Assert.IsTrue(m.CanOpenLoadout(StepOf(TutorialStepIds.Block)));
+            Assert.IsFalse(m.CanOpenLoadout(StepOf(TutorialStepIds.Command)));
+            for (int i = 1; i <= Plan.IntroLines; i++) Assert.IsTrue(names.Has(TutorialFlowModel.IntroLineKey(i)), "도입 대사 " + i);
         }
 
         [Test]
         public void S08_N05__BalloonBodyHiddenWithoutValue()
         {
             var names = new StoryFakeNames();
-            var m = new TutorialFlowModel(5, Delay);
-            Assert.IsNull(m.Balloon(1, names).BodyKey, "열쇠가 없으면 본문 줄을 숨긴다");
-            names.Set("str.tutorial.step.1.body", string.Empty);
-            Assert.IsNull(m.Balloon(1, names).BodyKey, "값이 비어도 숨긴다");
-            names.Set("str.tutorial.step.1.body", "x");
-            Assert.AreEqual("str.tutorial.step.1.body", m.Balloon(1, names).BodyKey);
+            var m = Model();
+            int fire = StepOf(TutorialStepIds.Fire);
+            Assert.IsNull(m.Balloon(fire, 0, names, false).BodyKey, "열쇠가 없으면 본문 줄을 숨긴다");
+            names.Set("str.tutorial.gate.fire.body", string.Empty);
+            Assert.IsNull(m.Balloon(fire, 0, names, false).BodyKey, "값이 비어도 숨긴다");
+            names.Set("str.tutorial.gate.fire.body", "x");
+            Assert.AreEqual("str.tutorial.gate.fire.body", m.Balloon(fire, 0, names, false).BodyKey);
+        }
+
+        [Test]
+        public void Tutorial__OverheatBodySwitchesWhileLocked()
+        {
+            var m = Model();
+            int st = StepOf(TutorialStepIds.Overheat);
+            Assert.AreEqual("str.tutorial.gate.overheat.body", m.Balloon(st, 0, TestContent.Names, false).BodyKey);
+            Assert.AreEqual("str.tutorial.gate.overheat.body_locked", m.Balloon(st, 1, TestContent.Names, true).BodyKey, "잠긴 동안 잠금 설명");
+        }
+
+        [Test]
+        public void Tutorial__StuckHintAfterNoProgress_ProgressResetsTheClock()
+        {
+            var names = TestContent.Names;
+            var m = Model();
+            int st = StepOf(TutorialStepIds.Fire);
+            Assert.IsNull(m.Balloon(st, 1000, names, false).HintKey, "처음에는 힌트 없음");
+            Assert.IsNull(m.Balloon(st, 1000 + Hint - 1, names, false).HintKey);
+            Assert.AreEqual(TutorialFlowModel.HintKeyOf(TutorialStepIds.Fire), m.Balloon(st, 1000 + Hint, names, false).HintKey, "진척 없이 오래 → 힌트");
+            m.OnProgress(st, 1, Plan.FireHits, 1000 + Hint + 10);
+            Assert.IsNull(m.Balloon(st, 1000 + Hint + 11, names, false).HintKey, "진척이 오르면 힌트를 거둔다");
+            Assert.AreEqual(1, m.Balloon(st, 1000 + Hint + 11, names, false).Progress);
+            Assert.AreEqual(Plan.FireHits, m.Balloon(st, 1000 + Hint + 11, names, false).Goal);
+        }
+
+        [Test]
+        public void Tutorial__SetbackHintShowsImmediatelyThenExpires()
+        {
+            var names = TestContent.Names;
+            var m = Model();
+            int st = StepOf(TutorialStepIds.Crit);
+            m.Balloon(st, 0, names, false);
+            m.OnSetback(st, TutorialSetback.Overflow, 50);
+            Assert.AreEqual("str.tutorial.setback.overflow", m.Balloon(st, 51, names, false).HintKey);
+            Assert.IsTrue(names.Has("str.tutorial.setback.overflow"));
+            Assert.IsTrue(names.Has("str.tutorial.setback.hit"));
+            Assert.IsTrue(names.Has("str.tutorial.setback.fizzle"));
+            Assert.AreNotEqual("str.tutorial.setback.overflow", m.Balloon(st, 50 + Setback, names, false).HintKey, "잠시 뒤 거둔다");
+            m.OnSetback(st - 1, TutorialSetback.Hit, 60);
+            Assert.AreNotEqual("str.tutorial.setback.hit", m.Balloon(st, 61, names, false).HintKey, "지난 단계의 실수는 무시");
+        }
+
+        [Test]
+        public void Tutorial__IntroLinesThenAdvance()
+        {
+            var m = Model();
+            int st = StepOf(TutorialStepIds.Intro);
+            for (int i = 1; i < Plan.IntroLines; i++)
+            {
+                Assert.AreEqual(i, m.IntroLine);
+                Assert.AreEqual(TutorialActionKind.None, m.NextIntroLine(st).Kind);
+            }
+            var a = m.NextIntroLine(st);
+            Assert.AreEqual(TutorialActionKind.Advance, a.Kind);
+            Assert.AreEqual(st + 1, a.Next);
+            Assert.AreEqual(TutorialActionKind.None, m.NextIntroLine(st + 1).Kind, "다른 단계에서는 줄 넘김이 없다");
         }
 
         [Test]
         public void S08_6_4__TitleKeysExistInNameTable()
         {
-            for (int s = 1; s <= 5; s++) Assert.IsTrue(TestContent.Names.Has("str.tutorial.step." + s), "step " + s);
             Assert.IsTrue(TestContent.Names.Has(TutorialController.SkipTitleKey));
             Assert.IsTrue(TestContent.Names.Has(TutorialController.SkipBodyKey));
             Assert.IsTrue(TestContent.Names.Has(TutorialScreen.OpenLoadoutKey));
             Assert.IsTrue(TestContent.Names.Has(TutorialScreen.SkipActionKey));
+            Assert.IsTrue(TestContent.Names.Has(TutorialScreen.StepCounterKey));
+            Assert.IsTrue(TestContent.Names.Has(TutorialScreen.NextLineActionKey));
+            Assert.IsTrue(TestContent.Names.Has(TutorialScreen.IntroCounterKey));
+            Assert.IsTrue(TestContent.Names.Has(TutorialLayer.TargetLabelKey));
         }
 
         [Test]
         public void S08_6_4__DoneMarkWhileWaitingToAdvance()
         {
-            var names = new StoryFakeNames();
-            var m = new TutorialFlowModel(5, Delay);
+            var m = Model();
+            int st = StepOf(TutorialStepIds.Block);
             bool last;
-            m.OnStepDone(5, 5, 0, out last);
-            var b = m.Balloon(5, names);
+            m.OnStepDone(st, st, 0, out last);
+            var b = m.Balloon(st, 0, TestContent.Names, false);
             Assert.IsTrue(b.Done);
+            Assert.AreEqual(TutorialFlowModel.DoneKeyOf(TutorialStepIds.Block), b.PraiseKey);
             Assert.IsFalse(b.ShowOpenLoadout, "끝난 뒤에는 조립 열기를 다시 띄우지 않는다");
+            Assert.IsNull(b.HintKey, "완료 뒤에는 힌트 없음");
         }
 
         // ------------------------------------------------------------ 계약 벡터(가짜 IWandService·IGameSession·IScreenManager)
@@ -144,7 +243,7 @@ namespace Wizard.Solo.Tests.Story
             var ctl = new TutorialController(rig.Ctx, Tuning());
             ctl.Enter(rig.Args());
             var w = rig.Session.World;
-            for (int n = 1; n <= 4; n++)
+            for (int n = 2; n <= 4; n++)
             {
                 w.Run.TutorialStep = n;
                 w.Tick = n * 1000;
@@ -168,9 +267,9 @@ namespace Wizard.Solo.Tests.Story
             var ctl = new TutorialController(rig.Ctx, Tuning());
             ctl.Enter(rig.Args());
             var w = rig.Session.World;
-            w.Run.TutorialStep = 4;
-            Assert.IsFalse(ctl.OpenLoadout(), "⑤ 전에는 열지 않는다");
-            w.Run.TutorialStep = 5;
+            w.Run.TutorialStep = StepOf(TutorialStepIds.Block) - 1;
+            Assert.IsFalse(ctl.OpenLoadout(), "블록 단계 전에는 열지 않는다");
+            w.Run.TutorialStep = StepOf(TutorialStepIds.Block);
             Assert.IsTrue(ctl.OpenLoadout());
             Assert.AreEqual(1, rig.Screens.Pushed.Count);
             Assert.AreEqual(ScreenId.Camp, rig.Screens.Pushed[0].Key);
@@ -186,18 +285,18 @@ namespace Wizard.Solo.Tests.Story
             var ctl = new TutorialController(rig.Ctx, Tuning());
             ctl.Enter(rig.Args());
             var w = rig.Session.World;
-            w.Run.TutorialStep = 5;
+            w.Run.TutorialStep = Count;
             ctl.OpenLoadout();
             Assert.AreEqual(ScreenId.Camp, rig.Screens.Top);
             w.Tick = 900;
-            rig.Session.Raise(new SimEvent { Type = SimEventType.TutorialStepDone, A = 5, Tick = 900, Slot = -1 });
+            rig.Session.Raise(new SimEvent { Type = SimEventType.TutorialStepDone, A = Count, Tick = 900, Slot = -1 });
             Assert.AreEqual(ScreenId.Tutorial, rig.Screens.Top, "Camp를 PopTo(Tutorial)로 닫는다");
             CollectionAssert.Contains(rig.Screens.PopToCalls, ScreenId.Tutorial);
             Assert.IsTrue(ctl.Running, "잠깐 뒤에 끝낸다");
 
             w.Tick = 900 + Delay;
             ctl.Tick();
-            Assert.AreEqual(6, w.Commands.Count > 0 ? w.Commands[w.Commands.Count - 1].A : -1, "TutorialAdvance(A = 6 = 끝)");
+            Assert.AreEqual(Count + 1, w.Commands.Count > 0 ? w.Commands[w.Commands.Count - 1].A : -1, "TutorialAdvance(A = 마지막 + 1 = 끝)");
             Assert.IsFalse(ctl.Running);
 
             Assert.IsTrue(rig.Profiles.Data.Flags.TutorialDummyDone, "flags.tutorial_dummy_done");
@@ -282,11 +381,54 @@ namespace Wizard.Solo.Tests.Story
             ctl.Enter(rig.Args());
             var w = rig.Session.World;
             var other = new SimWorld(TestContent.Db, SimModuleSet.Stubs());
-            other.Run.TutorialStep = 1;
-            rig.Session.Raise(other, new SimEvent { Type = SimEventType.TutorialStepDone, A = 1, Tick = 0 });
+            other.Run.TutorialStep = 2;
+            w.Run.TutorialStep = 2;
+            rig.Session.Raise(other, new SimEvent { Type = SimEventType.TutorialStepDone, A = 2, Tick = 0 });
             w.Tick = Delay * 2;
             ctl.Tick();
             Assert.AreEqual(0, w.Commands.Count);
+        }
+
+        [Test]
+        public void Tutorial__IntroJAdvancesLinesThenStepWithoutStepDone()
+        {
+            var rig = new TutorialRig();
+            var ctl = new TutorialController(rig.Ctx, Tuning());
+            ctl.Enter(rig.Args());
+            var w = rig.Session.World;
+            w.Run.TutorialStep = StepOf(TutorialStepIds.Intro);
+            for (int i = 1; i < Plan.IntroLines; i++) Assert.IsTrue(ctl.NextIntroLine());
+            Assert.AreEqual(0, w.Commands.Count, "대사 중에는 넘기지 않는다");
+            Assert.IsTrue(ctl.NextIntroLine());
+            Assert.AreEqual(1, w.Commands.Count);
+            Assert.AreEqual(RunCommandKind.TutorialAdvance, w.Commands[0].Kind);
+            Assert.AreEqual(StepOf(TutorialStepIds.Intro) + 1, w.Commands[0].A);
+            w.Run.TutorialStep = StepOf(TutorialStepIds.Move);
+            Assert.IsFalse(ctl.NextIntroLine(), "다른 단계의 J는 줄 넘김이 아니다");
+        }
+
+        [Test]
+        public void Tutorial__ProgressAndSetbackReportsReachBalloon()
+        {
+            var rig = new TutorialRig();
+            var ctl = new TutorialController(rig.Ctx, Tuning());
+            ctl.Enter(rig.Args());
+            var w = rig.Session.World;
+            int st = StepOf(TutorialStepIds.Graze);
+            w.Run.TutorialStep = st;
+            w.Tick = 10;
+            ctl.Balloon();
+            rig.Session.Raise(new SimEvent { Type = SimEventType.PracticeReport, Id = TutorialReportKeys.Progress, A = st, B = 2, F = 3, Tick = 10 });
+            var b = ctl.Balloon();
+            Assert.AreEqual(2, b.Progress);
+            Assert.AreEqual(3, b.Goal);
+            int setbacks = 0;
+            ctl.SetbackRaised += _ => setbacks++;
+            rig.Session.Raise(new SimEvent { Type = SimEventType.PracticeReport, Id = TutorialReportKeys.Setback, A = st, B = (int)TutorialSetback.Hit, Tick = 11 });
+            Assert.AreEqual(1, setbacks);
+            Assert.AreEqual("str.tutorial.setback.hit", ctl.Balloon().HintKey);
+            rig.Session.Raise(new SimEvent { Type = SimEventType.ArtFizzled, A = (int)ArtFizzleReason.NoCrystal, Tick = 12 });
+            Assert.AreEqual("str.tutorial.setback.fizzle", ctl.Balloon().HintKey, "결정 부족 불발도 바로 알려 준다");
         }
 
         static StoryTuning Tuning()

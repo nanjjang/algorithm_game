@@ -17,6 +17,8 @@ namespace Wizard.Solo.Screens.Start
     {
         // 08 4.1절 위치(화면 기준). 내용 칸은 y 80부터라 TopBarHeight를 뺀다.
         const float CardX = 48f, CardY = 128f, CardW = 400f, CardH = 520f, CardGap = 24f;
+        // 원정 카드(크게, WP4): 메뉴 목록(1344) 앞까지 넓히고, 서버 전용 묶음은 아래 한 줄(나가기와 같은 줄)로 접는다.
+        const float BigCardW = 1272f, BigArtW = 560f, BigArtH = 366f, ServerLineY = 968f, ServerLineW = 1200f, ServerLineH = 48f;
         const float CardArtW = 368f, CardArtH = 240f, CardPad = 16f;
         const float ListX = 1344f, ListY = 128f, ListW = 528f, RowH = 48f, RowGap = 16f;
         const float ExitX = 1680f, ExitY = 968f, ExitW = 192f, ExitH = 48f;
@@ -29,6 +31,8 @@ namespace Wizard.Solo.Screens.Start
         readonly Dictionary<MainMenuAction, UiButton> _buttons = new Dictionary<MainMenuAction, UiButton>();
         UiButton _expedition;
         UiLabel _bestWave, _tracker, _gold, _equippedTitle, _profileLabel;
+        UiLabel _goalRevenge, _goalChallenge, _goalChallengeProgress;
+        UiProgressBar _goalChallengeBar;
         UImage _bgImage, _charImage, _wandImage, _campfire;
         SpriteAnim _charAnim, _fireAnim;
         float _animClock, _clockPoll;
@@ -48,27 +52,40 @@ namespace Wizard.Solo.Screens.Start
             BuildTopBar();
 
             float top = TopBarHeight;
-            // 원정 카드
-            _expedition = UiKit.Button(Ctx, content, null, CardX, CardY - top, CardW, CardH, () => Open(_model.Expedition),
+            // 원정 카드(크게): 왼쪽 큰 그림, 오른쪽 이름·부제·기록 줄·추적기 한 줄, 그 아래 "다음 목표"(허상 복수까지 n웨이브, 다음 도전 과제).
+            _expedition = UiKit.Button(Ctx, content, null, CardX, CardY - top, BigCardW, CardH, () => Open(_model.Expedition),
                 UiButtonStyle.Plain, Focus);
             var er = _expedition.ContentRoot != null ? _expedition.ContentRoot : _expedition.Rect;
-            UiKit.OrnatePanel(Ctx, er, 0f, 0f, CardW, CardH, 1).raycastTarget = false;
-            CardArt(er, "mode_expedition", CardPad, CardPad);
-            UiKit.AccentRule(er, CardPad, CardPad + CardArtH - 3f, CardArtW);
-            float y = CardPad + CardArtH + CardPad;
-            float h32 = UiTheme.LineHeight(UiFontId.F32), h16 = UiTheme.LineHeight(UiFontId.F16);
-            UiKit.DropShadow(UiKit.Label(Ctx, er, T(StartNameKeys.MainMenuExpedition), UiFontId.F32, CardPad, y, CardArtW, h32), 2f);
-            y += h32 + 8f;
-            UiKit.Label(Ctx, er, T(StartNameKeys.MainMenuExpeditionSub), UiFontId.F16, CardPad, y, CardArtW, h16 * 2f,
-                UiTheme.SlateBlue, TextAnchor.UpperLeft, wrap: true);
-            y += h16 * 2f + 16f;
-            _bestWave = UiKit.Label(Ctx, er, string.Empty, UiFontId.F16, CardPad, y, CardArtW, h16);
+            UiKit.OrnatePanel(Ctx, er, 0f, 0f, BigCardW, CardH, 1).raycastTarget = false;
+            float artY = (CardH - BigArtH) * 0.5f;
+            CardArtBig(er, "mode_expedition", CardPad * 1.5f, artY);
+            UiKit.AccentRule(er, CardPad * 1.5f, artY + BigArtH - 3f, BigArtW);
+            float tx = CardPad * 3f + BigArtW, tw = BigCardW - tx - CardPad * 2f;
+            float y = CardPad * 2f;
+            float h48 = UiTheme.LineHeight(UiFontId.F48), h24 = UiTheme.LineHeight(UiFontId.F24), h16 = UiTheme.LineHeight(UiFontId.F16);
+            UiKit.DropShadow(UiKit.Label(Ctx, er, T(StartNameKeys.MainMenuExpedition), UiFontId.F48, tx, y, tw, h48), 3f);
+            y += h48 + 4f;
+            UiKit.Label(Ctx, er, T(StartNameKeys.MainMenuExpeditionSub), UiFontId.F24, tx, y, tw, h24, UiTheme.SlateBlue);
+            y += h24 + 20f;
+            _bestWave = UiKit.Label(Ctx, er, string.Empty, UiFontId.F24, tx, y, tw, h24, UiTheme.Chalk);
+            y += h24 + 6f;
+            _tracker = UiKit.Label(Ctx, er, string.Empty, UiFontId.F16, tx, y, tw, h16, UiTheme.Chalk);
+            y += h16 + 24f;
+            UiKit.Divider(Ctx, er, tx, y, tw);
+            y += 12f;
+            UiKit.Label(Ctx, er, T(MainMenuModel.GoalTitleKey), UiFontId.F16, tx, y, tw, h16, UiTheme.Gold);
             y += h16 + 8f;
-            _tracker = UiKit.Label(Ctx, er, string.Empty, UiFontId.F16, CardPad, y, CardArtW, h16);
+            _goalRevenge = UiKit.Label(Ctx, er, string.Empty, UiFontId.F24, tx + 12f, y, tw - 12f, h24, UiTheme.Chalk);
+            y += h24 + 8f;
+            _goalChallenge = UiKit.Label(Ctx, er, string.Empty, UiFontId.F16, tx + 12f, y, tw - 12f, h16, UiTheme.Paper);
+            y += h16 + 6f;
+            _goalChallengeBar = UiKit.ProgressBar(Ctx, er, tx + 12f, y + (h16 - 8f) * 0.5f, tw * 0.55f, 8f, 0f);
+            _goalChallengeProgress = UiKit.Label(Ctx, er, string.Empty, UiFontId.F16, tx + 24f + tw * 0.55f, y, tw * 0.45f - 36f, h16,
+                UiTheme.SlateBlue, TextAnchor.MiddleRight);
             _buttons[MainMenuAction.Expedition] = _expedition;
 
-            // 서버 전용 묶음 상자(결투·광장 카드 둘의 자리). 흐리게 그리지 않는다(TV-026).
-            BuildServerGroup(content, CardX + CardW + CardGap, CardY - top, CardW * 2f + CardGap, CardH);
+            // 서버 전용 묶음: 흐리게 두지 않고 한 묶음 + 한 줄(01 2.2절, TV-026). 고르면 오프라인 안내.
+            BuildServerLine(content, CardX, ServerLineY - top, ServerLineW, ServerLineH);
 
             // 메뉴 목록
             for (int i = 0; i < _model.Items.Count; i++)
@@ -93,48 +110,26 @@ namespace Wizard.Solo.Screens.Start
             _pending = new PendingSettledPanel(Ctx, Root, new UiFocusGroup(Manager != null ? Manager.InputMode : null, Ctx != null ? Ctx.Sound : null));
         }
 
-        void CardArt(RectTransform parent, string variant, float x, float y)
+        void CardArtBig(RectTransform parent, string variant, float x, float y)
         {
             var sp = Ctx != null && Ctx.Art != null ? Ctx.Art.Ui("S-0502", variant) : default(UiSprite);
-            if (sp.IsValid) UiKit.Image(parent, sp.Sprite, x, y, CardArtW, CardArtH, null, false);
-            else UiKit.Panel(Ctx, parent, UiPanelKind.Recess, x, y, CardArtW, CardArtH);
+            if (sp.IsValid) UiKit.Image(parent, sp.Sprite, x, y, BigArtW, BigArtH, null, true);
+            else UiKit.Panel(Ctx, parent, UiPanelKind.Recess, x, y, BigArtW, BigArtH);
         }
 
-        void BuildServerGroup(RectTransform content, float x, float y, float w, float h)
+        /// <summary>서버 전용 묶음 한 줄: "결투 · 광장 · … — 서버에 접속하면 열립니다". 종이 글자가 아니라 밝은 글자(흐리게 보이지 않게).</summary>
+        void BuildServerLine(RectTransform content, float x, float y, float w, float h)
         {
             var e = _model.ServerOnly;
             var b = UiKit.Button(Ctx, content, null, x, y, w, h, () => Open(e), UiButtonStyle.Plain, Focus, StartSounds.OfflineGroupBoxOpen);
             var r = b.ContentRoot != null ? b.ContentRoot : b.Rect;
-            UiKit.NineSlice(Ctx, r, "S-0401", "server_features_group", null, 0f, 0f, w, h, UiTheme.Wood);
-            const float Pad = 24f;
-            // 묶음 상자 그림(S-0401)은 종이색이다 → 글자는 종이 글자색. 흰 글자면 흐려 보여 "흐리게 두지 않는다"(TV-026)를 어긴다.
-            Color ink = UiTheme.PaperText;
-            float colW = (w - 3f * Pad) * 0.5f;
-            float artW = Mathf.Min(CardArtW, colW);
-            CardArtSized(r, "mode_duel", Pad + (colW - artW) * 0.5f, Pad, artW);
-            CardArtSized(r, "mode_square", 2f * Pad + colW + (colW - artW) * 0.5f, Pad, artW);
-            float ny = Pad + CardArtH + 8f;
-            float h24 = UiTheme.LineHeight(UiFontId.F24), h16 = UiTheme.LineHeight(UiFontId.F16);
-            UiKit.Label(Ctx, r, T(MainMenuModel.ServerOnlyKeys[0]), UiFontId.F24, Pad, ny, colW, h24, ink, TextAnchor.MiddleCenter);
-            UiKit.Label(Ctx, r, T(MainMenuModel.ServerOnlyKeys[1]), UiFontId.F24, 2f * Pad + colW, ny, colW, h24, ink, TextAnchor.MiddleCenter);
-            ny += h24 + 24f;
-            int rest = MainMenuModel.ServerOnlyKeys.Length - 2;
-            float cellW = (w - 2f * Pad) / rest;
-            for (int i = 0; i < rest; i++)
-                UiKit.Label(Ctx, r, T(MainMenuModel.ServerOnlyKeys[2 + i]), UiFontId.F16, Pad + i * cellW, ny, cellW, h16, ink,
-                    TextAnchor.MiddleCenter);
-            ny += h16 + 32f;
-            UiKit.Label(Ctx, r, T(StartNameKeys.MainMenuServerOnly), UiFontId.F24, Pad, ny, w - 2f * Pad, h24, ink, TextAnchor.MiddleCenter);
-            ny += h24 + 8f;
-            UiKit.Label(Ctx, r, T(StartNameKeys.MainMenuOfflineGuide), UiFontId.F16, Pad, ny, w - 2f * Pad, h16, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
+            UiKit.Panel(Ctx, r, UiPanelKind.Recess, 0f, 0f, w, h);
+            var names = new List<string>();
+            for (int i = 0; i < MainMenuModel.ServerOnlyKeys.Length; i++) names.Add(T(MainMenuModel.ServerOnlyKeys[i]));
+            float h16 = UiTheme.LineHeight(UiFontId.F16);
+            UiKit.Label(Ctx, r, F(MainMenuModel.ServerLineKey, "names", string.Join(T(MainMenuModel.ServerLineSepKey), names),
+                    "note", T(StartNameKeys.MainMenuServerOnly)), UiFontId.F16, 16f, (h - h16) * 0.5f, w - 32f, h16, UiTheme.Chalk);
             _buttons[MainMenuAction.ServerOnly] = b;
-        }
-
-        void CardArtSized(RectTransform parent, string variant, float x, float y, float w)
-        {
-            var sp = Ctx != null && Ctx.Art != null ? Ctx.Art.Ui("S-0502", variant) : default(UiSprite);
-            if (sp.IsValid) UiKit.Image(parent, sp.Sprite, x, y, w, CardArtH, null, true);
-            else UiKit.Panel(Ctx, parent, UiPanelKind.Recess, x, y, w, CardArtH);
         }
 
         void BuildBackdrop()
@@ -247,12 +242,32 @@ namespace Wizard.Solo.Screens.Start
                 _tracker.gameObject.SetActive(line != null);
             }
             if (_gold != null) _gold.SetText(N(_model.Gold) + " " + T(StartNameKeys.CurrencyGold));
+            RefreshGoals();
             if (_equippedTitle != null) _equippedTitle.SetText(string.IsNullOrEmpty(_model.EquippedTitle) ? string.Empty : T(_model.EquippedTitle));
             // 판 중에는 강화 항목이 없다(TV-133). 솔로 흐름에서는 판 중에 메인 메뉴가 열리지 않지만 목록은 모델을 따른다.
             bool hasEnhance = false;
             for (int i = 0; i < _model.Items.Count; i++) if (_model.Items[i].Action == MainMenuAction.Enhance) hasEnhance = true;
             if (_buttons.TryGetValue(MainMenuAction.Enhance, out var eb) && eb != null) eb.gameObject.SetActive(hasEnhance);
             RefreshCharacter(p);
+        }
+
+        /// <summary>원정 카드의 다음 목표: 복수 중이면 허상까지 n웨이브, 그리고 지금 캐릭터의 다음 도전 과제(없으면 "모두" 과제).</summary>
+        void RefreshGoals()
+        {
+            if (_goalRevenge == null) return;
+            var names = Ctx != null ? Ctx.Names : null;
+            string rev = _model.RevengeGoalLine(names);
+            _goalRevenge.SetText(rev ?? T(MainMenuModel.GoalFreeKey));
+            _goalRevenge.Color = rev != null ? UiTheme.Chalk : UiTheme.SlateBlue;
+            bool has = _model.NextChallenge != null;
+            _goalChallenge.SetText(has ? _model.ChallengeGoalLine(names) : T(MainMenuModel.GoalAllDoneKey));
+            _goalChallengeBar.gameObject.SetActive(has);
+            _goalChallengeProgress.gameObject.SetActive(has);
+            if (has)
+            {
+                _goalChallengeBar.Value01 = _model.NextChallengeProgress.Ratio;
+                _goalChallengeProgress.SetText(Wizard.Solo.Meta.Records.ChallengeText.ProgressText(names, _model.NextChallengeProgress));
+            }
         }
 
         void RefreshCharacter(ProfileData p)

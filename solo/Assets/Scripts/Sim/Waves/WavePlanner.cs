@@ -11,6 +11,11 @@ namespace Wizard.Solo.Sim.Waves
         public List<string> Whims;
         /// <summary>틀을 이 id로 고정한다(각본 웨이브에는 먹지 않는다).</summary>
         public string Frame;
+        /// <summary>
+        /// 각본·틀의 고정 개수 뒤에 더 넣을 고정 개수(솔로 조정: 보스 시연, G09.json boss_preview). 예산 안이고 종 상한을 지킨다.
+        /// 시간대·첫 등장 웨이브는 보지 않는다(각본의 고정 개수와 같다).
+        /// </summary>
+        public List<SpeciesCountDef> ExtraFixed;
     }
 
     /// <summary>구성 생성의 중간 값(테스트가 벡터를 확인할 때 본다).</summary>
@@ -310,6 +315,21 @@ namespace Wizard.Solo.Sim.Waves
                         // 틀의 고정 종이 지금 시간대·웨이브에 없으면 빠지고 그 몫은 혼합으로 간다
                         if (script == null && !IsAvailable(_db, def, wave, tod)) continue;
                         int count = _rng.Range(fixedList[i].Min, fixedList[i].Max + 1);
+                        for (int k = 0; k < count; k++)
+                        {
+                            if (def.Cost > remaining || !UnderCap(def)) break;
+                            remaining -= AddUnit(def, remaining);
+                        }
+                    }
+
+                // 4b. 솔로 조정: 보스 시연 고정 개수(PlanOverrides.ExtraFixed)
+                var extraFixed = ov != null ? ov.ExtraFixed : null;
+                if (extraFixed != null)
+                    for (int i = 0; i < extraFixed.Count; i++)
+                    {
+                        var def = _db.Enemy(extraFixed[i].Species);
+                        if (def == null || def.Cost <= 0) continue;
+                        int count = _rng.Range(extraFixed[i].Min, extraFixed[i].Max + 1);
                         for (int k = 0; k < count; k++)
                         {
                             if (def.Cost > remaining || !UnderCap(def)) break;

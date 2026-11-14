@@ -10,7 +10,9 @@ namespace Wizard.Solo.View.Enemies
     /// 화면 밖 표시(카메라가 플레이어를 따라가며 전장 일부만 보이게 된 뒤로 필요해진 것). 화면 가장자리 안쪽에 화살 촉을 둔다:
     /// - 예고 구역: 모양이 화면에 한 점도 걸리지 않으면 위험색 그대로(#FF3B30 — 적의 공격 예고라 허용된 곳), 판정이 다가올수록 빨리 깜빡인다.
     /// - 보스: 흰 큰 화살 + 깜빡임. 엘리트: 금색. 보통 적: 옅은 회백(가까울수록 진하게).
+    /// - 화면 밖 등장 예고(EnemySpawnNotice — 출현 직전 덤불 흔들림 동안): 그 가장자리에 작은 화살 + 흔들리는 잎 셋. 이벤트가 없으면 위의 표식만.
     /// 줄일 수 없는 표시다(예고·적 위치 — 연출 감도와 무관). 위아래는 HUD 띠만큼 더 들어와 HUD에 가리지 않는다.
+    /// 그리는 띠: 전장의 모든 것 위(FxLayers.Offscreen — 적 탄·예고 테두리보다도 위, HUD 캔버스 아래).
     /// 수치는 Juice.json offscreen 절(표시 전용, 솔로 임시).
     /// </summary>
     public sealed class OffscreenMarkerLayer : IWorldViewLayer
@@ -24,6 +26,14 @@ namespace Wizard.Solo.View.Enemies
             public int Order;
             public float Priority; // 작을수록 먼저
         }
+
+        struct Incoming { public Vector2 Sim; public int StartTick, EndTick; }
+
+        readonly List<Incoming> _incoming = new List<Incoming>();
+        readonly List<SpriteRenderer> _spawnArrows = new List<SpriteRenderer>();
+        readonly List<SpriteRenderer> _leaves = new List<SpriteRenderer>();
+        public int SpawnWarningsVisible { get; private set; }
+        public int PendingSpawnNotices => _incoming.Count;
 
         ViewContext _vc;
         ISpritePool _pool;
@@ -46,7 +56,13 @@ namespace Wizard.Solo.View.Enemies
             _j = new EffectsTuning(root);
         }
 
-        public void OnEvent(SimWorld w, in SimEvent e) { }
+        public void OnEvent(SimWorld w, in SimEvent e)
+        {
+            if (e.Type != SimEventType.EnemySpawnNotice) return;
+            // A = 예고 길이(틱) 또는 끝 틱(보스 졸개 부르기) — EnemyLayer와 같은 읽기
+            int end = e.A > e.Tick ? e.A : e.Tick + (e.A > 0 ? e.A : SimConst.Ticks(0.5f));
+            _incoming.Add(new Incoming { Sim = e.Pos, StartTick = e.Tick, EndTick = end });
+        }
 
         float J(string key, float fallback)
         {
@@ -112,6 +128,81 @@ namespace Wizard.Solo.View.Enemies
                 sr.color = c;
             }
             HideFrom(VisibleCount);
+            RenderIncoming(w, center, view, inner);
+        }
+
+        /// <summary>화면 밖에서 곧 나올 적: 가장자리 작은 화살(맥박) + 흔들리는 잎 셋. 화면 안이면 전장의 덤불 흔들림(ArenaLayer)이 맡는다.</summary>
+        void RenderIncoming(SimWorld w, Vector2 center, Rect view, Rect inner)
+        {
+            SpawnWarningsVisible = 0;
+            for (int i = _incoming.Count - 1; i >= 0; i--) if (w.Tick > _incoming[i].EndTick) _incoming.RemoveAt(i);
+            int max = Mathf.RoundToInt(J("max_spawn_notices", 8f));
+            Color arrowC = C("spawn_color", new Color32(0xFF, 0xD9, 0xA0, 0xFF));
+            Color leafC = C("spawn_leaf_color", new Color32(0x9C, 0xC8, 0x7E, 0xFF));
+            float cells = J("spawn_cells", 0.3f);
+            int used = 0;
+            for (int i = 0; i < _incoming.Count && used < max; i++)
+            {
+                var n = _incoming[i];
+                Vector3 v3 = _vc.ToView(n.Sim);
+                Vector2 v = new Vector2(v3.x, v3.y);
+                if (view.Contains(v)) continue;
+                Vector2 d = v - center;
+                if (d.sqrMagnitude < 1e-6f) continue;
+                float sx = d.x != 0f ? ((d.x > 0f ? inner.xMax : inner.xMin) - center.x) / d.x : float.MaxValue;
+                float sy = d.y != 0f ? ((d.y > 0f ? inner.yMax : inner.yMin) - center.y) / d.y : float.MaxValue;
+                Vector2 at = center + d * Mathf.Max(0f, Mathf.Min(sx, sy));
+                float k = Mathf.Clamp01((w.Tick - n.StartTick) / (float)Mathf.Max(1, n.EndTick - n.StartTick));
+                Vector2 dir = d.normalized;
+                var arrow = Rent(_spawnArrows, used, ProcSprites.Arrow, FxLayers.Offscreen + 5);
+                if (arrow == null) break;
+                float pulse = 1f + 0.18f * Mathf.Sin(_clock * 14f);
+                arrow.transform.position = new Vector3(at.x, at.y, 0f);
+                arrow.transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
+                float sc = Fit(ProcSprites.Arrow, cells * pulse);
+                arrow.transform.localScale = new Vector3(sc, sc, 1f);
+                var ac = arrowC; ac.a = Mathf.Lerp(0.65f, 1f, k);
+                arrow.color = ac;
+                // 잎 셋: 화살 뒤(안쪽)에서 부채꼴로, 출현이 다가올수록 세게 흔들린다
+                Vector2 back = at - dir * cells * 0.9f;
+                Vector2 side = new Vector2(-dir.y, dir.x);
+                for (int l = 0; l < 3; l++)
+                {
+                    var leaf = Rent(_leaves, used * 3 + l, ProcSprites.HardDot, FxLayers.Offscreen + 4);
+                    if (leaf == null) break;
+                    float off = (l - 1) * cells * 0.45f;
+                    float jig = Mathf.Sin(_clock * (22f + l * 5f) + l * 1.7f) * cells * Mathf.Lerp(0.06f, 0.16f, k);
+                    Vector2 p = back + side * (off + jig) - dir * (l == 1 ? cells * 0.15f : 0f);
+                    leaf.transform.position = new Vector3(p.x, p.y, 0f);
+                    float ang = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + (l - 1) * 35f + jig * 120f;
+                    leaf.transform.rotation = Quaternion.Euler(0f, 0f, ang);
+                    float ls = Fit(ProcSprites.HardDot, cells * 0.42f);
+                    leaf.transform.localScale = new Vector3(ls * 1.7f, ls * 0.75f, 1f);
+                    var lc = leafC; lc.a = Mathf.Lerp(0.7f, 1f, k);
+                    leaf.color = lc;
+                }
+                used++;
+            }
+            SpawnWarningsVisible = used;
+            for (int i = used; i < _spawnArrows.Count; i++) if (_spawnArrows[i] != null) _spawnArrows[i].enabled = false;
+            for (int i = used * 3; i < _leaves.Count; i++) if (_leaves[i] != null) _leaves[i].enabled = false;
+        }
+
+        SpriteRenderer Rent(List<SpriteRenderer> list, int i, Sprite sprite, int order)
+        {
+            while (list.Count <= i)
+            {
+                var sr = _pool.Rent(sprite, order);
+                if (sr == null) return null;
+                _mpb.Clear();
+                _mpb.SetColor(SpriteShaderProps.OutlineColor, new Color(0.05f, 0.05f, 0.08f, 1f));
+                _mpb.SetFloat(SpriteShaderProps.OutlineSize, 1f);
+                sr.SetPropertyBlock(_mpb);
+                list.Add(sr);
+            }
+            var r = list[i];
+            r.enabled = true;
+            return r;
         }
 
         static float Fit(Sprite s, float cells)
@@ -162,7 +253,7 @@ namespace Wizard.Solo.View.Enemies
                 float r = Mathf.Max(0.2f, e.BodyRadius);
                 if (view.Overlaps(new Rect(v.x - r, v.y - r, r * 2f, r * 2f))) continue;
                 float dist = DistanceOutside(view, v);
-                var t = new Target { View = v, Order = SortBands.DamageNumbers + 40 };
+                var t = new Target { View = v, Order = FxLayers.Offscreen };
                 if (e.IsBoss)
                 {
                     t.Color = C("boss_color", Color.white);
@@ -204,7 +295,7 @@ namespace Wizard.Solo.View.Enemies
                 _targets.Add(new Target
                 {
                     View = closest, Color = danger, Cells = J("telegraph_cells", 0.5f) * (1f + 0.3f * fill),
-                    Blink = Mathf.Lerp(2f, 8f, fill), Order = SortBands.DamageNumbers + 45, Priority = -1f + (1f - fill) * 0.5f
+                    Blink = Mathf.Lerp(2f, 8f, fill), Order = FxLayers.OffscreenTelegraph, Priority = -1f + (1f - fill) * 0.5f
                 });
                 added++;
             }
@@ -259,7 +350,12 @@ namespace Wizard.Solo.View.Enemies
         public void Dispose()
         {
             if (_pool != null) for (int i = 0; i < _arrows.Count; i++) if (_arrows[i] != null) _pool.Return(_arrows[i]);
+            if (_pool != null) for (int i = 0; i < _spawnArrows.Count; i++) if (_spawnArrows[i] != null) _pool.Return(_spawnArrows[i]);
+            if (_pool != null) for (int i = 0; i < _leaves.Count; i++) if (_leaves[i] != null) _pool.Return(_leaves[i]);
             _arrows.Clear();
+            _spawnArrows.Clear();
+            _leaves.Clear();
+            _incoming.Clear();
             _targets.Clear();
             _vc = null;
             _pool = null;

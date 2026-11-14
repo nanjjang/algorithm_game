@@ -84,6 +84,27 @@ namespace Wizard.Solo.Art
             AddGroup(enhance);
             var layers = Parse(LayersDir + "manifest", j => ManifestParser.ParseLayers(j, LayersGroup, LayersDir))
                          ?? new EffectGroup { Name = LayersGroup };
+            var soloLayers = _src.LoadText(ArtAliases.ResourceRoot + LayersDir + "solo_overrides");
+            if (soloLayers != null)
+            {
+                try
+                {
+                    var overrides = ManifestParser.ParseLayers(soloLayers, LayersGroup, LayersDir);
+                    foreach (var entry in overrides.Entries)
+                    {
+                        if (layers.ByKey.TryGetValue(entry.Key, out var original))
+                        {
+                            layers.Entries[layers.Entries.IndexOf(original)] = entry;
+                            layers.ByKey[entry.Key] = entry;
+                        }
+                        else layers.Add(entry);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Warn("supplement/layers/solo_overrides: " + e.Message);
+                }
+            }
             AddGroup(layers);
 
             _presentation = ArtPresentation.Parse(_src.LoadText(ArtPresentation.ResourcePath));

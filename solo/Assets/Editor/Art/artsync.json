@@ -1,0 +1,18 @@
+{
+  "_note": "그림 대응표(00 문서 10절, 09 요약서 0절). source_root는 solo/ 기준, src는 source_root 기준, dst와 exclude·keep은 dest_root 기준 경로다. 글롭: ** = 폴더 여럿(0개 포함), * = 슬래시 없는 글자 여럿, ? = 슬래시 없는 글자 하나. 읽는 곳 둘(Wizard.Solo.Editor.ArtSyncRules, Tools/artsync.sh)이 같은 규칙을 쓴다. artsync.sh가 bash로 읽으므로 maps의 한 줄에 대응 하나, exclude·keep은 한 줄 배열로 둔다(괄호 ] 를 글롭에 쓰지 않는다).",
+  "source_root": "../art",
+  "dest_root": "Assets/Resources/Art",
+  "exclude": ["ui/atlas/**", "ui/font/*.png", "ui/font/*_glyphs.json", "**/preview*.png", "**/previews/**", "**/*_preview.png", "**/*-preview.png", "**/combat_preview.png", "**/ritual.gif", "players/source/**", "**/*.py", "**/*.md"],
+  "keep": ["solo_presentation.json", "players/solo_overrides.json", "players/*/body_v2.png", "players/*/selection_192x192_v2.png", "players/seonge/portraits_64x64_f4_v2.png", "players/seonge/silhouette_32x32_v2.png"],
+  "maps": [
+    { "src": "production/players", "dst": "players", "include": ["manifest.json", "*/body.png", "*/portraits_64x64_f4.png", "*/selection_192x192.png", "*/silhouette_32x32.png"], "exclude": [] },
+    { "src": "production/wands", "dst": "wands", "include": ["manifest.json", "*/hand.png", "*/inspection.png", "*/icon.png", "parts/*.png"], "exclude": [] },
+    { "src": "production/monsters", "dst": "monsters", "include": ["manifest.json", "*.png"], "exclude": [] },
+    { "src": "production/effects", "dst": "effects", "include": ["manifest.json", "player/*.png", "special/*.png", "ritual/*.png", "enemy/*.png", "loot/*.png", "wand/*.png", "status/*.png"], "exclude": [] },
+    { "src": "production/ui", "dst": "ui", "include": ["manifest.json", "kit/**/*.png", "icon/**/*.png", "screen/**/*.png", "font/Galmuri11.ttf", "font/neodgm.ttf", "font/*-OFL.txt"], "exclude": [] },
+    { "src": "production/world", "dst": "world", "include": ["manifest.json", "tiles/*.png", "sprites/*.png", "backplates/*.png", "maps/*.json"], "exclude": [] },
+    { "src": "production/backgrounds", "dst": "backgrounds", "include": ["title_1920x1080.png"], "exclude": [] },
+    { "src": "sprite-pack/characters/players/layers", "dst": "supplement/layers", "include": ["manifest.json", "**/sheet.png", "reactive/*/body_without_*.png"], "exclude": ["**/frames/**"] },
+    { "src": "sprite-pack/native-64/enhancement", "dst": "supplement/enhancement", "include": ["manifest.json", "background/workbench.png", "background/*/sheet.png", "new/*/sheet.png", "ritual-new/*/sheet.png", "ui-native/*/sheet.png"], "exclude": ["wands/**", "ritual/**", "ui/**"] }
+  ]
+}

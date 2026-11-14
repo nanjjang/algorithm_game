@@ -41,6 +41,9 @@ namespace Wizard.TaskGraph
     {
         public static int Run(string[] args, TextWriter o, TextWriter e)
         {
+            // 도구의 출력은 줄 끝이 LF 다(T-67 5번). 받은 쓰개가 OS 기본(Windows 의 CRLF)이어도 같은 바이트를 낸다
+            o.NewLine = "\n";
+            e.NewLine = "\n";
             try
             {
                 CliOptions opt = CliOptions.Parse(args);

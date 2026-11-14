@@ -66,6 +66,7 @@ namespace Wizard.Ci
             }
             using (p)
             using (sink)
+            using (WindowsJob? job = WindowsJob.TryAttach(p))
             {
                 p.StandardInput.Close();
                 Task outTask = Pump(p.StandardOutput, sink, false);
@@ -75,6 +76,8 @@ namespace Wizard.Ci
                 if (!exited)
                 {
                     timedOut = true;
+                    // Windows: 작업 개체에 든 자손 전부(MSYS 의 손자 포함. WindowsJob 머리말)
+                    job?.Terminate(TimeoutExitCode);
                     try
                     {
                         p.Kill(entireProcessTree: true);

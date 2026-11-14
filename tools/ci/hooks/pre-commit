@@ -8,7 +8,8 @@ case "$0" in */*) _here="${0%/*}" ;; *) _here="." ;; esac
 . "$_here/../lib/common.sh"
 ROOT="$(ci_root_from "$0")" || exit 1
 TOP="$(command git rev-parse --show-toplevel 2>/dev/null)" || TOP=""
-TOP="$(cd "${TOP:-.}" && pwd -P)"
+# 두 뿌리를 같은 꼴로 견준다(ci_root_from 은 ci_path 를 거친 꼴을 낸다. Windows 에서 pwd 는 /d/…, git 은 D:/… 를 낸다. T-67 4번)
+TOP="$(ci_path "$(cd "${TOP:-.}" && pwd -P)")"
 if [ "$TOP" != "$ROOT" ]; then
     echo "pre-commit: 이 훅은 $ROOT 의 것인데 커밋은 $TOP 에서 일어난다. $TOP/tools/ci/install-hooks.sh 로 훅을 다시 건다" >&2
     exit 1

@@ -9,7 +9,8 @@ namespace Wizard.Ci.Tests
 {
     // tools/ci 의 셸 스크립트는 #!/bin/bash 와 bash 3.2 문법만 쓴다(이 맥의 /bin/bash 는 3.2.57. T-40, PIPELINE 4.1).
     // 연관 배열, mapfile/readarray, ${x,,}·${x^^}, 이름 참조, coproc, |&, &>>, timeout, flock 이 없고, git 은 command git 으로만 부른다.
-    // 이 작업이 만든 스크립트는 그 밖의 도구도 절대 경로로 부른다(/usr/bin/grep …). 셋 다 /bin/bash -n 으로 문법을 확인한다.
+    // 이 작업이 만든 스크립트는 그 밖의 도구도 절대 경로로 부른다(/usr/bin/grep …). 셋 다 찾은 셸(BashLocator)의 -n 으로 문법을 확인한다:
+    // 맥에서는 /bin/bash 3.2, Windows 에서는 Git Bash(5.2)다. 3.2 문법은 아래의 금지 구문 검사가 두 OS 에서 지킨다(T-67 2번).
     public sealed class ShellScriptTests
     {
         private static readonly string CiDir = Path.Combine(TempGit.RepoRoot, "tools", "ci");
@@ -77,7 +78,7 @@ namespace Wizard.Ci.Tests
         {
             string path = RepoPaths.Combine(TempGit.RepoRoot, rel);
             Assert.Equal("#!/bin/bash", File.ReadLines(path).First());
-            ProcResult r = ProcessRunner.Run(new ProcRequest("/bin/bash", new[] { "-n", path }) { Capture = true });
+            ProcResult r = ProcessRunner.Run(new ProcRequest(TestBash.Path, new[] { "-n", path }) { Capture = true });
             Assert.True(r.ExitCode == 0, rel + ": " + r.Stderr);
         }
 
@@ -129,17 +130,19 @@ namespace Wizard.Ci.Tests
             Assert.DoesNotMatch(BareTool, "x=$(/usr/bin/basename \"$f\")");
         }
 
+        // git 이 기록한 모드가 100755 다(두 OS 에서 본다. T-67 1번). 파일의 유닉스 실행 권한은 Windows 에 대응이 없어서 맥·리눅스에서만 더 본다
         [Fact]
         public void ScriptsTheCardOwns_AreExecutable()
         {
-            if (OperatingSystem.IsWindows())
-            {
-                return;
-            }
             foreach (string rel in Owned.Concat(new[] { "tools/ci/hooks/pre-commit", "tools/ci/hooks/commit-msg" }))
             {
-                UnixFileMode mode = File.GetUnixFileMode(RepoPaths.Combine(TempGit.RepoRoot, rel));
-                Assert.True((mode & UnixFileMode.UserExecute) != 0, rel + " is not executable");
+                string staged = TempGit.GitIn(TempGit.RepoRoot, "ls-files", "-s", "--", rel).Trim();
+                Assert.True(staged.StartsWith("100755 ", StringComparison.Ordinal), rel + ": git 의 모드가 100755 가 아니다: '" + staged + "'");
+                if (!OperatingSystem.IsWindows())
+                {
+                    UnixFileMode mode = File.GetUnixFileMode(RepoPaths.Combine(TempGit.RepoRoot, rel));
+                    Assert.True((mode & UnixFileMode.UserExecute) != 0, rel + " is not executable");
+                }
             }
         }
     }

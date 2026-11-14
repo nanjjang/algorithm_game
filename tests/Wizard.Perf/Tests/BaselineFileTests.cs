@@ -32,8 +32,11 @@ namespace Wizard.Perf.Tests
         [Fact]
         public void Baseline_IsWrittenInCanonicalForm()
         {
+            // 저장소의 파일은 LF 다. 기대 문자열은 '\n' 줄 끝으로 만든다(OS 의 줄 끝에 기대지 않는다. T-67 5번):
+            // Utf8JsonWriter 의 들여쓰기 줄바꿈은 기본이 Environment.NewLine 이라 Windows 에서는 "\r\n" 으로 나온다
             string text = File.ReadAllText(BaselinePath);
-            Assert.Equal(PerfResults.Parse(text, "baseline").ToJson(), text);
+            string expected = PerfResults.Parse(text, "baseline").ToJson().Replace("\r\n", "\n", System.StringComparison.Ordinal);
+            Assert.Equal(expected, text);
         }
     }
 }

@@ -24,7 +24,8 @@ namespace Wizard.Ci
         private static readonly Regex SuppressWz = new Regex("SuppressMessage\\s*\\([^)]*\"WZ", RegexOptions.CultureInvariant);
         private static readonly Regex RspOff = new Regex("nowarn|warnaserror-", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
 
-        public static int Run(string root, TextWriter output)
+        // bash: 스크립트를 띄울 셸(BashLocator). 경로는 '/' 구분으로 넘긴다(T-67 3·4번)
+        public static int Run(string root, TextWriter output, string bash)
         {
             List<string> staged = Git.Paths(root, "diff", "--cached", "--name-only", "-z", "--diff-filter=ACMR");
             List<string> touched = Git.Paths(root, "diff", "--cached", "--name-only", "-z", "--no-renames");
@@ -50,7 +51,7 @@ namespace Wizard.Ci
             {
                 output.WriteLine("pre-commit: " + script);
                 output.Flush();
-                var req = new ProcRequest("/bin/bash", new[] { RepoPaths.Combine(root, script) })
+                var req = new ProcRequest(bash, new[] { BashLocator.SlashPath(RepoPaths.Combine(root, script)) })
                 {
                     Name = script,
                     WorkingDirectory = root,
@@ -58,7 +59,8 @@ namespace Wizard.Ci
                     Echo = output,
                     EchoError = output,
                 };
-                req.Environment["WIZARD_ROOT"] = root;
+                req.Environment["WIZARD_BASH"] = bash;
+                req.Environment["WIZARD_ROOT"] = BashLocator.SlashPath(root);
                 ProcResult r = ProcessRunner.Run(req);
                 if (r.ExitCode != 0)
                 {

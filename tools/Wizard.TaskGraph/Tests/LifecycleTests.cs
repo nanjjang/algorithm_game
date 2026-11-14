@@ -146,11 +146,12 @@ namespace Wizard.TaskGraph.Tests
             using TempRepo repo = TempRepo.Create();
             repo.Write("docs/dev/tasks.json", Fx.Text(Fx.Doc(Fx.Task("V-01", milestone: "V", group: "V-assets", status: "blocked-on-assets"))));
             string dotnet = Environment.GetEnvironmentVariable("DOTNET_HOST_PATH") ?? "dotnet";
-            ProcResult r = Proc.Run("/usr/bin/env", new[]
+            // 환경 변수는 Proc.Run 의 env 인자로 준다(/usr/bin/env 에 기대지 않는다. T-67 3번)
+            ProcResult r = Proc.Run(dotnet, new[]
             {
-                "DOTNET_SYSTEM_IO_DISABLEFILELOCKING=1", dotnet, typeof(Program).Assembly.Location,
+                typeof(Program).Assembly.Location,
                 "--repo", repo.Dir, "--tasks", repo.PathOf("docs/dev/tasks.json"), "unblock", "V-01",
-            });
+            }, null, new Dictionary<string, string> { ["DOTNET_SYSTEM_IO_DISABLEFILELOCKING"] = "1" });
             Assert.Equal(1, r.ExitCode);
             Assert.Contains("파일 잠금이 걸리지 않는다", r.Stderr);
             Assert.False(File.Exists(repo.PathOf(".claude/taskstate.json")));
@@ -287,7 +288,19 @@ namespace Wizard.TaskGraph.Tests
                 repo.Write("unity/Library/cache.bin", "cache");
                 string msg = life.Start("M0-UE-01", "main");
                 Assert.Contains("unity/Library", msg);
-                Assert.Equal("cache", File.ReadAllText(Path.Combine(repo.Dir, ".claude", "worktrees", "M0-UE-01", "unity", "Library", "cache.bin"), Encoding.UTF8));
+                string cloned = Path.Combine(repo.Dir, ".claude", "worktrees", "M0-UE-01", "unity", "Library");
+                if (OperatingSystem.IsMacOS())
+                {
+                    // APFS 복제로 가져온다
+                    Assert.Equal("cache", File.ReadAllText(Path.Combine(cloned, "cache.bin"), Encoding.UTF8));
+                }
+                else
+                {
+                    // 다른 OS 에서는 가져오지 않고 그 사실을 적는다(T-67 8번). start 는 성공한다
+                    Assert.Contains("가져오지 않았다", msg);
+                    Assert.False(Directory.Exists(cloned), cloned + " 가 생겼다");
+                    Assert.Equal("in_progress", life.Store.Read()["M0-UE-01"]);
+                }
             }
         }
     }

@@ -85,7 +85,8 @@ namespace Wizard.TaskGraph.Tests
             Assert.True(r.Code == 0, r.ToString());
             var json = (JsonObject)JsonNode.Parse(r.Stdout)!;
             Assert.Equal("FIX-7", (string)json["FIX"]!["next"]!);
-            Assert.Equal("작업 트리 " + wt, (string)json["FIX"]!["where"]![0]!);
+            // 도구가 적는 경로는 '/' 구분이다(T-67 5번). 기대값은 OS 의 구분자로 만들지 않는다
+            Assert.Equal("작업 트리 " + wt.Replace('\\', '/'), (string)json["FIX"]!["where"]![0]!);
             Assert.Equal("T-08", (string)json["T"]!["next"]!);
             Assert.Equal("task/X", (string)json["T"]!["where"]![0]!);
             Assert.Equal("Q-10", (string)json["Q"]!["next"]!);

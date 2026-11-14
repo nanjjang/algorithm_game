@@ -53,7 +53,8 @@ namespace Wizard.TaskGraph
                 {
                     continue;
                 }
-                string dir = line.Substring("worktree ".Length).Trim();
+                // git 이 낸 경로 그대로(Windows 에서도 D:/… 꼴. 도구가 적는 저장소 경로는 '/' 구분이다: T-67 5번)
+                string dir = line.Substring("worktree ".Length).Trim().Replace('\\', '/');
                 string dev = Path.Combine(dir, "docs", "dev");
                 var files = new Dictionary<string, string>(StringComparer.Ordinal);
                 if (Directory.Exists(dev))

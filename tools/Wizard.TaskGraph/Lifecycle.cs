@@ -130,7 +130,10 @@ namespace Wizard.TaskGraph
         }
 
         // unity/ 아래를 가진 작업은 main 쪽의 unity/Library 를 APFS 복제로 가져온다(PIPELINE 4.3). 실패해도 작업은 시작된다(첫 가져오기가 길어질 뿐).
-        private string CloneUnityLibrary(TaskDef t, string wt)
+        // APFS 복제(cp -c)는 macOS 에서만 한다. 다른 OS 에서는 가져오지 않고 그 사실을 결과에 적는다(통째 복사는 작업 트리마다 수 GB 다. T-67 8번)
+        private string CloneUnityLibrary(TaskDef t, string wt) => CloneUnityLibrary(t, wt, OperatingSystem.IsMacOS());
+
+        internal string CloneUnityLibrary(TaskDef t, string wt, bool macOS)
         {
             if (!t.OwnedPaths.Any(p => p.StartsWith("unity/", StringComparison.Ordinal)))
             {
@@ -141,6 +144,10 @@ namespace Wizard.TaskGraph
             if (!Directory.Exists(src) || Directory.Exists(dst))
             {
                 return "";
+            }
+            if (!macOS)
+            {
+                return "\nunity/Library 를 가져오지 않았다(APFS 복제는 macOS 에서만 한다. 통째 복사는 작업 트리마다 수 GB 다): Unity 가 처음 열 때 다시 가져온다";
             }
             Directory.CreateDirectory(Path.Combine(wt, "unity"));
             ProcResult r = Proc.Run("/bin/cp", new[] { "-c", "-R", src, dst });

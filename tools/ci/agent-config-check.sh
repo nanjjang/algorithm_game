@@ -5,6 +5,7 @@
 #   - 설치본(루트 CLAUDE.md, .claude/agents/*.md)이 원본(docs/dev/agent-config/CLAUDE.proposed.md, agents/)과 바이트가 같다.
 #     설치본에 원본에 없는 에이전트 파일이 있어도 실패다
 # 설치(M0-TL-02)는 사용자 승인 뒤에만 한다. 설치 전(루트 CLAUDE.md 도 .claude/agents/*.md 도 없음)에는 원본끼리만 본다.
+# 원본 폴더도 설치본도 없는 체크아웃(git 이 추적하지 않는다. 커밋 7e20951)에서는 그 사실을 note 로 남기고 통과한다. 설치본만 있으면 실패다(T-67 9번).
 # pre-commit 훅도 이 경로들을 올렸을 때 이 스크립트를 부른다. 저장소 뿌리는 이 파일의 위치에서 구한다.
 set -u
 case "$0" in */*) _here="${0%/*}" ;; *) _here="." ;; esac
@@ -12,6 +13,24 @@ case "$0" in */*) _here="${0%/*}" ;; *) _here="." ;; esac
 ROOT="$(ci_root_from "$0")" || exit 2
 SRC="$ROOT/docs/dev/agent-config"
 fail=0
+
+installed=0
+[ -f "$ROOT/CLAUDE.md" ] && installed=1
+for f in "$ROOT"/.claude/agents/*.md; do
+    [ -f "$f" ] && installed=1
+done
+
+# 원본 폴더는 git 이 추적하지 않는다(커밋 7e20951). 원본도 설치본도 없는 체크아웃(작업 트리, 새로 받은 저장소)에서는 볼 것이 없다(T-67 9번).
+# 건너뜀이 아니다: 저장소가 그 파일들을 싣지 않는 것이다. 설치본만 있고 원본이 없으면 대조할 수 없으므로 실패다.
+if [ ! -d "$SRC" ]; then
+    if [ $installed -eq 0 ]; then
+        ci_note "이 체크아웃에는 에이전트 설정이 없다(git이 추적하지 않는다): docs/dev/agent-config/, CLAUDE.md, .claude/agents/*.md 가 모두 없다"
+        echo "agent-config-check: ok"
+        exit 0
+    fi
+    echo "FAIL  CLAUDE.md 또는 .claude/agents/*.md 가 있는데 원본 docs/dev/agent-config/ 가 없다(설치본을 원본과 대조할 수 없다)" >&2
+    exit 1
+fi
 [ -d "$SRC/agents" ] || { echo "FAIL  $SRC/agents missing" >&2; exit 1; }
 [ -f "$SRC/CLAUDE.proposed.md" ] || { echo "FAIL  $SRC/CLAUDE.proposed.md missing" >&2; exit 1; }
 
@@ -31,12 +50,6 @@ for variant in "$SRC"/agents/*-opus.md; do
         echo "FAIL  body of ${variant##*/} differs from ${base##*/}" >&2
         fail=1
     fi
-done
-
-installed=0
-[ -f "$ROOT/CLAUDE.md" ] && installed=1
-for f in "$ROOT"/.claude/agents/*.md; do
-    [ -f "$f" ] && installed=1
 done
 
 if [ $installed -eq 1 ]; then

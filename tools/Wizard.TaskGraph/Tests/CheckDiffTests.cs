@@ -60,17 +60,17 @@ namespace Wizard.TaskGraph.Tests
             return checker.Check(task, "main", "task/" + Id);
         }
 
-        // 가짜 "도구": 다시 만든다는 것은 표 파일에 "gen\n" 을, 골든에 {"hash":"2"} 를 쓰는 것이다
+        // 가짜 "도구"(찾은 셸의 -c 로 띄운다. T-67 3번): 다시 만든다는 것은 표 파일에 "gen\n" 을, 골든에 {"hash":"2"} 를 쓰는 것이다
         private static IReadOnlyList<Regenerator> FakeRegens(bool ok)
         {
             return new[]
             {
                 new Regenerator("fake-tablegen", new[] { "src/*/Generated/*.g.cs" },
-                    new[] { new[] { "/bin/sh", "-c", "printf 'gen\\n' > src/Wizard.Core/Generated/SinTable.g.cs" } }, true),
+                    new[] { TestShell.Command("printf 'gen\\n' > src/Wizard.Core/Generated/SinTable.g.cs") }, true),
                 new Regenerator("fake-replaycli", new[] { "tests/golden/**/expected*.json" },
-                    new[] { new[] { "/bin/sh", "-c", "printf '{\"hash\":\"2\"}\\n' > tests/golden/m1/expected.json" } }, true),
+                    new[] { TestShell.Command("printf '{\"hash\":\"2\"}\\n' > tests/golden/m1/expected.json") }, true),
                 new Regenerator("fake-metagen", new[] { "src/**/*.meta", "unity/Assets/**/*.meta" },
-                    new[] { new[] { ok ? "/usr/bin/true" : "/usr/bin/false" } }, false),
+                    new[] { TestShell.Command(ok ? "exit 0" : "exit 1") }, false),
             };
         }
 

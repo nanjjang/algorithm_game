@@ -17,7 +17,64 @@ namespace Wizard.Server.Tests.Infra
 
         public static Task<string> AdminConnectionStringAsync() => Admin.Value;
 
-        public static string ScriptPath => TestRepo.Path("tools/ci/pg-test.sh");
+        // 스크립트 경로는 '/' 구분으로 넘긴다(Windows 에서 D:/… 꼴. 역슬래시 경로면 스크립트가 lib/common.sh 를 찾지 못한다. T-67 4번)
+        public static string ScriptPath => TestRepo.Path("tools/ci/pg-test.sh").Replace(System.IO.Path.DirectorySeparatorChar, '/');
+
+        private static readonly Lazy<string> BashLazy = new Lazy<string>(FindBash);
+
+        // 스크립트를 띄우는 bash. 순서는 DECISIONS-TECH T-67 3번과 같다(tools/Wizard.Ci 의 BashLocator 를 이 어셈블리는 참조하지 않는다):
+        //   WIZARD_BASH(주어졌는데 없으면 실패) > Windows 면 Git for Windows 의 bin/bash.exe(`git --exec-path` 에서 위로, 없으면 %ProgramFiles%/Git) > /bin/bash.
+        // PATH 의 bash 는 쓰지 않는다(Windows 에서는 WSL 의 System32/bash.exe 가 잡힌다).
+        public static string Bash => BashLazy.Value;
+
+        private static string FindBash()
+        {
+            string? given = Environment.GetEnvironmentVariable("WIZARD_BASH");
+            if (!string.IsNullOrEmpty(given))
+            {
+                if (System.IO.File.Exists(given))
+                {
+                    return given;
+                }
+                throw new InvalidOperationException("WIZARD_BASH=" + given + " 이 가리키는 bash 가 없다. 사용자가 할 일: 있는 bash 실행 파일의 경로를 주거나 지운다");
+            }
+            if (!OperatingSystem.IsWindows())
+            {
+                return "/bin/bash";
+            }
+            var psi = new ProcessStartInfo("git") { RedirectStandardOutput = true, RedirectStandardError = true, UseShellExecute = false };
+            psi.ArgumentList.Add("--exec-path");
+            try
+            {
+                using Process? p = Process.Start(psi);
+                if (p != null)
+                {
+                    string exec = p.StandardOutput.ReadToEnd().Trim().Replace(System.IO.Path.DirectorySeparatorChar, '/').TrimEnd('/');
+                    p.WaitForExit();
+                    int slash;
+                    while (p.ExitCode == 0 && (slash = exec.LastIndexOf('/')) > 0)
+                    {
+                        exec = exec.Substring(0, slash);
+                        string c = exec + "/bin/bash.exe";
+                        if (System.IO.File.Exists(c))
+                        {
+                            return c;
+                        }
+                    }
+                }
+            }
+            catch (System.ComponentModel.Win32Exception)
+            {
+                // git 이 없다. 아래의 기본 자리를 본다
+            }
+            string pf = (Environment.GetEnvironmentVariable("ProgramFiles") ?? "C:/Program Files").Replace(System.IO.Path.DirectorySeparatorChar, '/');
+            string fallback = pf + "/Git/bin/bash.exe";
+            if (System.IO.File.Exists(fallback))
+            {
+                return fallback;
+            }
+            throw new InvalidOperationException("Git for Windows 의 bash 가 없다. 사용자가 할 일: Git for Windows 를 설치하거나 WIZARD_BASH 에 bash 실행 파일의 경로를 준다");
+        }
 
         private static async Task<string> DiscoverAsync()
         {
@@ -44,8 +101,11 @@ namespace Wizard.Server.Tests.Infra
         // env: 바꿀 환경 변수(값이 null 이면 지운다)
         public static async Task<ScriptResult> RunScriptAsync(System.Collections.Generic.IDictionary<string, string?>? env, params string[] args)
         {
-            var psi = new ProcessStartInfo("/bin/bash")
+            var psi = new ProcessStartInfo(Bash)
             {
+                // 스크립트의 출력은 UTF-8 이다(기본값은 Windows 의 콘솔 코드 페이지라 한글이 깨진다. T-67 5번)
+                StandardOutputEncoding = new System.Text.UTF8Encoding(false),
+                StandardErrorEncoding = new System.Text.UTF8Encoding(false),
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,
@@ -71,7 +131,7 @@ namespace Wizard.Server.Tests.Infra
                     }
                 }
             }
-            using Process p = Process.Start(psi) ?? throw new InvalidOperationException("could not start /bin/bash");
+            using Process p = Process.Start(psi) ?? throw new InvalidOperationException("could not start " + Bash);
             Task<string> stdout = p.StandardOutput.ReadToEndAsync();
             Task<string> stderr = p.StandardError.ReadToEndAsync();
             await p.WaitForExitAsync().ConfigureAwait(false);

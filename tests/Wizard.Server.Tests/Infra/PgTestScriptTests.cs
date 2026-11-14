@@ -42,12 +42,18 @@ namespace Wizard.Server.Tests.Infra
         [Fact]
         public async Task DockerNotRunning_FailsWithWhatToDo()
         {
-            // docker info 가 실패하는 가짜 docker(데몬이 꺼진 Docker Desktop 과 같은 모양)
-            string fake = Path.Combine(_dir, "docker");
-            File.WriteAllText(fake, "#!/bin/bash\necho 'Cannot connect to the Docker daemon' >&2\nexit 1\n", new UTF8Encoding(false));
-            Assert.False(OperatingSystem.IsWindows(), "pg-test.sh 는 macOS 의 bash 에서 돈다(T-40)");
-            if (!OperatingSystem.IsWindows())
+            // docker info 가 실패하는 가짜 docker(데몬이 꺼진 Docker Desktop 과 같은 모양).
+            // 맥·리눅스는 실행 권한이 있는 스크립트, Windows 는 같은 일을 하는 .cmd 다(T-67 1·7번. pg-test.sh 는 .cmd 도 실행 파일로 받는다)
+            string fake;
+            if (OperatingSystem.IsWindows())
             {
+                fake = Path.Combine(_dir, "docker.cmd").Replace(Path.DirectorySeparatorChar, '/');
+                File.WriteAllText(fake, "@echo off\r\necho Cannot connect to the Docker daemon 1>&2\r\nexit /b 1\r\n", new UTF8Encoding(false));
+            }
+            else
+            {
+                fake = Path.Combine(_dir, "docker");
+                File.WriteAllText(fake, "#!/bin/bash\necho 'Cannot connect to the Docker daemon' >&2\nexit 1\n", new UTF8Encoding(false));
                 File.SetUnixFileMode(fake, UnixFileMode.UserRead | UnixFileMode.UserWrite | UnixFileMode.UserExecute);
             }
             var env = new Dictionary<string, string?> { ["WIZARD_DOCKER"] = fake };

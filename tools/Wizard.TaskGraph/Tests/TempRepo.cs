@@ -24,6 +24,8 @@ namespace Wizard.TaskGraph.Tests
             if (git)
             {
                 r.Git("init", "-q", "-b", "main");
+                // 시스템 설정(Windows 의 core.autocrlf=true)을 물려받지 않는다: 시험의 파일은 쓴 바이트 그대로다(T-67 5번)
+                r.Git("config", "core.autocrlf", "false");
                 r.Write("README.md", "test\n");
                 r.Write(".gitignore", "/artifacts/\n/.claude/worktrees/\n/.claude/taskstate.json\n/unity/Library/\n");
                 r.Commit("chore: init");

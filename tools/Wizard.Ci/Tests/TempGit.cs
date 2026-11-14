@@ -28,6 +28,8 @@ namespace Wizard.Ci.Tests
             Directory.CreateDirectory(dir);
             var g = new TempGit(RepoPaths.Normalize(new DirectoryInfo(dir).FullName));
             g.Git("init", "-q", "-b", "main");
+            // 시스템 설정(Windows 의 core.autocrlf=true)을 물려받지 않는다: 시험의 파일은 쓴 바이트 그대로다(T-67 5번)
+            g.Git("config", "core.autocrlf", "false");
             g.Write(".gitignore", "/artifacts/\n/.claude/worktrees/\n");
             g.Write("Wizard.sln", "\n");
             g.Write("README.md", "test\n");
@@ -55,6 +57,39 @@ namespace Wizard.Ci.Tests
             {
                 File.SetUnixFileMode(p, File.GetUnixFileMode(p) | UnixFileMode.UserExecute | UnixFileMode.GroupExecute | UnixFileMode.OtherExecute);
             }
+        }
+
+        // 가짜 실행 파일(T-67 1·7번): 표준 출력·표준 오류에 줄을 쓰고 exitCode 로 끝난다. 맥·리눅스는 실행 권한이 있는 #!/bin/bash 스크립트(rel),
+        // Windows 는 같은 일을 하는 rel + ".cmd" 다. 만든 파일의 경로를 돌려준다. 줄에는 cmd 의 특수 문자(& | < > ^ %)를 넣지 않는다
+        public string WriteFakeProgram(string rel, string[] stdoutLines, string[] stderrLines, int exitCode)
+        {
+            if (OperatingSystem.IsWindows())
+            {
+                var cmd = new StringBuilder("@echo off\r\n");
+                foreach (string l in stdoutLines)
+                {
+                    cmd.Append("echo ").Append(l).Append("\r\n");
+                }
+                foreach (string l in stderrLines)
+                {
+                    cmd.Append("echo ").Append(l).Append(" 1>&2\r\n");
+                }
+                cmd.Append("exit /b ").Append(exitCode.ToString(System.Globalization.CultureInfo.InvariantCulture)).Append("\r\n");
+                Write(rel + ".cmd", cmd.ToString());
+                return PathOf(rel + ".cmd");
+            }
+            var sh = new StringBuilder("#!/bin/bash\n");
+            foreach (string l in stdoutLines)
+            {
+                sh.Append("echo '").Append(l).Append("'\n");
+            }
+            foreach (string l in stderrLines)
+            {
+                sh.Append("echo '").Append(l).Append("' >&2\n");
+            }
+            sh.Append("exit ").Append(exitCode.ToString(System.Globalization.CultureInfo.InvariantCulture)).Append('\n');
+            Write(rel, sh.ToString(), executable: true);
+            return PathOf(rel);
         }
 
         public void CopyFromRepo(string rel, string? to = null)
@@ -106,9 +141,10 @@ namespace Wizard.Ci.Tests
         // ci.sh 를 돌린다(작업 폴더는 cwd). 바깥 ci 실행에서 물려받은 변수는 지운다
         public static ProcResult RunScript(string script, string cwd, IDictionary<string, string?>? env, params string[] args)
         {
-            var all = new List<string> { script };
+            // Git Bash 에서 사람이 치는 것과 같은 '/' 꼴로 부른다(T-67 4번)
+            var all = new List<string> { BashLocator.SlashPath(script) };
             all.AddRange(args);
-            var req = new ProcRequest("/bin/bash", all)
+            var req = new ProcRequest(TestBash.Path, all)
             {
                 WorkingDirectory = cwd,
                 Capture = true,

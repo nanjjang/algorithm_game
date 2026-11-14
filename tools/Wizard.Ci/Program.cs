@@ -14,6 +14,7 @@ namespace Wizard.Ci
     //   ci changed [--base <rev>]                바뀐 경로(비교 기준과 이유를 같이)
     //   ci affected-tests [--base <rev>]         돌릴 테스트 프로젝트
     //   ci test-affected [--base <rev>]          그 테스트 프로젝트를 돌린다(TRX 는 WIZARD_CI_TRX_DIR 또는 artifacts/ci/tests)
+    //   ci trx-check <폴더> [--expect <수>|solution]  dotnet test 의 TRX 판정: 없음, 파일 수가 다름, 전체 0, 실패, 건너뜀이면 1(TrxCheck.cs)
     //   ci unity-scope [--base <rev>]            Unity 단계가 필요하면 0, 건너뛰어도 되면 3(이유를 출력)
     //   ci require unity|il2cpp|x64-dotnet|docker …   없으면 무엇이 없는지와 사용자가 할 일을 적고 1
     //   ci precommit                             pre-commit 훅의 검사(올린 파일)
@@ -33,7 +34,6 @@ namespace Wizard.Ci
 
         public static int Main(string[] args)
         {
-            Console.OutputEncoding = new UTF8Encoding(false);
             try
             {
                 return Run(args, Console.Out, Console.Error, Environment.GetEnvironmentVariable);
@@ -48,6 +48,9 @@ namespace Wizard.Ci
         // env: 환경 변수를 읽는 함수. Main 만 프로세스 환경을 준다(시험은 사전을 준다)
         public static int Run(string[] args, TextWriter stdout, TextWriter stderr, Func<string, string?> env)
         {
+            // 도구의 출력은 줄 끝이 LF 다(T-67 5번). 받은 쓰개가 OS 기본(Windows 의 CRLF)이어도 같은 바이트를 낸다
+            stdout.NewLine = "\n";
+            stderr.NewLine = "\n";
             if (args.Length == 0)
             {
                 throw new CiException("usage: ci stage|gate|run|changed|affected-tests|test-affected|unity-scope|require|precommit|commit-msg|commit-msgs|exec … (Program.cs 머리말)");
@@ -79,7 +82,7 @@ namespace Wizard.Ci
                 {
                     string stage = One(rest, "ci stage fast|full|integration");
                     using CiLock l = CiLock.Acquire(root, LockWait(env), stdout);
-                    var runner = new StageRunner(root, stdout, all, baseRef, StepTimeout(env));
+                    var runner = new StageRunner(root, stdout, all, baseRef, StepTimeout(env), BashLocator.FromEnv(env));
                     List<StageResult> results = runner.RunUpTo(stage);
                     return Summarize(stage, results, stdout);
                 }
@@ -93,7 +96,7 @@ namespace Wizard.Ci
                     // 먼저 마일스톤이 있는지 본다(오래 도는 검사 뒤에 이름이 틀렸다고 알리지 않게)
                     GateFile.HumanChecks(File.ReadAllText(Path.Combine(root, "docs", "dev", "tasks.json"), Encoding.UTF8), ms);
                     using CiLock l = CiLock.Acquire(root, LockWait(env), stdout);
-                    var runner = new StageRunner(root, stdout, true, baseRef, StepTimeout(env));
+                    var runner = new StageRunner(root, stdout, true, baseRef, StepTimeout(env), BashLocator.FromEnv(env));
                     List<StageResult> results = runner.RunUpTo("integration");
                     string? branch = Git.IsRepo(root) ? Git.CurrentBranch(root) : null;
                     string? commit = Git.IsRepo(root) ? Git.RevParse(root, "HEAD") : null;
@@ -105,7 +108,7 @@ namespace Wizard.Ci
                 {
                     string name = One(rest, "ci run <스크립트>");
                     using CiLock l = CiLock.Acquire(root, LockWait(env), stdout);
-                    var runner = new StageRunner(root, stdout, all, baseRef, StepTimeout(env));
+                    var runner = new StageRunner(root, stdout, all, baseRef, StepTimeout(env), BashLocator.FromEnv(env));
                     StageResult r = runner.RunSingle(name);
                     return r.Passed ? 0 : 1;
                 }
@@ -156,6 +159,31 @@ namespace Wizard.Ci
                         : Path.Combine(root, "artifacts", "ci", "tests");
                     return AffectedTests.Run(root, a.Projects, trx, stdout, TimeSpan.FromMinutes(20));
                 }
+                case "trx-check":
+                {
+                    const string usage = "ci trx-check <TRX 폴더> [--expect <수>|--expect solution]";
+                    int? expected = null;
+                    if (rest.Count == 3 && rest[1] == "--expect")
+                    {
+                        if (rest[2] == "solution")
+                        {
+                            expected = AffectedTests.Select(ProjectGraph.Load(root), ChangeScope.Everything("trx-check")).Projects.Count;
+                        }
+                        else if (int.TryParse(rest[2], NumberStyles.None, CultureInfo.InvariantCulture, out int n) && n > 0)
+                        {
+                            expected = n;
+                        }
+                        else
+                        {
+                            throw new CiException("usage: " + usage);
+                        }
+                    }
+                    else if (rest.Count != 1)
+                    {
+                        throw new CiException("usage: " + usage);
+                    }
+                    return TrxCheck.Run(rest[0], expected, stdout, stderr);
+                }
                 case "unity-scope":
                 {
                     None(rest, "ci unity-scope [--base <rev>]");
@@ -187,7 +215,7 @@ namespace Wizard.Ci
                 }
                 case "precommit":
                     None(rest, "ci precommit");
-                    return PreCommit.Run(root, stdout);
+                    return PreCommit.Run(root, stdout, BashLocator.FromEnv(env));
                 case "commit-msg":
                 {
                     string file = One(rest, "ci commit-msg <메시지 파일>");

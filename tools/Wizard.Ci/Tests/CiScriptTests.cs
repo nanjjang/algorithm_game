@@ -32,7 +32,8 @@ namespace Wizard.Ci.Tests
             Assert.True(r.ExitCode == 0, r.Stdout + r.Stderr);
             Assert.Contains("probe-ran", r.Stdout, StringComparison.Ordinal);
 
-            Assert.Equal("root=" + wt + " stage=fast force=0", File.ReadAllText(Path.Combine(wt, "artifacts", "probe.txt")).Trim());
+            // 실행기는 뿌리를 '/' 구분으로 넘긴다(Windows 에서 D:/… 꼴. 맥에서는 글자가 그대로다. T-67 4번)
+            Assert.Equal("root=" + BashLocator.SlashPath(wt) + " stage=fast force=0", File.ReadAllText(Path.Combine(wt, "artifacts", "probe.txt")).Trim());
             Assert.False(File.Exists(g.PathOf("artifacts/probe.txt")), "the main checkout was checked instead of the worktree");
             Assert.False(File.Exists(g.PathOf("artifacts/ci/fast.json")));
 
@@ -194,6 +195,139 @@ namespace Wizard.Ci.Tests
             Assert.Equal(CiException.UsageExitCode, r.ExitCode);
             Assert.Contains("M9", r.Stderr, StringComparison.Ordinal);
             Assert.False(File.Exists(g.PathOf("artifacts/probe.txt")));
+        }
+
+        // ---------- T-67 4번: 실행기는 스크립트의 경로와 경로가 든 환경 변수를 '/' 구분으로 넘긴다 ----------
+
+        // 받은 $0 과 경로 변수를 적는 검사(실행기가 띄운다)
+        private const string PathProbe =
+            "#!/bin/bash\n# ci-stage: fast\nset -u\n" +
+            "printf '%s\\n' \"zero=$0\" \"root=$WIZARD_ROOT\" \"note=$WIZARD_CI_NOTE\" \"dll=$WIZARD_CI_DLL\" \"trx=$WIZARD_CI_TRX_DIR\" \"bash=$WIZARD_BASH\" > \"$WIZARD_ROOT/artifacts/paths.txt\"\n";
+
+        [Fact]
+        public void StepScripts_GetSlashPaths_ForTheirOwnPathAndThePathVariables()
+        {
+            using TempGit g = TempGit.Create(withCiScripts: true);
+            g.Write("tools/ci/paths.sh", PathProbe);
+            Directory.CreateDirectory(g.PathOf("artifacts"));
+            ProcResult r = TempGit.RunScript(g.PathOf("tools/ci/ci.sh"), g.Dir, null, "run", "paths.sh");
+            Assert.True(r.ExitCode == 0, r.Stdout + r.Stderr);
+            string[] lines = File.ReadAllLines(g.PathOf("artifacts/paths.txt"));
+            Assert.Equal(6, lines.Length);
+            foreach (string l in lines)
+            {
+                Assert.DoesNotContain("\\", l, StringComparison.Ordinal);
+                Assert.False(l.Substring(l.IndexOf('=', StringComparison.Ordinal) + 1).Length == 0, l);
+            }
+            Assert.Equal("zero=" + BashLocator.SlashPath(g.PathOf("tools/ci/paths.sh")), lines[0]);
+            Assert.Equal("root=" + BashLocator.SlashPath(g.Dir), lines[1]);
+            if (OperatingSystem.IsWindows())
+            {
+                // /d/… 꼴이 아니라 D:/… 꼴이다(dotnet 에 그대로 넘길 수 있다)
+                Assert.Matches("^root=[A-Za-z]:/", lines[1]);
+            }
+        }
+
+        // 다른 검사 스크립트와 같은 머리(case "$0" in */*) …)로 lib/common.sh 를 source 하고, ci_root_from 이 낸 뿌리를 dotnet 에 넘긴다.
+        // 고치기 전 Windows 에서는 역슬래시 $0 때문에 './lib/common.sh: No such file or directory' 로 죽었고, 뿌리가 /d/… 꼴이면
+        // dotnet 이 D:/d/… 로 읽어 --root 가 저장소가 아니라고 실패한다.
+        [Fact]
+        public void ScriptSourcingCommonSh_RunsUnderTheStage_AndItsRootWorksForDotnet()
+        {
+            using TempGit g = TempGit.Create(withCiScripts: true);
+            g.Write("tools/ci/uses-common.sh",
+                "#!/bin/bash\n# ci-stage: fast\nset -u\n" +
+                "case \"$0\" in */*) _here=\"${0%/*}\" ;; *) _here=\".\" ;; esac\n" +
+                ". \"$_here/lib/common.sh\"\n" +
+                "ROOT=\"$(ci_root_from \"$0\")\" || exit 2\n" +
+                "echo \"root-from=$ROOT\"\n" +
+                "[ -f \"$ROOT/Wizard.sln\" ] || { echo \"no sln under $ROOT\" >&2; exit 1; }\n" +
+                "ci_tool changed --root \"$ROOT\" --all || exit 1\n" +
+                "dotnet \"$WIZARD_CI_DLL\" require nothing-such --root \"$ROOT\" 2>\"$ROOT/artifacts/require.err\"; echo \"require-exit=$?\"\n");
+            Directory.CreateDirectory(g.PathOf("artifacts"));
+            ProcResult r = TempGit.RunScript(g.PathOf("tools/ci/ci.sh"), "/", null, "fast");
+            Assert.True(r.ExitCode == 0, r.Stdout + r.Stderr);
+            Assert.Contains("PASS  uses-common", r.Stdout, StringComparison.Ordinal);
+            Assert.Contains("root-from=" + BashLocator.SlashPath(g.Dir) + "\n", r.Stdout.Replace("\r", "", StringComparison.Ordinal), StringComparison.Ordinal);
+            // --root 가 제 폴더를 가리켰다: 알 수 없는 요구는 사용법 오류(2)다. 뿌리가 틀렸으면 그보다 먼저 '저장소 뿌리가 아니다'(2)로 끝난다
+            string err = File.ReadAllText(g.PathOf("artifacts/require.err"));
+            Assert.Contains("알 수 없는 요구 'nothing-such'", err, StringComparison.Ordinal);
+            Assert.DoesNotContain("뿌리가 아니다", err, StringComparison.Ordinal);
+        }
+
+        // ---------- T-67 9번: agent-config-check 는 있는 것만 본다 ----------
+
+        private static TempGit AgentConfigRepo()
+        {
+            TempGit g = TempGit.Create(withCiScripts: true);
+            g.CopyFromRepo("tools/ci/agent-config-check.sh");
+            return g;
+        }
+
+        private static ProcResult RunAgentConfig(TempGit g) => TempGit.RunScript(g.PathOf("tools/ci/ci.sh"), g.Dir, null, "run", "agent-config-check.sh");
+
+        private static void WriteOriginals(TempGit g, string claude, string agent)
+        {
+            g.Write("docs/dev/agent-config/CLAUDE.proposed.md", claude);
+            g.Write("docs/dev/agent-config/agents/a.md", "---\nname: a\n---\n" + agent);
+            g.Write("docs/dev/agent-config/agents/a-opus.md", "---\nname: a-opus\nmodel: opus\n---\n" + agent);
+        }
+
+        [Fact]
+        public void AgentConfig_NeitherOriginalsNorInstalled_PassesWithANote_NotASkip()
+        {
+            using TempGit g = AgentConfigRepo();
+            ProcResult r = RunAgentConfig(g);
+            Assert.True(r.ExitCode == 0, r.Stdout + r.Stderr);
+            JsonNode step = ReadJson(g.PathOf("artifacts/ci/run/agent-config-check.json"));
+            Assert.True((bool)step["passed"]!);
+            Assert.False((bool)step["skipped"]!);
+            Assert.Contains("이 체크아웃에는 에이전트 설정이 없다(git이 추적하지 않는다)", (string)step["notes"]![0]!, StringComparison.Ordinal);
+        }
+
+        [Fact]
+        public void AgentConfig_InstalledWithoutOriginals_Fails()
+        {
+            using TempGit g = AgentConfigRepo();
+            g.Write("CLAUDE.md", "rules\n");
+            ProcResult r = RunAgentConfig(g);
+            Assert.NotEqual(0, r.ExitCode);
+            Assert.Contains("원본 docs/dev/agent-config/ 가 없다", r.Stdout + r.Stderr, StringComparison.Ordinal);
+
+            using TempGit h = AgentConfigRepo();
+            h.Write(".claude/agents/a.md", "---\nname: a\n---\nbody\n");
+            Assert.NotEqual(0, RunAgentConfig(h).ExitCode);
+        }
+
+        [Fact]
+        public void AgentConfig_OriginalsOnly_AreCheckedAgainstEachOther()
+        {
+            using TempGit g = AgentConfigRepo();
+            WriteOriginals(g, "rules\n", "body\n");
+            ProcResult ok = RunAgentConfig(g);
+            Assert.True(ok.ExitCode == 0, ok.Stdout + ok.Stderr);
+            // 모델별 변형의 본문이 다르면 실패(원본끼리 본다)
+            g.Write("docs/dev/agent-config/agents/a-opus.md", "---\nname: a-opus\n---\nother body\n");
+            ProcResult bad = RunAgentConfig(g);
+            Assert.NotEqual(0, bad.ExitCode);
+            Assert.Contains("body of a-opus.md differs", bad.Stdout + bad.Stderr, StringComparison.Ordinal);
+        }
+
+        [Fact]
+        public void AgentConfig_InstalledEqualToOriginals_Passes_AndDifferentFails()
+        {
+            using TempGit g = AgentConfigRepo();
+            WriteOriginals(g, "rules\n", "body\n");
+            g.Write("CLAUDE.md", "rules\n");
+            g.Write(".claude/agents/a.md", "---\nname: a\n---\nbody\n");
+            g.Write(".claude/agents/a-opus.md", "---\nname: a-opus\nmodel: opus\n---\nbody\n");
+            ProcResult same = RunAgentConfig(g);
+            Assert.True(same.ExitCode == 0, same.Stdout + same.Stderr);
+
+            g.Write("CLAUDE.md", "changed rules\n");
+            ProcResult differ = RunAgentConfig(g);
+            Assert.NotEqual(0, differ.ExitCode);
+            Assert.Contains("CLAUDE.md differs", differ.Stdout + differ.Stderr, StringComparison.Ordinal);
         }
     }
 }

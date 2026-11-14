@@ -24,12 +24,12 @@ case "$0" in
     *) CI_DIR="." ;;
 esac
 CI_DIR="$(cd "$CI_DIR" && pwd -P)" || exit 2
-ROOT="$(cd "$CI_DIR/../.." && pwd -P)" || exit 2
+. "$CI_DIR/lib/common.sh"
+# 뿌리는 ci_path 를 거친 꼴(Windows 의 Git Bash 에서 pwd 가 낸 /d/… 를 D:/… 로. dotnet 에 그대로 넘긴다. T-67 4번)
+ROOT="$(ci_path "$(cd "$CI_DIR/../.." && pwd -P)")" || exit 2
 export WIZARD_ROOT="$ROOT"
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export DOTNET_NOLOGO=1
-
-. "$CI_DIR/lib/common.sh"
 
 usage() {
     echo "usage: $0 fast|full|integration [--all] | gate M<N> | run <script>" >&2

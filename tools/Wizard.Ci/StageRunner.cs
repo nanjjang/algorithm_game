@@ -8,11 +8,13 @@ using System.Text.Json;
 namespace Wizard.Ci
 {
     // 단계 실행(PIPELINE 4.6). fast → full → integration 순서로, 요청한 단계까지의 검사를 전부 돈다(앞 검사가 실패해도 나머지를 돈다).
-    // 검사 하나는 /bin/bash <스크립트> 이고 시간 제한 안에서 돈다. 결과:
+    // 검사 하나는 <bash> <스크립트> 이고 시간 제한 안에서 돈다(bash 는 BashLocator 가 찾은 것. T-67 3번). 결과:
     //   artifacts/ci/<단계>/<이름>.json   검사 하나
     //   artifacts/ci/<단계>/<이름>.log    그 검사의 출력
     //   artifacts/ci/<단계>.json          단계 요약
     // 검사 스크립트가 받는 환경 변수:
+    //   WIZARD_BASH          이 실행기가 스크립트를 띄운 bash(T-67 3번)
+    //   경로가 든 값(스크립트 경로, WIZARD_ROOT, WIZARD_CI_NOTE, WIZARD_CI_DLL, WIZARD_CI_TRX_DIR)은 '/' 구분으로 넘긴다(Windows 에서 D:/… 꼴. T-67 4번)
     //   WIZARD_ROOT          저장소 뿌리(이 체크아웃)
     //   WIZARD_CI_STAGE      지금 단계(fast|full|integration|run)
     //   WIZARD_CI_FORCE_ALL  1 이면 바뀐 경로로 줄이지 않는다(게이트, --all)
@@ -31,8 +33,10 @@ namespace Wizard.Ci
         private readonly bool _forceAll;
         private readonly string? _baseRef;
         private readonly int _defaultTimeout;
+        private readonly string _bash;
 
-        public StageRunner(string root, TextWriter output, bool forceAll, string? baseRef, int defaultStepTimeoutSeconds)
+        // bash: 검사 스크립트를 띄울 셸(BashLocator 가 찾은 것. 명령 줄 층이 넘긴다)
+        public StageRunner(string root, TextWriter output, bool forceAll, string? baseRef, int defaultStepTimeoutSeconds, string bash)
         {
             if (defaultStepTimeoutSeconds <= 0)
             {
@@ -43,6 +47,7 @@ namespace Wizard.Ci
             _forceAll = forceAll;
             _baseRef = baseRef;
             _defaultTimeout = defaultStepTimeoutSeconds;
+            _bash = bash;
         }
 
         public string CiDir => Path.Combine(_root, "artifacts", "ci");
@@ -121,7 +126,7 @@ namespace Wizard.Ci
             int timeout = step.TimeoutSeconds ?? _defaultTimeout;
             _out.WriteLine("==> [" + stage + "] " + step.Name + " (" + step.RelativePath + ", 시간 제한 " + timeout.ToString(CultureInfo.InvariantCulture) + "초)");
             _out.Flush();
-            var req = new ProcRequest("/bin/bash", new[] { step.Path })
+            var req = new ProcRequest(_bash, new[] { BashLocator.SlashPath(step.Path) })
             {
                 Name = step.Name,
                 WorkingDirectory = _root,
@@ -131,12 +136,13 @@ namespace Wizard.Ci
                 LogPath = log,
                 TailLines = TailLines,
             };
-            req.Environment["WIZARD_ROOT"] = _root;
+            req.Environment["WIZARD_BASH"] = _bash;
+            req.Environment["WIZARD_ROOT"] = BashLocator.SlashPath(_root);
             req.Environment["WIZARD_CI_STAGE"] = stage;
             req.Environment["WIZARD_CI_FORCE_ALL"] = _forceAll ? "1" : "0";
-            req.Environment["WIZARD_CI_NOTE"] = note;
-            req.Environment["WIZARD_CI_DLL"] = typeof(StageRunner).Assembly.Location;
-            req.Environment["WIZARD_CI_TRX_DIR"] = TrxDir;
+            req.Environment["WIZARD_CI_NOTE"] = BashLocator.SlashPath(note);
+            req.Environment["WIZARD_CI_DLL"] = BashLocator.SlashPath(typeof(StageRunner).Assembly.Location);
+            req.Environment["WIZARD_CI_TRX_DIR"] = BashLocator.SlashPath(TrxDir);
             req.Environment["WIZARD_CI_BASE"] = _baseRef;
             ProcResult r = ProcessRunner.Run(req);
 

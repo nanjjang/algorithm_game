@@ -6,4 +6,12 @@
   <ItemGroup Condition="'$(WizardAnalyzerProbe)' != '' and '$(MSBuildProjectName)' == '$(WizardAnalyzerProbeProject)'">
     <Compile Include="$(WizardAnalyzerProbe)" />
   </ItemGroup>
+
+  <!--
+    도구 묶음(tools/)의 실행 파일은 표준 출력·표준 오류를 BOM 없는 UTF-8, 줄 끝 LF 로 낸다(DECISIONS-TECH T-67 5번).
+    공통 소스 하나(tools/Common/ConsoleSetup.cs, 모듈 초기화기)를 끼워 넣는다. 도구 폴더와 Program.cs 를 고치지 않고 전부 걸린다.
+  -->
+  <ItemGroup Condition="'$(WizardGroup)' == 'tools' and '$(OutputType)' == 'Exe'">
+    <Compile Include="$(WizardRoot)tools/Common/ConsoleSetup.cs" Link="Common/ConsoleSetup.cs" />
+  </ItemGroup>
 </Project>

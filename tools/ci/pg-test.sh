@@ -24,24 +24,51 @@ ROOT="$(ci_root_from "$0")" || exit 2
 # postgres:17-alpine 의 17.11 판. 태그가 움직여도 다이제스트가 판을 고정한다(T-38. 배치용과 주 판 번호 17 을 맞춘다)
 PG_IMAGE="${WIZARD_PG_IMAGE:-postgres:17-alpine@sha256:18cfe3ef5e6815560c98237d6216d1e5119702fb0f3894c8785dd58b8bbe5d73}"
 PG_LABEL="wizard.pg-test"
-PG_NAME="wizard-pg-$(printf '%s' "$ROOT" | /usr/bin/shasum -a 256 | /usr/bin/cut -c1-12)"
+# 이름은 뿌리 경로(ci_path 를 거친 꼴)의 SHA-256 앞 12자(ci_sha256: 있는 도구로. 같은 뿌리면 어느 도구로 계산해도 같은 이름이다. T-67 8번)
+PG_HASH="$(printf '%s' "$ROOT" | ci_sha256)" || exit 2
+PG_NAME="wizard-pg-$(printf '%s' "$PG_HASH" | /usr/bin/cut -c1-12)"
 
 say() { echo "pg-test: $*" >&2; }
 
+# docker 를 부른다. Git Bash 는 '/' 로 시작하는 인자(--tmpfs /var/lib/…)를 Windows 경로로 바꾸므로 이 호출에서만 MSYS 의 경로 바꾸기를 끈다
+# (T-67 4·7번. 스크립트 전체에 export 하지 않는다: 다른 줄은 D:/… 경로를 dotnet 에 넘긴다. 맥에서는 뜻 없는 변수다)
+dk() {
+    MSYS_NO_PATHCONV=1 MSYS2_ARG_CONV_EXCL='*' "$DOCKER" "$@"
+}
+
+# Docker Desktop 을 띄우라는 안내(OS 별. Wizard.Ci 의 Requirements.StartDockerHint 와 같은 뜻)
+start_hint() {
+    case "$(ci_os)" in
+        windows) echo "Docker Desktop 을 띄운다(시작 메뉴의 Docker Desktop)" ;;
+        macos) echo "Docker Desktop 을 띄운다(open -a Docker)" ;;
+        *) echo "Docker 데몬을 띄운다" ;;
+    esac
+}
+
+# docker 를 찾아보는 기본 자리(OS 별)
+default_dockers() {
+    case "$(ci_os)" in
+        windows) echo "$(ci_path "${ProgramFiles:-C:/Program Files}")/Docker/Docker/resources/bin/docker.exe" ;;
+        *) printf '%s\n' /usr/local/bin/docker /opt/homebrew/bin/docker /Applications/Docker.app/Contents/Resources/bin/docker ;;
+    esac
+}
+
 find_docker() {
     if [ -n "${WIZARD_DOCKER:-}" ]; then
-        [ -x "$WIZARD_DOCKER" ] && { echo "$WIZARD_DOCKER"; return 0; }
+        ci_is_exe "$WIZARD_DOCKER" && { echo "$WIZARD_DOCKER"; return 0; }
         return 1
     fi
     local c
     c="$(command -v docker 2>/dev/null)"
-    if [ -n "$c" ] && [ -x "$c" ]; then
+    if [ -n "$c" ] && ci_is_exe "$c"; then
         echo "$c"
         return 0
     fi
-    for c in /usr/local/bin/docker /opt/homebrew/bin/docker /Applications/Docker.app/Contents/Resources/bin/docker; do
-        [ -x "$c" ] && { echo "$c"; return 0; }
-    done
+    while IFS= read -r c; do
+        [ -n "$c" ] && ci_is_exe "$c" && { echo "$c"; return 0; }
+    done <<EOF_DOCKERS
+$(default_dockers)
+EOF_DOCKERS
     return 1
 }
 
@@ -51,11 +78,11 @@ require_docker() {
         ci_require docker
     fi
     DOCKER="$(find_docker)" || {
-        echo "FAIL  Docker 가 없다(WIZARD_DOCKER, PATH, /usr/local/bin, /opt/homebrew/bin, /Applications/Docker.app 에서 docker 를 찾지 못했다). 사용자가 할 일: Docker Desktop 을 설치하고 띄운다(서버 통합 테스트의 PostgreSQL 이 Docker 에서 돈다. T-38)" >&2
+        echo "FAIL  Docker 가 없다(WIZARD_DOCKER, PATH, $(default_dockers | /usr/bin/tr '\n' ' ')에서 docker 를 찾지 못했다). 사용자가 할 일: Docker Desktop 을 설치하고 띄운다(서버 통합 테스트의 PostgreSQL 이 Docker 에서 돈다. T-38)" >&2
         exit 1
     }
-    if ! "$DOCKER" info >/dev/null 2>&1; then
-        echo "FAIL  Docker 가 돌고 있지 않다($DOCKER info 실패). 사용자가 할 일: Docker Desktop 을 띄운다(open -a Docker) 뒤 다시 돌린다" >&2
+    if ! dk info >/dev/null 2>&1; then
+        echo "FAIL  Docker 가 돌고 있지 않다($DOCKER info 실패). 사용자가 할 일: $(start_hint) 뒤 다시 돌린다" >&2
         exit 1
     fi
 }
@@ -63,18 +90,18 @@ require_docker() {
 # 작업 트리가 지워진 컨테이너를 치운다
 gc_stale() {
     local line name tree
-    "$DOCKER" ps -a --filter "label=$PG_LABEL=1" --format '{{.Names}}|{{.Label "wizard.worktree"}}' 2>/dev/null | while IFS= read -r line; do
+    dk ps -a --filter "label=$PG_LABEL=1" --format '{{.Names}}|{{.Label "wizard.worktree"}}' 2>/dev/null | while IFS= read -r line; do
         name="${line%%|*}"
         tree="${line#*|}"
         if [ -n "$name" ] && [ -n "$tree" ] && [ ! -d "$tree" ]; then
             say "지워진 작업 트리($tree)의 컨테이너 $name 를 치운다"
-            "$DOCKER" rm -f "$name" >/dev/null 2>&1 || true
+            dk rm -f "$name" >/dev/null 2>&1 || true
         fi
     done
 }
 
 container_state() {
-    "$DOCKER" inspect -f '{{.State.Running}}' "$PG_NAME" 2>/dev/null
+    dk inspect -f '{{.State.Running}}' "$PG_NAME" 2>/dev/null
 }
 
 start_container() {
@@ -84,12 +111,12 @@ start_container() {
         return 0
     fi
     if [ -n "$state" ]; then
-        "$DOCKER" start "$PG_NAME" >/dev/null || { echo "FAIL  컨테이너 $PG_NAME 를 다시 띄우지 못했다" >&2; exit 1; }
+        dk start "$PG_NAME" >/dev/null || { echo "FAIL  컨테이너 $PG_NAME 를 다시 띄우지 못했다" >&2; exit 1; }
         return 0
     fi
     pw="$(/usr/bin/openssl rand -hex 16)" || { echo "FAIL  무작위 비밀번호를 만들지 못했다(/usr/bin/openssl)" >&2; exit 1; }
     say "컨테이너 $PG_NAME 를 띄운다($PG_IMAGE)"
-    if ! "$DOCKER" run -d --name "$PG_NAME" \
+    if ! dk run -d --name "$PG_NAME" \
             --label "$PG_LABEL=1" --label "wizard.worktree=$ROOT" \
             -e "POSTGRES_PASSWORD=$pw" \
             -p 127.0.0.1::5432 \
@@ -99,7 +126,7 @@ start_container() {
         # 같은 작업 트리의 다른 테스트 실행이 막 만들었으면 그것을 쓴다
         state="$(container_state)"
         [ -n "$state" ] || { echo "FAIL  컨테이너 $PG_NAME 를 만들지 못했다($DOCKER run 실패. 이미지 $PG_IMAGE)" >&2; exit 1; }
-        [ "$state" = "true" ] || "$DOCKER" start "$PG_NAME" >/dev/null || { echo "FAIL  컨테이너 $PG_NAME 를 띄우지 못했다" >&2; exit 1; }
+        [ "$state" = "true" ] || dk start "$PG_NAME" >/dev/null || { echo "FAIL  컨테이너 $PG_NAME 를 띄우지 못했다" >&2; exit 1; }
     fi
 }
 
@@ -107,11 +134,11 @@ start_container() {
 wait_ready() {
     local i=0
     while [ $i -lt 120 ]; do
-        if "$DOCKER" exec "$PG_NAME" pg_isready -h 127.0.0.1 -p 5432 -U postgres -q >/dev/null 2>&1; then
+        if dk exec "$PG_NAME" pg_isready -h 127.0.0.1 -p 5432 -U postgres -q >/dev/null 2>&1; then
             return 0
         fi
         i=$((i + 1))
-        sleep 0.5
+        /bin/sleep 0.5
     done
     echo "FAIL  컨테이너 $PG_NAME 의 PostgreSQL 이 60초 안에 뜨지 않았다($DOCKER logs $PG_NAME 를 본다)" >&2
     exit 1
@@ -119,8 +146,8 @@ wait_ready() {
 
 conn_string() {
     local port pw
-    port="$("$DOCKER" port "$PG_NAME" 5432/tcp 2>/dev/null | /usr/bin/head -1 | /usr/bin/sed 's/.*://')"
-    pw="$("$DOCKER" inspect -f '{{range .Config.Env}}{{println .}}{{end}}' "$PG_NAME" | /usr/bin/sed -n 's/^POSTGRES_PASSWORD=//p')"
+    port="$(dk port "$PG_NAME" 5432/tcp 2>/dev/null | /usr/bin/head -1 | /usr/bin/sed 's/.*://')"
+    pw="$(dk inspect -f '{{range .Config.Env}}{{println .}}{{end}}' "$PG_NAME" | /usr/bin/sed -n 's/^POSTGRES_PASSWORD=//p')"
     [ -n "$port" ] && [ -n "$pw" ] || { echo "FAIL  컨테이너 $PG_NAME 의 포트나 비밀번호를 읽지 못했다" >&2; exit 1; }
     echo "Host=127.0.0.1;Port=$port;Username=postgres;Password=$pw;Database=postgres"
 }
@@ -139,12 +166,12 @@ case "$MODE" in
         if [ "${2:-}" = "--print" ]; then
             conn_string
         else
-            say "떠 있다: $PG_NAME ($("$DOCKER" port "$PG_NAME" 5432/tcp | /usr/bin/head -1))"
+            say "떠 있다: $PG_NAME ($(dk port "$PG_NAME" 5432/tcp | /usr/bin/head -1))"
         fi
         ;;
     down)
         require_docker
-        "$DOCKER" rm -f "$PG_NAME" >/dev/null 2>&1 && say "컨테이너 $PG_NAME 를 지웠다" || say "컨테이너 $PG_NAME 가 없다"
+        dk rm -f "$PG_NAME" >/dev/null 2>&1 && say "컨테이너 $PG_NAME 를 지웠다" || say "컨테이너 $PG_NAME 가 없다"
         ;;
     status)
         require_docker
@@ -152,7 +179,7 @@ case "$MODE" in
         if [ -z "$state" ]; then
             echo "$PG_NAME: 없음"
         else
-            echo "$PG_NAME: running=$state port=$("$DOCKER" port "$PG_NAME" 5432/tcp 2>/dev/null | /usr/bin/head -1)"
+            echo "$PG_NAME: running=$state port=$(dk port "$PG_NAME" 5432/tcp 2>/dev/null | /usr/bin/head -1)"
         fi
         ;;
     stage)
@@ -162,13 +189,13 @@ case "$MODE" in
         export WIZARD_PG_ADMIN
         /bin/mkdir -p "$ROOT/artifacts/ci"
         LOG="$ROOT/artifacts/ci/pg-test.log"
-        dotnet test "$ROOT/tests/Wizard.Server.Tests/Wizard.Server.Tests.csproj" -c Release -nologo 2>&1 | /usr/bin/tee "$LOG"
+        # 판정은 TRX 로 한다(ci trx-check: 실패, 건너뜀, 결과 없음, 전체 0 은 실패). 콘솔 요약 줄은 dotnet 의 표시 언어를 따라 세지 않는다
+        TRX="$ROOT/artifacts/ci/pg-test-trx"
+        /bin/rm -rf "$TRX"
+        dotnet test "$ROOT/tests/Wizard.Server.Tests/Wizard.Server.Tests.csproj" -c Release -nologo --logger trx --results-directory "$TRX" 2>&1 | /usr/bin/tee "$LOG"
         code=${PIPESTATUS[0]}
         [ "$code" -eq 0 ] || exit "$code"
-        if /usr/bin/grep -E 'Skipped: +[1-9]' "$LOG" >/dev/null; then
-            echo "FAIL  skipped tests found" >&2
-            exit 1
-        fi
+        ci_tool trx-check "$TRX" --expect 1 --root "$ROOT" || exit 1
         ;;
     *)
         echo "usage: $0 [up [--print] | down | status]" >&2

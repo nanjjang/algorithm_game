@@ -158,7 +158,7 @@ namespace Wizard.Solo.Art
 
         // ---------- 텍스처·자르기 공용 ----------
 
-        Texture2D Tex(string artPath, string group)
+        Texture2D Tex(string artPath, string group, bool optional = false)
         {
             if (artPath == null) return null;
             if (_textures.TryGetValue(artPath, out var t) && t != null)
@@ -171,7 +171,7 @@ namespace Wizard.Solo.Art
             if (t == null)
             {
                 _missingTextures.Add(artPath);
-                Warn("그림 없음: " + artPath);
+                if (!optional) Warn("그림 없음: " + artPath);
                 return null;
             }
             t.filterMode = FilterMode.Point;
@@ -187,7 +187,8 @@ namespace Wizard.Solo.Art
         }
 
         /// <summary>시트의 한 칸을 잘라 캐시한다. 그림이 없거나 rect가 시트 밖이면 대체 그림(캐시하지 않는다 — 대체 그림은 따로 캐시된다).</summary>
-        Sprite Cut(string key, string artPath, PixelRect r, Vector2 pivot, Vector4 border, string group = null)
+        Sprite Cut(string key, string artPath, PixelRect r, Vector2 pivot, Vector4 border, string group = null,
+            float pixelsPerUnit = RectMath.PixelsPerUnit)
         {
             if (_sprites.TryGetValue(key, out var s) && s != null) return s;
             var tex = Tex(artPath, group);
@@ -197,7 +198,7 @@ namespace Wizard.Solo.Art
                 Warn("rect가 시트 밖: " + artPath + " " + r + " (시트 " + tex.width + "x" + tex.height + ")");
                 return Placeholder(r.W, r.H);
             }
-            s = Sprite.Create(tex, RectMath.ToUnityRect(r, tex.height), pivot, RectMath.PixelsPerUnit, 0, SpriteMeshType.FullRect, border, false);
+            s = Sprite.Create(tex, RectMath.ToUnityRect(r, tex.height), pivot, pixelsPerUnit, 0, SpriteMeshType.FullRect, border, false);
             s.name = key;
             _sprites[key] = s;
             if (group != null) GroupOf(group).Sprites.Add(key);

@@ -40,7 +40,8 @@ namespace Wizard.Solo.Tests.PlayMode.Integration
             OnlineAccount.FilePath = _acct;
             _boot = Bootstrap.Boot(new BootOptions { BuildVersion = "qa", DataRoot = _dataRoot, InputOverride = new BotInputSource() });
             _listener = new TcpPipeListener(0, bindAll: false);
-            _server = new RoomServer(_boot.Context.Content);
+            _server = new RoomServer(_boot.Context.Content) { AllowInsecureAuth = true };
+            OnlineAuth.AllowInsecure = true; // 같은 프로세스의 평문 서버(진짜 서버는 TLS)
             OnlineServer.Override = new List<string> { "127.0.0.1:" + _listener.Port };
             _stop = false;
             _thread = new System.Threading.Thread(() =>
@@ -66,6 +67,7 @@ namespace Wizard.Solo.Tests.PlayMode.Integration
             _stop = true;
             _thread?.Join(1000);
             OnlineServer.Override = null;
+            OnlineAuth.AllowInsecure = false;
             OnlineAccount.FilePath = null;
             _listener?.Stop();
             Bootstrap.Shutdown();
@@ -99,6 +101,20 @@ namespace Wizard.Solo.Tests.PlayMode.Integration
             m.Invoke(s, args);
         }
 
+        void CallEnum(string method, int value)
+        {
+            var s = Top;
+            var m = s.GetType().GetMethod(method, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+            Assert.IsNotNull(m, s.GetType().Name + "." + method);
+            m.Invoke(s, new[] { Enum.ToObject(m.GetParameters()[0].ParameterType, value) });
+        }
+
+        IEnumerator WaitFor(Func<bool> cond, float seconds)
+        {
+            float end = Time.realtimeSinceStartup + seconds;
+            while (!cond() && Time.realtimeSinceStartup < end) yield return null;
+        }
+
         void SetInput(string field, string text)
         {
             var s = Top;
@@ -115,17 +131,24 @@ namespace Wizard.Solo.Tests.PlayMode.Integration
             yield return RunFor(1f);
             yield return Shot("01-mainmenu");
 
-            // 온라인 방 화면(계정 없음)
+            // 온라인(계정 없음) → 로그인 화면이 먼저 뜬다.
             ctx.Screens.Push(ScreenId.CoopLobby, ScreenArgs.From(ScreenId.MainMenu));
-            yield return RunFor(0.5f);
-            yield return Shot("02-lobby-noaccount");
-
-            // 이름 정하기
-            SetInput("_nameInput", "QA마법사");
-            Call("OnRegister");
-            yield return RunFor(0.5f);
+            yield return RunFor(0.8f);
+            Assert.AreEqual(ScreenId.OnlineLogin, Mgr.Stack.TopScreen.Id, "login first");
+            yield return Shot("02-login");
+            CallEnum("SetMode", 1);
+            SetInput("_email", "qa@example.com");
+            SetInput("_name", "QA마법사");
+            SetInput("_password", "qa password 123");
+            SetInput("_password2", "qa password 123");
+            yield return RunFor(0.3f);
+            yield return Shot("02b-signup");
+            Call("Submit");
+            yield return WaitFor(() => Mgr.Stack.TopScreen.Id == ScreenId.CoopLobby, 10f);
+            Assert.AreEqual(ScreenId.CoopLobby, Mgr.Stack.TopScreen.Id, "back to hub after signup");
             Assert.IsNotNull(OnlineAccount.Load(), "account saved");
-            yield return Shot("03-lobby-account");
+            yield return RunFor(1.5f);
+            yield return Shot("03-hub");
 
             // 이 기기에서 협동 + 봇 둘 → 시작
             Call("OnCreateLocal");
@@ -181,10 +204,11 @@ namespace Wizard.Solo.Tests.PlayMode.Integration
             yield return Shot("11-lobby-online-code");
             Call("OnLeave");
             yield return RunFor(0.3f);
+            Call("PickCard", 2);
+            yield return RunFor(0.3f);
+            yield return Shot("11b-hub-plaza-card");
 
             // 광장: 나 + 다른 사람 하나(말풍선)
-            ctx.Screens.Push(ScreenId.CoopLobby, ScreenArgs.From(ScreenId.MainMenu));
-            yield return RunFor(0.3f);
             Call("OnPlaza");
             var other = new PlazaClient();
             other.Connect(OnlineServer.Connect(ctx.Content), "다른사람", "char.3");

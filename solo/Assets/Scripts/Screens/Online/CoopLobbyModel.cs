@@ -34,6 +34,40 @@ namespace Wizard.Solo.Screens.Online
         /// <summary>마지막으로 받은 서버 프로필(계정 만들 때, 또는 방에 들어갈 때 AuthOk).</summary>
         public ServerProfile Profile { get; private set; }
 
+        System.Threading.Tasks.Task<OnlineService> _profileTask;
+        /// <summary>서버가 이 기기의 로그인 표를 받지 않았다(로그아웃·만료) — 화면은 로그인 화면을 연다.</summary>
+        public bool AuthRejected { get; private set; }
+        public bool ProfileLoading => _profileTask != null;
+
+        /// <summary>이 기기 계정 파일을 다시 읽는다(로그인 화면에서 돌아왔을 때).</summary>
+        public void ReloadAccount()
+        {
+            Account = OnlineAccount.Load();
+            AuthRejected = false;
+            Profile = null;
+        }
+
+        /// <summary>서버 프로필을 따로 스레드로 받아 온다(위 띠의 이름·골드·레이팅). 끝나면 Tick에서 Profile이 바뀐다.</summary>
+        public void RefreshProfile()
+        {
+            if (Account == null || _profileTask != null) return;
+            var db = _ctx != null ? _ctx.Content : null;
+            _profileTask = System.Threading.Tasks.Task.Run(() => OnlineService.Open(db));
+        }
+
+        void PollProfile()
+        {
+            if (_profileTask == null || !_profileTask.IsCompleted) return;
+            var svc = _profileTask.Status == System.Threading.Tasks.TaskStatus.RanToCompletion ? _profileTask.Result : null;
+            _profileTask = null;
+            if (svc != null)
+            {
+                if (svc.Profile != null) Profile = svc.Profile;
+                svc.Dispose();
+            }
+            else if (OnlineService.LastAuthFailed) AuthRejected = true;
+        }
+
         /// <summary>이름으로 기기 계정을 만든다.</summary>
         public bool RegisterAccount(string name)
         {
@@ -244,6 +278,7 @@ namespace Wizard.Solo.Screens.Online
         /// <summary>프레임마다. 원격 방에서 판이 열렸으면(방장이 시작했다) 세션을 열고 true — 화면은 Battle로 간다.</summary>
         public bool Tick()
         {
+            PollProfile();
             if (Room != null && Room.Me != null && Room.Me.Profile != null) Profile = Room.Me.Profile;
             if (Room == null) return false;
             if (Room.World == null)
@@ -291,6 +326,109 @@ namespace Wizard.Solo.Screens.Online
     /// <summary>협동 방 글자 열쇠(Resources/NamesSolo/Online.ko.json).</summary>
     public static class OnlineKeys
     {
+        public const string MktCount = "str.online.mkt.count";
+        public const string FrSideTitle = "str.online.fr.side_title";
+        public const string FrSideNote = "str.online.fr.side_note";
+        public const string FrRequestsHead = "str.online.fr.requests_head";
+        public const string FrFriendsHead = "str.online.fr.friends_head";
+        public const string FrNoRequests = "str.online.fr.no_requests";
+        public const string FrNoFriends = "str.online.fr.no_friends";
+        public const string FrRating = "str.online.fr.rating";
+        public const string MktEach = "str.online.mkt.each";
+        public const string MktSeller = "str.online.mkt.seller";
+        public const string MktBuy = "str.online.mkt.buy";
+        public const string MktMine = "str.online.mkt.mine";
+        public const string MktOwn = "str.online.mkt.own";
+        public const string MktLeft = "str.online.mkt.left";
+        public const string MktUnlist = "str.online.mkt.unlist";
+        public const string MktReceiptPrice = "str.online.mkt.receipt_price";
+        public const string MktReceiptFee = "str.online.mkt.receipt_fee";
+        public const string MktReceiptDeposit = "str.online.mkt.receipt_deposit";
+        public const string MktReceiptGet = "str.online.mkt.receipt_get";
+        public const string MktBrowseEmpty = "str.online.mkt.browse_empty";
+        public const string MktMineEmpty = "str.online.mkt.mine_empty";
+        public const string MktPickFirst = "str.online.mkt.pick_first";
+        public const string ProfOddsGreat = "str.online.prof.odds_great";
+        public const string ProfOddsSuccess = "str.online.prof.odds_success";
+        public const string ProfOddsMutation = "str.online.prof.odds_mutation";
+        public const string ProfOddsFail = "str.online.prof.odds_fail";
+        public const string ProfDrop = "str.online.prof.drop";
+        public const string ProfNoDrop = "str.online.prof.no_drop";
+        public const string ProfCost = "str.online.prof.cost";
+        public const string ProfSacrificeHead = "str.online.prof.sacrifice_head";
+        public const string ProfSacrificeHint = "str.online.prof.sacrifice_hint";
+        public const string ProfStorage = "str.online.prof.storage";
+        public const string ProfStorageEmpty = "str.online.prof.storage_empty";
+        public const string ProfMutations = "str.online.prof.mutations";
+        public const string ProfNoMutations = "str.online.prof.no_mutations";
+        public const string ProfWl = "str.online.prof.wl";
+        public const string ProfStage = "str.online.prof.stage";
+        public const string ProfYouRow = "str.online.prof.you_row";
+        public const string ProfUnranked = "str.online.prof.unranked";
+        public const string ProfCharm = "str.online.prof.charm";
+        public const string HubDescCoop = "str.online.hub.desc.coop";
+        public const string HubDescDuel = "str.online.hub.desc.duel";
+        public const string HubDescPlaza = "str.online.hub.desc.plaza";
+        public const string HubRecCoop = "str.online.hub.rec.coop";
+        public const string HubRecDuel = "str.online.hub.rec.duel";
+        public const string HubRecPlaza = "str.online.hub.rec.plaza";
+        public const string HubCreate = "str.online.hub.create";
+        public const string HubJoinHead = "str.online.hub.join_head";
+        public const string HubLocal = "str.online.hub.local";
+        public const string HubLocalNote = "str.online.hub.local_note";
+        public const string HubPlazaEnter = "str.online.hub.plaza_enter";
+        public const string HubCodeCaption = "str.online.hub.code_caption";
+        public const string HubCopy = "str.online.hub.copy";
+        public const string HubCopied = "str.online.hub.copied";
+        public const string HubShare = "str.online.hub.share";
+        public const string HubLocalRoom = "str.online.hub.local_room";
+        public const string HubWaitingSlot = "str.online.hub.waiting_slot";
+        public const string HubMembers = "str.online.hub.members";
+        public const string HubLeader = "str.online.hub.leader";
+        public const string HubYou = "str.online.hub.you";
+        public const string HubStage = "str.online.hub.stage";
+        public const string HubLoading = "str.online.hub.loading";
+        public const string HubVersus = "str.online.hub.versus";
+        public const string LoginTitle = "str.online.login.title";
+        public const string LoginTabLogin = "str.online.login.tab_login";
+        public const string LoginTabSignup = "str.online.login.tab_signup";
+        public const string LoginEmail = "str.online.login.email";
+        public const string LoginEmailHint = "str.online.login.email_hint";
+        public const string LoginEmailNote = "str.online.login.email_note";
+        public const string LoginPassword = "str.online.login.password";
+        public const string LoginPasswordHint = "str.online.login.password_hint";
+        public const string LoginPassword2 = "str.online.login.password2";
+        public const string LoginPassword2Hint = "str.online.login.password2_hint";
+        public const string LoginName = "str.online.login.name";
+        public const string LoginNameHint = "str.online.login.name_hint";
+        public const string LoginSubmit = "str.online.login.submit";
+        public const string LoginSubmitSignup = "str.online.login.submit_signup";
+        public const string LoginOr = "str.online.login.or";
+        public const string LoginGoogle = "str.online.login.google";
+        public const string LoginGoogleOff = "str.online.login.google_off";
+        public const string LoginGoogleWait = "str.online.login.google_wait";
+        public const string LoginForgot = "str.online.login.forgot";
+        public const string LoginMailOffTag = "str.online.login.mail_off_tag";
+        public const string LoginMailOff = "str.online.login.mail_off";
+        public const string LoginBack = "str.online.login.back";
+        public const string LoginWorking = "str.online.login.working";
+        public const string LoginNeedName = "str.online.login.need_name";
+        public const string LoginNeedNameSubmit = "str.online.login.need_name_submit";
+        public const string LoginMismatch = "str.online.login.mismatch";
+        public const string LoginNoServer = "str.online.login.no_server";
+        public const string LoginSecureNote = "str.online.login.secure_note";
+        public const string LoginSideTitle = "str.online.login.side_title";
+        public const string LoginSide1 = "str.online.login.side_1";
+        public const string LoginSide2 = "str.online.login.side_2";
+        public const string LoginSide3 = "str.online.login.side_3";
+        public const string LoginBrowserDone = "str.online.login.browser_done";
+        public const string LoginBrowserClose = "str.online.login.browser_close";
+        public const string Logout = "str.online.logout";
+        public const string KindEmail = "str.online.kind.Email";
+        public const string KindGoogle = "str.online.kind.Google";
+        public const string KindDevice = "str.online.kind.Device";
+        public const string LoginErrorPrefix = "str.online.login.error.";
+        public const string KindPrefix = "str.online.kind.";
         public const string MenuItem = "str.main_menu.item.coop";
         public const string Title = "str.coop.title";
         public const string Intro = "str.coop.intro";

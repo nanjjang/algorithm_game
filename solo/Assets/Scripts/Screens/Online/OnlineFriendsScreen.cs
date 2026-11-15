@@ -3,27 +3,33 @@ using UnityEngine;
 using Wizard.Solo.Art;
 using Wizard.Solo.Net;
 using Wizard.Solo.UI;
+using UImage = UnityEngine.UI.Image;
 using UInputField = UnityEngine.UI.InputField;
-using UText = UnityEngine.UI.Text;
 
 namespace Wizard.Solo.Screens.Online
 {
     /// <summary>
-    /// 친구(ScreenId.OnlineFriends, 11-online.md 6.12절). 이름으로 친구 신청, 나에게 온 신청 [받기]/[거절], 친구 목록(어디 있는지:
-    /// 광장·방·접속 안 함 — 누르면 끊기). 귓속말은 광장 채팅에서 "@이름 내용".
+    /// 친구(ScreenId.OnlineFriends, 11-online.md 6.12절, docs/ui-assets.md 4.22절). 야영지 장면을 어둡게 두고 오른쪽에 서랍 판(640):
+    /// 이름 칸 + [친구 신청], "받은 신청 n"(줄마다 [받기] [거절]), "친구 n"(상태 아이콘 I-F4 — 광장·방·접속 안 함, 이름, 레이팅, 있는 곳, [끊기]).
+    /// 접속한 친구가 위로 온다(서버가 정렬). 왼쪽엔 까마귀 우편 시설 그림과 귓속말 안내.
     /// </summary>
     public sealed class OnlineFriendsScreen : ScreenBase
     {
-        const float BoardW = 1100f, BoardH = 860f, Pad = 28f, RowH = 40f, Gap = 6f;
-        const int FriendRows = 12, RequestRows = 5;
+        const float DrawerX = 1232f, DrawerY = 104f, DrawerW = 640f, DrawerH = 928f, P = 28f, RowH = 64f;
+        const int RequestRows = 4, FriendRows = 8;
 
         OnlineService _svc;
-        UiLabel _status;
+        UiLabel _status, _reqHead, _frHead, _noReq, _noFr;
         UInputField _name;
-        readonly List<UiLabel> _friendLines = new List<UiLabel>();
-        readonly List<UiButton> _removeButtons = new List<UiButton>();
-        readonly List<UiLabel> _reqLines = new List<UiLabel>();
-        readonly List<UiButton> _accept = new List<UiButton>(), _decline = new List<UiButton>();
+        RectTransform _reqRoot, _frRoot;
+        sealed class Row
+        {
+            public RectTransform Root;
+            public UImage Status;
+            public UiLabel Name, Sub, Where;
+            public UiButton A, B;
+        }
+        readonly List<Row> _reqRows = new List<Row>(), _frRows = new List<Row>();
         List<FriendInfo> _friends = new List<FriendInfo>(), _requests = new List<FriendInfo>();
 
         public override ScreenId Id => ScreenId.OnlineFriends;
@@ -31,44 +37,66 @@ namespace Wizard.Solo.Screens.Online
 
         protected override void BuildContent(RectTransform content)
         {
-            UiKit.Rect(content, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, UiTheme.WoodDark, true, "Background");
-            var board = UiKit.Panel(Ctx, content, UiPanelKind.Board, 0f, 0f, BoardW, BoardH).rectTransform;
-            UiKit.Center(board, BoardW, BoardH);
-            float inner = BoardW - 2f * Pad, y = Pad;
-            UiKit.Label(Ctx, board, T(OnlineKeys.FriendsTitle), UiFontId.F32, Pad, y, inner, 44f, UiTheme.Chalk, TextAnchor.MiddleCenter);
-            y += 52f;
-            var bg = UiKit.NineSlice(Ctx, board, "K-33", "input", null, Pad, y, inner - 220f, 48f, UiTheme.Chalk);
-            bg.raycastTarget = true;
-            _name = bg.gameObject.AddComponent<UInputField>();
-            var t = UiKit.Label(Ctx, bg.rectTransform, string.Empty, UiFontId.F16, 8f, 0f, inner - 236f, 48f, UiTheme.PaperText);
-            _name.textComponent = t.GetComponent<UText>();
-            _name.characterLimit = AccountStore.NameMax;
-            var ph = UiKit.Label(Ctx, bg.rectTransform, T(OnlineKeys.FriendsNameHint), UiFontId.F16, 8f, 0f, inner - 236f, 48f, UiTheme.SlateBlue);
-            _name.placeholder = ph.GetComponent<UText>();
-            UiKit.Button(Ctx, board, T(OnlineKeys.FriendsAdd), BoardW - Pad - 200f, y, 200f, 48f, Add, UiButtonStyle.Primary, Focus);
-            y += 60f;
-            UiKit.Label(Ctx, board, T(OnlineKeys.FriendsRequests), UiFontId.F16, Pad, y, inner, 28f, UiTheme.SelectYellow);
-            y += 30f;
-            for (int i = 0; i < RequestRows; i++)
+            OnlineUi.Scene(Ctx, content, "S-0501", "camp_background", 0.6f);
+            OnlineUi.HeaderBand(Ctx, content, "I-F1", "friends", T(OnlineKeys.FriendsTitle), out var band);
+            UiKit.Button(Ctx, band, T(OnlineKeys.Leave), UiScale.RefWidth - OnlineUi.Edge - 176f, 16f, 176f, 48f, () => Close(), UiButtonStyle.Medium, Focus, null, UiFontId.F16, OnlineUi.Sprite(Ctx, "I-F2", "back"));
+
+            // 왼쪽: 까마귀 우편 시설.
+            Sprite crow = null;
+            try { var a = Ctx != null && Ctx.Art != null ? Ctx.Art.World("facility.crow_mail") : null; crow = a != null && a.Frames != null && a.Frames.Length > 0 ? a.Frames[0] : null; }
+            catch (System.Exception) { crow = null; }
+            if (crow != null)
             {
-                int k = i;
-                _reqLines.Add(UiKit.Label(Ctx, board, string.Empty, UiFontId.F16, Pad, y, inner - 300f, RowH, UiTheme.Chalk));
-                _accept.Add(UiKit.Button(Ctx, board, T(OnlineKeys.FriendsAccept), BoardW - Pad - 290f, y, 140f, RowH, () => Answer(k, true), UiButtonStyle.Primary, Focus, null, UiFontId.F16));
-                _decline.Add(UiKit.Button(Ctx, board, T(OnlineKeys.FriendsDecline), BoardW - Pad - 140f, y, 140f, RowH, () => Answer(k, false), UiButtonStyle.Medium, Focus, null, UiFontId.F16));
-                y += RowH + Gap;
+                float w = crow.rect.width * 3f, h = crow.rect.height * 3f;
+                UiKit.Image(content, crow, 160f + (640f - w) * 0.5f, 560f - h, w, h, Color.white, true);
             }
-            y += 8f;
-            UiKit.Label(Ctx, board, T(OnlineKeys.FriendsList), UiFontId.F16, Pad, y, inner, 28f, UiTheme.SelectYellow);
-            y += 30f;
-            for (int i = 0; i < FriendRows; i++)
+            var t = UiKit.Label(Ctx, content, T(OnlineKeys.FrSideTitle), UiFontId.F32, 160f, 600f, 900f, 48f, UiTheme.Chalk);
+            UiKit.DropShadow(t);
+            var n = UiKit.Label(Ctx, content, T(OnlineKeys.FrSideNote), UiFontId.F16, 160f, 656f, 900f, 48f, UiTheme.SlateBlue, TextAnchor.UpperLeft, wrap: true);
+            UiKit.DropShadow(n);
+
+            // 오른쪽 서랍.
+            var d = UiKit.Panel(Ctx, content, UiPanelKind.Board, DrawerX, DrawerY, DrawerW, DrawerH).rectTransform;
+            UiKit.Bevel(d);
+            float inner = DrawerW - 2f * P, y = 24f;
+            _name = OnlineUi.Field(Ctx, Focus, d, null, T(OnlineKeys.FriendsNameHint), P, y, inner - 196f, AccountStore.NameMax);
+            UiKit.Button(Ctx, d, T(OnlineKeys.FriendsAdd), P + inner - 184f, y, 184f, 48f, Add, UiButtonStyle.Primary, Focus, null, UiFontId.F16, OnlineUi.Sprite(Ctx, "I-F3", "friend_add"));
+            y += 72f;
+            _reqHead = UiKit.Label(Ctx, d, string.Empty, UiFontId.F16, P, y, inner, 28f, UiTheme.SelectYellow);
+            y += 32f;
+            _reqRoot = UiKit.Node(d, "Requests", P, y, inner, RequestRows * (RowH + 6f));
+            for (int i = 0; i < RequestRows; i++) _reqRows.Add(BuildRow(_reqRoot, i, true));
+            _noReq = UiKit.Label(Ctx, _reqRoot, T(OnlineKeys.FrNoRequests), UiFontId.F16, 8f, 0f, inner, 40f, UiTheme.SlateBlue);
+            y += RequestRows * (RowH + 6f) + 12f;
+            UiKit.Divider(Ctx, d, P, y, inner);
+            y += 12f;
+            _frHead = UiKit.Label(Ctx, d, string.Empty, UiFontId.F16, P, y, inner, 28f, UiTheme.SelectYellow);
+            y += 32f;
+            _frRoot = UiKit.Node(d, "Friends", P, y, inner, FriendRows * (RowH + 6f));
+            for (int i = 0; i < FriendRows; i++) _frRows.Add(BuildRow(_frRoot, i, false));
+            _noFr = UiKit.Label(Ctx, _frRoot, T(OnlineKeys.FrNoFriends), UiFontId.F16, 8f, 0f, inner, 48f, UiTheme.SlateBlue, TextAnchor.UpperLeft, wrap: true);
+            _status = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, 160f, 960f, 1000f, 40f, UiTheme.Amber);
+            UiKit.DropShadow(_status);
+        }
+
+        Row BuildRow(RectTransform parent, int i, bool request)
+        {
+            float w = DrawerW - 2f * P;
+            var r = new Row { Root = UiKit.Node(parent, "Row" + i, 0f, i * (RowH + 6f), w, RowH) };
+            UiKit.Panel(Ctx, r.Root, UiPanelKind.Recess, 0f, 0f, w, RowH);
+            r.Status = UiKit.Image(r.Root, null, 16f, (RowH - 32f) * 0.5f, 32f, 32f, Color.white, true);
+            r.Name = UiKit.Label(Ctx, r.Root, string.Empty, UiFontId.F24, 60f, 4f, 260f, 32f, UiTheme.Chalk);
+            r.Sub = UiKit.Label(Ctx, r.Root, string.Empty, UiFontId.F12, 60f, 36f, 140f, 22f, UiTheme.SlateBlue);
+            r.Where = UiKit.Label(Ctx, r.Root, string.Empty, UiFontId.F12, 200f, 36f, 200f, 22f, UiTheme.SlateBlue);
+            int k = i;
+            if (request)
             {
-                int k = i;
-                _friendLines.Add(UiKit.Label(Ctx, board, string.Empty, UiFontId.F16, Pad, y, inner - 160f, RowH - 4f, UiTheme.Chalk));
-                _removeButtons.Add(UiKit.Button(Ctx, board, T(OnlineKeys.FriendsRemove), BoardW - Pad - 140f, y, 140f, RowH - 4f, () => Remove(k), UiButtonStyle.Small, Focus, null, UiFontId.F12));
-                y += RowH;
+                r.A = UiKit.Button(Ctx, r.Root, T(OnlineKeys.FriendsAccept), w - 236f, 12f, 112f, 40f, () => Answer(k, true), UiButtonStyle.Primary, Focus, null, UiFontId.F16);
+                r.B = UiKit.Button(Ctx, r.Root, T(OnlineKeys.FriendsDecline), w - 116f, 12f, 104f, 40f, () => Answer(k, false), UiButtonStyle.Medium, Focus, null, UiFontId.F16);
             }
-            _status = UiKit.Label(Ctx, board, string.Empty, UiFontId.F16, Pad, BoardH - Pad - 100f, inner - 220f, 40f, UiTheme.Amber, TextAnchor.MiddleLeft);
-            UiKit.Button(Ctx, board, T(OnlineKeys.Leave), BoardW - Pad - 200f, BoardH - Pad - 56f, 200f, 56f, () => Close(), UiButtonStyle.Medium, Focus);
+            else
+                r.A = UiKit.Button(Ctx, r.Root, T(OnlineKeys.FriendsRemove), w - 132f, 14f, 120f, 36f, () => Remove(k), UiButtonStyle.Small, Focus, null, UiFontId.F16, OnlineUi.Sprite(Ctx, "I-F2", "trash"));
+            return r;
         }
 
         public override void OnEnter(ScreenArgs args)
@@ -92,33 +120,48 @@ namespace Wizard.Solo.Screens.Online
 
         public override void Tick(float dt) { if (Screens != null) Screens.CaptureKeys = _name.isFocused; }
 
+        static string StatusIcon(string where) => string.IsNullOrEmpty(where) ? "offline" : where == "plaza" ? "online" : "duel";
+
         void Reload()
         {
             _friends = new List<FriendInfo>();
             _requests = new List<FriendInfo>();
             if (_svc != null && _svc.Friends(out var f, out var r)) { _friends = f; _requests = r; }
-            for (int i = 0; i < _reqLines.Count; i++)
+            _reqHead.SetText(F(OnlineKeys.FrRequestsHead, "n", _requests.Count));
+            _frHead.SetText(F(OnlineKeys.FrFriendsHead, "n", _friends.Count));
+            _noReq.gameObject.SetActive(_requests.Count == 0);
+            _noFr.gameObject.SetActive(_friends.Count == 0);
+            for (int i = 0; i < _reqRows.Count; i++)
             {
+                var row = _reqRows[i];
                 bool on = i < _requests.Count;
-                _reqLines[i].gameObject.SetActive(on);
-                _accept[i].gameObject.SetActive(on);
-                _decline[i].gameObject.SetActive(on);
-                if (on) _reqLines[i].SetText(F(OnlineKeys.FriendsRequestLine, "name", _requests[i].Name, "rating", _requests[i].Rating));
+                row.Root.gameObject.SetActive(on);
+                if (!on) continue;
+                row.Status.sprite = OnlineUi.Sprite(Ctx, "I-F3", "person");
+                row.Name.SetText(_requests[i].Name);
+                row.Sub.SetText(F(OnlineKeys.FrRating, "rating", _requests[i].Rating));
+                row.Where.SetText(string.Empty);
             }
-            for (int i = 0; i < _friendLines.Count; i++)
+            for (int i = 0; i < _frRows.Count; i++)
             {
+                var row = _frRows[i];
                 bool on = i < _friends.Count;
-                _friendLines[i].gameObject.SetActive(on);
-                _removeButtons[i].gameObject.SetActive(on);
+                row.Root.gameObject.SetActive(on);
                 if (!on) continue;
                 var x = _friends[i];
-                string where = T(OnlineKeys.FriendsWhere + (string.IsNullOrEmpty(x.Where) ? "off" : x.Where));
-                _friendLines[i].SetText(F(OnlineKeys.FriendsLine, "name", x.Name, "rating", x.Rating, "where", where));
+                bool online = !string.IsNullOrEmpty(x.Where);
+                row.Status.sprite = OnlineUi.Sprite(Ctx, "I-F4", StatusIcon(x.Where));
+                row.Name.SetText(x.Name);
+                row.Name.Text.color = online ? UiTheme.Chalk : UiTheme.SlateBlue;
+                row.Sub.SetText(F(OnlineKeys.FrRating, "rating", x.Rating));
+                row.Where.SetText(T(OnlineKeys.FriendsWhere + (online ? x.Where : "off")));
+                row.Where.Text.color = online ? UiTheme.Good : UiTheme.SlateBlue;
             }
         }
 
         void Show(AccountStore.FriendResult? r)
         {
+            _status.Text.color = r == AccountStore.FriendResult.Ok || r == AccountStore.FriendResult.Requested ? UiTheme.Good : UiTheme.Amber;
             _status.SetText(r == null ? T(OnlineKeys.ErrorServer) : T(OnlineKeys.FriendsResult + r.Value));
         }
 

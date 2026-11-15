@@ -170,9 +170,34 @@ namespace Wizard.Solo.Net
         PlazaWhisper = 86,
         /// <summary>광장: 귓속말이 왔다(광장 →). 몸 = 보낸 이름, 글. 보낸 이름이 null이면 "받을 사람이 광장에 없다".</summary>
         WhisperIn = 87,
+        /// <summary>클라이언트 → 방 서버(맨 앞, 로그인 전): 서버가 켠 기능을 묻는다. 응답 ServerInfo, 연결은 그대로.</summary>
+        ServerInfoRequest = 90,
+        /// <summary>방 서버 → 클라이언트: Google 클라이언트 id(빈 문자열 = Google 로그인 꺼짐), 복구 메일 켜짐(bool), 비밀번호 최소 길이(int), 암호화된 연결인가(bool).</summary>
+        ServerInfo = 91,
+        /// <summary>클라이언트 → 방 서버(맨 앞, 암호화된 연결에서만): 이메일 가입. 몸 = 이메일, 비밀번호, 이름. 응답 AuthOk(로그인 표 포함)/AuthFail.</summary>
+        EmailSignup = 92,
+        /// <summary>클라이언트 → 방 서버(맨 앞, 암호화된 연결에서만): 이메일 로그인. 몸 = 이메일, 비밀번호. 응답 AuthOk/AuthFail.</summary>
+        EmailLogin = 93,
+        /// <summary>클라이언트 → 방 서버(맨 앞, 암호화된 연결에서만): Google 인가 코드. 몸 = code, PKCE verifier, redirect_uri. 응답 AuthOk / GoogleNeedName / AuthFail.</summary>
+        GoogleLogin = 94,
+        /// <summary>방 서버 → 클라이언트: 처음 온 Google 사용자 — 이름을 정해 달라. 몸 = 표(ticket), 추천 이름. 같은 연결로 GoogleFinish를 보낸다.</summary>
+        GoogleNeedName = 95,
+        /// <summary>클라이언트 → 방 서버: Google 가입 마무리. 몸 = 표, 이름. 응답 AuthOk / AuthFail(이름 문제면 연결을 그대로 두고 다시 받는다).</summary>
+        GoogleFinish = 96,
+        /// <summary>클라이언트 → 방 서버(로그인 뒤): 로그아웃 — 이 로그인 표를 지운다. 몸 = 토큰. 응답 LogoutDone.</summary>
+        Logout = 97,
+        LogoutDone = 98,
     }
 
-    public enum AuthError : byte { BadName = 1, NameTaken = 2, BadSecret = 3, WrongLogin = 4 }
+    /// <summary>계정 실패 이유. AuthFail 몸 = 이유(byte), 기다릴 초(int).</summary>
+    public enum AuthError : byte
+    {
+        BadName = 1, NameTaken = 2, BadSecret = 3, WrongLogin = 4,
+        BadEmail = 5, EmailTaken = 6, WeakPassword = 7, Throttled = 8, NotSecure = 9, GoogleOff = 10, GoogleFailed = 11, BadTicket = 12, ServerError = 13,
+    }
+
+    /// <summary>계정 종류(AuthOk 몸 끝).</summary>
+    public enum AccountKind : byte { Device = 0, Email = 1, Google = 2 }
 
     /// <summary>방 종류.</summary>
     public enum RoomMode : byte { Coop = 0, Duel = 1 }
@@ -182,7 +207,7 @@ namespace Wizard.Solo.Net
     public static class NetProtocol
     {
         /// <summary>메시지 꼴이 바뀌면 올린다. 다르면 Reject(Version).</summary>
-        public const int Version = 11;
+        public const int Version = 12;
         /// <summary>스냅숏을 보내는 틱 간격(60틱 / 3 = 20Hz).</summary>
         public const int SnapshotEveryTicks = 3;
     }

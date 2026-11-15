@@ -344,7 +344,7 @@ namespace Wizard.Solo.Tests.Integration
         [Test]
         public void AccountStore_Charm_BlocksDrop_AndCoopMaterials()
         {
-            var st = new AccountStore(null);
+            var st = new AccountStore((string)null);
             Assert.AreEqual(AccountStore.RegisterResult.Ok, st.Register("부적시험", new string('c', 40), out var rec));
             var cfg = _k.Db.Enhance;
             var p = rec.Profile;
@@ -388,7 +388,7 @@ namespace Wizard.Solo.Tests.Integration
         [Test]
         public void ServerEnhance_Sacrifice_RaisesOdds_AndIsConsumed()
         {
-            var st = new AccountStore(null);
+            var st = new AccountStore((string)null);
             st.Register("제물시험", new string('s', 40), out var rec);
             var p = rec.Profile;
             p.Gold = 100000000;
@@ -411,7 +411,7 @@ namespace Wizard.Solo.Tests.Integration
         [Test]
         public void ServerEnhance_Mutation_OfferAcceptDecline_AndRunUsesIt()
         {
-            var st = new AccountStore(null);
+            var st = new AccountStore((string)null);
             st.Register("변이시험", new string('m', 40), out var rec);
             var p = rec.Profile;
             p.Gold = 100000000;
@@ -446,7 +446,7 @@ namespace Wizard.Solo.Tests.Integration
         [Test]
         public void ServerLoadout_SocketFromStorage_AndRunUsesIt()
         {
-            var st = new AccountStore(null);
+            var st = new AccountStore((string)null);
             st.Register("조립시험", new string('a', 40), out var rec);
             var p = rec.Profile;
             string proj = null, mod = null;
@@ -498,7 +498,7 @@ namespace Wizard.Solo.Tests.Integration
         [Test]
         public void PlazaTrade_BothConfirm_Swaps_ChangeResetsConfirm()
         {
-            var st = new AccountStore(null);
+            var st = new AccountStore((string)null);
             st.Register("상인갑", new string('1', 40), out var ra);
             st.Register("상인을", new string('2', 40), out var rb);
             ra.Profile.Gold = 1000;
@@ -554,7 +554,7 @@ namespace Wizard.Solo.Tests.Integration
         [Test]
         public void PlazaTrade_CannotOfferWhatYouDontHave()
         {
-            var st = new AccountStore(null);
+            var st = new AccountStore((string)null);
             st.Register("가난갑", new string('3', 40), out var ra);
             st.Register("가난을", new string('4', 40), out var rb);
             var huge = new AccountStore.TradeOffer { Gold = 999999 };
@@ -565,7 +565,7 @@ namespace Wizard.Solo.Tests.Integration
         [Test]
         public void RemoveMutation_CostsGold()
         {
-            var st = new AccountStore(null);
+            var st = new AccountStore((string)null);
             st.Register("변이지움", new string('5', 40), out var rec);
             rec.Profile.MutationsOf(1).Add(new Wizard.Solo.Meta.MutationEntry { Id = "mut.test", Seq = 1 });
             var cfg = _k.Db.Enhance;
@@ -579,7 +579,7 @@ namespace Wizard.Solo.Tests.Integration
         [Test]
         public void Market_ListBuyFeeDeposit_UnlistExpire()
         {
-            var st = new AccountStore(null);
+            var st = new AccountStore((string)null);
             st.Register("판매자", new string('6', 40), out var sel);
             st.Register("구매자", new string('7', 40), out var buy);
             sel.Profile.Gold = 100;
@@ -610,7 +610,7 @@ namespace Wizard.Solo.Tests.Integration
         [Test]
         public void Friends_RequestAcceptRemove_AndWhere()
         {
-            var st = new AccountStore(null);
+            var st = new AccountStore((string)null);
             st.Register("친구갑", new string('8', 40), out var a);
             st.Register("친구을", new string('9', 40), out var b);
             Assert.AreEqual(AccountStore.FriendResult.NotFound, st.RequestFriend(a.Id, "없는이름"));

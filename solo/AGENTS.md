@@ -38,7 +38,7 @@
 ## 기준 문서
 
 1. `solo/Docs/00-architecture.md` — 코드 구조와 공용 타입(정본)
-2. `solo/Docs/11-online.md` — 온라인 구조(협동·결투·광장, 서버), `solo/Docs/13-coop-server-deploy.md` — 맥미니 서버·서브도메인 올리기
+2. `solo/Docs/11-online.md` — 온라인 구조(협동·결투·광장, 서버), `solo/Docs/13-coop-server-deploy.md` — 맥미니 서버·서브도메인 올리기(7절: 계정 DB Postgres·TLS·Google 로그인), `solo/Docs/14-online-ui.md` — 온라인 화면 구성과 레퍼런스
 3. `solo/Docs/01~10-*.md` — 기획 요약서(원문 절 번호 포함). 모자라면 `docs/spec/`, `docs/GDD.md` 원문을 본다.
 
 ## 검사

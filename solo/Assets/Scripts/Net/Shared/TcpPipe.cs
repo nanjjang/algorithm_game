@@ -127,7 +127,7 @@ namespace Wizard.Solo.Net
     }
 
     /// <summary>TCP 받는 쪽. Poll()이 새 연결을 TcpPipe로 돌려준다(블로킹 없음).</summary>
-    public sealed class TcpPipeListener
+    public sealed class TcpPipeListener : IPipeListener
     {
         readonly TcpListener _listener;
 
@@ -140,6 +140,8 @@ namespace Wizard.Solo.Net
             _listener.Start();
             Port = ((IPEndPoint)_listener.LocalEndpoint).Port;
         }
+
+        INetPipe IPipeListener.Poll() => Poll();
 
         public TcpPipe Poll()
         {

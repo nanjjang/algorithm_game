@@ -21,7 +21,8 @@ namespace Wizard.Solo.Screens.Online
         const float OriginX = 40f, OriginY = 34f;
         const float AvatarPx = 96f;
         const string NamePref = "wizard.plaza_name";
-        static readonly string[] EmoteGlyphs = { "", "!", "?", "♥", "♪", "…", "★", "zZ", "^^" };
+        /// <summary>감정 표현 번호 1~8 → I-F10 그림.</summary>
+        static readonly string[] EmoteIcons = { "greet", "clap", "bow", "dance", "sit", "taunt", "raise_wand", "despair" };
 
         /// <summary>광장의 문(좀비고식): 그 칸 안에 서서 Space를 누르면 그 종류의 방 화면이 열린다. 칸 좌표(광장 40×22칸).</summary>
         public struct Door
@@ -54,8 +55,11 @@ namespace Wizard.Solo.Screens.Online
         {
             public RectTransform Root;
             public UImage Body;
-            public UiLabel Name, Bubble, Emote;
-            public RectTransform BubbleRoot;
+            public UiLabel Name, Bubble;
+            public RectTransform BubbleRoot, Plate, Tail;
+            public UnityEngine.UI.Image EmoteIcon;
+            public string ShownName, ShownBubble;
+            public int ShownEmote;
             public float AnimT;
         }
 
@@ -78,26 +82,42 @@ namespace Wizard.Solo.Screens.Online
             Sprite bg = null;
             try { bg = Ctx != null && Ctx.Art != null ? Ctx.Art.Background("S-0501") : null; } catch (System.Exception) { }
             _field = UiKit.Node(content, "PlazaField", OriginX, OriginY, PlazaHost.Width * Cell, PlazaHost.Height * Cell);
-            if (bg != null) UiKit.Image(_field, bg, 0f, 0f, PlazaHost.Width * Cell, PlazaHost.Height * Cell, new Color(1f, 1f, 1f, 0.55f), false);
+            if (bg != null) UiKit.Image(_field, bg, 0f, 0f, PlazaHost.Width * Cell, PlazaHost.Height * Cell, new Color(0.85f, 0.85f, 0.9f, 1f), false);
             else UiKit.Rect(_field, 0f, 0f, PlazaHost.Width * Cell, PlazaHost.Height * Cell, UiTheme.Wood, false, "Ground");
-            // 가운데 분수(그림 대신 단순 도형).
-            UiKit.Rect(_field, (PlazaHost.Width * 0.5f - 1.5f) * Cell, (PlazaHost.Height * 0.5f - 1f) * Cell, 3f * Cell, 2f * Cell,
-                UiTheme.WithAlpha(UiTheme.ArcaneTeal, 0.35f), false, "Fountain");
 
+            // 문: 협동 = 한뎃벌로 나가는 문(facility.field_gate), 결투 = 결투 게시판(facility.duel_board). 위에 시설 팻말(S-2007).
             foreach (var d in Doors)
             {
-                var door = UiKit.Rect(_field, d.Area.x * Cell, d.Area.y * Cell, d.Area.width * Cell, d.Area.height * Cell,
-                    UiTheme.WithAlpha(d.Mode == RoomMode.Duel ? UiTheme.Amber : UiTheme.Good, 0.35f), false, "Door");
-                UiKit.Label(Ctx, door.rectTransform, T(d.LabelKey), UiFontId.F16, -40f, -28f, d.Area.width * Cell + 80f, 24f,
-                    UiTheme.Chalk, TextAnchor.MiddleCenter, outline: true);
+                string prop = d.Mode == RoomMode.Duel ? "facility.duel_board" : "facility.field_gate";
+                Sprite ps = null;
+                try { var anim = Ctx != null && Ctx.Art != null ? Ctx.Art.World(prop) : null; ps = anim != null && anim.Frames != null && anim.Frames.Length > 0 ? anim.Frames[0] : null; }
+                catch (System.Exception) { ps = null; }
+                float dw = d.Area.width * Cell, dh = d.Area.height * Cell;
+                var area = UiKit.Node(_field, "Door", d.Area.x * Cell, d.Area.y * Cell, dw, dh);
+                // 들어서는 자리: 흐린 분필 원.
+                UiKit.Rect(area, 0f, dh - 24f, dw, 24f, UiTheme.WithAlpha(UiTheme.Chalk, 0.12f), false, "Mat");
+                if (ps != null)
+                {
+                    float pw = ps.rect.width * 2f, ph = ps.rect.height * 2f;
+                    if (pw > dw + 64f) { float k = (dw + 64f) / pw; pw *= k; ph *= k; }
+                    UiKit.Image(area, ps, (dw - pw) * 0.5f, dh - ph - 8f, pw, ph, Color.white, true);
+                }
+                else UiKit.Rect(area, 0f, 0f, dw, dh, UiTheme.WithAlpha(UiTheme.WoodLight, 0.5f), false, "DoorFallback");
+                float sw = Mathf.Max(dw + 40f, UiTextFit.WidthPx(T(d.LabelKey), 16) + 40f);
+                var sign = UiKit.NineSlice(Ctx, area, "S-2007", "facility_sign", null, (dw - sw) * 0.5f, -48f, sw, 40f, UiTheme.Paper).rectTransform;
+                UiKit.Label(Ctx, sign, T(d.LabelKey), UiFontId.F16, 0f, 0f, sw, 40f, UiTheme.Chalk, TextAnchor.MiddleCenter, outline: true);
             }
+            // 위 띠(얇게): 광장 인원과 조작 안내.
+            UiKit.Rect(content, 0f, 0f, UiScale.RefWidth, 34f, UiTheme.WithAlpha(UiTheme.Ink, 0.7f), false, "TopStrip");
             float lh = UiTheme.LineHeight(UiFontId.F16);
             _doorPrompt = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, (UiScale.RefWidth - 900f) * 0.5f, UiScale.RefHeight - 140f, 900f, 40f,
                 UiTheme.SelectYellow, TextAnchor.MiddleCenter, outline: true);
-            _count = UiKit.Label(Ctx, content, string.Empty, UiFontId.F16, 48f, 40f, 600f, lh, UiTheme.Chalk);
-            _status = UiKit.Label(Ctx, content, string.Empty, UiFontId.F16, 48f, 40f + lh, 900f, lh, UiTheme.Amber);
+            var cnt = OnlineUi.IconText(Ctx, content, "I-F8", "talk", string.Empty, 48f, 5f, 900f, 24f, UiFontId.F16, UiTheme.Chalk, 16f);
+            _count = cnt;
+            _status = UiKit.Label(Ctx, content, string.Empty, UiFontId.F16, 48f, 40f, 900f, lh, UiTheme.Amber, TextAnchor.MiddleLeft, outline: true);
 
             float by = UiScale.RefHeight - 72f;
+            UiKit.Rect(content, 0f, by - 14f, UiScale.RefWidth, UiScale.RefHeight - by + 14f, UiTheme.WithAlpha(UiTheme.Ink, 0.72f), false, "BottomStrip");
             _chat = BuildInput(content, 48f, by, 900f, 52f, OnlineKeys.ChatHint, 60);
             UiKit.Button(Ctx, content, T(OnlineKeys.ChatSend), 960f, by, 160f, 52f, SendChat, UiButtonStyle.Medium, Focus);
             UiKit.Button(Ctx, content, T(OnlineKeys.PlazaRooms), UiScale.RefWidth - 48f - 220f, by, 220f, 52f, GoRooms, UiButtonStyle.Primary, Focus);
@@ -325,11 +345,37 @@ namespace Wizard.Solo.Screens.Online
                 var sp = clip != null ? clip.At(v.AnimT) : null;
                 if (sp != null) { v.Body.sprite = sp; v.Body.color = Color.white; }
                 v.Body.rectTransform.localScale = new Vector3(flip ? -1f : 1f, 1f, 1f);
-                v.Name.SetText(a.Id == _client.MyId ? "★ " + a.Name : a.Name);
+                if (v.ShownName != a.Name)
+                {
+                    v.ShownName = a.Name;
+                    v.Name.SetText(a.Name);
+                    float nw = Mathf.Max(48f, UiTextFit.WidthPx(a.Name, 12) + 20f);
+                    UiKit.Place(v.Plate, (AvatarPx - nw) * 0.5f, AvatarPx + 2f, nw, 22f);
+                    UiKit.Place(v.Name.Rect, 0f, 0f, nw, 22f);
+                }
                 bool hasBubble = !string.IsNullOrEmpty(a.Bubble);
                 v.BubbleRoot.gameObject.SetActive(hasBubble);
-                if (hasBubble) v.Bubble.SetText(a.Bubble);
-                v.Emote.SetText(a.Emote > 0 && a.Emote < EmoteGlyphs.Length ? EmoteGlyphs[a.Emote] : string.Empty);
+                if (hasBubble && v.ShownBubble != a.Bubble)
+                {
+                    v.ShownBubble = a.Bubble;
+                    v.Bubble.SetText(a.Bubble);
+                    // 한 줄 20자, 최대 폭 336(ui-assets 4.20). 짧은 말은 풍선도 좁게.
+                    float bw = Mathf.Clamp(UiTextFit.WidthPx(a.Bubble, 16) + 28f, 72f, 336f);
+                    int lines = Mathf.Clamp(Mathf.CeilToInt((UiTextFit.WidthPx(a.Bubble, 16) + 1f) / 308f), 1, 4);
+                    float bh = 20f + lines * 22f;
+                    UiKit.Place(v.BubbleRoot, (AvatarPx - bw) * 0.5f, -bh - 14f, bw, bh);
+                    UiKit.Place(v.Bubble.Rect, 14f, 8f, bw - 28f, bh - 16f);
+                    UiKit.Place(v.Tail, bw * 0.5f - 12f, bh - 2f, 24f, 16f);
+                }
+                int e = a.Emote;
+                bool emote = e > 0 && e <= EmoteIcons.Length;
+                v.EmoteIcon.gameObject.SetActive(emote);
+                if (emote && v.ShownEmote != e)
+                {
+                    v.ShownEmote = e;
+                    var es = OnlineUi.Sprite(Ctx, "I-F10", EmoteIcons[e - 1]);
+                    v.EmoteIcon.sprite = es;
+                }
             }
             foreach (var id in _gone)
             {
@@ -347,12 +393,18 @@ namespace Wizard.Solo.Screens.Online
             // 뒤집기(왼쪽 보기)를 가운데 축으로 하려고 축을 가운데로 옮기고, 자리는 그대로 둔다.
             v.Body.rectTransform.pivot = new Vector2(0.5f, 0.5f);
             v.Body.rectTransform.anchoredPosition = new Vector2(AvatarPx * 0.5f, -AvatarPx * 0.5f);
-            v.Name = UiKit.Label(Ctx, root, a.Name, UiFontId.F12, -40f, AvatarPx, AvatarPx + 80f, 20f,
-                a.Id == _client.MyId ? UiTheme.SelectYellow : UiTheme.Chalk, TextAnchor.MiddleCenter, outline: true);
-            var bubble = UiKit.Rect(root, -80f, -52f, AvatarPx + 160f, 46f, UiTheme.Paper, false, "Bubble").rectTransform;
+            // 닉네임 판(S-2001): 나 = 분필 흰 테, 남 = 먹색. 폭은 글자에 맞춘다(Render에서).
+            bool me = a.Id == _client.MyId;
+            v.Plate = UiKit.NineSlice(Ctx, root, "S-2001", me ? "nameplate_self" : "nameplate_other", null, 0f, AvatarPx + 2f, AvatarPx, 22f,
+                UiTheme.WithAlpha(UiTheme.Ink, 0.7f)).rectTransform;
+            v.Name = UiKit.Label(Ctx, v.Plate, a.Name, UiFontId.F12, 0f, 0f, AvatarPx, 22f, me ? UiTheme.SelectYellow : UiTheme.Chalk, TextAnchor.MiddleCenter);
+            // 말풍선(S-2005 주변 + 꼬리).
+            var bubble = UiKit.NineSlice(Ctx, root, "S-2005", "bubble_nearby", null, -80f, -60f, AvatarPx + 160f, 46f, UiTheme.Paper).rectTransform;
             v.BubbleRoot = bubble;
-            v.Bubble = UiKit.Label(Ctx, bubble, string.Empty, UiFontId.F12, 8f, 4f, AvatarPx + 144f, 38f, UiTheme.PaperText, TextAnchor.MiddleCenter, wrap: true);
-            v.Emote = UiKit.Label(Ctx, root, string.Empty, UiFontId.F24, AvatarPx - 20f, -8f, 48f, 32f, UiTheme.SelectYellow, TextAnchor.MiddleCenter, outline: true);
+            v.Tail = OnlineUi.Img(Ctx, bubble, "S-2005", "bubble_tail_nearby", 0f, 0f, 24f, 16f).rectTransform;
+            v.Bubble = UiKit.Label(Ctx, bubble, string.Empty, UiFontId.F16, 14f, 8f, AvatarPx + 132f, 30f, UiTheme.PaperText, TextAnchor.MiddleCenter, wrap: true);
+            v.EmoteIcon = UiKit.Image(root, null, AvatarPx - 24f, -24f, 48f, 48f, Color.white, true);
+            v.EmoteIcon.gameObject.SetActive(false);
             return v;
         }
     }

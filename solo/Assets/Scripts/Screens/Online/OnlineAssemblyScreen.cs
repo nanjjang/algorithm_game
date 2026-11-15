@@ -7,69 +7,100 @@ using Wizard.Solo.UI;
 namespace Wizard.Solo.Screens.Online
 {
     /// <summary>
-    /// 서버 지팡이 조립(ScreenId.OnlineAssembly, 11-online.md 6.10절). 인자 = 캐릭터(1~5).
-    /// 위: 코어 + 연결 칸(칸을 눌러 고른다). 가운데: 서버 창고의 블록(+ 누구나 가진 마력탄) — 누르면 고른 칸에 끼운다.
-    /// [빼기] = 고른 칸 비우기(코어면 마력탄으로), [저장] = 서버에 보낸다(모양·주문 컴파일·수량은 서버가 본다).
+    /// 서버 지팡이 조립(ScreenId.OnlineAssembly, 11-online.md 6.10절, docs/ui-assets.md 4.11절). 인자 = 캐릭터(1~5).
+    /// 작업대 장면 위: 위 판에 지팡이 그림과 "회로" — 코어 칸(K-63) → 이음(K-65) → 연결 칸(K-60)들, 칸마다 블록 아이콘과 이름.
+    /// 칸을 눌러 고르고(노란 괄호), 아래 창고 격자(블록 아이콘 + 남은 수)를 누르면 끼운다. 코어에는 투사체만.
+    /// 아래 왼쪽: 받은 변이 꼬리표([지우기], 골드). [칸 비우기] = 고른 칸 비우기(코어면 마력탄으로), [저장] = 서버에 보낸다.
     /// </summary>
     public sealed class OnlineAssemblyScreen : ScreenBase
     {
-        const float BoardW = 1400f, BoardH = 820f, Pad = 32f, SlotW = 180f, SlotH = 64f, Gap = 12f;
         const int MaxSlots = 8, Chips = 24;
+        const float TopX = 48f, TopY = 112f, TopW = 1824f, TopH = 320f;
+        const float SlotSize = 88f, LinkW = 36f;
 
         OnlineService _svc;
         int _character = 1;
         string _core;
         readonly List<string> _links = new List<string>();
         int _selected; // 0 = 코어, 1.. = 연결 칸
-        UiLabel _title, _status;
+        UiLabel _title, _status, _mutHead;
+        UnityEngine.UI.Image _wandArt;
         readonly List<UiButton> _slotButtons = new List<UiButton>();
+        readonly List<UnityEngine.UI.Image> _slotIcons = new List<UnityEngine.UI.Image>();
+        readonly List<UiLabel> _slotNames = new List<UiLabel>(), _slotCaps = new List<UiLabel>();
+        readonly List<RectTransform> _linkLines = new List<RectTransform>();
         readonly List<UiButton> _chipButtons = new List<UiButton>();
+        readonly List<UnityEngine.UI.Image> _chipIcons = new List<UnityEngine.UI.Image>();
+        readonly List<UiLabel> _chipQty = new List<UiLabel>();
         readonly List<string> _chipIds = new List<string>();
         readonly List<UiButton> _mutButtons = new List<UiButton>();
-        UiLabel _mutHead;
 
         public override ScreenId Id => ScreenId.OnlineAssembly;
         protected override bool HasFrame => false;
 
+        Sprite Icon(string id, int size) { try { return Ctx != null && Ctx.Art != null && id != null ? Ctx.Art.Icon(id, size) : null; } catch (System.Exception) { return null; } }
+
         protected override void BuildContent(RectTransform content)
         {
-            UiKit.Rect(content, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, UiTheme.WoodDark, true, "Background");
-            var board = UiKit.Panel(Ctx, content, UiPanelKind.Board, 0f, 0f, BoardW, BoardH).rectTransform;
-            UiKit.Center(board, BoardW, BoardH);
-            float th = UiTheme.LineHeight(UiFontId.F32);
-            _title = UiKit.Label(Ctx, board, string.Empty, UiFontId.F32, Pad, Pad - 8f, BoardW - 2f * Pad, th, UiTheme.Chalk, TextAnchor.MiddleCenter);
-            float y = Pad + th + 12f;
+            OnlineUi.Scene(Ctx, content, "enhance.workbench", null, 0.55f);
+            _title = OnlineUi.HeaderBand(Ctx, content, "I-F1", "library", string.Empty, out var band);
+            UiKit.Button(Ctx, band, T(OnlineKeys.Leave), UiScale.RefWidth - OnlineUi.Edge - 176f, 16f, 176f, 48f, () => Close(), UiButtonStyle.Medium, Focus, null, UiFontId.F16, OnlineUi.Sprite(Ctx, "I-F2", "back"));
+
+            // 위 판: 지팡이 + 회로.
+            var top = UiKit.Panel(Ctx, content, UiPanelKind.Board, TopX, TopY, TopW, TopH).rectTransform;
+            UiKit.Bevel(top);
+            OnlineUi.Img(Ctx, top, "S-0602", "wand_pedestal", 40f, 236f, 224f, 48f);
+            _wandArt = UiKit.Image(top, null, 88f, 72f, 128f, 128f, Color.white, true);
+            float x = 320f, cy = 96f;
             for (int i = 0; i <= MaxSlots; i++)
             {
                 int k = i;
-                float x = Pad + i * (SlotW / 1.2f + Gap);
-                _slotButtons.Add(UiKit.Button(Ctx, board, string.Empty, x, y, SlotW / 1.2f, SlotH, () => { _selected = k; Refresh(); },
-                    i == 0 ? UiButtonStyle.Primary : UiButtonStyle.Medium, Focus, null, UiFontId.F12));
+                if (i > 0)
+                {
+                    var line = OnlineUi.Img(Ctx, top, "K-65", null, x - LinkW - 4f, cy + SlotSize * 0.5f - 6f, LinkW, 12f).rectTransform;
+                    _linkLines.Add(line);
+                }
+                var b = UiKit.Button(Ctx, top, null, x, cy, SlotSize, SlotSize, () => { _selected = k; Refresh(); }, UiButtonStyle.Plain, Focus);
+                var r = b.ContentRoot != null ? b.ContentRoot : b.Rect;
+                if (i == 0) OnlineUi.Img(Ctx, r, "K-63", "core_slot_filled", 0f, 0f, SlotSize, SlotSize);
+                else OnlineUi.Img(Ctx, r, "K-60", "item_slot_empty", 0f, 0f, SlotSize, SlotSize);
+                _slotIcons.Add(UiKit.Image(r, null, (SlotSize - 56f) * 0.5f, (SlotSize - 56f) * 0.5f, 56f, 56f, Color.white, true));
+                _slotNames.Add(UiKit.Label(Ctx, top, string.Empty, UiFontId.F12, x - 16f, cy + SlotSize + 8f, SlotSize + 32f, 36f, UiTheme.Chalk, TextAnchor.UpperCenter, wrap: true));
+                _slotCaps.Add(UiKit.Label(Ctx, top, i == 0 ? T(OnlineKeys.AssemblyCore) : F(OnlineKeys.AssemblyLink, "n", i), UiFontId.F12, x, cy - 26f, SlotSize, 20f, i == 0 ? UiTheme.SelectYellow : UiTheme.SlateBlue, TextAnchor.MiddleCenter));
+                _slotButtons.Add(b);
+                x += SlotSize + LinkW + 8f;
             }
-            y += SlotH + 24f;
-            UiKit.Label(Ctx, board, T(OnlineKeys.AssemblyChips), UiFontId.F16, Pad, y, BoardW - 2f * Pad, 28f, UiTheme.SlateBlue);
-            y += 32f;
-            float chipW = (BoardW - 2f * Pad - 5f * Gap) / 6f;
+
+            // 창고 격자.
+            UiKit.Label(Ctx, content, T(OnlineKeys.AssemblyChips), UiFontId.F16, TopX, TopY + TopH + 20f, TopW, 28f, UiTheme.Chalk);
+            float gy = TopY + TopH + 56f;
             for (int i = 0; i < Chips; i++)
             {
                 int k = i;
-                _chipButtons.Add(UiKit.Button(Ctx, board, string.Empty, Pad + (i % 6) * (chipW + Gap), y + (i / 6) * (44f + Gap), chipW, 44f,
-                    () => Put(k), UiButtonStyle.Small, Focus, null, UiFontId.F12));
+                float gx = TopX + (i % 12) * 152f;
+                float yy = gy + (i / 12) * 132f;
+                var b = UiKit.Button(Ctx, content, null, gx, yy, 140f, 124f, () => Put(k), UiButtonStyle.Plain, Focus);
+                var r = b.ContentRoot != null ? b.ContentRoot : b.Rect;
+                UiKit.Panel(Ctx, r, UiPanelKind.Recess, 0f, 0f, 140f, 124f).raycastTarget = false;
+                OnlineUi.Img(Ctx, r, "K-60", "item_slot_filled", 38f, 8f, 64f, 64f);
+                _chipIcons.Add(UiKit.Image(r, null, 46f, 16f, 48f, 48f, Color.white, true));
+                _chipQty.Add(UiKit.Label(Ctx, r, string.Empty, UiFontId.F12, 4f, 76f, 132f, 44f, UiTheme.Chalk, TextAnchor.UpperCenter, wrap: true));
+                _chipButtons.Add(b);
             }
-            y += 4f * (44f + Gap) + 8f;
-            // 받은 변이: 누르면 지운다(골드).
-            _mutHead = UiKit.Label(Ctx, board, string.Empty, UiFontId.F16, Pad, y, 360f, 44f, UiTheme.SlateBlue);
+
+            // 받은 변이 + 버튼 줄.
+            float by = UiScale.RefHeight - 48f - 64f;
+            _mutHead = UiKit.Label(Ctx, content, string.Empty, UiFontId.F16, TopX, by - 44f, 900f, 32f, UiTheme.SlateBlue);
+            UiKit.DropShadow(_mutHead);
             for (int i = 0; i < 4; i++)
             {
                 int k = i;
-                _mutButtons.Add(UiKit.Button(Ctx, board, string.Empty, Pad + 370f + i * (220f + Gap), y, 220f, 44f, () => RemoveMutation(k), UiButtonStyle.Small, Focus, null, UiFontId.F12));
+                _mutButtons.Add(UiKit.Button(Ctx, content, string.Empty, TopX + i * 232f, by, 220f, 48f, () => RemoveMutation(k), UiButtonStyle.Small, Focus, null, UiFontId.F16, OnlineUi.Sprite(Ctx, "I-F2", "trash")));
             }
-            y += 52f;
-            _status = UiKit.Label(Ctx, board, string.Empty, UiFontId.F24, Pad, y, BoardW - 2f * Pad, 40f, UiTheme.Amber, TextAnchor.MiddleCenter);
-            float by = BoardH - Pad - 56f;
-            UiKit.Button(Ctx, board, T(OnlineKeys.AssemblyClear), Pad, by, 220f, 56f, Clear, UiButtonStyle.Medium, Focus);
-            UiKit.Button(Ctx, board, T(OnlineKeys.AssemblySave), BoardW - Pad - 220f - Gap - 200f, by, 220f, 56f, Save, UiButtonStyle.Primary, Focus);
-            UiKit.Button(Ctx, board, T(OnlineKeys.Leave), BoardW - Pad - 200f, by, 200f, 56f, () => Close(), UiButtonStyle.Medium, Focus);
+            _status = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, 980f, by - 52f, 892f, 40f, UiTheme.Amber, TextAnchor.MiddleRight);
+            UiKit.DropShadow(_status);
+            UiKit.Button(Ctx, content, T(OnlineKeys.AssemblyClear), UiScale.RefWidth - 48f - 240f - 16f - 320f, by - 8f, 240f, 64f, Clear, UiButtonStyle.Medium, Focus, null, UiFontId.F24, OnlineUi.Sprite(Ctx, "I-F2", "minus"));
+            UiKit.Button(Ctx, content, T(OnlineKeys.AssemblySave), UiScale.RefWidth - 48f - 320f, by - 8f, 320f, 64f, Save, UiButtonStyle.Primary, Focus, null, UiFontId.F32);
         }
 
         public override void OnEnter(ScreenArgs args)
@@ -127,24 +158,36 @@ namespace Wizard.Solo.Screens.Online
             var p = _svc != null ? _svc.Profile : null;
             var db = Ctx != null ? Ctx.Content : null;
             int stage = p != null && p.WandStages != null ? p.WandStages[_character - 1] : 0;
-            _title.SetText(F(OnlineKeys.AssemblyTitle, "who", T(Wizard.Solo.Ids.Char.Of(_character)), "stage", stage));
+            string charId = Wizard.Solo.Ids.Char.Of(_character);
+            _title.SetText(F(OnlineKeys.AssemblyTitle, "who", T(charId), "stage", stage));
+            Sprite wa = null;
+            try { wa = Ctx != null && Ctx.Art != null ? Ctx.Art.WandIcon(charId, stage) : null; } catch (System.Exception) { }
+            _wandArt.sprite = wa;
+            _wandArt.enabled = wa != null;
             for (int i = 0; i < _slotButtons.Count; i++)
             {
                 bool on = i == 0 || i - 1 < _links.Count;
                 _slotButtons[i].gameObject.SetActive(on);
+                _slotNames[i].gameObject.SetActive(on);
+                if (i > 0) _linkLines[i - 1].gameObject.SetActive(on);
+                _slotCaps[i].gameObject.SetActive(on);
                 if (!on) continue;
                 string id = i == 0 ? _core : _links[i - 1];
-                string head = i == 0 ? T(OnlineKeys.AssemblyCore) : F(OnlineKeys.AssemblyLink, "n", i);
-                _slotButtons[i].SetText((i == _selected ? "▶ " : string.Empty) + head + "\n" + (string.IsNullOrEmpty(id) ? "-" : T(id)));
+                var ic = Icon(id, 56);
+                _slotIcons[i].sprite = ic;
+                _slotIcons[i].enabled = ic != null;
+                _slotNames[i].SetText(string.IsNullOrEmpty(id) ? "-" : T(id));
+                _slotButtons[i].Picked = i == _selected;
             }
             var cfg = db != null ? db.Enhance : null;
             var mlist = p != null ? p.MutationsOf(_character) : new List<Wizard.Solo.Meta.MutationEntry>();
             _mutHead.SetText(F(OnlineKeys.MutationRemoveHead, "gold", N(cfg != null ? cfg.MutationRemoveGold : 0)));
+            _mutHead.gameObject.SetActive(mlist.Count > 0);
             for (int i = 0; i < _mutButtons.Count; i++)
             {
                 bool on = i < mlist.Count;
                 _mutButtons[i].gameObject.SetActive(on);
-                if (on) _mutButtons[i].SetText("✕ " + T(mlist[i].Id));
+                if (on) _mutButtons[i].SetText(T(mlist[i].Id));
             }
             _chipIds.Clear();
             _chipIds.Add(Wizard.Solo.Ids.Block.MagicBolt);
@@ -165,7 +208,8 @@ namespace Wizard.Solo.Screens.Online
                 if (!on) continue;
                 string id = _chipIds[i];
                 int free = Free(id);
-                _chipButtons[i].SetText(T(id) + (id == Wizard.Solo.Ids.Block.MagicBolt ? string.Empty : " ×" + free));
+                _chipIcons[i].sprite = Icon(id, 48);
+                _chipQty[i].SetText(T(id) + (id == Wizard.Solo.Ids.Block.MagicBolt ? string.Empty : "  ×" + free));
                 bool projectile = db != null && db.Block(id) != null && db.Block(id).IsProjectile;
                 _chipButtons[i].Enabled = free > 0 && (_selected != 0 || projectile);
             }

@@ -6,5 +6,8 @@
     "127.0.0.1"
   ],
   "server_port": 27870,
-  "connect_timeout_ms": 1500
+  "connect_timeout_ms": 1500,
+  "tls_pins": [
+    "a462d7f41035523915278124b9551d0c6702ef121a0b3900cc6aed7cd28e4b08"
+  ]
 }

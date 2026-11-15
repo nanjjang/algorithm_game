@@ -12,7 +12,7 @@ namespace Wizard.Solo.Net
     /// </summary>
     public sealed class OnlineService : IDisposable
     {
-        TcpPipe _pipe;
+        INetPipe _pipe;
         public ServerProfile Profile { get; private set; }
         public bool IsGuest { get; private set; }
         public bool Connected => _pipe != null && _pipe.Connected;
@@ -26,8 +26,12 @@ namespace Wizard.Solo.Net
         }
 
         /// <summary>붙고 계정이 있으면 프로필을 받는다. 서버에 못 붙거나 계정이 틀리면 null.</summary>
+        /// <summary>마지막 Open이 계정 실패(AuthFail)로 끝났다 — 로그인 표가 지워졌거나 만료됐다.</summary>
+        public static volatile bool LastAuthFailed;
+
         public static OnlineService Open(IContentDb db, int timeoutMs = 4000)
         {
+            LastAuthFailed = false;
             var pipe = OnlineServer.Connect(db);
             if (pipe == null) return null;
             var s = new OnlineService { _pipe = pipe };
@@ -35,7 +39,7 @@ namespace Wizard.Solo.Net
             if (acct == null) { s.IsGuest = true; return s; }
             acct.SendLogin(pipe);
             var data = s.Wait(timeoutMs, NetMsg.AuthOk, NetMsg.AuthFail);
-            if (data == null || (NetMsg)data[0] != NetMsg.AuthOk) { s.Dispose(); return null; }
+            if (data == null || (NetMsg)data[0] != NetMsg.AuthOk) { LastAuthFailed = data != null; s.Dispose(); return null; }
             var r = new NetReader(data);
             r.Byte();
             r.Long();

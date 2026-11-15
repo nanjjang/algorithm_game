@@ -13,7 +13,7 @@ namespace Wizard.Solo.Net
     ///   EnterPlaza       → 광장(PlazaHost)에 넘긴다.
     /// 시계는 바깥(DedicatedServer·테스트)이 Tick으로 준다(60Hz). 끝난 방, 아무도 없는 방은 지운다.
     /// </summary>
-    public sealed class RoomServer
+    public sealed partial class RoomServer
     {
         /// <summary>헷갈리는 글자(0·O·1·I·L)를 뺀 코드 글자.</summary>
         public const string CodeAlphabet = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
@@ -41,7 +41,7 @@ namespace Wizard.Solo.Net
 
         public RoomServer(IContentDb content, Func<SimModuleSet> modules = null, int seed = 0, AccountStore accounts = null)
         {
-            Accounts = accounts ?? new AccountStore(null);
+            Accounts = accounts ?? new AccountStore((string)null);
             _content = content;
             _modules = modules ?? SimModuleSet.CreateDefault;
             _rng = seed != 0 ? new Random(seed) : new Random();
@@ -57,12 +57,16 @@ namespace Wizard.Solo.Net
 
         public void Tick()
         {
+            // 0. 끝난 계정 일(따로 스레드)의 결과를 받는다.
+            RunJobs();
             // 1. 아직 길이 정해지지 않은 연결: 첫 메시지를 본다.
             for (int i = _pending.Count - 1; i >= 0; i--)
             {
                 var pipe = _pending[i];
-                if (!pipe.Connected) { _pending.RemoveAt(i); continue; }
+                if (!pipe.Connected) { _pending.RemoveAt(i); _authed.Remove(pipe); continue; }
+                if (_jobs.ContainsKey(pipe)) continue; // 비밀번호 해시·Google 확인 중
                 if (!pipe.TryReceive(out var data)) continue;
+                if (TryAccountMessage(pipe, data)) continue; // 이메일·Google·서버 정보: 연결은 그대로(또는 끊음)
                 if (TryAuth(pipe, data)) continue; // 계정 메시지면 연결은 그대로 기다린다
                 if (TryService(pipe, data)) continue; // 강화·순위표: 답하고 연결은 그대로
                 _pending.RemoveAt(i);
@@ -130,18 +134,11 @@ namespace Wizard.Solo.Net
             catch (Exception) { rec = null; }
             if (rec == null)
             {
-                var f = new NetWriter(NetMsg.AuthFail);
-                f.Byte((byte)err);
-                pipe.Send(f.ToArray());
-                pipe.Close();
-                _pending.Remove(pipe);
+                Fail(pipe, err);
                 return true;
             }
             _authed[pipe] = rec;
-            var ok = new NetWriter(NetMsg.AuthOk);
-            ok.Long(rec.Id);
-            NetCodec.WriteProfile(ok, rec.Profile);
-            pipe.Send(ok.ToArray());
+            SendAuthOk(pipe, rec, null);
             return true;
         }
 

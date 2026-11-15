@@ -9,14 +9,26 @@ using Wizard.Solo.Data;
 namespace Wizard.Solo.Net
 {
     /// <summary>
-    /// 이 기기의 온라인 계정(11-online.md 4단계, 기기 계정). 이름과 서버가 준 id, 기기가 만든 비밀(32바이트)을 파일 하나에 둔다.
-    /// 오프라인 프로필 파일과 따로다(서로 옮기지 않는다). 다른 기기로 옮기는 길은 아직 없다(비밀번호 계정은 TLS와 같이).
+    /// 이 기기의 온라인 로그인(11-online.md 7절). 서버가 준 계정 id와 비밀을 파일 하나에 둔다 — 비밀은 이메일·Google로 들어왔을 때
+    /// 서버가 준 로그인 표(토큰), 옛 기기 계정이면 기기가 만든 32바이트. 비밀번호는 저장하지 않는다.
+    /// 오프라인 프로필 파일과 따로다(서로 옮기지 않는다).
     /// </summary>
     public sealed class OnlineAccount
     {
         public long Id;
         public string Name;
         public string Secret;
+        public AccountKind Kind;
+        public string Email;
+
+        /// <summary>로그인 결과를 이 기기에 저장한다(토큰이 있을 때만).</summary>
+        public static OnlineAccount SaveLogin(long id, ServerProfile profile, string token, string email, AccountKind kind)
+        {
+            if (id <= 0 || string.IsNullOrEmpty(token)) return null;
+            var a = new OnlineAccount { Id = id, Name = profile != null ? profile.Name : null, Secret = token, Email = email, Kind = kind };
+            a.Save();
+            return a;
+        }
 
         /// <summary>저장 파일. 기본 = Application.persistentDataPath/online_account.json. 테스트는 바꾼다.</summary>
         public static string FilePath;

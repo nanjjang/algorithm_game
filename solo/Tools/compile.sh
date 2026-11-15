@@ -110,6 +110,7 @@ COMMON="$OUT/common.rsp"
     [ -f "$SA/$n.dll" ] && echo "-r:\"$(w "$SA/$n.dll")\""
   done
   echo "-r:\"$(w "$NEWTONSOFT")\""
+  for f in "$ROOT"/Assets/Plugins/Server/*.dll; do [ -f "$f" ] && echo "-r:\"$(w "$f")\""; done
 } > "$COMMON"
 
 EDITOR_REFS="$OUT/editor.rsp"

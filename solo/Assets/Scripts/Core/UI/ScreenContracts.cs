@@ -29,7 +29,9 @@ namespace Wizard.Solo.UI
         /// <summary>장터(올라온 것 사기, 올리기·내리기).</summary>
         OnlineMarket,
         /// <summary>친구(신청·받기·목록).</summary>
-        OnlineFriends
+        OnlineFriends,
+        /// <summary>온라인 로그인·가입(이메일, Google). 로그인하면 닫히고 부른 화면으로 돌아간다.</summary>
+        OnlineLogin
     }
 
     public enum ScreenLayer { Fullscreen = 0, Panel = 1, HudOverlay = 2, Modal = 3, Toast = 4 }

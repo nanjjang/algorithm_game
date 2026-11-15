@@ -101,7 +101,25 @@ namespace Wizard.Solo.Net
         public string Name;
         public string Salt;
         public string SecretHash;
+        /// <summary>이메일 계정: 가입한 주소(보이는 꼴 그대로, 없으면 null). 확인 메일은 아직 보내지 않는다(복구 메일 꺼짐).</summary>
+        public string Email;
+        public bool EmailVerified;
+        /// <summary>비밀번호: 소금 친 PBKDF2-SHA256(반복 PwIter번). 비밀번호 자체는 저장하지 않는다.</summary>
+        public string PwSalt, PwHash;
+        public int PwIter;
+        /// <summary>Google 계정의 sub(바뀌지 않는 Google 사용자 id). 없으면 null.</summary>
+        public string GoogleSub;
+        /// <summary>로그인 표(세션). 토큰은 SHA-256 값만 둔다.</summary>
+        public List<SessionRecord> Sessions = new List<SessionRecord>();
         public ServerProfile Profile = new ServerProfile();
+    }
+
+    /// <summary>로그인 표 하나: 이메일·Google로 들어오면 서버가 무작위 토큰을 주고, 기기는 다음부터 (계정 id, 토큰)으로 들어온다.</summary>
+    public sealed class SessionRecord
+    {
+        public string TokenHash;
+        public long CreatedTicks;
+        public long ExpiresTicks;
     }
 
     /// <summary>
@@ -113,29 +131,30 @@ namespace Wizard.Solo.Net
     {
         public const int NameMin = 2, NameMax = 12, Iterations = 20000;
 
-        sealed class FileData
-        {
-            public long NextId = 1;
-            public List<AccountRecord> Accounts = new List<AccountRecord>();
-            public long NextListingId = 1;
-            public List<MarketListing> Listings = new List<MarketListing>();
-        }
-
-        readonly string _path;
-        FileData _data = new FileData();
+        readonly IAccountDb _db;
+        AccountData _data = new AccountData();
         readonly Dictionary<long, AccountRecord> _byId = new Dictionary<long, AccountRecord>();
         readonly Dictionary<string, AccountRecord> _byName = new Dictionary<string, AccountRecord>();
 
-        /// <summary>path = 저장 파일(null이면 메모리에만 — 테스트).</summary>
-        public AccountStore(string path)
+        /// <summary>path = JSON 저장 파일(null이면 메모리에만 — 테스트).</summary>
+        public AccountStore(string path) : this(new JsonAccountDb(path)) { }
+
+        /// <summary>db = 저장소(JsonAccountDb, PostgresAccountDb). 시작할 때 전부 읽어 메모리에 둔다 — 서버 프로세스 하나만 쓴다.</summary>
+        public AccountStore(IAccountDb db)
         {
-            _path = path;
-            if (_path != null && File.Exists(_path))
-            {
-                try { _data = JsonConvert.DeserializeObject<FileData>(File.ReadAllText(_path, Encoding.UTF8)) ?? new FileData(); }
-                catch (Exception) { _data = new FileData(); }
-            }
-            foreach (var a in _data.Accounts) { _byId[a.Id] = a; _byName[Key(a.Name)] = a; }
+            _db = db ?? new JsonAccountDb(null);
+            _data = _db.Load() ?? new AccountData();
+            foreach (var a in _data.Accounts) Index(a);
+            foreach (var l in _data.Listings) _committedListings.Add(l.Id);
+        }
+
+        void Index(AccountRecord a)
+        {
+            if (a.Sessions == null) a.Sessions = new List<SessionRecord>();
+            _byId[a.Id] = a;
+            _byName[Key(a.Name)] = a;
+            if (!string.IsNullOrEmpty(a.Email)) _byEmail[EmailKey(a.Email)] = a;
+            if (!string.IsNullOrEmpty(a.GoogleSub)) _byGoogle[a.GoogleSub] = a;
         }
 
         public int Count => _data.Accounts.Count;
@@ -168,8 +187,8 @@ namespace Wizard.Solo.Net
             rec.Profile.CreatedAt = now;
             rec.Profile.LastSeenAt = now;
             _data.Accounts.Add(rec);
-            _byId[rec.Id] = rec;
-            _byName[Key(name)] = rec;
+            Index(rec);
+            Touch(rec.Id);
             Save();
             return RegisterResult.Ok;
         }
@@ -178,14 +197,31 @@ namespace Wizard.Solo.Net
         public AccountRecord Login(long id, string secret)
         {
             if (secret == null || !_byId.TryGetValue(id, out var rec)) return null;
-            byte[] salt;
-            try { salt = Convert.FromBase64String(rec.Salt); } catch (Exception) { return null; }
-            if (!FixedEquals(Hash(secret, salt), rec.SecretHash)) return null;
+            if (!SessionValid(rec, secret, DateTime.UtcNow.Ticks))
+            {
+                // 옛 기기 계정: 기기가 만든 비밀(PBKDF2).
+                if (string.IsNullOrEmpty(rec.Salt) || string.IsNullOrEmpty(rec.SecretHash)) return null;
+                byte[] salt;
+                try { salt = Convert.FromBase64String(rec.Salt); } catch (Exception) { return null; }
+                if (!FixedEquals(Hash(secret, salt), rec.SecretHash)) return null;
+            }
             rec.Profile.LastSeenAt = DateTime.UtcNow.ToString("o");
+            Touch(rec.Id);
             return rec;
         }
 
-        public AccountRecord Get(long id) => _byId.TryGetValue(id, out var r) ? r : null;
+        /// <summary>계정 하나. 이 계정은 다음 Save()에서 저장소에 다시 쓴다(바꿀 수 있으므로).</summary>
+        public AccountRecord Get(long id)
+        {
+            if (!_byId.TryGetValue(id, out var r)) return null;
+            _touched.Add(id);
+            return r;
+        }
+
+        /// <summary>읽기만 할 때(저장하지 않음).</summary>
+        public AccountRecord Peek(long id) => _byId.TryGetValue(id, out var r) ? r : null;
+
+        public void Touch(long id) { if (_byId.ContainsKey(id)) _touched.Add(id); }
 
         public int StageOf(long id, int character)
         {
@@ -329,6 +365,7 @@ namespace Wizard.Solo.Net
                     }
             }
             if (p.WandStages[i] > p.PeakStages[i]) p.PeakStages[i] = p.WandStages[i];
+            LogEnhance(id, character, stage, p.WandStages[i], outcome.ToString());
             Save();
             return EnhanceResult.Ok;
         }
@@ -557,19 +594,54 @@ namespace Wizard.Solo.Net
         /// <summary>[임시] 서버 경제는 아직 설계 전(docs/online.md 2절). 결투 승리 50골드 + 하급 강화석 1.</summary>
         public const int DuelWinGold = 50, DuelWinStones = 1;
 
+        // ------------------------------------------------------------ 저장(쓰기 묶음)
+
+        readonly HashSet<long> _touched = new HashSet<long>();
+        readonly HashSet<long> _committedListings = new HashSet<long>();
+        readonly List<EnhanceLogEntry> _pendingLog = new List<EnhanceLogEntry>();
+
+        /// <summary>저장소에 마지막으로 쓰다 실패한 이유(없으면 null). 실패한 바뀜은 다음 Save()에서 다시 쓴다.</summary>
+        public string LastSaveError { get; private set; }
+
+        void LogEnhance(long id, int character, int before, int after, string outcome)
+        {
+            _pendingLog.Add(new EnhanceLogEntry { AccountId = id, Character = character, StageBefore = before, StageAfter = after, Outcome = outcome, AtTicks = DateTime.UtcNow.Ticks });
+        }
+
+        /// <summary>
+        /// 한 처리(강화·사기·거래 …)에서 바뀐 것을 저장소에 한 번에 쓴다(Postgres는 트랜잭션 하나): 이번에 손댄 계정 줄 전부,
+        /// 새로 올라온·사라진 장터 물건, 강화 기록. 실패하면 바뀜을 그대로 들고 있다가 다음 Save()에서 다시 쓴다.
+        /// </summary>
         public void Save()
         {
-            if (_path == null) return;
+            var c = new AccountDbChanges { NextId = _data.NextId, NextListingId = _data.NextListingId };
+            foreach (var id in _touched) if (_byId.TryGetValue(id, out var a)) c.Accounts.Add(a);
+            var now = new HashSet<long>();
+            foreach (var l in _data.Listings)
+            {
+                now.Add(l.Id);
+                if (!_committedListings.Contains(l.Id)) c.AddedListings.Add(l);
+            }
+            foreach (var id in _committedListings) if (!now.Contains(id)) c.RemovedListings.Add(id);
+            c.EnhanceLog.AddRange(_pendingLog);
             try
             {
-                var dir = Path.GetDirectoryName(_path);
-                if (!string.IsNullOrEmpty(dir)) Directory.CreateDirectory(dir);
-                string tmp = _path + ".tmp";
-                File.WriteAllText(tmp, JsonConvert.SerializeObject(_data, Formatting.Indented), Encoding.UTF8);
-                if (File.Exists(_path)) File.Replace(tmp, _path, null);
-                else File.Move(tmp, _path);
+                _db.Commit(_data, c);
+                LastSaveError = null;
             }
-            catch (Exception) { }
+            catch (Exception e)
+            {
+                LastSaveError = e.Message;
+                SaveFailed?.Invoke(e);
+                return;
+            }
+            _touched.Clear();
+            _pendingLog.Clear();
+            _committedListings.Clear();
+            foreach (var id in now) _committedListings.Add(id);
         }
+
+        /// <summary>저장 실패를 알린다(서버 기록용).</summary>
+        public Action<Exception> SaveFailed;
     }
 }

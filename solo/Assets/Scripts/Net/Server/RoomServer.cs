@@ -152,13 +152,14 @@ namespace Wizard.Solo.Net
             if (kind == NetMsg.EnhanceRequest)
             {
                 int ch = 0;
-                try { var r = new NetReader(data); r.Byte(); ch = r.Int(); } catch (Exception) { }
+                bool charm = false;
+                try { var r = new NetReader(data); r.Byte(); ch = r.Int(); charm = r.Bool(); } catch (Exception) { }
                 _authed.TryGetValue(pipe, out var acct);
                 var m = new NetWriter(NetMsg.EnhanceReply);
                 Wizard.Solo.Meta.EnhanceOutcome outcome = Wizard.Solo.Meta.EnhanceOutcome.FailNoDrop;
                 int before = acct != null ? Accounts.StageOf(acct.Id, ch) : 0;
                 var res = acct == null ? AccountStore.EnhanceResult.NoAccount
-                    : Accounts.Enhance(acct.Id, ch, _content != null ? _content.Enhance : null, _dice.Next(10000), out outcome);
+                    : Accounts.Enhance(acct.Id, ch, _content != null ? _content.Enhance : null, _dice.Next(10000), out outcome, charm);
                 m.Byte((byte)res);
                 m.Byte((byte)outcome);
                 m.Int(before);
@@ -190,7 +191,11 @@ namespace Wizard.Solo.Net
                 for (int s = 0; s < SimConst.MaxPlayers; s++)
                 {
                     long id = h.AccountOfSlot(s);
-                    if (id > 0) Accounts.RecordCoop(id, run.LastClearedWave);
+                    if (id <= 0) continue;
+                    // 재료는 사람마다 따로 굴린다(오프라인 정산과 같은 표). 까마귀 보따리는 서버에 없다.
+                    var table = _content != null && _content.Drops != null ? _content.Drops.MaterialTable : null;
+                    var mats = table != null ? Wizard.Solo.Meta.Settlement.SettlementService.DrawMaterials(table, run.DropChances, false, bp => _dice.Next(10000) < bp) : null;
+                    Accounts.RecordCoop(id, run.LastClearedWave, run.Purse, mats);
                 }
             }
             Log?.Invoke("[room-server] room " + h.Code + " recorded");

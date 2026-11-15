@@ -4,6 +4,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using Newtonsoft.Json;
+using Wizard.Solo;
 
 namespace Wizard.Solo.Net
 {
@@ -21,6 +22,17 @@ namespace Wizard.Solo.Net
         public int[] Auras = new int[5];
         public int[] PeakStages = new int[5];
         public int EnhanceTries;
+        /// <summary>서버 재료 창고: 강화석(mat.stone_low/mid/high), 부적(charm.safeguard) … 아이템 id → 개수.</summary>
+        public Dictionary<string, int> Items = new Dictionary<string, int>();
+
+        public int Qty(string id) => Items != null && id != null && Items.TryGetValue(id, out int n) ? n : 0;
+        public void Add(string id, int n)
+        {
+            if (Items == null) Items = new Dictionary<string, int>();
+            if (string.IsNullOrEmpty(id) || n == 0) return;
+            int v = Qty(id) + n;
+            if (v <= 0) Items.Remove(id); else Items[id] = v;
+        }
         public string CreatedAt;
         public string LastSeenAt;
     }
@@ -142,14 +154,21 @@ namespace Wizard.Solo.Net
 
         // ------------------------------------------------------------ 서버 강화
 
-        public enum EnhanceResult { Ok, NoAccount, BadCharacter, MaxStage, NotEnoughGold }
+        public enum EnhanceResult { Ok, NoAccount, BadCharacter, MaxStage, NotEnoughGold, NotEnoughStones }
+
+        /// <summary>그 단계 강화에 드는 강화석 id와 개수.</summary>
+        public static string StoneFor(Wizard.Solo.Data.EnhanceConfig cfg, int stage, out int count)
+        {
+            count = cfg != null ? Math.Max(0, cfg.StonesPerAttempt) : 0;
+            return cfg != null ? Wizard.Solo.Meta.Enhance.EnhanceRules.StoneId(Wizard.Solo.Meta.Enhance.EnhanceRules.StoneTierFor(cfg, stage)) : null;
+        }
 
         /// <summary>
         /// 서버 지팡이 강화 한 번(강화 규칙 = 오프라인과 같은 EnhanceRules: 기본 확률, 기운, 대성공·실패·떨어짐, 비용 100 × (단계+1)²).
-        /// solo 결정 [임시]: 서버 프로필에 아직 재료 창고가 없어 강화석·제물·부적 없이 골드만 쓴다. 변이 구간은 성공으로 친다(서버 지팡이에 변이 칸이 아직 없다).
+        /// 골드 + 그 단계의 강화석(창고에서), 부적을 쓰면 떨어짐을 막는다(막았을 때만 하나 쓴다). [임시] 제물은 아직 없다. 변이 구간은 성공으로 친다(서버 지팡이에 변이 칸이 아직 없다).
         /// rollBp = 0~9999 주사위(서버가 굴린다).
         /// </summary>
-        public EnhanceResult Enhance(long id, int character, Wizard.Solo.Data.EnhanceConfig cfg, int rollBp, out Wizard.Solo.Meta.EnhanceOutcome outcome)
+        public EnhanceResult Enhance(long id, int character, Wizard.Solo.Data.EnhanceConfig cfg, int rollBp, out Wizard.Solo.Meta.EnhanceOutcome outcome, bool useCharm = false)
         {
             outcome = Wizard.Solo.Meta.EnhanceOutcome.FailNoDrop;
             var a = Get(id);
@@ -162,7 +181,11 @@ namespace Wizard.Solo.Net
             if (stage >= cfg.MaxStage) return EnhanceResult.MaxStage;
             long cost = Wizard.Solo.Meta.Enhance.EnhanceRules.Cost(cfg, stage);
             if (p.Gold < cost) return EnhanceResult.NotEnoughGold;
+            string stone = StoneFor(cfg, stage, out int stones);
+            if (stone != null && p.Qty(stone) < stones) return EnhanceResult.NotEnoughStones;
             p.Gold -= cost;
+            if (stone != null) p.Add(stone, -stones);
+            bool charm = useCharm && p.Qty(Ids.Item.Charm) > 0;
             p.EnhanceTries++;
             int pct = Wizard.Solo.Meta.Enhance.EnhanceRules.SuccessPct(cfg, stage, p.Auras[i], 0);
             int succ = Wizard.Solo.Meta.Enhance.EnhanceRules.SuccessBp(pct);
@@ -182,7 +205,8 @@ namespace Wizard.Solo.Net
                     outcome = Wizard.Solo.Meta.EnhanceOutcome.Success;
                     break;
                 default:
-                    var fb = Wizard.Solo.Meta.Enhance.EnhanceRules.ResolveFail(cfg, stage, p.PeakStages[i], p.Auras[i], false);
+                    var fb = Wizard.Solo.Meta.Enhance.EnhanceRules.ResolveFail(cfg, stage, p.PeakStages[i], p.Auras[i], charm);
+                    if (fb.CharmConsumed) p.Add(Ids.Item.Charm, -1);
                     p.WandStages[i] = fb.StageAfter;
                     p.Auras[i] = fb.AuraAfter;
                     outcome = fb.Outcome;
@@ -221,24 +245,28 @@ namespace Wizard.Solo.Net
             a.Profile.Rating += delta;
             b.Profile.Rating -= delta;
             if (winnerId == 0) { a.Profile.DuelDraws++; b.Profile.DuelDraws++; }
-            else if (winnerId == aId) { a.Profile.DuelWins++; b.Profile.DuelLosses++; a.Profile.Gold += DuelWinGold; }
-            else { b.Profile.DuelWins++; a.Profile.DuelLosses++; b.Profile.Gold += DuelWinGold; }
+            else if (winnerId == aId) { a.Profile.DuelWins++; b.Profile.DuelLosses++; a.Profile.Gold += DuelWinGold; a.Profile.Add(Ids.Item.StoneLow, DuelWinStones); }
+            else { b.Profile.DuelWins++; a.Profile.DuelLosses++; b.Profile.Gold += DuelWinGold; b.Profile.Add(Ids.Item.StoneLow, DuelWinStones); }
             Save();
         }
 
-        /// <summary>협동 한 판: 마지막으로 깬 웨이브만큼 골드(웨이브 × CoopGoldPerWave), 최고 웨이브.</summary>
-        public void RecordCoop(long id, int clearedWave)
+        /// <summary>
+        /// 협동 한 판(오프라인 정산과 같은 몫): 원정 지갑 골드 그대로 + 재료(판의 추첨 기회마다 오프라인과 같은 표로 사람마다 따로 굴린 것).
+        /// 최고 웨이브·판 수도 적는다.
+        /// </summary>
+        public void RecordCoop(long id, int clearedWave, long purse = 0, IList<Wizard.Solo.Meta.MaterialGain> materials = null)
         {
             var a = Get(id);
             if (a == null) return;
             a.Profile.CoopRuns++;
             if (clearedWave > a.Profile.CoopBestWave) a.Profile.CoopBestWave = clearedWave;
-            a.Profile.Gold += Math.Max(0, clearedWave) * CoopGoldPerWave;
+            a.Profile.Gold += Math.Max(0, purse);
+            if (materials != null) foreach (var g in materials) a.Profile.Add(g.ItemId, g.Qty);
             Save();
         }
 
-        /// <summary>[임시] 서버 경제는 아직 설계 전(docs/online.md 2절). 결투 승리 50골드, 협동 웨이브당 10골드.</summary>
-        public const int DuelWinGold = 50, CoopGoldPerWave = 10;
+        /// <summary>[임시] 서버 경제는 아직 설계 전(docs/online.md 2절). 결투 승리 50골드 + 하급 강화석 1.</summary>
+        public const int DuelWinGold = 50, DuelWinStones = 1;
 
         public void Save()
         {

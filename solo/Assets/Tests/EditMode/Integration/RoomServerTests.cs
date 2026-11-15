@@ -250,7 +250,7 @@ namespace Wizard.Solo.Tests.Integration
             string path = _acctFile + ".store";
             var st = new AccountStore(path);
             Assert.AreEqual(AccountStore.RegisterResult.Ok, st.Register("저장시험", new string('k', 40), out var rec));
-            st.RecordCoop(rec.Id, 7);
+            st.RecordCoop(rec.Id, 7, 70);
             var again = new AccountStore(path);
             Assert.AreEqual(1, again.Count);
             Assert.IsNotNull(again.Login(rec.Id, new string('k', 40)));
@@ -308,6 +308,10 @@ namespace Wizard.Solo.Tests.Integration
             Assert.AreEqual(AccountStore.EnhanceResult.NotEnoughGold, r0.Value.Result, "골드 0이면 못 한다");
 
             _server.Accounts.Get(acct.Id).Profile.Gold = 10000000;
+            var r1 = WithServerThread(() => svc.Enhance(1));
+            Assert.AreEqual(AccountStore.EnhanceResult.NotEnoughStones, r1.Value.Result, "강화석이 없으면 못 한다");
+            foreach (var st in new[] { Ids.Item.StoneLow, Ids.Item.StoneMid, Ids.Item.StoneHigh })
+                _server.Accounts.Get(acct.Id).Profile.Add(st, 1000);
             int stageChanges = 0;
             for (int i = 0; i < 20; i++)
             {
@@ -327,6 +331,34 @@ namespace Wizard.Solo.Tests.Integration
             Assert.IsNotNull(top);
             Assert.AreEqual("강화시험", top[0].Name);
             svc.Dispose();
+        }
+
+        [Test]
+        public void AccountStore_Charm_BlocksDrop_AndCoopMaterials()
+        {
+            var st = new AccountStore(null);
+            Assert.AreEqual(AccountStore.RegisterResult.Ok, st.Register("부적시험", new string('c', 40), out var rec));
+            var cfg = _k.Db.Enhance;
+            var p = rec.Profile;
+            p.Gold = 100000000;
+            foreach (var s in new[] { Ids.Item.StoneLow, Ids.Item.StoneMid, Ids.Item.StoneHigh }) p.Add(s, 1000);
+            // 떨어질 수 있는 단계로 올려 두고, 반드시 실패하는 주사위(9999)로 부적 없이/있이.
+            p.WandStages[0] = cfg.DropSafeMaxStage + 2;
+            p.PeakStages[0] = p.WandStages[0];
+            int before = p.WandStages[0];
+            p.Add(Ids.Item.Charm, 1);
+            st.Enhance(rec.Id, 1, cfg, 9999, out var o1, useCharm: true);
+            Assert.AreEqual(before, p.WandStages[0], "부적이 떨어짐을 막는다: " + o1);
+            Assert.AreEqual(0, p.Qty(Ids.Item.Charm), "막았으니 하나 썼다");
+            st.Enhance(rec.Id, 1, cfg, 9999, out var o2, useCharm: true);
+            Assert.AreEqual(before - 1, p.WandStages[0], "부적이 없으면 떨어진다: " + o2);
+
+            var mats = new List<Wizard.Solo.Meta.MaterialGain> { new Wizard.Solo.Meta.MaterialGain { ItemId = Ids.Item.StoneMid, Qty = 2 } };
+            long gold = p.Gold;
+            int mid = p.Qty(Ids.Item.StoneMid);
+            st.RecordCoop(rec.Id, 5, 300, mats);
+            Assert.AreEqual(gold + 300, p.Gold, "원정 지갑 골드");
+            Assert.AreEqual(mid + 2, p.Qty(Ids.Item.StoneMid), "재료가 창고로");
         }
 }
 }

@@ -16,7 +16,9 @@ namespace Wizard.Solo.Screens.Online
         const float BoardW = 1500f, BoardH = 800f, Pad = 32f, RowH = 64f, Gap = 12f;
 
         OnlineService _svc;
-        UiLabel _head, _status, _note;
+        UiLabel _head, _status, _note, _items;
+        UiButton _charmToggle;
+        bool _useCharm;
         readonly List<UiLabel> _wandLines = new List<UiLabel>();
         readonly List<UiButton> _enhanceButtons = new List<UiButton>();
         readonly List<UiLabel> _topLines = new List<UiLabel>();
@@ -33,9 +35,11 @@ namespace Wizard.Solo.Screens.Online
             UiKit.Label(Ctx, board, T(OnlineKeys.ProfileTitle), UiFontId.F32, Pad, Pad - 8f, BoardW - 2f * Pad, th, UiTheme.Chalk, TextAnchor.MiddleCenter);
             float y = Pad + th;
             _head = UiKit.Label(Ctx, board, string.Empty, UiFontId.F24, Pad, y, BoardW - 2f * Pad, 40f, UiTheme.SelectYellow, TextAnchor.MiddleCenter);
-            y += 52f;
-
+            y += 44f;
             float leftW = 900f;
+            _items = UiKit.Label(Ctx, board, string.Empty, UiFontId.F16, Pad, y, leftW - 260f, 40f, UiTheme.Chalk, TextAnchor.MiddleLeft);
+            _charmToggle = UiKit.Button(Ctx, board, string.Empty, Pad + leftW - 250f, y, 250f, 40f, ToggleCharm, UiButtonStyle.Medium, Focus, null, UiFontId.F16);
+            y += 52f;
             for (int c = 1; c <= Wizard.Solo.Ids.Char.Count; c++)
             {
                 int ch = c;
@@ -86,9 +90,18 @@ namespace Wizard.Solo.Screens.Online
             base.OnExit();
         }
 
+        void ToggleCharm() { _useCharm = !_useCharm; Refresh(); }
+
         void Refresh()
         {
             var p = _svc != null ? _svc.Profile : null;
+            int charms = p != null ? p.Qty(Wizard.Solo.Ids.Item.Charm) : 0;
+            if (charms <= 0) _useCharm = false;
+            _items.SetText(p == null ? string.Empty : F(OnlineKeys.ItemsLine,
+                "low", p.Qty(Wizard.Solo.Ids.Item.StoneLow), "mid", p.Qty(Wizard.Solo.Ids.Item.StoneMid),
+                "high", p.Qty(Wizard.Solo.Ids.Item.StoneHigh), "charm", charms));
+            _charmToggle.SetText(T(_useCharm ? OnlineKeys.CharmOn : OnlineKeys.CharmOff));
+            _charmToggle.Enabled = charms > 0;
             var cfg = Ctx != null && Ctx.Content != null ? Ctx.Content.Enhance : null;
             _head.SetText(p != null
                 ? F(OnlineKeys.AccountLine, "name", p.Name, "rating", p.Rating, "w", p.DuelWins, "l", p.DuelLosses, "gold", N(p.Gold), "wave", p.CoopBestWave)
@@ -100,19 +113,23 @@ namespace Wizard.Solo.Screens.Online
                 bool max = cfg != null && stage >= cfg.MaxStage;
                 int pct = cfg != null && !max ? EnhanceRules.SuccessPct(cfg, stage, aura, 0) : 0;
                 long cost = cfg != null && !max ? EnhanceRules.Cost(cfg, stage) : 0;
+                string stone = AccountStore.StoneFor(cfg, stage, out int stones);
+                bool hasStones = p != null && (stone == null || p.Qty(stone) >= stones);
                 _wandLines[i].SetText(F(OnlineKeys.ProfileWandLine, "who", T(Wizard.Solo.Ids.Char.Of(i + 1)), "stage", stage,
-                    "pct", pct, "cost", N(cost)) + (max ? "  " + T(OnlineKeys.EnhanceMax) : string.Empty));
-                _enhanceButtons[i].Enabled = p != null && !max && p.Gold >= cost;
+                    "pct", pct, "cost", N(cost)) + (max ? "  " + T(OnlineKeys.EnhanceMax)
+                    : (stone != null ? "  ·  " + T(stone) + " ×" + stones : string.Empty)));
+                _enhanceButtons[i].Enabled = p != null && !max && p.Gold >= cost && hasStones;
             }
         }
 
         void OnEnhance(int character)
         {
             if (_svc == null) return;
-            var rep = _svc.Enhance(character);
+            var rep = _svc.Enhance(character, _useCharm);
             if (rep == null) { _status.SetText(T(OnlineKeys.ErrorServer)); return; }
             var r = rep.Value;
             if (r.Result == AccountStore.EnhanceResult.NotEnoughGold) _status.SetText(T(OnlineKeys.EnhanceGold));
+            else if (r.Result == AccountStore.EnhanceResult.NotEnoughStones) _status.SetText(T(OnlineKeys.EnhanceStones));
             else if (r.Result != AccountStore.EnhanceResult.Ok) _status.SetText(T(OnlineKeys.ErrorServer));
             else
             {

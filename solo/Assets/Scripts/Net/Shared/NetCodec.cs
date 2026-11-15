@@ -136,17 +136,28 @@ namespace Wizard.Solo.Net
             w.Int(p.CoopBestWave);
             for (int i = 0; i < 5; i++) w.Int(p.WandStages != null && i < p.WandStages.Length ? p.WandStages[i] : 0);
             for (int i = 0; i < 5; i++) w.Int(p.Auras != null && i < p.Auras.Length ? p.Auras[i] : 0);
+            int n = p.Items != null ? p.Items.Count : 0;
+            w.Int(n);
+            if (p.Items != null)
+            {
+                var keys = new List<string>(p.Items.Keys);
+                keys.Sort(System.StringComparer.Ordinal);
+                foreach (var k in keys) { w.Str(k); w.Int(p.Items[k]); }
+            }
         }
 
         public static ServerProfile ReadProfile(NetReader r)
         {
-            return new ServerProfile
+            var p = new ServerProfile
             {
                 AccountId = r.Long(), Name = r.Str(), Gold = r.Long(), Rating = r.Int(),
                 DuelWins = r.Int(), DuelLosses = r.Int(), DuelDraws = r.Int(), CoopRuns = r.Int(), CoopBestWave = r.Int(),
                 WandStages = new[] { r.Int(), r.Int(), r.Int(), r.Int(), r.Int() },
                 Auras = new[] { r.Int(), r.Int(), r.Int(), r.Int(), r.Int() },
             };
+            int n = r.Int();
+            for (int i = 0; i < n; i++) { string k = r.Str(); p.Items[k] = r.Int(); }
+            return p;
         }
 
         // ------------------------------------------------------------ 압축(스냅숏)

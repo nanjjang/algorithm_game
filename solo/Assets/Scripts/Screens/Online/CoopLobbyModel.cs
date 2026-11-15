@@ -351,6 +351,10 @@ namespace Wizard.Solo.Screens.Online
         public const string ProfileGuest = "str.online.profile.guest";
         public const string ProfileNote = "str.online.profile.note";
         public const string EnhanceGold = "str.online.enhance.gold";
+        public const string EnhanceStones = "str.online.enhance.stones";
+        public const string ItemsLine = "str.online.items_line";
+        public const string CharmOn = "str.online.charm_on";
+        public const string CharmOff = "str.online.charm_off";
         public const string EnhanceMax = "str.online.enhance.max";
         public const string Outcome = "str.online.enhance.outcome.";
         public const string AccountGuest = "str.online.account_guest";

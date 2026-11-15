@@ -55,11 +55,12 @@ namespace Wizard.Solo.Net
             return null;
         }
 
-        public EnhanceReply? Enhance(int character, int timeoutMs = 4000)
+        public EnhanceReply? Enhance(int character, bool useCharm = false, int timeoutMs = 4000)
         {
             if (!Connected) return null;
             var m = new NetWriter(NetMsg.EnhanceRequest);
             m.Int(character);
+            m.Bool(useCharm);
             _pipe.Send(m.ToArray());
             var data = Wait(timeoutMs, NetMsg.EnhanceReply);
             if (data == null) return null;
@@ -72,7 +73,7 @@ namespace Wizard.Solo.Net
                 StageBefore = r.Int(),
                 Profile = NetCodec.ReadProfile(r),
             };
-            if (rep.Result == AccountStore.EnhanceResult.Ok || rep.Result == AccountStore.EnhanceResult.NotEnoughGold || rep.Result == AccountStore.EnhanceResult.MaxStage)
+            if (rep.Result == AccountStore.EnhanceResult.Ok || rep.Result == AccountStore.EnhanceResult.NotEnoughGold || rep.Result == AccountStore.EnhanceResult.NotEnoughStones || rep.Result == AccountStore.EnhanceResult.MaxStage)
                 Profile = rep.Profile;
             return rep;
         }

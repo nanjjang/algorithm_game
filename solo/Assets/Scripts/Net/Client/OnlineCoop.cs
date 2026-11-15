@@ -34,7 +34,7 @@ namespace Wizard.Solo.Net
         /// <summary>방 서버에 새 방을 만든다(코드는 Me.RoomCode). 서버에 못 붙으면 null.</summary>
         public static OnlineCoop CreateRoom(IContentDb content, RoomMode mode, RunConfig me)
         {
-            var pipe = OnlineServer.Connect(content);
+            var pipe = OnlineServer.ConnectAuthed(content);
             if (pipe == null) return null;
             var o = new OnlineCoop(content);
             o.Me = new CoopClient(content);
@@ -45,7 +45,7 @@ namespace Wizard.Solo.Net
         /// <summary>방 서버의 코드 방에 들어간다. 서버에 못 붙으면 null(코드가 틀리면 Me.State = Rejected, RoomErrorCode).</summary>
         public static OnlineCoop JoinCode(IContentDb content, string code, RunConfig me)
         {
-            var pipe = OnlineServer.Connect(content);
+            var pipe = OnlineServer.ConnectAuthed(content);
             if (pipe == null) return null;
             var o = new OnlineCoop(content);
             o.Me = new CoopClient(content);

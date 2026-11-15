@@ -44,6 +44,15 @@ namespace Wizard.Solo.Net
             return null;
         }
 
+        /// <summary>붙고, 이 기기 계정이 있으면 맨 앞에 Login을 보낸다(없으면 손님으로).</summary>
+        public static TcpPipe ConnectAuthed(IContentDb db)
+        {
+            var pipe = Connect(db);
+            if (pipe == null) return null;
+            OnlineAccount.Load()?.SendLogin(pipe);
+            return pipe;
+        }
+
         /// <summary>마지막으로 붙은 주소(화면 안내용).</summary>
         public static string LastHost;
     }

@@ -121,6 +121,30 @@ namespace Wizard.Solo.Net
             return new RunCommand(kind, a, b, r.Str(), slot);
         }
 
+        // ------------------------------------------------------------ 서버 프로필
+
+        public static void WriteProfile(NetWriter w, ServerProfile p)
+        {
+            w.Long(p.AccountId);
+            w.Str(p.Name);
+            w.Long(p.Gold);
+            w.Int(p.Rating);
+            w.Int(p.DuelWins);
+            w.Int(p.DuelLosses);
+            w.Int(p.DuelDraws);
+            w.Int(p.CoopRuns);
+            w.Int(p.CoopBestWave);
+        }
+
+        public static ServerProfile ReadProfile(NetReader r)
+        {
+            return new ServerProfile
+            {
+                AccountId = r.Long(), Name = r.Str(), Gold = r.Long(), Rating = r.Int(),
+                DuelWins = r.Int(), DuelLosses = r.Int(), DuelDraws = r.Int(), CoopRuns = r.Int(), CoopBestWave = r.Int(),
+            };
+        }
+
         // ------------------------------------------------------------ 압축(스냅숏)
 
         public static byte[] Deflate(byte[] raw)

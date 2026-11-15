@@ -27,7 +27,28 @@ namespace Wizard.Solo.Screens.Online
         public int ResultWave = -1;
         public int ResultScore;
 
-        public CoopLobbyModel(GameContext ctx) { _ctx = ctx; }
+        public CoopLobbyModel(GameContext ctx) { _ctx = ctx; Account = OnlineAccount.Load(); }
+
+        /// <summary>이 기기의 온라인 계정(없으면 null — 손님으로도 방에 들어갈 수 있지만 기록이 남지 않는다).</summary>
+        public OnlineAccount Account { get; private set; }
+        /// <summary>마지막으로 받은 서버 프로필(계정 만들 때, 또는 방에 들어갈 때 AuthOk).</summary>
+        public ServerProfile Profile { get; private set; }
+
+        /// <summary>이름으로 기기 계정을 만든다.</summary>
+        public bool RegisterAccount(string name)
+        {
+            ErrorKey = null;
+            if (Account != null) return true;
+            var a = OnlineAccount.Register(_ctx != null ? _ctx.Content : null, name, out var err, out var prof);
+            if (a == null)
+            {
+                ErrorKey = err == AuthError.NameTaken ? OnlineKeys.ErrorNameTaken : err == AuthError.BadName ? OnlineKeys.ErrorBadName : OnlineKeys.ErrorServer;
+                return false;
+            }
+            Account = a;
+            Profile = prof;
+            return true;
+        }
 
         public bool HasRoom => Room != null && Room.Connected;
         public bool CanAddBot => HasRoom && Room.IsLeader && Room.World == null && Room.MemberCount > 0 && Room.MemberCount < MaxMembers;
@@ -223,6 +244,7 @@ namespace Wizard.Solo.Screens.Online
         /// <summary>프레임마다. 원격 방에서 판이 열렸으면(방장이 시작했다) 세션을 열고 true — 화면은 Battle로 간다.</summary>
         public bool Tick()
         {
+            if (Room != null && Room.Me != null && Room.Me.Profile != null) Profile = Room.Me.Profile;
             if (Room == null) return false;
             if (Room.World == null)
             {
@@ -318,5 +340,14 @@ namespace Wizard.Solo.Screens.Online
         public const string PlazaNameHint = "str.plaza.name_hint";
         public const string PlazaEnter = "str.plaza.enter";
         public const string PlazaCount = "str.plaza.count";
+        public const string DoorCoop = "str.plaza.door.coop";
+        public const string AccountLine = "str.online.account_line";
+        public const string AccountGuest = "str.online.account_guest";
+        public const string AccountCreate = "str.online.account_create";
+        public const string AccountNameHint = "str.online.account_name_hint";
+        public const string ErrorNameTaken = "str.online.error.name_taken";
+        public const string ErrorBadName = "str.online.error.bad_name";
+        public const string DoorDuel = "str.plaza.door.duel";
+        public const string DoorPrompt = "str.plaza.door_prompt";
     }
 }

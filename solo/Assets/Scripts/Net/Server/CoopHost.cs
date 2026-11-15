@@ -19,6 +19,8 @@ namespace Wizard.Solo.Net
             public RunConfig Member;
             public bool Dropped;
             public CoopBot Bot; // 서버 안 봇이면 그 봇(아니면 null)
+            public long AccountId; // 계정으로 들어왔으면 그 id(아니면 0)
+            public string AccountName;
         }
 
         readonly IContentDb _content;
@@ -106,9 +108,16 @@ namespace Wizard.Solo.Net
         public int BotCount { get { int n = 0; foreach (var p in _peers) if (p.Bot != null && !p.Dropped) n++; return n; } }
 
         /// <summary>새 연결을 받는다. Hello가 오면 슬롯을 준다.</summary>
-        public void Accept(INetPipe pipe)
+        public void Accept(INetPipe pipe, AccountRecord account = null)
         {
-            if (pipe != null) _peers.Add(new Peer { Pipe = pipe });
+            if (pipe != null) _peers.Add(new Peer { Pipe = pipe, AccountId = account != null ? account.Id : 0, AccountName = account != null ? account.Name : null });
+        }
+
+        /// <summary>그 슬롯 사람의 계정 id(봇·계정 없음·빈 자리 = 0).</summary>
+        public long AccountOfSlot(int slot)
+        {
+            foreach (var p in _peers) if (p.Slot == slot && p.Bot == null) return p.AccountId;
+            return 0;
         }
 
         /// <summary>로비의 판 시작(방장 단추). 들어온 사람이 없으면 false.</summary>
@@ -316,6 +325,7 @@ namespace Wizard.Solo.Net
                 msg.Str(p.Member.CharId);
                 msg.Int(p.Member.WandStage);
                 msg.Bool(p.Bot != null);
+                msg.Str(p.AccountName);
             }
             Broadcast(msg.ToArray());
         }

@@ -25,6 +25,10 @@ namespace Wizard.Solo.Net
         readonly IContentDb _content;
         readonly Func<SimModuleSet> _modules;
         readonly List<INetPipe> _pending = new List<INetPipe>();
+        /// <summary>계정 확인을 마친 연결 → 그 계정(다음 메시지로 길을 나눈다).</summary>
+        readonly Dictionary<INetPipe, AccountRecord> _authed = new Dictionary<INetPipe, AccountRecord>();
+        readonly HashSet<CoopHost> _recorded = new HashSet<CoopHost>();
+        public AccountStore Accounts { get; }
         readonly Dictionary<string, CoopHost> _rooms = new Dictionary<string, CoopHost>();
         readonly List<string> _dead = new List<string>();
         readonly Random _rng;
@@ -35,8 +39,9 @@ namespace Wizard.Solo.Net
         /// <summary>로그 한 줄(전용 서버가 Debug.Log로 찍는다).</summary>
         public Action<string> Log;
 
-        public RoomServer(IContentDb content, Func<SimModuleSet> modules = null, int seed = 0)
+        public RoomServer(IContentDb content, Func<SimModuleSet> modules = null, int seed = 0, AccountStore accounts = null)
         {
+            Accounts = accounts ?? new AccountStore(null);
             _content = content;
             _modules = modules ?? SimModuleSet.CreateDefault;
             _rng = seed != 0 ? new Random(seed) : new Random();
@@ -58,27 +63,103 @@ namespace Wizard.Solo.Net
                 var pipe = _pending[i];
                 if (!pipe.Connected) { _pending.RemoveAt(i); continue; }
                 if (!pipe.TryReceive(out var data)) continue;
+                if (TryAuth(pipe, data)) continue; // 계정 메시지면 연결은 그대로 기다린다
                 _pending.RemoveAt(i);
-                Route(pipe, data);
+                _authed.TryGetValue(pipe, out var acct);
+                _authed.Remove(pipe);
+                Route(pipe, data, acct);
             }
             // 2. 방·광장 한 틱.
             foreach (var kv in _rooms)
             {
                 var h = kv.Value;
                 h.Tick();
+                RecordIfEnded(h);
                 if (!h.Started) h.IdleTicks = h.PlayerCount > 0 ? 0 : h.IdleTicks + 1;
                 if (h.Finished || (!h.Started && h.IdleTicks > EmptyRoomTicks)) _dead.Add(kv.Key);
             }
             foreach (var code in _dead)
             {
                 Log?.Invoke("[room-server] room " + code + " closed");
+                _recorded.Remove(_rooms[code]);
                 _rooms.Remove(code);
             }
             _dead.Clear();
             Plaza.Tick();
         }
 
-        void Route(INetPipe pipe, byte[] first)
+        /// <summary>Register·Login이면 처리하고 true(실패면 끊는다).</summary>
+        bool TryAuth(INetPipe pipe, byte[] data)
+        {
+            if (data == null || data.Length == 0) return false;
+            var kind = (NetMsg)data[0];
+            if (kind != NetMsg.Register && kind != NetMsg.Login) return false;
+            AccountRecord rec = null;
+            AuthError err = AuthError.WrongLogin;
+            try
+            {
+                var r = new NetReader(data);
+                r.Byte();
+                if (kind == NetMsg.Register)
+                {
+                    string name = r.Str(), secret = r.Str();
+                    var res = Accounts.Register(name, secret, out rec);
+                    if (res == AccountStore.RegisterResult.BadName) err = AuthError.BadName;
+                    else if (res == AccountStore.RegisterResult.NameTaken) err = AuthError.NameTaken;
+                    else if (res == AccountStore.RegisterResult.BadSecret) err = AuthError.BadSecret;
+                    if (rec != null) Log?.Invoke("[room-server] account " + rec.Id + " registered");
+                }
+                else
+                {
+                    long id = r.Long();
+                    rec = Accounts.Login(id, r.Str());
+                }
+            }
+            catch (Exception) { rec = null; }
+            if (rec == null)
+            {
+                var f = new NetWriter(NetMsg.AuthFail);
+                f.Byte((byte)err);
+                pipe.Send(f.ToArray());
+                pipe.Close();
+                _pending.Remove(pipe);
+                return true;
+            }
+            _authed[pipe] = rec;
+            var ok = new NetWriter(NetMsg.AuthOk);
+            ok.Long(rec.Id);
+            NetCodec.WriteProfile(ok, rec.Profile);
+            pipe.Send(ok.ToArray());
+            return true;
+        }
+
+        /// <summary>판이 끝난 방의 결과를 서버 프로필에 한 번 적는다(계정이 있는 사람만).</summary>
+        void RecordIfEnded(CoopHost h)
+        {
+            if (!h.Started || _recorded.Contains(h) || h.World.Run.Phase != RunPhase.RunEnded) return;
+            _recorded.Add(h);
+            var run = h.World.Run;
+            if (h.Mode == RoomMode.Duel && run.Duel != null)
+            {
+                long a = h.AccountOfSlot(0), b = h.AccountOfSlot(1);
+                if (a > 0 && b > 0)
+                {
+                    long winner = run.Duel.MatchWinner < 0 ? 0 : h.AccountOfSlot(run.Duel.MatchWinner);
+                    Accounts.RecordDuel(a, b, winner);
+                }
+            }
+            else
+            {
+                for (int s = 0; s < SimConst.MaxPlayers; s++)
+                {
+                    long id = h.AccountOfSlot(s);
+                    if (id > 0) Accounts.RecordCoop(id, run.LastClearedWave);
+                }
+            }
+            Log?.Invoke("[room-server] room " + h.Code + " recorded");
+        }
+
+        void Route(INetPipe pipe, byte[] first, AccountRecord acct)
         {
             NetReader r;
             NetMsg kind;
@@ -96,7 +177,7 @@ namespace Wizard.Solo.Net
                         _rooms[h.Code] = h;
                         Log?.Invoke("[room-server] room " + h.Code + " created (" + mode + ")");
                         SendInfo(pipe, h);
-                        h.Accept(pipe);
+                        h.Accept(pipe, acct);
                         break;
                     }
                 case NetMsg.JoinRoom:
@@ -108,11 +189,11 @@ namespace Wizard.Solo.Net
                         if (h.Started) { Fail(pipe, RoomError.Started); return; }
                         if (h.PlayerCount >= h.MaxPlayers) { Fail(pipe, RoomError.Full); return; }
                         SendInfo(pipe, h);
-                        h.Accept(pipe);
+                        h.Accept(pipe, acct);
                         break;
                     }
                 case NetMsg.EnterPlaza:
-                    Plaza.Accept(pipe, r);
+                    Plaza.Accept(pipe, r, acct != null ? acct.Name : null);
                     break;
                 case NetMsg.Hello:
                     // 옛 손님(방 코드 없이 바로 Hello): 협동 방을 하나 만들어 준다.

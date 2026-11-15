@@ -53,10 +53,11 @@ namespace Wizard.Solo.Net
         public IEnumerable<PlazaAvatar> Avatars { get { foreach (var p in _peers) yield return p.Avatar; } }
 
         /// <summary>EnterPlaza 메시지(이름, 캐릭터 id)를 읽고 들인다. 가득이면 RoomError(Full).</summary>
-        public void Accept(INetPipe pipe, NetReader enter)
+        public void Accept(INetPipe pipe, NetReader enter, string accountName = null)
         {
             string name = null, charId = null;
             try { name = enter.Str(); charId = enter.Str(); } catch (Exception) { }
+            if (!string.IsNullOrEmpty(accountName)) name = accountName; // 계정이 있으면 계정 이름
             if (_peers.Count >= MaxAvatars)
             {
                 var m = new NetWriter(NetMsg.RoomError);

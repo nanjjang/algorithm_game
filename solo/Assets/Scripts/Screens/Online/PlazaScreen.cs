@@ -23,6 +23,29 @@ namespace Wizard.Solo.Screens.Online
         const string NamePref = "wizard.plaza_name";
         static readonly string[] EmoteGlyphs = { "", "!", "?", "♥", "♪", "…", "★", "zZ", "^^" };
 
+        /// <summary>광장의 문(좀비고식): 그 칸 안에 서서 Space를 누르면 그 종류의 방 화면이 열린다. 칸 좌표(광장 40×22칸).</summary>
+        public struct Door
+        {
+            public Rect Area;
+            public RoomMode Mode;
+            public string LabelKey;
+        }
+
+        public static readonly Door[] Doors =
+        {
+            new Door { Area = new Rect(1f, 8f, 3f, 6f), Mode = RoomMode.Coop, LabelKey = OnlineKeys.DoorCoop },
+            new Door { Area = new Rect(36f, 8f, 3f, 6f), Mode = RoomMode.Duel, LabelKey = OnlineKeys.DoorDuel },
+        };
+
+        /// <summary>그 자리가 들어 있는 문(없으면 −1).</summary>
+        public static int DoorAt(Vector2 pos)
+        {
+            for (int i = 0; i < Doors.Length; i++) if (Doors[i].Area.Contains(pos)) return i;
+            return -1;
+        }
+
+        UiLabel _doorPrompt;
+
         sealed class AvatarView
         {
             public RectTransform Root;
@@ -57,7 +80,16 @@ namespace Wizard.Solo.Screens.Online
             UiKit.Rect(_field, (PlazaHost.Width * 0.5f - 1.5f) * Cell, (PlazaHost.Height * 0.5f - 1f) * Cell, 3f * Cell, 2f * Cell,
                 UiTheme.WithAlpha(UiTheme.ArcaneTeal, 0.35f), false, "Fountain");
 
+            foreach (var d in Doors)
+            {
+                var door = UiKit.Rect(_field, d.Area.x * Cell, d.Area.y * Cell, d.Area.width * Cell, d.Area.height * Cell,
+                    UiTheme.WithAlpha(d.Mode == RoomMode.Duel ? UiTheme.Amber : UiTheme.Good, 0.35f), false, "Door");
+                UiKit.Label(Ctx, door.rectTransform, T(d.LabelKey), UiFontId.F16, -40f, -28f, d.Area.width * Cell + 80f, 24f,
+                    UiTheme.Chalk, TextAnchor.MiddleCenter, outline: true);
+            }
             float lh = UiTheme.LineHeight(UiFontId.F16);
+            _doorPrompt = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, (UiScale.RefWidth - 900f) * 0.5f, UiScale.RefHeight - 140f, 900f, 40f,
+                UiTheme.SelectYellow, TextAnchor.MiddleCenter, outline: true);
             _count = UiKit.Label(Ctx, content, string.Empty, UiFontId.F16, 48f, 40f, 600f, lh, UiTheme.Chalk);
             _status = UiKit.Label(Ctx, content, string.Empty, UiFontId.F16, 48f, 40f + lh, 900f, lh, UiTheme.Amber);
 
@@ -111,6 +143,9 @@ namespace Wizard.Solo.Screens.Online
             _nameBoard.gameObject.SetActive(true);
             _status.SetText(string.Empty);
             _nameInput.ActivateInputField();
+            // 온라인 계정이 있으면 그 이름으로 바로 들어간다.
+            var acct = OnlineAccount.Load();
+            if (acct != null) { _nameInput.text = acct.Name; Enter(); }
         }
 
         void Enter()
@@ -118,7 +153,7 @@ namespace Wizard.Solo.Screens.Online
             string name = PlazaHost.Clean(_nameInput.text, PlazaHost.NameMaxChars);
             if (string.IsNullOrEmpty(name)) return;
             try { PlayerPrefs.SetString(NamePref, name); PlayerPrefs.Save(); } catch (System.Exception) { }
-            var pipe = OnlineServer.Connect(Ctx != null ? Ctx.Content : null);
+            var pipe = OnlineServer.ConnectAuthed(Ctx != null ? Ctx.Content : null);
             if (pipe == null) { _status.SetText(T(OnlineKeys.ErrorServer)); return; }
             _client.Connect(pipe, name, MyCharId);
             _entered = true;
@@ -184,6 +219,16 @@ namespace Wizard.Solo.Screens.Online
                     if (kb.digit4Key.wasPressedThisFrame) _client.Emote(4);
                 }
                 if (dir != _lastDir) { _client.Move(dir); _lastDir = dir; }
+
+                // 문 위에 서 있으면 안내, Space면 그 방 화면으로.
+                int door = -1;
+                if (_client.People.TryGetValue(_client.MyId, out var me)) door = DoorAt(me.Pos);
+                _doorPrompt.SetText(door >= 0 ? F(OnlineKeys.DoorPrompt, "door", T(Doors[door].LabelKey)) : string.Empty);
+                if (door >= 0 && !typing && kb.spaceKey.wasPressedThisFrame)
+                {
+                    Screens?.Replace(ScreenId.CoopLobby, ScreenArgs.From(ScreenId.Plaza).With(ScreenArgKeys.RoomMode, Doors[door].Mode));
+                    return;
+                }
             }
 
             _client.Update(dt);

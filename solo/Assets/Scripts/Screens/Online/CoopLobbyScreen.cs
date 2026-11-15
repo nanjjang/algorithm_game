@@ -15,13 +15,15 @@ namespace Wizard.Solo.Screens.Online
     /// </summary>
     public sealed class CoopLobbyScreen : ScreenBase
     {
-        const float BoardW = 760f, BoardH = 820f, Pad = 32f, RowH = 44f, BtnH = 56f, Gap = 12f;
+        const float BoardW = 760f, BoardH = 900f, Pad = 32f, RowH = 44f, BtnH = 56f, Gap = 12f;
 
         CoopLobbyModel _model;
         readonly List<UiLabel> _rows = new List<UiLabel>();
         UiLabel _title, _status, _code;
         UiButton _modeCoop, _modeDuel, _plaza, _createOnline, _createLocal, _join, _addBot, _removeBot, _start, _leave;
-        UInputField _codeInput;
+        UInputField _codeInput, _nameInput;
+        UiLabel _account;
+        UiButton _register;
 
         public override ScreenId Id => ScreenId.CoopLobby;
         protected override bool HasFrame => false;
@@ -40,6 +42,13 @@ namespace Wizard.Solo.Screens.Online
             _title = UiKit.Label(Ctx, board, T(OnlineKeys.Title), UiFontId.F32, Pad, y, inner, th, UiTheme.Chalk, TextAnchor.MiddleCenter);
             y += th + 8f;
 
+            // 계정 줄: 계정이 있으면 이름·레이팅·전적·골드, 없으면 이름 칸 + [이름 정하기].
+            float regW = 200f;
+            _account = UiKit.Label(Ctx, board, string.Empty, UiFontId.F16, Pad, y, inner, BtnH, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
+            _nameInput = BuildInput(board, Pad, y, inner - regW - Gap, BtnH, OnlineKeys.AccountNameHint, Wizard.Solo.Net.AccountStore.NameMax);
+            _register = UiKit.Button(Ctx, board, T(OnlineKeys.AccountCreate), BoardW - Pad - regW, y, regW, BtnH, OnRegister, UiButtonStyle.Medium, Focus);
+            y += BtnH + Gap;
+
             float w3 = (inner - 2f * Gap) / 3f;
             _modeCoop = UiKit.Button(Ctx, board, T(OnlineKeys.ModeCoop), Pad, y, w3, BtnH, () => SelectMode(RoomMode.Coop), UiButtonStyle.Medium, Focus);
             _modeDuel = UiKit.Button(Ctx, board, T(OnlineKeys.ModeDuel), Pad + w3 + Gap, y, w3, BtnH, () => SelectMode(RoomMode.Duel), UiButtonStyle.Medium, Focus);
@@ -52,7 +61,7 @@ namespace Wizard.Solo.Screens.Online
             y += BtnH + Gap;
 
             float joinW = 180f;
-            _codeInput = BuildInput(board, Pad, y, inner - joinW - Gap, BtnH);
+            _codeInput = BuildInput(board, Pad, y, inner - joinW - Gap, BtnH, OnlineKeys.CodeHint, RoomServer.CodeLength + 2);
             _join = UiKit.Button(Ctx, board, T(OnlineKeys.Join), BoardW - Pad - joinW, y, joinW, BtnH, OnJoin, UiButtonStyle.Medium, Focus);
             y += BtnH + Gap;
 
@@ -76,7 +85,7 @@ namespace Wizard.Solo.Screens.Online
             _status = UiKit.Label(Ctx, board, string.Empty, UiFontId.F16, Pad, y, inner, lh * 2f, UiTheme.Amber, TextAnchor.UpperCenter, wrap: true);
         }
 
-        UInputField BuildInput(RectTransform parent, float x, float y, float w, float h)
+        UInputField BuildInput(RectTransform parent, float x, float y, float w, float h, string hintKey, int limit)
         {
             var bg = UiKit.NineSlice(Ctx, parent, "K-33", "input", null, x, y, w, h, UiTheme.Chalk);
             bg.raycastTarget = true;
@@ -86,8 +95,8 @@ namespace Wizard.Solo.Screens.Online
             ut.supportRichText = false;
             field.textComponent = ut;
             field.lineType = UInputField.LineType.SingleLine;
-            field.characterLimit = RoomServer.CodeLength + 2;
-            var ph = UiKit.Label(Ctx, bg.rectTransform, T(OnlineKeys.CodeHint), UiFontId.F16, 8f, 0f, w - 16f, h, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
+            field.characterLimit = limit;
+            var ph = UiKit.Label(Ctx, bg.rectTransform, T(hintKey), UiFontId.F16, 8f, 0f, w - 16f, h, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
             field.placeholder = ph.GetComponent<UText>();
             return field;
         }
@@ -102,7 +111,7 @@ namespace Wizard.Solo.Screens.Online
 
         public override void Tick(float dt)
         {
-            if (Screens != null && _codeInput != null) Screens.CaptureKeys = _codeInput.isFocused;
+            if (Screens != null && _codeInput != null) Screens.CaptureKeys = _codeInput.isFocused || (_nameInput != null && _nameInput.isFocused);
             if (_model.Tick()) { GoBattle(); return; }
             Refresh();
         }
@@ -127,6 +136,17 @@ namespace Wizard.Solo.Screens.Online
                 if (shown) _rows[i].SetText(MemberText(i, members));
             }
             bool room = _model.HasRoom;
+            bool hasAccount = _model.Account != null;
+            _nameInput.gameObject.SetActive(!hasAccount);
+            _register.gameObject.SetActive(!hasAccount);
+            _account.gameObject.SetActive(hasAccount);
+            if (hasAccount)
+            {
+                var pr = _model.Profile;
+                _account.SetText(pr != null
+                    ? F(OnlineKeys.AccountLine, "name", pr.Name, "rating", pr.Rating, "w", pr.DuelWins, "l", pr.DuelLosses, "gold", N(pr.Gold), "wave", pr.CoopBestWave)
+                    : _model.Account.Name);
+            }
             _modeCoop.Enabled = !room && _model.SelectedMode != RoomMode.Coop;
             _modeDuel.Enabled = !room && _model.SelectedMode != RoomMode.Duel;
             _plaza.Enabled = !room;
@@ -165,6 +185,7 @@ namespace Wizard.Solo.Screens.Online
         }
 
         void SelectMode(RoomMode m) { _model.SelectedMode = m; _model.ResultDuelWinner = -2; _model.ResultWave = -1; Refresh(); }
+        void OnRegister() { _model.RegisterAccount(_nameInput.text); Refresh(); }
         void OnCreateOnline() { _model.CreateOnline(); Refresh(); }
         void OnCreateLocal() { _model.CreateRoom(); Refresh(); }
         void OnJoin() { _model.JoinCode(_codeInput.text); Refresh(); }

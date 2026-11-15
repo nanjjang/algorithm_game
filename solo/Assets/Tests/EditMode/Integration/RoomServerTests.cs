@@ -24,6 +24,20 @@ namespace Wizard.Solo.Tests.Integration
             _listener = new TcpPipeListener(0, bindAll: false);
             _server = new RoomServer(_k.Db, null, 7);
             OnlineServer.Override = new List<string> { "127.0.0.1:" + _listener.Port };
+            _acctFile = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "wizard_acct_" + System.Guid.NewGuid().ToString("N") + ".json");
+            OnlineAccount.FilePath = _acctFile;
+        }
+
+        string _acctFile;
+
+        /// <summary>계정 만들기는 응답을 기다리며 막히므로, 서버는 다른 스레드에서 돌린다(테스트에서만).</summary>
+        OnlineAccount RegisterWithServerThread(string name, out AuthError? err)
+        {
+            bool stop = false;
+            var th = new Thread(() => { while (!stop) { Tick(); } });
+            th.Start();
+            try { return OnlineAccount.Register(_k.Db, name, out err, out _); }
+            finally { stop = true; th.Join(); }
         }
 
         [TearDown]
@@ -34,6 +48,8 @@ namespace Wizard.Solo.Tests.Integration
             _rooms.Clear();
             _plaza.Clear();
             OnlineServer.Override = null;
+            OnlineAccount.FilePath = null;
+            try { System.IO.File.Delete(_acctFile); } catch (System.Exception) { }
             _listener.Stop();
             _k.Dispose();
         }
@@ -173,5 +189,83 @@ namespace Wizard.Solo.Tests.Integration
             Assert.AreEqual(6, PlazaScreen.DirOf(false, false, true, false));
             Assert.AreEqual(5, PlazaScreen.DirOf(false, true, true, false));
         }
-    }
+    
+        [Test]
+        public void Account_Register_Login_DuelResultRecorded()
+        {
+            var acct = RegisterWithServerThread("마법사갑", out var err);
+            Assert.IsNotNull(acct, "계정 만들기: " + err);
+            Assert.AreEqual(acct.Id, OnlineAccount.Load().Id, "기기에 저장");
+            Assert.IsNull(RegisterWithServerThread("마법사갑", out err), "같은 이름은 안 된다");
+            Assert.AreEqual(AuthError.NameTaken, err);
+
+            // 두 번째 계정은 다른 기기라 치고 파일을 바꿔 만든다.
+            string first = _acctFile;
+            OnlineAccount.FilePath = first + ".b";
+            var acctB = RegisterWithServerThread("마법사을", out err);
+            Assert.IsNotNull(acctB);
+
+            OnlineAccount.FilePath = first;
+            var a = OnlineCoop.CreateRoom(_k.Db, RoomMode.Duel, Member(1));
+            _rooms.Add(a);
+            Assert.IsTrue(Until(300, () => a.RoomCode != null && a.Me.Profile != null), "로그인하면 서버 프로필이 온다");
+            Assert.AreEqual("마법사갑", a.Me.Profile.Name);
+            Assert.AreEqual(1000, a.Me.Profile.Rating);
+
+            OnlineAccount.FilePath = first + ".b";
+            var b = OnlineCoop.JoinCode(_k.Db, a.RoomCode, Member(2));
+            _rooms.Add(b);
+            Assert.IsTrue(Until(300, () => a.MemberCount == 2));
+            Assert.IsTrue(a.Me.Lobby.Exists(m => m.Name == "마법사을"), "로비에 계정 이름");
+
+            a.StartRun(5UL);
+            Assert.IsTrue(Until(300, () => a.World != null));
+            // 슬롯 1(을)이 나가면 결투는 갑의 승리로 끝나고 기록된다.
+            b.Leave();
+            Assert.IsTrue(Until(600, () => _server.Accounts.Get(acct.Id).Profile.DuelWins == 1), "승리 기록");
+            var pa = _server.Accounts.Get(acct.Id).Profile;
+            var pb = _server.Accounts.Get(acctB.Id).Profile;
+            Assert.AreEqual(1, pb.DuelLosses);
+            Assert.Greater(pa.Rating, 1000);
+            Assert.Less(pb.Rating, 1000);
+            Assert.AreEqual(AccountStore.DuelWinGold, pa.Gold);
+            try { System.IO.File.Delete(first + ".b"); } catch (System.Exception) { }
+        }
+
+        [Test]
+        public void Account_WrongSecret_IsRejected()
+        {
+            var acct = RegisterWithServerThread("마법사병", out var err);
+            Assert.IsNotNull(acct);
+            System.IO.File.WriteAllText(_acctFile, "{\"Id\":" + acct.Id + ",\"Name\":\"x\",\"Secret\":\"" + new string('A', 44) + "\"}");
+            var a = OnlineCoop.CreateRoom(_k.Db, RoomMode.Coop, Member(1));
+            _rooms.Add(a);
+            Assert.IsTrue(Until(300, () => a.Me.State == CoopClientState.Rejected), "비밀이 틀리면 못 들어간다");
+            Assert.AreEqual(AuthError.WrongLogin, a.Me.AuthFailed);
+        }
+
+        [Test]
+        public void AccountStore_PersistsToFile()
+        {
+            string path = _acctFile + ".store";
+            var st = new AccountStore(path);
+            Assert.AreEqual(AccountStore.RegisterResult.Ok, st.Register("저장시험", new string('k', 40), out var rec));
+            st.RecordCoop(rec.Id, 7);
+            var again = new AccountStore(path);
+            Assert.AreEqual(1, again.Count);
+            Assert.IsNotNull(again.Login(rec.Id, new string('k', 40)));
+            Assert.IsNull(again.Login(rec.Id, new string('j', 40)));
+            Assert.AreEqual(7, again.Get(rec.Id).Profile.CoopBestWave);
+            Assert.AreEqual(70, again.Get(rec.Id).Profile.Gold);
+            try { System.IO.File.Delete(path); } catch (System.Exception) { }
+        }
+
+        [Test]
+        public void Plaza_DoorAt()
+        {
+            Assert.AreEqual(-1, PlazaScreen.DoorAt(new Vector2(20f, 11f)));
+            Assert.AreEqual(RoomMode.Coop, PlazaScreen.Doors[PlazaScreen.DoorAt(new Vector2(2f, 10f))].Mode);
+            Assert.AreEqual(RoomMode.Duel, PlazaScreen.Doors[PlazaScreen.DoorAt(new Vector2(37f, 10f))].Mode);
+        }
+}
 }

@@ -20,6 +20,7 @@ namespace Wizard.Solo.Net
             public string CharId;
             public int WandStage;
             public bool IsBot;
+            public string Name; // 계정 이름(없으면 null)
         }
 
         readonly IContentDb _content;
@@ -76,6 +77,9 @@ namespace Wizard.Solo.Net
         public RoomMode Mode { get; private set; }
         public int RoomMaxPlayers { get; private set; } = SimConst.MaxPlayers;
         public RoomError RoomErrorCode { get; private set; }
+        /// <summary>계정으로 들어왔으면 서버 프로필(AuthOk).</summary>
+        public ServerProfile Profile { get; private set; }
+        public AuthError AuthFailed { get; private set; }
 
         public void Connect(INetPipe pipe, RunConfig member)
         {
@@ -175,6 +179,14 @@ namespace Wizard.Solo.Net
                     Slot = r.Int();
                     State = CoopClientState.Lobby;
                     break;
+                case NetMsg.AuthOk:
+                    r.Long();
+                    Profile = NetCodec.ReadProfile(r);
+                    break;
+                case NetMsg.AuthFail:
+                    AuthFailed = (AuthError)r.Byte();
+                    State = CoopClientState.Rejected;
+                    break;
                 case NetMsg.RoomInfo:
                     RoomCode = r.Str();
                     Mode = (RoomMode)r.Byte();
@@ -192,7 +204,7 @@ namespace Wizard.Solo.Net
                     {
                         Lobby.Clear();
                         int n = r.Int();
-                        for (int i = 0; i < n; i++) Lobby.Add(new LobbyMember { Slot = r.Int(), CharId = r.Str(), WandStage = r.Int(), IsBot = r.Bool() });
+                        for (int i = 0; i < n; i++) Lobby.Add(new LobbyMember { Slot = r.Int(), CharId = r.Str(), WandStage = r.Int(), IsBot = r.Bool(), Name = r.Str() });
                     }
                     break;
                 case NetMsg.Start:

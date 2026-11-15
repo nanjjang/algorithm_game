@@ -30,6 +30,13 @@ namespace Wizard.Solo.Net
             return false;
         }
 
+        static string ArgValue(string flag)
+        {
+            var args = Environment.GetCommandLineArgs();
+            for (int i = 0; i + 1 < args.Length; i++) if (args[i] == flag) return args[i + 1];
+            return null;
+        }
+
         public static int PortFromCommandLine(int fallback)
         {
             var args = Environment.GetCommandLineArgs();
@@ -54,7 +61,11 @@ namespace Wizard.Solo.Net
             Application.runInBackground = true;
             _content = ContentDb.LoadFromResources(msg => Debug.LogError(msg));
             _listener = new TcpPipeListener(port, bindAll: true);
-            _rooms = new RoomServer(_content) { Log = m => Debug.Log(m) };
+            // 계정·서버 프로필: ~/WizardCoopServer/accounts.json (-data 폴더로 바꿀 수 있다).
+            string dataDir = ArgValue("-data") ?? System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "WizardCoopServer");
+            var accounts = new AccountStore(System.IO.Path.Combine(dataDir, "accounts.json"));
+            Debug.Log("[coop-server] accounts " + accounts.Count + " (" + dataDir + ")");
+            _rooms = new RoomServer(_content, null, 0, accounts) { Log = m => Debug.Log(m) };
             _last = Time.realtimeSinceStartupAsDouble;
             Debug.Log("[coop-server] listening on port " + _listener.Port + " (protocol " + NetProtocol.Version + ")");
         }

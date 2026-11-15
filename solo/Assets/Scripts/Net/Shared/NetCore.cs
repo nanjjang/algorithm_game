@@ -102,7 +102,17 @@ namespace Wizard.Solo.Net
         PlazaWelcome = 34,
         /// <summary>클라이언트 → 광장 서버: 감정 표현. 몸 = 번호(byte).</summary>
         PlazaEmote = 35,
+        /// <summary>클라이언트 → 방 서버(맨 앞): 기기 계정 만들기. 몸 = 이름, 비밀. 응답 AuthOk/AuthFail, 이어서 다음 메시지로 길을 나눈다.</summary>
+        Register = 40,
+        /// <summary>방 서버 → 클라이언트: 계정 확인됨. 몸 = 계정 id, 서버 프로필.</summary>
+        AuthOk = 41,
+        /// <summary>방 서버 → 클라이언트: 계정 실패. 몸 = AuthError(byte). 뒤이어 끊는다.</summary>
+        AuthFail = 42,
+        /// <summary>클라이언트 → 방 서버(맨 앞): 기기 계정으로 들어가기. 몸 = 계정 id(long), 비밀.</summary>
+        Login = 43,
     }
+
+    public enum AuthError : byte { BadName = 1, NameTaken = 2, BadSecret = 3, WrongLogin = 4 }
 
     /// <summary>방 종류.</summary>
     public enum RoomMode : byte { Coop = 0, Duel = 1 }
@@ -112,7 +122,7 @@ namespace Wizard.Solo.Net
     public static class NetProtocol
     {
         /// <summary>메시지 꼴이 바뀌면 올린다. 다르면 Reject(Version).</summary>
-        public const int Version = 4;
+        public const int Version = 5;
         /// <summary>스냅숏을 보내는 틱 간격(60틱 / 3 = 20Hz).</summary>
         public const int SnapshotEveryTicks = 3;
     }

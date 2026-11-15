@@ -153,6 +153,9 @@ namespace Wizard.Solo.Net
                         p.Avatar.BubbleUntilTick = _tick + BubbleTicks;
                     }
                     break;
+                case NetMsg.PlazaWhisper:
+                    OnWhisper(p, r.Str(), r.Str());
+                    break;
                 case NetMsg.TradeRequest:
                     OnTradeRequest(p, r.Int());
                     break;
@@ -182,6 +185,35 @@ namespace Wizard.Solo.Net
                     }
                     break;
             }
+        }
+
+        public bool HasAccount(long id)
+        {
+            if (id <= 0) return false;
+            foreach (var p in _peers) if (p.AccountId == id) return true;
+            return false;
+        }
+
+        /// <summary>귓속말: 광장에 있는 그 이름의 사람에게만(대소문자 무시). 없으면 보낸 사람에게 "없다".</summary>
+        void OnWhisper(Peer p, string toName, string text)
+        {
+            text = Clean(text, ChatMaxChars);
+            if (string.IsNullOrEmpty(text) || toName == null) return;
+            if (_tick - p.LastChatTick < ChatCooldownTicks) return;
+            p.LastChatTick = _tick;
+            Peer to = null;
+            foreach (var q in _peers) if (q != p && string.Equals(q.Avatar.Name, toName.Trim(), StringComparison.OrdinalIgnoreCase)) { to = q; break; }
+            var m = new NetWriter(NetMsg.WhisperIn);
+            if (to == null)
+            {
+                m.Str(null);
+                m.Str(toName);
+                p.Pipe.Send(m.ToArray());
+                return;
+            }
+            m.Str(p.Avatar.Name);
+            m.Str(text);
+            to.Pipe.Send(m.ToArray());
         }
 
         // ------------------------------------------------------------ 거래

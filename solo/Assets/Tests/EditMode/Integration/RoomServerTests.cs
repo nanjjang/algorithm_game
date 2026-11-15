@@ -544,7 +544,7 @@ namespace Wizard.Solo.Tests.Integration
             for (int i = 0; i < 5; i++) PlazaTick(host, a, b, guest);
             Assert.AreEqual(PlazaHost.TradeResult.Done, a.Trade.Result);
             Assert.AreEqual(800, ra.Profile.Gold);
-            Assert.AreEqual(200, rb.Profile.Gold);
+            Assert.AreEqual(200 - AccountStore.TradeFee(200), rb.Profile.Gold, "받은 골드에서 수수료 5%");
             Assert.AreEqual(3, ra.Profile.Qty(Ids.Item.StoneLow));
             Assert.AreEqual(2, rb.Profile.Qty(Ids.Item.StoneLow));
             Assert.AreEqual(1, ra.Profile.Qty(Ids.Item.Charm));
@@ -574,6 +574,77 @@ namespace Wizard.Solo.Tests.Integration
             Assert.AreEqual(AccountStore.EnhanceResult.Ok, st.RemoveMutation(rec.Id, 1, "mut.test", cfg));
             Assert.AreEqual(0, rec.Profile.MutationsOf(1).Count);
             Assert.AreEqual(0, rec.Profile.Gold);
+        }
+
+        [Test]
+        public void Market_ListBuyFeeDeposit_UnlistExpire()
+        {
+            var st = new AccountStore(null);
+            st.Register("판매자", new string('6', 40), out var sel);
+            st.Register("구매자", new string('7', 40), out var buy);
+            sel.Profile.Gold = 100;
+            sel.Profile.Add(Ids.Item.StoneMid, 10);
+            buy.Profile.Gold = 5000;
+            long now = System.DateTime.UtcNow.Ticks;
+            Assert.AreEqual(AccountStore.MarketResult.NotOwned, st.List(sel.Id, Ids.Item.StoneMid, 11, 1000, now, out _));
+            Assert.AreEqual(AccountStore.MarketResult.Ok, st.List(sel.Id, Ids.Item.StoneMid, 4, 1000, now, out var l1));
+            Assert.AreEqual(6, sel.Profile.Qty(Ids.Item.StoneMid), "올리면 창고에서 빠진다");
+            Assert.AreEqual(100 - AccountStore.DepositFor(1000), sel.Profile.Gold, "보증금 1%");
+            Assert.AreEqual(AccountStore.MarketResult.OwnListing, st.Buy(sel.Id, l1.Id));
+            Assert.AreEqual(1, st.Browse(Ids.Item.StoneMid, 10).Count);
+            Assert.AreEqual(AccountStore.MarketResult.Ok, st.Buy(buy.Id, l1.Id));
+            Assert.AreEqual(4000, buy.Profile.Gold);
+            Assert.AreEqual(4, buy.Profile.Qty(Ids.Item.StoneMid));
+            Assert.AreEqual(100 + 1000 - AccountStore.MarketFee(1000), sel.Profile.Gold, "판 값 − 수수료 5% + 보증금");
+            Assert.AreEqual(AccountStore.MarketResult.NotFound, st.Buy(buy.Id, l1.Id), "두 번 살 수 없다");
+
+            st.List(sel.Id, Ids.Item.StoneMid, 2, 300, now, out var l2);
+            Assert.AreEqual(AccountStore.MarketResult.Ok, st.Unlist(sel.Id, l2.Id));
+            Assert.AreEqual(6, sel.Profile.Qty(Ids.Item.StoneMid), "내리면 돌아온다");
+            st.List(sel.Id, Ids.Item.StoneMid, 3, 300, now, out _);
+            st.ExpireListings(now + System.TimeSpan.FromHours(AccountStore.ListingHours + 1).Ticks);
+            Assert.AreEqual(0, st.Browse(null, 10).Count, "48시간이 지나면 내려간다");
+            Assert.AreEqual(6, sel.Profile.Qty(Ids.Item.StoneMid));
+        }
+
+        [Test]
+        public void Friends_RequestAcceptRemove_AndWhere()
+        {
+            var st = new AccountStore(null);
+            st.Register("친구갑", new string('8', 40), out var a);
+            st.Register("친구을", new string('9', 40), out var b);
+            Assert.AreEqual(AccountStore.FriendResult.NotFound, st.RequestFriend(a.Id, "없는이름"));
+            Assert.AreEqual(AccountStore.FriendResult.Self, st.RequestFriend(a.Id, "친구갑"));
+            Assert.AreEqual(AccountStore.FriendResult.Requested, st.RequestFriend(a.Id, "친구을"));
+            Assert.AreEqual(1, st.RequestsOf(b.Id).Count);
+            Assert.AreEqual(AccountStore.FriendResult.Ok, st.AcceptFriend(b.Id, a.Id));
+            var fa = st.FriendsOf(a.Id, id => id == b.Id ? "plaza" : "");
+            Assert.AreEqual(1, fa.Count);
+            Assert.AreEqual("plaza", fa[0].Where);
+            Assert.AreEqual(1, st.FriendsOf(b.Id, null).Count, "서로 친구");
+            Assert.AreEqual(AccountStore.FriendResult.Already, st.RequestFriend(a.Id, "친구을"));
+            st.RemoveFriend(a.Id, b.Id);
+            Assert.AreEqual(0, st.FriendsOf(b.Id, null).Count, "끊으면 양쪽에서");
+        }
+
+        [Test]
+        public void Plaza_Whisper_ToNameOnly()
+        {
+            var host = new PlazaHost();
+            var a = PlazaPeer(host, "말하는이", 0);
+            var b = PlazaPeer(host, "듣는이", 0);
+            var c = PlazaPeer(host, "구경꾼", 0);
+            for (int i = 0; i < 5; i++) PlazaTick(host, a, b, c);
+            Assert.IsTrue(a.TryWhisperCommand("@듣는이 비밀이야"));
+            for (int i = 0; i < 5; i++) PlazaTick(host, a, b, c);
+            Assert.AreEqual(1, b.Whispers.Count);
+            Assert.AreEqual("말하는이", b.Whispers[0].Key);
+            Assert.AreEqual("비밀이야", b.Whispers[0].Value);
+            Assert.AreEqual(0, c.Whispers.Count, "다른 사람은 못 듣는다");
+            for (int i = 0; i < 70; i++) PlazaTick(host, a, b, c);
+            a.TryWhisperCommand("@없는사람 여보세요");
+            for (int i = 0; i < 5; i++) PlazaTick(host, a, b, c);
+            Assert.IsNull(a.Whispers[a.Whispers.Count - 1].Key, "없는 사람이면 알려 준다");
         }
 }
 }

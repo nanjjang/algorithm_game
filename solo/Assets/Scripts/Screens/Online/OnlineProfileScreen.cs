@@ -85,6 +85,10 @@ namespace Wizard.Solo.Screens.Online
             for (int i = 0; i < 20; i++)
                 _topLines.Add(UiKit.Label(Ctx, top, string.Empty, UiFontId.F12, 12f, 8f + 26f * i, rw - 24f, 26f, UiTheme.Chalk));
 
+            UiKit.Button(Ctx, board, T(OnlineKeys.MarketButton), BoardW - Pad - 200f - 2f * (200f + Gap), BoardH - Pad - 56f, 200f, 56f,
+                () => OpenChild(ScreenId.OnlineMarket), UiButtonStyle.Medium, Focus);
+            UiKit.Button(Ctx, board, T(OnlineKeys.FriendsButton), BoardW - Pad - 200f - (200f + Gap), BoardH - Pad - 56f, 200f, 56f,
+                () => OpenChild(ScreenId.OnlineFriends), UiButtonStyle.Medium, Focus);
             UiKit.Button(Ctx, board, T(OnlineKeys.Leave), BoardW - Pad - 200f, BoardH - Pad - 56f, 200f, 56f, () => Close(), UiButtonStyle.Medium, Focus);
         }
 
@@ -115,6 +119,13 @@ namespace Wizard.Solo.Screens.Online
             _svc?.Dispose();
             _svc = null;
             base.OnExit();
+        }
+
+        void OpenChild(ScreenId id)
+        {
+            var args = ScreenArgs.From(ScreenId.OnlineProfile);
+            args.OnResult = _ => { _svc?.Dispose(); _svc = OnlineService.Open(Ctx != null ? Ctx.Content : null); Refresh(); };
+            Screens?.Push(id, args);
         }
 
         void OpenAssembly(int ch)

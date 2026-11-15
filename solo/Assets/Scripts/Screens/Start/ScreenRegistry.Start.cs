@@ -16,6 +16,8 @@ namespace Wizard.Solo.UI
             m.Register(ScreenId.Plaza, () => new Wizard.Solo.Screens.Online.PlazaScreen());
             m.Register(ScreenId.OnlineProfile, () => new Wizard.Solo.Screens.Online.OnlineProfileScreen());
             m.Register(ScreenId.OnlineAssembly, () => new Wizard.Solo.Screens.Online.OnlineAssemblyScreen());
+            m.Register(ScreenId.OnlineMarket, () => new Wizard.Solo.Screens.Online.OnlineMarketScreen());
+            m.Register(ScreenId.OnlineFriends, () => new Wizard.Solo.Screens.Online.OnlineFriendsScreen());
         }
     }
 }

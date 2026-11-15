@@ -119,6 +119,13 @@ namespace Wizard.Solo.Net
             if (pipe != null) _peers.Add(new Peer { Pipe = pipe, AccountId = account != null ? account.Id : 0, AccountName = account != null ? account.Name : null });
         }
 
+        public bool HasAccount(long id)
+        {
+            if (id <= 0) return false;
+            foreach (var p in _peers) if (p.AccountId == id && !p.Dropped) return true;
+            return false;
+        }
+
         /// <summary>그 슬롯 사람의 계정 id(봇·계정 없음·빈 자리 = 0).</summary>
         public long AccountOfSlot(int slot)
         {

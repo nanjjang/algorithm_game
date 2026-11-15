@@ -27,6 +27,9 @@ namespace Wizard.Solo.Net
         /// <summary>캐릭터마다 결정 대기 중인 변이 제시(없으면 null).</summary>
         public List<ServerMutationOffer> PendingOffers = new List<ServerMutationOffer>();
         public long NextAttemptSeq = 1;
+        /// <summary>친구(계정 id)와 나에게 온 친구 신청.</summary>
+        public List<long> Friends = new List<long>();
+        public List<long> FriendRequests = new List<long>();
         /// <summary>캐릭터마다 서버 지팡이 조립(코어 + 연결 칸). null = 기본(코어 마력탄, 빈 칸). 끼운 블록은 창고(Items)에서 빠져 있다.</summary>
         public List<ServerLoadout> Loadouts = new List<ServerLoadout>();
         /// <summary>캐릭터마다 대성공으로 늘어난 연결 칸 수.</summary>
@@ -106,11 +109,17 @@ namespace Wizard.Solo.Net
     /// 긴 무작위 비밀(32바이트)을 이름과 함께 등록하고, 다음부터 (계정 id, 비밀)로 들어온다. TLS를 붙이면 비밀번호·이메일 복구를 더한다.
     /// 이름은 2~12자, 겹치지 않는다(대소문자 무시). 쓰기는 바뀔 때마다 임시 파일 → 바꿔치기.
     /// </summary>
-    public sealed class AccountStore
+    public sealed partial class AccountStore
     {
         public const int NameMin = 2, NameMax = 12, Iterations = 20000;
 
-        sealed class FileData { public long NextId = 1; public List<AccountRecord> Accounts = new List<AccountRecord>(); }
+        sealed class FileData
+        {
+            public long NextId = 1;
+            public List<AccountRecord> Accounts = new List<AccountRecord>();
+            public long NextListingId = 1;
+            public List<MarketListing> Listings = new List<MarketListing>();
+        }
 
         readonly string _path;
         FileData _data = new FileData();
@@ -459,6 +468,9 @@ namespace Wizard.Solo.Net
             public Dictionary<string, int> Items = new Dictionary<string, int>();
         }
 
+        public const int TradeFeePercent = 5;
+        public static long TradeFee(long gold) => gold <= 0 ? 0 : (gold * TradeFeePercent + 99) / 100;
+
         public bool Owns(long id, TradeOffer o)
         {
             var a = Get(id);
@@ -473,8 +485,9 @@ namespace Wizard.Solo.Net
             if (aId == bId || !Owns(aId, aOffer) || !Owns(bId, bOffer)) return false;
             var a = Get(aId).Profile;
             var b = Get(bId).Profile;
-            a.Gold -= aOffer.Gold; b.Gold += aOffer.Gold;
-            b.Gold -= bOffer.Gold; a.Gold += bOffer.Gold;
+            // 직접 거래 수수료(docs/online.md 경제 표): 오간 골드의 5% — 받는 쪽에서 뺀다(골드가 사라지는 곳).
+            a.Gold -= aOffer.Gold; b.Gold += aOffer.Gold - TradeFee(aOffer.Gold);
+            b.Gold -= bOffer.Gold; a.Gold += bOffer.Gold - TradeFee(bOffer.Gold);
             foreach (var kv in aOffer.Items) { a.Add(kv.Key, -kv.Value); b.Add(kv.Key, kv.Value); }
             foreach (var kv in bOffer.Items) { b.Add(kv.Key, -kv.Value); a.Add(kv.Key, kv.Value); }
             Save();

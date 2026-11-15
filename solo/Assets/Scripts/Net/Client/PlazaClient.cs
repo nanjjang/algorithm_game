@@ -44,6 +44,33 @@ namespace Wizard.Solo.Net
         /// <summary>새 거래 결과(Done·Cancelled·Failed …)가 왔으면 한 번 true.</summary>
         public bool TradeResultFresh;
 
+        /// <summary>귓속말 기록(새 것이 뒤). (보낸 이름, 글). 보낸 이름 null = "받을 사람이 없다"(글 = 그 이름).</summary>
+        public readonly List<KeyValuePair<string, string>> Whispers = new List<KeyValuePair<string, string>>();
+
+        public void Whisper(string toName, string text)
+        {
+            if (_pipe == null || string.IsNullOrWhiteSpace(toName) || string.IsNullOrWhiteSpace(text)) return;
+            var m = new NetWriter(NetMsg.PlazaWhisper);
+            m.Str(toName);
+            m.Str(text);
+            _pipe.Send(m.ToArray());
+        }
+
+        /// <summary>채팅 글이 "/귓 이름 내용" 또는 "@이름 내용"이면 귓속말로 보내고 true.</summary>
+        public bool TryWhisperCommand(string line)
+        {
+            if (string.IsNullOrEmpty(line)) return false;
+            string rest = null;
+            if (line.StartsWith("@")) rest = line.Substring(1);
+            else if (line.StartsWith("/귓 ")) rest = line.Substring(3);
+            else if (line.StartsWith("/w ")) rest = line.Substring(3);
+            if (rest == null) return false;
+            int sp = rest.IndexOf(' ');
+            if (sp <= 0) return true;
+            Whisper(rest.Substring(0, sp), rest.Substring(sp + 1));
+            return true;
+        }
+
         void SendSimple(NetMsg k) { if (_pipe != null) _pipe.Send(new NetWriter(k).ToArray()); }
 
         public void RequestTrade(int avatarId)
@@ -145,6 +172,13 @@ namespace Wizard.Solo.Net
                     break;
                 case NetMsg.RoomError:
                     Rejected = true;
+                    break;
+                case NetMsg.WhisperIn:
+                    {
+                        string from = r.Str(), text = r.Str();
+                        Whispers.Add(new KeyValuePair<string, string>(from, text));
+                        if (Whispers.Count > 20) Whispers.RemoveAt(0);
+                    }
                     break;
                 case NetMsg.TradeInvite:
                     InviteFrom = r.Int();

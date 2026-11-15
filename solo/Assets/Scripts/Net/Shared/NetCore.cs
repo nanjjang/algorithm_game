@@ -140,6 +140,36 @@ namespace Wizard.Solo.Net
         TradeCancel = 65,
         /// <summary>광장: 거래 상태(서버 →). 몸 = 열림(bool), 상대 이름, 내 것, 상대 것, 내 확인, 상대 확인, 내 창고(거래할 수 있는 것), 결과 코드(byte).</summary>
         TradeState = 66,
+        /// <summary>장터 둘러보기(→ 방 서버). 몸 = 아이템 id(null = 전부). 응답 MarketList.</summary>
+        MarketBrowse = 70,
+        /// <summary>장터 목록(서버 →). 몸 = n, (id, 판 사람 id, 이름, 아이템, 개수, 값)×n.</summary>
+        MarketList = 71,
+        /// <summary>내가 올린 것(→ 방 서버, 계정 뒤). 응답 MarketList.</summary>
+        MarketMine = 72,
+        /// <summary>올리기(→, 계정 뒤). 몸 = 아이템, 개수(int), 값(long). 응답 MarketReply.</summary>
+        MarketSell = 73,
+        /// <summary>장터 결과(서버 →). 몸 = AccountStore.MarketResult(byte), 서버 프로필.</summary>
+        MarketReply = 74,
+        /// <summary>사기(→, 계정 뒤). 몸 = 올린 것 id(long). 응답 MarketReply.</summary>
+        MarketBuy = 75,
+        /// <summary>내리기(→, 계정 뒤). 몸 = 올린 것 id(long). 응답 MarketReply.</summary>
+        MarketUnlist = 76,
+        /// <summary>친구 목록(→, 계정 뒤). 응답 FriendList.</summary>
+        FriendListRequest = 80,
+        /// <summary>친구 목록(서버 →). 몸 = 친구 n, (id, 이름, 레이팅, 어디)×n, 신청 m, (id, 이름, 레이팅)×m.</summary>
+        FriendList = 81,
+        /// <summary>친구 신청(→, 계정 뒤). 몸 = 이름. 응답 FriendReply.</summary>
+        FriendRequest = 82,
+        /// <summary>친구 결과(서버 →). 몸 = AccountStore.FriendResult(byte).</summary>
+        FriendReply = 83,
+        /// <summary>친구 신청에 답(→). 몸 = 신청한 계정 id(long), 받기(bool). 응답 FriendReply.</summary>
+        FriendAnswer = 84,
+        /// <summary>친구 끊기(→). 몸 = 계정 id(long). 응답 FriendReply.</summary>
+        FriendRemove = 85,
+        /// <summary>광장: 귓속말 보내기(→ 광장). 몸 = 받는 이름, 글.</summary>
+        PlazaWhisper = 86,
+        /// <summary>광장: 귓속말이 왔다(광장 →). 몸 = 보낸 이름, 글. 보낸 이름이 null이면 "받을 사람이 광장에 없다".</summary>
+        WhisperIn = 87,
     }
 
     public enum AuthError : byte { BadName = 1, NameTaken = 2, BadSecret = 3, WrongLogin = 4 }
@@ -152,7 +182,7 @@ namespace Wizard.Solo.Net
     public static class NetProtocol
     {
         /// <summary>메시지 꼴이 바뀌면 올린다. 다르면 Reject(Version).</summary>
-        public const int Version = 10;
+        public const int Version = 11;
         /// <summary>스냅숏을 보내는 틱 간격(60틱 / 3 = 20Hz).</summary>
         public const int SnapshotEveryTicks = 3;
     }

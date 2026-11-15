@@ -87,6 +87,17 @@ namespace Wizard.Solo.Net
             }
             _dead.Clear();
             Plaza.Tick();
+            if (++_expireTicks >= 60 * 60) { _expireTicks = 0; Accounts.ExpireListings(DateTime.UtcNow.Ticks); }
+        }
+
+        int _expireTicks;
+
+        /// <summary>그 계정이 지금 어디 있나("plaza", "room", 접속 안 함 = "").</summary>
+        public string WhereIs(long accountId)
+        {
+            if (Plaza.HasAccount(accountId)) return "plaza";
+            foreach (var h in _rooms.Values) if (h.HasAccount(accountId)) return "room";
+            return string.Empty;
         }
 
         /// <summary>Register·Login이면 처리하고 true(실패면 끊는다).</summary>
@@ -182,6 +193,74 @@ namespace Wizard.Solo.Net
                 var m = new NetWriter(NetMsg.LoadoutReply);
                 m.Byte((byte)res);
                 NetCodec.WriteProfile(m, acct != null ? acct.Profile : new ServerProfile());
+                pipe.Send(m.ToArray());
+                return true;
+            }
+            if (kind == NetMsg.MarketBrowse || kind == NetMsg.MarketMine)
+            {
+                string item = null;
+                try { var r = new NetReader(data); r.Byte(); if (kind == NetMsg.MarketBrowse) item = r.Str(); } catch (Exception) { }
+                _authed.TryGetValue(pipe, out var acct);
+                var list = kind == NetMsg.MarketBrowse ? Accounts.Browse(item, 60) : (acct != null ? Accounts.ListingsOf(acct.Id) : new List<MarketListing>());
+                var m = new NetWriter(NetMsg.MarketList);
+                m.Int(list.Count);
+                foreach (var l in list) { m.Long(l.Id); m.Long(l.SellerId); m.Str(l.SellerName); m.Str(l.ItemId); m.Int(l.Qty); m.Long(l.Price); }
+                pipe.Send(m.ToArray());
+                return true;
+            }
+            if (kind == NetMsg.MarketSell || kind == NetMsg.MarketBuy || kind == NetMsg.MarketUnlist)
+            {
+                _authed.TryGetValue(pipe, out var acct);
+                var res = AccountStore.MarketResult.NoAccount;
+                try
+                {
+                    var r = new NetReader(data);
+                    r.Byte();
+                    if (acct != null)
+                    {
+                        if (kind == NetMsg.MarketSell) res = Accounts.List(acct.Id, r.Str(), r.Int(), r.Long(), DateTime.UtcNow.Ticks, out _);
+                        else if (kind == NetMsg.MarketBuy) res = Accounts.Buy(acct.Id, r.Long());
+                        else res = Accounts.Unlist(acct.Id, r.Long());
+                    }
+                }
+                catch (Exception) { res = AccountStore.MarketResult.BadItem; }
+                var m = new NetWriter(NetMsg.MarketReply);
+                m.Byte((byte)res);
+                NetCodec.WriteProfile(m, acct != null ? acct.Profile : new ServerProfile());
+                pipe.Send(m.ToArray());
+                return true;
+            }
+            if (kind == NetMsg.FriendListRequest)
+            {
+                _authed.TryGetValue(pipe, out var acct);
+                var fr = acct != null ? Accounts.FriendsOf(acct.Id, WhereIs) : new List<FriendInfo>();
+                var rq = acct != null ? Accounts.RequestsOf(acct.Id) : new List<FriendInfo>();
+                var m = new NetWriter(NetMsg.FriendList);
+                m.Int(fr.Count);
+                foreach (var f in fr) { m.Long(f.Id); m.Str(f.Name); m.Int(f.Rating); m.Str(f.Where); }
+                m.Int(rq.Count);
+                foreach (var f in rq) { m.Long(f.Id); m.Str(f.Name); m.Int(f.Rating); }
+                pipe.Send(m.ToArray());
+                return true;
+            }
+            if (kind == NetMsg.FriendRequest || kind == NetMsg.FriendAnswer || kind == NetMsg.FriendRemove)
+            {
+                _authed.TryGetValue(pipe, out var acct);
+                var res = AccountStore.FriendResult.NoAccount;
+                try
+                {
+                    var r = new NetReader(data);
+                    r.Byte();
+                    if (acct != null)
+                    {
+                        if (kind == NetMsg.FriendRequest) res = Accounts.RequestFriend(acct.Id, r.Str());
+                        else if (kind == NetMsg.FriendAnswer) { long from = r.Long(); res = r.Bool() ? Accounts.AcceptFriend(acct.Id, from) : Accounts.DeclineFriend(acct.Id, from); }
+                        else res = Accounts.RemoveFriend(acct.Id, r.Long());
+                    }
+                }
+                catch (Exception) { res = AccountStore.FriendResult.NotFound; }
+                var m = new NetWriter(NetMsg.FriendReply);
+                m.Byte((byte)res);
                 pipe.Send(m.ToArray());
                 return true;
             }

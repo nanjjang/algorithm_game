@@ -96,6 +96,124 @@ namespace Wizard.Solo.Net
             return ReadReply(timeoutMs);
         }
 
+        // ------------------------------------------------------------ 장터
+
+        public List<MarketListing> MarketBrowse(string itemId = null, int timeoutMs = 4000)
+        {
+            if (!Connected) return null;
+            var m = new NetWriter(NetMsg.MarketBrowse);
+            m.Str(itemId);
+            _pipe.Send(m.ToArray());
+            return ReadListings(timeoutMs);
+        }
+
+        public List<MarketListing> MarketMine(int timeoutMs = 4000)
+        {
+            if (!Connected) return null;
+            _pipe.Send(new NetWriter(NetMsg.MarketMine).ToArray());
+            return ReadListings(timeoutMs);
+        }
+
+        List<MarketListing> ReadListings(int timeoutMs)
+        {
+            var data = Wait(timeoutMs, NetMsg.MarketList);
+            if (data == null) return null;
+            var r = new NetReader(data);
+            r.Byte();
+            int n = r.Int();
+            var l = new List<MarketListing>(n);
+            for (int i = 0; i < n; i++)
+                l.Add(new MarketListing { Id = r.Long(), SellerId = r.Long(), SellerName = r.Str(), ItemId = r.Str(), Qty = r.Int(), Price = r.Long() });
+            return l;
+        }
+
+        AccountStore.MarketResult? MarketCall(NetWriter m, int timeoutMs)
+        {
+            if (!Connected) return null;
+            _pipe.Send(m.ToArray());
+            var data = Wait(timeoutMs, NetMsg.MarketReply);
+            if (data == null) return null;
+            var r = new NetReader(data);
+            r.Byte();
+            var res = (AccountStore.MarketResult)r.Byte();
+            var prof = NetCodec.ReadProfile(r);
+            if (res != AccountStore.MarketResult.NoAccount) Profile = prof;
+            return res;
+        }
+
+        public AccountStore.MarketResult? MarketSell(string itemId, int qty, long price, int timeoutMs = 4000)
+        {
+            var m = new NetWriter(NetMsg.MarketSell);
+            m.Str(itemId); m.Int(qty); m.Long(price);
+            return MarketCall(m, timeoutMs);
+        }
+
+        public AccountStore.MarketResult? MarketBuy(long listingId, int timeoutMs = 4000)
+        {
+            var m = new NetWriter(NetMsg.MarketBuy);
+            m.Long(listingId);
+            return MarketCall(m, timeoutMs);
+        }
+
+        public AccountStore.MarketResult? MarketUnlist(long listingId, int timeoutMs = 4000)
+        {
+            var m = new NetWriter(NetMsg.MarketUnlist);
+            m.Long(listingId);
+            return MarketCall(m, timeoutMs);
+        }
+
+        // ------------------------------------------------------------ 친구
+
+        public bool Friends(out List<FriendInfo> friends, out List<FriendInfo> requests, int timeoutMs = 4000)
+        {
+            friends = null; requests = null;
+            if (!Connected) return false;
+            _pipe.Send(new NetWriter(NetMsg.FriendListRequest).ToArray());
+            var data = Wait(timeoutMs, NetMsg.FriendList);
+            if (data == null) return false;
+            var r = new NetReader(data);
+            r.Byte();
+            int n = r.Int();
+            friends = new List<FriendInfo>(n);
+            for (int i = 0; i < n; i++) friends.Add(new FriendInfo { Id = r.Long(), Name = r.Str(), Rating = r.Int(), Where = r.Str() });
+            int k = r.Int();
+            requests = new List<FriendInfo>(k);
+            for (int i = 0; i < k; i++) requests.Add(new FriendInfo { Id = r.Long(), Name = r.Str(), Rating = r.Int() });
+            return true;
+        }
+
+        AccountStore.FriendResult? FriendCall(NetWriter m, int timeoutMs)
+        {
+            if (!Connected) return null;
+            _pipe.Send(m.ToArray());
+            var data = Wait(timeoutMs, NetMsg.FriendReply);
+            if (data == null) return null;
+            var r = new NetReader(data);
+            r.Byte();
+            return (AccountStore.FriendResult)r.Byte();
+        }
+
+        public AccountStore.FriendResult? RequestFriend(string name, int timeoutMs = 4000)
+        {
+            var m = new NetWriter(NetMsg.FriendRequest);
+            m.Str(name);
+            return FriendCall(m, timeoutMs);
+        }
+
+        public AccountStore.FriendResult? AnswerFriend(long fromId, bool accept, int timeoutMs = 4000)
+        {
+            var m = new NetWriter(NetMsg.FriendAnswer);
+            m.Long(fromId); m.Bool(accept);
+            return FriendCall(m, timeoutMs);
+        }
+
+        public AccountStore.FriendResult? RemoveFriend(long id, int timeoutMs = 4000)
+        {
+            var m = new NetWriter(NetMsg.FriendRemove);
+            m.Long(id);
+            return FriendCall(m, timeoutMs);
+        }
+
         /// <summary>대기 중인 변이 제시에 답한다(받기 / 거절).</summary>
         public EnhanceReply? ResolveMutation(int character, bool accept, int timeoutMs = 4000)
         {

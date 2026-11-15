@@ -25,7 +25,11 @@ namespace Wizard.Solo.UI
         /// <summary>내 온라인 기록: 서버 프로필, 서버 지팡이 강화, 결투 순위표.</summary>
         OnlineProfile,
         /// <summary>서버 지팡이 조립(인자 Character 1~5).</summary>
-        OnlineAssembly
+        OnlineAssembly,
+        /// <summary>장터(올라온 것 사기, 올리기·내리기).</summary>
+        OnlineMarket,
+        /// <summary>친구(신청·받기·목록).</summary>
+        OnlineFriends
     }
 
     public enum ScreenLayer { Fullscreen = 0, Panel = 1, HudOverlay = 2, Modal = 3, Toast = 4 }

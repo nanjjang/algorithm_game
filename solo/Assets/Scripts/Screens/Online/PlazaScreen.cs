@@ -46,6 +46,9 @@ namespace Wizard.Solo.Screens.Online
 
         UiLabel _doorPrompt, _tradeLine;
         PlazaTradePanel _trade;
+        int _whispersSeen;
+        string _lastWhisper;
+        float _whisperTime;
 
         sealed class AvatarView
         {
@@ -181,7 +184,7 @@ namespace Wizard.Solo.Screens.Online
         void SendChat()
         {
             if (!_entered) return;
-            _client.Say(_chat.text);
+            if (!_client.TryWhisperCommand(_chat.text)) _client.Say(_chat.text);
             _chat.text = string.Empty;
             _chat.DeactivateInputField();
         }
@@ -256,7 +259,15 @@ namespace Wizard.Solo.Screens.Online
             }
             Render(dt);
             bool open = _trade.Render();
-            string line = _client.InviteFrom > 0 ? T(OnlineKeys.TradeInvite).Replace("{name}", _client.InviteName ?? "?")
+            if (_client.Whispers.Count > _whispersSeen)
+            {
+                _whispersSeen = _client.Whispers.Count;
+                var w = _client.Whispers[_client.Whispers.Count - 1];
+                _lastWhisper = w.Key == null ? F(OnlineKeys.WhisperNobody, "name", w.Value) : F(OnlineKeys.WhisperFrom, "name", w.Key, "text", w.Value);
+                _whisperTime = 8f;
+            }
+            if (_whisperTime > 0f) _whisperTime -= dt;
+            string line = _whisperTime > 0f ? _lastWhisper : _client.InviteFrom > 0 ? T(OnlineKeys.TradeInvite).Replace("{name}", _client.InviteName ?? "?")
                 : (!open && _trade.LastResult != null ? _trade.LastResult : (open ? string.Empty : T(OnlineKeys.TradeHint)));
             _tradeLine.SetText(line);
         }

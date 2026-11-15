@@ -41,6 +41,8 @@ namespace Wizard.Solo.Net
         /// <summary>방 서버가 준 코드(이 기기 방이면 null).</summary>
         public string Code;
         public int MaxPlayers => _maxPlayers;
+        /// <summary>(계정 id, 캐릭터 1~5) → 서버 프로필의 지팡이 단계. 방 서버가 넣는다(없으면 0).</summary>
+        public Func<long, int, int> StageLookup;
         /// <summary>판 전 마지막으로 누가 있었던 틱 수(빈 방 정리용, 방 서버가 센다).</summary>
         public int IdleTicks;
 
@@ -227,7 +229,8 @@ namespace Wizard.Solo.Net
                     {
                         RunConfig cfg = null;
                         try { cfg = NetCodec.ReadConfig(r); } catch (Exception) { }
-                        if (p.Slot >= 0 && p.Slot == LeaderSlot && cfg != null && !string.IsNullOrEmpty(cfg.CharId)) { cfg.Party = null; AddBot(cfg); }
+                        if (p.Slot >= 0 && p.Slot == LeaderSlot && cfg != null && !string.IsNullOrEmpty(cfg.CharId))
+                            AddBot(OnlineMember.Build(_content, Ids.Char.NumberOf(cfg.CharId), 0, cfg.AttackStyle));
                     }
                     break;
                 case NetMsg.RemoveBot:
@@ -255,6 +258,10 @@ namespace Wizard.Solo.Net
             catch (Exception) { Reject(p, RejectReason.BadHello); return; }
             if (member == null || string.IsNullOrEmpty(member.CharId)) { Reject(p, RejectReason.BadHello); return; }
             member.Party = null;
+            // 출발 설정은 서버가 다시 만든다: 캐릭터·기본 공격 유형만 손님 것, 지팡이 단계는 서버 프로필(OnlineMember).
+            int ch = Ids.Char.NumberOf(member.CharId);
+            int stage = p.AccountId > 0 && StageLookup != null ? StageLookup(p.AccountId, ch) : 0;
+            member = OnlineMember.Build(_content, ch, stage, member.AttackStyle);
             p.Member = member;
             p.Slot = FreeSlot();
             var msg = new NetWriter(NetMsg.Welcome);

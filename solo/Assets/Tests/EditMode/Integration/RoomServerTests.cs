@@ -267,5 +267,66 @@ namespace Wizard.Solo.Tests.Integration
             Assert.AreEqual(RoomMode.Coop, PlazaScreen.Doors[PlazaScreen.DoorAt(new Vector2(2f, 10f))].Mode);
             Assert.AreEqual(RoomMode.Duel, PlazaScreen.Doors[PlazaScreen.DoorAt(new Vector2(37f, 10f))].Mode);
         }
+
+        T WithServerThread<T>(System.Func<T> f)
+        {
+            bool stop = false;
+            var th = new Thread(() => { while (!stop) { Tick(); } });
+            th.Start();
+            try { return f(); }
+            finally { stop = true; th.Join(); }
+        }
+
+        [Test]
+        public void ServerWand_StageFromServerProfile_NotOfflineProfile()
+        {
+            var acct = RegisterWithServerThread("단계시험", out var err);
+            Assert.IsNotNull(acct);
+            _server.Accounts.Get(acct.Id).Profile.WandStages[0] = 4;
+            int runsBefore = _k.Profile.RunsStarted;
+            var model = new CoopLobbyModel(_k.Ctx);
+            Assert.IsTrue(model.CreateOnline(), "온라인 방: " + model.ErrorKey);
+            _rooms.Add(model.Room);
+            Assert.AreEqual(runsBefore, _k.Profile.RunsStarted, "온라인 방은 오프라인 프로필에 쓰지 않는다");
+            Assert.IsTrue(Until(300, () => model.Room.MemberCount == 1));
+            model.Room.StartRun(1UL);
+            Assert.IsTrue(Until(300, () => model.Room.World != null));
+            var host = _server.Room(model.Room.RoomCode);
+            Assert.AreEqual(4, host.World.Players[0].Wand.Stage, "서버 프로필의 단계로 선다");
+            Assert.AreEqual(Ids.Block.MagicBolt, host.World.Run.Config.Loadout.Core);
+        }
+
+        [Test]
+        public void ServerEnhance_GoldOnly_AndLeaderboard()
+        {
+            var acct = RegisterWithServerThread("강화시험", out var err);
+            Assert.IsNotNull(acct);
+            var svc = WithServerThread(() => OnlineService.Open(_k.Db));
+            Assert.IsNotNull(svc);
+            Assert.AreEqual("강화시험", svc.Profile.Name);
+            var r0 = WithServerThread(() => svc.Enhance(1));
+            Assert.AreEqual(AccountStore.EnhanceResult.NotEnoughGold, r0.Value.Result, "골드 0이면 못 한다");
+
+            _server.Accounts.Get(acct.Id).Profile.Gold = 10000000;
+            int stageChanges = 0;
+            for (int i = 0; i < 20; i++)
+            {
+                var r = WithServerThread(() => svc.Enhance(1));
+                Assert.AreEqual(AccountStore.EnhanceResult.Ok, r.Value.Result);
+                if (r.Value.Profile.WandStages[0] != r.Value.StageBefore) stageChanges++;
+            }
+            var prof = _server.Accounts.Get(acct.Id).Profile;
+            Assert.Greater(stageChanges, 0, "20번 하면 단계가 한 번은 바뀐다");
+            Assert.Less(prof.Gold, 10000000, "골드를 쓴다");
+            Assert.AreEqual(20, prof.EnhanceTries);
+            Assert.AreEqual(prof.WandStages[0], svc.Profile.WandStages[0], "답의 프로필이 서버와 같다");
+
+            prof.DuelWins = 3;
+            prof.Rating = 1100;
+            var top = WithServerThread(() => svc.Leaderboard());
+            Assert.IsNotNull(top);
+            Assert.AreEqual("강화시험", top[0].Name);
+            svc.Dispose();
+        }
 }
 }

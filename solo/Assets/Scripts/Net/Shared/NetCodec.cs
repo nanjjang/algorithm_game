@@ -134,6 +134,8 @@ namespace Wizard.Solo.Net
             w.Int(p.DuelDraws);
             w.Int(p.CoopRuns);
             w.Int(p.CoopBestWave);
+            for (int i = 0; i < 5; i++) w.Int(p.WandStages != null && i < p.WandStages.Length ? p.WandStages[i] : 0);
+            for (int i = 0; i < 5; i++) w.Int(p.Auras != null && i < p.Auras.Length ? p.Auras[i] : 0);
         }
 
         public static ServerProfile ReadProfile(NetReader r)
@@ -142,6 +144,8 @@ namespace Wizard.Solo.Net
             {
                 AccountId = r.Long(), Name = r.Str(), Gold = r.Long(), Rating = r.Int(),
                 DuelWins = r.Int(), DuelLosses = r.Int(), DuelDraws = r.Int(), CoopRuns = r.Int(), CoopBestWave = r.Int(),
+                WandStages = new[] { r.Int(), r.Int(), r.Int(), r.Int(), r.Int() },
+                Auras = new[] { r.Int(), r.Int(), r.Int(), r.Int(), r.Int() },
             };
         }
 

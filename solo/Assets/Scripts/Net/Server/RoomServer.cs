@@ -64,6 +64,7 @@ namespace Wizard.Solo.Net
                 if (!pipe.Connected) { _pending.RemoveAt(i); continue; }
                 if (!pipe.TryReceive(out var data)) continue;
                 if (TryAuth(pipe, data)) continue; // 계정 메시지면 연결은 그대로 기다린다
+                if (TryService(pipe, data)) continue; // 강화·순위표: 답하고 연결은 그대로
                 _pending.RemoveAt(i);
                 _authed.TryGetValue(pipe, out var acct);
                 _authed.Remove(pipe);
@@ -133,6 +134,42 @@ namespace Wizard.Solo.Net
             return true;
         }
 
+        readonly Random _dice = new Random();
+
+        bool TryService(INetPipe pipe, byte[] data)
+        {
+            if (data == null || data.Length == 0) return false;
+            var kind = (NetMsg)data[0];
+            if (kind == NetMsg.LeaderboardRequest)
+            {
+                var top = Accounts.Top(20);
+                var m = new NetWriter(NetMsg.LeaderboardReply);
+                m.Int(top.Count);
+                foreach (var p in top) NetCodec.WriteProfile(m, p);
+                pipe.Send(m.ToArray());
+                return true;
+            }
+            if (kind == NetMsg.EnhanceRequest)
+            {
+                int ch = 0;
+                try { var r = new NetReader(data); r.Byte(); ch = r.Int(); } catch (Exception) { }
+                _authed.TryGetValue(pipe, out var acct);
+                var m = new NetWriter(NetMsg.EnhanceReply);
+                Wizard.Solo.Meta.EnhanceOutcome outcome = Wizard.Solo.Meta.EnhanceOutcome.FailNoDrop;
+                int before = acct != null ? Accounts.StageOf(acct.Id, ch) : 0;
+                var res = acct == null ? AccountStore.EnhanceResult.NoAccount
+                    : Accounts.Enhance(acct.Id, ch, _content != null ? _content.Enhance : null, _dice.Next(10000), out outcome);
+                m.Byte((byte)res);
+                m.Byte((byte)outcome);
+                m.Int(before);
+                NetCodec.WriteProfile(m, acct != null ? acct.Profile : new ServerProfile());
+                pipe.Send(m.ToArray());
+                if (res == AccountStore.EnhanceResult.Ok) Log?.Invoke("[room-server] enhance " + acct.Id + " char " + ch + " " + before + " → " + Accounts.StageOf(acct.Id, ch) + " (" + outcome + ")");
+                return true;
+            }
+            return false;
+        }
+
         /// <summary>판이 끝난 방의 결과를 서버 프로필에 한 번 적는다(계정이 있는 사람만).</summary>
         void RecordIfEnded(CoopHost h)
         {
@@ -173,7 +210,7 @@ namespace Wizard.Solo.Net
                         RoomMode mode;
                         try { mode = (RoomMode)r.Byte(); } catch (Exception) { mode = RoomMode.Coop; }
                         if (mode != RoomMode.Coop && mode != RoomMode.Duel) mode = RoomMode.Coop;
-                        var h = new CoopHost(_content, _modules, SimConst.MaxPlayers, mode) { Code = NewCode() };
+                        var h = new CoopHost(_content, _modules, SimConst.MaxPlayers, mode) { Code = NewCode(), StageLookup = Accounts.StageOf };
                         _rooms[h.Code] = h;
                         Log?.Invoke("[room-server] room " + h.Code + " created (" + mode + ")");
                         SendInfo(pipe, h);
@@ -198,7 +235,7 @@ namespace Wizard.Solo.Net
                 case NetMsg.Hello:
                     // 옛 손님(방 코드 없이 바로 Hello): 협동 방을 하나 만들어 준다.
                     {
-                        var h = new CoopHost(_content, _modules) { Code = NewCode() };
+                        var h = new CoopHost(_content, _modules) { Code = NewCode(), StageLookup = Accounts.StageOf };
                         _rooms[h.Code] = h;
                         var replay = new ReplayPipe(pipe, first);
                         SendInfo(pipe, h);

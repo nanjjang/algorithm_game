@@ -16,6 +16,11 @@ namespace Wizard.Solo.Net
         public int Rating = 1000;
         public int DuelWins, DuelLosses, DuelDraws;
         public int CoopRuns, CoopBestWave;
+        /// <summary>캐릭터 1~5의 서버 지팡이(한 사람 한 자루씩): 단계, 기운(실패로 쌓인 확률 보너스 칸), 최고 단계(떨어짐 바닥 계산).</summary>
+        public int[] WandStages = new int[5];
+        public int[] Auras = new int[5];
+        public int[] PeakStages = new int[5];
+        public int EnhanceTries;
         public string CreatedAt;
         public string LastSeenAt;
     }
@@ -106,6 +111,87 @@ namespace Wizard.Solo.Net
         }
 
         public AccountRecord Get(long id) => _byId.TryGetValue(id, out var r) ? r : null;
+
+        public int StageOf(long id, int character)
+        {
+            var a = Get(id);
+            if (a == null || character < 1 || character > 5) return 0;
+            Fix(a.Profile);
+            return a.Profile.WandStages[character - 1];
+        }
+
+        /// <summary>옛 파일에 배열이 없으면 채운다.</summary>
+        static void Fix(ServerProfile p)
+        {
+            if (p.WandStages == null || p.WandStages.Length != 5) p.WandStages = new int[5];
+            if (p.Auras == null || p.Auras.Length != 5) p.Auras = new int[5];
+            if (p.PeakStages == null || p.PeakStages.Length != 5) p.PeakStages = new int[5];
+        }
+
+        /// <summary>순위표: 레이팅 높은 순(같으면 승수, 이름). 결투를 한 번이라도 한 사람만.</summary>
+        public List<ServerProfile> Top(int n)
+        {
+            var l = new List<ServerProfile>();
+            foreach (var a in _data.Accounts)
+                if (a.Profile.DuelWins + a.Profile.DuelLosses + a.Profile.DuelDraws > 0) l.Add(a.Profile);
+            l.Sort((x, y) => x.Rating != y.Rating ? y.Rating.CompareTo(x.Rating)
+                : x.DuelWins != y.DuelWins ? y.DuelWins.CompareTo(x.DuelWins) : string.CompareOrdinal(x.Name, y.Name));
+            if (l.Count > n) l.RemoveRange(n, l.Count - n);
+            return l;
+        }
+
+        // ------------------------------------------------------------ 서버 강화
+
+        public enum EnhanceResult { Ok, NoAccount, BadCharacter, MaxStage, NotEnoughGold }
+
+        /// <summary>
+        /// 서버 지팡이 강화 한 번(강화 규칙 = 오프라인과 같은 EnhanceRules: 기본 확률, 기운, 대성공·실패·떨어짐, 비용 100 × (단계+1)²).
+        /// solo 결정 [임시]: 서버 프로필에 아직 재료 창고가 없어 강화석·제물·부적 없이 골드만 쓴다. 변이 구간은 성공으로 친다(서버 지팡이에 변이 칸이 아직 없다).
+        /// rollBp = 0~9999 주사위(서버가 굴린다).
+        /// </summary>
+        public EnhanceResult Enhance(long id, int character, Wizard.Solo.Data.EnhanceConfig cfg, int rollBp, out Wizard.Solo.Meta.EnhanceOutcome outcome)
+        {
+            outcome = Wizard.Solo.Meta.EnhanceOutcome.FailNoDrop;
+            var a = Get(id);
+            if (a == null) return EnhanceResult.NoAccount;
+            if (character < 1 || character > 5 || cfg == null) return EnhanceResult.BadCharacter;
+            var p = a.Profile;
+            Fix(p);
+            int i = character - 1;
+            int stage = p.WandStages[i];
+            if (stage >= cfg.MaxStage) return EnhanceResult.MaxStage;
+            long cost = Wizard.Solo.Meta.Enhance.EnhanceRules.Cost(cfg, stage);
+            if (p.Gold < cost) return EnhanceResult.NotEnoughGold;
+            p.Gold -= cost;
+            p.EnhanceTries++;
+            int pct = Wizard.Solo.Meta.Enhance.EnhanceRules.SuccessPct(cfg, stage, p.Auras[i], 0);
+            int succ = Wizard.Solo.Meta.Enhance.EnhanceRules.SuccessBp(pct);
+            var band = Wizard.Solo.Meta.Enhance.EnhanceRules.Judge(rollBp, succ,
+                Wizard.Solo.Meta.Enhance.EnhanceRules.GreatBp(cfg, stage, pct), Wizard.Solo.Meta.Enhance.EnhanceRules.MutationEndBp(cfg, pct));
+            switch (band)
+            {
+                case Wizard.Solo.Meta.Enhance.JudgeBand.GreatSuccess:
+                    p.WandStages[i] = Wizard.Solo.Meta.Enhance.EnhanceRules.StageAfterGreat(cfg, stage);
+                    p.Auras[i] = 0;
+                    outcome = Wizard.Solo.Meta.EnhanceOutcome.GreatSuccess;
+                    break;
+                case Wizard.Solo.Meta.Enhance.JudgeBand.Success:
+                case Wizard.Solo.Meta.Enhance.JudgeBand.Mutation:
+                    p.WandStages[i] = Wizard.Solo.Meta.Enhance.EnhanceRules.StageAfterSuccess(cfg, stage);
+                    p.Auras[i] = 0;
+                    outcome = Wizard.Solo.Meta.EnhanceOutcome.Success;
+                    break;
+                default:
+                    var fb = Wizard.Solo.Meta.Enhance.EnhanceRules.ResolveFail(cfg, stage, p.PeakStages[i], p.Auras[i], false);
+                    p.WandStages[i] = fb.StageAfter;
+                    p.Auras[i] = fb.AuraAfter;
+                    outcome = fb.Outcome;
+                    break;
+            }
+            if (p.WandStages[i] > p.PeakStages[i]) p.PeakStages[i] = p.WandStages[i];
+            Save();
+            return EnhanceResult.Ok;
+        }
 
         static string Hash(string secret, byte[] salt)
         {

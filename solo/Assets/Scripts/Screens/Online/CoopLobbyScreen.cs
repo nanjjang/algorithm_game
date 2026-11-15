@@ -23,7 +23,7 @@ namespace Wizard.Solo.Screens.Online
         UiButton _modeCoop, _modeDuel, _plaza, _createOnline, _createLocal, _join, _addBot, _removeBot, _start, _leave;
         UInputField _codeInput, _nameInput;
         UiLabel _account;
-        UiButton _register;
+        UiButton _register, _profile;
 
         public override ScreenId Id => ScreenId.CoopLobby;
         protected override bool HasFrame => false;
@@ -44,7 +44,8 @@ namespace Wizard.Solo.Screens.Online
 
             // 계정 줄: 계정이 있으면 이름·레이팅·전적·골드, 없으면 이름 칸 + [이름 정하기].
             float regW = 200f;
-            _account = UiKit.Label(Ctx, board, string.Empty, UiFontId.F16, Pad, y, inner, BtnH, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
+            _account = UiKit.Label(Ctx, board, string.Empty, UiFontId.F12, Pad, y, inner - regW - Gap, BtnH, UiTheme.SlateBlue, TextAnchor.MiddleLeft);
+            _profile = UiKit.Button(Ctx, board, T(OnlineKeys.ProfileButton), BoardW - Pad - regW, y, regW, BtnH, OnProfile, UiButtonStyle.Medium, Focus);
             _nameInput = BuildInput(board, Pad, y, inner - regW - Gap, BtnH, OnlineKeys.AccountNameHint, Wizard.Solo.Net.AccountStore.NameMax);
             _register = UiKit.Button(Ctx, board, T(OnlineKeys.AccountCreate), BoardW - Pad - regW, y, regW, BtnH, OnRegister, UiButtonStyle.Medium, Focus);
             y += BtnH + Gap;
@@ -140,6 +141,8 @@ namespace Wizard.Solo.Screens.Online
             _nameInput.gameObject.SetActive(!hasAccount);
             _register.gameObject.SetActive(!hasAccount);
             _account.gameObject.SetActive(hasAccount);
+            _profile.gameObject.SetActive(hasAccount);
+            _profile.Enabled = !room;
             if (hasAccount)
             {
                 var pr = _model.Profile;
@@ -185,6 +188,7 @@ namespace Wizard.Solo.Screens.Online
         }
 
         void SelectMode(RoomMode m) { _model.SelectedMode = m; _model.ResultDuelWinner = -2; _model.ResultWave = -1; Refresh(); }
+        void OnProfile() { Screens?.Push(ScreenId.OnlineProfile, ScreenArgs.From(ScreenId.CoopLobby)); }
         void OnRegister() { _model.RegisterAccount(_nameInput.text); Refresh(); }
         void OnCreateOnline() { _model.CreateOnline(); Refresh(); }
         void OnCreateLocal() { _model.CreateRoom(); Refresh(); }

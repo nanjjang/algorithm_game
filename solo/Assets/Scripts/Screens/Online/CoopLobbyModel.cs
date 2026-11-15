@@ -90,13 +90,13 @@ namespace Wizard.Solo.Screens.Online
             }
         }
 
+        /// <summary>온라인 출발 설정: 오프라인 프로필의 지팡이를 쓰지 않는다(11-online.md 6.8절). 서버가 서버 프로필의 단계로 다시 만든다.
+        /// 기본 공격 유형만 오프라인에서 고른 것을 읽는다(쓰지 않는다).</summary>
         RunConfig MemberConfig(int character)
         {
             var p = _ctx != null ? _ctx.Profile : null;
-            if (_ctx == null || _ctx.Wands == null || p == null || p.Characters == null || character < 1 || character > p.Characters.Count) return null;
-            var r = _ctx.Wands.BuildRunConfig(character, p.Characters[character - 1].EquippedWandId, 1, 1UL);
-            if (!r.Ok || r.Value == null) { ErrorKey = OnlineKeys.ErrorWand; return null; }
-            return r.Value;
+            var rec = p != null ? p.Character(character) : null;
+            return OnlineMember.Build(_ctx != null ? _ctx.Content : null, character, 0, rec != null ? rec.AttackStyle : null);
         }
 
         /// <summary>온라인 서버에 방을 만든다(코드가 나온다).</summary>
@@ -342,6 +342,17 @@ namespace Wizard.Solo.Screens.Online
         public const string PlazaCount = "str.plaza.count";
         public const string DoorCoop = "str.plaza.door.coop";
         public const string AccountLine = "str.online.account_line";
+        public const string ProfileButton = "str.online.profile_button";
+        public const string ProfileTitle = "str.online.profile.title";
+        public const string ProfileWandLine = "str.online.profile.wand_line";
+        public const string ProfileEnhance = "str.online.profile.enhance";
+        public const string ProfileTop = "str.online.profile.top";
+        public const string ProfileTopLine = "str.online.profile.top_line";
+        public const string ProfileGuest = "str.online.profile.guest";
+        public const string ProfileNote = "str.online.profile.note";
+        public const string EnhanceGold = "str.online.enhance.gold";
+        public const string EnhanceMax = "str.online.enhance.max";
+        public const string Outcome = "str.online.enhance.outcome.";
         public const string AccountGuest = "str.online.account_guest";
         public const string AccountCreate = "str.online.account_create";
         public const string AccountNameHint = "str.online.account_name_hint";

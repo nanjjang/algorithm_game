@@ -21,7 +21,9 @@ namespace Wizard.Solo.UI
         /// <summary>협동 방(11-online.md): 방 만들기·동료 목록·시작, 판이 끝나면 결과.</summary>
         CoopLobby,
         /// <summary>광장(좀비고식): 걸어 다니며 말풍선으로 이야기하고, 여기서 방을 만들거나 코드로 들어간다.</summary>
-        Plaza
+        Plaza,
+        /// <summary>내 온라인 기록: 서버 프로필, 서버 지팡이 강화, 결투 순위표.</summary>
+        OnlineProfile
     }
 
     public enum ScreenLayer { Fullscreen = 0, Panel = 1, HudOverlay = 2, Modal = 3, Toast = 4 }

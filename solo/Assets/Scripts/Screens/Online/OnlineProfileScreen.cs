@@ -103,7 +103,8 @@ namespace Wizard.Solo.Screens.Online
             else
             {
                 var top = _svc.Leaderboard();
-                for (int i = 0; i < _topLines.Count; i++)
+                if (top != null && top.Count == 0 && _topLines.Count > 0) { _topLines[0].SetText(T(OnlineKeys.TopEmpty)); top = null; }
+                for (int i = (top == null ? 1 : 0); i < _topLines.Count; i++)
                 {
                     var p = top != null && i < top.Count ? top[i] : null;
                     _topLines[i].SetText(p == null ? string.Empty

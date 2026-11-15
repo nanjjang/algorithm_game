@@ -344,10 +344,12 @@ namespace Wizard.Solo.Screens.Online
             var v = new AvatarView { Root = root };
             UiKit.Rect(root, AvatarPx * 0.25f, AvatarPx - 10f, AvatarPx * 0.5f, 12f, UiTheme.Shadow, false, "Shadow");
             v.Body = UiKit.Image(root, null, 0f, 0f, AvatarPx, AvatarPx, UiTheme.WithAlpha(UiTheme.Chalk, 0.0f), true);
+            // 뒤집기(왼쪽 보기)를 가운데 축으로 하려고 축을 가운데로 옮기고, 자리는 그대로 둔다.
             v.Body.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+            v.Body.rectTransform.anchoredPosition = new Vector2(AvatarPx * 0.5f, -AvatarPx * 0.5f);
             v.Name = UiKit.Label(Ctx, root, a.Name, UiFontId.F12, -40f, AvatarPx, AvatarPx + 80f, 20f,
                 a.Id == _client.MyId ? UiTheme.SelectYellow : UiTheme.Chalk, TextAnchor.MiddleCenter, outline: true);
-            var bubble = UiKit.Panel(Ctx, root, UiPanelKind.Board, -80f, -52f, AvatarPx + 160f, 46f).rectTransform;
+            var bubble = UiKit.Rect(root, -80f, -52f, AvatarPx + 160f, 46f, UiTheme.Paper, false, "Bubble").rectTransform;
             v.BubbleRoot = bubble;
             v.Bubble = UiKit.Label(Ctx, bubble, string.Empty, UiFontId.F12, 8f, 4f, AvatarPx + 144f, 38f, UiTheme.PaperText, TextAnchor.MiddleCenter, wrap: true);
             v.Emote = UiKit.Label(Ctx, root, string.Empty, UiFontId.F24, AvatarPx - 20f, -8f, 48f, 32f, UiTheme.SelectYellow, TextAnchor.MiddleCenter, outline: true);

@@ -356,6 +356,9 @@ namespace Wizard.Solo.Screens.Online
         public const string AssemblyButton = "str.online.assembly.button";
         public const string MutationRemoveHead = "str.online.mutation.remove_head";
         public const string MarketButton = "str.online.market.button";
+        public const string MarketEmpty = "str.online.market.empty";
+        public const string TopEmpty = "str.online.profile.top_empty";
+        public const string MenuServerLine = "str.online.menu_server_line";
         public const string MarketHead = "str.online.market.head";
         public const string MarketBuyHead = "str.online.market.buy_head";
         public const string MarketSellHead = "str.online.market.sell_head";

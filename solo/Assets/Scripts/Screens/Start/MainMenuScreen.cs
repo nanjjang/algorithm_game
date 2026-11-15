@@ -198,8 +198,8 @@ namespace Wizard.Solo.Screens.Start
             var names = new List<string>();
             for (int i = 0; i < MainMenuModel.ServerOnlyKeys.Length; i++) names.Add(T(MainMenuModel.ServerOnlyKeys[i]));
             float h16 = UiTheme.LineHeight(UiFontId.F16);
-            var l = UiKit.Label(Ctx, r, F(MainMenuModel.ServerLineKey, "names", string.Join(T(MainMenuModel.ServerLineSepKey), names),
-                    "note", T(StartNameKeys.MainMenuServerOnly)), UiFontId.F16, RowInset, (h - h16) * 0.5f, w - RowInset, h16, UiTheme.SlateBlue);
+            // 결투·광장·친구·장터·순위표는 [온라인]에 생겼다(11-online.md). 아직 없는 것만 "준비 중"으로 알린다.
+            var l = UiKit.Label(Ctx, r, T(Wizard.Solo.Screens.Online.OnlineKeys.MenuServerLine), UiFontId.F16, RowInset, (h - h16) * 0.5f, w - RowInset, h16, UiTheme.SlateBlue);
             _buttons[MainMenuAction.ServerOnly] = b;
         }
         void BuildBackdrop()

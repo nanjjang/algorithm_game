@@ -150,8 +150,11 @@ namespace Wizard.Solo.Screens.Online
                     ? F(OnlineKeys.AccountLine, "name", pr.Name, "rating", pr.Rating, "w", pr.DuelWins, "l", pr.DuelLosses, "gold", N(pr.Gold), "wave", pr.CoopBestWave)
                     : _model.Account.Name);
             }
-            _modeCoop.Enabled = !room && _model.SelectedMode != RoomMode.Coop;
-            _modeDuel.Enabled = !room && _model.SelectedMode != RoomMode.Duel;
+            // 고른 모드는 꺼진 단추가 아니라 "▶" 표시로 보인다.
+            _modeCoop.Enabled = !room;
+            _modeDuel.Enabled = !room;
+            _modeCoop.SetText((_model.Mode == RoomMode.Coop ? "▶ " : string.Empty) + T(OnlineKeys.ModeCoop));
+            _modeDuel.SetText((_model.Mode == RoomMode.Duel ? "▶ " : string.Empty) + T(OnlineKeys.ModeDuel));
             _plaza.Enabled = !room;
             _createOnline.Enabled = !room;
             _createLocal.Enabled = !room;

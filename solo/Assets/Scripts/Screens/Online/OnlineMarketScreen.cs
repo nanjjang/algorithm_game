@@ -19,7 +19,7 @@ namespace Wizard.Solo.Screens.Online
         const int BuyRows = 16, MineRows = 6, InvChips = 12;
 
         OnlineService _svc;
-        UiLabel _head, _status, _sellPick;
+        UiLabel _head, _status, _sellPick, _empty;
         readonly List<UiButton> _buyRows = new List<UiButton>();
         readonly List<MarketListing> _listings = new List<MarketListing>();
         readonly List<UiButton> _mineRows = new List<UiButton>();
@@ -54,6 +54,7 @@ namespace Wizard.Solo.Screens.Online
             _head = UiKit.Label(Ctx, board, string.Empty, UiFontId.F24, Pad, Pad, BoardW - 2f * Pad, 40f, UiTheme.SelectYellow, TextAnchor.MiddleCenter);
             float top = Pad + 52f, half = (BoardW - 3f * Pad) / 2f;
             UiKit.Label(Ctx, board, T(OnlineKeys.MarketBuyHead), UiFontId.F16, Pad, top, half, 28f, UiTheme.Chalk);
+            _empty = UiKit.Label(Ctx, board, T(OnlineKeys.MarketEmpty), UiFontId.F16, Pad, top + 40f, half, 32f, UiTheme.SlateBlue);
             for (int i = 0; i < BuyRows; i++)
             {
                 int k = i;
@@ -136,6 +137,7 @@ namespace Wizard.Solo.Screens.Online
         {
             var p = _svc != null ? _svc.Profile : null;
             _head.SetText(p != null ? F(OnlineKeys.MarketHead, "gold", N(p.Gold), "n", _mine.Count, "max", AccountStore.MaxListings) : T(OnlineKeys.ProfileGuest));
+            _empty.gameObject.SetActive(_listings.Count == 0);
             for (int i = 0; i < _buyRows.Count; i++)
             {
                 bool on = i < _listings.Count;

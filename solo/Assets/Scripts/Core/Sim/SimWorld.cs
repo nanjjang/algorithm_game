@@ -137,6 +137,10 @@ namespace Wizard.Solo.Sim
         public PlayerState Player(int slot) => Players[slot];
         /// <summary>솔로 편의: 슬롯 0. 규칙 코드는 이것 대신 Players를 돈다.</summary>
         public PlayerState P0 => Players[0];
+        /// <summary>표시 전용: 이 화면이 "나"로 그리는 슬롯(솔로 = 0, 온라인 손님 = 서버가 준 슬롯). 시뮬 규칙은 읽지 않는다.</summary>
+        public int ViewSlot;
+        /// <summary>표시 전용: HUD·소리·힌트가 보는 내 캐릭터(Players[ViewSlot]).</summary>
+        public PlayerState Me => Players[ViewSlot >= 0 && ViewSlot < Players.Length ? ViewSlot : 0];
         public long NowU => SimConst.TickStartU(Tick);
 
         /// <summary>전투가 도는 상태인가(적 AI·피해 판정).</summary>

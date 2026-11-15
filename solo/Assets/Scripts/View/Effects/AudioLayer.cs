@@ -60,7 +60,7 @@ namespace Wizard.Solo.View.Effects
         void UpdateSoundContext(SimWorld w)
         {
             if (_sound == null || w == null) return;
-            var p = w.P0;
+            var p = w.Me;
             if (p == null) return;
             _sound.SetSoundContext(p.CharId, p.Wand != null ? p.Wand.EffectiveStage : 0);
         }

@@ -35,6 +35,12 @@ namespace Wizard.Solo.App
         static void AutoBoot()
         {
             if (SceneManager.GetActiveScene().name != MainSceneName) return;
+            // 전용 협동 서버(11-online.md 3단계): 화면·프로필 없이 서버만 세운다.
+            if (!Application.isEditor && Wizard.Solo.Net.DedicatedServer.RequestedByCommandLine())
+            {
+                Wizard.Solo.Net.DedicatedServer.Launch(Wizard.Solo.Net.DedicatedServer.PortFromCommandLine(Wizard.Solo.Screens.Online.CoopLobbyModel.DefaultPort));
+                return;
+            }
             Boot(new BootOptions { BuildVersion = Application.version });
         }
 

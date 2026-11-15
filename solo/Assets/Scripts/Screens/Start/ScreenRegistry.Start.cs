@@ -12,6 +12,7 @@ namespace Wizard.Solo.UI
             m.Register(ScreenId.ProfileSelect, () => new ProfileSelectScreen());
             m.Register(ScreenId.OfflineGuide, () => new OfflineGuideScreen());
             m.Register(ScreenId.MainMenu, () => new MainMenuScreen());
+            m.Register(ScreenId.CoopLobby, () => new Wizard.Solo.Screens.Online.CoopLobbyScreen());
         }
     }
 }

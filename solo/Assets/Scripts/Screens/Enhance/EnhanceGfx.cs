@@ -6,21 +6,19 @@ using UImage = UnityEngine.UI.Image;
 namespace Wizard.Solo.Screens.Enhance
 {
     /// <summary>
-    /// 강화 화면 전용 코드 생성 도형(부드러운 원, 고리, 빛줄기, 빛기둥, 가장자리 그늘, 둥근 판, 유리 조각).
+    /// 강화 화면 전용 코드 생성 도형(부드러운 원, 고리, 빛기둥, 가장자리 그늘, 둥근 판, 유리 조각).
     /// 그림 원본이 아니라 빛·판을 흉내 내는 수학 텍스처다(새 그림을 그리지 않는다 — solo/CLAUDE.md).
     /// 텍스처는 한 번 만들어 둔다. HideAndDontSave라 장면 정리(UnloadUnusedAssets)에 내려가지 않고, 내려갔으면 다시 만든다.
     /// 가산 합성(빛 번짐 흉내)은 그림 창고의 Solo/SpriteAdditive 머티리얼을 UI 그림에 씌운다(Shader.Find 금지 — Services.cs).
     /// </summary>
     public static class EnhanceGfx
     {
-        static Sprite _softDot, _glow, _ring, _ringThin, _rays12, _rays24, _beam, _vignette, _round, _roundBorder, _shard, _sparkle, _sheen;
+        static Sprite _softDot, _glow, _ring, _ringThin, _beam, _vignette, _round, _roundBorder, _shard, _sparkle, _sheen;
 
         public static Sprite SoftDot => Get(ref _softDot, () => Radial(64, r => Smooth(1f - r) * Smooth(1f - r)));
         public static Sprite Glow => Get(ref _glow, () => Radial(256, r => Mathf.Pow(Mathf.Clamp01(1f - r), 2.2f)));
         public static Sprite Ring => Get(ref _ring, () => Radial(256, r => Band(r, 0.86f, 0.06f)));
         public static Sprite RingThin => Get(ref _ringThin, () => Radial(256, r => Band(r, 0.93f, 0.025f)));
-        public static Sprite Rays12 => Get(ref _rays12, () => Rays(512, 12, 18f));
-        public static Sprite Rays24 => Get(ref _rays24, () => Rays(512, 24, 40f));
         public static Sprite Beam => Get(ref _beam, MakeBeam);
         public static Sprite Vignette => Get(ref _vignette, () => Radial(256, r => Mathf.Pow(Mathf.Clamp01((r - 0.45f) / 0.75f), 1.6f)));
         public static Sprite Round => Get(ref _round, () => RoundRect(64, 14, false));
@@ -136,28 +134,6 @@ namespace Wizard.Solo.Screens.Enhance
                 {
                     float dx = (x - c) / c, dy = (y - c) / c;
                     px[y * size + x] = White(alpha(Mathf.Sqrt(dx * dx + dy * dy)));
-                }
-            return ToSprite(t, px);
-        }
-
-        /// <summary>방사형 빛줄기 count개(가운데가 밝고 바깥으로 사라진다).</summary>
-        static Sprite Rays(int size, int count, float sharp)
-        {
-            var t = NewTex(size, size);
-            var px = new Color32[size * size];
-            float c = (size - 1) * 0.5f;
-            for (int y = 0; y < size; y++)
-                for (int x = 0; x < size; x++)
-                {
-                    float dx = (x - c) / c, dy = (y - c) / c;
-                    float r = Mathf.Sqrt(dx * dx + dy * dy);
-                    float th = Mathf.Atan2(dy, dx);
-                    // 줄기마다 굵기가 조금씩 다르게(같은 각도 함수라 결정적).
-                    float wob = 0.75f + 0.25f * Mathf.Sin(th * 3f + 1.3f);
-                    float ray = Mathf.Pow(Mathf.Max(0f, Mathf.Cos(th * count * 0.5f)), sharp * wob);
-                    float fade = Mathf.Pow(Mathf.Clamp01(1f - r), 1.4f) * Smooth(r * 6f);
-                    float core = Mathf.Pow(Mathf.Clamp01(1f - r * 3f), 2f);
-                    px[y * size + x] = White(ray * fade + core * 0.6f);
                 }
             return ToSprite(t, px);
         }

@@ -13,6 +13,8 @@ namespace Wizard.Solo.View.Hud
     /// </summary>
     public sealed class HudTopPanel
     {
+        /// <summary>경과 시간 앞 시계 아이콘 크기(24px 글에 맞춤).</summary>
+        const float ClockPx = 22f;
         readonly HudArt _art;
         readonly HudTuning _tuning;
         readonly RectTransform _root;
@@ -79,9 +81,12 @@ namespace Wizard.Solo.View.Hud
             }
             StretchFull(_bannerShadow.rectTransform, HudOverlayLayout.ShadowPx);
             StretchFull(_bannerBody.rectTransform, 0f);
-            // 양 끝 놋쇠 장식(마름모 + 짧은 줄)
-            Ornament(_banner, true);
-            Ornament(_banner, false);
+            // 테 있는 판 대신 가벼운 먹색 번짐만: 날·웨이브 글 + 가는 진행 줄이 전장 위에 떠 있게 한다.
+            _bannerShadow.enabled = false;
+            _bannerBody.sprite = UiBackdrop.RadialSoft;
+            _bannerBody.type = UImage.Type.Simple;
+            _bannerBody.color = UiTheme.WithAlpha(UiTheme.Ink, 0.5f);
+            _bannerBody.raycastTarget = false;
 
             // 날과 웨이브
             _dayWave = UiKit.Node(_banner, "DayWave", 40, HudOverlayLayout.BannerTextY, W - 80, HudOverlayLayout.BannerTextH);
@@ -103,11 +108,12 @@ namespace Wizard.Solo.View.Hud
 
             // 아랫줄: 경과 시간(가운데), 허상까지 n웨이브(오른쪽)
             var clockSp = UiCommonArt.Get(art.Library, UiCommonArt.IconClock);
-            _clock = HudArt.Image(_banner, "Clock", 0, 0, 16, 16, clockSp, UiTheme.SlateBlue);
+            _clock = HudArt.Image(_banner, "Clock", 0, 0, ClockPx, ClockPx, clockSp, UiTheme.SlateBlue);
             HudArt.SetActive(_clock, false);
-            _elapsed = new HudText(UiKit.Label(ctx, _banner, "", UiFontId.F12, (W - 160) * 0.5f, HudOverlayLayout.BannerSubY, 160, HudOverlayLayout.BannerSubH,
-                UiTheme.SlateBlue, TextAnchor.MiddleCenter, false, true));
-            _revenge = new HudText(UiKit.Label(ctx, _banner, "", UiFontId.F12, W - 40 - 200, HudOverlayLayout.BannerSubY, 200, HudOverlayLayout.BannerSubH,
+            _elapsed = new HudText(UiKit.Label(ctx, _banner, "", UiFontId.F24, (W - 160) * 0.5f, HudOverlayLayout.BannerSubY, 160, HudOverlayLayout.BannerSubH,
+                UiTheme.Chalk, TextAnchor.MiddleCenter, false, true));
+            UiKit.DropShadow(_elapsed.Label, 2f);
+            _revenge = new HudText(UiKit.Label(ctx, _banner, "", UiFontId.F16, W - 40 - 200, HudOverlayLayout.BannerSubY, 200, HudOverlayLayout.BannerSubH,
                 UiTheme.Paper, TextAnchor.MiddleRight, false, true));
 
             // 훈수 한 줄(띠 아래 알약 판). 폭은 보충 수치(master_advice_rect)의 폭을 쓴다.
@@ -216,9 +222,9 @@ namespace Wizard.Solo.View.Hud
                 HudArt.SetActive(_clock, hasClock);
                 if (hasClock)
                 {
-                    float tw = UiTextFit.WidthPx(_elapsed.Current, (int)UiFontId.F12);
-                    float cx = bossLayout ? ex + 120f - tw - 20f : W * 0.5f - tw * 0.5f - 20f;
-                    UiKit.Place(_clock.rectTransform, cx, ey, 16f, 16f);
+                    float tw = UiTextFit.WidthPx(_elapsed.Current, (int)UiFontId.F24);
+                    float cx = bossLayout ? ex + 120f - tw - ClockPx - 6f : W * 0.5f - tw * 0.5f - ClockPx - 6f;
+                    UiKit.Place(_clock.rectTransform, cx, ey + (HudOverlayLayout.BannerSubH - ClockPx) * 0.5f, ClockPx, ClockPx);
                 }
             }
 

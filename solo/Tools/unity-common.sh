@@ -46,7 +46,7 @@ unity_test_summary() {
     echo "unity-test: 결과 파일이 없다: $xml (테스트가 돌지 않았다 — 로그의 컴파일 오류를 본다)" >&2
     return 3
   fi
-  python - "$xml" <<'PY'
+  "$(command -v python3 || command -v python)" - "$xml" <<'PY'
 import sys, xml.etree.ElementTree as ET
 p = sys.argv[1]
 try:

@@ -99,7 +99,7 @@ namespace Wizard.Solo.View.World
                 case SimEventType.ArtFired:
                     _artTime = now;
                     var p = w != null ? w.Players[Slot] : null;
-                    _artSignature = p != null && p.Def != null && e.Id == p.Def.UniqueArt;
+                    _artSignature = p != null && p.Def != null && (e.Id == p.Def.UniqueArt || (e.Id != null && e.Id.StartsWith("final.", System.StringComparison.Ordinal)));
                     break;
                 case SimEventType.PlayerHit: _hitTime = now; break;
                 case SimEventType.PlayerDowned: _downTime = now; _riseTime = Never; break;

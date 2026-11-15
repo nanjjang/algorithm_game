@@ -22,19 +22,27 @@ namespace Wizard.Solo.Screens.Settlement
     /// </summary>
     public sealed partial class SettlementScreen : ScreenBase
     {
-        // 자리(08 요약서 9.1~9.3절의 화면 좌표 − 위 띠 80px = Content 좌표)
+        // 자리: UiLayout 12열 격자(Content 좌표 = 화면 좌표 − 위 띠 80). 왼쪽 0~5열 = 돌아보기·가방 후보, 오른쪽 6~11열 = 점수·가방.
+        //   주 버튼(다음·다시 원정)은 UiLayout.PrimaryRect, 보조 버튼은 그 왼쪽 같은 줄.
         const float Top = TopBarHeight;
-        const float RecordX = 360f, RecordY = 120f - Top, RecordW = 1200f, RecordH = 72f;
-        const float ArtX = 160f, ArtY = 240f - Top, ArtSize = 384f, WandSize = 192f;
-        const float ScoreX = 720f, ScoreY = 240f - Top, ScoreW = 1040f, ScoreH = 480f;
-        const float TrackerX = 720f, TrackerY = 736f - Top, TrackerW = 1040f, TrackerH = 96f;
-        const float WildX = 160f, WildY = 200f - Top, WildW = 720f, WildH = 560f;
-        const float BagX = 1000f, BagY = 200f - Top, BagW = 760f, BagH = 360f;
-        const float LeftX = 1000f, LeftY = 580f - Top, LeftW = 760f, LeftH = 180f;
-        const float TakeX = 360f, TakeY = 120f - Top, TakeW = 1200f, TakeH = 680f;
-        const float ButtonsX = 360f, ButtonsY = 936f - Top, ButtonsW = 1200f, ButtonH = 64f, ButtonGap = 24f;
-        const float Pad = 16f, RowGap = 8f;
-        const float CellW = 164f, CellH = 120f, CellGap = 8f, SlotSize = 80f, SlotGap = 8f;
+        static readonly float LX = UiLayout.ColX(0), HalfW = UiLayout.ColW(6), RX = UiLayout.ColX(6);
+        /// <summary>머리(큰 제목 F48 + 시작 웨이브 F24) 밑에서 판들이 시작한다.</summary>
+        const float RecordY = 24f, RecordH = 56f, BodyY = 128f;
+        static readonly float RecordX = LX, RecordW = UiLayout.InnerW;
+        static readonly float ArtX = LX, ArtY = BodyY;
+        const float ArtSize = 384f, WandSize = 192f;
+        static readonly float ScoreX = RX, ScoreW = HalfW;
+        const float ScoreY = BodyY, ScoreH = 480f;
+        static readonly float TrackerX = RX, TrackerW = HalfW;
+        const float TrackerH = 96f;
+        static readonly float WildX = LX, WildW = HalfW, BagX = RX, BagW = HalfW, LeftX = RX, LeftW = HalfW;
+        const float WildY = 24f, WildH = 640f, BagY = 24f, BagH = 360f, LeftH = 176f;
+        static readonly float TakeX = UiLayout.ColX(2), TakeW = UiLayout.ColW(8);
+        const float TakeY = 24f, TakeH = 680f;
+        static readonly float ButtonsY = UiLayout.SecondaryYBesidePrimary(Top);
+        const float ButtonH = UiLayout.SecondaryH, SecondaryW = 320f;
+        const float Pad = UiLayout.SurfacePad, RowGap = 8f;
+        const float CellW = 200f, CellH = 128f, CellGap = 8f, SlotSize = 80f, SlotGap = 8f;
         const int WildColumns = 4;
         const float PageLabelW = 200f;
         /// <summary>점수 줄이 차례로 나오는 간격(연출, 초).</summary>
@@ -47,10 +55,13 @@ namespace Wizard.Solo.Screens.Settlement
 
         readonly RectTransform[] _pages = new RectTransform[3];
         readonly UiLabel[] _pageLabels = new UiLabel[3];
+        UiButton _recordDetails;
+        bool _showRecordDetails;
+
         readonly List<UiWidget>[] _pageWidgets = { new List<UiWidget>(), new List<UiWidget>(), new List<UiWidget>() };
 
         // 1쪽
-        UiLabel _recordLine, _startLine, _nameLine, _bestLine;
+        UiLabel _recordLine, _startLine, _nameLine;
         UImage _charImage, _wandImage;
         RectTransform _scoreBox, _trackerBox;
         readonly List<GameObject> _scoreRowObjects = new List<GameObject>();
@@ -111,20 +122,19 @@ namespace Wizard.Solo.Screens.Settlement
 
         void BuildRecord(RectTransform page)
         {
-            UiBackdrop.Glow(page, RecordX + RecordW * 0.2f, RecordY - RecordH * 0.6f, RecordW * 0.6f, RecordH * 2.2f, UiTheme.WithAlpha(UiTheme.Brass, 0.18f));
-            _recordLine = UiKit.Label(Ctx, page, string.Empty, UiFontId.F48, RecordX, RecordY, RecordW, RecordH, UiTheme.Chalk, TextAnchor.MiddleCenter);
+            // 머리: 큰 제목(F48) + 시작 웨이브 한 줄(F24 회청). 왼쪽 끝 정렬(격자 0열).
+            _recordLine = UiKit.Label(Ctx, page, string.Empty, UiFontId.F48, RecordX, RecordY, RecordW, RecordH, UiTheme.Chalk, TextAnchor.MiddleLeft);
             UiKit.DropShadow(_recordLine, 3f);
-            UiKit.AccentRule(page, RecordX + RecordW * 0.3f, RecordY + RecordH - 4f, RecordW * 0.4f);
             float slh = UiTheme.LineHeight(UiFontId.F24);
             _startLine = UiKit.Label(Ctx, page, string.Empty, UiFontId.F24, RecordX, RecordY + RecordH, RecordW, slh, UiTheme.SlateBlue,
-                TextAnchor.MiddleCenter);
+                TextAnchor.MiddleLeft);
 
             // 쓰러진 캐릭터 받침 + 캐릭터 큰 그림 + 지팡이(판 끝 요약이 있으면 그 칸이 대신 선다 — SettlementScreen.Recap.cs).
-            _artObjects.Add(UiKit.Panel(Ctx, page, UiPanelKind.Recess, ArtX, ArtY, ArtSize, ArtSize).gameObject);
+            _artObjects.Add(UiLayout.Surface(Ctx, page, ArtX, ArtY, ArtSize, ArtSize, 0).gameObject);
             _charImage = UiKit.Image(page, null, ArtX, ArtY, ArtSize, ArtSize, Color.white);
             _artObjects.Add(_charImage.gameObject);
             float wy = ArtY + ArtSize + RowGap;
-            _artObjects.Add(UiKit.Panel(Ctx, page, UiPanelKind.Recess, ArtX + (ArtSize - WandSize) * 0.5f, wy, WandSize, WandSize).gameObject);
+            _artObjects.Add(UiLayout.Surface(Ctx, page, ArtX + (ArtSize - WandSize) * 0.5f, wy, WandSize, WandSize, 0).gameObject);
             _wandImage = UiKit.Image(page, null, ArtX + (ArtSize - WandSize) * 0.5f, wy, WandSize, WandSize, Color.white);
             _artObjects.Add(_wandImage.gameObject);
             _nameLine = UiKit.Label(Ctx, page, string.Empty, UiFontId.F24, ArtX, wy + WandSize + RowGap, ArtSize, slh, UiTheme.Chalk,
@@ -132,72 +142,90 @@ namespace Wizard.Solo.Screens.Settlement
             _artObjects.Add(_nameLine.gameObject);
             BuildRecapBox(page);
 
-            _scoreBox = UiKit.OrnatePanel(Ctx, page, ScoreX, ScoreY, ScoreW, ScoreH, 1).rectTransform;
-            _scoreBox.name = "ScoreBreakdown";
-            float blh = UiTheme.LineHeight(UiFontId.F16);
-            _bestLine = UiKit.Label(Ctx, _scoreBox, string.Empty, UiFontId.F16, Pad * 2f, ScoreH - Pad - blh, ScoreW - Pad * 4f, blh, UiTheme.Gold);
+            // 점수: 구역 제목 + 이름표 ― 값 줄(내용 높이에 맞춘 면). FillRecord가 줄을 채우고 높이를 잰다.
+            _scoreBox = UiKit.Node(page, "ScoreBreakdown", ScoreX, ScoreY, ScoreW, ScoreH);
 
-            _trackerBox = UiKit.Panel(Ctx, page, UiPanelKind.Recess, TrackerX, TrackerY, TrackerW, TrackerH).rectTransform;
-            _trackerBox.name = "RevengeTracker";
+            _trackerBox = UiKit.Node(page, "RevengeTracker", TrackerX, 0f, TrackerW, TrackerH);
 
-            _recordNext = Btn(page, T(SettlementNameKeys.CommonNext), 2, () => { if (_model.Next()) ShowPage(); }, UiButtonStyle.Primary);
+            // 주 행동 하나: 늘 같은 자리(PrimaryRect).
+            _recordNext = UiLayout.PrimaryButton(Ctx, page, T(SettlementNameKeys.CommonNext), () => { if (_model.Next()) ShowPage(); }, null, Top);
             _pageWidgets[0].Add(_recordNext);
+            _recordDetails = UiLayout.SecondaryButton(Ctx, page, T("str.ui.details"), LX, ButtonsY, 184f, () =>
+            {
+                _showRecordDetails = !_showRecordDetails;
+                _recordDetails.SetText(T(_showRecordDetails ? "str.ui.hide_details" : "str.ui.details"));
+                FillRecord();
+            });
         }
 
         void BuildBag(RectTransform page)
         {
-            var wild = UiKit.Panel(Ctx, page, UiPanelKind.Board, WildX, WildY, WildW, WildH).rectTransform;
-            wild.name = "WildBlocks";
+            // 왼쪽 0~5열: 야생 블록(구역 제목 + 칸 목록). 면은 BuildWildCells가 칸 수에 맞춰 깐다.
+            _wildBox = UiKit.Node(page, "WildBlocks", WildX, WildY, WildW, WildH);
+            var wild = _wildBox;
             float tlh = UiTheme.LineHeight(UiFontId.F24);
-            UiKit.Label(Ctx, wild, T(SettlementNameKeys.BagWildTitle), UiFontId.F24, Pad, Pad * 0.5f, WildW - Pad * 2f, tlh);
-            float listY = Pad * 0.5f + tlh + RowGap;
-            _wildList = UiKit.ScrollList(Ctx, wild, Pad, listY, WildW - Pad * 2f, WildH - listY - Pad, Focus, CellGap);
-            _wildEmpty = UiKit.Label(Ctx, wild, T(SettlementNameKeys.BagEmpty), UiFontId.F16, Pad, listY, WildW - Pad * 2f, 0f, UiTheme.SlateBlue);
+            float listY = UiLayout.Section(Ctx, wild, Pad, Pad, WildW - Pad * 2f, T(SettlementNameKeys.BagWildTitle));
+            _wildList = UiKit.ScrollList(Ctx, wild, Pad, listY, WildW - Pad, WildH - listY - Pad, Focus, CellGap);
+            _wildEmpty = UiKit.Label(Ctx, wild, T(SettlementNameKeys.BagEmpty), UiFontId.F24, Pad, listY, WildW - Pad * 2f, tlh, UiTheme.SlateBlue);
 
-            _bagBox = UiKit.Panel(Ctx, page, UiPanelKind.Board, BagX, BagY, BagW, BagH).rectTransform;
-            _bagBox.name = "ReturnBag";
-            UiKit.Label(Ctx, _bagBox, T(SettlementNameKeys.BagTitle), UiFontId.F24, Pad, Pad * 0.5f, BagW * 0.4f, tlh);
-            _bagCounter = UiKit.Label(Ctx, _bagBox, string.Empty, UiFontId.F24, BagW * 0.4f, Pad * 0.5f, BagW * 0.3f - Pad, tlh, UiTheme.Chalk,
-                TextAnchor.MiddleRight);
-            _heroCounter = UiKit.Label(Ctx, _bagBox, string.Empty, UiFontId.F16, BagW * 0.7f, Pad * 0.5f, BagW * 0.3f - Pad, tlh, UiTheme.Gold,
+            // 오른쪽 6~11열: 가방(제목 + 칸 수 + 영웅 한도, 칸 줄, 안내), 그 밑 담지 못한 것.
+            _bagBox = UiKit.Node(page, "ReturnBag", BagX, BagY, BagW, BagH);
+            float by = UiLayout.Section(Ctx, _bagBox, Pad, Pad, BagW - Pad * 2f, T(SettlementNameKeys.BagTitle));
+            _bagCounter = UiKit.Label(Ctx, _bagBox, string.Empty, UiFontId.F24, Pad, by, BagW * 0.5f - Pad, tlh, UiTheme.Chalk);
+            _heroCounter = UiKit.Label(Ctx, _bagBox, string.Empty, UiFontId.F24, BagW * 0.5f, by, BagW * 0.5f - Pad, tlh, UiTheme.Gold,
                 TextAnchor.MiddleRight);
             float nlh = UiTheme.LineHeight(UiFontId.F16);
-            _noSlots = UiKit.Label(Ctx, _bagBox, T(SettlementNameKeys.BagNoSlots), UiFontId.F16, Pad, Pad + tlh + RowGap, BagW - Pad * 2f, 0f,
+            _bagSlotsY = by + tlh + RowGap * 2f;
+            _noSlots = UiKit.Label(Ctx, _bagBox, T(SettlementNameKeys.BagNoSlots), UiFontId.F24, Pad, _bagSlotsY, BagW - Pad * 2f, tlh,
                 UiTheme.SlateBlue);
             _bagNote = UiKit.Label(Ctx, _bagBox, string.Empty, UiFontId.F16, Pad, BagH - Pad - nlh, BagW - Pad * 2f, nlh, UiTheme.Amber);
 
-            var left = UiKit.Panel(Ctx, page, UiPanelKind.Recess, LeftX, LeftY, LeftW, LeftH).rectTransform;
-            left.name = "Leftover";
-            UiKit.Label(Ctx, left, T(SettlementNameKeys.BagLeftoverTitle), UiFontId.F24, Pad, Pad * 0.5f, LeftW - Pad * 2f, tlh);
-            float y = Pad * 0.5f + tlh + RowGap;
-            _leftGold = UiKit.Label(Ctx, left, string.Empty, UiFontId.F16, Pad, y, LeftW - Pad * 2f, nlh, UiTheme.Gold);
-            y += nlh + RowGap;
+            _leftBox = UiKit.Node(page, "Leftover", LeftX, 0f, LeftW, LeftH);
+            var left = _leftBox;
+            float y = UiLayout.Section(Ctx, left, Pad, Pad, LeftW - Pad * 2f, T(SettlementNameKeys.BagLeftoverTitle));
+            _leftGold = UiKit.Label(Ctx, left, string.Empty, UiFontId.F24, Pad, y, LeftW - Pad * 2f, tlh, UiTheme.Gold);
+            y += tlh + RowGap;
             _leftLibrary = UiKit.Label(Ctx, left, T(SettlementNameKeys.BagLibraryFull), UiFontId.F16, Pad, y, LeftW - Pad * 2f, nlh, UiTheme.Amber);
             y += nlh + RowGap;
             _leftBorrowed = UiKit.Label(Ctx, left, T(SettlementNameKeys.BagBorrowedNote), UiFontId.F16, Pad, y, LeftW - Pad * 2f, nlh,
                 UiTheme.SlateBlue);
 
-            _bagPrev = Btn(page, T(SettlementNameKeys.CommonPrev), 0, () => { if (_model.Prev()) ShowPage(); }, UiButtonStyle.Medium);
-            _bagAuto = Btn(page, T(SettlementNameKeys.BagAuto), 1, () => { _model.AutoPick(); RefreshBag(); }, UiButtonStyle.Medium, string.Empty);
-            _bagNext = Btn(page, T(SettlementNameKeys.CommonNext), 2, () => { if (_model.Next()) ShowPage(); }, UiButtonStyle.Primary);
+            _bagNext = UiLayout.PrimaryButton(Ctx, page, T(SettlementNameKeys.CommonNext), () => { if (_model.Next()) ShowPage(); }, null, Top);
+            _bagAuto = Btn(page, T(SettlementNameKeys.BagAuto), 0, () => { _model.AutoPick(); RefreshBag(); });
+            _bagPrev = Btn(page, T(SettlementNameKeys.CommonPrev), 1, () => { if (_model.Prev()) ShowPage(); });
         }
+
+        RectTransform _wildBox, _leftBox, _wildBg, _bagBg, _leftBg, _scoreBg, _trackerBg;
+        float _bagSlotsY;
 
         void BuildTakeaways(RectTransform page)
         {
-            _takeList = UiKit.ScrollList(Ctx, page, TakeX, TakeY, TakeW, TakeH, Focus, RowGap);
+            _takeList = UiKit.ScrollList(Ctx, page, TakeX, TakeY, TakeW + Pad, TakeH, Focus, RowGap);
             float hlh = UiTheme.LineHeight(UiFontId.F16);
-            _enhanceHint = UiKit.Label(Ctx, page, T(SettlementNameKeys.EnhanceHint), UiFontId.F16, ButtonsX, ButtonsY - RowGap - hlh, ButtonsW, hlh,
-                UiTheme.SelectYellow, TextAnchor.MiddleCenter);
-            _againButton = Btn(page, T(SettlementNameKeys.Again), 0, () => Go(_model.Again()), UiButtonStyle.Large);
-            _enhanceButton = Btn(page, T(SettlementNameKeys.ToEnhance), 1, () => Go(_model.ToEnhance()), UiButtonStyle.Large);
-            _menuButton = Btn(page, T(SettlementNameKeys.ToMenu), 2, () => Go(_model.ToMenu()), UiButtonStyle.Large);
+            // 주 행동 = 다시 원정(PrimaryRect). 강화·메인 메뉴는 그 왼쪽 보조 버튼. 강화 안내는 강화 버튼 바로 위.
+            _againButton = UiLayout.PrimaryButton(Ctx, page, T(SettlementNameKeys.Again), () => Go(_model.Again()), null, Top);
+            _enhanceButton = Btn(page, T(SettlementNameKeys.ToEnhance), 0, () => Go(_model.ToEnhance()));
+            _menuButton = Btn(page, T(SettlementNameKeys.ToMenu), 1, () => Go(_model.ToMenu()));
+            _enhanceHint = UiKit.Label(Ctx, page, T(SettlementNameKeys.EnhanceHint), UiFontId.F16, UiLayout.ColX(0), ButtonsY - RowGap - hlh,
+                UiLayout.PrimaryRect.x + UiLayout.PrimaryW - UiLayout.ColX(0), hlh, UiTheme.SelectYellow, TextAnchor.MiddleRight);
         }
 
-        /// <summary>아래 버튼 줄(1200×64)의 col번째 자리(셋으로 나눔).</summary>
-        UiButton Btn(RectTransform page, string text, int col, System.Action onClick, UiButtonStyle style, string pressSound = null)
+        /// <summary>주 버튼 왼쪽 같은 줄의 index번째 보조 버튼(0이 가장 가깝다).</summary>
+        UiButton Btn(RectTransform page, string text, int index, System.Action onClick)
         {
-            float w = (ButtonsW - ButtonGap * 2f) / 3f;
-            return UiKit.Button(Ctx, page, text, ButtonsX + col * (w + ButtonGap), ButtonsY, w, ButtonH, onClick, style, null, pressSound);
+            return UiLayout.SecondaryButton(Ctx, page, text, UiLayout.SecondaryXBesidePrimary(SecondaryW, index), ButtonsY, SecondaryW, onClick);
+        }
+
+        /// <summary>면을 bg 노드 안에 다시 깐다(내용 높이에 맞출 때). 반환 = 면.</summary>
+        RectTransform Backing(ref RectTransform bg, RectTransform owner, float w, float h, int level)
+        {
+            if (bg == null)
+            {
+                bg = UiKit.Node(owner, "Bg", 0f, 0f, w, h);
+                bg.SetAsFirstSibling();
+            }
+            for (int i = bg.childCount - 1; i >= 0; i--) Object.Destroy(bg.GetChild(i).gameObject);
+            return UiLayout.Surface(Ctx, bg, 0f, 0f, w, h, level);
         }
 
         // ================================================================ 열기
@@ -209,6 +237,8 @@ namespace Wizard.Solo.Screens.Settlement
             if (summary == null && Ctx != null && Ctx.Session != null) summary = Ctx.Session.LastSummary;
             _model = new SettlementModel(Ctx != null ? Ctx.Settlement : null, Ctx != null ? Ctx.Content : null,
                 () => Ctx != null ? Ctx.Profile : null, Ctx != null ? Ctx.Sound : null, EndRun);
+            _showRecordDetails = false;
+            _recordDetails.SetText(T("str.ui.details"));
             _model.Begin(summary);
             PrepareRecap(summary);
             FillRecord();
@@ -263,6 +293,7 @@ namespace Wizard.Solo.Screens.Settlement
             {
                 case SettlementPage.Record:
                     list.Add(_recordNext);
+                    list.Add(_recordDetails);
                     break;
                 case SettlementPage.ReturnBag:
                     for (int i = 0; i < _model.Candidates.Count; i++)
@@ -300,21 +331,28 @@ namespace Wizard.Solo.Screens.Settlement
             _nameLine.SetText(name);
 
             Clear(_scoreRowObjects);
-            float lh = UiTheme.LineHeight(UiFontId.F24);
-            float rowH = lh + RowGap;
-            float y = Pad;
-            for (int i = 0; i < _model.ScoreRows.Count; i++)
+            float lh = UiTheme.LineHeight(UiFontId.F32);
+            float rowH = lh + 4f;
+            float rowW = ScoreW - Pad * 2f;
+            var section = UiKit.Node(_scoreBox, "ScoreSection", Pad, Pad, rowW, UiLayout.SectionH);
+            _scoreRowObjects.Add(section.gameObject);
+            UiLayout.Section(Ctx, section, 0f, 0f, rowW, T(_showRecordDetails ? SettlementNameKeys.ScoreSection : "str.battle_hud.score"), UiFontId.F24);
+            float y = Pad + UiLayout.SectionH;
+            var scoreRows = _model.ScoreRows.FindAll(ShowScoreRow);
+            for (int i = 0; i < scoreRows.Count; i++)
             {
-                ScoreRow r = _model.ScoreRows[i];
-                if (r.Total)
+                ScoreRow r = scoreRows[i];
+                if (r.Total && i > 0)
                 {
-                    var d = UiKit.Divider(Ctx, _scoreBox, Pad * 2f, y + RowGap * 0.5f, ScoreW - Pad * 4f);
+                    var d = UiKit.Rect(_scoreBox, Pad, y + RowGap, rowW, 1f, UiTheme.WithAlpha(UiTheme.Brass, 0.5f), false, "TotalRule");
                     _scoreRowObjects.Add(d.gameObject);
-                    y += RowGap;
+                    y += RowGap * 2f;
                 }
-                Color c = r.Total ? UiTheme.Chalk : UiTheme.Paper;
-                var l = UiKit.Label(Ctx, _scoreBox, T(r.Key), UiFontId.F24, Pad * 2f, y, ScoreW * 0.5f, lh, c);
-                var v = UiKit.Label(Ctx, _scoreBox, N(r.Value), UiFontId.F24, ScoreW * 0.5f, y, ScoreW * 0.5f - Pad * 2f, lh, c, TextAnchor.MiddleRight);
+                float rh = r.Total ? UiTheme.LineHeight(UiFontId.F48) : lh;
+                UiFontId lf = r.Total ? UiFontId.F32 : UiFontId.F24;
+                var l = UiKit.Label(Ctx, _scoreBox, T(r.Key), lf, Pad, y, rowW * 0.5f, rh, r.Total ? UiTheme.Chalk : UiTheme.Paper, TextAnchor.MiddleLeft);
+                var v = UiKit.Label(Ctx, _scoreBox, N(r.Value), r.Total ? UiFontId.F48 : UiFontId.F32, Pad + rowW * 0.5f, y, rowW * 0.5f, rh,
+                    r.Total ? UiTheme.Gold : UiTheme.Chalk, TextAnchor.MiddleRight);
                 _scoreRowObjects.Add(l.gameObject);
                 _scoreRowObjects.Add(v.gameObject);
                 // 연출: 줄이 차례로 미끄러져 들어오고 숫자가 차르륵 올라간다(합계는 마지막에 툭 튄다). 글의 끝 값은 그대로다.
@@ -325,21 +363,27 @@ namespace Wizard.Solo.Screens.Settlement
                 if (r.Total) UiKit.DropShadow(v, 2f);
                 if (r.Total && _model.NewBest)
                 {
-                    float bw = ScoreW * 0.25f;
-                    var badge = UiKit.Panel(Ctx, _scoreBox, UiPanelKind.Heading, ScoreW * 0.5f - bw - Pad, y, bw, lh).rectTransform;
-                    UiKit.Label(Ctx, badge, T(SettlementNameKeys.BestRecord), UiFontId.F16, 0f, 0f, bw, lh, UiTheme.Gold, TextAnchor.MiddleCenter);
+                    // 최고 기록 알약(UiLayout.Chip, 금빛 글): 합계 이름 오른쪽.
+                    var badge = UiLayout.Chip(Ctx, _scoreBox, Pad + 96f, y + (rh - UiLayout.ChipH) * 0.5f, T(SettlementNameKeys.BestRecord), null, UiTheme.Gold);
                     _scoreRowObjects.Add(badge.gameObject);
                     UiMotion.Entrance(badge, 0.15f + i * RowRevealSeconds + UiTheme.CountUpSeconds * 1.4f, 0.3f, Vector2.zero, 1.5f);
                 }
-                y += rowH;
+                y += r.Total ? rh + RowGap : rowH;
             }
-            _bestLine.SetText(_model.NewBest ? T(SettlementNameKeys.BestLine) : string.Empty);
+            float boxH = UiLayout.Snap(y + Pad - RowGap);
+            UiKit.Place(_scoreBox, ScoreX, ScoreY, ScoreW, boxH);
+            Backing(ref _scoreBg, _scoreBox, ScoreW, boxH, 1);
 
             FillTracker(_trackerBox, TrackerW, TrackerH, _trackerObjects);
+            float below = ScoreY + boxH + 24f;
+            UiKit.Place(_trackerBox, TrackerX, below, TrackerW, TrackerH);
+            if (_trackerBox.gameObject.activeSelf) Backing(ref _trackerBg, _trackerBox, TrackerW, TrackerH, 0);
             FillRecap();
         }
 
         /// <summary>복수 추적기 큰 꼴(08 요약서 13.2절). 값은 모델의 RevengeTrackerView(= Meta.RevengeTracker.Build)만.</summary>
+        bool ShowScoreRow(ScoreRow row) => row.Total || (_showRecordDetails && row.Value != 0);
+
         void FillTracker(RectTransform box, float w, float h, List<GameObject> objects)
         {
             Clear(objects);
@@ -410,12 +454,12 @@ namespace Wizard.Solo.Screens.Settlement
                 var b = UiKit.Button(Ctx, row, null, x, 0f, CellW, CellH, () => OnCell(uid), UiButtonStyle.Plain, null, string.Empty);
                 RectTransform root = b.ContentRoot != null ? b.ContentRoot : b.Rect;
                 const int IconPx = 48;
-                UiKit.Icon(Ctx, root, e.Block.BlockId, IconPx, (CellW - IconPx) * 0.5f, Pad * 0.5f);
-                float lh = UiTheme.LineHeight(UiFontId.F12);
-                UiKit.Label(Ctx, root, T(e.Block.BlockId), UiFontId.F12, Pad * 0.5f, Pad * 0.5f + IconPx + 4f, CellW - Pad, lh, UiTheme.Chalk,
+                UiKit.Icon(Ctx, root, e.Block.BlockId, IconPx, (CellW - IconPx) * 0.5f, 8f);
+                float lh = UiTheme.LineHeight(UiFontId.F16);
+                UiKit.Label(Ctx, root, T(e.Block.BlockId), UiFontId.F16, 4f, 8f + IconPx + 4f, CellW - 8f, lh, UiTheme.Chalk,
                     TextAnchor.MiddleCenter);
                 string tag = e.Borrowed ? T(SettlementNameKeys.BlockBorrowed) : T(SettlementNameKeys.BlockGradePrefix + e.Rarity);
-                UiKit.Label(Ctx, root, tag, UiFontId.F12, Pad * 0.5f, Pad * 0.5f + IconPx + 4f + lh, CellW - Pad, lh, RarityColor(e),
+                UiKit.Label(Ctx, root, tag, UiFontId.F16, 4f, 8f + IconPx + 4f + lh, CellW - 8f, lh, RarityColor(e),
                     TextAnchor.MiddleCenter);
                 if (e.Borrowed)
                 {
@@ -424,6 +468,12 @@ namespace Wizard.Solo.Screens.Settlement
                 }
                 _cellButtons[uid] = b;
             }
+            // 면은 칸 줄 수에 맞춘다(빈 아랫부분을 남기지 않는다). 최대 WildH.
+            int rowsN = Mathf.Max(1, (n + WildColumns - 1) / WildColumns);
+            float listY = Pad + UiLayout.SectionH;
+            float h = Mathf.Min(WildH, UiLayout.Snap(listY + (n == 0 ? UiTheme.LineHeight(UiFontId.F24) : rowsN * (CellH + CellGap) - CellGap) + Pad));
+            UiKit.Place(_wildBox, WildX, WildY, WildW, h);
+            Backing(ref _wildBg, _wildBox, WildW, h, 1);
         }
 
         static Color RarityColor(BagEntry e) =>
@@ -456,8 +506,7 @@ namespace Wizard.Solo.Screens.Settlement
             // 가방 칸: 한 줄 8칸(TV-156). 고른 순서대로 채운다.
             Clear(_slotObjects);
             List<int> rows = SettlementRules.BagRows(lim.Slots);
-            float tlh = UiTheme.LineHeight(UiFontId.F24);
-            float y0 = Pad * 0.5f + tlh + RowGap * 2f;
+            float y0 = _bagSlotsY;
             int k = 0;
             for (int r = 0; r < rows.Count; r++)
                 for (int c = 0; c < rows[r]; c++, k++)
@@ -490,7 +539,20 @@ namespace Wizard.Solo.Screens.Settlement
                         _slotObjects.Add(UiKit.Rect(_bagBox, x, y, SlotSize, SlotSize, UiTheme.ModalDim).gameObject);
                 }
 
-            _bagNote.SetText(BagNoteText());
+            // 가방 면과 담지 못한 것 면을 내용 높이에 맞춘다.
+            float nlh = UiTheme.LineHeight(UiFontId.F16);
+            float slotsH = lim.Slots <= 0 ? UiTheme.LineHeight(UiFontId.F24) : rows.Count * (SlotSize + SlotGap) - SlotGap;
+            string note = BagNoteText();
+            float bagH = UiLayout.Snap(y0 + slotsH + (string.IsNullOrEmpty(note) ? 0f : RowGap * 2f + nlh) + Pad);
+            UiKit.Place(_bagBox, BagX, BagY, BagW, bagH);
+            UiKit.Place(_bagNote.Rect, Pad, bagH - Pad - nlh, BagW - Pad * 2f, nlh);
+            Backing(ref _bagBg, _bagBox, BagW, bagH, 1);
+            float leftY = BagY + bagH + 24f;
+            int extra = (_model.LibraryOverflow || _model.LibraryFullOnCommit ? 1 : 0) + (_model.HasBorrowed ? 1 : 0);
+            float leftH = UiLayout.Snap(Pad + UiLayout.SectionH + UiTheme.LineHeight(UiFontId.F24) + extra * (nlh + RowGap) + Pad);
+            UiKit.Place(_leftBox, LeftX, leftY, LeftW, leftH);
+            Backing(ref _leftBg, _leftBox, LeftW, leftH, 0);
+            _bagNote.SetText(note);
             _leftGold.SetText(F(SettlementNameKeys.BagLeftoverGold, "gold", N(_model.LeftoverGold)));
             _leftLibrary.gameObject.SetActive(_model.LibraryOverflow || _model.LibraryFullOnCommit);
             _leftBorrowed.gameObject.SetActive(_model.HasBorrowed);
@@ -527,6 +589,7 @@ namespace Wizard.Solo.Screens.Settlement
             if (r == null)
             {
                 RectTransform row = _takeList.AddRow(lh24 + Pad * 2f);
+                UiLayout.Surface(Ctx, row, 0f, 0f, TakeW, lh24 + Pad * 2f, 0);
                 UiKit.Label(Ctx, row, T(SettlementNameKeys.TakeNothing), UiFontId.F24, Pad, Pad, TakeW - Pad * 2f, lh24, UiTheme.SlateBlue);
             }
             else
@@ -569,37 +632,41 @@ namespace Wizard.Solo.Screens.Settlement
             return lines;
         }
 
+        /// <summary>가져가는 것 한 줄: 왼쪽 이름표(F16 회청) ― 오른쪽 값(F24). 들어간 면, 안쪽 여백 Pad.</summary>
         void SimpleRow(string label, string value, Color valueColor)
         {
             float lh = UiTheme.LineHeight(UiFontId.F24);
-            RectTransform row = _takeList.AddRow(lh + Pad);
-            UiKit.Panel(Ctx, row, UiPanelKind.Recess, 0f, 0f, TakeW - Pad, lh + Pad);
-            UiKit.Label(Ctx, row, label, UiFontId.F24, Pad, Pad * 0.5f, TakeW * 0.3f, lh, UiTheme.Chalk);
-            UiKit.Label(Ctx, row, value, UiFontId.F24, TakeW * 0.3f, Pad * 0.5f, TakeW * 0.7f - Pad * 3f, lh, valueColor);
+            float h = lh + Pad * 2f;
+            RectTransform row = _takeList.AddRow(h);
+            UiLayout.Surface(Ctx, row, 0f, 0f, TakeW, h, 0);
+            UiKit.Label(Ctx, row, label, UiFontId.F16, Pad, Pad, LabelColW, lh, UiTheme.SlateBlue);
+            UiKit.Label(Ctx, row, value, UiFontId.F24, Pad + LabelColW, Pad, TakeW - LabelColW - Pad * 2f, lh, valueColor);
         }
+
+        static float LabelColW => UiLayout.ColW(2);
 
         void ListRow(string label, List<string> items, Color? color)
         {
             float lh = UiTheme.LineHeight(UiFontId.F24);
-            float ilh = UiTheme.LineHeight(UiFontId.F16);
             int n = items.Count;
-            float h = Mathf.Max(lh, n * ilh + (n - 1) * 4f) + Pad;
+            float h = Mathf.Max(1, n) * lh + Mathf.Max(0, n - 1) * 4f + Pad * 2f;
             RectTransform row = _takeList.AddRow(h);
-            UiKit.Panel(Ctx, row, UiPanelKind.Recess, 0f, 0f, TakeW - Pad, h);
-            UiKit.Label(Ctx, row, label, UiFontId.F24, Pad, Pad * 0.5f, TakeW * 0.3f, lh, UiTheme.Chalk);
+            UiLayout.Surface(Ctx, row, 0f, 0f, TakeW, h, 0);
+            UiKit.Label(Ctx, row, label, UiFontId.F16, Pad, Pad, LabelColW, lh, UiTheme.SlateBlue);
             for (int i = 0; i < n; i++)
-                UiKit.Label(Ctx, row, items[i], UiFontId.F16, TakeW * 0.3f, Pad * 0.5f + i * (ilh + 4f), TakeW * 0.7f - Pad * 3f, ilh,
-                    color ?? UiTheme.Paper);
+                UiKit.Label(Ctx, row, items[i], UiFontId.F24, Pad + LabelColW, Pad + i * (lh + 4f), TakeW - LabelColW - Pad * 2f, lh,
+                    color ?? UiTheme.Chalk);
         }
 
         void BundleRow(float lh24)
         {
-            float ilh = UiTheme.LineHeight(UiFontId.F16);
+            float ilh = lh24;
             int n = _model.BundleOpened ? _model.BundleMaterials.Count : 0;
-            float h = Mathf.Max(lh24 + ButtonH * 0.75f, n * (ilh + 4f)) + Pad;
+            float h = Mathf.Max(UiTheme.LineHeight(UiFontId.F16) + 56f, Mathf.Max(ButtonH, n * (ilh + 4f))) + Pad * 2f;
             RectTransform row = _takeList.AddRow(h);
-            UiKit.Panel(Ctx, row, UiPanelKind.Recess, 0f, 0f, TakeW - Pad, h);
-            UiKit.Label(Ctx, row, T(SettlementNameKeys.TakeBundle), UiFontId.F24, Pad, Pad * 0.5f, TakeW * 0.3f, lh24, UiTheme.Chalk);
+            UiLayout.Surface(Ctx, row, 0f, 0f, TakeW, h, 0);
+            UiKit.Label(Ctx, row, T(SettlementNameKeys.TakeBundle), UiFontId.F16, Pad, Pad, LabelColW, UiTheme.LineHeight(UiFontId.F16), UiTheme.SlateBlue);
+            lh24 = UiTheme.LineHeight(UiFontId.F16) + 4f;
             const int IconPx = 48;
             _bundleAnim = _model.BundleOpened && Ctx != null && Ctx.Art != null ? Ctx.Art.UiAnim("I-M11", "bundle_open") : null;
             if (_bundleAnim != null && _bundleAnim.Frames != null && _bundleAnim.Frames.Length > 0)
@@ -615,13 +682,12 @@ namespace Wizard.Solo.Screens.Settlement
             }
             if (!_model.BundleOpened)
             {
-                _bundleButton = UiKit.Button(Ctx, row, T(SettlementNameKeys.TakeBundleOpen), TakeW * 0.3f, Pad * 0.5f, TakeW * 0.25f, ButtonH * 0.75f,
-                    OnOpenBundle, UiButtonStyle.Medium, null, string.Empty);
+                _bundleButton = UiLayout.SecondaryButton(Ctx, row, T(SettlementNameKeys.TakeBundleOpen), Pad + LabelColW, Pad, SecondaryW, OnOpenBundle);
                 return;
             }
             List<string> lines = ItemLines(_model.BundleMaterials);
             for (int i = 0; i < lines.Count; i++)
-                UiKit.Label(Ctx, row, lines[i], UiFontId.F16, TakeW * 0.3f, Pad * 0.5f + i * (ilh + 4f), TakeW * 0.7f - Pad * 3f, ilh, UiTheme.Paper);
+                UiKit.Label(Ctx, row, lines[i], UiFontId.F24, Pad + LabelColW, Pad + i * (ilh + 4f), TakeW - LabelColW - Pad * 2f, ilh, UiTheme.Chalk);
         }
 
         void OnOpenBundle()
@@ -656,7 +722,7 @@ namespace Wizard.Solo.Screens.Settlement
             int lines = 2 + _model.RevengeMaterials.Count;
             float h = Pad + lh24 + RowGap + lines * (lh16 + 4f) + RowGap + lh16 + Pad;
             RectTransform row = _takeList.AddRow(h);
-            UiKit.Panel(Ctx, row, UiPanelKind.Board, 0f, 0f, TakeW - Pad, h);
+            UiLayout.Surface(Ctx, row, 0f, 0f, TakeW, h, 1);
             const int MirrorPx = 64;
             UiSprite mirror = UiKit.KitSprite(Ctx, "S-2603", MirrorVariant(MirrorMark.Broken));
             if (mirror.IsValid) UiKit.Image(row, mirror.Sprite, Pad, Pad, MirrorPx, MirrorPx);

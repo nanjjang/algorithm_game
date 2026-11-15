@@ -24,6 +24,9 @@ namespace Wizard.Solo.Sim
     public sealed class RunConfig
     {
         public RunMode Mode = RunMode.Endless;
+        /// <summary>협동(11-online.md): 슬롯 1부터 설 동료(최대 SimConst.MaxPlayers − 1). 각자의 캐릭터·지팡이·조립·기본 공격 유형만 읽는다.
+        /// 판 전체 값(Mode, Seed, StartWave, 변이 …)은 이 설정(슬롯 0)의 것을 쓴다. null·빈 목록 = 솔로.</summary>
+        public List<RunConfig> Party;
         public ulong Seed;
         public string RunId;
         public string CharId;

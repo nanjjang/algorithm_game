@@ -1,0 +1,23 @@
+{
+  "str.coop.add_bot": "동료 봇 더하기",
+  "str.coop.address_hint": "서버 주소 (예: 192.168.0.10:27870)",
+  "str.coop.bot": "봇",
+  "str.coop.create": "방 만들기",
+  "str.coop.error.address": "주소를 알아볼 수 없다",
+  "str.coop.error.connect": "방에 연결하지 못했다",
+  "str.coop.error.rejected": "방에 들어가지 못했다(가득 찼거나 이미 시작했거나 판이 다르다)",
+  "str.coop.error.wand": "든 지팡이로 출발할 수 없다",
+  "str.coop.host": "방장",
+  "str.coop.intro": "[방 만들기]는 이 기기에 방을 연다(봇 동료). 서버 주소를 적고 [참가]하면 인터넷으로 같이 한다.",
+  "str.coop.join": "참가",
+  "str.coop.leave": "나가기",
+  "str.coop.member": "동료",
+  "str.coop.member_line": "{slot}번 · {who} · +{stage}",
+  "str.coop.remove_bot": "봇 빼기",
+  "str.coop.result": "지난 판: 웨이브 {wave}까지 · 점수 {score}",
+  "str.coop.slot_empty": "{slot}번 · 빈 자리",
+  "str.coop.start": "시작",
+  "str.coop.title": "협동",
+  "str.coop.waiting": "서버가 판을 여는 중…",
+  "str.main_menu.item.coop": "협동"
+}

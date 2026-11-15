@@ -12,9 +12,8 @@ namespace Wizard.Solo.Screens.Enhance
 {
     // 그리기: 화면 값 갱신과 의식 연출(ritual 효과 그림, 번쩍·흔들림·어두워짐·그림 정지 — 08 14절 한도는 EnhanceFlashGuard가 맡는다).
     // 강도별 덧연출(10 요약서 4.1절): 2단부터 지팡이가 떠오르고, 3단부터 마법진 바깥 무늬, 4단부터 구석의 느루가 한쪽 눈을 뜬다.
-    // 속성별 변주(4.2절)는 ritual 묶음의 속성 열쇠(seal_/charge_/success_column_/extinguish_/ward_ribbon_/stage_hold_<속성>)로 고른다.
-    // 덧연출(이 파일): 마법진 다섯 겹 회전, 빛기둥, 빨려 드는 입자, 숨 멈춤의 정지와 미세 떨림, 성공 빛줄기·폭발·숫자 내려찍기,
-    // 실패의 유리 금·연기·숫자 떨어짐. 모두 시간표 사건(cue)과 구간에 매달리고 결과·시간표를 바꾸지 않는다.
+    // 속성별 변주(4.2절)는 ritual 묶음의 속성 열쇠(seal_/charge_/max_column_/ward_ribbon_/stage_hold_<속성>)로 고른다.
+    // 연출은 시간표 사건(cue)에 맞춘다. 판정의 입체 마법진과 파편은 EnhanceCinematic에서 그린다.
     // 전체 화면 번쩍은 여전히 시도당 1회(EnhanceFlashGuard). 그 밖의 빛은 마법진 둘레의 국소 빛이다.
     public sealed partial class EnhanceScreen
     {
@@ -30,14 +29,10 @@ namespace Wizard.Solo.Screens.Enhance
         Color _digitFlash = Color.white;
         float _coreT = -1f, _corePeak, _coreDur = 0.6f;
         Color _coreColor = Color.white;
-        float _raysT = -1f, _raysDur = 1.4f, _raysPeak, _raysSize = 700f, _raysAngle;
-        Color _raysColor = Color.white;
         float _crackAlpha, _crackHold;
-        bool _breakSetFlip;
         SpriteAnim _crackAnim;
         float _crackDim;
-        float _smokeLeft, _sparkleLeft, _emberLeft, _vineLeft;
-        Color _sparkleColor = Color.white;
+        float _smokeLeft, _emberLeft, _vineLeft;
         float _chargeEmitAcc;
         float _heartPulse, _holdGlow;
         float _wandDropT = -1f, _wandDim, _wandDimTarget;
@@ -49,8 +44,6 @@ namespace Wizard.Solo.Screens.Enhance
         float _sigilAngle, _glyphAngle;
         readonly List<KeyValuePair<UImage, float>> _tinted = new List<KeyValuePair<UImage, float>>();
         string _costStoneShownId;
-        float _spokeT = -1f, _spokeDur = 1.4f, _spokePeak, _spokeAngle, _spokeLen = 1f;
-        Color _spokeColor = Color.white;
         string _auraKey;
         Sprite[] _auraFrames;
         float _auraA;
@@ -615,11 +608,12 @@ namespace Wizard.Solo.Screens.Enhance
         void ResetVisuals()
         {
             _particles?.Clear();
+            SetActiveIfChanged(_cinematic, false);
             _slowMoLeft = 0f;
-            _digitT = -1f; _raysT = -1f; _cardAnimT = -1f; _bandAnimT = -1f;
+            _digitT = -1f; _cardAnimT = -1f; _bandAnimT = -1f;
             StopImpactLight();
             _crackAlpha = 0f; _crackHold = 0f; _crackDim = 0f;
-            _smokeLeft = _sparkleLeft = _emberLeft = _vineLeft = 0f;
+            _smokeLeft = _emberLeft = _vineLeft = 0f;
             _wandDropT = -1f; _wandDim = _wandDimTarget = 0f;
             _mood = _moodTarget = 0f;
             _heartPulse = _holdGlow = 0f;
@@ -630,6 +624,7 @@ namespace Wizard.Solo.Screens.Enhance
         void ResetRitualVisuals()
         {
             _fx?.StopAll();
+            SetActiveIfChanged(_cinematic, false);
             _darkenTicks = _borderTicks = _hitstopTicks = 0;
             _flashStart = -1;
         }
@@ -651,6 +646,7 @@ namespace Wizard.Solo.Screens.Enhance
         void OnVisualPhase(EnhancePhase from, EnhancePhase to)
         {
             SyncLightObjects();
+            if (to == EnhancePhase.ShortResult) SetActiveIfChanged(_cinematic, false);
             if (to == EnhancePhase.ResultCard) _cardAnimT = 0f;
             if (to == EnhancePhase.Idle) { _moodTarget = 0f; _wandDimTarget = 0f; }
             if (to == EnhancePhase.ResultCard && _model.Shown != null)
@@ -674,12 +670,6 @@ namespace Wizard.Solo.Screens.Enhance
             if (Amount <= 0f) return;
             _coreColor = c; _corePeak = peak * Mathf.Max(0.5f, Amount) * FlashFactor; _coreDur = dur; _coreT = 0f;
             SetActiveIfChanged(_coreFlash, true);
-        }
-
-        void RaysBurst(Color c, float size, float peak, float dur)
-        {
-            if (Amount <= 0f) return;
-            _raysColor = c; _raysSize = size; _raysPeak = peak * FlashFactor; _raysDur = dur; _raysT = 0f;
         }
 
         void DigitSlam(Color flash, float peak)
@@ -709,44 +699,22 @@ namespace Wizard.Solo.Screens.Enhance
         /// <summary>성공 터짐: 등급이 오를수록 더 크고 많고 느리게.</summary>
         void SuccessPop(int tier, bool great)
         {
-            var c = RitualScreen;
             Color main = great ? UiTheme.Gold : EnhanceFxStyle.TierColor(tier, ElementColor);
-            Color acc = great ? Color.Lerp(UiTheme.Gold, Color.white, 0.6f) : EnhanceFxStyle.TierAccent(tier, ElementColor);
             int t = Mathf.Clamp(tier + (great ? 1 : 0), 0, 4);
-            CoreFlash(Color.Lerp(Color.white, main, 0.25f), 1f, 0.55f + 0.1f * t);
-            RaysBurst(main, EnhanceFxStyle.RaysSize[t], 0.85f, 1.2f + 0.25f * t);
-            if (Amount > 0f)
-            {
-                // 공통 그림: 성공 폭발(256 → 3배·4배)과 충격파 고리, 방사형 빛살.
-                float bs = t >= 3 ? 1024f : 768f;
-                _fx.Play(EnhanceCommonArt.Anim(EnhanceCommonArt.Enh(Ctx != null ? Ctx.Art : null, EnhanceCommonArt.SuccessBurst), EnhanceCommonArt.BurstFps, false, "success_burst"),
-                    RitualCx - bs * 0.5f, RitualCy - bs * 0.5f, bs, bs, Color.white);
-                _fx.Play(EnhanceCommonArt.Anim(EnhanceCommonArt.Combat(Ctx != null ? Ctx.Art : null, EnhanceCommonArt.Shockwave), EnhanceCommonArt.ShockFps, false, "shockwave"),
-                    RitualCx - 320f, RitualCy - 320f, 640f, 640f, Color.Lerp(main, Color.white, 0.3f));
-                _spokeT = 0f; _spokeColor = main; _spokePeak = 0.6f + 0.1f * t; _spokeDur = 1.1f + 0.3f * t; _spokeLen = 0.9f + 0.25f * t;
-            }
-            _moodTarget = 1f; _moodColor = main;
+            if (_model.Style == RitualStyle.Full && Amount > 0f)
+                _cinematic.Rise(main, Amount, t);
+            CoreFlash(main, 0.33f, 0.36f + 0.06f * t);
+            _moodTarget = 1f;
+            _moodColor = main;
             _wandDimTarget = 0f;
-            if (_particles != null && Amount > 0f)
-            {
-                int n = Scaled(EnhanceFxStyle.BurstParticles[t]);
-                _particles.Burst(Dot(), c, n, 300f, 900f + 150f * t, 1.1f, 22f, main, acc, 420f, 1.2f, true);
-                _particles.Burst(EnhanceGfx.Sparkle, c, Scaled(14 + 8 * t), 150f, 600f, 1.3f, 40f, Color.white, acc, 160f, 1.6f);
-                _particles.Burst(Mote(), c, Scaled(18 + 6 * t), 200f, 500f, 0.9f, 28f, main, Color.white, 0f, 2f);
-                Shock(c, 120f, 900f + 200f * t, 0.6f, EnhanceFxStyle.WithA(main, 0.9f));
-                if (t >= 2) Shock(c, 80f, 1400f, 0.9f, EnhanceFxStyle.WithA(acc, 0.6f));
-            }
-            if (t >= 2) { _sparkleLeft = 0.8f + 0.4f * t; _sparkleColor = main; }
             Slow(t);
         }
 
-        void FailSmoke(float seconds, bool shards)
+        void FailSmoke(float seconds)
         {
             _smokeLeft = Mathf.Max(_smokeLeft, seconds);
             _moodTarget = -1f;
             _wandDimTarget = 0.7f;
-            if (shards && _particles != null && Amount > 0f)
-                _particles.Burst(EnhanceGfx.Shard, RitualScreen, Scaled(26), 120f, 420f, 1.4f, 26f, EnhanceFxStyle.CrackTint, EnhanceFxStyle.FailViolet, 700f, 0.6f);
         }
 
         // ------------------------------------------------------------------ 연출 사건
@@ -861,74 +829,44 @@ namespace Wizard.Solo.Screens.Enhance
                 case EnhanceFx.Column:
                 {
                     bool plus13 = _model.Phase == EnhancePhase.Plus13;
-                    var a = EnhanceUi.EffectAnim(Ctx, EnhanceUi.GroupRitual, (plus13 ? "max_column_" : "success_column_") + _elementSuffix);
-                    _fx.Play(a, cx - 120f, plus13 ? -80f : cy - 420f, 240f, 640f, Color.white);
                     if (plus13)
                     {
+                        var a = EnhanceUi.EffectAnim(Ctx, EnhanceUi.GroupRitual, "max_column_" + _elementSuffix);
+                        _fx.Play(a, cx - 100f, -80f, 200f, 465f, EnhanceFxStyle.WithA(Color.white, 0.6f * Amount));
                         _fx.Play(EnhanceUi.EffectAnim(Ctx, EnhanceUi.GroupRitual, "gold_aureole"), cx - 256f, cy - 256f, 512f, 512f, Color.white);
                         _fx.Play(EnhanceUi.EffectAnim(Ctx, EnhanceUi.GroupRitual, "max_sky_band"), -SideW, -PanelTop, 1920f, 240f, Color.white, 2.5f);
                         SuccessPop(4, true);
                     }
                     else SuccessPop(r != null ? EnhanceFxStyle.Tier(r.StageAfter) : 0, false);
-                    // 캐릭터 묶음: 지팡이에 내리꽂히는 벼락(96×160 시트의 2배, 아래 끝이 지팡이 가운데).
-                    var bolt = CharFxAnim("success");
-                    if (bolt != null) _fx.Play(bolt, cx - 96f, cy - 320f, 192f, 320f, Color.white);
                     break;
                 }
                 case EnhanceFx.Burst:
                 {
-                    _fx.Play(EnhanceUi.EffectAnim(Ctx, EnhanceUi.GroupRitual, "gold_burst"), cx - 256f, cy - 256f, 512f, 512f, Color.white);
-                    _fx.Play(EnhanceUi.EffectAnim(Ctx, EnhanceUi.GroupRitual, "break_pieces_" + _elementSuffix), cx - 160f, cy - 160f, 320f, 320f, Color.white);
-                    // 깨지는 조각 둘째 벌(보충 그림 ritual/break_pieces_b_<속성>, FX 20.1 "18개 × 2"): 첫 벌과 섞어 같이 흩뿌린다.
-                    // 매번 어느 쪽이 위로 가는지 번갈아(둘째 벌을 먼저/나중에) 같은 모양이 반복되지 않게 한다.
-                    var piecesB = EnhanceUi.EffectAnim(Ctx, EnhanceUi.GroupRitual, "break_pieces_b_" + _elementSuffix);
-                    if (piecesB != null)
-                    {
-                        _breakSetFlip = !_breakSetFlip;
-                        float off = _breakSetFlip ? 24f : -24f;
-                        _fx.Play(piecesB, cx - 160f + off, cy - 160f - off * 0.5f, 320f, 320f, Color.white);
-                    }
-                    PlayOnWand(CharFxAnim("great_success"));
-                    PlayOnWand(CharFxAnim("break"));
-                    // 금 간 유리가 산산이 부서지며 금빛이 터진다.
-                    if (_particles != null && Amount > 0f)
-                        _particles.Burst(EnhanceGfx.Shard, RitualScreen, Scaled(40), 500f, 1300f, 1.2f, 34f, EnhanceFxStyle.CrackTint, UiTheme.Gold, 500f, 0.8f);
                     _crackAlpha = 0f; _crackHold = 0f; _crackDim = 0f;
                     SuccessPop(r != null ? EnhanceFxStyle.Tier(r.StageAfter) : 2, true);
                     break;
                 }
                 case EnhanceFx.Extinguish:
                 {
-                    _fx.Play(EnhanceUi.EffectAnim(Ctx, EnhanceUi.GroupRitual, "extinguish_" + _elementSuffix), cx - 128f, cy - 128f, 256f, 256f, Color.white);
-                    var charSmoke = CharFxAnim("failure_smoke");
-                    if (charSmoke != null) PlayOnWand(charSmoke);
-                    else _fx.Play(EnhanceUi.EffectAnim(Ctx, EnhanceUi.GroupRitual, "failure_smoke"), cx - 96f, cy + 40f, 192f, 192f, EnhanceFxStyle.FailViolet);
                     bool drop = r != null && r.Outcome == EnhanceOutcome.FailDrop;
-                    var soot = drop ? CharFxAnim("failure_soot") : null;
-                    if (soot != null) _fx.Play(soot, cx - 64f, cy + 96f, 128f, 64f, Color.white, 1.2f);
-                    FailSmoke(drop ? 1.6f : 1.0f, drop);
-                    if (drop)
-                    {
-                        // 유리 깨지듯 금 가는 화면(정지 그림 3장 중 마지막, 08 10.8절).
-                        _crackAlpha = 0.85f; _crackHold = 1.4f; _crackDim = 0.35f; _crackFrame = 2;
-                        Shock(RitualScreen, 600f, 200f, 0.5f, EnhanceFxStyle.WithA(EnhanceFxStyle.FailViolet, 0.8f));
-                    }
+                    if (drop && _model.Style == RitualStyle.Full && Amount > 0f)
+                        _cinematic.Collapse(EnhanceFxStyle.FailViolet, Amount, true);
+                    FailSmoke(drop ? 1.6f : 1.0f);
                     break;
                 }
                 case EnhanceFx.Ward:
                     _fx.Play(EnhanceUi.EffectAnim(Ctx, EnhanceUi.GroupRitual, "ward_ribbon_" + _elementSuffix), cx - 160f, cy - 96f, 320f, 320f, Color.white);
                     _fx.Play(EnhanceUi.EffectAnim(Ctx, EnhanceUi.GroupEnhance, "protected_stamp"), cx + 96f, 140f, 192f, 96f, Color.white, 1.2f);
                     PlayOnWand(CharFxAnim("ward"));
-                    // 보호막: 청록 돔이 지팡이를 감싼다.
-                    CoreFlash(EnhanceFxStyle.WardTeal, 0.55f, 0.9f);
-                    Shock(RitualScreen, 200f, 520f, 0.7f, EnhanceFxStyle.WithA(EnhanceFxStyle.WardTeal, 0.9f));
-                    if (_particles != null) _particles.Burst(EnhanceGfx.Sparkle, RitualScreen, Scaled(20), 100f, 300f, 1f, 26f, EnhanceFxStyle.WardTeal, Color.white, -60f, 1.5f);
+                    CoreFlash(EnhanceFxStyle.WardTeal, 0.25f, 0.55f);
                     _wandDimTarget = 0.3f;
                     break;
                 case EnhanceFx.HoldProp:
+                    if (_model.Style == RitualStyle.Full && Amount > 0f)
+                        _cinematic.Collapse(EnhanceFxStyle.FailViolet, Amount, false);
                     _fx.Play(EnhanceUi.EffectAnim(Ctx, EnhanceUi.GroupRitual, "stage_hold_" + _elementSuffix), cx - 128f, cy + 96f, 256f, 192f, Color.white);
                     _fx.Play(EnhanceUi.EffectAnim(Ctx, EnhanceUi.GroupRitual, "failure_dust"), cx - 64f, cy + 120f, 128f, 128f, EnhanceFxStyle.FailAsh);
-                    FailSmoke(0.7f, false);
+                    FailSmoke(0.7f);
                     _wandDimTarget = 0.5f;
                     DigitWobble();
                     break;
@@ -994,11 +932,13 @@ namespace Wizard.Solo.Screens.Enhance
                 case "ui.enhance.great_crack_spread":
                     // 대성공의 앞부분: 실패처럼 금이 번진다(정지 그림 3장을 한 장씩).
                     _crackFrame = Mathf.Min(2, _crackAlpha > 0f ? _crackFrame + 1 : 0);
-                    _crackAlpha = 0.45f + 0.2f * _crackFrame; _crackHold = 1f; _crackDim = 0.15f + 0.08f * _crackFrame;
+                    _crackAlpha = (0.3f + 0.13f * _crackFrame) * Amount; _crackHold = 1f; _crackDim = 0.06f * Amount;
                     _guard.AddShake(EnhanceFx.ShakeSmall);
                     break;
                 case "ui.enhance.wand_drop":
                     _wandDropT = 0f;
+                    if (_model.Style == RitualStyle.Full && Amount > 0f)
+                        _guard.AddShake(EnhanceFx.ShakeMedium);
                     break;
                 case "ui.enhance.charm_burn":
                     if (_particles != null && Amount > 0f)
@@ -1180,7 +1120,9 @@ namespace Wizard.Solo.Screens.Enhance
                 if (phase == EnhancePhase.Charge && _hitstopTicks <= 0)
                     trem = (float)(_t.ChargeTremblePx * g);
             }
-            _ritual.localScale = new Vector3((float)zoom, (float)zoom, 1f);
+            _cinematic.Advance(dt);
+            float lens = (float)zoom + _cinematic.CameraOffset * (float)EnhanceScreenTuning.At(_t.CameraLevelScale, level);
+            _ritual.localScale = new Vector3(lens, lens, 1f);
             _dim.color = new Color(UiTheme.Ink.r, UiTheme.Ink.g, UiTheme.Ink.b, dimPct / 100f);
             // 집중 어둠: 의식 동안 양옆 판이 가라앉아 마법진만 남는다(빠른 강화는 옅게).
             float focusTarget = 0f;
@@ -1189,6 +1131,7 @@ namespace Wizard.Solo.Screens.Enhance
                 float dimScale = (float)EnhanceScreenTuning.At(_t.DimLevelScale, level);
                 focusTarget = full ? (0.3f + 0.35f * g + (hold ? 0.1f : 0f)) * dimScale : 0.2f * dimScale;
             }
+            if (_cinematic.gameObject.activeSelf) focusTarget = Mathf.Max(focusTarget, 0.7f * Amount);
             _focusDimA = Mathf.MoveTowards(_focusDimA, focusTarget, dt * (focusTarget > _focusDimA ? 2.5f : 1.2f));
             _focusDim.color = new Color(UiTheme.Ink.r, UiTheme.Ink.g, UiTheme.Ink.b, _focusDimA);
             _vignette.color = EnhanceFxStyle.WithA(UiTheme.Ink, 0.45f + 0.45f * _focusDimA);
@@ -1201,12 +1144,15 @@ namespace Wizard.Solo.Screens.Enhance
             {
                 _wandDropT += dt;
                 float k = _wandDropT;
-                dropY = k < 0.25f ? Mathf.Lerp(0f, 46f, k / 0.25f) : 46f * Mathf.Exp(-(k - 0.25f) * 1.6f) * Mathf.Cos((k - 0.25f) * 9f) * 0.6f + 46f * Mathf.Exp(-(k - 0.25f) * 1.2f) * 0.4f;
-                tilt = (k < 0.25f ? k / 0.25f : Mathf.Exp(-(k - 0.25f) * 1.5f)) * -14f;
+                float fall = Mathf.Clamp01(k / 0.26f);
+                float rebound = Mathf.Max(0f, k - 0.26f);
+                float fallOffset = fall * fall * Mathf.Exp(-rebound * 2.7f);
+                dropY = 106f * fallOffset * Amount;
+                tilt = -29f * fallOffset * Amount;
                 if (k > 4f) _wandDropT = -1f;
             }
             float bob = phase == EnhancePhase.Idle || phase == EnhancePhase.ResultCard ? Mathf.Sin(time * 1.6f) * 5f : 0f;
-            UiKit.Place(_wandRoot, 380f - WandPx * 0.5f + tx, 380f - WandPx * 0.5f - floatPx + ty + dropY + bob, WandPx, WandPx);
+            EnhanceGfx.Centered(_wandRoot, 380f + tx, 380f - floatPx - _cinematic.WandLift + ty + dropY + bob, WandPx, WandPx);
             _wandRoot.localEulerAngles = new Vector3(0f, 0f, tilt);
             _wandDim = Mathf.MoveTowards(_wandDim, _wandDimTarget, dt * 1.5f);
             if (_wandImage.sprite != null) _wandImage.color = Color.Lerp(Color.white, EnhanceFxStyle.Hex(0x6B6680), _wandDim);
@@ -1247,25 +1193,33 @@ namespace Wizard.Solo.Screens.Enhance
             baseCol = Color.Lerp(baseCol, EnhanceFxStyle.FailSmoke, dark);
 
             // 겹 마법진: 대기 2겹 → 충전 중 강도만큼(시간표 circle_layers) + 1겹. 성공하면 다 켜진다.
+            float sealVisibility = _cinematic.SealVisibility;
             int layersOn = showRitual ? Mathf.Min(_sealLayers.Count, EnhanceScreenTuning.At(_t.CircleLayers, intensity) + 1) : 2;
-            if (bright > 0.3f) layersOn = _sealLayers.Count;
+            if (_cinematic.Rising) layersOn = 1;
             Color layerCol = Color.Lerp(baseCol, Color.white, 0.35f + 0.3f * bright);
             for (int i = 0; i < _sealLayers.Count; i++)
             {
                 float target = i < layersOn ? (showRitual ? 0.35f + 0.55f * g : 0.28f + 0.1f * breathe) : 0f;
-                target = Mathf.Max(target, bright * 0.9f) * (1f - 0.6f * dark);
+                target = Mathf.Max(target, i < layersOn ? bright * 0.76f : 0f) * (1f - 0.6f * dark);
                 var img = _sealLayers[i];
-                float a = Mathf.MoveTowards(img.color.a, target, dt * 3f);
+                float a = Mathf.MoveTowards(img.color.a, target * sealVisibility, dt * 5f);
                 img.color = EnhanceFxStyle.WithA(layerCol, a);
                 float layerSpin = spin * EnhanceFxStyle.LayerSpin[i] * (showRitual ? 1.5f : 1f);
                 _layerAngle[i] += layerSpin * dt;
                 img.rectTransform.localEulerAngles = new Vector3(0f, 0f, _layerAngle[i]);
                 float pulse = 1f + 0.04f * _heartPulse * (i % 2 == 0 ? 1f : -1f);
-                img.rectTransform.localScale = new Vector3(pulse, pulse, 1f);
+                img.rectTransform.localScale = Vector3.one * (pulse * _cinematic.SealScale);
             }
-            _sigil.color = _sigil.sprite != null ? EnhanceFxStyle.WithA(Color.Lerp(baseCol, Color.white, 0.2f), (showRitual ? 0.5f + 0.5f * g : 0.45f) * (1f - 0.6f * dark)) : new Color(1f, 1f, 1f, 0f);
-            float glyphA = charging && intensity >= _t.OuterGlyphMinIntensity && _outerGlyph.sprite != null ? g : (bright > 0.3f && _outerGlyph.sprite != null ? bright * 0.8f : 0f);
-            _outerGlyph.color = new Color(1f, 1f, 1f, glyphA);
+            Vector3 sealScale = Vector3.one * _cinematic.SealScale;
+            _sealBase.rectTransform.localScale = sealScale;
+            _sealElement.rectTransform.localScale = sealScale;
+            _sigil.rectTransform.localScale = sealScale;
+            _outerGlyph.rectTransform.localScale = sealScale;
+            _sealBase.color = EnhanceFxStyle.WithA(Color.white, _sealBase.sprite != null ? sealVisibility * (1f - 0.65f * dark) : 0f);
+            _sealElement.color = EnhanceFxStyle.WithA(Color.white, _sealElement.sprite != null ? sealVisibility * (1f - 0.65f * dark) : 0f);
+            _sigil.color = _sigil.sprite != null ? EnhanceFxStyle.WithA(Color.Lerp(baseCol, Color.white, 0.2f), (showRitual ? 0.5f + 0.5f * g : 0.45f) * (1f - 0.6f * dark) * sealVisibility) : new Color(1f, 1f, 1f, 0f);
+            float glyphA = charging && intensity >= _t.OuterGlyphMinIntensity && _outerGlyph.sprite != null ? g : 0f;
+            _outerGlyph.color = new Color(1f, 1f, 1f, glyphA * sealVisibility);
 
             // 빛 번짐: 마법진 둘레, 지팡이 뒤, 빛기둥, 충전 고리.
             float glowA = 0.2f + 0.08f * breathe + (showRitual ? 0.45f * g + 0.15f * _heartPulse : 0f) + 0.5f * bright + 0.3f * _holdGlow;
@@ -1276,7 +1230,7 @@ namespace Wizard.Solo.Screens.Enhance
             float ws = 1f + 0.12f * _heartPulse + 0.25f * _holdGlow + 0.2f * bright;
             _wandGlow.rectTransform.localScale = new Vector3(ws, ws, 1f);
             float beamA = showRitual && full && intensity >= 1 ? g * (0.35f + 0.1f * intensity) + 0.3f * _holdGlow : 0f;
-            beamA = Mathf.Max(beamA, bright * 0.7f) * Amount;
+            beamA *= Amount;
             _beam.color = EnhanceFxStyle.WithA(baseCol, Mathf.Clamp01(beamA));
             _beam.rectTransform.sizeDelta = new Vector2(160f + 200f * Mathf.Max(g, bright), 1000f);
             _beamCore.color = EnhanceFxStyle.WithA(Color.white, Mathf.Clamp01(beamA * 0.8f));
@@ -1305,7 +1259,7 @@ namespace Wizard.Solo.Screens.Enhance
             // 연기·반짝임·불씨·덩굴 같은 지속 방출.
             EmitOngoing(dt);
 
-            // 성공 국소 섬광과 빛줄기.
+            // 판정의 국소 섬광.
             if (_coreT >= 0f)
             {
                 _coreT += dt;
@@ -1316,40 +1270,6 @@ namespace Wizard.Solo.Screens.Enhance
                 _coreFlash.rectTransform.localScale = new Vector3(sc, sc, 1f);
                 if (k >= 1f) StopImpactLight();
             }
-            if (_raysT >= 0f)
-            {
-                _raysT += dt;
-                float k = _raysT / Mathf.Max(0.1f, _raysDur);
-                float env = _raysT < 0.1f ? _raysT / 0.1f : Mathf.Pow(Mathf.Clamp01(1f - k), 1.3f);
-                _raysAngle += dt * 28f;
-                _rays.color = EnhanceFxStyle.WithA(_raysColor, _raysPeak * env);
-                _raysBack.color = EnhanceFxStyle.WithA(Color.Lerp(_raysColor, Color.white, 0.4f), _raysPeak * env * 0.6f);
-                float s = _raysSize * (0.7f + 0.4f * Mathf.Clamp01(k * 2f));
-                _rays.rectTransform.sizeDelta = new Vector2(s, s);
-                _raysBack.rectTransform.sizeDelta = new Vector2(s * 1.3f, s * 1.3f);
-                _rays.rectTransform.localEulerAngles = new Vector3(0f, 0f, _raysAngle);
-                _raysBack.rectTransform.localEulerAngles = new Vector3(0f, 0f, -_raysAngle * 0.6f);
-                if (k >= 1f) { _raysT = -1f; _rays.color = _raysBack.color = new Color(1f, 1f, 1f, 0f); }
-            }
-
-            // 방사형 빛살(성공).
-            if (_spokeT >= 0f && _spokes.Count > 0)
-            {
-                _spokeT += dt;
-                float k = _spokeT / Mathf.Max(0.1f, _spokeDur);
-                float env = _spokeT < 0.08f ? _spokeT / 0.08f : Mathf.Pow(Mathf.Clamp01(1f - k), 1.4f);
-                _spokeAngle += dt * 40f;
-                _spokeRoot.localEulerAngles = new Vector3(0f, 0f, _spokeAngle);
-                float len = _spokeLen * (0.35f + 0.9f * Mathf.Clamp01(k * 3f));
-                for (int i = 0; i < _spokes.Count; i++)
-                {
-                    float flick = 0.75f + 0.25f * Mathf.Sin(time * 13f + i * 1.7f);
-                    _spokes[i].color = EnhanceFxStyle.WithA(Color.Lerp(_spokeColor, Color.white, (i % 2) * 0.4f), _spokePeak * env * flick);
-                    _spokes[i].rectTransform.localScale = new Vector3(i % 2 == 0 ? 1f : 0.6f, len * (i % 2 == 0 ? 1f : 0.7f), 1f);
-                }
-                if (k >= 1f) { _spokeT = -1f; foreach (var sp in _spokes) sp.color = new Color(1f, 1f, 1f, 0f); }
-            }
-
             // 단계 오라(+7 / +10 / +13 이상에서 반복). 실패로 꺼진 동안은 옅게.
             string auraKey = EnhanceCommonArt.AuraFor(_shownStage);
             if (auraKey != _auraKey)
@@ -1358,7 +1278,7 @@ namespace Wizard.Solo.Screens.Enhance
                 _auraFrames = auraKey != null ? EnhanceCommonArt.Enh(Ctx != null ? Ctx.Art : null, auraKey) : null;
             }
             bool hasAura = _auraFrames != null && _auraFrames.Length > 0;
-            float auraTarget = hasAura ? (0.85f + 0.15f * bright) * (1f - 0.7f * dark) : 0f;
+            float auraTarget = hasAura ? (0.85f + 0.15f * bright) * (1f - 0.7f * dark) * sealVisibility : 0f;
             _auraA = Mathf.MoveTowards(_auraA, auraTarget, dt * 2f);
             _aura.sprite = hasAura ? _auraFrames[Mathf.Abs((int)(time * EnhanceCommonArt.AuraFps)) % _auraFrames.Length] : null;
             _aura.color = new Color(1f, 1f, 1f, _aura.sprite != null ? _auraA : 0f);
@@ -1371,7 +1291,7 @@ namespace Wizard.Solo.Screens.Enhance
             if (_commonCrack != null) _crack.sprite = _commonCrack;
             else if (_crackAnim != null && _crackAnim.Frames.Length > 0) _crack.sprite = _crackAnim.Frames[Mathf.Clamp(_crackFrame, 0, _crackAnim.Frames.Length - 1)];
             // 공통 균열 그림은 한 장이라 번지는 단계를 크기로 보인다(가운데에서 바깥으로).
-            float crackScale = _commonCrack != null ? 0.55f + 0.225f * Mathf.Clamp(_crackFrame, 0, 2) : 1f;
+            float crackScale = 0.74f + 0.13f * Mathf.Clamp(_crackFrame, 0, 2);
             _crack.rectTransform.localScale = new Vector3(crackScale, crackScale, 1f);
             _crack.color = _crack.sprite != null ? EnhanceFxStyle.WithA(_commonCrack != null ? Color.white : EnhanceFxStyle.CrackTint, _crackAlpha) : new Color(1f, 1f, 1f, 0f);
             if (_crackHold <= 0f) _crackDim = Mathf.MoveTowards(_crackDim, 0f, dt * 0.5f);
@@ -1385,7 +1305,7 @@ namespace Wizard.Solo.Screens.Enhance
                 int elapsed = _darkenTotal - _darkenTicks;
                 darkA = _darkenTarget * Mathf.Clamp01((elapsed + 1) / (float)trans);
             }
-            _darken.color = new Color(UiTheme.Ink.r, UiTheme.Ink.g, UiTheme.Ink.b, darkA);
+            _darken.color = new Color(UiTheme.Ink.r, UiTheme.Ink.g, UiTheme.Ink.b, darkA * Mathf.Lerp(0.42f, 1f, sealVisibility));
 
             // 번쩍(관리기가 정한 불투명도 × 모양).
             double fenv = _flashStart >= 0 ? _guard.Envelope(_guard.Now - _flashStart) : 0;
@@ -1411,7 +1331,6 @@ namespace Wizard.Solo.Screens.Enhance
             UiKit.Place(_goldChip, 1084f + ((_shake & CostShortage.Gold) != 0 ? cs : 0f), 16f, 236f, 48f);
 
             RenderDigits(dt);
-            RenderButton(time, phase);
             RenderCards(dt);
 
             if (_candle != null)
@@ -1443,17 +1362,6 @@ namespace Wizard.Solo.Screens.Enhance
                     var p = _particles.Spawn(EnhanceGfx.SoftDot, c + UnityEngine.Random.insideUnitCircle * 120f, new Vector2(0f, UnityEngine.Random.Range(20f, 80f)), 1.2f, 10f, 4f,
                         EnhanceFxStyle.FailAsh, EnhanceFxStyle.WithA(EnhanceFxStyle.FailAsh, 0f));
                     if (p != null) p.Gravity = 60f;
-                }
-            }
-            if (_sparkleLeft > 0f)
-            {
-                _sparkleLeft -= dt;
-                if (amt > 0f && UnityEngine.Random.value < 50f * amt * dt)
-                {
-                    var p = _particles.Spawn(EnhanceGfx.Sparkle, new Vector2(UnityEngine.Random.Range(560f, 1360f), UnityEngine.Random.Range(60f, 200f)),
-                        new Vector2(UnityEngine.Random.Range(-30f, 30f), UnityEngine.Random.Range(80f, 200f)), 1.6f, 30f, 8f,
-                        _sparkleColor, EnhanceFxStyle.WithA(Color.white, 0f));
-                    if (p != null) { p.Gravity = 120f; p.RotVel = UnityEngine.Random.Range(-180f, 180f); }
                 }
             }
             if (_emberLeft > 0f)
@@ -1526,7 +1434,7 @@ namespace Wizard.Solo.Screens.Enhance
                     oy = t < 0.18f ? Mathf.Lerp(0f, 34f, t / 0.18f) : 34f * Mathf.Exp(-(t - 0.18f) * 2.2f);
                     ox = Mathf.Sin(t * 38f) * 10f * Mathf.Exp(-t * 2.5f);
                     scale = 1f - 0.15f * Mathf.Exp(-t * 3f);
-                    col = Color.Lerp(EnhanceFxStyle.FailViolet, col, Mathf.Clamp01((t - 0.6f) / 1.2f));
+                    col = Color.Lerp(EnhanceFxStyle.FailAsh, col, Mathf.Clamp01((t - 0.6f) / 1.2f));
                     if (t > 2.4f) _digitT = -1f;
                 }
                 else
@@ -1541,26 +1449,6 @@ namespace Wizard.Solo.Screens.Enhance
             _stageDigits.Color = col;
             var gc = _digitsGlow.color;
             _digitsGlow.color = EnhanceFxStyle.WithA(Color.Lerp(gc, col, dt * 2f), Mathf.MoveTowards(gc.a, 0.14f, dt * 1.2f));
-        }
-
-        void RenderButton(float time, EnhancePhase phase)
-        {
-            bool ready = _prob != null && !_prob.AtMax && _prob.Blocked == ErrorCode.None && _model.AcceptsSetup;
-            float pulse = 0.5f + 0.5f * Mathf.Sin(time * 3.6f);
-            _enhanceHalo.color = EnhanceFxStyle.WithA(ElementColor, ready ? 0.25f + 0.35f * pulse : 0f);
-            float s = ready ? 1f + 0.06f * pulse : 1f;
-            _enhanceHalo.rectTransform.localScale = new Vector3(s, s, 1f);
-            _enhanceGlow.color = EnhanceFxStyle.WithA(Color.Lerp(ElementColor, Color.white, 0.5f), ready ? 0.35f + 0.5f * pulse : 0.1f);
-            float bs = ready ? 1f + 0.015f * pulse : 1f;
-            _enhanceButton.Rect.localScale = new Vector3(bs, bs, 1f);
-            // 빈 제물 칸의 반짝임이 은은히 숨 쉰다.
-            for (int i = 0; i < _sacrificeSlots.Count; i++)
-            {
-                var m = _sacrificeSlots[i].ContentRoot.Find("EmptyMark");
-                if (m == null) continue;
-                var img = m.GetComponent<UImage>();
-                if (img != null) img.color = EnhanceFxStyle.WithA(ElementColor, 0.2f + 0.25f * (0.5f + 0.5f * Mathf.Sin(time * 2.4f + i * 0.9f)));
-            }
         }
 
         void RenderCards(float dt)

@@ -59,6 +59,11 @@ namespace Wizard.Solo.View.Hud
         readonly UImage _bufferDot;
         float _blinkLeft;
 
+        // 협동 부활 막대(쓰러졌고 서 있는 동료가 있을 때, Docs/11-online.md)
+        const float ReviveBarW = 72f, ReviveBarH = 10f;
+        readonly UImage _reviveBg, _reviveFill;
+        int _reviveTicksMax;
+
         // 늦음 문구
         readonly HudText _late;
         float _lateLeft;
@@ -83,6 +88,12 @@ namespace Wizard.Solo.View.Hud
             var parent = vc.WorldTextRoot != null ? vc.WorldTextRoot : vc.HudRoot;
             Root = HudArt.NodeRel(parent, "Marks." + slot, 0, 0, 0, 0);
             Root.pivot = new Vector2(0.5f, 0.5f);
+
+            _reviveBg = HudArt.ImageRel(Root, "ReviveBar", -ReviveBarW * 0.5f, tuning.CrystalRowOffsetY - 24f, ReviveBarW, ReviveBarH, null, UiTheme.PlateFill);
+            _reviveFill = HudArt.Image(_reviveBg.rectTransform, "Fill", 2f, 2f, ReviveBarW - 4f, ReviveBarH - 4f, null, UiTheme.Good);
+            _reviveBg.raycastTarget = false;
+            _reviveFill.raycastTarget = false;
+            HudArt.SetActive(_reviveBg.rectTransform, false);
 
             _crystalRow = HudArt.NodeRel(Root, "Crystals", 0, tuning.CrystalRowOffsetY, HudLayout.CrystalRowWidth(MaxCrystalCells), HudLayout.CrystalCellPx);
             for (int i = 0; i < MaxCrystalCells; i++)
@@ -114,13 +125,15 @@ namespace Wizard.Solo.View.Hud
 
             var nk = HudLayout.NowK;
             _nowRoot = HudArt.NodeRel(Root, "NowK", nk.X, nk.Y, nk.W, nk.H * 2);
-            _nowJust = new HudText(UiKit.Label(art.Ctx, _nowRoot, "", UiFontId.F12, 0, 0, nk.W, nk.H, UiTheme.Chalk, TextAnchor.MiddleCenter, false, true));
-            _nowMain = new HudText(UiKit.Label(art.Ctx, _nowRoot, "", UiFontId.F12, 0, nk.H, nk.W, nk.H, UiTheme.Chalk, TextAnchor.MiddleCenter, false, true));
+            _nowJust = new HudText(UiKit.Label(art.Ctx, _nowRoot, "", UiFontId.F16, 0, 0, nk.W, nk.H, UiTheme.Chalk, TextAnchor.MiddleCenter, false, true));
+            UiKit.DropShadow(_nowJust.Label, 2f);
+            _nowMain = new HudText(UiKit.Label(art.Ctx, _nowRoot, "", UiFontId.F16, 0, nk.H, nk.W, nk.H, UiTheme.Chalk, TextAnchor.MiddleCenter, false, true));
+            UiKit.DropShadow(_nowMain.Label, 2f);
             for (int i = 0; i < 4; i++) _border[i] = UiKit.Rect(_nowRoot, 0, 0, 1, 1, UiTheme.WithAlpha(UiTheme.Chalk, 0.8f), false, "Border" + i);
             _bufferDot = UiKit.Rect(_nowRoot, 3, 0, 4, 4, UiTheme.Chalk, false, "BufferDot");
             HudArt.SetActive(_bufferDot, false);
 
-            _late = new HudText(UiKit.Label(art.Ctx, Root, "", UiFontId.F12, 0, 0, nk.W, nk.H, UiTheme.Chalk, TextAnchor.MiddleCenter, false, true));
+            _late = new HudText(UiKit.Label(art.Ctx, Root, "", UiFontId.F16, 0, 0, nk.W, nk.H, UiTheme.Chalk, TextAnchor.MiddleCenter, false, true));
             HudArt.PlaceRel(_late.Label.Rect, -nk.W * 0.5f, tuning.LateLineOffsetY, nk.W, nk.H);
             _late.Show(false);
         }
@@ -245,7 +258,7 @@ namespace Wizard.Solo.View.Hud
             RenderCrystals(p, elementColor, dt);
 
             // 콤보 자리
-            bool hudMode = HudModel.ComboInHud(options) && _slot == 0 && _comboHudAnchor != null;
+            bool hudMode = HudModel.ComboInHud(options) && _slot == w.ViewSlot && _comboHudAnchor != null;
             ComboInHud = hudMode;
             if (hudMode) Combo.Attach(_comboHudAnchor, 0, 0, false);
             else Combo.Attach(Root, HudLayout.ComboOffset.x, HudLayout.ComboOffset.y - HudLayout.ComboDigitH * 0.5f, true);
@@ -253,8 +266,26 @@ namespace Wizard.Solo.View.Hud
 
             RenderRecent(w, p);
             RenderNowK(w, p, dt);
+            RenderRevive(w, p);
 
             if (_lateLeft > 0f) { _lateLeft -= dt; if (_lateLeft <= 0f) _late.Show(false); }
+        }
+
+        /// <summary>마지막으로 그린 부활 진행(0~1, 막대가 없으면 −1). 테스트용.</summary>
+        public float ReviveShown { get; private set; } = -1f;
+
+        void RenderRevive(SimWorld w, PlayerState p)
+        {
+            bool show = p.Downed && CoopRules.HasStandingAlly(w, p);
+            HudArt.SetActive(_reviveBg.rectTransform, show);
+            if (!show) { ReviveShown = -1f; return; }
+            if (_reviveTicksMax <= 0) _reviveTicksMax = System.Math.Max(1, CoopRules.Revive(w.Content).Ticks);
+            float f = Mathf.Clamp01(p.ReviveTicks / (float)_reviveTicksMax);
+            ReviveShown = f;
+            var rt = _reviveFill.rectTransform;
+            rt.sizeDelta = new Vector2((ReviveBarW - 4f) * f, rt.sizeDelta.y);
+            // 진행이 없으면 테두리만 깜박여 "곁에 가면 살릴 수 있다"를 알린다.
+            _reviveBg.color = p.ReviveTicks > 0 ? UiTheme.PlateFill : UiTheme.WithAlpha(UiTheme.Good, 0.35f + 0.25f * Mathf.Sin(_t * 6f));
         }
 
         void RenderCrystals(PlayerState p, Color elementColor, float dt)
@@ -433,13 +464,13 @@ namespace Wizard.Solo.View.Hud
 
             // 재사용 대기 테두리(0.4초에 다시 참) + 보관된 K 점
             float h = two ? nk.H * 2f : nk.H;
-            HudModel.PerimeterFill(pv.CooldownRatio, nk.W, h, out float top, out float right, out float bottom, out float left);
-            UiKit.Place(_border[0].rectTransform, 0, 0, top, 1);
-            UiKit.Place(_border[1].rectTransform, nk.W - 1, 0, 1, right);
-            UiKit.Place(_border[2].rectTransform, nk.W - bottom, h - 1, bottom, 1);
-            UiKit.Place(_border[3].rectTransform, 0, h - left, 1, left);
-            HudArt.SetActive(_border[0], top > 0f); HudArt.SetActive(_border[1], right > 0f);
-            HudArt.SetActive(_border[2], bottom > 0f); HudArt.SetActive(_border[3], left > 0f);
+            // 상자 테 대신 글 아래 가운데의 가는 줄 하나: 재사용 대기 동안 가운데에서 양쪽으로 자라고, 다 차면 사라진다.
+            float cd = Mathf.Clamp01(pv.CooldownRatio);
+            bool cooling = cd < 1f;
+            float uw = nk.W * 0.5f * cd;
+            UiKit.Place(_border[2].rectTransform, (nk.W - uw) * 0.5f, h, uw, 1);
+            HudArt.SetActive(_border[0], false); HudArt.SetActive(_border[1], false);
+            HudArt.SetActive(_border[2], cooling && uw > 0f); HudArt.SetActive(_border[3], false);
             HudArt.SetActive(_bufferDot, pv.Buffered);
             if (pv.Buffered) UiKit.Place(_bufferDot.rectTransform, 3, (h - 4f) * 0.5f, 4, 4);
         }

@@ -22,6 +22,7 @@ namespace Wizard.Solo.Sim.Waves
         /// <summary>horde.reward_mode 값: 원래 한 마리 몫 골드·점수·체력 조각 확률을 무리 전체(원본 + 늘린 사본)에 나눈다.
         /// 마리마다 작은 보상이 튀고 합계는 명세 구성과 같다(소수점은 Run의 누적기가 결정론적으로 나른다).</summary>
         public const string RewardSplit = "split";
+        JArray _openingBudgets;
         const string BossPreviewSection = "boss_preview";
 
         /// <summary>종 기본 가중치(06 요약서 1.5절 [임시 U-01]).</summary>
@@ -139,6 +140,14 @@ namespace Wizard.Solo.Sim.Waves
             public int Wave, Min, Max;
         }
 
+        public int Budget(WavesDef waves, int wave)
+        {
+            int normal = WaveCurves.Budget(waves, wave);
+            if (_openingBudgets == null || wave < 1 || wave > _openingBudgets.Count) return normal;
+            var budget = _openingBudgets[wave - 1];
+            return budget.Type == JTokenType.Integer ? System.Math.Min(normal, System.Math.Max(1, budget.Value<int>())) : normal;
+        }
+
         public static WaveTuning From(IContentDb db) => From(db, true);
 
         /// <summary>includeHorde = false면 "horde" 절을 읽지 않는다(명세 벡터 테스트와 명세 기준 도구용).</summary>
@@ -160,6 +169,7 @@ namespace Wizard.Solo.Sim.Waves
             }
             if (includeHorde)
             {
+                t._openingBudgets = root["opening_budgets"] as JArray;
                 ReadHorde(root[HordeSection] as JObject, t);
                 ReadBossPreview(root[BossPreviewSection] as JObject, t);
             }

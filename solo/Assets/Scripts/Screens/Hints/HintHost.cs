@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 using Wizard.Solo.Art;
+using Wizard.Solo.Data;
 using Wizard.Solo.Meta;
+using Wizard.Solo.Screens.Enhance;
 using Wizard.Solo.Sim;
 using Wizard.Solo.UI;
-using UImage = UnityEngine.UI.Image;
 
 namespace Wizard.Solo.Screens.Hints
 {
@@ -24,7 +25,6 @@ namespace Wizard.Solo.Screens.Hints
         public const string RootName = "Wizard.Hints";
         public const int SortOrder = 350;
         public const string CloseHintKey = "str.hint.close";
-        public const string MarkKey = "str.hint.mark";
         public const string FirstEnhance = "first_enhance";
 
         GameContext _ctx;
@@ -44,7 +44,6 @@ namespace Wizard.Solo.Screens.Hints
         bool _enhanceOfferSeen;
 
         RectTransform _canvasRoot, _card;
-        UiLabel _title, _body, _foot;
         HintSpot _spot;
         float _cardH;
         UiProgressBar _timer;
@@ -127,7 +126,7 @@ namespace Wizard.Solo.Screens.Hints
             // 일시정지·확인 창·안내 같은 창(Modal)이 맨 위면 쪽지를 잠깐 감추고 시계도 멈춘다(창의 글을 가리지 않는다).
             // 판이 끝난 뒤(쓰러짐 연출·사망 글)에도 감춘다 — 쪽지가 어두워진 화면 위에 밝게 남아 연출을 가리지 않게.
             bool ended = _session != null && _session.MainWorld != null && _session.MainWorld.Run.Phase == RunPhase.RunEnded;
-            bool held = (_session != null && _session.Paused) || ModalOnTop() || ended;
+            bool held = (_session != null && _session.Paused) || ScreenHoldsHints() || ended;
             if (_card != null && _showing != null && _card.gameObject.activeSelf == held) _card.gameObject.SetActive(!held);
             if (_showing != null)
             {
@@ -174,10 +173,15 @@ namespace Wizard.Solo.Screens.Hints
                 if (!HintContexts.Accepts(_delayed[i].Value, here)) _delayed.RemoveAt(i);
         }
 
-        bool ModalOnTop()
+        bool ScreenHoldsHints()
         {
             var m = _ctx != null ? _ctx.Screens as ScreenManager : null;
             var top = m != null && m.Stack != null ? m.Stack.TopScreen : null;
+            if (top is EnhanceScreen enhance && enhance.Model != null)
+            {
+                var phase = enhance.Model.Phase;
+                return phase != EnhancePhase.Idle && phase != EnhancePhase.ResultCard && phase != EnhancePhase.MutationChoice;
+            }
             return top != null && top.Layer == ScreenLayer.Modal;
         }
 
@@ -295,7 +299,6 @@ namespace Wizard.Solo.Screens.Hints
 
         /// <summary>
         /// 쪽지를 그 화면의 안전 자리(폭)에 맞춰 새로 짓는다. 높이는 본문 줄 수로 정한다(긴 글이 칸 밖으로 넘치지 않게).
-        /// 제목 앞에는 키트 아이콘 I-F2 question(없으면 이름 표의 표시 글자).
         /// </summary>
         void BuildView(HintSpot spot, string title, string body)
         {
@@ -307,7 +310,7 @@ namespace Wizard.Solo.Screens.Hints
             if (_card != null) { Destroy(_card.gameObject); _card = null; }
             _spot = spot;
             float w = spot.W;
-            const float Pad = 18f, IconPx = 24f, Gap = 8f, TimerW = 120f;
+            const float Pad = 14f, Gap = 6f, TimerW = 56f;
             float l24 = UiTheme.LineHeight(UiFontId.F24), l12 = UiTheme.LineHeight(UiFontId.F12);
             float bodyW = w - 2f * Pad - 8f;
             float bodyH = BodyHeight(body, bodyW);
@@ -317,25 +320,16 @@ namespace Wizard.Solo.Screens.Hints
             btn.name = "HintCard";
             _card = btn.Rect;
             var root = btn.ContentRoot != null ? btn.ContentRoot : _card;
-            UiKit.OrnatePanel(_ctx, root, 0f, 0f, w, h, 2, 6f).raycastTarget = false;
-            float tx = Pad + 4f;
-            var icon = UiKit.KitSprite(_ctx, "I-F2", "question");
-            string shownTitle = title ?? string.Empty;
-            if (icon.IsValid)
-            {
-                UiKit.Image(root, icon.Sprite, tx, Pad - 2f + (l24 - IconPx) * 0.5f, IconPx, IconPx);
-                tx += IconPx + Gap;
-            }
-            else if (_ctx.Names != null) shownTitle = _ctx.Names.Get(MarkKey) + " " + shownTitle;
-            _title = UiKit.Label(_ctx, root, shownTitle, UiFontId.F24, tx, Pad - 2f, w - tx - Pad, l24, UiTheme.Brass);
-            UiKit.DropShadow(_title, 2f);
-            _body = UiKit.Label(_ctx, root, body, UiFontId.F16, Pad + 4f, Pad + l24 + 4f, bodyW, bodyH,
+            UiKit.Rect(root, 0f, 0f, w, h, UiTheme.WithAlpha(UiTheme.Night, 0.94f), false, "HintBacking");
+            UiKit.Rect(root, 0f, 0f, 3f, h, UiTheme.SlateBlue, false, "HintRule");
+            UiKit.Label(_ctx, root, title ?? string.Empty, UiFontId.F24, Pad + 4f, Pad - 2f, bodyW, l24, UiTheme.Paper);
+            UiKit.Label(_ctx, root, body, UiFontId.F16, Pad + 4f, Pad + l24 + 4f, bodyW, bodyH,
                 UiTheme.Chalk, TextAnchor.UpperLeft, true);
             float footY = h - Pad - l12 + 4f;
-            _foot = UiKit.Label(_ctx, root, _ctx.Names != null ? _ctx.Names.Get(CloseHintKey) : CloseHintKey, UiFontId.F12,
+            UiKit.Label(_ctx, root, _ctx.Names != null ? _ctx.Names.Get(CloseHintKey) : CloseHintKey, UiFontId.F12,
                 Pad + TimerW + Gap, footY, w - 2f * Pad - TimerW - Gap, l12, UiTheme.SlateBlue, TextAnchor.MiddleRight);
             _timer = UiKit.ProgressBar(_ctx, root, Pad + 4f, footY + (l12 - 4f) * 0.5f, TimerW, 4f, 1f);
-            _timer.FillColor = UiTheme.Brass;
+            _timer.FillColor = UiTheme.SlateBlue;
             _card.gameObject.SetActive(false);
         }
 
@@ -366,7 +360,7 @@ namespace Wizard.Solo.Screens.Hints
             var names = ctx != null ? ctx.Names : null;
             if (names == null) return id;
             string key = HintIds.BodyKey(id);
-            var p = w != null && w.Players != null && w.Players.Length > 0 ? w.Players[0] : null;
+            var p = w != null && w.Players != null && w.Players.Length > 0 ? w.Me : null;
             var db = ctx.Content;
             switch (id)
             {
@@ -376,6 +370,8 @@ namespace Wizard.Solo.Screens.Hints
                 case HintIds.FirstFizzle:
                 case HintIds.StuckFizzle:
                     return names.Format(key, "n", p != null && p.Def != null ? p.Def.ComboPerCrystal : 0, "cap", p != null && p.Def != null ? p.Def.CrystalCap : 0);
+                case HintIds.FirstFinal:
+                    return names.Format(key, "n", AttackStyles.FinalMinCrystals(db), "stance", KeyLabel(ctx, LogicalKey.Stance), "art", KeyLabel(ctx, LogicalKey.Skill));
                 case HintIds.FirstAffinity:
                     return names.Format(key, "weak", Num(db != null && db.Elements != null ? db.Elements.WeakMultiplier : 0f),
                         "resist", Num(db != null && db.Elements != null ? db.Elements.ResistMultiplier : 0f));
@@ -385,6 +381,14 @@ namespace Wizard.Solo.Screens.Hints
                 default:
                     return names.Get(key);
             }
+        }
+
+        static string KeyLabel(GameContext ctx, LogicalKey k)
+        {
+            var st = ctx != null && ctx.Settings != null ? ctx.Settings.Current : null;
+            int bound = st != null ? KeyLayouts.PrimaryOf(st, k) : 0;
+            if (bound <= 0) { var table = KeyLayouts.DefaultPrimary; bound = (int)k < table.Count ? table[(int)k] : 0; }
+            return UiKeyLabels.Of(ctx != null ? ctx.Names : null, (UnityEngine.InputSystem.Key)bound);
         }
 
         /// <summary>소수 둘째 자리까지, 끝의 0은 지운다(1.25, 0.8, 3).</summary>

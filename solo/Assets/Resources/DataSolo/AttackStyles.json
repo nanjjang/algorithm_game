@@ -1,206 +1,1128 @@
 {
   "_note": "기본 공격 유형(사용자 지시 2026-11-15 '모든 캐릭터의 공격 방식이 똑같다. 다 다르게 — 캐릭터당 기본 공격 유형 셋'). DECISIONS 1.2 '캐릭터 5명, 전용 지팡이·고유 능력·스탯 전부 다르다'. 정본 문서 Docs/12-attack-styles.md. characters = 캐릭터마다 유형 A·B·C(핵 블록 id). 판 시작 때 출발 조립의 코어가 replace_cores(다섯 캐릭터 공통 시작 블록 마력탄)이면 고른 유형의 핵 블록으로 바꾼다(Sim.AttackStyles.ApplyToLoadout) — 일부러 코어에 끼운 다른 투사체는 그대로. blocks = 핵 블록(blocks.json과 같은 꼴 + style 절, ContentDb가 Block(id) 조회에만 더한다 — 전리품·서고·제물에 나오지 않는다), sub_blocks = 부속 탄. 수치 균형: 허수아비 방(FunPass 켬)에서 꾹 누르기·임계 끊어 쏘기 DPS가 같은 캐릭터 마력탄의 ±12%, 범위 유형은 3마리 무리에서 마력탄의 1.8배 이하(AttackStyleBalanceTests가 잰다 — 측정 표는 Docs/12 5절). 손잡이: unlock.enabled(기본 꺼짐 — 셋 다 처음부터), tutorial_uses_default_style·art_upgrades.enabled(명세 기본 꺼짐, FunPass.json이 켠다).",
-  "replace_cores": ["block.magic_bolt"],
+  "replace_cores": [
+    "block.magic_bolt"
+  ],
   "tutorial_uses_default_style": false,
   "unlock": {
     "_note": "해금 손잡이(기본 꺼짐 = 사용자가 바로 QA). 켜면 그 캐릭터로 넘긴 최고 웨이브(CharacterRecord.best_wave)가 이 값 이상일 때 그 자리 유형이 열린다.",
     "enabled": false,
-    "min_best_wave": { "a": 0, "b": 5, "c": 10 }
+    "min_best_wave": {
+      "a": 0,
+      "b": 5,
+      "c": 10
+    }
   },
   "characters": {
-    "char.1": ["block.core.ember_mortar", "block.core.flame_jet", "block.core.bouncing_ember"],
-    "char.2": ["block.core.chain_bolt", "block.core.thunder_orb", "block.core.sky_strike"],
-    "char.3": ["block.core.page_flurry", "block.core.tome_throw", "block.core.rune_mine"],
-    "char.4": ["block.core.frost_lance", "block.core.blizzard", "block.core.icicle_fall"],
-    "char.5": ["block.core.shadow_wave", "block.core.shadow_scythe", "block.core.eye_seeker"]
+    "char.1": [
+      "block.core.ember_mortar",
+      "block.core.flame_jet",
+      "block.core.bouncing_ember"
+    ],
+    "char.2": [
+      "block.core.chain_bolt",
+      "block.core.thunder_orb",
+      "block.core.sky_strike"
+    ],
+    "char.3": [
+      "block.core.page_flurry",
+      "block.core.tome_throw",
+      "block.core.rune_mine"
+    ],
+    "char.4": [
+      "block.core.frost_lance",
+      "block.core.blizzard",
+      "block.core.icicle_fall"
+    ],
+    "char.5": [
+      "block.core.shadow_wave",
+      "block.core.shadow_scythe",
+      "block.core.eye_seeker"
+    ]
   },
   "art_upgrades": {
     "_note": "고유 비기 강화(게임 규칙). 비용·커맨드·원래 효과는 그대로, 덧피해는 원래 총량의 +20% 이내(불가마 0.25T×8 = 2T → 고리 0.4T / 벼락 질주 3T → 낙뢰 0.6T / 베껴 쓰기 사본 12×0.5T = 6T → 소용돌이 0.1T×12 = 1.2T / 얼음 병풍 3T → 가시 0.6T / 그림자 손 3T → 짓누름 0.6T). damage = T 배수(적 하나에 한 번, 소용돌이는 맥박마다). 명세 값 기본 꺼짐, FunPass가 켠다.",
     "enabled": false,
-    "art.kiln": { "damage": 0.4, "ring_radii": [1.0, 1.9, 2.8], "first_delay_seconds": 0, "gap_seconds": 0.1 },
-    "art.bolt_dash": { "damage": 0.6, "strikes": 5, "radius": 0.8, "first_delay_seconds": 0.15, "gap_seconds": 0.07 },
-    "art.copy_circle": { "damage": 0.1, "radius": 2.6, "pulse_seconds": 0.5, "pull_per_pulse": 0.35 },
-    "art.ice_screen": { "damage": 0.6, "spikes": 4, "start": 0.9, "step": 0.9, "radius": 0.8, "first_delay_seconds": 0.05, "gap_seconds": 0.08, "stun_seconds": 0.4, "freeze_seconds": 0.6 },
-    "art.shadow_hand": { "damage": 0.6, "radius": 2.2, "crush_delay_seconds": 0.45 }
+    "art.kiln": {
+      "damage": 0.4,
+      "ring_radii": [
+        1.0,
+        1.9,
+        2.8
+      ],
+      "first_delay_seconds": 0,
+      "gap_seconds": 0.1
+    },
+    "art.bolt_dash": {
+      "damage": 0.6,
+      "strikes": 5,
+      "radius": 0.8,
+      "first_delay_seconds": 0.15,
+      "gap_seconds": 0.07
+    },
+    "art.copy_circle": {
+      "damage": 0.1,
+      "radius": 2.6,
+      "pulse_seconds": 0.5,
+      "pull_per_pulse": 0.35
+    },
+    "art.ice_screen": {
+      "damage": 0.6,
+      "spikes": 4,
+      "start": 0.9,
+      "step": 0.9,
+      "radius": 0.8,
+      "first_delay_seconds": 0.05,
+      "gap_seconds": 0.08,
+      "stun_seconds": 0.4,
+      "freeze_seconds": 0.6
+    },
+    "art.shadow_hand": {
+      "damage": 0.6,
+      "radius": 2.2,
+      "crush_delay_seconds": 0.45
+    }
+  },
+  "final_abilities": {
+    "_note": "파이널 어빌리티(사용자 지시 2026-11-15 '게이지 차면 K 누르면 나가는 방출 말고 캐릭터마다 다 다른 파이널 어빌리티, 조합에 따라 다르게'). 결정이 min_crystals(2)개 이상일 때 K를 빠르게 두 번(double_tap_seconds 안) 누르면 결정 전부를 쓰고 이것을 낸다. 한 번만 누르면 그 창이 지난 뒤 첫 K 시각으로 마력 방출(커맨드 비기는 기다리지 않는다). 키 = 기본 공격 유형(핵 블록 id) → 캐릭터 × 유형 15가지. stages: volley(지금 지팡이 회로를 그대로 쏨 — 연결 블록 조합에 따라 달라진다. damage = 트리 배율), rings/strikes/line/vortex/crush(직접 피해, damage = T 배수), clear(적 탄 소거). at·gap_seconds = 시작·간격 초. fx = 그림·소리를 빌려 쓰는 고유 비기(art.kiln 불기둥, art.bolt_dash 낙뢰, art.copy_circle 책장 소용돌이, art.ice_screen 얼음 가시, art.shadow_hand 그림자 손), 없으면 충격파. 수치 [임시](결정 4~7개 전부 — 만개(결정 5개 ≈ 정면 10T)와 같은 무게). 명세 값 기본 꺼짐, FunPass가 켠다. ArtSystem.Finals.cs.",
+    "enabled": false,
+    "min_crystals": 2,
+    "double_tap_seconds": 0.25,
+    "block.core.ember_mortar": {
+      "id": "final.ember_mortar",
+      "invuln_seconds": 0.3,
+      "stages": [
+        {
+          "kind": "rings",
+          "fx": "art.kiln",
+          "radii": [
+            1.6,
+            2.6,
+            3.6
+          ],
+          "gap_seconds": 0.1,
+          "damage": 0.8
+        },
+        {
+          "kind": "strikes",
+          "fx": "art.kiln",
+          "at": 0.3,
+          "count": 8,
+          "gap_seconds": 0.09,
+          "range": 8,
+          "radius": 1.3,
+          "damage": 0.9
+        },
+        {
+          "kind": "volley",
+          "at": 0.3,
+          "repeats": 3,
+          "gap_seconds": 0.25,
+          "branches": 3,
+          "branch_angle_degrees": 25,
+          "damage": 1.0,
+          "side_damage": 0.7
+        }
+      ]
+    },
+    "block.core.flame_jet": {
+      "id": "final.flame_jet",
+      "invuln_seconds": 0.4,
+      "stages": [
+        {
+          "kind": "volley",
+          "repeats": 18,
+          "gap_seconds": 0.05,
+          "branches": 2,
+          "branch_angle_degrees": 180,
+          "spin_degrees": 20,
+          "damage": 0.7,
+          "side_damage": 0.7
+        },
+        {
+          "kind": "rings",
+          "fx": "art.kiln",
+          "at": 0.2,
+          "radii": [
+            1.0,
+            2.0,
+            3.0,
+            4.0
+          ],
+          "gap_seconds": 0.15,
+          "damage": 0.7
+        }
+      ]
+    },
+    "block.core.bouncing_ember": {
+      "id": "final.bouncing_ember",
+      "invuln_seconds": 0.3,
+      "stages": [
+        {
+          "kind": "volley",
+          "repeats": 4,
+          "gap_seconds": 0.15,
+          "branches": 8,
+          "branch_angle_degrees": 45,
+          "spin_degrees": 22.5,
+          "damage": 1.0,
+          "side_damage": 0.7
+        },
+        {
+          "kind": "rings",
+          "fx": "art.kiln",
+          "at": 0.6,
+          "radii": [
+            1.5,
+            3.0
+          ],
+          "gap_seconds": 0.1,
+          "damage": 0.8
+        }
+      ]
+    },
+    "block.core.chain_bolt": {
+      "id": "final.chain_bolt",
+      "invuln_seconds": 0.3,
+      "stages": [
+        {
+          "kind": "strikes",
+          "fx": "art.bolt_dash",
+          "count": 10,
+          "warn_seconds": 0.15,
+          "gap_seconds": 0.06,
+          "range": 8,
+          "radius": 1.0,
+          "damage": 0.9,
+          "stun_seconds": 0.3
+        },
+        {
+          "kind": "volley",
+          "at": 0.2,
+          "repeats": 3,
+          "gap_seconds": 0.2,
+          "branches": 3,
+          "branch_angle_degrees": 30,
+          "damage": 1.0,
+          "side_damage": 0.8
+        }
+      ]
+    },
+    "block.core.thunder_orb": {
+      "id": "final.thunder_orb",
+      "invuln_seconds": 0.3,
+      "stages": [
+        {
+          "kind": "volley",
+          "repeats": 2,
+          "gap_seconds": 0.3,
+          "branches": 8,
+          "branch_angle_degrees": 45,
+          "spin_degrees": 22.5,
+          "damage": 1.0,
+          "side_damage": 0.8
+        },
+        {
+          "kind": "strikes",
+          "fx": "art.bolt_dash",
+          "at": 0.3,
+          "count": 12,
+          "warn_seconds": 0.2,
+          "gap_seconds": 0.08,
+          "range": 6,
+          "radius": 0.9,
+          "damage": 0.7
+        }
+      ]
+    },
+    "block.core.sky_strike": {
+      "id": "final.sky_strike",
+      "invuln_seconds": 0.3,
+      "stages": [
+        {
+          "kind": "strikes",
+          "fx": "art.bolt_dash",
+          "count": 6,
+          "warn_seconds": 0.3,
+          "gap_seconds": 0.15,
+          "range": 9,
+          "radius": 1.8,
+          "damage": 1.6,
+          "stun_seconds": 0.5
+        },
+        {
+          "kind": "clear",
+          "at": 0.1,
+          "radius": 3.5
+        }
+      ]
+    },
+    "block.core.page_flurry": {
+      "id": "final.page_flurry",
+      "invuln_seconds": 0.3,
+      "stages": [
+        {
+          "kind": "vortex",
+          "fx": "art.copy_circle",
+          "radius": 3.2,
+          "pulses": 8,
+          "gap_seconds": 0.2,
+          "pull": 0.35,
+          "damage": 0.35
+        },
+        {
+          "kind": "volley",
+          "repeats": 6,
+          "gap_seconds": 0.15,
+          "branches": 3,
+          "branch_angle_degrees": 120,
+          "spin_degrees": 20,
+          "damage": 0.9,
+          "side_damage": 0.9
+        }
+      ]
+    },
+    "block.core.tome_throw": {
+      "id": "final.tome_throw",
+      "invuln_seconds": 0.3,
+      "stages": [
+        {
+          "kind": "volley",
+          "repeats": 3,
+          "gap_seconds": 0.2,
+          "branches": 6,
+          "branch_angle_degrees": 60,
+          "spin_degrees": 30,
+          "damage": 1.1,
+          "side_damage": 0.9
+        },
+        {
+          "kind": "vortex",
+          "fx": "art.copy_circle",
+          "offset": 3,
+          "radius": 2.6,
+          "pulses": 6,
+          "gap_seconds": 0.2,
+          "pull": 0.5,
+          "damage": 0.4
+        }
+      ]
+    },
+    "block.core.rune_mine": {
+      "id": "final.rune_mine",
+      "invuln_seconds": 0.3,
+      "stages": [
+        {
+          "kind": "vortex",
+          "fx": "art.copy_circle",
+          "radius": 4.0,
+          "pulses": 6,
+          "gap_seconds": 0.25,
+          "pull": 0.6,
+          "damage": 0.4
+        },
+        {
+          "kind": "volley",
+          "at": 0.5,
+          "repeats": 2,
+          "gap_seconds": 0.4,
+          "branches": 8,
+          "branch_angle_degrees": 45,
+          "damage": 1.0,
+          "side_damage": 0.8
+        },
+        {
+          "kind": "clear",
+          "at": 1.5,
+          "radius": 4.0
+        }
+      ]
+    },
+    "block.core.frost_lance": {
+      "id": "final.frost_lance",
+      "invuln_seconds": 0.3,
+      "stages": [
+        {
+          "kind": "line",
+          "fx": "art.ice_screen",
+          "count": 8,
+          "start": 0.9,
+          "step": 1.0,
+          "radius": 0.9,
+          "gap_seconds": 0.05,
+          "damage": 1.2,
+          "stun_seconds": 0.3,
+          "freeze_seconds": 0.8
+        },
+        {
+          "kind": "volley",
+          "at": 0.1,
+          "repeats": 2,
+          "gap_seconds": 0.25,
+          "branches": 5,
+          "branch_angle_degrees": 12,
+          "damage": 1.4,
+          "side_damage": 1.0
+        }
+      ]
+    },
+    "block.core.blizzard": {
+      "id": "final.blizzard",
+      "invuln_seconds": 0.4,
+      "stages": [
+        {
+          "kind": "line",
+          "fx": "art.ice_screen",
+          "directions": 8,
+          "count": 3,
+          "start": 1.0,
+          "step": 1.0,
+          "radius": 0.8,
+          "gap_seconds": 0.08,
+          "damage": 0.9,
+          "freeze_seconds": 1.0
+        },
+        {
+          "kind": "volley",
+          "at": 0.3,
+          "repeats": 10,
+          "gap_seconds": 0.06,
+          "branches": 3,
+          "branch_angle_degrees": 40,
+          "spin_degrees": 36,
+          "damage": 0.6,
+          "side_damage": 0.6
+        }
+      ]
+    },
+    "block.core.icicle_fall": {
+      "id": "final.icicle_fall",
+      "invuln_seconds": 0.3,
+      "stages": [
+        {
+          "kind": "strikes",
+          "fx": "art.ice_screen",
+          "count": 9,
+          "gap_seconds": 0.08,
+          "range": 8,
+          "radius": 1.0,
+          "damage": 1.0,
+          "stun_seconds": 0.2,
+          "freeze_seconds": 0.6
+        },
+        {
+          "kind": "volley",
+          "at": 0.2,
+          "repeats": 2,
+          "gap_seconds": 0.3,
+          "branches": 3,
+          "branch_angle_degrees": 20,
+          "damage": 1.0,
+          "side_damage": 0.8
+        }
+      ]
+    },
+    "block.core.shadow_wave": {
+      "id": "final.shadow_wave",
+      "invuln_seconds": 0.4,
+      "stages": [
+        {
+          "kind": "crush",
+          "fx": "art.shadow_hand",
+          "offset": 2.5,
+          "grip_radius": 5.0,
+          "pull": 3.0,
+          "grip_damage": 0.6,
+          "crush_delay_seconds": 0.5,
+          "radius": 3.0,
+          "damage": 2.0,
+          "stun_seconds": 0.4
+        },
+        {
+          "kind": "volley",
+          "at": 0.6,
+          "repeats": 3,
+          "gap_seconds": 0.15,
+          "branches": 8,
+          "branch_angle_degrees": 45,
+          "damage": 0.9,
+          "side_damage": 0.7
+        }
+      ]
+    },
+    "block.core.shadow_scythe": {
+      "id": "final.shadow_scythe",
+      "invuln_seconds": 0.5,
+      "stages": [
+        {
+          "kind": "volley",
+          "repeats": 16,
+          "gap_seconds": 0.04,
+          "branches": 1,
+          "spin_degrees": 22.5,
+          "damage": 0.9
+        },
+        {
+          "kind": "crush",
+          "fx": "art.shadow_hand",
+          "at": 0.65,
+          "offset": 2.5,
+          "grip_radius": 3.5,
+          "pull": 1.5,
+          "grip_damage": 0,
+          "crush_delay_seconds": 0.35,
+          "radius": 3.0,
+          "damage": 2.0
+        }
+      ]
+    },
+    "block.core.eye_seeker": {
+      "id": "final.eye_seeker",
+      "invuln_seconds": 0.3,
+      "stages": [
+        {
+          "kind": "strikes",
+          "fx": "art.shadow_hand",
+          "count": 5,
+          "gap_seconds": 0.15,
+          "range": 9,
+          "radius": 1.6,
+          "damage": 1.4,
+          "stun_seconds": 0.3
+        },
+        {
+          "kind": "volley",
+          "repeats": 3,
+          "gap_seconds": 0.2,
+          "branches": 6,
+          "branch_angle_degrees": 60,
+          "spin_degrees": 30,
+          "damage": 1.0,
+          "side_damage": 0.8
+        }
+      ]
+    }
   },
   "blocks": [
     {
-      "id": "block.core.ember_mortar", "kind": "projectile", "rarity": "common", "element": "element.fire",
-      "heat": 16.2, "base_damage": 20.7, "interval_seconds": 0.35, "speed": 10, "instant": false, "range": 6, "hit_radius": 0.2,
-      "flags": ["explodes"], "effect": "none", "params": { "explosion_radius": 1.4 },
+      "id": "block.core.ember_mortar",
+      "kind": "projectile",
+      "rarity": "common",
+      "element": "element.fire",
+      "heat": 16.2,
+      "base_damage": 20.7,
+      "interval_seconds": 0.35,
+      "speed": 10,
+      "instant": false,
+      "range": 6,
+      "hit_radius": 0.2,
+      "flags": [
+        "explodes"
+      ],
+      "effect": "none",
+      "params": {
+        "explosion_radius": 1.4
+      },
       "style": {
-        "behavior": "lob", "character": "char.1", "slot": "a", "tags": ["area", "delay", "burn"],
-        "standard_t_base": 10, "art_damage_scale": 0.39, "extra_target_mul": 0.3, "estimate_hits": 1.24, "pierce_bonus_per_count": 0.05,
-        "combo_on_hit": 1, "echo_damage_mul": 0.6,
-        "aim_cone_degrees": 30, "aim_range": 7, "default_distance": 5, "min_distance": 1.5,
-        "flight_seconds": 0.4, "blast_radius": 1.4, "bounce_hop_distance": 2, "bounce_flight_seconds": 0.25,
-        "floor_seconds": 1.0, "floor_radius": 1.1, "floor_interval_seconds": 0.25, "floor_damage": 0.06
-      }
-    },
-    {
-      "id": "block.core.flame_jet", "kind": "projectile", "rarity": "common", "element": "element.fire",
-      "heat": 5.5, "base_damage": 7.2, "interval_seconds": 0.1, "speed": 8, "instant": false, "range": 2.6, "hit_radius": 0.15,
-      "flags": [], "effect": "none", "params": {},
-      "style": {
-        "behavior": "cone", "character": "char.1", "slot": "b", "tags": ["close", "spray", "burn"],
-        "standard_t_base": 10, "art_damage_scale": 1.27, "extra_target_mul": 0.35, "estimate_hits": 1.1, "pierce_bonus_per_count": 0.05,
-        "echo_damage_mul": 0.5,
-        "cone_radius": 2.6, "cone_half_degrees": 28, "sweep_seconds": 0.07, "sweep": "radial", "attached": true,
-        "burn_stacks_per_hit": 1, "burn_max_stacks": 5, "burn_seconds": 1.5, "burn_interval_seconds": 0.25, "burn_damage_per_stack": 0.05
-      }
-    },
-    {
-      "id": "block.core.bouncing_ember", "kind": "projectile", "rarity": "common", "element": "element.fire",
-      "heat": 5, "base_damage": 10.4, "interval_seconds": 0.18, "speed": 16, "instant": false, "range": 9, "hit_radius": 0.1,
-      "flags": [], "effect": "none", "params": {},
-      "style": {
-        "behavior": "ricochet", "character": "char.1", "slot": "c", "tags": ["fast", "bounce", "burn"],
-        "standard_t_base": 10, "art_damage_scale": 0.88, "extra_target_mul": 0.35, "estimate_hits": 1.1,
-        "ricochets": 2, "ricochet_radius": 3.5, "wall_bounces": 2,
-        "burn_stacks_per_hit": 1, "burn_max_stacks": 2, "burn_seconds": 1.5, "burn_interval_seconds": 0.25, "burn_damage_per_stack": 0.05
-      }
-    },
-    {
-      "id": "block.core.chain_bolt", "kind": "projectile", "rarity": "common", "element": "element.lightning",
-      "heat": 4, "base_damage": 10, "interval_seconds": 0.15, "speed": 0, "instant": true, "range": 4.5, "hit_radius": 0.2,
-      "flags": ["chains", "ignores_wolf_dodge"], "effect": "none",
-      "params": { "chain_hops": 2, "chain_radius": 2.5, "chain_hop_multiplier": 0.35 },
-      "style": {
-        "behavior": "chain", "character": "char.2", "slot": "a", "tags": ["instant", "chain", "close"],
-        "standard_t_base": 10, "art_damage_scale": 1, "estimate_hits": 1, "hop_radius_bonus_per_bounce": 1.0
-      }
-    },
-    {
-      "id": "block.core.thunder_orb", "kind": "projectile", "rarity": "common", "element": "element.lightning",
-      "heat": 16.6, "base_damage": 13.8, "interval_seconds": 0.4, "speed": 4.5, "instant": false, "range": 8, "hit_radius": 0.3,
-      "flags": ["pass_through"], "effect": "none", "params": {},
-      "style": {
-        "behavior": "orb", "character": "char.2", "slot": "b", "tags": ["slow", "pierce", "zap"],
-        "standard_t_base": 10, "art_damage_scale": 0.36, "extra_target_mul": 0.35, "estimate_hits": 2.0, "pierce_bonus_per_count": 0.05,
+        "behavior": "lob",
+        "character": "char.1",
+        "slot": "a",
+        "tags": [
+          "area",
+          "delay",
+          "burn"
+        ],
+        "standard_t_base": 10,
+        "art_damage_scale": 0.39,
+        "extra_target_mul": 0.3,
+        "estimate_hits": 1.24,
+        "pierce_bonus_per_count": 0.05,
         "combo_on_hit": 1,
-        "zap_interval_seconds": 0.2, "zap_radius": 1.6, "zap_damage": 0.26, "zap_targets": 2
+        "echo_damage_mul": 0.6,
+        "aim_cone_degrees": 30,
+        "aim_range": 7,
+        "default_distance": 5,
+        "min_distance": 1.5,
+        "flight_seconds": 0.4,
+        "blast_radius": 1.4,
+        "bounce_hop_distance": 2,
+        "bounce_flight_seconds": 0.25,
+        "floor_seconds": 1.0,
+        "floor_radius": 1.1,
+        "floor_interval_seconds": 0.25,
+        "floor_damage": 0.06
       }
     },
     {
-      "id": "block.core.sky_strike", "kind": "projectile", "rarity": "common", "element": "element.lightning",
-      "heat": 10.7, "base_damage": 21.7, "interval_seconds": 0.35, "speed": 0, "instant": false, "range": 6.5, "hit_radius": 0.2,
-      "flags": [], "effect": "none", "params": {},
+      "id": "block.core.flame_jet",
+      "kind": "projectile",
+      "rarity": "common",
+      "element": "element.fire",
+      "heat": 5.5,
+      "base_damage": 7.2,
+      "interval_seconds": 0.1,
+      "speed": 8,
+      "instant": false,
+      "range": 2.6,
+      "hit_radius": 0.15,
+      "flags": [],
+      "effect": "none",
+      "params": {},
       "style": {
-        "behavior": "strike", "character": "char.2", "slot": "c", "tags": ["area", "delay", "aim"],
-        "standard_t_base": 10, "art_damage_scale": 0.46, "extra_target_mul": 0.35, "estimate_hits": 1, "pierce_bonus_per_count": 0.05,
-        "combo_on_hit": 2, "echo_damage_mul": 0.5,
-        "aim_cone_degrees": 40, "aim_range": 6.5, "default_distance": 4.5, "min_distance": 1.0,
-        "delay_seconds": 0.35, "blast_radius": 1.3, "restrike_seconds": 0.3
-      }
-    },
-    {
-      "id": "block.core.page_flurry", "kind": "projectile", "rarity": "common", "element": "element.arcane",
-      "heat": 8, "base_damage": 6.3, "interval_seconds": 0.3, "speed": 11, "instant": false, "range": 8, "hit_radius": 0.14,
-      "flags": [], "effect": "none", "params": {},
-      "style": {
-        "behavior": "pages", "character": "char.3", "slot": "a", "tags": ["spread", "curve", "pierce"],
-        "standard_t_base": 10, "art_damage_scale": 0.53, "extra_target_mul": 0.5, "estimate_hits": 3,
-        "copies": 3, "copy_spread_degrees": 20, "curve_degrees_per_second": 110, "pierce": 1
-      }
-    },
-    {
-      "id": "block.core.tome_throw", "kind": "projectile", "rarity": "common", "element": "element.arcane",
-      "heat": 10.8, "base_damage": 11, "interval_seconds": 0.35, "speed": 9, "instant": false, "range": 5, "hit_radius": 0.3,
-      "flags": ["returns"], "effect": "none", "params": { "return_arrive_radius": 0.5, "return_max_distance": 9 },
-      "style": {
-        "behavior": "boomerang", "character": "char.3", "slot": "b", "tags": ["heavy", "return", "pierce"],
-        "standard_t_base": 10, "art_damage_scale": 0.45, "extra_target_mul": 0.35, "estimate_hits": 2, "pierce_bonus_per_count": 0.05,
-        "combo_on_hit": 1, "bounce_range_bonus": 1.0
-      }
-    },
-    {
-      "id": "block.core.rune_mine", "kind": "projectile", "rarity": "common", "element": "element.arcane",
-      "heat": 10, "base_damage": 22.9, "interval_seconds": 0.4, "speed": 0, "instant": false, "range": 2.5, "hit_radius": 0.3,
-      "flags": [], "effect": "none", "params": {},
-      "style": {
-        "behavior": "mine", "character": "char.3", "slot": "c", "tags": ["trap", "area", "delay"],
-        "standard_t_base": 10, "art_damage_scale": 0.44, "extra_target_mul": 0.35, "estimate_hits": 1, "pierce_bonus_per_count": 0.05,
-        "combo_on_hit": 2, "echo_damage_mul": 0.5,
-        "aim_cone_degrees": 30, "aim_range": 4, "default_distance": 2.5, "min_distance": 1.2,
-        "arm_seconds": 0.2, "fuse_seconds": 2.5, "trigger_radius": 0.6, "blast_radius": 1.5, "max_mines": 5, "rearm_seconds": 0.4
-      }
-    },
-    {
-      "id": "block.core.frost_lance", "kind": "projectile", "rarity": "common", "element": "element.ice",
-      "heat": 13.8, "base_damage": 24.2, "interval_seconds": 0.35, "speed": 8, "instant": false, "range": 10, "hit_radius": 0.16,
-      "flags": [], "effect": "none", "params": { "slow_percent": 30, "slow_seconds": 1 },
-      "style": {
-        "behavior": "lance", "character": "char.4", "slot": "a", "tags": ["long", "pierce", "shatter"],
-        "standard_t_base": 10, "art_damage_scale": 0.41, "extra_target_mul": 0.35, "estimate_hits": 1,
-        "combo_on_hit": 2, "pierce": 1,
-        "shard_block": "block.core.frost_lance_shard", "shard_count": 3, "shard_spread_degrees": 25
-      }
-    },
-    {
-      "id": "block.core.blizzard", "kind": "projectile", "rarity": "common", "element": "element.ice",
-      "heat": 3.2, "base_damage": 9.6, "interval_seconds": 0.15, "speed": 8, "instant": false, "range": 2.2, "hit_radius": 0.15,
-      "flags": [], "effect": "none", "params": {},
-      "style": {
-        "behavior": "cone", "character": "char.4", "slot": "b", "tags": ["close", "spray", "freeze"],
-        "standard_t_base": 10, "art_damage_scale": 1.04, "extra_target_mul": 0.35, "estimate_hits": 1, "pierce_bonus_per_count": 0.05,
+        "behavior": "cone",
+        "character": "char.1",
+        "slot": "b",
+        "tags": [
+          "close",
+          "spray",
+          "burn"
+        ],
+        "standard_t_base": 10,
+        "art_damage_scale": 1.27,
+        "extra_target_mul": 0.35,
+        "estimate_hits": 1.1,
+        "pierce_bonus_per_count": 0.05,
         "echo_damage_mul": 0.5,
-        "cone_radius": 2.2, "cone_half_degrees": 45, "sweep_seconds": 0.1, "sweep": "radial", "attached": true,
-        "chill_slow_per_stack": 0.07, "chill_seconds": 1.2, "chill_freeze_at": 6, "freeze_seconds": 0.8
+        "cone_radius": 2.6,
+        "cone_half_degrees": 28,
+        "sweep_seconds": 0.07,
+        "sweep": "radial",
+        "attached": true,
+        "burn_stacks_per_hit": 1,
+        "burn_max_stacks": 5,
+        "burn_seconds": 1.5,
+        "burn_interval_seconds": 0.25,
+        "burn_damage_per_stack": 0.05
       }
     },
     {
-      "id": "block.core.icicle_fall", "kind": "projectile", "rarity": "common", "element": "element.ice",
-      "heat": 13.3, "base_damage": 12.8, "interval_seconds": 0.4, "speed": 0, "instant": false, "range": 4.5, "hit_radius": 0.2,
-      "flags": [], "effect": "none", "params": { "slow_percent": 20, "slow_seconds": 1 },
+      "id": "block.core.bouncing_ember",
+      "kind": "projectile",
+      "rarity": "common",
+      "element": "element.fire",
+      "heat": 5,
+      "base_damage": 10.4,
+      "interval_seconds": 0.18,
+      "speed": 16,
+      "instant": false,
+      "range": 9,
+      "hit_radius": 0.1,
+      "flags": [],
+      "effect": "none",
+      "params": {},
       "style": {
-        "behavior": "icicles", "character": "char.4", "slot": "c", "tags": ["line", "delay", "area"],
-        "standard_t_base": 10, "art_damage_scale": 0.39, "extra_target_mul": 0.35, "estimate_hits": 2, "pierce_bonus_per_count": 0.05,
+        "behavior": "ricochet",
+        "character": "char.1",
+        "slot": "c",
+        "tags": [
+          "fast",
+          "bounce",
+          "burn"
+        ],
+        "standard_t_base": 10,
+        "art_damage_scale": 0.88,
+        "extra_target_mul": 0.35,
+        "estimate_hits": 1.1,
+        "ricochets": 2,
+        "ricochet_radius": 3.5,
+        "wall_bounces": 2,
+        "burn_stacks_per_hit": 1,
+        "burn_max_stacks": 2,
+        "burn_seconds": 1.5,
+        "burn_interval_seconds": 0.25,
+        "burn_damage_per_stack": 0.05
+      }
+    },
+    {
+      "id": "block.core.chain_bolt",
+      "kind": "projectile",
+      "rarity": "common",
+      "element": "element.lightning",
+      "heat": 4,
+      "base_damage": 10,
+      "interval_seconds": 0.15,
+      "speed": 0,
+      "instant": true,
+      "range": 4.5,
+      "hit_radius": 0.2,
+      "flags": [
+        "chains",
+        "ignores_wolf_dodge"
+      ],
+      "effect": "none",
+      "params": {
+        "chain_hops": 2,
+        "chain_radius": 2.5,
+        "chain_hop_multiplier": 0.35
+      },
+      "style": {
+        "behavior": "chain",
+        "character": "char.2",
+        "slot": "a",
+        "tags": [
+          "instant",
+          "chain",
+          "close"
+        ],
+        "standard_t_base": 10,
+        "art_damage_scale": 1,
+        "estimate_hits": 1,
+        "hop_radius_bonus_per_bounce": 1.0
+      }
+    },
+    {
+      "id": "block.core.thunder_orb",
+      "kind": "projectile",
+      "rarity": "common",
+      "element": "element.lightning",
+      "heat": 16.6,
+      "base_damage": 13.8,
+      "interval_seconds": 0.4,
+      "speed": 4.5,
+      "instant": false,
+      "range": 8,
+      "hit_radius": 0.3,
+      "flags": [
+        "pass_through"
+      ],
+      "effect": "none",
+      "params": {},
+      "style": {
+        "behavior": "orb",
+        "character": "char.2",
+        "slot": "b",
+        "tags": [
+          "slow",
+          "pierce",
+          "zap"
+        ],
+        "standard_t_base": 10,
+        "art_damage_scale": 0.36,
+        "extra_target_mul": 0.35,
+        "estimate_hits": 2.0,
+        "pierce_bonus_per_count": 0.05,
         "combo_on_hit": 1,
-        "aim_cone_degrees": 25, "aim_range": 5,
-        "drop_count": 4, "drop_start": 0.8, "drop_step": 1.0, "delay_seconds": 0.3, "drop_gap_seconds": 0.08, "drop_radius": 0.6
+        "zap_interval_seconds": 0.2,
+        "zap_radius": 1.6,
+        "zap_damage": 0.26,
+        "zap_targets": 2
       }
     },
     {
-      "id": "block.core.shadow_wave", "kind": "projectile", "rarity": "common", "element": "element.dark",
-      "heat": 8, "base_damage": 18.4, "interval_seconds": 0.3, "speed": 0, "instant": false, "range": 4, "hit_radius": 0.2,
-      "flags": [], "effect": "none", "params": {},
+      "id": "block.core.sky_strike",
+      "kind": "projectile",
+      "rarity": "common",
+      "element": "element.lightning",
+      "heat": 10.7,
+      "base_damage": 21.7,
+      "interval_seconds": 0.35,
+      "speed": 0,
+      "instant": false,
+      "range": 6.5,
+      "hit_radius": 0.2,
+      "flags": [],
+      "effect": "none",
+      "params": {},
       "style": {
-        "behavior": "cone", "character": "char.5", "slot": "a", "tags": ["wave", "pierce", "pull"],
-        "standard_t_base": 10, "art_damage_scale": 0.54, "extra_target_mul": 0.35, "estimate_hits": 1, "pierce_bonus_per_count": 0.05,
-        "combo_on_hit": 1, "echo_damage_mul": 0.5,
-        "cone_radius": 4.0, "cone_half_degrees": 35, "sweep_seconds": 0.2, "sweep": "radial", "attached": false, "pull_distance": 0.25
-      }
-    },
-    {
-      "id": "block.core.shadow_scythe", "kind": "projectile", "rarity": "common", "element": "element.dark",
-      "heat": 10.7, "base_damage": 21.1, "interval_seconds": 0.33, "speed": 0, "instant": false, "range": 2.4, "hit_radius": 0.2,
-      "flags": [], "effect": "none", "params": {},
-      "style": {
-        "behavior": "cone", "character": "char.5", "slot": "b", "tags": ["melee", "heavy", "combo"],
-        "standard_t_base": 10, "art_damage_scale": 0.47, "extra_target_mul": 0.35, "estimate_hits": 1, "pierce_bonus_per_count": 0.05,
-        "combo_on_hit": 1, "combo_per_extra_hit": 1, "echo_damage_mul": 0.5,
-        "cone_radius": 2.4, "cone_half_degrees": 75, "sweep_seconds": 0.1, "sweep": "angular", "attached": true
-      }
-    },
-    {
-      "id": "block.core.eye_seeker", "kind": "projectile", "rarity": "common", "element": "element.dark",
-      "heat": 10.7, "base_damage": 21.1, "interval_seconds": 0.33, "speed": 7, "instant": false, "range": 9, "hit_radius": 0.22,
-      "flags": [], "effect": "none", "params": {},
-      "style": {
-        "behavior": "seeker", "character": "char.5", "slot": "c", "tags": ["homing", "split", "orb"],
-        "standard_t_base": 10, "art_damage_scale": 0.47, "estimate_hits": 1,
+        "behavior": "strike",
+        "character": "char.2",
+        "slot": "c",
+        "tags": [
+          "area",
+          "delay",
+          "aim"
+        ],
+        "standard_t_base": 10,
+        "art_damage_scale": 0.46,
+        "extra_target_mul": 0.35,
+        "estimate_hits": 1,
+        "pierce_bonus_per_count": 0.05,
         "combo_on_hit": 2,
-        "seek_turn_degrees_per_second": 300, "seek_cone_degrees": 180, "seek_range": 8,
-        "split_count": 2, "split_generations": 1, "split_damage_mul": 0.5, "split_spread_degrees": 30
+        "echo_damage_mul": 0.5,
+        "aim_cone_degrees": 40,
+        "aim_range": 6.5,
+        "default_distance": 4.5,
+        "min_distance": 1.0,
+        "delay_seconds": 0.35,
+        "blast_radius": 1.3,
+        "restrike_seconds": 0.3
+      }
+    },
+    {
+      "id": "block.core.page_flurry",
+      "kind": "projectile",
+      "rarity": "common",
+      "element": "element.arcane",
+      "heat": 8,
+      "base_damage": 6.3,
+      "interval_seconds": 0.3,
+      "speed": 11,
+      "instant": false,
+      "range": 8,
+      "hit_radius": 0.14,
+      "flags": [],
+      "effect": "none",
+      "params": {},
+      "style": {
+        "behavior": "pages",
+        "character": "char.3",
+        "slot": "a",
+        "tags": [
+          "spread",
+          "curve",
+          "pierce"
+        ],
+        "standard_t_base": 10,
+        "art_damage_scale": 0.53,
+        "extra_target_mul": 0.5,
+        "estimate_hits": 3,
+        "copies": 3,
+        "copy_spread_degrees": 20,
+        "curve_degrees_per_second": 110,
+        "pierce": 1
+      }
+    },
+    {
+      "id": "block.core.tome_throw",
+      "kind": "projectile",
+      "rarity": "common",
+      "element": "element.arcane",
+      "heat": 10.8,
+      "base_damage": 11,
+      "interval_seconds": 0.35,
+      "speed": 9,
+      "instant": false,
+      "range": 5,
+      "hit_radius": 0.3,
+      "flags": [
+        "returns"
+      ],
+      "effect": "none",
+      "params": {
+        "return_arrive_radius": 0.5,
+        "return_max_distance": 9
+      },
+      "style": {
+        "behavior": "boomerang",
+        "character": "char.3",
+        "slot": "b",
+        "tags": [
+          "heavy",
+          "return",
+          "pierce"
+        ],
+        "standard_t_base": 10,
+        "art_damage_scale": 0.45,
+        "extra_target_mul": 0.35,
+        "estimate_hits": 2,
+        "pierce_bonus_per_count": 0.05,
+        "combo_on_hit": 1,
+        "bounce_range_bonus": 1.0
+      }
+    },
+    {
+      "id": "block.core.rune_mine",
+      "kind": "projectile",
+      "rarity": "common",
+      "element": "element.arcane",
+      "heat": 10,
+      "base_damage": 22.9,
+      "interval_seconds": 0.4,
+      "speed": 0,
+      "instant": false,
+      "range": 2.5,
+      "hit_radius": 0.3,
+      "flags": [],
+      "effect": "none",
+      "params": {},
+      "style": {
+        "behavior": "mine",
+        "character": "char.3",
+        "slot": "c",
+        "tags": [
+          "trap",
+          "area",
+          "delay"
+        ],
+        "standard_t_base": 10,
+        "art_damage_scale": 0.44,
+        "extra_target_mul": 0.35,
+        "estimate_hits": 1,
+        "pierce_bonus_per_count": 0.05,
+        "combo_on_hit": 2,
+        "echo_damage_mul": 0.5,
+        "aim_cone_degrees": 30,
+        "aim_range": 4,
+        "default_distance": 2.5,
+        "min_distance": 1.2,
+        "arm_seconds": 0.2,
+        "fuse_seconds": 2.5,
+        "trigger_radius": 0.6,
+        "blast_radius": 1.5,
+        "max_mines": 5,
+        "rearm_seconds": 0.4
+      }
+    },
+    {
+      "id": "block.core.frost_lance",
+      "kind": "projectile",
+      "rarity": "common",
+      "element": "element.ice",
+      "heat": 13.8,
+      "base_damage": 24.2,
+      "interval_seconds": 0.35,
+      "speed": 8,
+      "instant": false,
+      "range": 10,
+      "hit_radius": 0.16,
+      "flags": [],
+      "effect": "none",
+      "params": {
+        "slow_percent": 30,
+        "slow_seconds": 1
+      },
+      "style": {
+        "behavior": "lance",
+        "character": "char.4",
+        "slot": "a",
+        "tags": [
+          "long",
+          "pierce",
+          "shatter"
+        ],
+        "standard_t_base": 10,
+        "art_damage_scale": 0.41,
+        "extra_target_mul": 0.35,
+        "estimate_hits": 1,
+        "combo_on_hit": 2,
+        "pierce": 1,
+        "shard_block": "block.core.frost_lance_shard",
+        "shard_count": 3,
+        "shard_spread_degrees": 25
+      }
+    },
+    {
+      "id": "block.core.blizzard",
+      "kind": "projectile",
+      "rarity": "common",
+      "element": "element.ice",
+      "heat": 3.2,
+      "base_damage": 9.6,
+      "interval_seconds": 0.15,
+      "speed": 8,
+      "instant": false,
+      "range": 2.2,
+      "hit_radius": 0.15,
+      "flags": [],
+      "effect": "none",
+      "params": {},
+      "style": {
+        "behavior": "cone",
+        "character": "char.4",
+        "slot": "b",
+        "tags": [
+          "close",
+          "spray",
+          "freeze"
+        ],
+        "standard_t_base": 10,
+        "art_damage_scale": 1.04,
+        "extra_target_mul": 0.35,
+        "estimate_hits": 1,
+        "pierce_bonus_per_count": 0.05,
+        "echo_damage_mul": 0.5,
+        "cone_radius": 2.2,
+        "cone_half_degrees": 45,
+        "sweep_seconds": 0.1,
+        "sweep": "radial",
+        "attached": true,
+        "chill_slow_per_stack": 0.07,
+        "chill_seconds": 1.2,
+        "chill_freeze_at": 6,
+        "freeze_seconds": 0.8
+      }
+    },
+    {
+      "id": "block.core.icicle_fall",
+      "kind": "projectile",
+      "rarity": "common",
+      "element": "element.ice",
+      "heat": 13.3,
+      "base_damage": 12.8,
+      "interval_seconds": 0.4,
+      "speed": 0,
+      "instant": false,
+      "range": 4.5,
+      "hit_radius": 0.2,
+      "flags": [],
+      "effect": "none",
+      "params": {
+        "slow_percent": 20,
+        "slow_seconds": 1
+      },
+      "style": {
+        "behavior": "icicles",
+        "character": "char.4",
+        "slot": "c",
+        "tags": [
+          "line",
+          "delay",
+          "area"
+        ],
+        "standard_t_base": 10,
+        "art_damage_scale": 0.39,
+        "extra_target_mul": 0.35,
+        "estimate_hits": 2,
+        "pierce_bonus_per_count": 0.05,
+        "combo_on_hit": 1,
+        "aim_cone_degrees": 25,
+        "aim_range": 5,
+        "drop_count": 4,
+        "drop_start": 0.8,
+        "drop_step": 1.0,
+        "delay_seconds": 0.3,
+        "drop_gap_seconds": 0.08,
+        "drop_radius": 0.6
+      }
+    },
+    {
+      "id": "block.core.shadow_wave",
+      "kind": "projectile",
+      "rarity": "common",
+      "element": "element.dark",
+      "heat": 8,
+      "base_damage": 18.4,
+      "interval_seconds": 0.3,
+      "speed": 0,
+      "instant": false,
+      "range": 4,
+      "hit_radius": 0.2,
+      "flags": [],
+      "effect": "none",
+      "params": {},
+      "style": {
+        "behavior": "cone",
+        "character": "char.5",
+        "slot": "a",
+        "tags": [
+          "wave",
+          "pierce",
+          "pull"
+        ],
+        "standard_t_base": 10,
+        "art_damage_scale": 0.54,
+        "extra_target_mul": 0.35,
+        "estimate_hits": 1,
+        "pierce_bonus_per_count": 0.05,
+        "combo_on_hit": 1,
+        "echo_damage_mul": 0.5,
+        "cone_radius": 4.0,
+        "cone_half_degrees": 35,
+        "sweep_seconds": 0.2,
+        "sweep": "radial",
+        "attached": false,
+        "pull_distance": 0.25
+      }
+    },
+    {
+      "id": "block.core.shadow_scythe",
+      "kind": "projectile",
+      "rarity": "common",
+      "element": "element.dark",
+      "heat": 10.7,
+      "base_damage": 21.1,
+      "interval_seconds": 0.33,
+      "speed": 0,
+      "instant": false,
+      "range": 2.4,
+      "hit_radius": 0.2,
+      "flags": [],
+      "effect": "none",
+      "params": {},
+      "style": {
+        "behavior": "cone",
+        "character": "char.5",
+        "slot": "b",
+        "tags": [
+          "melee",
+          "heavy",
+          "combo"
+        ],
+        "standard_t_base": 10,
+        "art_damage_scale": 0.47,
+        "extra_target_mul": 0.35,
+        "estimate_hits": 1,
+        "pierce_bonus_per_count": 0.05,
+        "combo_on_hit": 1,
+        "combo_per_extra_hit": 1,
+        "echo_damage_mul": 0.5,
+        "cone_radius": 2.4,
+        "cone_half_degrees": 75,
+        "sweep_seconds": 0.1,
+        "sweep": "angular",
+        "attached": true
+      }
+    },
+    {
+      "id": "block.core.eye_seeker",
+      "kind": "projectile",
+      "rarity": "common",
+      "element": "element.dark",
+      "heat": 10.7,
+      "base_damage": 21.1,
+      "interval_seconds": 0.33,
+      "speed": 7,
+      "instant": false,
+      "range": 9,
+      "hit_radius": 0.22,
+      "flags": [],
+      "effect": "none",
+      "params": {},
+      "style": {
+        "behavior": "seeker",
+        "character": "char.5",
+        "slot": "c",
+        "tags": [
+          "homing",
+          "split",
+          "orb"
+        ],
+        "standard_t_base": 10,
+        "art_damage_scale": 0.47,
+        "estimate_hits": 1,
+        "combo_on_hit": 2,
+        "seek_turn_degrees_per_second": 300,
+        "seek_cone_degrees": 180,
+        "seek_range": 8,
+        "split_count": 2,
+        "split_generations": 1,
+        "split_damage_mul": 0.5,
+        "split_spread_degrees": 30
       }
     }
   ],
   "sub_blocks": [
     {
-      "id": "block.core.frost_lance_shard", "kind": "projectile", "rarity": "common", "element": "element.ice",
-      "heat": 0, "base_damage": 8.5, "interval_seconds": 0, "speed": 12, "instant": false, "range": 2.5, "hit_radius": 0.1,
-      "flags": [], "effect": "none", "params": { "slow_percent": 20, "slow_seconds": 1 },
-      "style": { "behavior": "none" }
+      "id": "block.core.frost_lance_shard",
+      "kind": "projectile",
+      "rarity": "common",
+      "element": "element.ice",
+      "heat": 0,
+      "base_damage": 8.5,
+      "interval_seconds": 0,
+      "speed": 12,
+      "instant": false,
+      "range": 2.5,
+      "hit_radius": 0.1,
+      "flags": [],
+      "effect": "none",
+      "params": {
+        "slow_percent": 20,
+        "slow_seconds": 1
+      },
+      "style": {
+        "behavior": "none"
+      }
     }
   ]
 }

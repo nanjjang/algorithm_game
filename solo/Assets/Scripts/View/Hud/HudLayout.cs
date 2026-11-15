@@ -75,8 +75,9 @@ namespace Wizard.Solo.View.Hud
         /// <summary>최근 입력 5개 발밑 (−50,+60) 100×16, 문양 16×16 5개 + 이음줄.</summary>
         public static readonly HudRect RecentInputs = new HudRect(-50, 60, 100, 16);
         public const int RecentInputCount = 5, RecentGlyphPx = 16;
-        /// <summary>지금 K 줄 (−96,+80) 192×16, 12px.</summary>
-        public static readonly HudRect NowK = new HudRect(-96, 80, 192, 16, 12);
+        /// <summary>지금 K 줄 (요약서: (−96,+80) 192×16, 12px).</summary>
+        /// 솔로 다듬기 [임시]: 1080p 액션 화면에서 읽히게 줄 높이 24, 16px(요약서 12px보다 크게).
+        public static readonly HudRect NowK = new HudRect(-140, 80, 280, 24, 16);
 
         // ---- 시간(요약서 값)
         /// <summary>콤보 끊김 2초 = 120틱(10 요약서 1.1절).</summary>

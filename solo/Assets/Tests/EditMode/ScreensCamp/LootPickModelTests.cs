@@ -81,10 +81,10 @@ namespace Wizard.Solo.Tests.ScreensCamp
         }
 
         [Test]
-        public void S08_TV_064__CardRowWidth4Is1032And5Is1296()
+        public void CardRowWidthIncludesAllCardsAndGaps()
         {
-            Assert.AreEqual(1032f, LootPickModel.RowWidth(4));
-            Assert.AreEqual(1296f, LootPickModel.RowWidth(5));
+            Assert.AreEqual(1448f, LootPickModel.RowWidth(4));
+            Assert.AreEqual(1816f, LootPickModel.RowWidth(5));
         }
 
         [Test]

@@ -68,8 +68,37 @@
       "set": { "wave_start_crystal_until_wave": 3 }
     },
     {
+      "id": "enemies.slime_approach_speed",
+      "_note": "이끼 슬라임의 추격 속도 3.0 → 2.7칸/초. 초반 QA에서 슬라임 접촉이 8번 피격 중 7번을 차지했다. 접촉 피해와 체력은 그대로 두고 자세를 풀어 자리를 잡을 시간을 준다.",
+      "target": "sim/enemies",
+      "select": "enemies[id=enemy.slime_moss]",
+      "set": { "move_speed": 2.7 },
+      "was": { "move_speed": 3.0 }
+    },
+    {
+      "id": "enemies.shaman_attack_spacing",
+      "_note": "갓버섯 술사 3갈래 탄의 시전 0.4 → 0.55초, 재사용 2.0 → 2.6초. 접촉 압력을 낮춘 QA에서도 남은 피격의 절반이 술사 탄이었다. 탄의 모양·속도·피해는 그대로다.",
+      "target": "sim/enemies",
+      "select": "enemies[id=enemy.shaman_cap]/attacks[key=triple]",
+      "set": { "cast_seconds": 0.55, "cooldown_seconds": 2.6 },
+      "was": { "cast_seconds": 0.4, "cooldown_seconds": 2.0 }
+    },
+    {
+      "id": "camp.heal_base",
+      "_note": "야영 회복 기본 비용 30 → 20골드. 첫 웨이브 뒤 35 → 25골드. 웨이브별 증가분과 재구매 할증은 그대로다.",
+      "target": "solo/camp",
+      "set": { "heal_base": 20 },
+      "was": { "heal_base": 30 }
+    },
+    {
+      "id": "waves.opening_budgets",
+      "_note": "웨이브 1~2의 적 편성 예산 16/22 → 12/18. 무리를 나누고도 첫 웨이브에서 다섯 번 접촉 피해를 받아 쓰러진 QA 결과를 반영했다. 술사와 등불 벌레의 고정 편성은 남겨 둔다.",
+      "target": "DataSolo/G09",
+      "set": { "opening_budgets": [12, 18] }
+    },
+    {
       "id": "waves.script_w1",
-      "_note": "B절. 웨이브 1: 이끼 슬라임만 → 갓버섯 술사 1 + 슬라임(예산 16 그대로). 탄을 쏘는 약한 적이 있어야 첫 웨이브부터 스침이 성립한다. 새 요소 = 적 탄과 스침.",
+      "_note": "B절. 웨이브 1: 이끼 슬라임만 → 갓버섯 술사 1 + 슬라임. 탄을 쏘는 약한 적이 있어야 첫 웨이브부터 스침이 성립한다. 새 요소 = 적 탄과 스침.",
       "target": "sim/waves",
       "select": "script[wave=1]",
       "set": { "fixed": [{ "species": "enemy.shaman_cap", "min": 1, "max": 1 }] },
@@ -180,6 +209,14 @@
       "_note": "고유 비기 강화(불기둥 고리·낙뢰 궤적·책장 소용돌이·얼음 가시·그림자 손 짓누름). 비용·커맨드는 그대로, 덧피해는 원래 총량의 +20% 이내(AttackStyles.json art_upgrades 표, Docs/12 4절).",
       "target": "DataSolo/AttackStyles",
       "select": "art_upgrades",
+      "set": { "enabled": true },
+      "was": { "enabled": false }
+    },
+    {
+      "id": "attack_style.final_abilities",
+      "_note": "파이널 어빌리티(게이지 가득 + 커맨드 없는 K → 결정 전부, 캐릭터 × 기본 공격 유형 15가지. AttackStyles.json final_abilities 표).",
+      "target": "DataSolo/AttackStyles",
+      "select": "final_abilities",
       "set": { "enabled": true },
       "was": { "enabled": false }
     }

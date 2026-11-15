@@ -271,9 +271,9 @@ namespace Wizard.Solo.Tests.Story
                 Assert.GreaterOrEqual(s.X, 0f);
                 Assert.LessOrEqual(s.X + s.W, 1920f, sc + " 화면 밖");
             }
-            // 전리품: 오른쪽 위 기록 판(y < 160) 아래, 카드 열(x < 1480) 오른쪽.
+            // 전리품: 카드 열 위 오른쪽(Hints.json _note) — 카드 열(x < 1480) 오른쪽, 화면 안.
             var lp = t.SpotFor(Wizard.Solo.UI.ScreenId.LootPick);
-            Assert.GreaterOrEqual(lp.Y, 160f);
+            Assert.GreaterOrEqual(lp.Y, 0f);
             Assert.GreaterOrEqual(lp.X, 1480f);
             float shortH = HintHost.BodyHeight("가나다", 300f), longH = HintHost.BodyHeight(new string('가', 80), 300f);
             Assert.Greater(longH, shortH, "본문이 길면 쪽지가 길어진다");

@@ -8,6 +8,7 @@ namespace Wizard.Solo.Screens.Settlement
     {
         // ---------------------------------------------------------------- 원본 열쇠
         public const string Title = "str.settlement.title";
+        public const string ScoreSection = "str.settlement.section.score";
         public const string PageRecord = "str.settlement.page.record";
         public const string PageReturnBag = "str.settlement.page.return_bag";
         public const string PageTakeaways = "str.settlement.page.takeaways";

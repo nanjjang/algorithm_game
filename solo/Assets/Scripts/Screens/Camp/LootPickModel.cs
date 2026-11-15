@@ -70,8 +70,8 @@ namespace Wizard.Solo.Screens.Camp
     /// </summary>
     public sealed class LootPickModel
     {
-        /// <summary>카드 크기와 간격(08 8.1절 카드 240 폭, 간격 24. 높이는 설명·맞물림·미리보기 줄을 넣으려 336 → 440). 화면 배치 상수.</summary>
-        public const float CardWidth = 240f, CardHeight = 440f, CardGap = 24f;
+        /// <summary>효과 설명과 미리보기를 읽을 수 있는 카드 크기와 간격.</summary>
+        public const float CardWidth = 344f, CardHeight = 544f, CardGap = 24f;
 
         public readonly List<LootCardView> Cards = new List<LootCardView>();
         public LootCardView BorrowedCard;

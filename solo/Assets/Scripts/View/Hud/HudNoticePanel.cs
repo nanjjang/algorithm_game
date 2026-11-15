@@ -42,7 +42,8 @@ namespace Wizard.Solo.View.Hud
             const float E = HudOverlayLayout.Edge;
 
             // 과열 잠금 알약(상태 판 아래)
-            _pill = art.Plate(_root, "LockPill", 0f, 0f, E, E + HudOverlayLayout.StatusH + 10f, HudOverlayLayout.LockPillW, HudOverlayLayout.LockPillH);
+            // 과열 잠금: 따로 판을 띄우지 않고 상태 무리 안, 과열 막대 바로 아래 작은 딱지(테 없음).
+            _pill = HudArt.Bare(_root, "LockPill", 0f, 0f, E + HudOverlayLayout.HeatBarX - 10f, E + HudOverlayLayout.HeatY + HudOverlayLayout.HeatBarH + 4f, HudOverlayLayout.LockPillW, HudOverlayLayout.LockPillH, 0f);
             var b = HudLayout.NoticeBadge;
             _badge = UiKit.Node(_pill, "LockBadge", 10, (HudOverlayLayout.LockPillH - b.H) * 0.5f, b.W, b.H);
             var bg = UiKit.Rect(_badge, 0, 0, b.W, b.H, HudColors.RingAsh, false, "Bg");
@@ -63,9 +64,11 @@ namespace Wizard.Solo.View.Hud
             UiKit.Diamond(_banner, bw - 28f, bh * 0.5f, 16f, UiTheme.Brass);
 
             // 출발 안내(아래 칸 판 위)
-            _hint = art.Plate(_root, "Hint", 0.5f, 1f, 0f, -(E + HudOverlayLayout.TrayH + 12f), HudOverlayLayout.HintW, HudOverlayLayout.HintH);
+            _hint = HudArt.Bare(_root, "Hint", 0.5f, 1f, 0f, -(E + HudOverlayLayout.TrayH + 12f), HudOverlayLayout.HintW, HudOverlayLayout.HintH, 0.55f);
 
-            _small = new HudText(UiKit.Label(ctx, _pill, "", UiFontId.F24, 0, 0, 10, 10, UiTheme.Chalk, TextAnchor.MiddleLeft, false, true));
+            var small = UiKit.Label(ctx, _pill, "", UiFontId.F24, 0, 0, 10, 10, UiTheme.Chalk, TextAnchor.MiddleLeft, false, true);
+            UiKit.DropShadow(small, 2f);
+            _small = new HudText(small);
             _small.Show(false);
             var big = UiKit.Label(ctx, _banner, "", UiFontId.F48, 48, 16, bw - 96, bh - 32, UiTheme.Chalk, TextAnchor.MiddleCenter, false, true);
             UiKit.DropShadow(big, 3f);

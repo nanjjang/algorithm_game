@@ -47,6 +47,7 @@ namespace Wizard.Solo.Tests.PlayMode.Flow
             yield return _kit.Shot("02-charge");
 
             yield return _kit.WaitUntil(() => Visible("ImpactLight"), "great success impact");
+            AssertCinematicMesh();
             yield return _kit.Seconds(0.25f);
             yield return _kit.Shot("03-great-success");
             // 두 번 내려찍기(+11 → 0.25초 뒤 +12)는 실시간 프레임 사이에 지나갈 수 있어 화면이 남긴 찍기 기록으로 차례를 본다.
@@ -59,6 +60,7 @@ namespace Wizard.Solo.Tests.PlayMode.Flow
             Assert.AreEqual(12, screen.Wand.Stage);
             Assert.IsFalse(Visible("ChargeLight"));
             Assert.IsFalse(Visible("ImpactLight"));
+            Assert.IsFalse(Visible("RitualCinematic"));
             AssertNoTruncatedLabels(screen, "great success result card");
             yield return _kit.Shot("04-great-success-result");
             // 결과 카드 아래 줄: [흔적 공개] [닫기] [다시 시도]. 닫으면 대기로 간다(08 10.5절).
@@ -82,6 +84,7 @@ namespace Wizard.Solo.Tests.PlayMode.Flow
             Assert.AreEqual(EnhancePhase.ResultCard, screen.Model.Phase);
             Assert.AreEqual(13, screen.Wand.Stage);
             Assert.IsFalse(Visible("ImpactLight"));
+            Assert.IsFalse(Visible("RitualCinematic"));
             Assert.IsFalse(Visible("ChargeLight"));
         }
 
@@ -112,8 +115,52 @@ namespace Wizard.Solo.Tests.PlayMode.Flow
             Assert.AreEqual(0, _kit.Ctx.Profile.Items[Ids.Item.Charm].Qty);
             yield return null;
             Assert.IsFalse(Visible("ImpactLight"));
+            Assert.IsFalse(Visible("RitualCinematic"));
             Assert.IsFalse(Visible("ChargeLight"));
             yield return _kit.Shot("06-ward-result-minimal");
+        }
+
+        [UnityTest]
+        public IEnumerator FullFailure_CollapsesThenClearsOnSkip()
+        {
+            var screen = OpenForge(10, 9999, 0);
+            _kit.Click(EnhanceNameKeys.Enhance);
+            yield return _kit.WaitUntil(() => screen.Model.Shown?.Outcome == EnhanceOutcome.FailDrop, "failed roll");
+            yield return _kit.WaitUntil(() => Visible("RitualCinematic"), "collapsed ritual");
+            yield return _kit.Seconds(0.28f);
+            AssertCinematicMesh();
+            yield return _kit.Shot("07-failure-collapse");
+            yield return _kit.Seconds(0.30f);
+            yield return _kit.Shot("08-failure-impact");
+            _kit.Key(MenuKey.Confirm);
+            Assert.AreEqual(EnhancePhase.ShortResult, screen.Model.Phase);
+            Assert.IsFalse(Visible("RitualCinematic"));
+            yield return _kit.WaitUntil(() => screen.Model.Phase == EnhancePhase.ResultCard, "failed result card");
+            Assert.AreEqual(9, screen.Wand.Stage);
+        }
+
+        [UnityTest]
+        public IEnumerator FullSuccess_RendersEmbers_AndRevealsStage()
+        {
+            var screen = OpenForge(4, 1800, 0);
+            _kit.Click(EnhanceNameKeys.Enhance);
+            yield return _kit.WaitUntil(() => Visible("RitualCinematic"), "success seal");
+            Assert.AreEqual(EnhanceOutcome.Success, screen.Model.Shown.Outcome);
+            yield return _kit.Seconds(0.33f);
+            AssertCinematicMesh();
+            yield return _kit.Shot("09-success-rise");
+            yield return _kit.WaitUntil(() => screen.Model.Phase == EnhancePhase.ResultCard, "success result");
+            CollectionAssert.AreEqual(new[] { 5 }, screen.StageReveals);
+            Assert.IsFalse(Visible("RitualCinematic"));
+        }
+
+        static void AssertCinematicMesh()
+        {
+            var scene = GameObject.Find("RitualCinematic");
+            Assert.IsNotNull(scene);
+            Canvas.ForceUpdateCanvases();
+            var mesh = scene.GetComponent<CanvasRenderer>().GetMesh();
+            Assert.That(mesh?.vertexCount ?? 0, Is.GreaterThan(0), "ritual embers");
         }
 
         EnhanceScreen OpenForge(int stage, int roll, int effectsLevel, bool fast = false)

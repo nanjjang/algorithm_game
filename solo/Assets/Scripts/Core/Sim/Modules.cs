@@ -168,6 +168,9 @@ namespace Wizard.Solo.Sim
     /// <summary>"지금 K" 미리보기. 04 요약서 6절.</summary>
     public struct ArtPreview
     {
+        /// <summary>K 두 번이면 나갈 파이널 어빌리티(없으면 null)와 그때 쓰는 결정 수.</summary>
+        public string FinalArtId;
+        public int FinalCost;
         public string ArtId;
         public int Cost;
         public int DebtUsed;

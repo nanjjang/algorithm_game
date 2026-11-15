@@ -21,16 +21,16 @@ namespace Wizard.Solo.View.Hud
         /// <summary>체력 칸 줄의 왼쪽 위(칸 크기·간격은 HudLayout.HpCellPx/HpGapPx).</summary>
         public const float HpX = 102f, HpY = 16f;
         /// <summary>과열 게이지: 머리 글(열) + 막대.</summary>
-        public const float HeatCaptionX = 102f, HeatY = 64f, HeatCaptionW = 32f, HeatBarX = 138f, HeatBarW = 256f, HeatBarH = 14f;
+        public const float HeatCaptionX = 102f, HeatY = 62f, HeatCaptionW = 60f, HeatBarX = 168f, HeatBarW = 228f, HeatBarH = 18f;
         /// <summary>콤보 자리 "HUD"(옵션)의 왼쪽 위(판 안).</summary>
         public const float ComboX = 102f, ComboY = 94f;
 
         // ---- 위 가운데: 웨이브 띠
-        public const float BannerW = 600f, BannerH = 102f, BannerBossH = 40f, BannerY = 12f;
+        public const float BannerW = 600f, BannerH = 114f, BannerBossH = 40f, BannerY = 12f;
         public const float BannerTextY = 4f, BannerTextH = 44f;
         // 진행 바와 경과 시간 줄은 띠 아래 테(놋쇠 장식 약 8px)에 닿지 않게 4px씩 올렸다(경과 시간이 테에 걸쳐 보이던 것).
         public const float BannerBarX = 60f, BannerBarY = 54f, BannerBarW = 480f, BannerBarH = 12f;
-        public const float BannerSubY = 78f, BannerSubH = 16f;
+        public const float BannerSubY = 76f, BannerSubH = 30f;
 
         // ---- 위 가운데: 보스 판(보스 웨이브에 웨이브 띠 아래)
         public const float BossW = 1040f, BossH = 124f, BossY = 60f;
@@ -39,15 +39,17 @@ namespace Wizard.Solo.View.Hud
         public const float BossBarX = 40f, BossBarY = 86f, BossBarH = 20f;
 
         // ---- 오른쪽 위: 지갑·점수·처치
-        public const float StatsW = 300f, StatsH = 140f, StatsRowY = 14f, StatsRowStep = 38f, StatsRowH = 36f, StatsIconPx = 24f;
+        public const float StatsW = 328f, StatsH = 168f, StatsRowY = 12f, StatsRowStep = 48f, StatsRowH = 48f, StatsIconPx = 32f;
+        /// <summary>기록 줄의 머리 글 자리(아이콘 오른쪽).</summary>
+        public const float StatsCaptionX = 60f, StatsCaptionW = 132f;
 
         // ---- 아래 가운데: 회로·비기 칸
         public const float TrayH = 100f, TrayPad = 16f;
-        public const float CellPx = 64f, CellGap = 8f, CellIconPx = 48f, CellY = 14f;
+        public const float CellPx = 64f, CellGap = 8f, CellIconPx = 54f, CellY = 14f;
         public const float ArtSlotPx = 80f, ArtSlotY = 8f, ArtSlotGap = 24f;
 
         // ---- 안내
-        public const float LockPillW = 300f, LockPillH = 40f;
+        public const float LockPillW = 280f, LockPillH = 32f;
         public const float BannerNoticeW = 680f, BannerNoticeH = 96f, BannerNoticeAnchorY = 0.26f;
         public const float HintW = 720f, HintH = 40f;
         public const float AdviceW = 960f, AdviceH = 32f, AdviceGap = 8f;

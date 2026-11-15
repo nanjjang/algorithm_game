@@ -7,7 +7,7 @@ using UImage = UnityEngine.UI.Image;
 namespace Wizard.Solo.View.Hud
 {
     /// <summary>
-    /// 왼쪽 위 상태 판(초상 + 지팡이 단계, 체력 칸 줄, 과열 게이지)과 오른쪽 위 기록 판(원정 지갑·점수·처치: 아이콘 + 작은 머리 글 + 큰 숫자).
+    /// 왼쪽 위 상태 판(초상 + 지팡이 단계, 체력 칸 줄, 과열 게이지)과 오른쪽 위 기록 판(원정 지갑·점수·처치: 아이콘 + 큰 숫자).
     /// 자리는 HudOverlayLayout(전장 위 오버레이), 체력 칸 크기·간격은 08 요약서 6.1절(HudLayout) 그대로.
     /// 체력 1칸 남으면 그 칸 귀퉁이에 위험색(허용 세 곳 중 하나). 피격 때 초상이 0.2초 밝아지고 체력 줄이 흔들린다(피격 표시는 줄이지 않는다 —
     /// 흔들림·튀기 같은 꾸밈만 연출 최소에서 끈다). 과열 게이지 색은 열 링과 같은 규칙(금색·빨강 없음, 10 요약서 3.4절).
@@ -39,6 +39,7 @@ namespace Wizard.Solo.View.Hud
         float _portraitHitLeft;
         string _charId;
         readonly HudText _stage;
+        readonly UImage _stageBg;
 
         // 과열 게이지
         readonly HudText _heatCaption;
@@ -51,7 +52,6 @@ namespace Wizard.Solo.View.Hud
         // 오른쪽 위 기록 판
         readonly RectTransform _wallet;
         readonly HudText[] _walletRows = new HudText[3];
-        readonly HudText[] _walletCaps = new HudText[3];
         readonly UiLabel[] _walletNums = new UiLabel[3];
         readonly long[] _walletLast = { long.MinValue, long.MinValue, long.MinValue };
 
@@ -89,7 +89,8 @@ namespace Wizard.Solo.View.Hud
 
             // ---- 왼쪽 위 판
             const float E = HudOverlayLayout.Edge;
-            _plate = art.Plate(_root, "StatusPlate", 0f, 0f, E, E, HudOverlayLayout.StatusW, HudOverlayLayout.StatusH);
+            // 테 없는 한 덩어리(초상·체력·과열·잠금 딱지가 같은 무리로 읽힌다).
+            _plate = HudArt.Bare(_root, "StatusPlate", 0f, 0f, E, E, HudOverlayLayout.StatusW, HudOverlayLayout.StatusH, 0.6f);
 
             // 초상(테 72 안에 64) + 피격 빛 + 단계 꼬리표
             float fx = HudOverlayLayout.PortraitFrameX, fy = HudOverlayLayout.PortraitFrameY, fp = HudOverlayLayout.PortraitFramePx;
@@ -105,9 +106,9 @@ namespace Wizard.Solo.View.Hud
             HudArt.SetKit(_portraitFrame, art.Kit("S-0802", "portrait"), new Color(0, 0, 0, 0));
             if (!_portraitFrame.sprite) UiFrame.Create(_portraitNode, UiTheme.Brass, 2);
 
-            var stageBg = UiKit.Rect(_plate, HudOverlayLayout.StageX, HudOverlayLayout.StageY, HudOverlayLayout.StageW, HudOverlayLayout.StageH, UiTheme.WoodLight, false, "StageBg");
+            _stageBg = UiKit.Rect(_plate, HudOverlayLayout.StageX, HudOverlayLayout.StageY, HudOverlayLayout.StageW, HudOverlayLayout.StageH, UiTheme.WoodLight, false, "StageBg");
             var tag = art.Kit("K-46", "label");
-            if (tag.IsValid) { UiKit.SetSprite(stageBg, tag); stageBg.color = Color.white; }
+            if (tag.IsValid) { UiKit.SetSprite(_stageBg, tag); _stageBg.color = Color.white; }
             _stage = new HudText(UiKit.Label(ctx, _plate, "", UiFontId.F16, HudOverlayLayout.StageX, HudOverlayLayout.StageY + 2f,
                 HudOverlayLayout.StageW, HudOverlayLayout.StageH - 4f, UiTheme.Chalk, TextAnchor.MiddleCenter, false, true));
 
@@ -131,7 +132,8 @@ namespace Wizard.Solo.View.Hud
 
             // 과열 게이지(머리 글 "열" + 막대 + 임계 시작 눈금)
             _heatCaption = new HudText(UiKit.Label(ctx, _plate, ctx != null && ctx.Names != null ? ctx.Names.Get(HudKeys.HeatCaption) : string.Empty,
-                UiFontId.F16, HudOverlayLayout.HeatCaptionX, HudOverlayLayout.HeatY - 5f, HudOverlayLayout.HeatCaptionW, 24f, UiTheme.SlateBlue, TextAnchor.MiddleLeft, false, true));
+                UiFontId.F24, HudOverlayLayout.HeatCaptionX, HudOverlayLayout.HeatY + (HudOverlayLayout.HeatBarH - 30f) * 0.5f, HudOverlayLayout.HeatCaptionW, 30f, UiTheme.Chalk, TextAnchor.MiddleLeft, false, true));
+            UiKit.DropShadow(_heatCaption.Label, 2f);
             _heat = new HudGauge(_plate, "HeatBar", HudOverlayLayout.HeatBarX, HudOverlayLayout.HeatY, HudOverlayLayout.HeatBarW, HudOverlayLayout.HeatBarH, HudColors.RingSlate, lib: art.Library);
             _heatBar = _heat.Root;
             _heatFill = _heat.Fill;
@@ -142,8 +144,11 @@ namespace Wizard.Solo.View.Hud
             ComboHudAnchor = UiKit.Node(_plate, "ComboHudAnchor", HudOverlayLayout.ComboX, HudOverlayLayout.ComboY, 0, 0);
 
             // ---- 오른쪽 위 기록 판
-            _wallet = art.Plate(_root, "Wallet", 1f, 0f, -E, E, HudOverlayLayout.StatsW, HudOverlayLayout.StatsH);
-            string[] capKeys = { HudModel.KeyWallet, HudModel.KeyScore, HudModel.KeyKills };
+            // 줄마다 아이콘 + 큰 숫자(오른쪽 맞춤). 밝은 땅 위에서도 읽히게 먹색 번짐 + 옅은 먹색 바탕을 깐다.
+            _wallet = HudArt.Bare(_root, "Wallet", 1f, 0f, -E, E, HudOverlayLayout.StatsW, HudOverlayLayout.StatsH, 0.55f);
+            var backing = UiKit.Rect(_wallet, 0, 0, HudOverlayLayout.StatsW, HudOverlayLayout.StatsH, UiTheme.WithAlpha(UiTheme.Ink, 0.68f), false, "Backing");
+            backing.raycastTarget = false;
+            string[] capKeys = { "str.battle_hud.gold_caption", HudModel.KeyScore, HudModel.KeyKills };
             string[] icons = { null, "score", "kills" };
             string[] commonIcons = { UiCommonArt.IconGold, UiCommonArt.IconScore, UiCommonArt.IconKill };
             float ip = HudOverlayLayout.StatsIconPx;
@@ -151,15 +156,20 @@ namespace Wizard.Solo.View.Hud
             {
                 float y = HudOverlayLayout.StatsRowY + i * HudOverlayLayout.StatsRowStep;
                 float h = HudOverlayLayout.StatsRowH;
-                if (i > 0) UiKit.Rect(_wallet, 16, y - 2, HudOverlayLayout.StatsW - 32, 1, UiTheme.WithAlpha(UiTheme.SlateBlue, 0.18f), false, "Sep" + i);
                 // 공통 HUD 아이콘(금화·별·칼)이 있으면 그것을, 없으면 원정 지갑 아이콘·S-0804.
                 Sprite icon = UiCommonArt.Get(art.Library, commonIcons[i]);
                 if (icon == null) icon = i == 0 ? art.Icon(Ids.Item.Purse, (int)ip) : art.Kit("S-0804", icons[i]).Sprite;
                 var img = HudArt.Image(_wallet, "Icon" + i, 16, y + (h - ip) * 0.5f, ip, ip, icon, UiTheme.SlateBlue);
-                if (icon == null) HudArt.SetActive(img, false);
-                _walletCaps[i] = new HudText(UiKit.Label(ctx, _wallet, ctx != null && ctx.Names != null ? ctx.Names.Get(capKeys[i]) : string.Empty,
-                    UiFontId.F16, 48, y + (h - 24f) * 0.5f, 120, 24, UiTheme.SlateBlue, TextAnchor.MiddleLeft, false, true));
-                _walletNums[i] = HudArt.PopLabel(ctx, _wallet, UiFontId.F32, 120, y - 2f, HudOverlayLayout.StatsW - 120 - 16, h + 4f,
+                float nx = HudOverlayLayout.StatsCaptionX;
+                if (icon == null)
+                {
+                    HudArt.SetActive(img, false);
+                    var caption = UiKit.LabelKey(ctx, _wallet, capKeys[i], UiFontId.F24, 16f, y,
+                        HudOverlayLayout.StatsCaptionW, h, UiTheme.Chalk);
+                    UiKit.DropShadow(caption, 1f);
+                    nx = 16f + HudOverlayLayout.StatsCaptionW;
+                }
+                _walletNums[i] = HudArt.PopLabel(ctx, _wallet, UiFontId.F48, nx, y, HudOverlayLayout.StatsW - nx - 16, h,
                     i == 0 ? UiTheme.Gold : UiTheme.Chalk, TextAnchor.MiddleRight, 1f, 0.5f);
                 UiKit.DropShadow(_walletNums[i], 2f);
                 // 줄 전체 글(머리 글 + 숫자)은 이름 표 규칙대로 만들어 들고 있되 보이지 않는다(접근성·테스트용 값).
@@ -204,7 +214,7 @@ namespace Wizard.Solo.View.Hud
 
         public void Refresh(HudLayer layer, SimWorld w, in HudFrame f, float dt)
         {
-            var p = w != null ? w.P0 : null;
+            var p = w != null ? w.Me : null;
             bool hasP = p != null && p.Active;
             HudArt.SetActive(_plate, hasP);
             if (!hasP) { HudArt.SetActive(_wallet, false); return; }
@@ -252,7 +262,11 @@ namespace Wizard.Solo.View.Hud
             bool hit = _portraitHitLeft > 0f;
             HudArt.SetActive(_portraitFlash, hit);
             HudArt.SetKit(_portraitFrame, _art.Kit("S-0802", hit ? "portrait_hit" : "portrait"), new Color(0, 0, 0, 0));
-            _stage.Set(HudModel.WandStageText(names, p.Wand != null ? p.Wand.EffectiveStage : 0));
+            // 지팡이 단계 꼬리표: +0(강화 전)은 알릴 것이 없으므로 숨긴다.
+            int stage = p.Wand != null ? p.Wand.EffectiveStage : 0;
+            _stage.Set(HudModel.WandStageText(names, stage));
+            _stage.Show(stage > 0);
+            HudArt.SetActive(_stageBg, stage > 0);
 
             RefreshHeat(layer, p, f);
 
@@ -366,7 +380,7 @@ namespace Wizard.Solo.View.Hud
             bool hot = state == HeatRingState.Critical || state == HeatRingState.Brink;
             float a = hot && layer.MotionOn ? 0.18f + 0.14f * Mathf.Sin(Time.unscaledTime * 2f * Mathf.PI / 0.8f) : hot ? 0.25f : 0f;
             _heatGlow.color = UiTheme.WithAlpha(UiTheme.Chalk, a);
-            _heatCaption.Color = p.Locked ? HudColors.RingAsh : hot ? UiTheme.Chalk : UiTheme.SlateBlue;
+            _heatCaption.Color = p.Locked ? HudColors.RingAsh : UiTheme.Chalk;
         }
 
         public void Dispose() => HudArt.Destroy(_root != null ? _root.gameObject : null);

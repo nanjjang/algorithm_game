@@ -148,13 +148,31 @@ namespace Wizard.Solo.Screens.Camp
         public readonly Dictionary<UiButton, int> Refs = new Dictionary<UiButton, int>();
         public readonly List<UiButton> Cells = new List<UiButton>();
 
+        /// <summary>칸을 키울 때의 최대 크기(코어는 칸 + 8). 폭에 맞춰 줄인다.</summary>
+        public const float MaxLinkSize = 80f;
+        readonly float _w;
+        float _core = CoreSize, _link = LinkSize;
+
         public CircuitView(GameContext ctx, RectTransform parent, float x, float y, float w, float h)
         {
             _ctx = ctx;
+            _w = w;
             _root = UiKit.Node(parent, "Circuit", x, y, w, h);
         }
 
         public RectTransform Root => _root;
+        /// <summary>지금 칸 크기로 그린 회로의 높이(코어 줄 + 확장 줄).</summary>
+        public float Height => _core + RowGap + _link;
+
+        /// <summary>폭 안에 기본 칸 수가 들어가게 칸 크기를 정한다(최대 MaxLinkSize, 최소 LinkSize의 0.75배).</summary>
+        void Fit(int baseLinks)
+        {
+            int n = Mathf.Max(baseLinks, MaxExtraSlots);
+            float link = (_w - 8f - Gap * n) / (n + 1);
+            link = Mathf.Floor(Mathf.Clamp(link, LinkSize * 0.75f, MaxLinkSize));
+            _link = link;
+            _core = link + 8f;
+        }
 
         public void Rebuild(CampAssembly a, UiFocusGroup group, Action<int> onClick, Func<int, bool> canDragFrom,
             Func<int, int, bool> canMove, Action<int, int> onDrop, int heldRef, int highlightRef)
@@ -166,18 +184,20 @@ namespace Wizard.Solo.Screens.Camp
             if (a == null) return;
             int baseLinks = a.BaseLinkCount;
             int total = a.LinkCount;
-            AddCell(a, SlotRefs.Core, 0f, 0f, CoreSize, group, onClick, canDragFrom, canMove, onDrop, heldRef, highlightRef);
+            Fit(baseLinks);
+            float core = _core, link = _link;
+            AddCell(a, SlotRefs.Core, 0f, 0f, core, group, onClick, canDragFrom, canMove, onDrop, heldRef, highlightRef);
             for (int i = 0; i < baseLinks; i++)
-                AddCell(a, SlotRefs.Link(i), CoreSize + Gap + i * (LinkSize + Gap), (CoreSize - LinkSize) * 0.5f, LinkSize, group, onClick, canDragFrom, canMove, onDrop, heldRef, highlightRef);
-            float y2 = CoreSize + RowGap;
+                AddCell(a, SlotRefs.Link(i), core + Gap + i * (link + Gap), (core - link) * 0.5f, link, group, onClick, canDragFrom, canMove, onDrop, heldRef, highlightRef);
+            float y2 = core + RowGap;
             for (int e = 0; e < MaxExtraSlots; e++)
             {
                 int linkIndex = baseLinks + e;
-                float x = CoreSize + Gap + e * (LinkSize + Gap);
+                float x = core + Gap + e * (link + Gap);
                 if (linkIndex < total)
-                    AddCell(a, SlotRefs.Link(linkIndex), x, y2, LinkSize, group, onClick, canDragFrom, canMove, onDrop, heldRef, highlightRef);
+                    AddCell(a, SlotRefs.Link(linkIndex), x, y2, link, group, onClick, canDragFrom, canMove, onDrop, heldRef, highlightRef);
                 else
-                    CampViews.BlockCell(_ctx, _root, x, y2, LinkSize, default, null, null, locked: true);
+                    CampViews.BlockCell(_ctx, _root, x, y2, link, default, null, null, locked: true);
             }
         }
 
@@ -208,7 +228,9 @@ namespace Wizard.Solo.Screens.Camp
         readonly RectTransform _root;
         readonly RectTransform _body;
         readonly UiLabel _footer;
+        readonly RectTransform _bg;
         readonly float _w, _h;
+        float _height;
         public readonly Dictionary<UiButton, int> NodeSlots = new Dictionary<UiButton, int>();
         public readonly List<UiButton> Nodes = new List<UiButton>();
 
@@ -216,10 +238,29 @@ namespace Wizard.Solo.Screens.Camp
         {
             _ctx = ctx;
             _w = w; _h = h;
+            _height = h;
             _root = UiKit.Node(parent, "TreePreview", x, y, w, h);
-            UiKit.Panel(ctx, _root, UiPanelKind.Recess, 0f, 0f, w, h);
-            _body = UiKit.Node(_root, "Body", 8f, 8f, w - 16f, h - 16f - FooterH);
-            _footer = UiKit.Label(ctx, _root, string.Empty, UiFontId.F16, 8f, h - FooterH - 4f, w - 16f, FooterH);
+            _bg = UiKit.Node(_root, "Bg", 0f, 0f, w, h);
+            _body = UiKit.Node(_root, "Body", Pad, Pad, w - Pad * 2f, h - Pad * 2f - FooterH);
+            _footer = UiKit.Label(ctx, _root, string.Empty, UiFontId.F16, Pad, h - FooterH - Pad, w - Pad * 2f, FooterH, UiTheme.SlateBlue);
+            Resize(h);
+        }
+
+        const float Pad = 16f;
+        public RectTransform Root => _root;
+        /// <summary>내용 높이에 맞춘 지금 높이(최대 = 만들 때 준 높이).</summary>
+        public float Height => _height;
+
+        /// <summary>판을 내용 높이에 맞춘다(빈 아랫부분을 남기지 않는다). 바닥 면을 다시 깐다.</summary>
+        void Resize(float h)
+        {
+            _height = h;
+            Vector2 p = _root.anchoredPosition;
+            UiKit.Place(_root, p.x, -p.y, _w, h);
+            CampViews.Clear(_bg);
+            UiLayout.Surface(_ctx, _bg, 0f, 0f, _w, h, 0);
+            UiKit.Place(_body, Pad, Pad, _w - Pad * 2f, Mathf.Max(0f, h - Pad * 2f - FooterH));
+            UiKit.Place(_footer.Rect, Pad, h - FooterH - Pad, _w - Pad * 2f, FooterH);
         }
 
         string T(string k) => _ctx != null && _ctx.Names != null ? _ctx.Names.Get(k) : k;
@@ -231,7 +272,7 @@ namespace Wizard.Solo.Screens.Camp
             Nodes.Clear();
             NodeSlots.Clear();
             CampViews.Clear(_body);
-            if (m == null) { _footer.SetText(string.Empty); return; }
+            if (m == null) { _footer.SetText(string.Empty); Resize(Pad * 2f + FooterH); return; }
             float y = 0f;
             for (int s = 0; s < m.Scopes.Count; s++)
             {
@@ -245,7 +286,7 @@ namespace Wizard.Solo.Screens.Camp
                     UiKit.Rect(_body, indent - HGap, y, 2f, lines, tone);
                     string tag = F("str.camp.tree.multiplier", "v", sc.MultiplierText);
                     for (int d = 0; d < sc.FootnoteDots; d++) tag += T("str.camp.tree.footnote_dot");
-                    UiKit.Label(_ctx, _body, tag, UiFontId.F12, _w - 16f - 120f, y, 120f, 16f, tone, TextAnchor.UpperRight);
+                    UiKit.Label(_ctx, _body, tag, UiFontId.F16, _w - Pad * 2f - 120f, y, 120f, 24f, tone, TextAnchor.UpperRight);
                 }
                 for (int i = 0; i < sc.Nodes.Count; i++)
                 {
@@ -262,7 +303,7 @@ namespace Wizard.Solo.Screens.Camp
                     if (bracketSlot >= 0 && node.Slot == bracketSlot) b.Picked = true;
                     float tx = indent + Frame + HGap;
                     if (node.Omitted)
-                        UiKit.LabelKey(_ctx, _body, "str.camp.tree.omitted", UiFontId.F12, tx, y + 8f, 120f, 16f, UiTheme.SlateBlue);
+                        UiKit.LabelKey(_ctx, _body, "str.camp.tree.omitted", UiFontId.F16, tx, y + 4f, 160f, 24f, UiTheme.SlateBlue);
                     else
                     {
                         for (int k = 0; k < node.Modifiers.Count; k++)
@@ -272,11 +313,11 @@ namespace Wizard.Solo.Screens.Camp
                         }
                         if (node.MoreModifiers > 0)
                         {
-                            UiKit.Label(_ctx, _body, F("str.format.more_count", "n", node.MoreModifiers), UiFontId.F12, tx, y + 8f, 40f, 16f, tone);
+                            UiKit.Label(_ctx, _body, F("str.format.more_count", "n", node.MoreModifiers), UiFontId.F16, tx, y + 4f, 40f, 24f, tone);
                             tx += 40f;
                         }
                         if (node.ForkWays > 0)
-                            UiKit.Label(_ctx, _body, F("str.camp.tree.fork", "n", node.ForkWays), UiFontId.F12, tx + HGap, y + 8f, 80f, 16f, tone);
+                            UiKit.Label(_ctx, _body, F("str.camp.tree.fork", "n", node.ForkWays), UiFontId.F16, tx + HGap, y + 4f, 96f, 24f, tone);
                     }
                     NodeSlots[b] = node.Slot;
                     Nodes.Add(b);
@@ -285,6 +326,7 @@ namespace Wizard.Solo.Screens.Camp
                 if (sc.Nodes.Count == 0) y += Frame + VGap;
             }
             _footer.SetText(F("str.camp.tree.footer", "n", m.ProjectilesPerShot, "heat", CampFormat.OneDecimal(m.HeatPerShot)));
+            Resize(Mathf.Min(_h, Mathf.Max(Frame + VGap, y) + Pad * 2f + FooterH));
         }
     }
 }

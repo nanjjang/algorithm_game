@@ -25,6 +25,8 @@ namespace Wizard.Solo.Sim
             public bool TutorialUsesDefault;
             public bool ArtUpgradesEnabled;
             public JObject ArtUpgrades;
+            public bool FinalsEnabled;
+            public JObject Finals;
         }
 
         static readonly ConditionalWeakTable<IContentDb, Table> Cache = new ConditionalWeakTable<IContentDb, Table>();
@@ -69,6 +71,11 @@ namespace Wizard.Solo.Sim
             {
                 t.ArtUpgrades = au;
                 t.ArtUpgradesEnabled = Bool(au, "enabled");
+            }
+            if (jo["final_abilities"] is JObject fa)
+            {
+                t.Finals = fa;
+                t.FinalsEnabled = Bool(fa, "enabled");
             }
             return t;
         }
@@ -192,6 +199,34 @@ namespace Wizard.Solo.Sim
             var t = Of(db);
             if (t == null || !t.ArtUpgradesEnabled || t.ArtUpgrades == null || artId == null) return null;
             return t.ArtUpgrades[artId] as JObject;
+        }
+
+        // ------------------------------------------------------------ 파이널 어빌리티 (손잡이: final_abilities.enabled)
+
+        public static bool FinalsEnabled(IContentDb db) { var t = Of(db); return t != null && t.FinalsEnabled; }
+
+        /// <summary>final_abilities 절 전체(커맨드·간격·최소 결정). 꺼졌으면 null.</summary>
+        public static JObject FinalConfig(IContentDb db)
+        {
+            var t = Of(db);
+            return t != null && t.FinalsEnabled ? t.Finals : null;
+        }
+
+        /// <summary>파이널 어빌리티가 나가는 최소 결정 수(final_abilities.min_crystals, 없으면 3). 꺼졌으면 0.</summary>
+        public static int FinalMinCrystals(IContentDb db)
+        {
+            var t = Of(db);
+            if (t == null || !t.FinalsEnabled || t.Finals == null) return 0;
+            var v = t.Finals["min_crystals"];
+            return v != null && v.Type == JTokenType.Integer ? (int)v : 3;
+        }
+
+        /// <summary>그 기본 공격 유형(핵 블록 id)의 파이널 어빌리티 절(final_abilities["block.core.ember_mortar"] …). 꺼졌거나 없으면 null.</summary>
+        public static JObject FinalAbility(IContentDb db, string styleId)
+        {
+            var t = Of(db);
+            if (t == null || !t.FinalsEnabled || t.Finals == null || styleId == null) return null;
+            return t.Finals[styleId] as JObject;
         }
     }
 }

@@ -113,7 +113,7 @@ namespace Wizard.Solo.Sim.Arts
             for (int i = 0; i < w.Players.Length; i++)
             {
                 var st = StateOf(w.Players[i]);
-                if (st != null) st.Sequences.Clear();
+                if (st != null) { st.Sequences.Clear(); st.Finals.Clear(); }
             }
             for (int i = 0; i < w.Players.Length; i++)
             {

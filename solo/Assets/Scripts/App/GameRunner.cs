@@ -11,7 +11,7 @@ namespace Wizard.Solo.App
     /// 카메라·HUD 캔버스·풀은 WorldViewHost가 갖고, 이 객체가 부서질 때 같이 걷는다.
     /// </summary>
     [DisallowMultipleComponent]
-    public sealed class GameRunner : MonoBehaviour, IGameSession
+    public sealed class GameRunner : MonoBehaviour, IGameSession, IOnlineSession
     {
         SessionCore _core;
         WorldViewHost _host;
@@ -66,6 +66,8 @@ namespace Wizard.Solo.App
         public RunSummary LastSummary => _core != null ? _core.LastSummary : null;
 
         public void StartRun(RunConfig cfg) => C.StartRun(cfg);
+        public bool IsOnline => _core != null && _core.IsOnline;
+        public void StartOnline(IOnlineLink link) => C.StartOnline(link);
         public void EndRun() { if (_core != null) _core.EndRun(); }
         public void PushSubRun(RunConfig cfg) => C.PushSubRun(cfg);
         public void PopSubRun() { if (_core != null) _core.PopSubRun(); }

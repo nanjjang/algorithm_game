@@ -81,7 +81,7 @@ namespace Wizard.Solo.Sim.Waves
 
         /// <summary>체력 배율 H(w). 콘텐츠가 아직 안 붙었으면 1(웨이브 1의 값 — 연습 방은 이것으로 충분하다).</summary>
         public override float HpMul(int wave) => _waves != null ? WaveCurves.HpMul(_waves, wave) : 1f;
-        public override int Budget(int wave) => _waves != null ? WaveCurves.Budget(_waves, wave) : 0;
+        public override int Budget(int wave) => _waves != null ? _tuning.Budget(_waves, wave) : 0;
         public override int TelegraphCap(int wave) => _waves != null ? WaveCurves.TelegraphCap(_waves, wave) : int.MaxValue;
 
         // ------------------------------------------------------------ 구성

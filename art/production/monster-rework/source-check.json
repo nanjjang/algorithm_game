@@ -1,0 +1,12028 @@
+{
+  "enemy.slime_moss.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "base"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          141,
+          387,
+          1113,
+          903
+        ],
+        "gutter": 141
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.slime_moss.move.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "move",
+      "move"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          109,
+          261,
+          814,
+          628
+        ],
+        "gutter": 73
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          105,
+          322,
+          762,
+          628
+        ],
+        "gutter": 105
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.slime_moss.death.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "death",
+      "death"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          116,
+          365,
+          793,
+          649
+        ],
+        "gutter": 94
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          134,
+          331,
+          742,
+          646
+        ],
+        "gutter": 134
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "enemy.wolf_bramble.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "base"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1536,
+      1024
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1536,
+          1024
+        ],
+        "bounds": [
+          152,
+          218,
+          1286,
+          778
+        ],
+        "gutter": 152
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.wolf_bramble.sheet.png": {
+    "grid": [
+      4,
+      3
+    ],
+    "frames": [
+      "move",
+      "move",
+      "move",
+      "move",
+      "warn",
+      "lunge",
+      "stagger",
+      "stagger",
+      "dodge",
+      "death",
+      "death"
+    ],
+    "expected": 11,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "size": [
+      1448,
+      1086
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          362,
+          362
+        ],
+        "bounds": [
+          31,
+          105,
+          324,
+          269
+        ],
+        "gutter": 31
+      },
+      {
+        "rect": [
+          362,
+          0,
+          724,
+          362
+        ],
+        "bounds": [
+          36,
+          101,
+          313,
+          269
+        ],
+        "gutter": 36
+      },
+      {
+        "rect": [
+          724,
+          0,
+          1086,
+          362
+        ],
+        "bounds": [
+          32,
+          94,
+          316,
+          265
+        ],
+        "gutter": 32
+      },
+      {
+        "rect": [
+          1086,
+          0,
+          1448,
+          362
+        ],
+        "bounds": [
+          22,
+          83,
+          333,
+          241
+        ],
+        "gutter": 22
+      },
+      {
+        "rect": [
+          0,
+          362,
+          362,
+          724
+        ],
+        "bounds": [
+          31,
+          93,
+          326,
+          267
+        ],
+        "gutter": 31
+      },
+      {
+        "rect": [
+          362,
+          362,
+          724,
+          724
+        ],
+        "bounds": [
+          24,
+          84,
+          342,
+          236
+        ],
+        "gutter": 20
+      },
+      {
+        "rect": [
+          724,
+          362,
+          1086,
+          724
+        ],
+        "bounds": [
+          33,
+          84,
+          320,
+          262
+        ],
+        "gutter": 33
+      },
+      {
+        "rect": [
+          1086,
+          362,
+          1448,
+          724
+        ],
+        "bounds": [
+          36,
+          79,
+          312,
+          263
+        ],
+        "gutter": 36
+      },
+      {
+        "rect": [
+          0,
+          724,
+          362,
+          1086
+        ],
+        "bounds": [
+          32,
+          102,
+          329,
+          269
+        ],
+        "gutter": 32
+      },
+      {
+        "rect": [
+          362,
+          724,
+          724,
+          1086
+        ],
+        "bounds": [
+          30,
+          94,
+          323,
+          272
+        ],
+        "gutter": 30
+      },
+      {
+        "rect": [
+          724,
+          724,
+          1086,
+          1086
+        ],
+        "bounds": [
+          22,
+          114,
+          336,
+          290
+        ],
+        "gutter": 22
+      },
+      {
+        "rect": [
+          1086,
+          724,
+          1448,
+          1086
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "enemy.golem_menhir.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "base"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          250,
+          148,
+          1004,
+          1117
+        ],
+        "gutter": 137
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.golem_menhir.move.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "move",
+      "move"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          219,
+          164,
+          717,
+          762
+        ],
+        "gutter": 125
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          167,
+          155,
+          668,
+          762
+        ],
+        "gutter": 125
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.golem_menhir.slam_warn.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "slam_warn",
+      "slam_warn"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          197,
+          125,
+          728,
+          781
+        ],
+        "gutter": 106
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          223,
+          125,
+          677,
+          781
+        ],
+        "gutter": 106
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.golem_menhir.slam.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "slam"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          803,
+          173,
+          1367,
+          636
+        ],
+        "gutter": 88
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.golem_menhir.sweep_warn.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "sweep_warn"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          263,
+          148,
+          1016,
+          1089
+        ],
+        "gutter": 148
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.golem_menhir.sweep.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "sweep"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      2181,
+      721
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          2181,
+          721
+        ],
+        "bounds": [
+          851,
+          95,
+          1371,
+          621
+        ],
+        "gutter": 95
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.golem_menhir.open.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "open",
+      "open"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          209,
+          106,
+          744,
+          780
+        ],
+        "gutter": 106
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          159,
+          106,
+          695,
+          780
+        ],
+        "gutter": 106
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.golem_menhir.death.png": {
+    "grid": [
+      3,
+      1
+    ],
+    "frames": [
+      "death",
+      "death",
+      "death"
+    ],
+    "expected": 3,
+    "indices": [
+      0,
+      1,
+      2
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "bounds": [
+          171,
+          85,
+          615,
+          646
+        ],
+        "gutter": 78
+      },
+      {
+        "rect": [
+          724,
+          0,
+          1448,
+          724
+        ],
+        "bounds": [
+          171,
+          84,
+          595,
+          646
+        ],
+        "gutter": 78
+      },
+      {
+        "rect": [
+          1448,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          70,
+          370,
+          614,
+          645
+        ],
+        "gutter": 70
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "enemy.shaman_cap.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "base"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          152,
+          90,
+          1111,
+          1165
+        ],
+        "gutter": 89
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.shaman_cap.move.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "move",
+      "move"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          164,
+          92,
+          774,
+          809
+        ],
+        "gutter": 78
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          142,
+          78,
+          755,
+          809
+        ],
+        "gutter": 78
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.shaman_cap.cast.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "cast",
+      "cast"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          164,
+          92,
+          780,
+          809
+        ],
+        "gutter": 78
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          164,
+          92,
+          781,
+          809
+        ],
+        "gutter": 78
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.shaman_cap.fire.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "fire"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          146,
+          153,
+          1141,
+          1150
+        ],
+        "gutter": 104
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.shaman_cap.hide.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "hide"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          187,
+          310,
+          1112,
+          1159
+        ],
+        "gutter": 95
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.shaman_cap.death.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "death",
+      "death"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          179,
+          166,
+          800,
+          800
+        ],
+        "gutter": 87
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          43,
+          351,
+          809,
+          800
+        ],
+        "gutter": 43
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "enemy.bug_lantern.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "base"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          208,
+          178,
+          1064,
+          1078
+        ],
+        "gutter": 176
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.bug_lantern.sheet.png": {
+    "grid": [
+      4,
+      1
+    ],
+    "frames": [
+      "move",
+      "move",
+      "ignite",
+      "ignite"
+    ],
+    "expected": 4,
+    "indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bounds": [
+          83,
+          132,
+          496,
+          585
+        ],
+        "gutter": 47
+      },
+      {
+        "rect": [
+          543,
+          0,
+          1086,
+          724
+        ],
+        "bounds": [
+          83,
+          141,
+          497,
+          583
+        ],
+        "gutter": 46
+      },
+      {
+        "rect": [
+          1086,
+          0,
+          1629,
+          724
+        ],
+        "bounds": [
+          61,
+          96,
+          495,
+          585
+        ],
+        "gutter": 48
+      },
+      {
+        "rect": [
+          1629,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          61,
+          96,
+          496,
+          585
+        ],
+        "gutter": 47
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "enemy.hog_needle.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "base"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          176,
+          243,
+          1067,
+          984
+        ],
+        "gutter": 176
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.hog_needle.sheet.png": {
+    "grid": [
+      3,
+      3
+    ],
+    "frames": [
+      "move",
+      "move",
+      "aim",
+      "aim",
+      "fire",
+      "recover",
+      "death",
+      "death"
+    ],
+    "expected": 8,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          418,
+          418
+        ],
+        "bounds": [
+          39,
+          77,
+          381,
+          369
+        ],
+        "gutter": 37
+      },
+      {
+        "rect": [
+          418,
+          0,
+          836,
+          418
+        ],
+        "bounds": [
+          45,
+          77,
+          383,
+          363
+        ],
+        "gutter": 35
+      },
+      {
+        "rect": [
+          836,
+          0,
+          1254,
+          418
+        ],
+        "bounds": [
+          48,
+          93,
+          363,
+          363
+        ],
+        "gutter": 48
+      },
+      {
+        "rect": [
+          0,
+          418,
+          418,
+          836
+        ],
+        "bounds": [
+          50,
+          59,
+          371,
+          358
+        ],
+        "gutter": 47
+      },
+      {
+        "rect": [
+          418,
+          418,
+          836,
+          836
+        ],
+        "bounds": [
+          45,
+          110,
+          365,
+          357
+        ],
+        "gutter": 45
+      },
+      {
+        "rect": [
+          836,
+          418,
+          1254,
+          836
+        ],
+        "bounds": [
+          39,
+          92,
+          386,
+          361
+        ],
+        "gutter": 32
+      },
+      {
+        "rect": [
+          0,
+          836,
+          418,
+          1254
+        ],
+        "bounds": [
+          57,
+          91,
+          371,
+          363
+        ],
+        "gutter": 47
+      },
+      {
+        "rect": [
+          418,
+          836,
+          836,
+          1254
+        ],
+        "bounds": [
+          44,
+          137,
+          366,
+          340
+        ],
+        "gutter": 44
+      },
+      {
+        "rect": [
+          836,
+          836,
+          1254,
+          1254
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "enemy.weasel_pot.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "base"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          232,
+          88,
+          890,
+          1175
+        ],
+        "gutter": 79
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.weasel_pot.sheet.png": {
+    "grid": [
+      4,
+      3
+    ],
+    "frames": [
+      "burrow",
+      "burrow",
+      "rise",
+      "rise",
+      "stand",
+      "stand",
+      "dive",
+      "dive",
+      "death",
+      "death"
+    ],
+    "expected": 10,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "size": [
+      1448,
+      1086
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          362,
+          362
+        ],
+        "bounds": [
+          81,
+          176,
+          291,
+          329
+        ],
+        "gutter": 33
+      },
+      {
+        "rect": [
+          362,
+          0,
+          724,
+          362
+        ],
+        "bounds": [
+          81,
+          210,
+          283,
+          327
+        ],
+        "gutter": 35
+      },
+      {
+        "rect": [
+          724,
+          0,
+          1086,
+          362
+        ],
+        "bounds": [
+          75,
+          144,
+          274,
+          327
+        ],
+        "gutter": 35
+      },
+      {
+        "rect": [
+          1086,
+          0,
+          1448,
+          362
+        ],
+        "bounds": [
+          57,
+          32,
+          248,
+          337
+        ],
+        "gutter": 25
+      },
+      {
+        "rect": [
+          0,
+          362,
+          362,
+          724
+        ],
+        "bounds": [
+          87,
+          31,
+          274,
+          336
+        ],
+        "gutter": 26
+      },
+      {
+        "rect": [
+          362,
+          362,
+          724,
+          724
+        ],
+        "bounds": [
+          57,
+          26,
+          247,
+          336
+        ],
+        "gutter": 26
+      },
+      {
+        "rect": [
+          724,
+          362,
+          1086,
+          724
+        ],
+        "bounds": [
+          49,
+          151,
+          289,
+          334
+        ],
+        "gutter": 28
+      },
+      {
+        "rect": [
+          1086,
+          362,
+          1448,
+          724
+        ],
+        "bounds": [
+          63,
+          210,
+          275,
+          334
+        ],
+        "gutter": 28
+      },
+      {
+        "rect": [
+          0,
+          724,
+          362,
+          1086
+        ],
+        "bounds": [
+          44,
+          175,
+          333,
+          329
+        ],
+        "gutter": 29
+      },
+      {
+        "rect": [
+          362,
+          724,
+          724,
+          1086
+        ],
+        "bounds": [
+          7,
+          203,
+          347,
+          329
+        ],
+        "gutter": 7
+      },
+      {
+        "rect": [
+          724,
+          724,
+          1086,
+          1086
+        ],
+        "bounds": null,
+        "gutter": null
+      },
+      {
+        "rect": [
+          1086,
+          724,
+          1448,
+          1086
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "enemy.bat_dusk.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "base"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1536,
+      1024
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1536,
+          1024
+        ],
+        "bounds": [
+          168,
+          172,
+          1356,
+          798
+        ],
+        "gutter": 168
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.bat_dusk.sheet.png": {
+    "grid": [
+      3,
+      2
+    ],
+    "frames": [
+      "fly",
+      "fly",
+      "fly",
+      "death",
+      "death"
+    ],
+    "expected": 5,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "size": [
+      1536,
+      1024
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          512,
+          512
+        ],
+        "bounds": [
+          60,
+          108,
+          478,
+          370
+        ],
+        "gutter": 34
+      },
+      {
+        "rect": [
+          512,
+          0,
+          1024,
+          512
+        ],
+        "bounds": [
+          25,
+          116,
+          486,
+          366
+        ],
+        "gutter": 25
+      },
+      {
+        "rect": [
+          1024,
+          0,
+          1536,
+          512
+        ],
+        "bounds": [
+          64,
+          120,
+          430,
+          431
+        ],
+        "gutter": 64
+      },
+      {
+        "rect": [
+          0,
+          512,
+          512,
+          1024
+        ],
+        "bounds": [
+          98,
+          119,
+          394,
+          407
+        ],
+        "gutter": 98
+      },
+      {
+        "rect": [
+          512,
+          512,
+          1024,
+          1024
+        ],
+        "bounds": [
+          73,
+          175,
+          418,
+          377
+        ],
+        "gutter": 73
+      },
+      {
+        "rect": [
+          1024,
+          512,
+          1536,
+          1024
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "enemy.wisp_stray.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "base"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          298,
+          121,
+          932,
+          1126
+        ],
+        "gutter": 121
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.wisp_stray.sheet.png": {
+    "grid": [
+      4,
+      3
+    ],
+    "frames": [
+      "hover",
+      "hover",
+      "hover",
+      "cast",
+      "cast",
+      "blink",
+      "blink",
+      "death",
+      "death"
+    ],
+    "expected": 9,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "size": [
+      1448,
+      1086
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          362,
+          362
+        ],
+        "bounds": [
+          82,
+          42,
+          297,
+          330
+        ],
+        "gutter": 32
+      },
+      {
+        "rect": [
+          362,
+          0,
+          724,
+          362
+        ],
+        "bounds": [
+          89,
+          31,
+          294,
+          342
+        ],
+        "gutter": 20
+      },
+      {
+        "rect": [
+          724,
+          0,
+          1086,
+          362
+        ],
+        "bounds": [
+          82,
+          45,
+          281,
+          326
+        ],
+        "gutter": 36
+      },
+      {
+        "rect": [
+          1086,
+          0,
+          1448,
+          362
+        ],
+        "bounds": [
+          60,
+          28,
+          289,
+          341
+        ],
+        "gutter": 21
+      },
+      {
+        "rect": [
+          0,
+          362,
+          362,
+          724
+        ],
+        "bounds": [
+          54,
+          18,
+          314,
+          347
+        ],
+        "gutter": 15
+      },
+      {
+        "rect": [
+          362,
+          362,
+          724,
+          724
+        ],
+        "bounds": [
+          89,
+          43,
+          283,
+          324
+        ],
+        "gutter": 38
+      },
+      {
+        "rect": [
+          724,
+          362,
+          1086,
+          724
+        ],
+        "bounds": [
+          90,
+          67,
+          281,
+          306
+        ],
+        "gutter": 56
+      },
+      {
+        "rect": [
+          1086,
+          362,
+          1448,
+          724
+        ],
+        "bounds": [
+          81,
+          48,
+          281,
+          316
+        ],
+        "gutter": 46
+      },
+      {
+        "rect": [
+          0,
+          724,
+          362,
+          1086
+        ],
+        "bounds": [
+          86,
+          38,
+          274,
+          329
+        ],
+        "gutter": 33
+      },
+      {
+        "rect": [
+          362,
+          724,
+          724,
+          1086
+        ],
+        "bounds": null,
+        "gutter": null
+      },
+      {
+        "rect": [
+          724,
+          724,
+          1086,
+          1086
+        ],
+        "bounds": null,
+        "gutter": null
+      },
+      {
+        "rect": [
+          1086,
+          724,
+          1448,
+          1086
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "enemy.vine_thorn.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "base"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          143,
+          193,
+          1095,
+          1099
+        ],
+        "gutter": 143
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.vine_thorn.idle.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "idle",
+      "idle"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          110,
+          147,
+          773,
+          781
+        ],
+        "gutter": 106
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          105,
+          115,
+          786,
+          781
+        ],
+        "gutter": 101
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.vine_thorn.cast.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "cast",
+      "cast"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          134,
+          148,
+          773,
+          766
+        ],
+        "gutter": 114
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          79,
+          116,
+          743,
+          766
+        ],
+        "gutter": 79
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.vine_thorn.emerge.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "emerge",
+      "emerge"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          272,
+          440,
+          595,
+          780
+        ],
+        "gutter": 107
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          97,
+          135,
+          775,
+          778
+        ],
+        "gutter": 97
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.vine_thorn.death.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "death",
+      "death"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          129,
+          156,
+          771,
+          760
+        ],
+        "gutter": 116
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          102,
+          459,
+          734,
+          752
+        ],
+        "gutter": 102
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "enemy.boar_tusk.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "base"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          168,
+          338,
+          1061,
+          974
+        ],
+        "gutter": 168
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.boar_tusk.sheet.png": {
+    "grid": [
+      4,
+      3
+    ],
+    "frames": [
+      "move",
+      "move",
+      "move",
+      "move",
+      "warn",
+      "warn",
+      "charge",
+      "charge",
+      "stagger",
+      "stagger",
+      "death",
+      "death"
+    ],
+    "expected": 12,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "size": [
+      1448,
+      1086
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          362,
+          362
+        ],
+        "bounds": [
+          29,
+          74,
+          335,
+          293
+        ],
+        "gutter": 27
+      },
+      {
+        "rect": [
+          362,
+          0,
+          724,
+          362
+        ],
+        "bounds": [
+          30,
+          69,
+          336,
+          293
+        ],
+        "gutter": 26
+      },
+      {
+        "rect": [
+          724,
+          0,
+          1086,
+          362
+        ],
+        "bounds": [
+          29,
+          74,
+          335,
+          293
+        ],
+        "gutter": 27
+      },
+      {
+        "rect": [
+          1086,
+          0,
+          1448,
+          362
+        ],
+        "bounds": [
+          30,
+          78,
+          337,
+          293
+        ],
+        "gutter": 25
+      },
+      {
+        "rect": [
+          0,
+          362,
+          362,
+          724
+        ],
+        "bounds": [
+          29,
+          75,
+          329,
+          301
+        ],
+        "gutter": 29
+      },
+      {
+        "rect": [
+          362,
+          362,
+          724,
+          724
+        ],
+        "bounds": [
+          29,
+          75,
+          329,
+          300
+        ],
+        "gutter": 29
+      },
+      {
+        "rect": [
+          724,
+          362,
+          1086,
+          724
+        ],
+        "bounds": [
+          30,
+          79,
+          315,
+          287
+        ],
+        "gutter": 30
+      },
+      {
+        "rect": [
+          1086,
+          362,
+          1448,
+          724
+        ],
+        "bounds": [
+          18,
+          88,
+          347,
+          295
+        ],
+        "gutter": 15
+      },
+      {
+        "rect": [
+          0,
+          724,
+          362,
+          1086
+        ],
+        "bounds": [
+          30,
+          56,
+          308,
+          289
+        ],
+        "gutter": 30
+      },
+      {
+        "rect": [
+          362,
+          724,
+          724,
+          1086
+        ],
+        "bounds": [
+          40,
+          66,
+          330,
+          289
+        ],
+        "gutter": 32
+      },
+      {
+        "rect": [
+          724,
+          724,
+          1086,
+          1086
+        ],
+        "bounds": [
+          26,
+          89,
+          327,
+          278
+        ],
+        "gutter": 26
+      },
+      {
+        "rect": [
+          1086,
+          724,
+          1448,
+          1086
+        ],
+        "bounds": [
+          18,
+          105,
+          340,
+          264
+        ],
+        "gutter": 18
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "enemy.toad_drum.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "base"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          210,
+          302,
+          1032,
+          991
+        ],
+        "gutter": 210
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.toad_drum.sheet.png": {
+    "grid": [
+      4,
+      3
+    ],
+    "frames": [
+      "hop",
+      "hop",
+      "call",
+      "call",
+      "call",
+      "tongue_warn",
+      "tongue",
+      "death",
+      "death"
+    ],
+    "expected": 9,
+    "indices": [
+      0,
+      1,
+      2,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10
+    ],
+    "size": [
+      1448,
+      1086
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          362,
+          362
+        ],
+        "bounds": [
+          41,
+          118,
+          318,
+          307
+        ],
+        "gutter": 41
+      },
+      {
+        "rect": [
+          362,
+          0,
+          724,
+          362
+        ],
+        "bounds": [
+          46,
+          63,
+          313,
+          285
+        ],
+        "gutter": 46
+      },
+      {
+        "rect": [
+          724,
+          0,
+          1086,
+          362
+        ],
+        "bounds": [
+          41,
+          69,
+          321,
+          307
+        ],
+        "gutter": 41
+      },
+      {
+        "rect": [
+          1086,
+          0,
+          1448,
+          362
+        ],
+        "bounds": null,
+        "gutter": null
+      },
+      {
+        "rect": [
+          0,
+          362,
+          362,
+          724
+        ],
+        "bounds": [
+          41,
+          59,
+          332,
+          306
+        ],
+        "gutter": 30
+      },
+      {
+        "rect": [
+          362,
+          362,
+          724,
+          724
+        ],
+        "bounds": [
+          41,
+          65,
+          317,
+          298
+        ],
+        "gutter": 41
+      },
+      {
+        "rect": [
+          724,
+          362,
+          1086,
+          724
+        ],
+        "bounds": [
+          41,
+          60,
+          318,
+          306
+        ],
+        "gutter": 41
+      },
+      {
+        "rect": [
+          1086,
+          362,
+          1448,
+          724
+        ],
+        "bounds": null,
+        "gutter": null
+      },
+      {
+        "rect": [
+          0,
+          724,
+          362,
+          1086
+        ],
+        "bounds": [
+          41,
+          63,
+          358,
+          304
+        ],
+        "gutter": 4
+      },
+      {
+        "rect": [
+          362,
+          724,
+          724,
+          1086
+        ],
+        "bounds": [
+          39,
+          124,
+          319,
+          304
+        ],
+        "gutter": 39
+      },
+      {
+        "rect": [
+          724,
+          724,
+          1086,
+          1086
+        ],
+        "bounds": [
+          25,
+          185,
+          334,
+          310
+        ],
+        "gutter": 25
+      },
+      {
+        "rect": [
+          1086,
+          724,
+          1448,
+          1086
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss.kiln_boar.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "base"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          109,
+          112,
+          1104,
+          1103
+        ],
+        "gutter": 109
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.kiln_boar.sheet-1.png": {
+    "grid": [
+      4,
+      2
+    ],
+    "frames": [
+      "walk",
+      "walk",
+      "walk",
+      "walk",
+      "charge_warn",
+      "charge_warn",
+      "charge",
+      "charge"
+    ],
+    "expected": 8,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          444,
+          444
+        ],
+        "bounds": [
+          57,
+          32,
+          383,
+          380
+        ],
+        "gutter": 32
+      },
+      {
+        "rect": [
+          444,
+          0,
+          887,
+          444
+        ],
+        "bounds": [
+          58,
+          32,
+          381,
+          380
+        ],
+        "gutter": 32
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1330,
+          444
+        ],
+        "bounds": [
+          60,
+          33,
+          381,
+          380
+        ],
+        "gutter": 33
+      },
+      {
+        "rect": [
+          1330,
+          0,
+          1774,
+          444
+        ],
+        "bounds": [
+          58,
+          33,
+          383,
+          381
+        ],
+        "gutter": 33
+      },
+      {
+        "rect": [
+          0,
+          444,
+          444,
+          887
+        ],
+        "bounds": [
+          53,
+          33,
+          377,
+          380
+        ],
+        "gutter": 33
+      },
+      {
+        "rect": [
+          444,
+          444,
+          887,
+          887
+        ],
+        "bounds": [
+          45,
+          35,
+          374,
+          380
+        ],
+        "gutter": 35
+      },
+      {
+        "rect": [
+          887,
+          444,
+          1330,
+          887
+        ],
+        "bounds": [
+          43,
+          47,
+          359,
+          380
+        ],
+        "gutter": 43
+      },
+      {
+        "rect": [
+          1330,
+          444,
+          1774,
+          887
+        ],
+        "bounds": [
+          22,
+          47,
+          378,
+          376
+        ],
+        "gutter": 22
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.kiln_boar.sheet-2.png": {
+    "grid": [
+      4,
+      2
+    ],
+    "frames": [
+      "stomp",
+      "stomp",
+      "stomp",
+      "roar",
+      "roar",
+      "stun",
+      "stun"
+    ],
+    "expected": 7,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          444,
+          444
+        ],
+        "bounds": [
+          38,
+          22,
+          394,
+          397
+        ],
+        "gutter": 22
+      },
+      {
+        "rect": [
+          444,
+          0,
+          887,
+          444
+        ],
+        "bounds": [
+          53,
+          9,
+          381,
+          394
+        ],
+        "gutter": 9
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1330,
+          444
+        ],
+        "bounds": [
+          51,
+          47,
+          394,
+          392
+        ],
+        "gutter": 47
+      },
+      {
+        "rect": [
+          1330,
+          0,
+          1774,
+          444
+        ],
+        "bounds": [
+          51,
+          21,
+          374,
+          397
+        ],
+        "gutter": 21
+      },
+      {
+        "rect": [
+          0,
+          444,
+          444,
+          887
+        ],
+        "bounds": [
+          56,
+          17,
+          370,
+          396
+        ],
+        "gutter": 17
+      },
+      {
+        "rect": [
+          444,
+          444,
+          887,
+          887
+        ],
+        "bounds": [
+          49,
+          44,
+          369,
+          396
+        ],
+        "gutter": 44
+      },
+      {
+        "rect": [
+          887,
+          444,
+          1330,
+          887
+        ],
+        "bounds": [
+          50,
+          57,
+          382,
+          396
+        ],
+        "gutter": 47
+      },
+      {
+        "rect": [
+          1330,
+          444,
+          1774,
+          887
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.kiln_boar.sheet-3.png": {
+    "grid": [
+      4,
+      2
+    ],
+    "frames": [
+      "phase",
+      "phase",
+      "death",
+      "death",
+      "death",
+      "death"
+    ],
+    "expected": 6,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          444,
+          444
+        ],
+        "bounds": [
+          29,
+          19,
+          404,
+          402
+        ],
+        "gutter": 19
+      },
+      {
+        "rect": [
+          444,
+          0,
+          887,
+          444
+        ],
+        "bounds": [
+          29,
+          16,
+          403,
+          402
+        ],
+        "gutter": 16
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1330,
+          444
+        ],
+        "bounds": [
+          37,
+          25,
+          398,
+          403
+        ],
+        "gutter": 25
+      },
+      {
+        "rect": [
+          1330,
+          0,
+          1774,
+          444
+        ],
+        "bounds": [
+          35,
+          25,
+          407,
+          404
+        ],
+        "gutter": 25
+      },
+      {
+        "rect": [
+          0,
+          444,
+          444,
+          887
+        ],
+        "bounds": [
+          22,
+          33,
+          417,
+          400
+        ],
+        "gutter": 22
+      },
+      {
+        "rect": [
+          444,
+          444,
+          887,
+          887
+        ],
+        "bounds": [
+          20,
+          67,
+          421,
+          409
+        ],
+        "gutter": 20
+      },
+      {
+        "rect": [
+          887,
+          444,
+          1330,
+          887
+        ],
+        "bounds": null,
+        "gutter": null
+      },
+      {
+        "rect": [
+          1330,
+          444,
+          1774,
+          887
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss.mirror_phantom.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "base"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          174,
+          163,
+          1069,
+          1134
+        ],
+        "gutter": 120
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.mirror_phantom.sheet-1.png": {
+    "grid": [
+      4,
+      2
+    ],
+    "frames": [
+      "hover",
+      "hover",
+      "hover",
+      "fire",
+      "fire",
+      "cast",
+      "cast"
+    ],
+    "expected": 7,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          444,
+          444
+        ],
+        "bounds": [
+          47,
+          24,
+          390,
+          412
+        ],
+        "gutter": 24
+      },
+      {
+        "rect": [
+          444,
+          0,
+          887,
+          444
+        ],
+        "bounds": [
+          41,
+          24,
+          389,
+          410
+        ],
+        "gutter": 24
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1330,
+          444
+        ],
+        "bounds": [
+          36,
+          24,
+          390,
+          411
+        ],
+        "gutter": 24
+      },
+      {
+        "rect": [
+          1330,
+          0,
+          1774,
+          444
+        ],
+        "bounds": [
+          43,
+          24,
+          391,
+          411
+        ],
+        "gutter": 24
+      },
+      {
+        "rect": [
+          0,
+          444,
+          444,
+          887
+        ],
+        "bounds": [
+          46,
+          23,
+          390,
+          411
+        ],
+        "gutter": 23
+      },
+      {
+        "rect": [
+          444,
+          444,
+          887,
+          887
+        ],
+        "bounds": [
+          44,
+          23,
+          389,
+          411
+        ],
+        "gutter": 23
+      },
+      {
+        "rect": [
+          887,
+          444,
+          1330,
+          887
+        ],
+        "bounds": [
+          48,
+          23,
+          390,
+          410
+        ],
+        "gutter": 23
+      },
+      {
+        "rect": [
+          1330,
+          444,
+          1774,
+          887
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.mirror_phantom.sheet-2.png": {
+    "grid": [
+      4,
+      2
+    ],
+    "frames": [
+      "burst",
+      "burst",
+      "burst",
+      "open",
+      "open",
+      "phase",
+      "phase"
+    ],
+    "expected": 7,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          444,
+          444
+        ],
+        "bounds": [
+          86,
+          52,
+          370,
+          404
+        ],
+        "gutter": 40
+      },
+      {
+        "rect": [
+          444,
+          0,
+          887,
+          444
+        ],
+        "bounds": [
+          75,
+          52,
+          370,
+          404
+        ],
+        "gutter": 40
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1330,
+          444
+        ],
+        "bounds": [
+          64,
+          47,
+          378,
+          406
+        ],
+        "gutter": 38
+      },
+      {
+        "rect": [
+          1330,
+          0,
+          1774,
+          444
+        ],
+        "bounds": [
+          78,
+          55,
+          372,
+          404
+        ],
+        "gutter": 40
+      },
+      {
+        "rect": [
+          0,
+          444,
+          444,
+          887
+        ],
+        "bounds": [
+          78,
+          52,
+          373,
+          406
+        ],
+        "gutter": 37
+      },
+      {
+        "rect": [
+          444,
+          444,
+          887,
+          887
+        ],
+        "bounds": [
+          67,
+          61,
+          373,
+          401
+        ],
+        "gutter": 42
+      },
+      {
+        "rect": [
+          887,
+          444,
+          1330,
+          887
+        ],
+        "bounds": [
+          66,
+          62,
+          373,
+          380
+        ],
+        "gutter": 62
+      },
+      {
+        "rect": [
+          1330,
+          444,
+          1774,
+          887
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.mirror_phantom.sheet-3.png": {
+    "grid": [
+      4,
+      2
+    ],
+    "frames": [
+      "death",
+      "death",
+      "death",
+      "death",
+      "crack",
+      "crack",
+      "look"
+    ],
+    "expected": 7,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          444,
+          444
+        ],
+        "bounds": [
+          48,
+          25,
+          362,
+          407
+        ],
+        "gutter": 25
+      },
+      {
+        "rect": [
+          444,
+          0,
+          887,
+          444
+        ],
+        "bounds": [
+          47,
+          25,
+          362,
+          407
+        ],
+        "gutter": 25
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1330,
+          444
+        ],
+        "bounds": [
+          43,
+          25,
+          362,
+          400
+        ],
+        "gutter": 25
+      },
+      {
+        "rect": [
+          1330,
+          0,
+          1774,
+          444
+        ],
+        "bounds": [
+          82,
+          59,
+          291,
+          388
+        ],
+        "gutter": 56
+      },
+      {
+        "rect": [
+          0,
+          444,
+          444,
+          887
+        ],
+        "bounds": [
+          48,
+          25,
+          362,
+          407
+        ],
+        "gutter": 25
+      },
+      {
+        "rect": [
+          444,
+          444,
+          887,
+          887
+        ],
+        "bounds": [
+          47,
+          25,
+          362,
+          407
+        ],
+        "gutter": 25
+      },
+      {
+        "rect": [
+          887,
+          444,
+          1330,
+          887
+        ],
+        "bounds": [
+          48,
+          36,
+          362,
+          406
+        ],
+        "gutter": 36
+      },
+      {
+        "rect": [
+          1330,
+          444,
+          1774,
+          887
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss.spore_queen.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "base"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          201,
+          159,
+          1042,
+          1096
+        ],
+        "gutter": 158
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.spore_queen.sheet-1.png": {
+    "grid": [
+      4,
+      2
+    ],
+    "frames": [
+      "walk",
+      "walk",
+      "ring",
+      "ring",
+      "ring",
+      "cloud",
+      "cloud"
+    ],
+    "expected": 7,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          444,
+          444
+        ],
+        "bounds": [
+          72,
+          33,
+          373,
+          392
+        ],
+        "gutter": 33
+      },
+      {
+        "rect": [
+          444,
+          0,
+          887,
+          444
+        ],
+        "bounds": [
+          74,
+          33,
+          370,
+          391
+        ],
+        "gutter": 33
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1330,
+          444
+        ],
+        "bounds": [
+          66,
+          77,
+          380,
+          391
+        ],
+        "gutter": 53
+      },
+      {
+        "rect": [
+          1330,
+          0,
+          1774,
+          444
+        ],
+        "bounds": [
+          60,
+          19,
+          384,
+          391
+        ],
+        "gutter": 19
+      },
+      {
+        "rect": [
+          0,
+          444,
+          444,
+          887
+        ],
+        "bounds": [
+          60,
+          20,
+          402,
+          388
+        ],
+        "gutter": 20
+      },
+      {
+        "rect": [
+          444,
+          444,
+          887,
+          887
+        ],
+        "bounds": [
+          50,
+          40,
+          393,
+          388
+        ],
+        "gutter": 40
+      },
+      {
+        "rect": [
+          887,
+          444,
+          1330,
+          887
+        ],
+        "bounds": [
+          35,
+          45,
+          437,
+          384
+        ],
+        "gutter": 6
+      },
+      {
+        "rect": [
+          1330,
+          444,
+          1774,
+          887
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.spore_queen.sheet-2.png": {
+    "grid": [
+      4,
+      2
+    ],
+    "frames": [
+      "call",
+      "call",
+      "jump",
+      "jump",
+      "jump",
+      "jump",
+      "open",
+      "open"
+    ],
+    "expected": 8,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          444,
+          444
+        ],
+        "bounds": [
+          71,
+          56,
+          368,
+          398
+        ],
+        "gutter": 46
+      },
+      {
+        "rect": [
+          444,
+          0,
+          887,
+          444
+        ],
+        "bounds": [
+          71,
+          56,
+          365,
+          397
+        ],
+        "gutter": 47
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1330,
+          444
+        ],
+        "bounds": [
+          69,
+          99,
+          370,
+          395
+        ],
+        "gutter": 49
+      },
+      {
+        "rect": [
+          1330,
+          0,
+          1774,
+          444
+        ],
+        "bounds": [
+          74,
+          38,
+          368,
+          397
+        ],
+        "gutter": 38
+      },
+      {
+        "rect": [
+          0,
+          444,
+          444,
+          887
+        ],
+        "bounds": [
+          71,
+          18,
+          367,
+          365
+        ],
+        "gutter": 18
+      },
+      {
+        "rect": [
+          444,
+          444,
+          887,
+          887
+        ],
+        "bounds": [
+          69,
+          63,
+          367,
+          393
+        ],
+        "gutter": 50
+      },
+      {
+        "rect": [
+          887,
+          444,
+          1330,
+          887
+        ],
+        "bounds": [
+          59,
+          45,
+          372,
+          396
+        ],
+        "gutter": 45
+      },
+      {
+        "rect": [
+          1330,
+          444,
+          1774,
+          887
+        ],
+        "bounds": [
+          72,
+          59,
+          370,
+          396
+        ],
+        "gutter": 47
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.spore_queen.sheet-3.png": {
+    "grid": [
+      4,
+      2
+    ],
+    "frames": [
+      "phase",
+      "phase",
+      "phase",
+      "death",
+      "death",
+      "death",
+      "death"
+    ],
+    "expected": 7,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          444,
+          444
+        ],
+        "bounds": [
+          62,
+          45,
+          374,
+          405
+        ],
+        "gutter": 39
+      },
+      {
+        "rect": [
+          444,
+          0,
+          887,
+          444
+        ],
+        "bounds": [
+          79,
+          42,
+          374,
+          405
+        ],
+        "gutter": 39
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1330,
+          444
+        ],
+        "bounds": [
+          81,
+          23,
+          375,
+          401
+        ],
+        "gutter": 23
+      },
+      {
+        "rect": [
+          1330,
+          0,
+          1774,
+          444
+        ],
+        "bounds": [
+          81,
+          36,
+          376,
+          404
+        ],
+        "gutter": 36
+      },
+      {
+        "rect": [
+          0,
+          444,
+          444,
+          887
+        ],
+        "bounds": [
+          77,
+          44,
+          373,
+          401
+        ],
+        "gutter": 42
+      },
+      {
+        "rect": [
+          444,
+          444,
+          887,
+          887
+        ],
+        "bounds": [
+          74,
+          97,
+          366,
+          389
+        ],
+        "gutter": 54
+      },
+      {
+        "rect": [
+          887,
+          444,
+          1330,
+          887
+        ],
+        "bounds": [
+          56,
+          169,
+          365,
+          398
+        ],
+        "gutter": 45
+      },
+      {
+        "rect": [
+          1330,
+          444,
+          1774,
+          887
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss.storm_owl.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "base"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1536,
+      1024
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1536,
+          1024
+        ],
+        "bounds": [
+          42,
+          165,
+          1497,
+          920
+        ],
+        "gutter": 39
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.storm_owl.sheet-1.png": {
+    "grid": [
+      4,
+      2
+    ],
+    "frames": [
+      "fly",
+      "fly",
+      "fly",
+      "fly",
+      "dive",
+      "dive"
+    ],
+    "expected": 6,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          444,
+          444
+        ],
+        "bounds": [
+          19,
+          85,
+          422,
+          359
+        ],
+        "gutter": 19
+      },
+      {
+        "rect": [
+          444,
+          0,
+          887,
+          444
+        ],
+        "bounds": [
+          14,
+          120,
+          430,
+          359
+        ],
+        "gutter": 13
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1330,
+          444
+        ],
+        "bounds": [
+          40,
+          120,
+          404,
+          398
+        ],
+        "gutter": 39
+      },
+      {
+        "rect": [
+          1330,
+          0,
+          1774,
+          444
+        ],
+        "bounds": [
+          31,
+          120,
+          412,
+          359
+        ],
+        "gutter": 31
+      },
+      {
+        "rect": [
+          0,
+          444,
+          444,
+          887
+        ],
+        "bounds": [
+          29,
+          135,
+          421,
+          336
+        ],
+        "gutter": 23
+      },
+      {
+        "rect": [
+          444,
+          444,
+          887,
+          887
+        ],
+        "bounds": [
+          65,
+          166,
+          351,
+          328
+        ],
+        "gutter": 65
+      },
+      {
+        "rect": [
+          887,
+          444,
+          1330,
+          887
+        ],
+        "bounds": null,
+        "gutter": null
+      },
+      {
+        "rect": [
+          1330,
+          444,
+          1774,
+          887
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.storm_owl.sheet-2.png": {
+    "grid": [
+      4,
+      2
+    ],
+    "frames": [
+      "fan",
+      "fan",
+      "fan",
+      "weather",
+      "weather",
+      "phase",
+      "phase"
+    ],
+    "expected": 7,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          444,
+          444
+        ],
+        "bounds": [
+          32,
+          107,
+          432,
+          346
+        ],
+        "gutter": 12
+      },
+      {
+        "rect": [
+          444,
+          0,
+          887,
+          444
+        ],
+        "bounds": [
+          102,
+          107,
+          381,
+          346
+        ],
+        "gutter": 62
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1330,
+          444
+        ],
+        "bounds": [
+          24,
+          83,
+          425,
+          346
+        ],
+        "gutter": 18
+      },
+      {
+        "rect": [
+          1330,
+          0,
+          1774,
+          444
+        ],
+        "bounds": [
+          36,
+          107,
+          419,
+          346
+        ],
+        "gutter": 25
+      },
+      {
+        "rect": [
+          0,
+          444,
+          444,
+          887
+        ],
+        "bounds": [
+          61,
+          42,
+          414,
+          346
+        ],
+        "gutter": 30
+      },
+      {
+        "rect": [
+          444,
+          444,
+          887,
+          887
+        ],
+        "bounds": [
+          73,
+          107,
+          408,
+          374
+        ],
+        "gutter": 35
+      },
+      {
+        "rect": [
+          887,
+          444,
+          1330,
+          887
+        ],
+        "bounds": [
+          24,
+          97,
+          439,
+          346
+        ],
+        "gutter": 4
+      },
+      {
+        "rect": [
+          1330,
+          444,
+          1774,
+          887
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.storm_owl.sheet-3.png": {
+    "grid": [
+      4,
+      1
+    ],
+    "frames": [
+      "death",
+      "death",
+      "death",
+      "death"
+    ],
+    "expected": 4,
+    "indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bounds": [
+          16,
+          175,
+          540,
+          526
+        ],
+        "gutter": 3
+      },
+      {
+        "rect": [
+          543,
+          0,
+          1086,
+          724
+        ],
+        "bounds": [
+          38,
+          190,
+          507,
+          522
+        ],
+        "gutter": 36
+      },
+      {
+        "rect": [
+          1086,
+          0,
+          1629,
+          724
+        ],
+        "bounds": [
+          65,
+          245,
+          473,
+          519
+        ],
+        "gutter": 65
+      },
+      {
+        "rect": [
+          1629,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          40,
+          324,
+          503,
+          523
+        ],
+        "gutter": 40
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss.storm_owl.ground.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "base"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1086,
+      1448
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1086,
+          1448
+        ],
+        "bounds": [
+          149,
+          125,
+          987,
+          1337
+        ],
+        "gutter": 99
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.storm_owl.ground.sheet-1.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "land",
+      "land"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          174,
+          95,
+          712,
+          777
+        ],
+        "gutter": 95
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          219,
+          99,
+          705,
+          796
+        ],
+        "gutter": 91
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss.frost_goat.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "base"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          150,
+          165,
+          1123,
+          1097
+        ],
+        "gutter": 131
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.frost_goat.sheet-1.png": {
+    "grid": [
+      4,
+      2
+    ],
+    "frames": [
+      "walk",
+      "walk",
+      "walk",
+      "walk",
+      "pillars",
+      "pillars"
+    ],
+    "expected": 6,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          444,
+          444
+        ],
+        "bounds": [
+          43,
+          36,
+          421,
+          398
+        ],
+        "gutter": 23
+      },
+      {
+        "rect": [
+          444,
+          0,
+          887,
+          444
+        ],
+        "bounds": [
+          45,
+          36,
+          422,
+          398
+        ],
+        "gutter": 21
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1330,
+          444
+        ],
+        "bounds": [
+          47,
+          39,
+          424,
+          398
+        ],
+        "gutter": 19
+      },
+      {
+        "rect": [
+          1330,
+          0,
+          1774,
+          444
+        ],
+        "bounds": [
+          49,
+          38,
+          422,
+          394
+        ],
+        "gutter": 22
+      },
+      {
+        "rect": [
+          0,
+          444,
+          444,
+          887
+        ],
+        "bounds": [
+          33,
+          75,
+          415,
+          392
+        ],
+        "gutter": 29
+      },
+      {
+        "rect": [
+          444,
+          444,
+          887,
+          887
+        ],
+        "bounds": [
+          46,
+          39,
+          422,
+          397
+        ],
+        "gutter": 21
+      },
+      {
+        "rect": [
+          887,
+          444,
+          1330,
+          887
+        ],
+        "bounds": null,
+        "gutter": null
+      },
+      {
+        "rect": [
+          1330,
+          444,
+          1774,
+          887
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.frost_goat.sheet-2.png": {
+    "grid": [
+      4,
+      2
+    ],
+    "frames": [
+      "sweep",
+      "sweep",
+      "sweep",
+      "breath",
+      "breath",
+      "breath",
+      "charge_warn",
+      "charge_warn"
+    ],
+    "expected": 8,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          444,
+          444
+        ],
+        "bounds": [
+          45,
+          45,
+          411,
+          406
+        ],
+        "gutter": 33
+      },
+      {
+        "rect": [
+          444,
+          0,
+          887,
+          444
+        ],
+        "bounds": [
+          46,
+          69,
+          408,
+          406
+        ],
+        "gutter": 35
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1330,
+          444
+        ],
+        "bounds": [
+          30,
+          122,
+          409,
+          406
+        ],
+        "gutter": 30
+      },
+      {
+        "rect": [
+          1330,
+          0,
+          1774,
+          444
+        ],
+        "bounds": [
+          47,
+          46,
+          363,
+          406
+        ],
+        "gutter": 38
+      },
+      {
+        "rect": [
+          0,
+          444,
+          444,
+          887
+        ],
+        "bounds": [
+          46,
+          46,
+          430,
+          407
+        ],
+        "gutter": 14
+      },
+      {
+        "rect": [
+          444,
+          444,
+          887,
+          887
+        ],
+        "bounds": [
+          46,
+          46,
+          426,
+          407
+        ],
+        "gutter": 17
+      },
+      {
+        "rect": [
+          887,
+          444,
+          1330,
+          887
+        ],
+        "bounds": [
+          33,
+          77,
+          366,
+          403
+        ],
+        "gutter": 33
+      },
+      {
+        "rect": [
+          1330,
+          444,
+          1774,
+          887
+        ],
+        "bounds": [
+          29,
+          120,
+          378,
+          407
+        ],
+        "gutter": 29
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.frost_goat.sheet-3.png": {
+    "grid": [
+      4,
+      2
+    ],
+    "frames": [
+      "charge",
+      "charge",
+      "impact",
+      "impact",
+      "phase",
+      "phase"
+    ],
+    "expected": 6,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          444,
+          444
+        ],
+        "bounds": [
+          72,
+          62,
+          427,
+          392
+        ],
+        "gutter": 17
+      },
+      {
+        "rect": [
+          444,
+          0,
+          887,
+          444
+        ],
+        "bounds": [
+          52,
+          36,
+          421,
+          399
+        ],
+        "gutter": 22
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1330,
+          444
+        ],
+        "bounds": [
+          49,
+          92,
+          424,
+          398
+        ],
+        "gutter": 19
+      },
+      {
+        "rect": [
+          1330,
+          0,
+          1774,
+          444
+        ],
+        "bounds": [
+          73,
+          52,
+          400,
+          398
+        ],
+        "gutter": 44
+      },
+      {
+        "rect": [
+          0,
+          444,
+          444,
+          887
+        ],
+        "bounds": [
+          49,
+          33,
+          423,
+          401
+        ],
+        "gutter": 21
+      },
+      {
+        "rect": [
+          444,
+          444,
+          887,
+          887
+        ],
+        "bounds": [
+          46,
+          33,
+          423,
+          401
+        ],
+        "gutter": 20
+      },
+      {
+        "rect": [
+          887,
+          444,
+          1330,
+          887
+        ],
+        "bounds": null,
+        "gutter": null
+      },
+      {
+        "rect": [
+          1330,
+          444,
+          1774,
+          887
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.frost_goat.sheet-4.png": {
+    "grid": [
+      4,
+      1
+    ],
+    "frames": [
+      "death",
+      "death",
+      "death",
+      "death"
+    ],
+    "expected": 4,
+    "indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bounds": [
+          41,
+          119,
+          542,
+          619
+        ],
+        "gutter": 1
+      },
+      {
+        "rect": [
+          543,
+          0,
+          1086,
+          724
+        ],
+        "bounds": [
+          33,
+          190,
+          521,
+          617
+        ],
+        "gutter": 22
+      },
+      {
+        "rect": [
+          1086,
+          0,
+          1629,
+          724
+        ],
+        "bounds": [
+          9,
+          263,
+          525,
+          619
+        ],
+        "gutter": 9
+      },
+      {
+        "rect": [
+          1629,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          11,
+          331,
+          519,
+          619
+        ],
+        "gutter": 11
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss.night_serpent.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "base"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          168,
+          149,
+          1079,
+          1117
+        ],
+        "gutter": 137
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.night_serpent.sheet-1.png": {
+    "grid": [
+      4,
+      2
+    ],
+    "frames": [
+      "move",
+      "move",
+      "bite",
+      "bite",
+      "bite",
+      "spit",
+      "spit"
+    ],
+    "expected": 7,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          444,
+          444
+        ],
+        "bounds": [
+          59,
+          43,
+          384,
+          399
+        ],
+        "gutter": 43
+      },
+      {
+        "rect": [
+          444,
+          0,
+          887,
+          444
+        ],
+        "bounds": [
+          60,
+          27,
+          385,
+          399
+        ],
+        "gutter": 27
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1330,
+          444
+        ],
+        "bounds": [
+          60,
+          21,
+          397,
+          399
+        ],
+        "gutter": 21
+      },
+      {
+        "rect": [
+          1330,
+          0,
+          1774,
+          444
+        ],
+        "bounds": [
+          57,
+          50,
+          431,
+          399
+        ],
+        "gutter": 13
+      },
+      {
+        "rect": [
+          0,
+          444,
+          444,
+          887
+        ],
+        "bounds": [
+          59,
+          37,
+          393,
+          397
+        ],
+        "gutter": 37
+      },
+      {
+        "rect": [
+          444,
+          444,
+          887,
+          887
+        ],
+        "bounds": [
+          60,
+          37,
+          389,
+          397
+        ],
+        "gutter": 37
+      },
+      {
+        "rect": [
+          887,
+          444,
+          1330,
+          887
+        ],
+        "bounds": [
+          60,
+          37,
+          392,
+          397
+        ],
+        "gutter": 37
+      },
+      {
+        "rect": [
+          1330,
+          444,
+          1774,
+          887
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.night_serpent.sheet-2.png": {
+    "grid": [
+      4,
+      2
+    ],
+    "frames": [
+      "sink",
+      "sink",
+      "rise",
+      "rise",
+      "rest",
+      "rest",
+      "phase",
+      "phase"
+    ],
+    "expected": 8,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          444,
+          444
+        ],
+        "bounds": [
+          68,
+          48,
+          404,
+          390
+        ],
+        "gutter": 40
+      },
+      {
+        "rect": [
+          444,
+          0,
+          887,
+          444
+        ],
+        "bounds": [
+          61,
+          114,
+          399,
+          377
+        ],
+        "gutter": 44
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1330,
+          444
+        ],
+        "bounds": [
+          67,
+          205,
+          387,
+          389
+        ],
+        "gutter": 55
+      },
+      {
+        "rect": [
+          1330,
+          0,
+          1774,
+          444
+        ],
+        "bounds": [
+          49,
+          32,
+          383,
+          390
+        ],
+        "gutter": 32
+      },
+      {
+        "rect": [
+          0,
+          444,
+          444,
+          887
+        ],
+        "bounds": [
+          50,
+          35,
+          389,
+          390
+        ],
+        "gutter": 35
+      },
+      {
+        "rect": [
+          444,
+          444,
+          887,
+          887
+        ],
+        "bounds": [
+          50,
+          35,
+          389,
+          390
+        ],
+        "gutter": 35
+      },
+      {
+        "rect": [
+          887,
+          444,
+          1330,
+          887
+        ],
+        "bounds": [
+          50,
+          35,
+          389,
+          390
+        ],
+        "gutter": 35
+      },
+      {
+        "rect": [
+          1330,
+          444,
+          1774,
+          887
+        ],
+        "bounds": [
+          51,
+          35,
+          390,
+          390
+        ],
+        "gutter": 35
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.night_serpent.sheet-3.png": {
+    "grid": [
+      3,
+      1
+    ],
+    "frames": [
+      "death",
+      "death",
+      "death"
+    ],
+    "expected": 3,
+    "indices": [
+      0,
+      1,
+      2
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "bounds": [
+          83,
+          81,
+          637,
+          654
+        ],
+        "gutter": 70
+      },
+      {
+        "rect": [
+          724,
+          0,
+          1448,
+          724
+        ],
+        "bounds": [
+          81,
+          117,
+          627,
+          653
+        ],
+        "gutter": 71
+      },
+      {
+        "rect": [
+          1448,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          82,
+          176,
+          657,
+          653
+        ],
+        "gutter": 67
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss.night_serpent.segment.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "base"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          204,
+          364,
+          1050,
+          905
+        ],
+        "gutter": 204
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.night_serpent.segment.sheet-1.png": {
+    "grid": [
+      4,
+      1
+    ],
+    "frames": [
+      "move",
+      "move",
+      "warn",
+      "death"
+    ],
+    "expected": 4,
+    "indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bounds": [
+          53,
+          211,
+          489,
+          486
+        ],
+        "gutter": 53
+      },
+      {
+        "rect": [
+          543,
+          0,
+          1086,
+          724
+        ],
+        "bounds": [
+          54,
+          212,
+          489,
+          487
+        ],
+        "gutter": 54
+      },
+      {
+        "rect": [
+          1086,
+          0,
+          1629,
+          724
+        ],
+        "bounds": [
+          54,
+          211,
+          489,
+          486
+        ],
+        "gutter": 54
+      },
+      {
+        "rect": [
+          1629,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          54,
+          211,
+          490,
+          515
+        ],
+        "gutter": 53
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss.night_serpent.tail.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "base"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          270,
+          290,
+          998,
+          1034
+        ],
+        "gutter": 220
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.night_serpent.tail.sheet-1.png": {
+    "grid": [
+      3,
+      1
+    ],
+    "frames": [
+      "move",
+      "move",
+      "death"
+    ],
+    "expected": 3,
+    "indices": [
+      0,
+      1,
+      2
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "bounds": [
+          122,
+          116,
+          634,
+          639
+        ],
+        "gutter": 85
+      },
+      {
+        "rect": [
+          724,
+          0,
+          1448,
+          724
+        ],
+        "bounds": [
+          119,
+          116,
+          624,
+          639
+        ],
+        "gutter": 85
+      },
+      {
+        "rect": [
+          1448,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          120,
+          372,
+          602,
+          639
+        ],
+        "gutter": 85
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "enemy.spore_seedling.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "base"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          257,
+          157,
+          965,
+          1101
+        ],
+        "gutter": 153
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.spore_seedling.sheet.png": {
+    "grid": [
+      3,
+      1
+    ],
+    "frames": [
+      "move",
+      "move",
+      "death"
+    ],
+    "expected": 3,
+    "indices": [
+      0,
+      1,
+      2
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "bounds": [
+          169,
+          75,
+          586,
+          650
+        ],
+        "gutter": 74
+      },
+      {
+        "rect": [
+          724,
+          0,
+          1448,
+          724
+        ],
+        "bounds": [
+          170,
+          75,
+          590,
+          633
+        ],
+        "gutter": 75
+      },
+      {
+        "rect": [
+          1448,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          134,
+          259,
+          596,
+          641
+        ],
+        "gutter": 83
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "elite/elite.slime_moss.overlay.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "overlay"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          610,
+          182,
+          1140,
+          747
+        ],
+        "gutter": 140
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "elite/elite.wolf_bramble.overlay.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "overlay"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          140,
+          66,
+          1979,
+          663
+        ],
+        "gutter": 61
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "elite/elite.golem_menhir.overlay.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "overlay"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          479,
+          220,
+          1690,
+          579
+        ],
+        "gutter": 145
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "elite/elite.shaman_cap.overlay.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "overlay"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          610,
+          35,
+          1551,
+          670
+        ],
+        "gutter": 35
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "elite/elite.bug_lantern.overlay.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "overlay"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          411,
+          55,
+          1362,
+          842
+        ],
+        "gutter": 45
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "elite/elite.hog_needle.overlay.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "overlay"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          308,
+          35,
+          1427,
+          848
+        ],
+        "gutter": 35
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "elite/elite.weasel_pot.overlay.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "overlay"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          566,
+          67,
+          1209,
+          823
+        ],
+        "gutter": 64
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "elite/elite.bat_dusk.overlay.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "overlay"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          562,
+          264,
+          1608,
+          459
+        ],
+        "gutter": 264
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "elite/elite.wisp_stray.overlay.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "overlay"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          923,
+          139,
+          1245,
+          589
+        ],
+        "gutter": 135
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "elite/elite.vine_thorn.overlay.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "overlay"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          514,
+          107,
+          1223,
+          798
+        ],
+        "gutter": 89
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "elite/elite.boar_tusk.overlay.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "overlay"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          569,
+          265,
+          1108,
+          617
+        ],
+        "gutter": 265
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "elite/elite.toad_drum.overlay.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "overlay"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          701,
+          240,
+          1446,
+          526
+        ],
+        "gutter": 198
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "elite/elite.horn.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "idle"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          264,
+          277,
+          975,
+          1010
+        ],
+        "gutter": 244
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "elite/elite.bat_dusk.dive.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "dive"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1536,
+      1024
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1536,
+          1024
+        ],
+        "bounds": [
+          311,
+          302,
+          1150,
+          776
+        ],
+        "gutter": 248
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "elite/elite.wisp_stray.twin.png": {
+    "grid": [
+      3,
+      1
+    ],
+    "frames": [
+      "hover",
+      "hover",
+      "hover"
+    ],
+    "expected": 3,
+    "indices": [
+      0,
+      1,
+      2
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "bounds": [
+          148,
+          110,
+          576,
+          648
+        ],
+        "gutter": 76
+      },
+      {
+        "rect": [
+          724,
+          0,
+          1448,
+          724
+        ],
+        "bounds": [
+          153,
+          67,
+          574,
+          661
+        ],
+        "gutter": 63
+      },
+      {
+        "rect": [
+          1448,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          129,
+          159,
+          587,
+          629
+        ],
+        "gutter": 95
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss-ui/boss.kiln_boar.hud.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "hud"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1263,
+      1246
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1263,
+          1246
+        ],
+        "bounds": [
+          173,
+          134,
+          1062,
+          1103
+        ],
+        "gutter": 134
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss-ui/boss.kiln_boar.portrait.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "portrait"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          69,
+          85,
+          1176,
+          1216
+        ],
+        "gutter": 38
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss-ui/boss.mirror_phantom.hud.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "hud"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          215,
+          167,
+          954,
+          1107
+        ],
+        "gutter": 147
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss-ui/boss.mirror_phantom.portrait.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "portrait"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          92,
+          92,
+          1162,
+          1190
+        ],
+        "gutter": 64
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss-ui/boss.spore_queen.hud.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "hud"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          174,
+          190,
+          1080,
+          1097
+        ],
+        "gutter": 157
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss-ui/boss.spore_queen.portrait.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "portrait"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          113,
+          115,
+          1135,
+          1152
+        ],
+        "gutter": 102
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss-ui/boss.storm_owl.hud.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "hud"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1261,
+      1247
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1261,
+          1247
+        ],
+        "bounds": [
+          107,
+          128,
+          1154,
+          1141
+        ],
+        "gutter": 106
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss-ui/boss.storm_owl.portrait.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "portrait"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          13,
+          23,
+          1235,
+          1240
+        ],
+        "gutter": 13
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss-ui/boss.frost_goat.hud.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "hud"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          222,
+          172,
+          1110,
+          1135
+        ],
+        "gutter": 119
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss-ui/boss.frost_goat.portrait.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "portrait"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          88,
+          90,
+          1163,
+          1193
+        ],
+        "gutter": 61
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss-ui/boss.night_serpent.hud.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "hud"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          190,
+          159,
+          1064,
+          1131
+        ],
+        "gutter": 123
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss-ui/boss.night_serpent.portrait.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "portrait"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          67,
+          81,
+          1185,
+          1204
+        ],
+        "gutter": 50
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/round_small.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "round_small",
+      "round_small"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          249,
+          264,
+          632,
+          637
+        ],
+        "gutter": 249
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          172,
+          200,
+          689,
+          694
+        ],
+        "gutter": 172
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/round_large.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "round_large",
+      "round_large"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          129,
+          138,
+          757,
+          754
+        ],
+        "gutter": 129
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          47,
+          56,
+          825,
+          825
+        ],
+        "gutter": 47
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/pine_needle.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "pine_needle"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          380,
+          321,
+          1792,
+          426
+        ],
+        "gutter": 298
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/feather.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "feather",
+      "feather"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          103,
+          339,
+          774,
+          605
+        ],
+        "gutter": 103
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          103,
+          312,
+          790,
+          631
+        ],
+        "gutter": 97
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/ice_shard.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "ice_shard"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          766,
+          192,
+          1367,
+          522
+        ],
+        "gutter": 192
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/shadow_needle.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "shadow_needle",
+      "shadow_needle"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1086,
+          724
+        ],
+        "bounds": [
+          89,
+          222,
+          948,
+          518
+        ],
+        "gutter": 89
+      },
+      {
+        "rect": [
+          1086,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          102,
+          206,
+          1021,
+          528
+        ],
+        "gutter": 65
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/vine_seed.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "vine_seed",
+      "vine_seed"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          237,
+          141,
+          688,
+          741
+        ],
+        "gutter": 141
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          201,
+          152,
+          709,
+          740
+        ],
+        "gutter": 147
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/seed_shadow.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "seed_shadow"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          578,
+          311,
+          1197,
+          576
+        ],
+        "gutter": 311
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/thorn_ground.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "thorn_ground",
+      "thorn_ground"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          63,
+          91,
+          820,
+          792
+        ],
+        "gutter": 63
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          64,
+          103,
+          831,
+          798
+        ],
+        "gutter": 56
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/ember_lane.png": {
+    "grid": [
+      3,
+      1
+    ],
+    "frames": [
+      "ember_lane",
+      "ember_lane",
+      "ember_lane"
+    ],
+    "expected": 3,
+    "indices": [
+      0,
+      1,
+      2
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "bounds": [
+          105,
+          150,
+          615,
+          562
+        ],
+        "gutter": 105
+      },
+      {
+        "rect": [
+          724,
+          0,
+          1448,
+          724
+        ],
+        "bounds": [
+          105,
+          127,
+          616,
+          570
+        ],
+        "gutter": 105
+      },
+      {
+        "rect": [
+          1448,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          106,
+          151,
+          614,
+          562
+        ],
+        "gutter": 106
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/spore_cloud.png": {
+    "grid": [
+      4,
+      1
+    ],
+    "frames": [
+      "spore_cloud",
+      "spore_cloud",
+      "spore_cloud",
+      "spore_cloud"
+    ],
+    "expected": 4,
+    "indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bounds": [
+          126,
+          222,
+          435,
+          524
+        ],
+        "gutter": 108
+      },
+      {
+        "rect": [
+          543,
+          0,
+          1086,
+          724
+        ],
+        "bounds": [
+          36,
+          154,
+          505,
+          576
+        ],
+        "gutter": 36
+      },
+      {
+        "rect": [
+          1086,
+          0,
+          1629,
+          724
+        ],
+        "bounds": [
+          35,
+          157,
+          504,
+          562
+        ],
+        "gutter": 35
+      },
+      {
+        "rect": [
+          1629,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          40,
+          178,
+          489,
+          562
+        ],
+        "gutter": 40
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/frost_field.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "frost_field",
+      "frost_field"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1086,
+          724
+        ],
+        "bounds": [
+          203,
+          68,
+          884,
+          654
+        ],
+        "gutter": 68
+      },
+      {
+        "rect": [
+          1086,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          203,
+          68,
+          884,
+          654
+        ],
+        "gutter": 68
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/ice_pillar.png": {
+    "grid": [
+      3,
+      2
+    ],
+    "frames": [
+      "ice_pillar",
+      "ice_pillar",
+      "ice_pillar",
+      "ice_pillar",
+      "ice_pillar",
+      "ice_pillar"
+    ],
+    "expected": 6,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "size": [
+      1536,
+      1024
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          512,
+          512
+        ],
+        "bounds": [
+          106,
+          237,
+          399,
+          463
+        ],
+        "gutter": 49
+      },
+      {
+        "rect": [
+          512,
+          0,
+          1024,
+          512
+        ],
+        "bounds": [
+          107,
+          43,
+          402,
+          463
+        ],
+        "gutter": 43
+      },
+      {
+        "rect": [
+          1024,
+          0,
+          1536,
+          512
+        ],
+        "bounds": [
+          107,
+          43,
+          397,
+          463
+        ],
+        "gutter": 43
+      },
+      {
+        "rect": [
+          0,
+          512,
+          512,
+          1024
+        ],
+        "bounds": [
+          88,
+          45,
+          403,
+          464
+        ],
+        "gutter": 45
+      },
+      {
+        "rect": [
+          512,
+          512,
+          1024,
+          1024
+        ],
+        "bounds": [
+          86,
+          82,
+          409,
+          464
+        ],
+        "gutter": 48
+      },
+      {
+        "rect": [
+          1024,
+          512,
+          1536,
+          1024
+        ],
+        "bounds": [
+          97,
+          143,
+          420,
+          464
+        ],
+        "gutter": 48
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/rock.png": {
+    "grid": [
+      3,
+      2
+    ],
+    "frames": [
+      "rock",
+      "rock",
+      "rock",
+      "rock",
+      "rock"
+    ],
+    "expected": 5,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "size": [
+      1536,
+      1024
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          512,
+          512
+        ],
+        "bounds": [
+          110,
+          11,
+          406,
+          396
+        ],
+        "gutter": 11
+      },
+      {
+        "rect": [
+          512,
+          0,
+          1024,
+          512
+        ],
+        "bounds": [
+          90,
+          57,
+          414,
+          462
+        ],
+        "gutter": 50
+      },
+      {
+        "rect": [
+          1024,
+          0,
+          1536,
+          512
+        ],
+        "bounds": [
+          50,
+          204,
+          446,
+          473
+        ],
+        "gutter": 39
+      },
+      {
+        "rect": [
+          0,
+          512,
+          512,
+          1024
+        ],
+        "bounds": [
+          62,
+          182,
+          457,
+          464
+        ],
+        "gutter": 48
+      },
+      {
+        "rect": [
+          512,
+          512,
+          1024,
+          1024
+        ],
+        "bounds": [
+          53,
+          158,
+          454,
+          468
+        ],
+        "gutter": 44
+      },
+      {
+        "rect": [
+          1024,
+          512,
+          1536,
+          1024
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/soil_crack.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "soil_crack",
+      "soil_crack"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          162,
+          305,
+          721,
+          639
+        ],
+        "gutter": 162
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          49,
+          232,
+          801,
+          688
+        ],
+        "gutter": 49
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/stain.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "stain"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1536,
+      1024
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1536,
+          1024
+        ],
+        "bounds": [
+          445,
+          423,
+          1089,
+          643
+        ],
+        "gutter": 381
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/lightning_strike.png": {
+    "grid": [
+      3,
+      1
+    ],
+    "frames": [
+      "lightning_strike",
+      "lightning_strike",
+      "lightning_strike"
+    ],
+    "expected": 3,
+    "indices": [
+      0,
+      1,
+      2
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "bounds": [
+          306,
+          4,
+          611,
+          715
+        ],
+        "gutter": 4
+      },
+      {
+        "rect": [
+          724,
+          0,
+          1448,
+          724
+        ],
+        "bounds": [
+          177,
+          4,
+          536,
+          715
+        ],
+        "gutter": 4
+      },
+      {
+        "rect": [
+          1448,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          103,
+          4,
+          401,
+          715
+        ],
+        "gutter": 4
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/soil_particle.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "soil_particle"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1536,
+      1024
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1536,
+          1024
+        ],
+        "bounds": [
+          628,
+          379,
+          897,
+          643
+        ],
+        "gutter": 379
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/explosion.png": {
+    "grid": [
+      3,
+      2
+    ],
+    "frames": [
+      "explosion",
+      "explosion",
+      "explosion",
+      "explosion",
+      "explosion"
+    ],
+    "expected": 5,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "size": [
+      1536,
+      1024
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          512,
+          512
+        ],
+        "bounds": [
+          105,
+          87,
+          428,
+          409
+        ],
+        "gutter": 84
+      },
+      {
+        "rect": [
+          512,
+          0,
+          1024,
+          512
+        ],
+        "bounds": [
+          47,
+          49,
+          444,
+          449
+        ],
+        "gutter": 47
+      },
+      {
+        "rect": [
+          1024,
+          0,
+          1536,
+          512
+        ],
+        "bounds": [
+          47,
+          48,
+          447,
+          448
+        ],
+        "gutter": 47
+      },
+      {
+        "rect": [
+          0,
+          512,
+          512,
+          1024
+        ],
+        "bounds": [
+          68,
+          49,
+          476,
+          457
+        ],
+        "gutter": 36
+      },
+      {
+        "rect": [
+          512,
+          512,
+          1024,
+          1024
+        ],
+        "bounds": [
+          74,
+          73,
+          436,
+          408
+        ],
+        "gutter": 73
+      },
+      {
+        "rect": [
+          1024,
+          512,
+          1536,
+          1024
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/death_smoke.png": {
+    "grid": [
+      4,
+      1
+    ],
+    "frames": [
+      "death_smoke",
+      "death_smoke",
+      "death_smoke",
+      "death_smoke"
+    ],
+    "expected": 4,
+    "indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bounds": [
+          145,
+          260,
+          398,
+          473
+        ],
+        "gutter": 145
+      },
+      {
+        "rect": [
+          543,
+          0,
+          1086,
+          724
+        ],
+        "bounds": [
+          63,
+          165,
+          471,
+          529
+        ],
+        "gutter": 63
+      },
+      {
+        "rect": [
+          1086,
+          0,
+          1629,
+          724
+        ],
+        "bounds": [
+          17,
+          102,
+          506,
+          583
+        ],
+        "gutter": 17
+      },
+      {
+        "rect": [
+          1629,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          21,
+          70,
+          518,
+          614
+        ],
+        "gutter": 21
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/elite_column.png": {
+    "grid": [
+      3,
+      1
+    ],
+    "frames": [
+      "elite_column",
+      "elite_column",
+      "elite_column"
+    ],
+    "expected": 3,
+    "indices": [
+      0,
+      1,
+      2
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "bounds": [
+          289,
+          14,
+          530,
+          686
+        ],
+        "gutter": 14
+      },
+      {
+        "rect": [
+          724,
+          0,
+          1448,
+          724
+        ],
+        "bounds": [
+          178,
+          14,
+          537,
+          705
+        ],
+        "gutter": 14
+      },
+      {
+        "rect": [
+          1448,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          177,
+          14,
+          453,
+          684
+        ],
+        "gutter": 14
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/toad_buff.png": {
+    "grid": [
+      3,
+      1
+    ],
+    "frames": [
+      "toad_buff",
+      "toad_buff",
+      "toad_buff"
+    ],
+    "expected": 3,
+    "indices": [
+      0,
+      1,
+      2
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "bounds": [
+          179,
+          257,
+          544,
+          479
+        ],
+        "gutter": 179
+      },
+      {
+        "rect": [
+          724,
+          0,
+          1448,
+          724
+        ],
+        "bounds": [
+          49,
+          214,
+          724,
+          521
+        ],
+        "gutter": 0
+      },
+      {
+        "rect": [
+          1448,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          0,
+          159,
+          695,
+          578
+        ],
+        "gutter": 0
+      }
+    ],
+    "status": "requires_edge_review"
+  },
+  "effects/stun_star.png": {
+    "grid": [
+      3,
+      1
+    ],
+    "frames": [
+      "stun_star",
+      "stun_star",
+      "stun_star"
+    ],
+    "expected": 3,
+    "indices": [
+      0,
+      1,
+      2
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "bounds": [
+          128,
+          90,
+          588,
+          568
+        ],
+        "gutter": 90
+      },
+      {
+        "rect": [
+          724,
+          0,
+          1448,
+          724
+        ],
+        "bounds": [
+          111,
+          123,
+          577,
+          594
+        ],
+        "gutter": 111
+      },
+      {
+        "rect": [
+          1448,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          137,
+          121,
+          623,
+          570
+        ],
+        "gutter": 101
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/rage_smoke.png": {
+    "grid": [
+      4,
+      1
+    ],
+    "frames": [
+      "rage_smoke",
+      "rage_smoke",
+      "rage_smoke",
+      "rage_smoke"
+    ],
+    "expected": 4,
+    "indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bounds": [
+          124,
+          140,
+          429,
+          572
+        ],
+        "gutter": 114
+      },
+      {
+        "rect": [
+          543,
+          0,
+          1086,
+          724
+        ],
+        "bounds": [
+          106,
+          130,
+          460,
+          585
+        ],
+        "gutter": 83
+      },
+      {
+        "rect": [
+          1086,
+          0,
+          1629,
+          724
+        ],
+        "bounds": [
+          99,
+          124,
+          448,
+          572
+        ],
+        "gutter": 95
+      },
+      {
+        "rect": [
+          1629,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          85,
+          112,
+          425,
+          579
+        ],
+        "gutter": 85
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/mirror_shards.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "mirror_shards",
+      "mirror_shards"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          185,
+          168,
+          694,
+          748
+        ],
+        "gutter": 139
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          103,
+          140,
+          772,
+          773
+        ],
+        "gutter": 103
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/impact_circle.png": {
+    "grid": [
+      3,
+      1
+    ],
+    "frames": [
+      "impact_circle",
+      "impact_circle",
+      "impact_circle"
+    ],
+    "expected": 3,
+    "indices": [
+      0,
+      1,
+      2
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "bounds": [
+          168,
+          158,
+          559,
+          558
+        ],
+        "gutter": 158
+      },
+      {
+        "rect": [
+          724,
+          0,
+          1448,
+          724
+        ],
+        "bounds": [
+          70,
+          63,
+          655,
+          652
+        ],
+        "gutter": 63
+      },
+      {
+        "rect": [
+          1448,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          32,
+          41,
+          675,
+          681
+        ],
+        "gutter": 32
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/impact_fan.png": {
+    "grid": [
+      3,
+      1
+    ],
+    "frames": [
+      "impact_fan",
+      "impact_fan",
+      "impact_fan"
+    ],
+    "expected": 3,
+    "indices": [
+      0,
+      1,
+      2
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "bounds": [
+          27,
+          395,
+          358,
+          683
+        ],
+        "gutter": 27
+      },
+      {
+        "rect": [
+          724,
+          0,
+          1448,
+          724
+        ],
+        "bounds": [
+          25,
+          199,
+          597,
+          687
+        ],
+        "gutter": 25
+      },
+      {
+        "rect": [
+          1448,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          22,
+          27,
+          713,
+          687
+        ],
+        "gutter": 11
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/impact_lane.png": {
+    "grid": [
+      3,
+      1
+    ],
+    "frames": [
+      "impact_lane",
+      "impact_lane",
+      "impact_lane"
+    ],
+    "expected": 3,
+    "indices": [
+      0,
+      1,
+      2
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "bounds": [
+          53,
+          257,
+          604,
+          498
+        ],
+        "gutter": 53
+      },
+      {
+        "rect": [
+          724,
+          0,
+          1448,
+          724
+        ],
+        "bounds": [
+          15,
+          257,
+          668,
+          511
+        ],
+        "gutter": 15
+      },
+      {
+        "rect": [
+          1448,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          3,
+          217,
+          712,
+          540
+        ],
+        "gutter": 3
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/rage_slot.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "rage_slot",
+      "rage_slot"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          231,
+          216,
+          660,
+          661
+        ],
+        "gutter": 216
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          114,
+          126,
+          729,
+          731
+        ],
+        "gutter": 114
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/final_rage_ribbon.png": {
+    "grid": [
+      3,
+      1
+    ],
+    "frames": [
+      "final_rage_ribbon",
+      "final_rage_ribbon",
+      "final_rage_ribbon"
+    ],
+    "expected": 3,
+    "indices": [
+      0,
+      1,
+      2
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "bounds": [
+          39,
+          374,
+          686,
+          535
+        ],
+        "gutter": 38
+      },
+      {
+        "rect": [
+          724,
+          0,
+          1448,
+          724
+        ],
+        "bounds": [
+          39,
+          271,
+          686,
+          550
+        ],
+        "gutter": 38
+      },
+      {
+        "rect": [
+          1448,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          35,
+          166,
+          686,
+          573
+        ],
+        "gutter": 35
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/mirror_silver_particle.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "mirror_silver_particle",
+      "mirror_silver_particle"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          226,
+          210,
+          663,
+          677
+        ],
+        "gutter": 210
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          220,
+          238,
+          627,
+          633
+        ],
+        "gutter": 220
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/coin.png": {
+    "grid": [
+      4,
+      1
+    ],
+    "frames": [
+      "coin",
+      "coin",
+      "coin",
+      "coin"
+    ],
+    "expected": 4,
+    "indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bounds": [
+          57,
+          145,
+          491,
+          584
+        ],
+        "gutter": 52
+      },
+      {
+        "rect": [
+          543,
+          0,
+          1086,
+          724
+        ],
+        "bounds": [
+          107,
+          143,
+          445,
+          584
+        ],
+        "gutter": 98
+      },
+      {
+        "rect": [
+          1086,
+          0,
+          1629,
+          724
+        ],
+        "bounds": [
+          161,
+          144,
+          391,
+          585
+        ],
+        "gutter": 139
+      },
+      {
+        "rect": [
+          1629,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          227,
+          145,
+          322,
+          586
+        ],
+        "gutter": 138
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/block_common.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "block_common",
+      "block_common"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          127,
+          66,
+          778,
+          856
+        ],
+        "gutter": 31
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          108,
+          66,
+          760,
+          856
+        ],
+        "gutter": 31
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/block_rare.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "block_rare",
+      "block_rare"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          218,
+          165,
+          762,
+          730
+        ],
+        "gutter": 125
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          139,
+          165,
+          687,
+          730
+        ],
+        "gutter": 139
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/block_heroic.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "block_heroic",
+      "block_heroic"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          210,
+          128,
+          707,
+          785
+        ],
+        "gutter": 102
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          161,
+          128,
+          707,
+          785
+        ],
+        "gutter": 102
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/material_pack.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "material_pack",
+      "material_pack"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          141,
+          291,
+          782,
+          792
+        ],
+        "gutter": 95
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          103,
+          163,
+          745,
+          786
+        ],
+        "gutter": 101
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/crow_pack.png": {
+    "grid": [
+      4,
+      1
+    ],
+    "frames": [
+      "crow_pack",
+      "crow_pack",
+      "crow_pack",
+      "crow_pack"
+    ],
+    "expected": 4,
+    "indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bounds": [
+          122,
+          124,
+          453,
+          654
+        ],
+        "gutter": 70
+      },
+      {
+        "rect": [
+          543,
+          0,
+          1086,
+          724
+        ],
+        "bounds": [
+          105,
+          273,
+          463,
+          654
+        ],
+        "gutter": 70
+      },
+      {
+        "rect": [
+          1086,
+          0,
+          1629,
+          724
+        ],
+        "bounds": [
+          114,
+          146,
+          446,
+          654
+        ],
+        "gutter": 70
+      },
+      {
+        "rect": [
+          1629,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          125,
+          221,
+          427,
+          654
+        ],
+        "gutter": 70
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/season_drop.png": {
+    "grid": [
+      4,
+      1
+    ],
+    "frames": [
+      "season_drop",
+      "season_drop",
+      "season_drop",
+      "season_drop"
+    ],
+    "expected": 4,
+    "indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bounds": [
+          47,
+          193,
+          505,
+          568
+        ],
+        "gutter": 38
+      },
+      {
+        "rect": [
+          543,
+          0,
+          1086,
+          724
+        ],
+        "bounds": [
+          47,
+          159,
+          505,
+          568
+        ],
+        "gutter": 38
+      },
+      {
+        "rect": [
+          1086,
+          0,
+          1629,
+          724
+        ],
+        "bounds": [
+          48,
+          117,
+          506,
+          568
+        ],
+        "gutter": 37
+      },
+      {
+        "rect": [
+          1629,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          47,
+          160,
+          506,
+          568
+        ],
+        "gutter": 37
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/health_shard.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "health_shard",
+      "health_shard"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          74,
+          178,
+          816,
+          711
+        ],
+        "gutter": 71
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          74,
+          178,
+          815,
+          711
+        ],
+        "gutter": 72
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/exit_marker.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "exit_marker",
+      "exit_marker"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "bounds": [
+          57,
+          133,
+          823,
+          779
+        ],
+        "gutter": 57
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          57,
+          133,
+          823,
+          779
+        ],
+        "gutter": 57
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/drop_column.png": {
+    "grid": [
+      3,
+      1
+    ],
+    "frames": [
+      "drop_column",
+      "drop_column",
+      "drop_column"
+    ],
+    "expected": 3,
+    "indices": [
+      0,
+      1,
+      2
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "bounds": [
+          106,
+          64,
+          615,
+          700
+        ],
+        "gutter": 24
+      },
+      {
+        "rect": [
+          724,
+          0,
+          1448,
+          724
+        ],
+        "bounds": [
+          106,
+          43,
+          614,
+          701
+        ],
+        "gutter": 23
+      },
+      {
+        "rect": [
+          1448,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          107,
+          64,
+          619,
+          700
+        ],
+        "gutter": 24
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/campfire.png": {
+    "grid": [
+      4,
+      1
+    ],
+    "frames": [
+      "campfire",
+      "campfire",
+      "campfire",
+      "campfire"
+    ],
+    "expected": 4,
+    "indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bounds": [
+          0,
+          148,
+          479,
+          724
+        ],
+        "gutter": 0
+      },
+      {
+        "rect": [
+          543,
+          0,
+          1086,
+          724
+        ],
+        "bounds": [
+          55,
+          112,
+          476,
+          724
+        ],
+        "gutter": 0
+      },
+      {
+        "rect": [
+          1086,
+          0,
+          1629,
+          724
+        ],
+        "bounds": [
+          73,
+          131,
+          501,
+          724
+        ],
+        "gutter": 0
+      },
+      {
+        "rect": [
+          1629,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          37,
+          215,
+          542,
+          724
+        ],
+        "gutter": 0
+      }
+    ],
+    "status": "requires_edge_review"
+  },
+  "enemy.golem_menhir.corrected.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "variant"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          249,
+          146,
+          1005,
+          1117
+        ],
+        "gutter": 137
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.wolf_bramble.death.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "variant",
+      "variant"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1086,
+          724
+        ],
+        "bounds": [
+          87,
+          182,
+          909,
+          591
+        ],
+        "gutter": 87
+      },
+      {
+        "rect": [
+          1086,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          39,
+          173,
+          982,
+          590
+        ],
+        "gutter": 39
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/crow_pack_open.png": {
+    "grid": [
+      5,
+      1
+    ],
+    "frames": [
+      "variant",
+      "variant",
+      "variant",
+      "variant",
+      "variant"
+    ],
+    "expected": 5,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          434,
+          724
+        ],
+        "bounds": [
+          75,
+          256,
+          387,
+          539
+        ],
+        "gutter": 47
+      },
+      {
+        "rect": [
+          434,
+          0,
+          869,
+          724
+        ],
+        "bounds": [
+          25,
+          256,
+          410,
+          539
+        ],
+        "gutter": 25
+      },
+      {
+        "rect": [
+          869,
+          0,
+          1303,
+          724
+        ],
+        "bounds": [
+          1,
+          262,
+          413,
+          539
+        ],
+        "gutter": 1
+      },
+      {
+        "rect": [
+          1303,
+          0,
+          1738,
+          724
+        ],
+        "bounds": [
+          5,
+          127,
+          398,
+          539
+        ],
+        "gutter": 5
+      },
+      {
+        "rect": [
+          1738,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          3,
+          159,
+          386,
+          539
+        ],
+        "gutter": 3
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/campfire.retake.png": {
+    "grid": [
+      4,
+      1
+    ],
+    "frames": [
+      "variant",
+      "variant",
+      "variant",
+      "variant"
+    ],
+    "expected": 4,
+    "indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bounds": [
+          145,
+          273,
+          404,
+          508
+        ],
+        "gutter": 139
+      },
+      {
+        "rect": [
+          543,
+          0,
+          1086,
+          724
+        ],
+        "bounds": [
+          145,
+          237,
+          404,
+          508
+        ],
+        "gutter": 139
+      },
+      {
+        "rect": [
+          1086,
+          0,
+          1629,
+          724
+        ],
+        "bounds": [
+          144,
+          187,
+          404,
+          508
+        ],
+        "gutter": 139
+      },
+      {
+        "rect": [
+          1629,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          145,
+          246,
+          404,
+          508
+        ],
+        "gutter": 139
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/toad_buff.retake.png": {
+    "grid": [
+      3,
+      1
+    ],
+    "frames": [
+      "variant",
+      "variant",
+      "variant"
+    ],
+    "expected": 3,
+    "indices": [
+      0,
+      1,
+      2
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          591,
+          887
+        ],
+        "bounds": [
+          239,
+          405,
+          424,
+          492
+        ],
+        "gutter": 167
+      },
+      {
+        "rect": [
+          591,
+          0,
+          1183,
+          887
+        ],
+        "bounds": [
+          65,
+          386,
+          592,
+          512
+        ],
+        "gutter": 0
+      },
+      {
+        "rect": [
+          1183,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          0,
+          330,
+          458,
+          555
+        ],
+        "gutter": 0
+      }
+    ],
+    "status": "requires_edge_review"
+  },
+  "animations/boss.mirror_phantom.sheet-1.staffless.png": {
+    "grid": [
+      4,
+      2
+    ],
+    "frames": [
+      "hover",
+      "hover",
+      "hover",
+      "fire",
+      "fire",
+      "cast",
+      "cast"
+    ],
+    "expected": 7,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          444,
+          444
+        ],
+        "bounds": [
+          66,
+          35,
+          371,
+          420
+        ],
+        "gutter": 24
+      },
+      {
+        "rect": [
+          444,
+          0,
+          887,
+          444
+        ],
+        "bounds": [
+          68,
+          35,
+          370,
+          420
+        ],
+        "gutter": 24
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1330,
+          444
+        ],
+        "bounds": [
+          48,
+          35,
+          370,
+          420
+        ],
+        "gutter": 24
+      },
+      {
+        "rect": [
+          1330,
+          0,
+          1774,
+          444
+        ],
+        "bounds": [
+          68,
+          35,
+          371,
+          420
+        ],
+        "gutter": 24
+      },
+      {
+        "rect": [
+          0,
+          444,
+          444,
+          887
+        ],
+        "bounds": [
+          67,
+          35,
+          371,
+          420
+        ],
+        "gutter": 23
+      },
+      {
+        "rect": [
+          444,
+          444,
+          887,
+          887
+        ],
+        "bounds": [
+          67,
+          35,
+          370,
+          418
+        ],
+        "gutter": 25
+      },
+      {
+        "rect": [
+          887,
+          444,
+          1330,
+          887
+        ],
+        "bounds": [
+          66,
+          35,
+          369,
+          418
+        ],
+        "gutter": 25
+      },
+      {
+        "rect": [
+          1330,
+          444,
+          1774,
+          887
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.mirror_phantom.sheet-2.staffless.png": {
+    "grid": [
+      4,
+      2
+    ],
+    "frames": [
+      "burst",
+      "burst",
+      "burst",
+      "open",
+      "open",
+      "phase",
+      "phase"
+    ],
+    "expected": 7,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          444,
+          444
+        ],
+        "bounds": [
+          71,
+          24,
+          327,
+          419
+        ],
+        "gutter": 24
+      },
+      {
+        "rect": [
+          444,
+          0,
+          887,
+          444
+        ],
+        "bounds": [
+          65,
+          24,
+          381,
+          419
+        ],
+        "gutter": 24
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1330,
+          444
+        ],
+        "bounds": [
+          49,
+          19,
+          378,
+          412
+        ],
+        "gutter": 19
+      },
+      {
+        "rect": [
+          1330,
+          0,
+          1774,
+          444
+        ],
+        "bounds": [
+          65,
+          40,
+          355,
+          420
+        ],
+        "gutter": 24
+      },
+      {
+        "rect": [
+          0,
+          444,
+          444,
+          887
+        ],
+        "bounds": [
+          65,
+          25,
+          354,
+          419
+        ],
+        "gutter": 24
+      },
+      {
+        "rect": [
+          444,
+          444,
+          887,
+          887
+        ],
+        "bounds": [
+          56,
+          25,
+          352,
+          410
+        ],
+        "gutter": 25
+      },
+      {
+        "rect": [
+          887,
+          444,
+          1330,
+          887
+        ],
+        "bounds": [
+          63,
+          22,
+          359,
+          385
+        ],
+        "gutter": 22
+      },
+      {
+        "rect": [
+          1330,
+          444,
+          1774,
+          887
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.mirror_phantom.sheet-3.staffless.png": {
+    "grid": [
+      4,
+      2
+    ],
+    "frames": [
+      "death",
+      "death",
+      "death",
+      "death",
+      "crack",
+      "crack",
+      "look"
+    ],
+    "expected": 7,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          444,
+          444
+        ],
+        "bounds": [
+          52,
+          27,
+          367,
+          417
+        ],
+        "gutter": 27
+      },
+      {
+        "rect": [
+          444,
+          0,
+          887,
+          444
+        ],
+        "bounds": [
+          51,
+          27,
+          366,
+          417
+        ],
+        "gutter": 27
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1330,
+          444
+        ],
+        "bounds": [
+          62,
+          27,
+          366,
+          412
+        ],
+        "gutter": 27
+      },
+      {
+        "rect": [
+          1330,
+          0,
+          1774,
+          444
+        ],
+        "bounds": [
+          154,
+          162,
+          295,
+          342
+        ],
+        "gutter": 102
+      },
+      {
+        "rect": [
+          0,
+          444,
+          444,
+          887
+        ],
+        "bounds": [
+          52,
+          27,
+          367,
+          416
+        ],
+        "gutter": 27
+      },
+      {
+        "rect": [
+          444,
+          444,
+          887,
+          887
+        ],
+        "bounds": [
+          51,
+          27,
+          366,
+          416
+        ],
+        "gutter": 27
+      },
+      {
+        "rect": [
+          887,
+          444,
+          1330,
+          887
+        ],
+        "bounds": [
+          52,
+          52,
+          366,
+          417
+        ],
+        "gutter": 26
+      },
+      {
+        "rect": [
+          1330,
+          444,
+          1774,
+          887
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss.mirror_phantom.staffless.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "variant"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          169,
+          163,
+          956,
+          1139
+        ],
+        "gutter": 115
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss.night_serpent.natural-head.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "variant"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          154,
+          245,
+          1110,
+          865
+        ],
+        "gutter": 144
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/toad_buff.01.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "variant"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          319,
+          224,
+          1455,
+          665
+        ],
+        "gutter": 222
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/toad_buff.02.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "variant"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          143,
+          247,
+          1626,
+          650
+        ],
+        "gutter": 143
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "effects/toad_buff.03.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "variant"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          92,
+          86,
+          1698,
+          788
+        ],
+        "gutter": 76
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.golem_menhir.sheet-a.png": {
+    "grid": [
+      3,
+      2
+    ],
+    "frames": [
+      "move",
+      "move",
+      "slam_warn",
+      "slam_warn",
+      "slam",
+      "sweep_warn"
+    ],
+    "expected": 6,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "size": [
+      1536,
+      1024
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          512,
+          512
+        ],
+        "bounds": [
+          108,
+          48,
+          424,
+          456
+        ],
+        "gutter": 48
+      },
+      {
+        "rect": [
+          512,
+          0,
+          1024,
+          512
+        ],
+        "bounds": [
+          102,
+          46,
+          411,
+          457
+        ],
+        "gutter": 46
+      },
+      {
+        "rect": [
+          1024,
+          0,
+          1536,
+          512
+        ],
+        "bounds": [
+          86,
+          46,
+          407,
+          457
+        ],
+        "gutter": 46
+      },
+      {
+        "rect": [
+          0,
+          512,
+          512,
+          1024
+        ],
+        "bounds": [
+          116,
+          47,
+          442,
+          458
+        ],
+        "gutter": 47
+      },
+      {
+        "rect": [
+          512,
+          512,
+          1024,
+          1024
+        ],
+        "bounds": [
+          106,
+          48,
+          411,
+          458
+        ],
+        "gutter": 48
+      },
+      {
+        "rect": [
+          1024,
+          512,
+          1536,
+          1024
+        ],
+        "bounds": [
+          92,
+          50,
+          423,
+          458
+        ],
+        "gutter": 50
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/enemy.golem_menhir.sheet-b.png": {
+    "grid": [
+      3,
+      2
+    ],
+    "frames": [
+      "sweep",
+      "open",
+      "open",
+      "death",
+      "death",
+      "death"
+    ],
+    "expected": 6,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "size": [
+      1536,
+      1024
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          512,
+          512
+        ],
+        "bounds": [
+          71,
+          49,
+          428,
+          448
+        ],
+        "gutter": 49
+      },
+      {
+        "rect": [
+          512,
+          0,
+          1024,
+          512
+        ],
+        "bounds": [
+          100,
+          49,
+          414,
+          448
+        ],
+        "gutter": 49
+      },
+      {
+        "rect": [
+          1024,
+          0,
+          1536,
+          512
+        ],
+        "bounds": [
+          88,
+          49,
+          402,
+          448
+        ],
+        "gutter": 49
+      },
+      {
+        "rect": [
+          0,
+          512,
+          512,
+          1024
+        ],
+        "bounds": [
+          112,
+          47,
+          431,
+          448
+        ],
+        "gutter": 47
+      },
+      {
+        "rect": [
+          512,
+          512,
+          1024,
+          1024
+        ],
+        "bounds": [
+          86,
+          47,
+          426,
+          448
+        ],
+        "gutter": 47
+      },
+      {
+        "rect": [
+          1024,
+          512,
+          1536,
+          1024
+        ],
+        "bounds": [
+          52,
+          260,
+          435,
+          448
+        ],
+        "gutter": 52
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.night_serpent.sheet-1.natural-head.png": {
+    "grid": [
+      4,
+      2
+    ],
+    "frames": [
+      "move",
+      "move",
+      "bite",
+      "bite",
+      "bite",
+      "spit",
+      "spit"
+    ],
+    "expected": 7,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          444,
+          444
+        ],
+        "bounds": [
+          29,
+          100,
+          416,
+          353
+        ],
+        "gutter": 28
+      },
+      {
+        "rect": [
+          444,
+          0,
+          887,
+          444
+        ],
+        "bounds": [
+          29,
+          90,
+          413,
+          348
+        ],
+        "gutter": 29
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1330,
+          444
+        ],
+        "bounds": [
+          30,
+          81,
+          413,
+          347
+        ],
+        "gutter": 30
+      },
+      {
+        "rect": [
+          1330,
+          0,
+          1774,
+          444
+        ],
+        "bounds": [
+          30,
+          90,
+          430,
+          360
+        ],
+        "gutter": 14
+      },
+      {
+        "rect": [
+          0,
+          444,
+          444,
+          887
+        ],
+        "bounds": [
+          29,
+          89,
+          414,
+          346
+        ],
+        "gutter": 29
+      },
+      {
+        "rect": [
+          444,
+          444,
+          887,
+          887
+        ],
+        "bounds": [
+          29,
+          89,
+          413,
+          355
+        ],
+        "gutter": 29
+      },
+      {
+        "rect": [
+          887,
+          444,
+          1330,
+          887
+        ],
+        "bounds": [
+          29,
+          91,
+          413,
+          347
+        ],
+        "gutter": 29
+      },
+      {
+        "rect": [
+          1330,
+          444,
+          1774,
+          887
+        ],
+        "bounds": null,
+        "gutter": null
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.night_serpent.sheet-2.natural-head.png": {
+    "grid": [
+      4,
+      2
+    ],
+    "frames": [
+      "sink",
+      "sink",
+      "rise",
+      "rise",
+      "rest",
+      "rest",
+      "phase",
+      "phase"
+    ],
+    "expected": 8,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          444,
+          444
+        ],
+        "bounds": [
+          21,
+          95,
+          424,
+          356
+        ],
+        "gutter": 20
+      },
+      {
+        "rect": [
+          444,
+          0,
+          887,
+          444
+        ],
+        "bounds": [
+          22,
+          144,
+          420,
+          344
+        ],
+        "gutter": 22
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1330,
+          444
+        ],
+        "bounds": [
+          25,
+          192,
+          405,
+          344
+        ],
+        "gutter": 25
+      },
+      {
+        "rect": [
+          1330,
+          0,
+          1774,
+          444
+        ],
+        "bounds": [
+          23,
+          95,
+          425,
+          356
+        ],
+        "gutter": 19
+      },
+      {
+        "rect": [
+          0,
+          444,
+          444,
+          887
+        ],
+        "bounds": [
+          22,
+          94,
+          424,
+          355
+        ],
+        "gutter": 20
+      },
+      {
+        "rect": [
+          444,
+          444,
+          887,
+          887
+        ],
+        "bounds": [
+          22,
+          94,
+          424,
+          355
+        ],
+        "gutter": 19
+      },
+      {
+        "rect": [
+          887,
+          444,
+          1330,
+          887
+        ],
+        "bounds": [
+          22,
+          94,
+          424,
+          355
+        ],
+        "gutter": 19
+      },
+      {
+        "rect": [
+          1330,
+          444,
+          1774,
+          887
+        ],
+        "bounds": [
+          23,
+          94,
+          425,
+          355
+        ],
+        "gutter": 19
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "animations/boss.night_serpent.sheet-3.natural-head.png": {
+    "grid": [
+      3,
+      1
+    ],
+    "frames": [
+      "death",
+      "death",
+      "death"
+    ],
+    "expected": 3,
+    "indices": [
+      0,
+      1,
+      2
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "bounds": [
+          65,
+          147,
+          661,
+          540
+        ],
+        "gutter": 63
+      },
+      {
+        "rect": [
+          724,
+          0,
+          1448,
+          724
+        ],
+        "bounds": [
+          64,
+          170,
+          660,
+          547
+        ],
+        "gutter": 64
+      },
+      {
+        "rect": [
+          1448,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          61,
+          211,
+          654,
+          562
+        ],
+        "gutter": 61
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss-ui/boss.night_serpent.portrait.natural-head.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "portrait"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bounds": [
+          87,
+          98,
+          1163,
+          1184
+        ],
+        "gutter": 70
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "boss-ui/boss.night_serpent.hud.natural-head.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "hud"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1293,
+      1217
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1293,
+          1217
+        ],
+        "bounds": [
+          162,
+          250,
+          1133,
+          960
+        ],
+        "gutter": 160
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "ui/command_arrows.png": {
+    "grid": [
+      4,
+      1
+    ],
+    "frames": [
+      "command_arrows",
+      "command_arrows",
+      "command_arrows",
+      "command_arrows"
+    ],
+    "expected": 4,
+    "indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bounds": [
+          64,
+          105,
+          479,
+          606
+        ],
+        "gutter": 64
+      },
+      {
+        "rect": [
+          543,
+          0,
+          1086,
+          724
+        ],
+        "bounds": [
+          61,
+          105,
+          481,
+          606
+        ],
+        "gutter": 61
+      },
+      {
+        "rect": [
+          1086,
+          0,
+          1629,
+          724
+        ],
+        "bounds": [
+          65,
+          105,
+          479,
+          606
+        ],
+        "gutter": 64
+      },
+      {
+        "rect": [
+          1629,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          62,
+          105,
+          480,
+          606
+        ],
+        "gutter": 62
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "ui/element_marks.png": {
+    "grid": [
+      5,
+      1
+    ],
+    "frames": [
+      "element_marks",
+      "element_marks",
+      "element_marks",
+      "element_marks",
+      "element_marks"
+    ],
+    "expected": 5,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          434,
+          724
+        ],
+        "bounds": [
+          97,
+          198,
+          391,
+          511
+        ],
+        "gutter": 43
+      },
+      {
+        "rect": [
+          434,
+          0,
+          869,
+          724
+        ],
+        "bounds": [
+          98,
+          180,
+          383,
+          515
+        ],
+        "gutter": 52
+      },
+      {
+        "rect": [
+          869,
+          0,
+          1303,
+          724
+        ],
+        "bounds": [
+          81,
+          182,
+          353,
+          521
+        ],
+        "gutter": 81
+      },
+      {
+        "rect": [
+          1303,
+          0,
+          1738,
+          724
+        ],
+        "bounds": [
+          98,
+          185,
+          342,
+          525
+        ],
+        "gutter": 93
+      },
+      {
+        "rect": [
+          1738,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          68,
+          204,
+          353,
+          503
+        ],
+        "gutter": 68
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "ui/affinity_arrows.png": {
+    "grid": [
+      2,
+      1
+    ],
+    "frames": [
+      "affinity_arrows",
+      "affinity_arrows"
+    ],
+    "expected": 2,
+    "indices": [
+      0,
+      1
+    ],
+    "size": [
+      1920,
+      819
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          960,
+          819
+        ],
+        "bounds": [
+          302,
+          211,
+          780,
+          618
+        ],
+        "gutter": 180
+      },
+      {
+        "rect": [
+          960,
+          0,
+          1920,
+          819
+        ],
+        "bounds": [
+          175,
+          228,
+          673,
+          642
+        ],
+        "gutter": 175
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "ui/wave_times.png": {
+    "grid": [
+      4,
+      1
+    ],
+    "frames": [
+      "wave_times",
+      "wave_times",
+      "wave_times",
+      "wave_times"
+    ],
+    "expected": 4,
+    "indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bounds": [
+          45,
+          91,
+          542,
+          584
+        ],
+        "gutter": 1
+      },
+      {
+        "rect": [
+          543,
+          0,
+          1086,
+          724
+        ],
+        "bounds": [
+          56,
+          241,
+          506,
+          554
+        ],
+        "gutter": 37
+      },
+      {
+        "rect": [
+          1086,
+          0,
+          1629,
+          724
+        ],
+        "bounds": [
+          86,
+          157,
+          443,
+          549
+        ],
+        "gutter": 86
+      },
+      {
+        "rect": [
+          1629,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          51,
+          142,
+          481,
+          571
+        ],
+        "gutter": 51
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "ui/wave_modifiers.png": {
+    "grid": [
+      4,
+      2
+    ],
+    "frames": [
+      "wave_modifiers",
+      "wave_modifiers",
+      "wave_modifiers",
+      "wave_modifiers",
+      "wave_modifiers",
+      "wave_modifiers",
+      "wave_modifiers",
+      "wave_modifiers"
+    ],
+    "expected": 8,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          444,
+          444
+        ],
+        "bounds": [
+          33,
+          58,
+          417,
+          417
+        ],
+        "gutter": 27
+      },
+      {
+        "rect": [
+          444,
+          0,
+          887,
+          444
+        ],
+        "bounds": [
+          35,
+          53,
+          410,
+          416
+        ],
+        "gutter": 28
+      },
+      {
+        "rect": [
+          887,
+          0,
+          1330,
+          444
+        ],
+        "bounds": [
+          26,
+          70,
+          414,
+          398
+        ],
+        "gutter": 26
+      },
+      {
+        "rect": [
+          1330,
+          0,
+          1774,
+          444
+        ],
+        "bounds": [
+          20,
+          53,
+          416,
+          413
+        ],
+        "gutter": 20
+      },
+      {
+        "rect": [
+          0,
+          444,
+          444,
+          887
+        ],
+        "bounds": [
+          28,
+          41,
+          425,
+          399
+        ],
+        "gutter": 19
+      },
+      {
+        "rect": [
+          444,
+          444,
+          887,
+          887
+        ],
+        "bounds": [
+          24,
+          41,
+          417,
+          381
+        ],
+        "gutter": 24
+      },
+      {
+        "rect": [
+          887,
+          444,
+          1330,
+          887
+        ],
+        "bounds": [
+          21,
+          36,
+          410,
+          406
+        ],
+        "gutter": 21
+      },
+      {
+        "rect": [
+          1330,
+          444,
+          1774,
+          887
+        ],
+        "bounds": [
+          16,
+          42,
+          429,
+          394
+        ],
+        "gutter": 15
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "ui/return_bag.png": {
+    "grid": [
+      3,
+      1
+    ],
+    "frames": [
+      "return_bag",
+      "return_bag",
+      "return_bag"
+    ],
+    "expected": 3,
+    "indices": [
+      0,
+      1,
+      2
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "bounds": [
+          113,
+          80,
+          651,
+          623
+        ],
+        "gutter": 73
+      },
+      {
+        "rect": [
+          724,
+          0,
+          1448,
+          724
+        ],
+        "bounds": [
+          103,
+          80,
+          648,
+          628
+        ],
+        "gutter": 76
+      },
+      {
+        "rect": [
+          1448,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          91,
+          80,
+          646,
+          629
+        ],
+        "gutter": 78
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "ui/reward_materials.png": {
+    "grid": [
+      5,
+      1
+    ],
+    "frames": [
+      "reward_materials",
+      "reward_materials",
+      "reward_materials",
+      "reward_materials",
+      "reward_materials"
+    ],
+    "expected": 5,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          434,
+          724
+        ],
+        "bounds": [
+          70,
+          235,
+          373,
+          505
+        ],
+        "gutter": 61
+      },
+      {
+        "rect": [
+          434,
+          0,
+          869,
+          724
+        ],
+        "bounds": [
+          72,
+          209,
+          360,
+          514
+        ],
+        "gutter": 72
+      },
+      {
+        "rect": [
+          869,
+          0,
+          1303,
+          724
+        ],
+        "bounds": [
+          63,
+          220,
+          368,
+          514
+        ],
+        "gutter": 63
+      },
+      {
+        "rect": [
+          1303,
+          0,
+          1738,
+          724
+        ],
+        "bounds": [
+          65,
+          147,
+          358,
+          557
+        ],
+        "gutter": 65
+      },
+      {
+        "rect": [
+          1738,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          39,
+          203,
+          368,
+          531
+        ],
+        "gutter": 39
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "ui/revenge_mirror.png": {
+    "grid": [
+      3,
+      1
+    ],
+    "frames": [
+      "revenge_mirror",
+      "revenge_mirror",
+      "revenge_mirror"
+    ],
+    "expected": 3,
+    "indices": [
+      0,
+      1,
+      2
+    ],
+    "size": [
+      2172,
+      724
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "bounds": [
+          177,
+          31,
+          636,
+          693
+        ],
+        "gutter": 31
+      },
+      {
+        "rect": [
+          724,
+          0,
+          1448,
+          724
+        ],
+        "bounds": [
+          133,
+          31,
+          592,
+          693
+        ],
+        "gutter": 31
+      },
+      {
+        "rect": [
+          1448,
+          0,
+          2172,
+          724
+        ],
+        "bounds": [
+          88,
+          31,
+          547,
+          693
+        ],
+        "gutter": 31
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "ui/moonlight.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "moonlight"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1536,
+      1024
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1536,
+          1024
+        ],
+        "bounds": [
+          298,
+          67,
+          1234,
+          959
+        ],
+        "gutter": 65
+      }
+    ],
+    "status": "grid_checked"
+  },
+  "ui/firefly.png": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": [
+      "firefly"
+    ],
+    "expected": 1,
+    "indices": [
+      0
+    ],
+    "size": [
+      1774,
+      887
+    ],
+    "cells": [
+      {
+        "rect": [
+          0,
+          0,
+          1774,
+          887
+        ],
+        "bounds": [
+          123,
+          121,
+          1651,
+          764
+        ],
+        "gutter": 121
+      }
+    ],
+    "status": "grid_checked"
+  }
+}

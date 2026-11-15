@@ -1,0 +1,214 @@
+using System.Collections.Generic;
+using Wizard.Solo.Net;
+using Wizard.Solo.Sim;
+using Wizard.Solo.UI;
+
+namespace Wizard.Solo.Screens.Online
+{
+    /// <summary>
+    /// 협동 방(ScreenId.CoopLobby, 11-online.md)의 규칙. 엔진 없음.
+    /// 2단계: 이 기기에 방을 만들고(방장 = 슬롯 0), 동료 봇을 0~3명 더해 시작한다. 내 캐릭터 = 마지막으로 고른 캐릭터의 든 지팡이(D-56과 같은 규칙).
+    /// 판이 끝나면 Battle이 이 화면으로 돌아오며 결과(웨이브·점수)를 넘긴다. 오프라인 프로필에는 아무것도 쓰지 않는다.
+    /// </summary>
+    public sealed class CoopLobbyModel
+    {
+        readonly GameContext _ctx;
+
+        public OnlineCoop Room { get; private set; }
+        public string ErrorKey { get; private set; }
+        public int ResultWave = -1;
+        public int ResultScore;
+
+        public CoopLobbyModel(GameContext ctx) { _ctx = ctx; }
+
+        public bool HasRoom => Room != null && Room.Connected;
+        public bool CanAddBot => HasRoom && Room.IsLocalHost && !Room.Host.Started && Room.Host.PlayerCount < SimConst.MaxPlayers;
+        public bool CanRemoveBot => HasRoom && Room.Bots.Count > 0;
+        public bool CanStart => HasRoom && Room.IsLeader && Room.World == null && !_startRequested;
+        /// <summary>원격 방에서 시작을 청했고 아직 판이 안 열렸다.</summary>
+        bool _startRequested;
+
+        /// <summary>원격 방에서 시작을 청하고 서버를 기다리는 중.</summary>
+        public bool WaitingForStart => _startRequested && Room != null && Room.World == null;
+
+        /// <summary>자리 줄의 역할 글자: 방장 / (이 기기 방이면) 봇 / 동료.</summary>
+        public string RoleKey(int slot)
+        {
+            int leader = int.MaxValue;
+            foreach (var m in Members()) if (m.Slot < leader) leader = m.Slot;
+            if (slot == leader) return OnlineKeys.Host;
+            return Room != null && Room.IsLocalHost ? OnlineKeys.Bot : OnlineKeys.Member;
+        }
+
+        /// <summary>로비 목록(슬롯 순). 방이 없으면 빈 목록.</summary>
+        public List<CoopClient.LobbyMember> Members()
+        {
+            var l = new List<CoopClient.LobbyMember>();
+            if (Room != null && Room.Me != null) l.AddRange(Room.Me.Lobby);
+            l.Sort((a, b) => a.Slot.CompareTo(b.Slot));
+            return l;
+        }
+
+        int MyCharacter
+        {
+            get
+            {
+                var p = _ctx != null ? _ctx.Profile : null;
+                return p != null && p.LastCharacter >= 1 ? p.LastCharacter : 1;
+            }
+        }
+
+        RunConfig MemberConfig(int character)
+        {
+            var p = _ctx != null ? _ctx.Profile : null;
+            if (_ctx == null || _ctx.Wands == null || p == null || p.Characters == null || character < 1 || character > p.Characters.Count) return null;
+            var r = _ctx.Wands.BuildRunConfig(character, p.Characters[character - 1].EquippedWandId, 1, 1UL);
+            if (!r.Ok || r.Value == null) { ErrorKey = OnlineKeys.ErrorWand; return null; }
+            return r.Value;
+        }
+
+        /// <summary>방을 만든다(이미 있으면 그대로).</summary>
+        public bool CreateRoom()
+        {
+            ErrorKey = null;
+            if (HasRoom) return true;
+            var me = MemberConfig(MyCharacter);
+            if (me == null) { ErrorKey = ErrorKey ?? OnlineKeys.ErrorWand; return false; }
+            Room = OnlineCoop.HostLocal(_ctx.Content, me);
+            if (!HasRoom) { ErrorKey = OnlineKeys.ErrorConnect; Room = null; return false; }
+            if (_ctx != null) _ctx.Online = Room;
+            return true;
+        }
+
+        /// <summary>원격 서버의 방에 들어간다(주소 "호스트:포트", 포트가 없으면 <see cref="DefaultPort"/>).</summary>
+        public bool JoinRoom(string address)
+        {
+            ErrorKey = null;
+            if (HasRoom) return true;
+            if (!ParseAddress(address, out string host, out int port)) { ErrorKey = OnlineKeys.ErrorAddress; return false; }
+            var me = MemberConfig(MyCharacter);
+            if (me == null) { ErrorKey = ErrorKey ?? OnlineKeys.ErrorWand; return false; }
+            Room = OnlineCoop.JoinRemote(_ctx.Content, host, port, me);
+            if (Room == null) { ErrorKey = OnlineKeys.ErrorConnect; return false; }
+            if (_ctx != null) _ctx.Online = Room;
+            return true;
+        }
+
+        public const int DefaultPort = 27870;
+
+        public static bool ParseAddress(string address, out string host, out int port)
+        {
+            host = null;
+            port = DefaultPort;
+            if (string.IsNullOrWhiteSpace(address)) return false;
+            string a = address.Trim();
+            int colon = a.LastIndexOf(':');
+            if (colon > 0 && a.IndexOf(':') == colon)
+            {
+                if (!int.TryParse(a.Substring(colon + 1), out port) || port <= 0 || port > 65535) return false;
+                a = a.Substring(0, colon);
+            }
+            host = a;
+            return host.Length > 0;
+        }
+
+        /// <summary>동료 봇: 내 캐릭터 다음 번호부터 차례로(5 다음은 1).</summary>
+        public bool AddBot()
+        {
+            if (!CanAddBot) return false;
+            int n = Room.Bots.Count + 1;
+            int c = (MyCharacter - 1 + n) % Wizard.Solo.Ids.Char.Count + 1;
+            var cfg = MemberConfig(c);
+            return cfg != null && Room.AddBot(cfg);
+        }
+
+        public void RemoveBot() { if (CanRemoveBot) Room.RemoveBot(); }
+
+        /// <summary>판 시작: 서버 시작 → 세션을 꼭두각시 세계로 연다. 성공이면 Battle로 가면 된다.</summary>
+        public bool Start(ulong seed)
+        {
+            ErrorKey = null;
+            if (!CanStart) return false;
+            if (!(_ctx.Session is IOnlineSession os)) { ErrorKey = OnlineKeys.ErrorConnect; return false; }
+            if (!Room.IsLocalHost)
+            {
+                Room.StartRun(seed);
+                _startRequested = true;
+                return false; // 서버의 Start를 기다린다(Tick이 연다)
+            }
+            if (!Room.StartRun(seed)) { ErrorKey = OnlineKeys.ErrorConnect; return false; }
+            os.StartOnline(Room);
+            return true;
+        }
+
+        /// <summary>방에서 나간다(판 밖에서).</summary>
+        public void Leave()
+        {
+            Room?.Leave();
+            Room = null;
+            if (_ctx != null && _ctx.Online != null && !_ctx.Online.Connected) _ctx.Online = null;
+        }
+
+        /// <summary>프레임마다. 원격 방에서 판이 열렸으면(방장이 시작했다) 세션을 열고 true — 화면은 Battle로 간다.</summary>
+        public bool Tick()
+        {
+            if (Room == null) return false;
+            if (Room.World == null)
+            {
+                Room.Pump();
+                if (!Room.Connected)
+                {
+                    ErrorKey = Room.Me.State == CoopClientState.Rejected ? OnlineKeys.ErrorRejected : OnlineKeys.ErrorConnect;
+                    Room = null;
+                    _startRequested = false;
+                    if (_ctx != null) _ctx.Online = null;
+                    return false;
+                }
+            }
+            if (Room != null && !Room.IsLocalHost && Room.World != null && _ctx.Session is IOnlineSession os && !os.IsOnline)
+            {
+                _startRequested = false;
+                os.StartOnline(Room);
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>화면에 들어올 때: 끝난 판의 연결은 걷고 결과를 받는다.</summary>
+        public void Enter(ScreenArgs args)
+        {
+            ErrorKey = null;
+            ResultWave = args != null && args.Values.ContainsKey(ScreenArgKeys.CoopResultWave) ? args.Get(ScreenArgKeys.CoopResultWave, 0) : -1;
+            ResultScore = args != null ? args.Get(ScreenArgKeys.CoopResultScore, 0) : 0;
+            _startRequested = false;
+            if (Room != null && !Room.Connected) Room = null;
+            if (_ctx != null && _ctx.Online != null && !_ctx.Online.Connected) _ctx.Online = null;
+        }
+    }
+
+    /// <summary>협동 방 글자 열쇠(Resources/NamesSolo/Online.ko.json).</summary>
+    public static class OnlineKeys
+    {
+        public const string MenuItem = "str.main_menu.item.coop";
+        public const string Title = "str.coop.title";
+        public const string Intro = "str.coop.intro";
+        public const string Create = "str.coop.create";
+        public const string AddBot = "str.coop.add_bot";
+        public const string RemoveBot = "str.coop.remove_bot";
+        public const string Start = "str.coop.start";
+        public const string Leave = "str.coop.leave";
+        public const string Empty = "str.coop.slot_empty";
+        public const string MemberLine = "str.coop.member_line";
+        public const string Host = "str.coop.host";
+        public const string Bot = "str.coop.bot";
+        public const string Result = "str.coop.result";
+        public const string ErrorWand = "str.coop.error.wand";
+        public const string ErrorConnect = "str.coop.error.connect";
+        public const string ErrorAddress = "str.coop.error.address";
+        public const string ErrorRejected = "str.coop.error.rejected";
+        public const string Join = "str.coop.join";
+        public const string AddressHint = "str.coop.address_hint";
+        public const string Waiting = "str.coop.waiting";
+        public const string Member = "str.coop.member";
+    }
+}

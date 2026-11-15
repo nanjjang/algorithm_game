@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Wizard.Solo.Data;
 using Wizard.Solo.Sim;
 
 namespace Wizard.Solo.Screens.Hints
@@ -36,7 +37,12 @@ namespace Wizard.Solo.Screens.Hints
             switch (e.Type)
             {
                 case SimEventType.HeatLockEntered: into.Add(HintIds.FirstLock); break;
-                case SimEventType.CrystalGained: into.Add(HintIds.FirstCrystal); break;
+                case SimEventType.CrystalGained:
+                    into.Add(HintIds.FirstCrystal);
+                    // 결정이 파이널 어빌리티를 쓸 만큼 모였다 → 파이널 커맨드 안내
+                    if (w.Me != null && AttackStyles.FinalMinCrystals(w.Content) > 0 && w.Me.Crystals >= AttackStyles.FinalMinCrystals(w.Content))
+                        into.Add(HintIds.FirstFinal);
+                    break;
                 case SimEventType.GrazeAwarded: into.Add(HintIds.FirstGraze); break;
                 case SimEventType.EnemySpawned: if (e.A == 1) into.Add(HintIds.FirstElite); break;
                 case SimEventType.BossIntroBegin: into.Add(HintIds.FirstBoss); break;

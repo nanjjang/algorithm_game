@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using Wizard.Solo.Data;
+using Wizard.Solo.Sim.Waves;
 using Wizard.Solo.Tests;
 
 namespace Wizard.Solo.Tests.Integration
@@ -33,6 +34,33 @@ namespace Wizard.Solo.Tests.Integration
             Assert.AreEqual(2, TestContent.Db.Const.GrazeComboGain);
             Assert.AreEqual(5, db.Const.GrazeComboGain);
             Assert.IsNull(TestContent.Db.SoloExtra("G01")["graze_heat_relief"], "명세 쪽 G01에는 조정 열쇠가 없다");
+        }
+
+        [Test]
+        public void Fun_Run__OpeningPressureAndCampHealCost()
+        {
+            var tuned = FunPassKit.TunedDb;
+            var spec = TestContent.Db;
+            const string slime = "enemy.slime_moss";
+            Assert.AreEqual(3f, spec.Enemy(slime).MoveSpeed, 0.0001f);
+            Assert.AreEqual(2.7f, tuned.Enemy(slime).MoveSpeed, 0.0001f);
+            Assert.AreEqual(spec.Enemy(slime).ContactDamage, tuned.Enemy(slime).ContactDamage);
+            Assert.AreEqual(25, tuned.Camp.HealBase + tuned.Camp.HealPerWave);
+            Assert.AreEqual(35, spec.Camp.HealBase + spec.Camp.HealPerWave);
+            Assert.AreEqual(spec.Camp.HealRepeatMulNum, tuned.Camp.HealRepeatMulNum);
+            Assert.AreEqual(spec.Camp.HealRepeatMulDen, tuned.Camp.HealRepeatMulDen);
+
+            var waves = WaveTuning.From(tuned);
+            Assert.AreEqual(12, waves.Budget(tuned.Waves, 1));
+            Assert.AreEqual(18, waves.Budget(tuned.Waves, 2));
+            Assert.AreEqual(WaveCurves.Budget(spec.Waves, 3), waves.Budget(tuned.Waves, 3));
+            Assert.AreEqual(16, WaveTuning.From(spec).Budget(spec.Waves, 1));
+            const string shaman = "enemy.shaman_cap";
+            var normalCast = spec.Enemy(shaman).Attacks.Find(attack => attack.Key == "triple");
+            var tunedCast = tuned.Enemy(shaman).Attacks.Find(attack => attack.Key == "triple");
+            Assert.AreEqual(0.55f, tunedCast.CastSeconds, 0.0001f);
+            Assert.AreEqual(2.6f, tunedCast.CooldownSeconds, 0.0001f);
+            Assert.AreEqual(normalCast.Damage, tunedCast.Damage);
         }
 
         // ------------------------------------------------------------ A. 과열 리듬

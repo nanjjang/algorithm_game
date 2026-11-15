@@ -168,7 +168,8 @@ namespace Wizard.Solo.Sim
         StyleShatter,               // S, E = 탄 id, Id = 블록, P = 깨진 자리, A = 파편 수
         StyleStatus,                // S, E = 적 id, A = 지금 겹 수(0 = 풀림), B = StyleStatusKind, P = 적 위치
         StyleMineArmed,             // S, E = 탄 id, Id = 블록, P = 자리, F = 발동 반경
-        ArtStage = 280              // S, Id = 비기 id, A = ArtStageKind, B = 순번(0부터), P = 중심, P2 = 방향 또는 끝점, F = 반경(고유 비기 강화 단계)
+        ArtStage = 280,             // S, Id = 비기 id, A = ArtStageKind, B = 순번(0부터), P = 중심, P2 = 방향 또는 끝점, F = 반경(고유 비기 강화 단계)
+        PlayerRevived = 300         // S = 일어난 사람, A = 살린 사람 슬롯(−1 = 웨이브 클리어로 일어남). 협동(Docs/11-online.md)
     }
 
     /// <summary>PracticeReport 이벤트의 Id(08 요약서 8.5절 허수아비 수치).</summary>

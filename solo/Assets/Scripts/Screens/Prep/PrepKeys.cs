@@ -20,6 +20,7 @@ namespace Wizard.Solo.Screens.Prep
         public const string StartWaveScoreNote = "str.expedition_prep.start_wave.score_note";
         public const string WandCount = "str.expedition_prep.wand_count";
         public const string Wands = "str.expedition_prep.wands";
+        public const string StatsTitle = "str.expedition_prep.stats";
         public const string FormatStartWave = "str.format.start_wave";
         public const string FormatWandStage = "str.format.wand_stage";
         public const string FormatSeconds = "str.format.seconds";

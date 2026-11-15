@@ -37,6 +37,9 @@ namespace Wizard.Solo.View.Hud
         int _underlineSlot = -1;
         float _litT = -1f;
         int _cellCount;
+        // 블록이 든 칸만 판에 보인다: 칸 번호 → 보이는 자리(-1 = 숨김), 보이는 칸 수.
+        readonly int[] _visIndex = new int[HudLayout.CircuitMaxCells];
+        int _visCount;
         int _lastLit = -1;
         int _layoutCells = -1;
         bool _layoutArt;
@@ -97,8 +100,12 @@ namespace Wizard.Solo.View.Hud
                 UiKit.SetSprite(_trayBody, recess); _trayBody.color = UiTheme.WithAlpha(Color.white, 0.86f);
                 UiKit.SetSprite(_trayShadow, recess); _trayShadow.color = UiTheme.Shadow;
             }
-            // 윗변 광택 줄: 고정 폭(anchorMax를 늘리면 sizeDelta가 더해져 판 밖으로 화면 끝까지 뻗는다).
-            UiKit.Rect(_root, 8, 3, maxW - 16, 1, UiTheme.Sheen, false, "Sheen");
+            // 금 테 판 대신 아래로 흐려지는 먹색 번짐(칸만 떠 보이게).
+            _trayShadow.enabled = false;
+            _trayBody.sprite = UiBackdrop.RadialSoft;
+            _trayBody.type = UImage.Type.Simple;
+            _trayBody.color = UiTheme.WithAlpha(UiTheme.Ink, 0.55f);
+            _trayBody.raycastTarget = false;
 
             _empty = art.Kit("K-60", "item_slot_empty");
             _filled = art.Kit("K-60", "item_slot_filled");
@@ -117,7 +124,7 @@ namespace Wizard.Solo.View.Hud
                 _icons[i] = HudArt.Image(node, "Icon", pad, pad, ip, ip, null, UiTheme.SlateBlue);
                 HudArt.SetActive(_icons[i], false);
                 _litFrames[i] = UiFrame.Create(node, UiTheme.WithAlpha(UiTheme.Chalk, 0f), 3);
-                _stars[i] = UiKit.Label(ctx, node, string.Empty, UiFontId.F12, cp - 30f, cp - 17f, 30f, 16f, UiTheme.Gold, TextAnchor.MiddleRight, outline: true);
+                _stars[i] = UiKit.Label(ctx, node, string.Empty, UiFontId.F16, cp - 40f, cp - 22f, 38f, 20f, UiTheme.Gold, TextAnchor.MiddleRight, outline: true);
                 _stars[i].name = "Stars";
             }
             _underline = UiKit.Rect(_cellsRoot, 0, cp + 3, cp, UnderlineH, UiTheme.Chalk, false, "Underline");
@@ -146,10 +153,10 @@ namespace Wizard.Solo.View.Hud
                 _pips[i] = UiKit.Diamond(_art0, 0, 0, 10f, UiTheme.Chalk);
                 HudArt.SetActive(_pips[i].transform.parent as RectTransform, false);
             }
-            var keyBg = UiKit.Rect(_art0, -6, -6, 24, 24, UiTheme.Ink, false, "KeyBg");
+            var keyBg = UiKit.Rect(_art0, -8, -8, 30, 30, UiTheme.Ink, false, "KeyBg");
             var cap = art.Kit("K-50", "keycap");
             if (cap.IsValid) { UiKit.SetSprite(keyBg, cap); keyBg.color = Color.white; }
-            UiKit.Label(ctx, keyBg.rectTransform, UiKeyLabels.Of(ctx != null ? ctx.Names : null, Key.K), UiFontId.F12, 0, 0, 24, 24, UiTheme.Chalk, TextAnchor.MiddleCenter);
+            UiKit.Label(ctx, keyBg.rectTransform, UiKeyLabels.Of(ctx != null ? ctx.Names : null, Key.K), UiFontId.F16, 0, 0, 30, 30, UiTheme.Chalk, TextAnchor.MiddleCenter);
             HudArt.SetActive(_art0, false);
         }
 
@@ -173,11 +180,14 @@ namespace Wizard.Solo.View.Hud
 
         public void Refresh(HudLayer layer, SimWorld w, in HudFrame f, float dt)
         {
-            var p = w != null ? w.P0 : null;
+            var p = w != null ? w.Me : null;
             bool on = p != null && p.Active;
             HudArt.SetActive(_root, on);
             if (!on) return;
             _cellCount = HudModel.CircuitCells(p);
+            _visCount = 0;
+            for (int i = 0; i < _visIndex.Length; i++)
+                _visIndex[i] = i < _cellCount && HudModel.CircuitBlock(p, i) != null ? _visCount++ : -1;
 
             // 비기 미리보기(캐릭터 둘레 표시가 지난 프레임에 읽은 값)
             ArtPreview pv = layer.Marks.Count > 0 ? layer.Marks[0].LastPreview : default;
@@ -206,9 +216,12 @@ namespace Wizard.Solo.View.Hud
 
             for (int i = 0; i < _cells.Length; i++)
             {
-                bool shown = i < _cellCount;
+                bool shown = _visIndex[i] >= 0;
                 HudArt.SetActive(_cellNodes[i], shown);
                 if (!shown) continue;
+                float vx = HudOverlayLayout.CellX(_visIndex[i]) + HudOverlayLayout.CellPx * 0.5f;
+                if (Mathf.Abs(_cellNodes[i].anchoredPosition.x - vx) > 0.1f)
+                    _cellNodes[i].anchoredPosition = new Vector2(vx, _cellNodes[i].anchoredPosition.y);
                 string block = HudModel.CircuitBlock(p, i);
                 if (i == lit) _litGlow[i] = 1f;
                 else _litGlow[i] = Mathf.Max(0f, _litGlow[i] - dt * 6f);
@@ -218,6 +231,8 @@ namespace Wizard.Solo.View.Hud
                     _blockIds[i] = block;
                     HudArt.SetKit(_cells[i], block != null ? _filled : _empty, block != null ? UiTheme.Wood : HudColors.CircuitOff);
                     HudArt.SetActive(_icons[i], block != null);
+                    // 빈 칸은 흐린 자리 표시로만(빈 도구 막대처럼 보이지 않게).
+                    if (block == null) _cells[i].color = UiTheme.WithAlpha(_cells[i].color, 0.3f);
                     if (block != null) HudArt.SetSprite(_icons[i], _art.Icon(block, (int)HudOverlayLayout.CellIconPx), UiTheme.SlateBlue);
                 }
                 int st = block != null ? StarsAt(p, i) : 0;
@@ -227,28 +242,31 @@ namespace Wizard.Solo.View.Hud
                     var names = _art.Ctx != null ? _art.Ctx.Names : null;
                     _stars[i].SetText(st > 0 ? (names != null ? names.Format("str.block.stars", "n", st) : st.ToString(System.Globalization.CultureInfo.InvariantCulture)) : string.Empty);
                 }
-                _cells[i].color = _cells[i].sprite != null ? Color.Lerp(Color.white, UiTheme.Chalk * 1.2f, _litGlow[i] * 0.5f) : (i == lit ? HudColors.CircuitOn : _cells[i].color);
+                Color cc = _cells[i].sprite != null ? Color.Lerp(Color.white, UiTheme.Chalk * 1.2f, _litGlow[i] * 0.5f) : (i == lit ? HudColors.CircuitOn : _cells[i].color);
+                if (block == null) cc.a = 0.3f;
+                _cells[i].color = cc;
             }
 
             // 밑줄 칸 = 맨 끝 연결 칸(칸 번호: 코어 0, 연결 1..L). 상태에서 바로 정하므로 보조 판에서 돌아와 다시 만들어도 바로 보인다.
             _underlineSlot = UnderlineSlotOf(p);
             bool ul = _underlineSlot >= 0 && _underlineSlot < _cellCount;
-            HudArt.SetActive(_underline, ul);
-            if (ul) UiKit.Place(_underline.rectTransform, HudOverlayLayout.CellX(_underlineSlot) + 6f, HudOverlayLayout.CellPx + 3f, HudOverlayLayout.CellPx - 12f, UnderlineH);
+            bool ulShown = ul && _visIndex[_underlineSlot] >= 0;
+            HudArt.SetActive(_underline, ulShown);
+            if (ulShown) UiKit.Place(_underline.rectTransform, HudOverlayLayout.CellX(_visIndex[_underlineSlot]) + 6f, HudOverlayLayout.CellPx + 3f, HudOverlayLayout.CellPx - 12f, UnderlineH);
 
             RefreshArt(layer, p, pv, artOn);
         }
 
         void Relayout(bool artOn)
         {
-            if (_layoutCells == _cellCount && _layoutArt == artOn) return;
-            _layoutCells = _cellCount;
+            if (_layoutCells == _visCount && _layoutArt == artOn) return;
+            _layoutCells = _visCount;
             _layoutArt = artOn;
-            float w = HudOverlayLayout.TrayWidth(_cellCount, artOn);
+            float w = HudOverlayLayout.TrayWidth(_visCount, artOn);
             _root.sizeDelta = new Vector2(w, HudOverlayLayout.TrayH);
             _trayBody.rectTransform.sizeDelta = new Vector2(w, HudOverlayLayout.TrayH);
             _trayShadow.rectTransform.sizeDelta = new Vector2(w, HudOverlayLayout.TrayH);
-            float ax = HudOverlayLayout.TrayPad + HudOverlayLayout.CircuitRowWidth(_cellCount) + (_cellCount > 0 ? HudOverlayLayout.ArtSlotGap : 0f);
+            float ax = HudOverlayLayout.TrayPad + HudOverlayLayout.CircuitRowWidth(_visCount) + (_visCount > 0 ? HudOverlayLayout.ArtSlotGap : 0f);
             UiKit.Place(_art0, ax, HudOverlayLayout.ArtSlotY, HudOverlayLayout.ArtSlotPx, HudOverlayLayout.ArtSlotPx);
             HudArt.SetActive(_art0, artOn);
         }
@@ -259,7 +277,10 @@ namespace Wizard.Solo.View.Hud
             if (pv.ArtId != _artId)
             {
                 _artId = pv.ArtId;
-                HudArt.SetSprite(_artIcon, _art.Icon(pv.ArtId, (int)HudOverlayLayout.CellIconPx), UiTheme.SlateBlue);
+                // 파이널 어빌리티(final.*)는 따로 아이콘이 없다 → 그 캐릭터 고유 비기 아이콘.
+                string iconId = pv.ArtId != null && pv.ArtId.StartsWith("final.", System.StringComparison.Ordinal) && p != null && p.Def != null
+                    ? p.Def.UniqueArt : pv.ArtId;
+                HudArt.SetSprite(_artIcon, _art.Icon(iconId, (int)HudOverlayLayout.CellIconPx), UiTheme.SlateBlue);
                 if (layer.MotionOn) UiMotion.Pop(_art0, 1.1f, 0.2f);
             }
             float cd = Mathf.Clamp01(pv.CooldownRatio);

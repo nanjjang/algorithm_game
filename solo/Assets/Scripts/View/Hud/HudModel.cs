@@ -87,6 +87,7 @@ namespace Wizard.Solo.View.Hud
         public const string KeyNowKFizzle = "str.battle_hud.now_k_fizzle";
         public const string KeyNowKFizzleLate = "str.battle_hud.now_k_fizzle_late";
         public const string KeyNowKJust = "str.battle_hud.now_k_just";
+        public const string KeyNowKFinal = "str.battle_hud.now_k_final";
         public const string KeyBossRage = "str.battle_hud.boss.rage";
         public const string KeyBossFinalRage = "str.battle_hud.boss.final_rage";
         public const string KeyBossWeak = "str.battle_hud.boss.weak";
@@ -256,7 +257,7 @@ namespace Wizard.Solo.View.Hud
                 if (w.Players[i] != null && w.Players[i].Active) kills += w.Players[i].Kills;
             f.Kills = kills > 0 ? kills : run.TotalKills;
 
-            var p0 = w.P0;
+            var p0 = w.Me;
             if (p0 != null && p0.Active && p0.Locked && p0.UnlockTick > w.Tick)
             {
                 f.StateNotice = HudStateNotice.HeatLock;
@@ -449,6 +450,8 @@ namespace Wizard.Solo.View.Hud
             t.Main = line;
             if (pv.HasJustLine && !string.IsNullOrEmpty(pv.JustArtId))
                 t.Just = names.Get(KeyNowKJust) + " " + names.Format(KeyNowK, "art", names.Get(pv.JustArtId), "n", pv.JustCost);
+            else if (!string.IsNullOrEmpty(pv.FinalArtId))
+                t.Just = names.Format(KeyNowKFinal, "art", names.Get(pv.FinalArtId), "n", pv.FinalCost);
             return t;
         }
 

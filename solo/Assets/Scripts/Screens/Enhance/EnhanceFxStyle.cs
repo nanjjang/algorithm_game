@@ -15,12 +15,10 @@ namespace Wizard.Solo.Screens.Enhance
 
         // 등급별 성공 입자 수, 빛줄기 크기(px), 느린 화면 길이(초)와 빠르기 배율.
         public static readonly int[] BurstParticles = { 36, 56, 90, 130, 180 };
-        public static readonly float[] RaysSize = { 620f, 760f, 900f, 1100f, 1400f };
         public static readonly float[] SlowMoSeconds = { 0f, 0.12f, 0.3f, 0.45f, 0.7f };
         public const float SlowMoScale = 0.3f;
-        /// <summary>성공 빛살 개수(공통 그림 light_ray를 방사형으로).</summary>
-        public const int SpokeCount = 16;
-        public static readonly float[] SlamScale = { 1.9f, 2.1f, 2.4f, 2.7f, 3.1f };
+        /// <summary>성공 단계 숫자의 첫 프레임 배율.</summary>
+        public static readonly float[] SlamScale = { 1.35f, 1.43f, 1.53f, 1.65f, 1.78f };
 
         // 충전: 강도별 빨려 드는 입자 배율(시간표의 초당 입자 수에 곱한다), 마법진 미세 떨림(px, 마법진·지팡이 묶음만).
         public const float ChargeParticleBoost = 2.5f;
@@ -41,19 +39,6 @@ namespace Wizard.Solo.Screens.Enhance
                 case 2: return UiTheme.Gold;
                 case 3: return Color.Lerp(UiTheme.Gold, Color.white, 0.55f);
                 default: return Color.Lerp(UiTheme.Gold, Color.white, 0.7f);
-            }
-        }
-
-        /// <summary>등급의 둘째 색(입자 섞임).</summary>
-        public static Color TierAccent(int tier, Color element)
-        {
-            switch (tier)
-            {
-                case 0: return Color.Lerp(Safe(element), Color.white, 0.5f);
-                case 1: return UiTheme.Gold;
-                case 2: return Color.Lerp(UiTheme.Gold, Color.white, 0.6f);
-                case 3: return UiTheme.ElementIce;
-                default: return Hex(0xC9A6FF);
             }
         }
 

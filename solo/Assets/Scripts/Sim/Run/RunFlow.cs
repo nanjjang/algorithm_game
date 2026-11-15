@@ -44,20 +44,15 @@ namespace Wizard.Solo.Sim.Run
             if (cfg.KnownAffinities != null)
                 for (int i = 0; i < cfg.KnownAffinities.Count; i++) run.AffinityKnown.Add(cfg.KnownAffinities[i]);
 
-            // 기본 공격 유형(Docs/12-attack-styles.md 1절): 출발 조립의 코어가 공통 시작 블록(마력탄)이면 고른 유형의 핵 블록으로 바꾼다.
-            // 튜토리얼 판은 손잡이가 켜져 있으면 A 유형. 판 설정 객체의 조립은 사본으로 갈아 끼운다(같은 설정으로 다시 열어도 같은 결과).
-            string style = AttackStyles.EffectiveStyle(w.Content, cfg);
-            if (style != null)
+            // 슬롯 0 = cfg, 슬롯 1.. = cfg.Party(협동, 11-online.md). 나머지 코드는 Active인 플레이어를 전부 돈다.
+            SetupMember(w, w.Players[0], cfg);
+            int party = cfg.Party != null ? Mathf.Min(cfg.Party.Count, w.Players.Length - 1) : 0;
+            for (int i = 0; i < party; i++)
             {
-                cfg.AttackStyle = style;
-                cfg.Loadout = AttackStyles.ApplyToLoadout(w.Content, cfg.Loadout, style);
+                var m = cfg.Party[i];
+                if (m == null) continue;
+                SetupMember(w, w.Players[i + 1], m);
             }
-
-            // 솔로는 슬롯 0만 선다. 나머지 코드는 Active인 플레이어를 전부 돈다.
-            var p0 = w.Players[0];
-            p0.Active = true;
-            w.Mods.Player.SetupPlayer(w, p0, cfg);
-            EnsureLoadout(p0, cfg);
 
             w.Emit(SimEventType.RunStarted, a: cfg.StartWave);
 
@@ -82,6 +77,21 @@ namespace Wizard.Solo.Sim.Run
             {
                 EnterPrelude(w, s, 1);
             }
+        }
+
+        /// <summary>한 사람을 세운다. 기본 공격 유형(Docs/12-attack-styles.md 1절): 출발 조립의 코어가 공통 시작 블록(마력탄)이면
+        /// 고른 유형의 핵 블록으로 바꾼다. 튜토리얼 판은 손잡이가 켜져 있으면 A 유형. 판 설정 객체의 조립은 사본으로 갈아 끼운다.</summary>
+        static void SetupMember(SimWorld w, PlayerState p, RunConfig cfg)
+        {
+            string style = AttackStyles.EffectiveStyle(w.Content, cfg);
+            if (style != null)
+            {
+                cfg.AttackStyle = style;
+                cfg.Loadout = AttackStyles.ApplyToLoadout(w.Content, cfg.Loadout, style);
+            }
+            p.Active = true;
+            w.Mods.Player.SetupPlayer(w, p, cfg);
+            EnsureLoadout(p, cfg);
         }
 
         /// <summary>조립의 주인은 Run이다. Player.SetupPlayer가 채우지 않았으면(빈 구현) 판 설정의 출발 조립을 그대로 옮긴다.</summary>
@@ -223,6 +233,7 @@ namespace Wizard.Solo.Sim.Run
             var run = w.Run;
             if (run.Phase == RunPhase.NotStarted || run.Phase == RunPhase.RunEnded) return;
             var s = Scratch(w);
+            TickRevive(w);
 
             switch (run.Phase)
             {
@@ -317,6 +328,7 @@ namespace Wizard.Solo.Sim.Run
         /// <summary>웨이브 클리어 처리. 순서는 06 요약서 4.2절 1~8.</summary>
         void ClearWave(SimWorld w, RunScratch s, bool phantomFirst)
         {
+            ReviveAllOnWaveClear(w);
             var run = w.Run;
             var db = w.Content;
             var drops = db.Drops;

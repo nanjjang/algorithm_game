@@ -76,7 +76,7 @@ namespace Wizard.Solo.View.Hud
             {
                 for (int i = 0; i < w.Players.Length; i++)
                 {
-                    _marks.Add(new CharacterMarksView(vc, _art, _tuning, i, i == 0 ? _status.ComboHudAnchor : null));
+                    _marks.Add(new CharacterMarksView(vc, _art, _tuning, i, i == w.ViewSlot ? _status.ComboHudAnchor : null));
                     _rings.Add(new HeatRingView(vc, _art, _tuning));
                 }
                 _boss.SyncFromState(w);

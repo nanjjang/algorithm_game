@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System;
 using Wizard.Solo.Art;
 using Wizard.Solo.Data;
@@ -24,6 +25,8 @@ namespace Wizard.Solo
         public IInputSource Input;
         public IScreenManager Screens;
         public IGameSession Session;
+        /// <summary>온라인 판에 붙어 있으면 그 연결(11-online.md). null = 솔로. 온라인 판은 오프라인 프로필에 아무것도 남기지 않는다.</summary>
+        public IOnlineLink Online;
 
         public IEnhanceService Enhance;
         public IWandService Wands;
@@ -67,6 +70,35 @@ namespace Wizard.Solo
     /// - EndRun은 Paused를 조용히 푼다(커맨드 초기화·Resync 없이 false로). 판이 없을 때는 PausedSeconds가 쌓이지 않는다.
     /// - 이벤트 처리기 안에서 EndRun·StartRun·PushSubRun·PopSubRun이 불리면 그 프레임의 남은 틱은 돌지 않는다.
     /// </summary>
+    /// <summary>
+    /// 온라인 판 연결(11-online.md 2절). 판은 서버가 돌리고, 이쪽은 꼭두각시 세계(<see cref="World"/>, Step하지 않는다)를 그린다.
+    /// 세션이 60Hz 틱마다 내 입력·화면 명령을 <see cref="Send"/>로 넘기고 <see cref="Step"/>을 부른다.
+    /// </summary>
+    public interface IOnlineLink
+    {
+        /// <summary>판이 시작됐으면 꼭두각시 세계, 아니면 null.</summary>
+        SimWorld World { get; }
+        /// <summary>서버가 준 내 슬롯.</summary>
+        int Slot { get; }
+        bool Connected { get; }
+        /// <summary>이번 틱의 내 입력과 화면 명령을 보낸다(슬롯은 서버가 정한다).</summary>
+        void Send(List<InputEvent> inputs, List<RunCommand> commands);
+        /// <summary>한 틱: 보내기 → (이 기기가 방장 서버면) 서버 틱 → 받기.</summary>
+        void Step();
+        /// <summary>받은 표시 이벤트를 넘긴다.</summary>
+        void DrainEvents(List<SimEvent> into);
+        /// <summary>판·방에서 나간다.</summary>
+        void Leave();
+    }
+
+    /// <summary>온라인 판을 돌릴 수 있는 세션(SessionCore·GameRunner).</summary>
+    public interface IOnlineSession
+    {
+        bool IsOnline { get; }
+        /// <summary>link의 꼭두각시 세계로 판을 연다(link.World가 있어야 한다). 이 세션은 Step하지 않고 link.Step을 부른다.</summary>
+        void StartOnline(IOnlineLink link);
+    }
+
     public interface IGameSession
     {
         /// <summary>지금 도는 세계(보조 판이 떠 있으면 보조 판. 없으면 null). 화면·표시 층은 이것을 쓴다.</summary>

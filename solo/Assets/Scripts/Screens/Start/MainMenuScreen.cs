@@ -15,13 +15,9 @@ namespace Wizard.Solo.Screens.Start
     /// </summary>
     public sealed class MainMenuScreen : ScreenBase
     {
-        // 08 4.1절 위치(화면 기준). 내용 칸은 y 80부터라 TopBarHeight를 뺀다.
-        const float CardX = 48f, CardY = 128f, CardW = 400f, CardH = 520f, CardGap = 24f;
-        // 원정 카드(크게, WP4): 메뉴 목록(1344) 앞까지 넓히고, 서버 전용 묶음은 아래 한 줄(나가기와 같은 줄)로 접는다.
-        const float BigCardW = 1272f, BigArtW = 560f, BigArtH = 366f, ServerLineY = 968f, ServerLineW = 1200f, ServerLineH = 48f;
-        const float CardArtW = 368f, CardArtH = 240f, CardPad = 16f;
-        const float ListX = 1344f, ListY = 128f, ListW = 528f, RowH = 48f, RowGap = 16f;
-        const float ExitX = 1680f, ExitY = 968f, ExitW = 192f, ExitH = 48f;
+        // 배치(화면 기준 px). 왼쪽 세로 메뉴(원정이 머리 항목), 오른쪽은 모닥불 장면이 숨 쉬게 비워 둔다.
+        const float HeroY = 112f, HeroH = 88f, RowH = 56f, RowInset = 24f;
+        const float ScrimW = 820f;
         const float BadgeW = 200f, BadgeH = 40f;
         const int CharScale = 4, CharCell = 64, WandCellW = 32, WandCellH = 64;
         const float PedestalW = 320f, PedestalH = 96f, CampfireSize = 128f;
@@ -30,10 +26,18 @@ namespace Wizard.Solo.Screens.Start
         StartTuning _tuning;
         readonly Dictionary<MainMenuAction, UiButton> _buttons = new Dictionary<MainMenuAction, UiButton>();
         UiButton _expedition;
-        UiLabel _bestWave, _tracker, _gold, _equippedTitle, _profileLabel;
+        UiLabel _tracker, _gold, _equippedTitle, _profileLabel;
         UiLabel _goalRevenge, _goalChallenge, _goalChallengeProgress;
         UiProgressBar _goalChallengeBar;
         UImage _bgImage, _charImage, _wandImage, _campfire;
+        // 메뉴 줄의 고름 표식(마름모)과 줄 글자색: 커서가 온 줄만 밝게.
+        readonly List<UiButton> _rows = new List<UiButton>();
+        readonly List<GameObject> _rowMarks = new List<GameObject>();
+        readonly List<Color> _rowColors = new List<Color>();
+        UImage _heroMark;
+        RectTransform _bestChipRoot;
+        string _bestChipText;
+        UiLabel _heroTitle;
         SpriteAnim _charAnim, _fireAnim;
         float _animClock, _clockPoll;
         MenuTimeOfDay _tod;
@@ -52,56 +56,67 @@ namespace Wizard.Solo.Screens.Start
             BuildTopBar();
 
             float top = TopBarHeight;
-            // 원정 카드(크게): 왼쪽 큰 그림, 오른쪽 이름·부제·기록 줄·추적기 한 줄, 그 아래 "다음 목표"(허상 복수까지 n웨이브, 다음 도전 과제).
-            _expedition = UiKit.Button(Ctx, content, null, CardX, CardY - top, BigCardW, CardH, () => Open(_model.Expedition),
-                UiButtonStyle.Plain, Focus);
+            BuildScrim(content, top);
+
+            // 왼쪽 단(격자 0~3열): 원정 머리글 → 기록 알약 → 다음 목표 → 메뉴 줄 → 나가기, 맨 아래 서버 한 줄.
+            float lx = UiLayout.ColX(0), lw = UiLayout.ColW(4);
+            float h64 = UiTheme.LineHeight(UiFontId.F64), h24 = UiTheme.LineHeight(UiFontId.F24), h16 = UiTheme.LineHeight(UiFontId.F16);
+
+            // 머리 항목 = 원정: 커서 테가 제목 줄만 감싸게 버튼은 제목 높이만큼.
+            float y = HeroY - top;
+            _expedition = UiKit.Button(Ctx, content, null, lx, y, lw, HeroH, () => Open(_model.Expedition),
+                UiButtonStyle.Plain, Focus, noBracket: true);
             var er = _expedition.ContentRoot != null ? _expedition.ContentRoot : _expedition.Rect;
-            UiKit.OrnatePanel(Ctx, er, 0f, 0f, BigCardW, CardH, 1).raycastTarget = false;
-            float artY = (CardH - BigArtH) * 0.5f;
-            CardArtBig(er, "mode_expedition", CardPad * 1.5f, artY);
-            UiKit.AccentRule(er, CardPad * 1.5f, artY + BigArtH - 3f, BigArtW);
-            float tx = CardPad * 3f + BigArtW, tw = BigCardW - tx - CardPad * 2f;
-            float y = CardPad * 2f;
-            float h48 = UiTheme.LineHeight(UiFontId.F48), h24 = UiTheme.LineHeight(UiFontId.F24), h16 = UiTheme.LineHeight(UiFontId.F16);
-            UiKit.DropShadow(UiKit.Label(Ctx, er, T(StartNameKeys.MainMenuExpedition), UiFontId.F48, tx, y, tw, h48), 3f);
-            y += h48 + 4f;
-            UiKit.Label(Ctx, er, T(StartNameKeys.MainMenuExpeditionSub), UiFontId.F24, tx, y, tw, h24, UiTheme.SlateBlue);
-            y += h24 + 20f;
-            _bestWave = UiKit.Label(Ctx, er, string.Empty, UiFontId.F24, tx, y, tw, h24, UiTheme.Chalk);
-            y += h24 + 6f;
-            _tracker = UiKit.Label(Ctx, er, string.Empty, UiFontId.F16, tx, y, tw, h16, UiTheme.Chalk);
-            y += h16 + 24f;
-            UiKit.Divider(Ctx, er, tx, y, tw);
-            y += 12f;
-            UiKit.Label(Ctx, er, T(MainMenuModel.GoalTitleKey), UiFontId.F16, tx, y, tw, h16, UiTheme.Gold);
-            y += h16 + 8f;
-            _goalRevenge = UiKit.Label(Ctx, er, string.Empty, UiFontId.F24, tx + 12f, y, tw - 12f, h24, UiTheme.Chalk);
-            y += h24 + 8f;
-            _goalChallenge = UiKit.Label(Ctx, er, string.Empty, UiFontId.F16, tx + 12f, y, tw - 12f, h16, UiTheme.Paper);
-            y += h16 + 6f;
-            _goalChallengeBar = UiKit.ProgressBar(Ctx, er, tx + 12f, y + (h16 - 8f) * 0.5f, tw * 0.55f, 8f, 0f);
-            _goalChallengeProgress = UiKit.Label(Ctx, er, string.Empty, UiFontId.F16, tx + 24f + tw * 0.55f, y, tw * 0.45f - 36f, h16,
-                UiTheme.SlateBlue, TextAnchor.MiddleRight);
+            _heroMark = UiKit.Rect(er, 0f, (HeroH - h64) * 0.5f + 8f, 4f, h64 - 16f, UiTheme.Gold, false, "HeroMark");
+            _heroTitle = UiKit.Label(Ctx, er, T(StartNameKeys.MainMenuExpedition), UiFontId.F64, RowInset, (HeroH - h64) * 0.5f,
+                lw - RowInset, h64, UiTheme.Chalk);
+            UiKit.DropShadow(_heroTitle, 4f);
             _buttons[MainMenuAction.Expedition] = _expedition;
+            y += HeroH;
+            UiKit.Label(Ctx, content, T(StartNameKeys.MainMenuExpeditionSub), UiFontId.F24, lx + RowInset, y, lw - RowInset, h24, UiTheme.SlateBlue);
+            y += h24 + UiLayout.V(2);
 
-            // 서버 전용 묶음: 흐리게 두지 않고 한 묶음 + 한 줄(01 2.2절, TV-026). 고르면 오프라인 안내.
-            BuildServerLine(content, CardX, ServerLineY - top, ServerLineW, ServerLineH);
+            // 기록: 최고 웨이브 알약 + 추적 한 줄.
+            float ix = lx + RowInset, iw = lw - RowInset;
+            _bestChipRoot = UiKit.Node(content, "BestWave", ix, y, iw, UiLayout.ChipH);
+            y += UiLayout.ChipH + UiLayout.V(1);
+            _tracker = UiKit.Label(Ctx, content, string.Empty, UiFontId.F16, ix, y, iw, h16, UiTheme.Chalk);
+            y += h16 + UiLayout.V(1);
 
-            // 메뉴 목록
+            // 다음 목표: 구역 제목 + 두 줄 + 진행 막대.
+            y = UiLayout.Section(Ctx, content, ix, y, iw, T(MainMenuModel.GoalTitleKey));
+            _goalRevenge = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, ix, y, iw, h24, UiTheme.Chalk);
+            y += h24 + UiLayout.V(1);
+            _goalChallenge = UiKit.Label(Ctx, content, string.Empty, UiFontId.F16, ix, y, iw, h16, UiTheme.Chalk);
+            y += h16 + UiLayout.V(1);
+            const float ProgW = 120f;
+            _goalChallengeBar = UiKit.ProgressBar(Ctx, content, ix, y + (h16 - 8f) * 0.5f, iw - ProgW - UiLayout.V(2), 8f, 0f);
+            _goalChallengeProgress = UiKit.Label(Ctx, content, string.Empty, UiFontId.F16, ix + iw - ProgW, y, ProgW, h16, UiTheme.SlateBlue,
+                TextAnchor.MiddleRight);
+            y += h16 + UiLayout.V(2);
+
+            // 나머지 항목: F32 줄, 고른 줄은 왼쪽 금 막대 + 옅은 면 + 금 글자.
+            float ly = UiLayout.Snap(y);
             for (int i = 0; i < _model.Items.Count; i++)
             {
                 var e = _model.Items[i];
-                var b = UiKit.Button(Ctx, content, T(e.NameKey), ListX, ListY - top + i * (RowH + RowGap), ListW, RowH, () => Open(e),
-                    UiButtonStyle.Medium, Focus);
+                var b = MenuRow(content, T(e.NameKey), ly, RowH, UiFontId.F32, UiTheme.Chalk, () => Open(e), null);
                 _buttons[e.Action] = b;
-                // 연출: 메뉴 줄이 오른쪽에서 차례로 들어온다.
-                UiMotion.Entrance(b, 0.08f + i * UiTheme.StaggerSeconds, UiTheme.PanelPopSeconds, new Vector2(40f, 0f), 1f);
+                ly += RowH;
             }
-            UiMotion.Entrance(_expedition, 0.04f, UiTheme.PanelPopSeconds + 0.06f, new Vector2(0f, -20f), 1f);
+            // 나가기: 목록 끝의 조용한 줄.
+            ly += UiLayout.V(2);
             var exitEntry = _model.Exit;
-            _buttons[MainMenuAction.Exit] = UiKit.Button(Ctx, content, T(exitEntry.NameKey), ExitX, ExitY - top, ExitW, ExitH,
-                () => Open(exitEntry), UiButtonStyle.Medium, Focus);
+            _buttons[MainMenuAction.Exit] = MenuRow(content, T(exitEntry.NameKey), ly, 40f, UiFontId.F24, UiTheme.SlateBlue, () => Open(exitEntry), null);
 
+            // 서버 전용 묶음: 왼쪽 아래 조용한 설명 한 줄(고르면 오프라인 안내).
+            BuildServerLine(content, lx, UiScale.RefHeight - BottomBarHeight - UiLayout.V(2) - 40f - top, UiLayout.ColW(7), 40f);
+            foreach (var mb in _buttons.Values)
+            {
+                if (mb == null) continue;
+                if (mb.Background != null) mb.Background.enabled = false;
+                if (mb.Glow != null) mb.Glow.enabled = false;
+            }
             Focus.CursorChanged = prev =>
             {
                 if (_expedition != null && ReferenceEquals(Focus.Current, _expedition)) PlayUi(StartSounds.MainMenuModeCardFocus);
@@ -110,28 +125,83 @@ namespace Wizard.Solo.Screens.Start
             _pending = new PendingSettledPanel(Ctx, Root, new UiFocusGroup(Manager != null ? Manager.InputMode : null, Ctx != null ? Ctx.Sound : null));
         }
 
-        void CardArtBig(RectTransform parent, string variant, float x, float y)
+        /// <summary>왼쪽 메뉴 뒤 어둠(판 대신): 진한 띠 + 옅은 띠로 오른쪽 장면 쪽으로 풀린다.</summary>
+        void BuildScrim(RectTransform content, float top)
         {
-            var sp = Ctx != null && Ctx.Art != null ? Ctx.Art.Ui("S-0502", variant) : default(UiSprite);
-            if (sp.IsValid) UiKit.Image(parent, sp.Sprite, x, y, BigArtW, BigArtH, null, true);
-            else UiKit.Panel(Ctx, parent, UiPanelKind.Recess, x, y, BigArtW, BigArtH);
+            float h = UiScale.RefHeight - top - BottomBarHeight;
+            // 진한 몸통 뒤로 얇은 띠 여러 장이 조금씩 옅어져 경계가 보이지 않게 장면 쪽으로 풀린다.
+            const int Steps = 24;
+            float solid = ScrimW * 0.55f, fade = ScrimW - solid;
+            UiKit.Rect(content, 0f, 0f, solid, h, UiTheme.WithAlpha(UiTheme.Night, 0.62f), false, "Scrim");
+            for (int i = 0; i < Steps; i++)
+            {
+                float t = (i + 0.5f) / Steps;
+                float a = 0.62f * (1f - t) * (1f - t);
+                UiKit.Rect(content, solid + fade * i / Steps, 0f, fade / Steps + 1f, h, UiTheme.WithAlpha(UiTheme.Night, a), false, "ScrimFade" + i);
+            }
         }
 
-        /// <summary>서버 전용 묶음 한 줄: "결투 · 광장 · … — 서버에 접속하면 열립니다". 종이 글자가 아니라 밝은 글자(흐리게 보이지 않게).</summary>
+        /// <summary>메뉴 한 줄: 판 없는 버튼(단 폭), 글자는 왼쪽 정렬. 고르면 옅은 면 + 왼쪽 금 막대(표식).</summary>
+        UiButton MenuRow(RectTransform content, string text, float y, float h, UiFontId font, Color color, System.Action onClick, string sound)
+        {
+            float w = UiLayout.ColW(4);
+            var b = UiKit.Button(Ctx, content, text, UiLayout.ColX(0), y, w, h, onClick, UiButtonStyle.Plain, Focus, sound, font, noBracket: true);
+            var r = b.ContentRoot != null ? b.ContentRoot : b.Rect;
+            var mark = UiKit.Node(r, "RowMark", 0f, 0f, w, h);
+            mark.SetAsFirstSibling();
+            UiKit.Rect(mark, 0f, 0f, w, h, UiTheme.WithAlpha(UiTheme.Wood, 0.6f), false, "RowFill");
+            UiKit.Rect(mark, 0f, 8f, 4f, h - 16f, UiTheme.Gold, false, "RowBar");
+            if (b.Label != null)
+            {
+                b.Label.Text.alignment = TextAnchor.MiddleLeft;
+                var lrt = b.Label.Rect;
+                lrt.offsetMin = new Vector2(RowInset, lrt.offsetMin.y);
+                UiKit.DropShadow(b.Label, 2f);
+            }
+            b.LabelColor = color;
+            b.Refresh();
+            mark.gameObject.SetActive(false);
+            _rows.Add(b);
+            _rowMarks.Add(mark.gameObject);
+            _rowColors.Add(color);
+            return b;
+        }
+
+        /// <summary>커서가 온 줄: 표식을 켜고 글자를 금색으로. 원정 머리 항목도 같은 규칙.</summary>
+        void UpdateRowMarks()
+        {
+            var cur = Focus != null ? Focus.Current : null;
+            for (int i = 0; i < _rows.Count; i++)
+            {
+                var b = _rows[i];
+                if (b == null) continue;
+                bool on = ReferenceEquals(cur, b);
+                if (_rowMarks[i].activeSelf == on) continue;
+                _rowMarks[i].SetActive(on);
+                b.LabelColor = on ? UiTheme.Gold : _rowColors[i];
+                b.Refresh();
+            }
+            if (_heroMark != null)
+            {
+                bool heroOn = _expedition != null && ReferenceEquals(cur, _expedition);
+                _heroMark.enabled = heroOn;
+                if (_heroTitle != null) _heroTitle.Color = heroOn ? UiTheme.Gold : UiTheme.Chalk;
+            }
+        }
+
+        /// <summary>서버 전용 묶음 한 줄: "결투 · 광장 · … — 서버에 접속하면 열립니다". 판 없는 작은 설명 글.</summary>
         void BuildServerLine(RectTransform content, float x, float y, float w, float h)
         {
             var e = _model.ServerOnly;
             var b = UiKit.Button(Ctx, content, null, x, y, w, h, () => Open(e), UiButtonStyle.Plain, Focus, StartSounds.OfflineGroupBoxOpen);
             var r = b.ContentRoot != null ? b.ContentRoot : b.Rect;
-            UiKit.Panel(Ctx, r, UiPanelKind.Recess, 0f, 0f, w, h);
             var names = new List<string>();
             for (int i = 0; i < MainMenuModel.ServerOnlyKeys.Length; i++) names.Add(T(MainMenuModel.ServerOnlyKeys[i]));
             float h16 = UiTheme.LineHeight(UiFontId.F16);
-            UiKit.Label(Ctx, r, F(MainMenuModel.ServerLineKey, "names", string.Join(T(MainMenuModel.ServerLineSepKey), names),
-                    "note", T(StartNameKeys.MainMenuServerOnly)), UiFontId.F16, 16f, (h - h16) * 0.5f, w - 32f, h16, UiTheme.Chalk);
+            var l = UiKit.Label(Ctx, r, F(MainMenuModel.ServerLineKey, "names", string.Join(T(MainMenuModel.ServerLineSepKey), names),
+                    "note", T(StartNameKeys.MainMenuServerOnly)), UiFontId.F16, RowInset, (h - h16) * 0.5f, w - RowInset, h16, UiTheme.SlateBlue);
             _buttons[MainMenuAction.ServerOnly] = b;
         }
-
         void BuildBackdrop()
         {
             var back = UiKit.Node(Root, "MenuBackdrop", 0f, 0f, UiScale.RefWidth, UiScale.RefHeight);
@@ -149,11 +219,12 @@ namespace Wizard.Solo.Screens.Start
                 _campfire = UiKit.Image(back, _fireAnim.Frames[0], tl.x, tl.y, CampfireSize, CampfireSize, null, false);
             }
             float cs = CharCell * CharScale;
-            float cx = (UiScale.RefWidth - cs) * 0.5f;
+            // 캐릭터는 모닥불 왼쪽 곁(장면의 중심, 왼쪽 메뉴와 겹치지 않게).
+            float cx = FireAnchorX - CampfireSize * 0.5f - cs - 24f;
             float cy = UiScale.RefHeight - BottomBarHeight - cs - PedestalH * 0.5f;
             var ped = art.Ui("S-0503", "dirt_pedestal");
             if (ped.IsValid)
-                UiKit.Image(back, ped.Sprite, (UiScale.RefWidth - PedestalW) * 0.5f, cy + cs - PedestalH * 0.5f, PedestalW, PedestalH, null, false);
+                UiKit.Image(back, ped.Sprite, cx + (cs - PedestalW) * 0.5f, cy + cs - PedestalH * 0.5f, PedestalW, PedestalH, null, false);
             _charImage = UiKit.Image(back, null, cx, cy, cs, cs, Color.white, false);
             _charImage.enabled = false;
             _wandImage = UiKit.Image(back, null, cx, cy, WandCellW * CharScale, WandCellH * CharScale, Color.white, false);
@@ -179,22 +250,23 @@ namespace Wizard.Solo.Screens.Start
             var art = Ctx != null ? Ctx.Art : null;
             float by = (TopBarHeight - BadgeH) * 0.5f;
             var badge = art != null ? art.Ui("I-F12", TitleModel.ProfileBadgeVariant(Ctx.Kind)) : default(UiSprite);
-            if (badge.IsValid) UiKit.Image(TopBar, badge.Sprite, 48f, by, BadgeW, BadgeH, null, false);
-            else UiKit.Panel(Ctx, TopBar, UiPanelKind.Heading, 48f, by, BadgeW, BadgeH);
+            if (badge.IsValid) UiKit.Image(TopBar, badge.Sprite, UiLayout.Outer, by, BadgeW, BadgeH, null, false);
+            else UiLayout.Surface(Ctx, TopBar, UiLayout.Outer, by, BadgeW, BadgeH);
             // 표지 그림(I-F12)은 왼쪽에 문서 아이콘, 오른쪽이 글자 자리인 종이다 → 글자는 아이콘 오른쪽에 종이 글자색으로.
             _profileLabel = UiKit.Label(Ctx, TopBar, T(TitleModel.ProfileKey(Ctx != null ? Ctx.Kind : ProfileKind.Offline)), UiFontId.F16,
-                48f + TitleModel.BadgeTextInset, by, BadgeW - TitleModel.BadgeTextInset - TitleModel.BadgeTextRight, BadgeH,
+                UiLayout.Outer + TitleModel.BadgeTextInset, by, BadgeW - TitleModel.BadgeTextInset - TitleModel.BadgeTextRight, BadgeH,
                 badge.IsValid ? UiTheme.PaperText : UiTheme.Chalk, TextAnchor.MiddleCenter, false, !badge.IsValid);
-            _equippedTitle = UiKit.Label(Ctx, TopBar, string.Empty, UiFontId.F16, 48f + BadgeW + 24f, by, 480f, BadgeH, UiTheme.Chalk);
             if (TitleLabel != null)
             {
-                TitleLabel.SetText(T(StartNameKeys.MainMenuTitle));
-                TitleLabel.Text.alignment = TextAnchor.MiddleCenter;
+                // 메인 메뉴는 제목 글을 두지 않는다(화면 자체가 메뉴다).
+                TitleLabel.SetText(string.Empty);
             }
-            const float GoldW = 320f, IconS = 24f;
-            float gx = UiScale.RefWidth - 48f - GoldW;
-            if (art != null) UiKit.Image(TopBar, art.Icon("ui:I-C2/gold", 24), gx, (TopBarHeight - IconS) * 0.5f, IconS, IconS, null, false);
-            _gold = UiKit.Label(Ctx, TopBar, string.Empty, UiFontId.F24, gx + IconS + 8f, by, GoldW - IconS - 8f, BadgeH, UiTheme.Gold,
+            // 골드 알약: 들어간 면 + 동전 + F24 금색 값(오른쪽 바깥 여백 64에 맞춘다).
+            const float GoldW = 240f, IconS = 24f, ChipH = 48f;
+            float gx = UiLayout.ScreenW - UiLayout.Outer - GoldW, gy = (TopBarHeight - ChipH) * 0.5f;
+            var chip = UiLayout.Surface(Ctx, TopBar, gx, gy, GoldW, ChipH, 0);
+            if (art != null) UiKit.Image(chip, art.Icon("ui:I-C2/gold", 24), 16f, (ChipH - IconS) * 0.5f, IconS, IconS, null, false);
+            _gold = UiKit.Label(Ctx, chip, string.Empty, UiFontId.F24, 16f + IconS + 8f, 0f, GoldW - IconS - 40f, ChipH, UiTheme.Gold,
                 TextAnchor.MiddleRight);
         }
 
@@ -234,7 +306,7 @@ namespace Wizard.Solo.Screens.Start
             var p = Ctx != null ? Ctx.Profile : null;
             _refreshedWithRun = RunActive();
             _model = MainMenuModel.Build(p, Ctx != null ? Ctx.Content : null, _refreshedWithRun);
-            if (_bestWave != null) _bestWave.SetText(_model.BestWaveLine(Ctx != null ? Ctx.Names : null));
+            RefreshBestChip(_model.BestWaveLine(Ctx != null ? Ctx.Names : null));
             if (_tracker != null)
             {
                 string line = _model.TrackerLine(Ctx != null ? Ctx.Names : null);
@@ -249,6 +321,15 @@ namespace Wizard.Solo.Screens.Start
             for (int i = 0; i < _model.Items.Count; i++) if (_model.Items[i].Action == MainMenuAction.Enhance) hasEnhance = true;
             if (_buttons.TryGetValue(MainMenuAction.Enhance, out var eb) && eb != null) eb.gameObject.SetActive(hasEnhance);
             RefreshCharacter(p);
+        }
+
+        /// <summary>최고 웨이브 알약: 글이 바뀔 때만 다시 만든다(알약 폭이 글 길이를 따른다).</summary>
+        void RefreshBestChip(string text)
+        {
+            if (_bestChipRoot == null || text == _bestChipText) return;
+            _bestChipText = text;
+            for (int i = _bestChipRoot.childCount - 1; i >= 0; i--) Object.Destroy(_bestChipRoot.GetChild(i).gameObject);
+            UiLayout.Chip(Ctx, _bestChipRoot, 0f, 0f, text, null, UiTheme.Gold);
         }
 
         /// <summary>원정 카드의 다음 목표: 복수 중이면 허상까지 n웨이브, 그리고 지금 캐릭터의 다음 도전 과제(없으면 "모두" 과제).</summary>
@@ -330,6 +411,7 @@ namespace Wizard.Solo.Screens.Start
             // 판이 열리고 닫힌 것이 바뀌면 항목(강화, TV-133)을 다시 정한다. 정산은 판이 열린 채 저장하고(그때 Refresh가 강화를 숨긴다)
             // 그 뒤 EndRun을 하므로, 저장 신호만 믿으면 메뉴로 돌아왔을 때 강화가 숨은 채 남는다.
             if (_model != null && RunActive() != _refreshedWithRun) Refresh();
+            UpdateRowMarks();
             _animClock += dt;
             if (_charAnim != null && _charImage != null) { _charImage.sprite = _charAnim.At(_animClock); PlaceWand(_animClock); }
             if (_fireAnim != null && _campfire != null) _campfire.sprite = _fireAnim.At(_animClock);

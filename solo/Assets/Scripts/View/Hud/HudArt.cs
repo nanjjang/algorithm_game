@@ -196,6 +196,21 @@ namespace Wizard.Solo.View.Hud
             return root;
         }
 
+        /// <summary>
+        /// 테 없는 가벼운 자리: 고정점 배치 노드 + 가장자리로 흐려지는 먹색 번짐 한 장(글이 전장 위에서 읽히게 하는 정도).
+        /// 금 테 판(Plate)은 무게가 같은 상자가 여럿 늘어서 보이므로 전투 HUD에서는 이것을 쓴다.
+        /// </summary>
+        public static RectTransform Bare(RectTransform parent, string name, float ax, float ay, float x, float y, float w, float h, float alpha = 0.55f)
+        {
+            var root = Anchored(parent, name, ax, ay, x, y, w, h);
+            if (alpha > 0f)
+            {
+                var g = UiBackdrop.Glow(root, -w * 0.12f, -h * 0.3f, w * 1.24f, h * 1.6f, UiTheme.WithAlpha(UiTheme.Ink, alpha));
+                g.raycastTarget = false;
+            }
+            return root;
+        }
+
         /// <summary>고정점 배치 노드(판 없이).</summary>
         public static RectTransform Anchored(RectTransform parent, string name, float ax, float ay, float x, float y, float w, float h)
         {

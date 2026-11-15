@@ -167,6 +167,8 @@ namespace Wizard.Solo.Sim
 
         // 판 통계(HUD·정산)
         public int Kills;
+        /// <summary>협동: 쓰러진 동안 동료가 곁에 서 있은 틱 수(부활 진행, Run이 센다 — RunFlow.Revive.cs).</summary>
+        public int ReviveTicks;
 
         public bool Invulnerable(int tick) => tick < InvulnUntilTick;
         public bool InStance => Stance != StanceState.None;

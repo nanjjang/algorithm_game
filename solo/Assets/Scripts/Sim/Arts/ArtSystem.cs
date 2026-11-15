@@ -57,6 +57,13 @@ namespace Wizard.Solo.Sim.Arts
         public ArtDecision LastDecision;
         /// <summary>고유 비기 강화의 진행 중인 단계들(불기둥 고리, 낙뢰 궤적, 책장 소용돌이, 얼음 가시 줄, 그림자 손 짓누름). Docs/12 4절.</summary>
         public readonly List<ArtSequence> Sequences = new List<ArtSequence>();
+        /// <summary>진행 중인 파이널 어빌리티(게이지 가득 + K). ArtSystem.Finals.cs.</summary>
+        public readonly List<FinalRun> Finals = new List<FinalRun>();
+        /// <summary>두 번째 K를 기다리는 첫 K(파이널 어빌리티 두 번 누르기, ArtSystem.Finals.cs).</summary>
+        public bool PendingTap;
+        public long PendingTapU;
+        /// <summary>이 틱이 지나면 첫 K를 마력 방출로 낸다.</summary>
+        public int PendingTapUntilTick;
     }
 
     /// <summary>
@@ -157,6 +164,28 @@ namespace Wizard.Solo.Sim.Arts
             }
             s.Parser.SetStance(p.InStance);
             s.Wallet.Bind(w, p);
+            if (s.PendingTap)
+            {
+                // 두 번째 K: 창 안이면 파이널, 아니면 첫 K를 마력 방출로 내고 이번 K는 보통으로.
+                s.PendingTap = false;
+                if (timeU - s.PendingTapU <= DoubleTapU(w) && TryStartFinal(w, p, s)) return;
+                PressNormal(w, p, s, s.PendingTapU);
+            }
+            else if (FinalReady(w, p) && PlainKIsBurst(s, p, timeU))
+            {
+                // 첫 K: 두 번째 K를 기다린다(5단계가 창이 지나면 마력 방출로 낸다).
+                s.PendingTap = true;
+                s.PendingTapU = timeU;
+                s.PendingTapUntilTick = w.Tick + Mathf.Max(1, SimConst.Ticks(DoubleTapU(w) / (float)SimConst.UnitsPerSecond));
+                return;
+            }
+            PressNormal(w, p, s, timeU);
+        }
+
+        void PressNormal(SimWorld w, PlayerState p, ArtPlayerState s, long timeU)
+        {
+            s.Parser.SetStance(p.InStance);
+            s.Wallet.Bind(w, p);
             bool hasPhysical = s.HasPhysical;
             Dir8 physical = s.LastPhysical;
             ArtDecision d;
@@ -223,13 +252,21 @@ namespace Wizard.Solo.Sim.Arts
                     s.Parser.DropBuffered();
                     s.Casts.Clear();
                     s.Sequences.Clear();
+                    s.Finals.Clear();
+                    s.PendingTap = false;
                     continue;
+                }
+                if (s.PendingTap && w.Tick > s.PendingTapUntilTick)
+                {
+                    s.PendingTap = false;
+                    PressNormal(w, p, s, s.PendingTapU);
                 }
                 ArtDecision d;
                 if (s.Parser.TryTakeBuffered(w.NowU, out d))
                     Deliver(w, p, s, in d, s.BufferedHasPhysical, s.BufferedPhysical);
                 RunCasts(w, p, s);
                 RunSequences(w, p, s);
+                RunFinals(w, p, s);
             }
             UpdateZones(w);
         }
@@ -268,6 +305,8 @@ namespace Wizard.Solo.Sim.Arts
                 LastDirTimeU = s.Parser.LastDirTimeU,
                 JustWindowU = s.Trie.Timings.JustWindowU
             };
+            // 결정이 충분하면 K 두 번으로 나갈 파이널 어빌리티를 함께 보여 준다.
+            if (FinalReady(w, p)) { r.FinalArtId = FinalIdFor(w, p); r.FinalCost = p.Crystals; }
             if (pv.HasJustLine)
             {
                 r.HasJustLine = true;

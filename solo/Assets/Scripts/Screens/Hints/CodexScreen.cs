@@ -122,7 +122,7 @@ namespace Wizard.Solo.Screens.Hints
             var db = Ctx != null ? Ctx.Content : null;
             var names = Ctx != null ? Ctx.Names : null;
             var w = Ctx != null && Ctx.Session != null ? Ctx.Session.World : null;
-            var p = w != null && w.Players != null && w.Players.Length > 0 && w.Players[0].Active ? w.Players[0] : null;
+            var p = w != null && w.Players != null && w.Players.Length > 0 && w.Me.Active ? w.Me : null;
             var ch = p != null && p.Def != null ? p.Def : db != null ? db.BaselineCharacter : null;
             string charId = p != null ? p.CharId : Ids.Char.C1;
             var rows = CodexModel.Rows(section, names, db, charId, CodexModel.Args(db, ch, p, KeyName));

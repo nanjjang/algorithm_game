@@ -112,7 +112,7 @@ namespace Wizard.Solo.Tests.ScreensStart
             var m = MainMenuModel.Build(StartTestData.Profile(), TestContent.Db, false);
             var ids = new List<string>();
             foreach (var e in m.Items) ids.Add(e.Id);
-            CollectionAssert.AreEqual(new[] { "enhance", "assembly_library", "practice", "records", "wardrobe", "shop", "settings" }, ids);
+            CollectionAssert.AreEqual(new[] { "coop", "enhance", "assembly_library", "practice", "records", "wardrobe", "shop", "settings" }, ids); // 협동(11-online.md)이 맨 앞
             Assert.AreEqual("str.main_menu.item.exit", m.Exit.NameKey);
             Assert.AreEqual("str.main_menu.mode.expedition", m.Expedition.NameKey);
         }

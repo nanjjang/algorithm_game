@@ -15,9 +15,14 @@ namespace Wizard.Solo.Screens.Settlement
     // 규칙은 RunRecap(엔진 없음). 여기는 그리기만 한다.
     public sealed partial class SettlementScreen
     {
-        // 판 끝 요약 칸(내용 좌표). 오른쪽 점수 내역(720,160)과 겹치지 않게 왼쪽 64~688.
-        const float RecapX = 64f, RecapY = 152f, RecapW = 624f, RecapH = 688f;
-        const float TileW = 192f, TileH = 96f, TileGap = 8f, MasterPx = 96f, CharPx = 72f;
+        // 판 끝 요약 칸(내용 좌표): 격자 왼쪽 0~5열, 머리 밑(BodyY)부터. 높이는 내용에 맞춘다(최대 RecapH).
+        // 속성으로 둔다: 다른 부분 파일의 정적 값(LX·HalfW)은 초기화 순서가 정해져 있지 않다.
+        static float RecapX => LX;
+        static float RecapW => HalfW;
+        const float RecapY = BodyY, RecapH = 688f;
+        const float TileGap = 8f, TileH = 104f, MasterPx = 96f, CharPx = 72f;
+        static float TileW => (HalfW - 2f * UiLayout.SurfacePad - 2f * TileGap) / 3f;
+        RectTransform _recapBg;
 
         readonly RunStatsCollector _collector;
         readonly RecapTuning _recapTuning;
@@ -39,7 +44,7 @@ namespace Wizard.Solo.Screens.Settlement
 
         void BuildRecapBox(RectTransform page)
         {
-            _recapBox = UiKit.OrnatePanel(Ctx, page, RecapX, RecapY, RecapW, RecapH, 1).rectTransform;
+            _recapBox = UiKit.Node(page, "RunRecap", RecapX, RecapY, RecapW, RecapH);
             _recapBox.name = "RunRecap";
             _recapBox.gameObject.SetActive(false);
         }
@@ -77,27 +82,25 @@ namespace Wizard.Solo.Screens.Settlement
         {
             ClearList(_recapObjects);
             RunRecap r = _model.Recap;
-            bool show = r != null && _recapBox != null;
+            bool show = _showRecordDetails && r != null && _recapBox != null;
             if (_recapBox != null) _recapBox.gameObject.SetActive(show);
             for (int i = 0; i < _artObjects.Count; i++) if (_artObjects[i] != null) _artObjects[i].SetActive(!show);
             if (!show) return;
 
             INameTable names = Ctx != null ? Ctx.Names : null;
             RectTransform box = _recapBox;
-            float pad = 20f, w = RecapW - pad * 2f;
+            float pad = UiLayout.SurfacePad, w = RecapW - pad * 2f;
             float lh16 = UiTheme.LineHeight(UiFontId.F16), lh24 = UiTheme.LineHeight(UiFontId.F24), lh32 = UiTheme.LineHeight(UiFontId.F32);
-            float y = 14f;
+            float y = pad;
 
             // 머리: 제목 + 오른쪽 위 캐릭터 얼굴.
-            Add(UiKit.Label(Ctx, box, T(RunRecap.TitleKey), UiFontId.F24, pad, y, w - CharPx, lh24, UiTheme.Chalk));
+            Add(UiKit.Label(Ctx, box, T(RunRecap.TitleKey), UiFontId.F16, pad, y, w - CharPx, lh16, UiTheme.Brass));
             string charId = _model.Summary != null ? _model.Summary.CharId : null;
             Sprite face = Ctx != null && Ctx.Art != null && !string.IsNullOrEmpty(charId) ? Ctx.Art.CharacterSelection(charId) : null;
-            if (face != null) Add(UiKit.Image(box, face, RecapW - pad - CharPx, 6f, CharPx, CharPx));
-            y += lh24 + 10f;
+            if (face != null) Add(UiKit.Image(box, face, RecapW - pad - CharPx, pad - 8f, CharPx, CharPx));
+            y += lh16 + 12f;
 
             // 사인.
-            Add(UiKit.Label(Ctx, box, T(RunRecap.CauseTitleKey), UiFontId.F16, pad, y, w, lh16, UiTheme.SlateBlue));
-            y += lh16 + 2f;
             var cause = UiKit.Label(Ctx, box, r.CauseText(names), UiFontId.F32, pad, y, w - CharPx * 0.5f, lh32, UiTheme.Chalk);
             UiKit.DropShadow(cause, 2f);
             Add(cause);
@@ -114,40 +117,47 @@ namespace Wizard.Solo.Screens.Settlement
             }
             if (r.HasStats)
             {
-                Add(UiKit.Label(Ctx, box, F(RunRecap.CauseHitsKey, "n", r.HitsTaken), UiFontId.F16, pad, y, w, lh16, UiTheme.Paper));
-                y += lh16 + 2f;
+                Add(UiKit.Label(Ctx, box, F(RunRecap.CauseHitsKey, "n", r.HitsTaken), UiFontId.F24, pad, y, w, lh24, UiTheme.Chalk));
+                y += lh24;
                 string most = r.MostHitText(names);
-                if (!string.IsNullOrEmpty(most)) Add(UiKit.Label(Ctx, box, most, UiFontId.F16, pad, y, w, lh16, UiTheme.Paper));
-                y += lh16 + 6f;
+                if (!string.IsNullOrEmpty(most)) Add(UiKit.Label(Ctx, box, most, UiFontId.F24, pad, y, w, lh24, UiTheme.Chalk));
+                y += lh24 + 8f;
             }
-            Add(UiKit.Divider(Ctx, box, pad, y, w));
-            y += 10f;
+            Add(UiKit.Rect(box, pad, y, w, 1f, UiTheme.WithAlpha(UiTheme.Brass, 0.5f), false, "RecapRule"));
+            y += 16f;
 
             // 이번 판 최고 순간(3 × 2 칸).
             Add(UiKit.Label(Ctx, box, T(RunRecap.HighlightTitleKey), UiFontId.F16, pad, y, w, lh16, UiTheme.Gold));
             y += lh16 + 6f;
-            for (int i = 0; i < r.Highlights.Count; i++)
+            int highlights = 0;
+            foreach (var highlight in r.Highlights)
             {
-                float tx = pad + (i % 3) * (TileW + TileGap);
-                float ty = y + (i / 3) * (TileH + TileGap);
-                Tile(box, r.Highlights[i], tx, ty, 0.25f + i * 0.08f);
+                if (highlight.Unknown || (highlight.IsWave && !highlight.NewBest)) continue;
+                float tx = pad + (highlights % 3) * (TileW + TileGap);
+                float ty = y + (highlights / 3) * (TileH + TileGap);
+                Tile(box, highlight, tx, ty, 0.25f + highlights * 0.06f);
+                highlights++;
             }
-            y += 2f * (TileH + TileGap) + 4f;
+            y += Mathf.CeilToInt(highlights / 3f) * (TileH + TileGap) + 4f;
 
             // 다음 판에 해 볼 것.
             Add(UiKit.Label(Ctx, box, T(RunRecap.TipTitleKey), UiFontId.F16, pad, y, w, lh16, UiTheme.Good));
             y += lh16 + 2f;
-            var tip = UiKit.Label(Ctx, box, r.TipText(names), UiFontId.F16, pad + 8f, y, w - 8f, lh16 * 3f, UiTheme.Chalk, TextAnchor.UpperLeft, true);
+            var tip = UiKit.Label(Ctx, box, r.TipText(names), UiFontId.F24, pad, y, w, lh24 * 2f, UiTheme.Chalk, TextAnchor.UpperLeft, true);
             Add(tip);
-            y += lh16 * 3f + 6f;
+            y += lh24 * 2f + 8f;
 
             // 스승의 한마디(사인·성과별 몇 갈래).
             Sprite master = EnhanceUi.EffectFrame(Ctx, EnhanceUi.GroupEnhance, "master_peek");
-            float my = RecapH - MasterPx - 14f;
+            // 스승 줄은 내용 바로 밑에 붙이고, 판은 그 높이에 맞춘다(아래 빈 칸을 남기지 않는다).
+            float my = y + 4f;
+            float boxH = Mathf.Min(RecapH, UiLayout.Snap(my + MasterPx + pad));
+            UiKit.Place(_recapBox, RecapX, RecapY, RecapW, boxH);
+            Backing(ref _recapBg, _recapBox, RecapW, boxH, 1);
             if (master != null) Add(UiKit.Image(box, master, pad, my, MasterPx, MasterPx));
-            else Add(UiKit.Panel(Ctx, box, UiPanelKind.Recess, pad, my, MasterPx, MasterPx));
-            float qx = pad + MasterPx + 12f, qw = RecapW - qx - pad;
-            Add(UiKit.Panel(Ctx, box, UiPanelKind.Recess, qx, my, qw, MasterPx));
+            else Add(UiLayout.Surface(Ctx, box, pad, my, MasterPx, MasterPx, 0));
+            float qx = pad + MasterPx + 16f, qw = RecapW - qx - pad;
+            Add(UiLayout.Surface(Ctx, box, qx, my, qw, MasterPx, 0));
             Add(UiKit.Label(Ctx, box, T(RunRecap.MasterNameKey), UiFontId.F16, qx + 12f, my + 6f, qw - 24f, lh16, UiTheme.SlateBlue));
             var quote = UiKit.Label(Ctx, box, T(r.MasterLineKey), UiFontId.F24, qx + 12f, my + 8f + lh16, qw - 24f, MasterPx - lh16 - 14f,
                 UiTheme.Paper, TextAnchor.UpperLeft, true);
@@ -159,32 +169,24 @@ namespace Wizard.Solo.Screens.Settlement
         {
             var root = UiKit.Node(box, "Highlight", x, y, TileW, TileH);
             Add(root.gameObject);
-            UiKit.Panel(Ctx, root, UiPanelKind.Recess, 0f, 0f, TileW, TileH);
-            if (h.NewBest)
-            {
-                UiKit.Rect(root, 0f, 0f, TileW, 3f, UiTheme.Gold);
-                UiKit.Rect(root, 0f, TileH - 3f, TileW, 3f, UiTheme.Gold);
-            }
-            float lh12 = UiTheme.LineHeight(UiFontId.F12), lh32 = UiTheme.LineHeight(UiFontId.F32);
+            UiKit.Rect(root, 10f, 0f, TileW - 20f, h.NewBest ? 2f : 1f,
+                h.NewBest ? UiTheme.Gold : UiTheme.WithAlpha(UiTheme.SlateBlue, 0.4f), false, "HighlightRule");
+            float lh16 = UiTheme.LineHeight(UiFontId.F16), lh32 = UiTheme.LineHeight(UiFontId.F32);
             float labelW = h.NewBest ? (TileW - 20f) * 0.6f : TileW - 20f;
-            UiKit.Label(Ctx, root, T(h.LabelKey), UiFontId.F12, 10f, 8f, labelW, lh12, UiTheme.SlateBlue);
+            UiKit.Label(Ctx, root, T(h.LabelKey), UiFontId.F16, 10f, 6f, labelW, lh16, UiTheme.SlateBlue);
             if (h.NewBest)
-                UiKit.Label(Ctx, root, T(RunRecap.HighlightNewKey), UiFontId.F12, 10f + labelW, 8f, TileW - 20f - labelW, lh12, UiTheme.Gold, TextAnchor.MiddleRight);
-            if (h.Unknown)
-            {
-                UiKit.Label(Ctx, root, T(RunRecap.HighlightNoneKey), UiFontId.F32, 10f, 8f + lh12 + 4f, TileW - 20f, lh32, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
-            }
-            else if (!string.IsNullOrEmpty(h.IconId))
+                UiKit.Label(Ctx, root, T(RunRecap.HighlightNewKey), UiFontId.F16, 10f + labelW, 6f, TileW - 20f - labelW, lh16, UiTheme.Gold, TextAnchor.MiddleRight);
+            if (!string.IsNullOrEmpty(h.IconId))
             {
                 const int IconPx = 40;
-                UiKit.Icon(Ctx, root, h.IconId, IconPx, 10f, 8f + lh12 + 6f);
-                UiKit.Label(Ctx, root, T(h.IconId), UiFontId.F16, 10f + IconPx + 8f, 8f + lh12 + 4f, TileW - IconPx - 28f, UiTheme.LineHeight(UiFontId.F16), UiTheme.Chalk);
-                UiKit.Label(Ctx, root, F(RunRecap.HighlightShotsKey, "n", N(h.Value)), UiFontId.F12, 10f + IconPx + 8f, 8f + lh12 + 30f, TileW - IconPx - 28f, lh12, UiTheme.SlateBlue);
+                UiKit.Icon(Ctx, root, h.IconId, IconPx, 10f, 8f + lh16 + 6f);
+                UiKit.Label(Ctx, root, T(h.IconId), UiFontId.F16, 10f + IconPx + 8f, 8f + lh16 + 4f, TileW - IconPx - 28f, UiTheme.LineHeight(UiFontId.F16), UiTheme.Chalk);
+                UiKit.Label(Ctx, root, F(RunRecap.HighlightShotsKey, "n", N(h.Value)), UiFontId.F16, 10f + IconPx + 8f, 8f + lh16 + 28f, TileW - IconPx - 28f, lh16, UiTheme.SlateBlue);
             }
             else
             {
                 Color c = h.NewBest ? UiTheme.Gold : UiTheme.Chalk;
-                var v = UiKit.Label(Ctx, root, string.Empty, UiFontId.F32, 10f, 8f + lh12 + 4f, TileW - 20f, lh32, c, TextAnchor.MiddleCenter);
+                var v = UiKit.Label(Ctx, root, string.Empty, UiFontId.F32, 10f, 8f + lh16 + 4f, TileW - 20f, lh32, c, TextAnchor.MiddleCenter);
                 if (h.IsWave)
                     v.SetText(F(RunRecap.WaveFormatKey, "n", h.Value));
                 else UiCountUp.Run(v, h.Value, N, delay, UiTheme.CountUpSeconds * 0.8f, 0, h.NewBest);
@@ -230,7 +232,7 @@ namespace Wizard.Solo.Screens.Settlement
             if (_model.Page == SettlementPage.Record && !_recordCelebrated && _model.CelebrateRecord)
             {
                 _recordCelebrated = true;
-                _celebrateAt = _fxClock + 0.15f + _model.ScoreRows.Count * RowRevealSeconds + UiTheme.CountUpSeconds * 1.4f;
+                _celebrateAt = _fxClock + 0.15f + _model.ScoreRows.FindAll(ShowScoreRow).Count * RowRevealSeconds + UiTheme.CountUpSeconds * 1.4f;
             }
             else if (_model.Page == SettlementPage.Takeaways && !_takeCelebrated && _model.CelebrateTakeaways)
             {

@@ -141,8 +141,17 @@ namespace Wizard.Solo.Sim.Player
             x.LastRing = RingState(w, p);
         }
 
+        /// <summary>협동 동료 자리(DataSolo/Coop.json, 11-online.md).</summary>
+        public const string CoopExtraName = "Coop";
+
         static Vector2 SpawnPoint(SimWorld w, int slot)
         {
+            if (slot > 0 && w.Content != null)
+            {
+                var pts = w.Content.SoloExtra(CoopExtraName)?["party_spawn_points"] as Newtonsoft.Json.Linq.JArray;
+                if (pts != null && slot - 1 < pts.Count)
+                    return new Vector2((float)pts[slot - 1]["x"], (float)pts[slot - 1]["y"]);
+            }
             ArenaDef field = w.Content != null ? w.Content.Field : null;
             if (field != null && field.SpawnPoints != null && field.SpawnPoints.Count > 0)
             {

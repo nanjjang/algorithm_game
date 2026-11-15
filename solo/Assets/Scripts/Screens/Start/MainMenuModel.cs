@@ -12,7 +12,9 @@ namespace Wizard.Solo.Screens.Start
         /// <summary>서버 전용 묶음 상자 → OfflineGuide 다시 보기.</summary>
         ServerOnly = 8,
         /// <summary>게임 종료(D-36 [임시], 확인 창 한 번 — N-02).</summary>
-        Exit = 9
+        Exit = 9,
+        /// <summary>협동 방(11-online.md).</summary>
+        Coop = 10
     }
 
     /// <summary>메인 메뉴의 한 칸(모드 카드, 목록 줄, 묶음 상자, 나가기).</summary>
@@ -94,6 +96,8 @@ namespace Wizard.Solo.Screens.Start
         {
             var m = new MainMenuModel { RunActive = runActive };
             m.Expedition = E(MainMenuAction.Expedition, "expedition", StartNameKeys.MainMenuExpedition, ScreenId.ExpeditionPrep);
+            if (!runActive)
+                m.Items.Add(E(MainMenuAction.Coop, "coop", Wizard.Solo.Screens.Online.OnlineKeys.MenuItem, ScreenId.CoopLobby));
             if (!runActive)
                 m.Items.Add(E(MainMenuAction.Enhance, "enhance", StartNameKeys.MainMenuEnhance, ScreenId.WandPicker));
             m.Items.Add(E(MainMenuAction.AssemblyLibrary, "assembly_library", StartNameKeys.MainMenuAssemblyLibrary, ScreenId.Camp));
@@ -186,6 +190,8 @@ namespace Wizard.Solo.Screens.Start
                     return StartNav.Push(ScreenId.DummyPractice, args.With(ScreenArgKeys.PracticeEntry, PracticeEntry.MainMenu));
                 case MainMenuAction.Records:
                     return StartNav.Push(ScreenId.Records, args);
+                case MainMenuAction.Coop:
+                    return StartNav.Push(ScreenId.CoopLobby, args);
                 case MainMenuAction.Wardrobe:
                     return StartNav.Push(ScreenId.Wardrobe, args);
                 case MainMenuAction.Shop:

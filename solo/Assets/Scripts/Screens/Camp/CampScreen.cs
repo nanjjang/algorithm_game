@@ -17,10 +17,19 @@ namespace Wizard.Solo.Screens.Camp
     /// </summary>
     public sealed class CampScreen : ScreenBase
     {
-        // 화면 배치(08 8.2절 표의 화면 좌표 − 위 띠 80). 배치 상수.
+        // 화면 배치: UiLayout 12열 격자(Content 좌표 = 화면 좌표 − 위 띠 80).
+        //   왼쪽 0~2열 = 지팡이 회로·주문 흐름, 가운데 3~8열 = 탭 + 판(조립/서고/비기), 오른쪽 9~11열 = 수치·다음 웨이브.
+        //   주 버튼(출발)은 UiLayout.PrimaryRect, 보조 행동(회복·연습)은 그 왼쪽 같은 줄.
         const float Top = ScreenBase.TopBarHeight;
-        const float LeftX = 24f, ColW = 432f, CenterX = 504f, CenterW = 912f, RightX = 1464f;
+        static readonly float LeftX = UiLayout.ColX(0), ColW = UiLayout.ColW(3);
+        static readonly float CenterX = UiLayout.ColX(3), CenterW = UiLayout.ColW(6);
+        static readonly float RightX = UiLayout.ColX(9);
+        /// <summary>비기 트라이 판(폭 912 고정)을 가운데 6열 위에 가운데 맞춤으로 둔다.</summary>
+        static readonly float TrieX = UiLayout.ColX(3) + (UiLayout.ColW(6) - ArtTrieView.W) * 0.5f;
         const float StorageCell = 64f, StorageGap = 16f, LibCellW = 96f, LibCellH = 112f, LibGap = 16f;
+        /// <summary>세로: 첫 줄 24, 탭 48, 판은 그 밑 80부터. 왼쪽 회로 72, 주문 흐름 구역은 회로 밑.</summary>
+        const float RowY = 24f, BoardY = 80f, CircuitY = 72f, TreeMaxH = 432f, WarnH = 28f;
+        const float StatsY = 24f, NextWaveY = 208f, HealW = 340f, PracticeW = 300f;
         const int StorageColumns = 6, BenchColumns = 5, LibraryColumns = 8;
         /// <summary>바뀐 값이 밝아지는 길이(08 8.2절·TV-070: 0.5초 = 30틱).</summary>
         const int HighlightTicks = SimConst.TicksPerSecond / 2;
@@ -42,10 +51,11 @@ namespace Wizard.Solo.Screens.Camp
         string _noticeKey;
         readonly StatHighlight _highlight = new StatHighlight(HighlightTicks);
 
-        UiLabel _header, _wandName, _notice, _statHeat, _statCrit, _statDps, _critWarn, _bag, _departHint, _dawn, _libCounter;
+        UiLabel _header, _headerPurse, _headerHp, _wandName, _notice, _statHeat, _statCrit, _statDps, _critWarn, _bag, _departHint, _dawn, _libCounter;
         readonly List<UiLabel> _warnLines = new List<UiLabel>();
         readonly List<UiButton> _warnButtons = new List<UiButton>();
         readonly List<int> _warnSlots = new List<int>();
+        RectTransform _headerChips;
         CircuitView _circuit;
         TreePreviewView _tree;
         RectTransform _assemblyPanel, _storageRoot, _benchRoot, _libraryRoot, _wandListRoot, _descRoot, _opsRoot, _nextWaveRoot, _filterRoot;
@@ -59,65 +69,110 @@ namespace Wizard.Solo.Screens.Camp
 
         protected override void BuildContent(RectTransform content)
         {
-            _header = UiKit.Label(Ctx, TopBar, string.Empty, UiFontId.F24, 600f, 24f, 1272f, 32f, UiTheme.Chalk, TextAnchor.MiddleRight);
+            // 위 띠 오른쪽: 긴 한 줄 대신 값 꼬리표 셋(날·웨이브 | 지갑 | 체력). 오른쪽에서 왼쪽으로 쌓는다.
+            // 위 띠 오른쪽: UiLayout.Chip 셋(날·웨이브 | 지갑 | 체력). 글 길이에 맞춰 RebuildHeader가 다시 만든다.
+            _headerChips = UiKit.Node(TopBar, "HeaderChips", 0f, (Top - UiLayout.ChipH) * 0.5f, UiScale.RefWidth - UiLayout.Outer, UiLayout.ChipH);
 
-            // 왼쪽 단: 지팡이 이름·단계, 회로, 트리, 경고 줄.
-            _wandName = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, LeftX, 96f - Top, ColW, 48f);
-            _circuit = new CircuitView(Ctx, content, LeftX, 160f - Top, ColW, 168f);
-            _tree = new TreePreviewView(Ctx, content, LeftX, 344f - Top, ColW, 480f);
+            // 왼쪽 단(0~2열): 지팡이 이름·단계, 회로(칸은 폭에 맞춰 크게), 주문 흐름(내용 높이에 맞춘 판), 경고 줄.
+            _wandName = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, LeftX, RowY, ColW, 40f);
+            _circuit = new CircuitView(Ctx, content, LeftX, CircuitY, ColW, 200f);
+            _treeSection = UiKit.Node(content, "TreeSection", LeftX, 0f, ColW, UiLayout.SectionH);
+            UiLayout.Section(Ctx, _treeSection, 0f, 0f, ColW, T("str.camp.section.spell"));
+            _tree = new TreePreviewView(Ctx, content, LeftX, 0f, ColW, TreeMaxH);
             for (int i = 0; i < TreePreviewModel.MaxWarningLines; i++)
             {
                 // 경고 줄을 고르면 트리의 그 마디에 괄호(08 8.2절).
                 int line = i;
-                var b = UiKit.Button(Ctx, content, null, LeftX, 840f - Top + i * 24f, ColW, 24f, () => OnWarningLine(line), UiButtonStyle.Plain, Focus, "");
-                UiKit.WarningTriangle(b.ContentRoot, 0f, 4f, 16f);
-                var l = UiKit.Label(Ctx, b.ContentRoot, string.Empty, UiFontId.F16, 20f, 0f, ColW - 20f, 24f, UiTheme.Amber);
+                var b = UiKit.Button(Ctx, content, null, LeftX, 0f, ColW, WarnH, () => OnWarningLine(line), UiButtonStyle.Plain, Focus, "");
+                UiKit.WarningTriangle(b.ContentRoot, 0f, 6f, 16f);
+                var l = UiKit.Label(Ctx, b.ContentRoot, string.Empty, UiFontId.F16, 24f, 2f, ColW - 24f, 24f, UiTheme.Amber);
                 _warnButtons.Add(b);
                 _warnLines.Add(l);
             }
+            LayoutLeft();
 
-            // 가운데 단.
-            _assemblyPanel = UiKit.Node(content, "Assembly", CenterX, 152f - Top, CenterW, 780f);
-            _storageRoot = UiKit.Node(_assemblyPanel, "Storage", 0f, 24f, StorageColumns * (StorageCell + StorageGap), 2 * StorageCell + StorageGap);
-            UiKit.LabelKey(Ctx, _assemblyPanel, "str.camp.storage", UiFontId.F16, 0f, 0f, 300f, 24f, UiTheme.SlateBlue).name = "StorageTitle";
+            // 가운데 단(3~8열): 탭 아래 판.
+            _assemblyPanel = UiKit.Node(content, "Assembly", CenterX, BoardY, CenterW, 760f);
+            _storageRoot = UiKit.Node(_assemblyPanel, "Storage", 0f, UiLayout.SectionH, StorageColumns * (StorageCell + StorageGap), 2 * StorageCell + StorageGap);
             float benchX = StorageColumns * (StorageCell + StorageGap) + StorageGap;
-            UiKit.LabelKey(Ctx, _assemblyPanel, "str.camp.bench", UiFontId.F16, benchX, 0f, CenterW - benchX, 24f, UiTheme.SlateBlue).name = "BenchTitle";
-            _benchRoot = UiKit.Node(_assemblyPanel, "Bench", benchX, 24f, CenterW - benchX, 2 * StorageCell + StorageGap);
+            var storageTitle = UiKit.Node(_assemblyPanel, "StorageTitle", 0f, 0f, benchX - StorageGap * 2f, UiLayout.SectionH);
+            UiLayout.Section(Ctx, storageTitle, 0f, 0f, benchX - StorageGap * 2f, T("str.camp.storage"));
+            var benchTitle = UiKit.Node(_assemblyPanel, "BenchTitle", benchX, 0f, CenterW - benchX, UiLayout.SectionH);
+            UiLayout.Section(Ctx, benchTitle, 0f, 0f, CenterW - benchX, T("str.camp.bench"));
+            _benchRoot = UiKit.Node(_assemblyPanel, "Bench", benchX, UiLayout.SectionH, CenterW - benchX, 2 * StorageCell + StorageGap);
             _wandListRoot = UiKit.Node(_assemblyPanel, "WandList", 0f, 0f, CenterW, 48f);
             _libraryRoot = UiKit.Node(_assemblyPanel, "Library", 0f, 88f, CenterW, 2 * LibCellH + LibGap + 24f);
-            _libCounter = UiKit.Label(Ctx, _assemblyPanel, string.Empty, UiFontId.F16, 0f, 60f, 400f, 24f);
-            _descRoot = UiKit.Node(_assemblyPanel, "Desc", 0f, 384f - 152f + 24f + 8f, CenterW, 160f);
-            _opsRoot = UiKit.Node(content, "Ops", CenterX, 536f - Top + 72f, CenterW, 64f);
-            _insert = UiKit.Button(Ctx, _opsRoot, T("str.camp.insert"), 0f, 0f, 216f, 56f, OnInsertButton, UiButtonStyle.Medium, Focus, "");
-            _remove = UiKit.Button(Ctx, _opsRoot, T("str.camp.remove"), 232f, 0f, 216f, 56f, OnRemoveButton, UiButtonStyle.Medium, Focus, "");
-            _swap = UiKit.Button(Ctx, _opsRoot, T("str.camp.swap"), 464f, 0f, 216f, 56f, OnSwapButton, UiButtonStyle.Medium, Focus, "");
-            _removeAll = UiKit.Button(Ctx, _opsRoot, T("str.camp.remove_all"), 696f, 0f, 216f, 56f, OnRemoveAll, UiButtonStyle.Medium, Focus, "");
-            _notice = UiKit.Label(Ctx, content, string.Empty, UiFontId.F16, CenterX, 536f - Top + 136f, CenterW, 24f, UiTheme.Amber);
+            _libCounter = UiKit.Label(Ctx, _assemblyPanel, string.Empty, UiFontId.F16, 0f, 56f, 400f, 24f);
+            float descY = WorldDescY;
+            _descRoot = UiKit.Node(_assemblyPanel, "Desc", 0f, descY, CenterW, DescH);
+            float opsY = BoardY + descY + DescH + 24f;
+            _opsRoot = UiKit.Node(content, "Ops", CenterX, opsY, CenterW, UiLayout.SecondaryH);
+            float opW = (CenterW - 3f * UiLayout.ColGap) / 4f;
+            _insert = UiLayout.SecondaryButton(Ctx, _opsRoot, T("str.camp.insert"), 0f, 0f, opW, OnInsertButton, Focus);
+            _remove = UiLayout.SecondaryButton(Ctx, _opsRoot, T("str.camp.remove"), (opW + UiLayout.ColGap), 0f, opW, OnRemoveButton, Focus);
+            _swap = UiLayout.SecondaryButton(Ctx, _opsRoot, T("str.camp.swap"), (opW + UiLayout.ColGap) * 2f, 0f, opW, OnSwapButton, Focus);
+            _removeAll = UiLayout.SecondaryButton(Ctx, _opsRoot, T("str.camp.remove_all"), (opW + UiLayout.ColGap) * 3f, 0f, opW, OnRemoveAll, Focus);
+            _notice = UiKit.Label(Ctx, content, string.Empty, UiFontId.F16, CenterX, opsY + UiLayout.SecondaryH + 16f, CenterW, 24f, UiTheme.Amber);
             UiKit.MakeDropTarget(_assemblyPanel.gameObject, p => p is int src && _assembly != null && _assembly.CanMove(src, SlotRefs.None),
                 p => { if (p is int src) DoMove(src, SlotRefs.None); });
 
-            _trie = new ArtTrieView(Ctx, content, CenterX, 152f - Top, Focus);
+            _trie = new ArtTrieView(Ctx, content, TrieX, BoardY, Focus);
             _trie.Picked = OnArtPicked;
 
-            _heal = UiKit.Button(Ctx, content, T("str.camp.heal"), CenterX, 936f - Top, 440f, 64f, OnHeal, UiButtonStyle.Large, Focus, "");
-            _dawn = UiKit.Label(Ctx, content, string.Empty, UiFontId.F12, CenterX, 936f - Top - 20f, 440f, 16f, UiTheme.Good);
-            _practice = UiKit.Button(Ctx, content, T("str.camp.practice"), CenterX + 472f, 936f - Top, 440f, 64f, OnPractice, UiButtonStyle.Large, Focus);
+            // 아래 줄: 주 버튼(출발)은 PrimaryRect, 보조 행동(회복·연습)은 그 왼쪽 같은 줄에 조용한 꼴로.
+            float subY = UiLayout.SecondaryYBesidePrimary(Top);
+            float healX = UiLayout.PrimaryRect.x - UiLayout.ColGap - HealW;
+            _heal = UiLayout.SecondaryButton(Ctx, content, T("str.camp.heal"), healX, subY, HealW, OnHeal, Focus);
+            _dawn = UiKit.Label(Ctx, content, string.Empty, UiFontId.F16, healX, subY + UiLayout.SecondaryH + 2f, HealW, 24f, UiTheme.Good, TextAnchor.MiddleCenter);
+            _practice = UiLayout.SecondaryButton(Ctx, content, T("str.camp.practice"), healX - UiLayout.ColGap - PracticeW, subY, PracticeW, OnPractice, Focus);
 
-            // 오른쪽 단: 수치, 다음 웨이브(또는 서고 거르기), 가방 미리보기, 출발.
-            UiKit.Plate(Ctx, content, UiPanelKind.Board, RightX, 96f - Top, ColW, 240f);
-            UiKit.LabelKey(Ctx, content, "str.camp.stat.heat_per_shot", UiFontId.F16, RightX + 16f, 112f - Top, 260f, 24f, UiTheme.SlateBlue);
-            _statHeat = UiKit.Label(Ctx, content, string.Empty, UiFontId.F32, RightX + 16f, 136f - Top, 400f, 40f);
-            UiKit.LabelKey(Ctx, content, "str.camp.stat.crit_shots", UiFontId.F16, RightX + 16f, 184f - Top, 260f, 24f, UiTheme.SlateBlue);
-            _statCrit = UiKit.Label(Ctx, content, string.Empty, UiFontId.F32, RightX + 16f, 208f - Top, 160f, 40f);
-            _critWarn = UiKit.Label(Ctx, content, string.Empty, UiFontId.F12, RightX + 176f, 220f - Top, 240f, 16f, UiTheme.Amber);
-            UiKit.LabelKey(Ctx, content, "str.camp.stat.dummy_dps", UiFontId.F16, RightX + 16f, 256f - Top, 260f, 24f, UiTheme.SlateBlue);
-            _statDps = UiKit.Label(Ctx, content, string.Empty, UiFontId.F32, RightX + 16f, 280f - Top, 400f, 40f);
+            // 오른쪽 단(9~11열): 구역 "주문 수치"(이름표 ― 값 줄), 구역 "다음 웨이브"(또는 서고 거르기), 가방 미리보기.
+            float sy = UiLayout.Section(Ctx, content, RightX, StatsY, ColW, T("str.camp.section.stats"));
+            _statHeat = UiLayout.StatRow(Ctx, content, RightX, sy, ColW, T("str.camp.stat.heat_per_shot"), string.Empty);
+            sy += UiLayout.RowH + UiLayout.Rhythm;
+            _statCrit = UiLayout.StatRow(Ctx, content, RightX, sy, ColW, T("str.camp.stat.crit_shots"), string.Empty);
+            sy += UiLayout.RowH;
+            _critWarn = UiKit.Label(Ctx, content, string.Empty, UiFontId.F16, RightX, sy, ColW, 24f, UiTheme.Amber, TextAnchor.MiddleRight);
+            sy += 24f + UiLayout.Rhythm;
+            _statDps = UiLayout.StatRow(Ctx, content, RightX, sy, ColW, T("str.camp.stat.dummy_dps"), string.Empty);
 
-            _nextWaveRoot = UiKit.Node(content, "NextWave", RightX, 352f - Top, ColW, 400f);
-            _filterRoot = UiKit.Node(content, "LibraryFilter", RightX, 352f - Top, ColW, 400f);
-            _bag = UiKit.Label(Ctx, content, string.Empty, UiFontId.F12, RightX, 768f - Top, ColW, 40f, UiTheme.Chalk, TextAnchor.UpperLeft, true);
-            _depart = UiKit.Button(Ctx, content, T("str.camp.depart"), RightX, 936f - Top, ColW, 64f, OnDepart, UiButtonStyle.Primary, Focus, "");
-            _departHint = UiKit.LabelKey(Ctx, content, "str.camp.depart_hint", UiFontId.F12, RightX, 936f - Top - 20f, ColW, 16f, UiTheme.SlateBlue);
+            _nextWaveRoot = UiKit.Node(content, "NextWave", RightX, NextWaveY, ColW, 520f);
+            _filterRoot = UiKit.Node(content, "LibraryFilter", RightX, NextWaveY, ColW, 200f);
+            _bag = UiKit.Label(Ctx, content, string.Empty, UiFontId.F16, RightX, NextWaveY + 400f, ColW, 48f, UiTheme.SlateBlue, TextAnchor.UpperLeft, true);
+            _depart = UiLayout.PrimaryButton(Ctx, content, T("str.camp.depart"), OnDepart, Focus, Top);
+            var pr = UiLayout.PrimaryRect;
+            _departHint = UiKit.LabelKey(Ctx, content, "str.camp.depart_hint", UiFontId.F16, pr.x, pr.y + pr.height - Top, pr.width, 24f, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
+        }
+
+        const float DescH = 176f;
+        /// <summary>설명 판 y(판 기준): 판 중 = 보관함 두 줄 밑, 서고 = 서고 칸 두 줄 밑.</summary>
+        const float WorldDescY = UiLayout.SectionH + 2 * StorageCell + StorageGap + 24f, LibraryDescY = 88f + 2 * LibCellH + LibGap + 24f + 24f;
+        RectTransform _treeSection;
+
+        /// <summary>왼쪽 단 세로 배치: 회로 높이 → 구역 제목 → 주문 흐름 판(내용 높이) → 경고 줄. 다시 그릴 때마다 맞춘다.</summary>
+        void LayoutLeft()
+        {
+            float y = UiLayout.Snap(CircuitY + _circuit.Height + 24f);
+            UiKit.Place(_treeSection, LeftX, y, ColW, UiLayout.SectionH);
+            y += UiLayout.SectionH;
+            UiKit.Place(_tree.Root, LeftX, y, ColW, _tree.Height);
+            y += _tree.Height + UiLayout.Rhythm;
+            for (int i = 0; i < _warnButtons.Count; i++)
+            {
+                UiKit.Place(_warnButtons[i].Rect, LeftX, y, ColW, WarnH);
+                y += WarnH;
+            }
+        }
+
+        /// <summary>위 띠 값 알약 하나(UiLayout.Chip). right = 오른쪽 끝 x(왼쪽으로 쌓는다). 반환 = 알약의 글자.</summary>
+        UiLabel HeaderChip(ref float right, string text, Color color)
+        {
+            var chip = UiLayout.Chip(Ctx, _headerChips, 0f, 0f, text, null, color);
+            float w = chip.rect.width;
+            right -= w;
+            UiKit.Place(chip, right, 0f, w, UiLayout.ChipH);
+            right -= UiLayout.Rhythm;
+            return chip.GetComponentInChildren<UiLabel>(true);
         }
 
         // ---------------------------------------------------------------- 들어오기
@@ -197,7 +252,7 @@ namespace Wizard.Solo.Screens.Camp
                 _tabsWidget = null;
             }
             if (_tabKeys.Length <= 1) return;
-            var tabs = UiKit.Tabs(Ctx, Content, _tabKeys, CenterX, 96f - Top, 200f, 48f, OnTab, 0, false, 4f, _layout.QeSwitchesCharacter ? Focus : null);
+            var tabs = UiKit.Tabs(Ctx, Content, _tabKeys, CenterX, RowY, 200f, 48f, OnTab, 0, false, 4f, _layout.QeSwitchesCharacter ? Focus : null);
             // Library는 Q/E가 캐릭터라 탭은 마우스로만 바꾼다(ScreenBase는 Tabs가 있으면 Q/E를 먼저 준다).
             Tabs = _layout.QeSwitchesCharacter ? null : tabs;
             _tabsWidget = tabs;
@@ -234,10 +289,16 @@ namespace Wizard.Solo.Screens.Camp
             _practice.gameObject.SetActive(_layout.ShowPractice);
             _depart.gameObject.SetActive(_layout.ShowDepart);
             _departHint.gameObject.SetActive(_layout.ShowDepart);
+            // 판 밖(서고)은 서고 칸이 두 줄이라 설명·조작 줄을 그 밑으로 내린다.
+            float descY = world ? WorldDescY : LibraryDescY;
+            UiKit.Place(_descRoot, 0f, descY, CenterW, DescH);
+            float opsY = BoardY + descY + DescH + 24f;
+            UiKit.Place(_opsRoot, CenterX, opsY, CenterW, UiLayout.SecondaryH);
+            UiKit.Place(_notice.Rect, CenterX, opsY + UiLayout.SecondaryH + 16f, CenterW, 24f);
             _nextWaveRoot.gameObject.SetActive(_layout.ShowNextWave);
             _filterRoot.gameObject.SetActive(_layout.ShowLibraryFilter);
             _bag.gameObject.SetActive(_layout.ShowBagPreview);
-            _header.gameObject.SetActive(_layout.Mode == CampMode.Camp);
+            _headerChips.gameObject.SetActive(_layout.Mode == CampMode.Camp);
         }
 
         void SetStorageTitleVisible(bool on)
@@ -261,10 +322,12 @@ namespace Wizard.Solo.Screens.Camp
         {
             if (_layout.Mode != CampMode.Camp || _world == null || _player == null) return;
             int wave = CampRules.HeaderWave(_world.Run);
-            string head = F("str.camp.header", "day", DayCycle.Day(wave < 1 ? 1 : wave), "wave", wave);
-            string purse = T("str.battle_hud.wallet") + " " + F("str.format.gold_amount", "n", N(_world.Run.Purse));
-            string hp = F("str.camp.hp", "hp", _player.HpCells, "max", _player.MaxHpCells);
-            _header.SetText(head + T("str.ui.hint.sep") + purse + T("str.ui.hint.sep") + hp);
+            CampViews.Clear(_headerChips);
+            float right = _headerChips.rect.width;
+            bool hurt = _player.HpCells < _player.MaxHpCells;
+            _headerHp = HeaderChip(ref right, F("str.camp.hp", "hp", _player.HpCells, "max", _player.MaxHpCells), hurt ? UiTheme.Amber : UiTheme.Chalk);
+            _headerPurse = HeaderChip(ref right, F("str.format.gold_amount", "n", N(_world.Run.Purse)), UiTheme.Gold);
+            _header = HeaderChip(ref right, F("str.camp.header_chip", "day", DayCycle.Day(wave < 1 ? 1 : wave), "wave", wave), UiTheme.Chalk);
         }
 
         void RebuildAssembly()
@@ -344,12 +407,12 @@ namespace Wizard.Solo.Screens.Camp
                 UiFrame.Create(cr, c.ZeroState ? UiTheme.SlateBlue : rc, CampViews.RarityFrameThickness(c.Rarity));
                 var icon = UiKit.Icon(Ctx, cr, c.BlockId, 48, (LibCellW - 48f) * 0.5f, 8f);
                 if (c.ZeroState && icon != null) icon.color = UiTheme.SlateBlue;
-                UiKit.Label(Ctx, cr, T(c.BlockId), UiFontId.F12, 4f, 60f, LibCellW - 8f, 16f, UiTheme.Chalk, TextAnchor.MiddleCenter);
+                UiKit.Label(Ctx, cr, T(c.BlockId), UiFontId.F16, 2f, 56f, LibCellW - 4f, 20f, UiTheme.Chalk, TextAnchor.MiddleCenter);
                 string count = F("str.camp.library_block_count", "n", N(c.Qty - c.Socketed));
                 if (c.BoundQty > 0) count += F("str.format.bound_count", "n", c.BoundQty);
-                UiKit.Label(Ctx, cr, count, UiFontId.F12, 4f, 76f, LibCellW - 8f, 16f, c.ZeroState ? UiTheme.SlateBlue : UiTheme.Chalk, TextAnchor.MiddleCenter);
+                UiKit.Label(Ctx, cr, count, UiFontId.F16, 2f, 72f, LibCellW - 4f, 20f, c.ZeroState ? UiTheme.SlateBlue : UiTheme.Chalk, TextAnchor.MiddleCenter);
                 if (c.Socketed > 0)
-                    UiKit.Label(Ctx, cr, T("str.camp.library_equipped") + " " + N(c.Socketed), UiFontId.F12, 4f, 92f, LibCellW - 8f, 16f, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
+                    UiKit.Label(Ctx, cr, T("str.camp.library_equipped") + " " + N(c.Socketed), UiFontId.F16, 2f, 88f, LibCellW - 4f, 20f, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
                 b.Picked = _held == myRef;
                 UiKit.MakeDraggable(b.gameObject, myRef, null, () => !_assembly.At(myRef).IsEmpty);
                 UiKit.MakeDropTarget(b.gameObject, p => p is int src && _assembly.CanMove(src, myRef), p => { if (p is int src) DoMove(src, myRef); });
@@ -378,13 +441,13 @@ namespace Wizard.Solo.Screens.Camp
 
         void BuildFilters(LibraryAssembly lib)
         {
-            UiKit.Plate(Ctx, _filterRoot, UiPanelKind.Board, 0f, 0f, ColW, 400f);
-            UiKit.LabelKey(Ctx, _filterRoot, "str.camp.library.filter", UiFontId.F16, 16f, 12f, 300f, 24f, UiTheme.SlateBlue);
+            float fy = UiLayout.Section(Ctx, _filterRoot, 0f, 0f, ColW, T("str.camp.library.filter"));
+            float fw = (ColW - 3f * UiLayout.Rhythm) / 4f;
             string[] rarities = { null, Ids.Rarity.Common, Ids.Rarity.Rare, Ids.Rarity.Hero };
             for (int i = 0; i < rarities.Length; i++)
             {
                 string r = rarities[i];
-                var b = UiKit.Button(Ctx, _filterRoot, r == null ? T("str.common.all") : T("str.block.grade." + r), 16f + i * 100f, 44f, 92f, 40f,
+                var b = UiKit.Button(Ctx, _filterRoot, r == null ? T("str.common.all") : T("str.block.grade." + r), i * (fw + UiLayout.Rhythm), fy, fw, 40f,
                     () => { lib.RarityFilter = r; RebuildAll(); }, UiButtonStyle.Small, Focus);
                 b.On = lib.RarityFilter == r;
                 _dynamicCells.Add(b);
@@ -394,7 +457,7 @@ namespace Wizard.Solo.Screens.Camp
             for (int i = 0; i < kinds.Length; i++)
             {
                 BlockKind? k = kinds[i];
-                var b = UiKit.Button(Ctx, _filterRoot, T(kindKeys[i]), 16f + i * 100f, 100f, 92f, 40f,
+                var b = UiKit.Button(Ctx, _filterRoot, T(kindKeys[i]), i * (fw + UiLayout.Rhythm), fy + 48f, fw, 40f,
                     () => { lib.KindFilter = k; RebuildAll(); }, UiButtonStyle.Small, Focus);
                 b.On = lib.KindFilter == k;
                 _dynamicCells.Add(b);
@@ -405,17 +468,17 @@ namespace Wizard.Solo.Screens.Camp
         {
             int r = _held != SlotRefs.None ? _held : _selected;
             var item = r != SlotRefs.None && _assembly != null ? _assembly.At(r) : default(AssemblyItem);
-            UiKit.Panel(Ctx, _descRoot, UiPanelKind.Recess, 0f, 0f, CenterW, 152f);
+            UiLayout.Surface(Ctx, _descRoot, 0f, 0f, CenterW, DescH, 0);
             if (item.IsEmpty) return;
             var card = LootPickModel.Card(Ctx.Content, item.BlockId, CampViews.RarityOf(Ctx.Content, item.BlockId), item.Borrowed);
-            UiKit.Icon(Ctx, _descRoot, item.BlockId, 96, 16f, 28f);
-            UiKit.Label(Ctx, _descRoot, T(item.BlockId), UiFontId.F24, 128f, 16f, 400f, 32f);
+            UiKit.Icon(Ctx, _descRoot, item.BlockId, 96, 24f, 24f);
+            UiKit.Label(Ctx, _descRoot, T(item.BlockId), UiFontId.F24, 144f, 16f, 400f, 32f);
             string tag = (card.KindKey != null ? T(card.KindKey) : string.Empty) + T("str.ui.hint.sep") + T(card.GradeKey);
             if (item.Borrowed) tag += T("str.ui.hint.sep") + T("str.block.borrowed");
-            UiKit.Label(Ctx, _descRoot, tag, UiFontId.F16, 128f, 52f, 400f, 24f, CampViews.RarityColor(card.Rarity));
-            CampViews.ElementGlyph(Ctx, _descRoot, card.Element, 540f, 20f);
+            UiKit.Label(Ctx, _descRoot, tag, UiFontId.F16, 144f, 48f, 400f, 24f, CampViews.RarityColor(card.Rarity));
+            CampViews.ElementGlyph(Ctx, _descRoot, card.Element, 552f, 24f);
             for (int i = 0; i < card.StatLines.Count; i++)
-                UiKit.Label(Ctx, _descRoot, T(card.StatLines[i].Key) + " " + card.StatLines[i].Value, UiFontId.F16, 128f + i * 160f, 80f, 150f, 24f);
+                UiKit.Label(Ctx, _descRoot, T(card.StatLines[i].Key) + " " + card.StatLines[i].Value, UiFontId.F16, 144f + i * 168f, 76f, 160f, 24f);
             // 효과 한 줄 + 붙는 규칙, 판 한정 별(★)이면 그 몫(BlockDescriber — 블록 데이터에서 만든다).
             var def = Ctx.Content != null ? Ctx.Content.Block(item.BlockId) : null;
             string desc = BlockDescriber.Text(Ctx.Names, def, true);
@@ -431,9 +494,9 @@ namespace Wizard.Solo.Screens.Camp
             {
                 var sl = BlockDescriber.StarLine(def, item.Stars, BlockDescriber.Stars(Ctx.Content));
                 if (sl.Key != null) desc += T("str.ui.hint.sep") + sl.Format(Ctx.Names);
-                CampViews.StarBadge(Ctx, _descRoot, 20f, 108f, item.Stars, 18f);
+                CampViews.StarBadge(Ctx, _descRoot, 24f, 128f, item.Stars, 18f);
             }
-            UiKit.Label(Ctx, _descRoot, desc, UiFontId.F12, 128f, 106f, CenterW - 144f, 40f, UiTheme.Chalk, TextAnchor.UpperLeft, wrap: true);
+            UiKit.Label(Ctx, _descRoot, desc, UiFontId.F16, 144f, 104f, CenterW - 168f, 64f, UiTheme.Chalk, TextAnchor.UpperLeft, wrap: true);
         }
 
         void RebuildPreview()
@@ -469,6 +532,7 @@ namespace Wizard.Solo.Screens.Camp
                 _warnLines[i].SetText(has ? T(tree.WarningKeys[i]) : string.Empty);
                 if (i < _warnButtons.Count) _warnButtons[i].gameObject.SetActive(has);
             }
+            LayoutLeft();
             ApplyStats(r.Stats);
         }
 
@@ -535,43 +599,42 @@ namespace Wizard.Solo.Screens.Camp
         {
             CampViews.Clear(_nextWaveRoot);
             if (_world == null) return;
-            UiKit.Plate(Ctx, _nextWaveRoot, UiPanelKind.Board, 0f, 0f, ColW, 400f);
-            UiKit.LabelKey(Ctx, _nextWaveRoot, "str.camp.next_wave", UiFontId.F24, 16f, 8f, 300f, 32f);
+            // 틀 없는 구역: 제목(Section) + 줄들. 가방 미리보기는 마지막 줄 바로 밑에 붙인다.
+            float y = UiLayout.Section(Ctx, _nextWaveRoot, 0f, 0f, ColW, T("str.camp.next_wave"));
             var v = CampRules.NextWave(Ctx.Content, _world.Run.NextPlan, _world.Run.AffinityKnown);
-            float y = 48f;
             if (v.Wave > 0)
             {
                 string line = F("str.format.wave", "n", v.Wave);
                 if (v.TodId != null) line += T("str.ui.hint.sep") + T(v.TodId);
                 if (v.FrameId != null) line += T("str.ui.hint.sep") + T(v.FrameId);
-                UiKit.Label(Ctx, _nextWaveRoot, line, UiFontId.F16, 16f, y, ColW - 32f, 24f);
-                // 제목 줄 오른쪽 끝에 웨이브 틀·시간대 아이콘(보충 그림 icons frame.* / tod.*, 32×32 그대로).
+                // 첫 줄: 웨이브·시간대·틀(F24) + 오른쪽 끝에 틀·시간대 아이콘(보충 그림 icons frame.* / tod.*, 32×32 그대로).
                 const int WaveIconPx = 32;
-                float ix = ColW - 16f - WaveIconPx;
-                if (v.FrameId != null) { UiKit.Icon(Ctx, _nextWaveRoot, v.FrameId, WaveIconPx, ix, 8f); ix -= WaveIconPx + 4f; }
-                if (v.TodId != null) UiKit.Icon(Ctx, _nextWaveRoot, v.TodId, WaveIconPx, ix, 8f);
-                y += 28f;
+                float ix = ColW - WaveIconPx;
+                if (v.FrameId != null) { UiKit.Icon(Ctx, _nextWaveRoot, v.FrameId, WaveIconPx, ix, y); ix -= WaveIconPx + 4f; }
+                if (v.TodId != null) { UiKit.Icon(Ctx, _nextWaveRoot, v.TodId, WaveIconPx, ix, y); ix -= 8f; }
+                UiKit.Label(Ctx, _nextWaveRoot, line, UiFontId.F24, 0f, y, ix, 32f);
+                y += 40f;
                 // 변덕: 이름(호박색) + 무엇이 달라지는지 한 줄(Data.WhimDescriber — 수치는 modifiers.json에서).
                 for (int i = 0; i < v.Whims.Count; i++)
                 {
-                    UiKit.Label(Ctx, _nextWaveRoot, T(v.Whims[i]), UiFontId.F16, 16f, y, ColW - 32f, 24f, UiTheme.Amber);
+                    UiKit.Label(Ctx, _nextWaveRoot, T(v.Whims[i]), UiFontId.F16, 0f, y, ColW, 24f, UiTheme.Amber);
                     y += 24f;
                     string effect = global::Wizard.Solo.Data.WhimDescriber.OneLine(Ctx.Names, Ctx.Content, v.Whims[i]);
                     if (effect == null) continue;
-                    UiKit.Label(Ctx, _nextWaveRoot, effect, UiFontId.F12, 16f, y, ColW - 32f, 16f, UiTheme.SlateBlue);
-                    y += 20f;
+                    UiKit.Label(Ctx, _nextWaveRoot, effect, UiFontId.F16, 0f, y, ColW, 48f, UiTheme.SlateBlue, TextAnchor.UpperLeft, true);
+                    y += 48f;
                 }
-                if (v.Whims.Count > 0) y += 4f;
+                if (v.Whims.Count > 0) y += UiLayout.Rhythm;
                 if (v.BossId != null)
                 {
-                    UiKit.Label(Ctx, _nextWaveRoot, T(v.BossId), UiFontId.F24, 16f, y, ColW - 32f, 32f);
-                    y += 36f;
+                    UiKit.Label(Ctx, _nextWaveRoot, T(v.BossId), UiFontId.F24, 0f, y, ColW, 32f);
+                    y += 40f;
                 }
-                for (int i = 0; i < v.Species.Count && y < 248f; i++)
+                for (int i = 0; i < v.Species.Count && y < 400f; i++)
                 {
                     var sp = v.Species[i];
-                    UiKit.Label(Ctx, _nextWaveRoot, T(sp.SpeciesId), UiFontId.F16, 16f, y, 220f, 24f);
-                    float gx = 244f;
+                    UiKit.Label(Ctx, _nextWaveRoot, T(sp.SpeciesId), UiFontId.F16, 0f, y, ColW - 128f, 24f);
+                    float gx = ColW - 120f;
                     if (sp.KnownWeak != null)
                     {
                         UiKit.LabelKey(Ctx, _nextWaveRoot, "str.camp.next_wave.weak_mark", UiFontId.F16, gx, y, 20f, 24f, UiTheme.Good);
@@ -589,23 +652,27 @@ namespace Wizard.Solo.Screens.Camp
                     string ml = T("str.camp.next_wave.materials");
                     for (int i = 0; i < v.GuaranteedMaterials.Count; i++)
                         ml += " " + F("str.camp.material_count", "name", T(v.GuaranteedMaterials[i].Key), "n", v.GuaranteedMaterials[i].Value);
-                    UiKit.Label(Ctx, _nextWaveRoot, ml, UiFontId.F16, 16f, 264f, ColW - 32f, 24f, UiTheme.Chalk);
+                    UiKit.Label(Ctx, _nextWaveRoot, ml, UiFontId.F16, 0f, y + 4f, ColW, 48f, UiTheme.Chalk, TextAnchor.UpperLeft, true);
+                    y += 52f;
                 }
             }
+            y += UiLayout.Rhythm * 2f;
             // 복수 중이면 추적기 큰 꼴(13.2절, 432×96) — 값은 RevengeTracker.Build 하나로.
             if (_world.Run.RevengeActive)
             {
                 var t = RevengeTracker.Build(Ctx.Profile, Ctx.Content, _world.Run.Wave, metThisRun: _world.Run.RevengeActive);
                 if (t.Visible)
                 {
-                    var box = UiKit.Node(_nextWaveRoot, "Tracker", 0f, 304f, ColW, 96f);
-                    UiKit.Panel(Ctx, box, UiPanelKind.Recess, 0f, 0f, ColW, 96f);
+                    var box = UiKit.Node(_nextWaveRoot, "Tracker", 0f, y, ColW, 96f);
+                    y += 108f;
+                    UiLayout.Surface(Ctx, box, 0f, 0f, ColW, 96f, 0);
                     UiKit.Label(Ctx, box, T("revenge.tracker.goal"), UiFontId.F16, 12f, 4f, ColW - 24f, 24f);
                     UiKit.Label(Ctx, box, F("revenge.tracker.progress", "n", t.Progress), UiFontId.F16, 12f, 32f, ColW - 24f, 24f);
                     UiKit.ProgressBar(Ctx, box, 12f, 58f, ColW - 24f, 6f, t.ProgressMax > 0 ? (float)t.Progress / t.ProgressMax : 0f);
-                    if (t.HasDent) UiKit.Label(Ctx, box, F("revenge.tracker.dent", "percent", t.DentPercent, "tries", t.Tries), UiFontId.F12, 12f, 70f, ColW - 24f, 16f, UiTheme.SlateBlue);
+                    if (t.HasDent) UiKit.Label(Ctx, box, F("revenge.tracker.dent", "percent", t.DentPercent, "tries", t.Tries), UiFontId.F16, 12f, 68f, ColW - 24f, 24f, UiTheme.SlateBlue);
                 }
             }
+            UiKit.Place(_bag.Rect, RightX, NextWaveY + y, ColW, 48f);
         }
 
         void RebuildTrie()

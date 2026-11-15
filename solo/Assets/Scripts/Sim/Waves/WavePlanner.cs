@@ -257,7 +257,7 @@ namespace Wizard.Solo.Sim.Waves
                 string tod = _plan.Tod;
 
                 // 1. 예산
-                int budget = WaveCurves.Budget(_waves, wave);
+                int budget = _tuning.Budget(_waves, wave);
                 int remaining = budget;
 
                 // 2. 변덕(구성과 다른 갈래의 난수) → 긴 밤이면 가중치·상한에 반영

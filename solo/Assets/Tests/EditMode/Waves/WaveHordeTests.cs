@@ -64,9 +64,10 @@ namespace Wizard.Solo.Tests.Waves
             Assert.AreEqual(1.5f, on.HordeMultiplier(30, "evasive_charger"), 0.0001f, "늑대 상한");
             Assert.AreEqual(1.35f, on.HordeMultiplier(3, "evasive_charger"), 0.0001f, "곡선이 상한보다 낮으면 곡선");
             Assert.AreEqual(1.5f, on.HordeMultiplier(8, "evasive_charger"), 0.0001f);
-            // 무리 크기 계단: 1~3 = 3~5, 4~7 = 4~8, 8 이후 = 6~12(pack_size_min·max는 계단이 없을 때의 값)
+            // 초반 두 웨이브는 적은 수의 무리로 나누고, 3웨이브부터 기존의 큰 무리를 쓴다.
             int lo, hi;
-            on.PackSizeRange(1, out lo, out hi); Assert.AreEqual(3, lo); Assert.AreEqual(5, hi);
+            on.PackSizeRange(1, out lo, out hi); Assert.AreEqual(1, lo); Assert.AreEqual(2, hi);
+            on.PackSizeRange(2, out lo, out hi); Assert.AreEqual(2, lo); Assert.AreEqual(3, hi);
             on.PackSizeRange(3, out lo, out hi); Assert.AreEqual(3, lo); Assert.AreEqual(5, hi);
             on.PackSizeRange(4, out lo, out hi); Assert.AreEqual(4, lo); Assert.AreEqual(8, hi);
             on.PackSizeRange(7, out lo, out hi); Assert.AreEqual(4, lo); Assert.AreEqual(8, hi);

@@ -279,7 +279,7 @@ namespace Wizard.Solo.UI
         /// </summary>
         public static UiButton Button(GameContext ctx, RectTransform parent, string text, float x, float y, float w, float h,
             Action onClick, UiButtonStyle style = UiButtonStyle.Medium, UiFocusGroup group = null, string pressSound = null,
-            UiFontId fontSize = UiFontId.F24, Sprite icon = null)
+            UiFontId fontSize = UiFontId.F24, Sprite icon = null, bool noBracket = false)
         {
             var go = new GameObject("Button", typeof(RectTransform));
             var rt = (RectTransform)go.transform;
@@ -287,6 +287,7 @@ namespace Wizard.Solo.UI
             Place(rt, x, y, w, h);
             var b = go.AddComponent<UiButton>();
             b.Style = style;
+            b.NoBracket = noBracket;
             b.OnClick = onClick;
             if (pressSound != null) b.PressSound = pressSound.Length == 0 ? null : pressSound;
             b.InitWidgetParts(ctx, text, fontSize, icon);

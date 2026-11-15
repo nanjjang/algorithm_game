@@ -4,7 +4,6 @@ using Wizard.Solo.Art;
 using Wizard.Solo.Data;
 using Wizard.Solo.Sim;
 using Wizard.Solo.UI;
-using UImage = UnityEngine.UI.Image;
 
 namespace Wizard.Solo.Screens.Camp
 {
@@ -19,22 +18,26 @@ namespace Wizard.Solo.Screens.Camp
     {
         /// <summary>카드가 뒤집혀 뜨는 간격(08 8.1절 0.1초 = 6틱). 화면 60Hz 틱.</summary>
         const int RevealStepTicks = 6;
-        /// <summary>보관함 줄(08 8.1절 (576,896) 768×64, 12칸). 화면 배치 상수.</summary>
-        const float StorageX = 576f, StorageY = 896f, StorageW = 768f, StorageCell = 56f;
-        /// <summary>카드 줄의 윗변과 단추 줄(다시 뽑기 가운데, 건너뛰기 양옆). 화면 배치 상수.</summary>
-        const float PurseX = 1184f, TitleY = 112f;
-        const float CardsY = 232f, ButtonsY = 712f, ButtonW = 360f, ButtonH = 64f, ButtonGap = 24f;
+        /// <summary>
+        /// 세로 배치(화면 좌표, 8px 리듬): 제목 56 → 고른 수·지갑 118 → 카드 168(높이 CardH) → 보조 단추 줄 → 보관함 구역.
+        /// 가로는 카드 줄 폭에 맞춘다(보조 단추·보관함이 카드 줄과 같은 왼쪽·오른쪽 끝). 확인 = UiLayout.PrimaryRect.
+        /// </summary>
+        const float TitleY = 56f, CardsY = 168f, CardH = LootPickModel.CardHeight;
+        /// <summary>보조 단추 폭: 셋이면 4장 카드 줄 폭과 같다.</summary>
+        static readonly float ButtonW = (LootPickModel.RowWidth(4) - 2f * UiLayout.ColGap) / 3f;
+        const float ButtonsY = CardsY + CardH + 24f, StorageSectionY = ButtonsY + UiLayout.SecondaryH + 24f + 24f, StorageCell = 56f;
         /// <summary>등급 빛 번짐의 여백(px)과 세기. 화면 연출 상수.</summary>
-        const float RareGlowPad = 36f, HeroGlowPad = 96f, RareGlowAlpha = 0.30f, HeroGlowAlpha = 0.55f;
 
         public override ScreenId Id => ScreenId.LootPick;
         public override ScreenLayer Layer => ScreenLayer.Panel;
         public override bool BlocksInput => true;
         protected override bool HasFrame => false;
 
-        UiLabel _title, _counter, _purse, _overflowTitle, _rerollNext, _skipHint;
+        UiLabel _title, _counter, _purse, _overflowTitle, _rerollNext;
         UiButton _reroll, _confirm, _skipGold, _skipHeal;
         RectTransform _cards, _storage;
+        UiButton _details;
+        bool _showDetails;
         readonly List<UiButton> _cardButtons = new List<UiButton>();
         readonly List<UiButton> _storageButtons = new List<UiButton>();
         LootPickModel _model;
@@ -62,33 +65,68 @@ namespace Wizard.Solo.Screens.Camp
         {
             UiKit.Rect(content, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, UiTheme.ModalDim, true, "Dim");
             UiBackdrop.VignetteOver(content, 0.7f);
-            UiBackdrop.Glow(content, 460f, 60f, 1000f, 220f, UiTheme.WithAlpha(UiTheme.Brass, 0.16f));
-            // 제목 줄은 HUD 위 띠(y 12~114) 아래에서 시작한다(띠의 경과 시간 줄을 덮지 않게).
+            // 머리: 큰 제목 한 줄 + 그 아래 가운데 한 줄에 [고른 수] ◆ [지갑]. 흩어진 글을 한 덩어리로 묶는다.
             _title = UiKit.Label(Ctx, content, string.Empty, UiFontId.F48, 560f, TitleY, 800f, 56f, UiTheme.Chalk, TextAnchor.MiddleCenter);
             UiKit.DropShadow(_title, 3f);
-            UiKit.AccentRule(content, 760f, TitleY + 58f, 400f);
-            _counter = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, 760f, TitleY + 64f, 400f, 32f, UiTheme.Chalk, TextAnchor.MiddleCenter);
-            // 원정 지갑: 오른쪽 위 HUD 기록 판(지갑·점수·처치)과 겹치지 않게 고른 수 줄 오른쪽(제목 아래)에 아이콘과 함께 둔다.
-            UiKit.Icon(Ctx, content, Ids.Item.Purse, 24, PurseX, TitleY + 68f);
-            _purse = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, PurseX + 32f, TitleY + 64f, 320f, 32f, UiTheme.Gold, TextAnchor.MiddleLeft);
-            _overflowTitle = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, 360f, 848f, 1200f, 40f, UiTheme.Amber, TextAnchor.MiddleCenter);
-            _cards = UiKit.Node(content, "Cards", 0f, CardsY, UiScale.RefWidth, LootPickModel.CardHeight + 40f);
+            float chipY = TitleY + 62f;
+            _counter = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, 560f, chipY, 380f, 32f, UiTheme.SelectYellow, TextAnchor.MiddleRight);
+            UiKit.Diamond(content, UiScale.RefWidth * 0.5f, chipY + 16f, 10f, UiTheme.Brass);
+            UiKit.Icon(Ctx, content, Ids.Item.Purse, 24, 980f, chipY + 4f);
+            _purse = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, 1012f, chipY, 360f, 32f, UiTheme.Gold, TextAnchor.MiddleLeft);
+            _cards = UiKit.Node(content, "Cards", 0f, CardsY, UiScale.RefWidth, CardH + 40f);
 
-            float bx = (UiScale.RefWidth - (ButtonW * 3f + ButtonGap * 2f)) * 0.5f;
-            _skipGold = UiKit.Button(Ctx, content, string.Empty, bx, ButtonsY, ButtonW, ButtonH, () => OnSkip(false), UiButtonStyle.Small, Focus, "");
-            _reroll = UiKit.Button(Ctx, content, T("str.loot_pick.reroll"), bx + ButtonW + ButtonGap, ButtonsY, ButtonW, ButtonH, OnReroll, UiButtonStyle.Large, Focus, "");
-            _skipHeal = UiKit.Button(Ctx, content, string.Empty, bx + (ButtonW + ButtonGap) * 2f, ButtonsY, ButtonW, ButtonH, () => OnSkip(true), UiButtonStyle.Small, Focus, "");
-            _rerollNext = UiKit.Label(Ctx, content, string.Empty, UiFontId.F12, bx + ButtonW + ButtonGap, ButtonsY + ButtonH + 2f, ButtonW, 18f, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
-            _skipHint = UiKit.LabelKey(Ctx, content, "str.loot_pick.skip_hint", UiFontId.F12, bx, ButtonsY + ButtonH + 2f, ButtonW, 18f, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
+            // 카드 아래: 덜 중요한 선택 셋(건너뛰기·다시 뽑기·건너뛰기)은 보조 단추 한 줄. 자리는 Redraw가 카드 줄 폭에 맞춘다.
+            _skipGold = UiLayout.SecondaryButton(Ctx, content, string.Empty, 0f, ButtonsY, ButtonW, () => OnSkip(false), Focus);
+            _reroll = UiLayout.SecondaryButton(Ctx, content, T("str.loot_pick.reroll"), 0f, ButtonsY, ButtonW, OnReroll, Focus);
+            _skipHeal = UiLayout.SecondaryButton(Ctx, content, string.Empty, 0f, ButtonsY, ButtonW, () => OnSkip(true), Focus);
+            _rerollNext = UiKit.Label(Ctx, content, string.Empty, UiFontId.F16, 0f, ButtonsY + UiLayout.SecondaryH + 2f, 320f, 24f, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
 
-            UiKit.LabelKey(Ctx, content, "str.camp.storage", UiFontId.F16, StorageX, StorageY - 24f, 200f, 24f, UiTheme.SlateBlue);
-            _storage = UiKit.Node(content, "Storage", StorageX, StorageY, StorageW, 64f);
-            _confirm = UiKit.Button(Ctx, content, T("str.loot_pick.confirm"), 760f, 984f, 400f, 64f, OnConfirm, UiButtonStyle.Primary, Focus, "");
+            // 넘침 안내: 넘침 때는 보조 단추 줄이 숨으므로 그 자리에 크게.
+            _overflowTitle = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, UiLayout.Outer, ButtonsY + 16f, UiLayout.InnerW, 32f, UiTheme.Amber, TextAnchor.MiddleCenter);
+            // 보관함: 구역 이름(Section) + 칸 한 줄. 자리는 Redraw가 카드 줄 폭에 맞춘다.
+            _storageSection = UiKit.Node(content, "StorageSection", 0f, StorageSectionY, 400f, UiLayout.SectionH);
+            _storage = UiKit.Node(content, "Storage", 0f, StorageSectionY + UiLayout.SectionH, 400f, StorageCell + 24f);
+            // 주 행동 하나: 확인은 늘 같은 자리(PrimaryRect). 보관함 칸은 그 왼쪽에서 끝난다.
+            _details = UiLayout.SecondaryButton(Ctx, content, T("str.ui.details"), UiLayout.Outer, chipY - 8f,
+                184f, () =>
+                {
+                    _showDetails = !_showDetails;
+                    _details.SetText(T(_showDetails ? "str.ui.hide_details" : "str.ui.details"));
+                    Redraw(false);
+                }, Focus, 48f);
+            _confirm = UiLayout.PrimaryButton(Ctx, content, T("str.loot_pick.confirm"), OnConfirm, Focus, 0f);
         }
+
+        RectTransform _storageSection;
+        float _rowX, _rowW;
+
+        /// <summary>카드 줄 폭에 보조 단추 줄·보관함을 맞춘다.</summary>
+        void LayoutRows(int cardCount)
+        {
+            _rowW = LootPickModel.RowWidth(Mathf.Max(3, cardCount));
+            _rowX = (UiScale.RefWidth - _rowW) * 0.5f;
+            float gap = UiLayout.ColGap, bw = ButtonW;
+            bool gold = _skipGold.gameObject.activeSelf, heal = _skipHeal.gameObject.activeSelf, reroll = _reroll.gameObject.activeSelf;
+            int n = (reroll ? 1 : 0) + (gold ? 1 : 0) + (heal ? 1 : 0);
+            float x = (UiScale.RefWidth - (n * bw + (n - 1) * gap)) * 0.5f;
+            float hy = ButtonsY + UiLayout.SecondaryH + 2f;
+            if (gold) { MoveX(_skipGold.Rect, x); x += bw + gap; }
+            if (reroll) { MoveX(_reroll.Rect, x); UiKit.Place(_rerollNext.Rect, x, hy, bw, 24f); x += bw + gap; }
+            if (heal) MoveX(_skipHeal.Rect, x);
+            float sw = Mathf.Min(_rowW, UiLayout.PrimaryRect.x - UiLayout.ColGap - _rowX);
+            CampViews.Clear(_storageSection);
+            UiKit.Place(_storageSection, _rowX, StorageSectionY, sw, UiLayout.SectionH);
+            UiLayout.Section(Ctx, _storageSection, 0f, 0f, sw, T("str.camp.storage"));
+            UiKit.Place(_storage, _rowX, StorageSectionY + UiLayout.SectionH, sw, StorageCell + 24f);
+        }
+
+        static void MoveX(RectTransform rt, float x) => rt.anchoredPosition = new Vector2(x, rt.anchoredPosition.y);
 
         public override void OnEnter(ScreenArgs args)
         {
             base.OnEnter(args);
+            _showDetails = false;
+            _details.SetText(T("str.ui.details"));
             _revealed = 0;
             _revealAcc = 0f;
             _sig = null;
@@ -171,7 +209,8 @@ namespace Wizard.Solo.Screens.Camp
             var m = _model;
             _title.SetText(F("str.loot_pick.title", "pick_count", m.PickCount));
             _counter.SetText(F("str.loot_pick.pick_count", "picked", m.Picked, "max", m.PickCount));
-            _purse.SetText(T("str.battle_hud.wallet") + " " + F("str.format.gold_amount", "n", N(m.Purse)));
+            _counter.Color = m.Picked >= m.PickCount ? UiTheme.Good : UiTheme.SelectYellow;
+            _purse.SetText(F("str.format.gold_amount", "n", N(m.Purse)));
 
             int keep = first ? -1 : Focus.Index;
             foreach (var b in _cardButtons) Focus.Remove(b);
@@ -206,10 +245,11 @@ namespace Wizard.Solo.Screens.Camp
             if (m.ConfirmEnabled) _confirm.SetEnabled(); else _confirm.SetDisabled(null);
             _reroll.gameObject.SetActive(!overflow);
             _confirm.gameObject.SetActive(!overflow);
+            _details.gameObject.SetActive(!overflow);
             _skipGold.gameObject.SetActive(!overflow && m.SkipGold > 0);
             _skipHeal.gameObject.SetActive(!overflow && m.SkipHealCells > 0);
-            _skipHint.gameObject.SetActive(!overflow && (m.SkipGold > 0 || m.SkipHealCells > 0));
             _rerollNext.gameObject.SetActive(!overflow);
+            LayoutRows(count);
             ApplyReveal();
             if (overflow && _storageButtons.Count > 0) Focus.SetCursor(_storageButtons[0], false);
             else if (keep >= 0 && keep < Focus.Items.Count) Focus.SetCursor(keep, false);
@@ -218,89 +258,71 @@ namespace Wizard.Solo.Screens.Camp
 
         UiButton BuildCard(LootCardView c, float x, System.Action onClick, bool focusable)
         {
-            float w = LootPickModel.CardWidth, h = LootPickModel.CardHeight;
+            float w = LootPickModel.CardWidth, h = CardH;
             Color rc = CampViews.RarityColor(c.Rarity);
-            // 등급 빛 번짐(카드 뒤). 희귀 = 파랑, 영웅 = 크고 진한 금빛. 일반은 없다.
-            bool hero = c.Rarity == Ids.Rarity.Hero, rare = c.Rarity == Ids.Rarity.Rare;
-            UImage glow = null;
-            if (hero || rare)
-            {
-                float pad = hero ? HeroGlowPad : RareGlowPad;
-                glow = UiBackdrop.Glow(_cards, x - pad, -pad * 0.6f, w + pad * 2f, h + pad * 1.2f, UiTheme.WithAlpha(rc, hero ? HeroGlowAlpha : RareGlowAlpha));
-                glow.name = "RarityGlow";
-                glow.raycastTarget = false;
-                UiPulse.Attach(glow, (hero ? HeroGlowAlpha : RareGlowAlpha) * 0.45f, hero ? HeroGlowAlpha : RareGlowAlpha, hero ? 1.4f : 2.0f);
-            }
-
             var b = UiKit.Button(Ctx, _cards, null, x, 0f, w, h, onClick, UiButtonStyle.Plain, focusable ? Focus : null, "");
             b.name = c.Borrowed ? "BorrowedCard" : "Card" + c.Index;
-            if (glow != null) glow.transform.SetParent(b.transform, true);   // 카드와 같이 켜지고 꺼진다(차례 공개)
-            if (glow != null) glow.transform.SetAsFirstSibling();
             var cr = b.ContentRoot;
             UiKit.Panel(Ctx, cr, UiPanelKind.Board, 0f, 0f, w, h);
             // 연출: 카드가 켜질 때(차례 공개 포함) 아래에서 살짝 튀어 오른다.
-            if (_animate) UiMotion.Entrance(b, c.Index * UiTheme.StaggerSeconds, UiTheme.PanelPopSeconds + 0.04f, new Vector2(0f, -36f), 0.9f);
+            if (_animate) UiMotion.Entrance(b, c.Index * UiTheme.StaggerSeconds, UiTheme.PanelPopSeconds + 0.04f, new Vector2(0f, -12f), 1f);
             if (c.Borrowed) CampViews.DashedFrame(cr, w, h, rc, 3, 12f, 8f);
-            else UiFrame.Create(cr, rc, CampViews.RarityFrameThickness(c.Rarity) + 1);
-            if (hero) UiFrame.Create(cr, UiTheme.WithAlpha(UiTheme.Gold, 0.45f), 1).name = "HeroInnerFrame";
-            if (hero || rare) AddShine(cr, w, h, hero, c.Index);
+            else UiKit.Rect(cr, 0f, 0f, w, CampViews.RarityFrameThickness(c.Rarity), rc, false, "RarityRule");
 
-            float y = 12f;
-            if (c.KindKey != null) UiKit.LabelKey(Ctx, cr, c.KindKey, UiFontId.F12, 12f, y, 120f, 16f, UiTheme.SlateBlue);
-            UiKit.LabelKey(Ctx, cr, c.GradeKey, UiFontId.F12, w - 132f, y, 120f, 16f, rc, TextAnchor.MiddleRight);
-            y += 22f;
-            UiKit.Icon(Ctx, cr, c.BlockId, 96, (w - 96f) * 0.5f, y);
-            CampViews.ElementGlyph(Ctx, cr, c.Element, w - 32f, y);
-            if (c.StarTarget > 0) CampViews.StarBadge(Ctx, cr, 12f, y + 4f, c.StarTarget, 20f);
-            y += 100f;
-            UiKit.Label(Ctx, cr, T(c.BlockId), UiFontId.F24, 8f, y, w - 16f, 30f, UiTheme.Chalk, TextAnchor.MiddleCenter);
-            y += 32f;
-            for (int i = 0; i < c.StatLines.Count; i++)
+            const float P = 16f, RowH = 28f, IconPx = 72f;
+            float halfW = w * 0.5f - P;
+            float y = 8f;
+            if (c.KindKey != null) UiKit.LabelKey(Ctx, cr, c.KindKey, UiFontId.F24, P, y, halfW, RowH, UiTheme.Paper);
+            if (c.Rarity != null && c.Rarity != Ids.Rarity.Common)
+                UiKit.LabelKey(Ctx, cr, c.GradeKey, UiFontId.F24, w * 0.5f, y, halfW, RowH, rc, TextAnchor.MiddleRight);
+            y += RowH + 4f;
+            UiKit.Icon(Ctx, cr, c.BlockId, (int)IconPx, (w - IconPx) * 0.5f, y);
+            CampViews.ElementGlyph(Ctx, cr, c.Element, w - 36f, y);
+            if (c.StarTarget > 0) CampViews.StarBadge(Ctx, cr, P, y + 4f, c.StarTarget, 20f);
+            y += IconPx;
+            UiKit.Label(Ctx, cr, T(c.BlockId), UiFontId.F32, P, y, w - 2f * P, 40f, UiTheme.Chalk, TextAnchor.MiddleCenter);
+            y += 44f;
+            for (int i = 0; _showDetails && i < c.StatLines.Count; i++)
             {
-                UiKit.LabelKey(Ctx, cr, c.StatLines[i].Key, UiFontId.F16, 24f, y, 100f, 22f, UiTheme.SlateBlue);
-                UiKit.Label(Ctx, cr, c.StatLines[i].Value, UiFontId.F16, w - 124f, y, 100f, 22f, UiTheme.Chalk, TextAnchor.MiddleRight);
-                y += 22f;
+                UiKit.LabelKey(Ctx, cr, c.StatLines[i].Key, UiFontId.F24, P, y, halfW, RowH, UiTheme.Paper);
+                UiKit.Label(Ctx, cr, c.StatLines[i].Value, UiFontId.F24, w * 0.5f, y, halfW, RowH, UiTheme.Chalk, TextAnchor.MiddleRight);
+                y += RowH;
             }
-            y = Mathf.Max(y, 254f);
-            // 효과 한 줄(+ 별 겹치기면 그 별의 몫)
-            string desc = c.Desc.Key != null ? c.Desc.Format(Ctx.Names) : string.Empty;
-            UiKit.Label(Ctx, cr, desc, UiFontId.F12, 12f, y, w - 24f, 44f, UiTheme.Chalk, TextAnchor.UpperLeft, wrap: true);
-            y += 46f;
+
+            float textW = w - 2f * P;
+            y = Mathf.Max(y, 188f) + 8f;
+            if (c.Desc.Key != null)
+                y += CardParagraph(cr, c.Desc.Format(Ctx.Names), P, y, textW, UiTheme.Chalk) + 8f;
             if (c.OnCore.Key != null)
+                y += CardParagraph(cr, c.OnCore.Format(Ctx.Names), P, y, textW, UiTheme.Good) + 8f;
+            if (_showDetails && c.StarTarget > 0)
             {
-                // 기본 공격 유형의 핵에서 이 블록이 하는 일("이 핵에서는 …")
-                UiKit.Label(Ctx, cr, c.OnCore.Format(Ctx.Names), UiFontId.F12, 12f, y, w - 24f, 30f, UiTheme.Good, TextAnchor.UpperLeft, wrap: true);
-                y += 32f;
-            }
-            if (c.StarTarget > 0)
-            {
-                // 별 몫 한 줄(★n: 피해 +x% · 열 −y%). 몫이 없는 블록이면 "겹치기 ★n". 아이콘 위 ★ 표식이 겹치기임을 따로 알린다.
                 string star = c.StarLine.Key != null ? c.StarLine.Format(Ctx.Names) : F("str.loot_pick.star_up", "n", c.StarTarget);
-                UiKit.Label(Ctx, cr, star, UiFontId.F12, 12f, y, w - 24f, 16f, UiTheme.SelectYellow);
-                y += 18f;
+                y += CardParagraph(cr, star, P, y, textW, UiTheme.SelectYellow) + 4f;
             }
-            // 맞물림 표식: 처음 보는 맞물림은 띠를 깔고 크게, 다음부터는 한 줄로 작게.
-            if (c.Synergy != LootSynergy.None)
+
+            if (_showDetails && c.Synergy != LootSynergy.None)
             {
                 string partner = c.SynergyPartnerId != null ? T(c.SynergyPartnerId) : string.Empty;
                 string tag = F(c.Synergy == LootSynergy.Pair ? "str.loot_pick.synergy.pair" : "str.loot_pick.synergy.element", "partner", partner);
                 if (c.SynergyFirst)
                 {
-                    var band = UiKit.Rect(cr, 6f, y, w - 12f, 40f, UiTheme.WithAlpha(UiTheme.Good, 0.22f), false, "SynergyBand");
+                    tag = T("str.loot_pick.synergy.new") + "\n" + tag;
+                    var band = UiKit.Rect(cr, 8f, y - 2f, w - 16f, 1f, UiTheme.WithAlpha(UiTheme.Good, 0.22f), false, "SynergyBand");
+                    float tagH = CardParagraph(cr, tag, P, y, textW, UiTheme.Good);
+                    UiKit.Place(band.rectTransform, 8f, y - 2f, w - 16f, tagH + 4f);
                     UiPulse.Attach(band, 0.10f, 0.30f, 1.2f);
-                    UiKit.LabelKey(Ctx, cr, "str.loot_pick.synergy.new", UiFontId.F16, 12f, y + 1f, w - 24f, 20f, UiTheme.Good);
-                    UiKit.Label(Ctx, cr, tag, UiFontId.F12, 12f, y + 22f, w - 24f, 16f, UiTheme.Good);
-                    y += 42f;
+                    y += tagH + 4f;
                 }
                 else
                 {
-                    UiKit.Label(Ctx, cr, tag, UiFontId.F12, 12f, y, w - 24f, 16f, UiTheme.WithAlpha(UiTheme.Good, 0.85f));
-                    y += 18f;
+                    y += CardParagraph(cr, tag, P, y, textW, UiTheme.Good) + 4f;
                 }
             }
-            BuildPreview(cr, c, w, Mathf.Max(y + 2f, h - 84f));
+            if (_showDetails || c.PreviewKind == LootPreviewKind.NoSlot)
+                BuildPreview(cr, c, w, Mathf.Max(y + 4f, h - 132f));
 
-            if (c.Guaranteed) UiKit.LabelKey(Ctx, cr, "str.loot_pick.guaranteed", UiFontId.F12, 12f, h - 22f, 120f, 16f, UiTheme.SelectYellow);
+            if (c.Guaranteed) UiKit.LabelKey(Ctx, cr, "str.loot_pick.guaranteed", UiFontId.F16, 12f, h - 28f, 120f, 24f, UiTheme.SelectYellow);
             if (c.Borrowed)
             {
                 UiKit.LabelKey(Ctx, cr, "str.loot_pick.borrowed", UiFontId.F16, w - 132f, h - 26f, 120f, 22f, rc, TextAnchor.MiddleRight);
@@ -308,6 +330,14 @@ namespace Wizard.Solo.Screens.Camp
             }
             b.Picked = c.Picked;
             return b;
+        }
+
+        float CardParagraph(RectTransform parent, string text, float x, float y, float w, Color color)
+        {
+            var label = UiKit.Label(Ctx, parent, text, UiFontId.F24, x, y, w, 32f, color, TextAnchor.UpperLeft, wrap: true);
+            float h = Mathf.Max(28f, label.Text.preferredHeight);
+            UiKit.Place(label.Rect, x, y, w, h);
+            return h;
         }
 
         /// <summary>끼웠을 때 미리보기 두 줄: 어디에(빈 칸 / 대신 / 별) + 탄 수·열·허수아비 DPS 변화.</summary>
@@ -318,16 +348,15 @@ namespace Wizard.Solo.Screens.Camp
             y += 4f;
             if (c.PreviewKind == LootPreviewKind.NoSlot)
             {
-                UiKit.LabelKey(Ctx, cr, "str.loot_pick.preview.none", UiFontId.F12, 12f, y, w - 24f, 32f, UiTheme.SlateBlue, TextAnchor.UpperLeft, wrap: true);
+                CardParagraph(cr, T("str.loot_pick.preview.none"), 16f, y, w - 32f, UiTheme.Paper);
                 return;
             }
             string slot = c.PreviewSlot == 0 ? T("str.loot_pick.preview.core") : F("str.loot_pick.preview.slot_n", "n", c.PreviewSlot);
             string where;
-            if (c.PreviewKind == LootPreviewKind.Star) where = F("str.loot_pick.preview.star", "slot", slot, "name", T(c.BlockId), "n", c.StarTarget);
+            if (c.PreviewKind == LootPreviewKind.Star) where = F("str.loot_pick.preview.star", "slot", slot, "n", c.StarTarget);
             else if (c.PreviewKind == LootPreviewKind.Replace) where = F("str.loot_pick.preview.replace", "slot", slot, "name", T(c.ReplacedId));
             else where = F("str.loot_pick.preview.slot", "slot", slot);
-            UiKit.Label(Ctx, cr, where, UiFontId.F12, 12f, y, w - 24f, 16f, UiTheme.SlateBlue);
-            y += 18f;
+            y += CardParagraph(cr, where, 16f, y, w - 32f, UiTheme.Paper) + 4f;
 
             int dShots = c.ShotsAfter - c.ShotsBefore;
             float dHeat = c.HeatAfter - c.HeatBefore;
@@ -337,13 +366,22 @@ namespace Wizard.Solo.Screens.Camp
             bool blind = pct <= 0.5f && BlockDescriber.DummyBlind(Ctx.Content != null ? Ctx.Content.Block(c.BlockId) : null);
             string sep = T("str.block_desc.sep");
             var sb = new System.Text.StringBuilder();
-            if (dShots != 0) sb.Append(F("str.loot_pick.preview.shots", "shots", Signed(dShots))).Append(sep);
-            sb.Append(F("str.loot_pick.preview.heat", "heat", SignedOne(dHeat))).Append(sep);
-            if (blind) sb.Append(T("str.loot_pick.preview.dps_blind"));
-            else sb.Append(F("str.loot_pick.preview.dps", "dps", F("str.format.percent", "n", SignedPct(pct))));
-            string line = sb.ToString();
+            if (dShots != 0) sb.Append(F("str.loot_pick.preview.shots", "shots", Signed(dShots)));
+            if (Mathf.Abs(dHeat) >= 0.05f)
+            {
+                if (sb.Length > 0) sb.Append(sep);
+                sb.Append(F("str.loot_pick.preview.heat", "heat", SignedOne(dHeat)));
+            }
+            if (blind || Mathf.RoundToInt(pct) != 0)
+            {
+                if (sb.Length > 0) sb.Append(sep);
+                sb.Append(blind
+                    ? T("str.loot_pick.preview.dps_blind")
+                    : F("str.loot_pick.preview.dps", "dps", F("str.format.percent", "n", SignedPct(pct))));
+            }
+            string line = sb.Length > 0 ? sb.ToString() : T("str.loot_pick.preview.unchanged");
             Color col = blind ? UiTheme.Chalk : pct > 0.5f ? UiTheme.Good : pct < -0.5f ? UiTheme.Amber : UiTheme.Chalk;
-            UiKit.Label(Ctx, cr, line, UiFontId.F12, 12f, y, w - 24f, 34f, col, TextAnchor.UpperLeft, wrap: true);
+            CardParagraph(cr, line, 16f, y, w - 32f, col);
         }
 
         static readonly System.Globalization.CultureInfo Inv = System.Globalization.CultureInfo.InvariantCulture;
@@ -355,24 +393,12 @@ namespace Wizard.Solo.Screens.Camp
             return (r > 0 ? "+" : string.Empty) + r.ToString(Inv);
         }
 
-        /// <summary>희귀 이상 카드의 지나가는 빛 띠(카드 안으로 잘린다). 영웅은 굵고 자주.</summary>
-        void AddShine(RectTransform cr, float w, float h, bool hero, int index)
-        {
-            var clip = UiKit.Node(cr, "ShineClip", 0f, 0f, w, h);
-            clip.gameObject.AddComponent<UnityEngine.UI.RectMask2D>();
-            float bw = hero ? 56f : 32f;
-            var band = UiKit.Rect(clip, -bw, -h * 0.25f, bw, h * 1.5f, UiTheme.WithAlpha(Color.white, 0f), false, "Shine");
-            band.rectTransform.localRotation = Quaternion.Euler(0f, 0f, -18f);
-            var s = clip.gameObject.AddComponent<LootCardShine>();
-            s.Init(band, w, hero ? 2.2f : 3.4f, 0.4f + index * 0.15f);
-        }
-
         void BuildStorage(bool overflow)
         {
             var w = World;
             if (w == null) return;
             int cap = _model.StorageCap;
-            float step = StorageW / Mathf.Max(1, cap);
+            float step = Mathf.Min(StorageCell + 8f, _storage.rect.width / Mathf.Max(1, cap));
             for (int i = 0; i < cap; i++)
             {
                 var wb = i < w.Run.Storage.Count ? w.Run.Storage[i] : null;
@@ -385,7 +411,7 @@ namespace Wizard.Solo.Screens.Camp
                     int gold = LootPickModel.DiscardGold(Ctx.Content, wb);
                     string text = F("str.loot_pick.overflow_gold", "gold", N(gold));
                     UiKit.AttachTooltip(b.gameObject, () => text);
-                    UiKit.Label(Ctx, _storage, N(gold), UiFontId.F12, i * step, StorageCell + 2f, StorageCell, 16f, UiTheme.Gold, TextAnchor.MiddleCenter);
+                    UiKit.Label(Ctx, _storage, N(gold), UiFontId.F16, i * step, StorageCell + 2f, StorageCell, 22f, UiTheme.Gold, TextAnchor.MiddleCenter);
                     _storageButtons.Add(b);
                 }
             }

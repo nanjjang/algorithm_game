@@ -13,14 +13,14 @@ namespace Wizard.Solo.Screens.Hints
         public const string FirstLock = "first_lock", FirstFizzle = "first_fizzle", FirstCrystal = "first_crystal", FirstGraze = "first_graze",
             FirstElite = "first_elite", FirstBoss = "first_boss", FirstLoot = "first_loot", FirstCamp = "first_camp",
             FirstArtUnlock = "first_art_unlock", FirstAffinity = "first_affinity", FirstSettlement = "first_settlement",
-            FirstBag = "first_bag", FirstDrop = "first_drop", FirstMutation = "first_mutation",
+            FirstBag = "first_bag", FirstDrop = "first_drop", FirstMutation = "first_mutation", FirstFinal = "first_final",
             StuckDryFire = "stuck_dry_fire", StuckFizzle = "stuck_fizzle";
 
         /// <summary>처음 한 번만 뜨는 힌트(도감·테스트가 목록으로 돈다).</summary>
         public static readonly string[] FirstTime =
         {
             FirstLock, FirstFizzle, FirstCrystal, FirstGraze, FirstElite, FirstBoss, FirstLoot, FirstCamp, FirstArtUnlock,
-            FirstAffinity, FirstSettlement, FirstBag, FirstDrop, FirstMutation
+            FirstAffinity, FirstSettlement, FirstBag, FirstDrop, FirstMutation, FirstFinal
         };
 
         /// <summary>막혔을 때 뜨는 힌트(판마다 한 번, 프로필에 stuck_max_shows번까지).</summary>

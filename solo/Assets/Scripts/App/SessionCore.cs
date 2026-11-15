@@ -17,7 +17,7 @@ namespace Wizard.Solo.App
     /// - 일시정지는 떼지 않는다(Poll도 안 한다). 풀릴 때 Resync(swallow) 한 번이면 "일시정지 중 뗀 키는 풀리는 틱의 뗌"이 된다.
     /// 창 초점을 잃은 동안은 문이 닫힌 것으로 본다(잃는 프레임에 떼기, 돌아온 프레임에 붙이기).
     /// </summary>
-    public sealed class SessionCore : IGameSession
+    public sealed class SessionCore : IGameSession, IOnlineSession
     {
         readonly GameContext _ctx;
         readonly Func<SimWorld> _worldFactory;
@@ -36,6 +36,9 @@ namespace Wizard.Solo.App
         bool _gateOpen;
         bool _needAttach;
         bool _focused = true;
+        IOnlineLink _online;
+        readonly List<InputEvent> _netInputs = new List<InputEvent>();
+        readonly List<RunCommand> _netCommands = new List<RunCommand>();
 
         /// <param name="ctx">Input·Screens를 읽는다(null 서비스도 된다).</param>
         /// <param name="worldFactory">새 세계를 만든다. null이면 new SimWorld(ctx.Content, SimModuleSet.CreateDefault()).</param>
@@ -78,6 +81,7 @@ namespace Wizard.Solo.App
             set
             {
                 if (value == _paused) return;
+                if (value && _online != null) return; // 온라인 판은 멈추지 않는다(서버가 계속 돈다)
                 _paused = value;
                 var w = World;
                 if (w == null) return;
@@ -121,8 +125,41 @@ namespace Wizard.Solo.App
             RunStarted?.Invoke(w);
         }
 
+        public bool IsOnline => _online != null;
+
+        public void StartOnline(IOnlineLink link)
+        {
+            if (link == null) throw new ArgumentNullException(nameof(link));
+            var w = link.World;
+            if (w == null) throw new InvalidOperationException("StartOnline needs link.World (the run has not started yet).");
+            if (_main != null) EndRun();
+            _paused = false;
+            _pausedSeconds = 0f;
+            _lastSummary = null;
+            _runEndedRaised = false;
+            _acc.Reset();
+            _online = link;
+            _main = w;
+            w.ViewSlot = link.Slot;
+            LocalSlot = link.Slot;
+            w.InputQueues[LocalSlot].Clear();
+            w.Commands.Clear();
+            DiscardInput();
+            _gateOpen = false;
+            _needAttach = true;
+            if (_host != null) _host.Build(w);
+            RunStarted?.Invoke(w);
+        }
+
         public void EndRun()
         {
+            if (_online != null)
+            {
+                var link = _online;
+                _online = null;
+                LocalSlot = 0;
+                link.Leave();
+            }
             if (_main == null && _sub == null) return;
             if (_host != null) _host.DisposeLayers();
             DiscardInput();
@@ -138,6 +175,7 @@ namespace Wizard.Solo.App
         {
             if (cfg == null) throw new ArgumentNullException(nameof(cfg));
             if (_main == null) throw new InvalidOperationException("PushSubRun needs a main run (use StartRun).");
+            if (_online != null) return; // 온라인 판에는 보조 판(조립 시험)이 없다 — 본판이 서버에서 계속 돈다
             if (_sub != null) PopSubRunInternal(false);
             // 본판은 그대로 멈춘다: 눌린 키를 떼어 두고(돌아올 때 붙이기), 표시 층을 걷는다.
             // 문이 이미 닫혀 있었으면 본판은 이미 "전부 뗌"이라 입력원만 비운다.
@@ -231,6 +269,17 @@ namespace Wizard.Solo.App
 
             // 고정 틱
             int steps = _acc.Advance(dt);
+            if (_online != null)
+            {
+                for (int s = 0; s < steps; s++)
+                {
+                    OnlineStep(w);
+                    if (World != w) break;
+                }
+                var cur = World;
+                if (_host != null) _host.Render(cur, cur != null ? _acc.Alpha : 0f, dt);
+                return;
+            }
             for (int s = 0; s < steps; s++)
             {
                 w.Step();
@@ -241,6 +290,32 @@ namespace Wizard.Solo.App
 
             var now = World;
             if (_host != null) _host.Render(now, now != null ? _acc.Alpha : 0f, dt);
+        }
+
+        /// <summary>온라인 한 틱: 꼭두각시에 쌓인 내 입력·화면 명령을 서버로 옮기고, 연결을 한 틱 돌리고, 받은 이벤트를 넘긴다.
+        /// 판 끝(RunEnded)의 요약은 만들지 않는다 — 온라인 판은 오프라인 프로필에 정산하지 않는다(4단계에서 서버 프로필로).</summary>
+        void OnlineStep(SimWorld w)
+        {
+            var link = _online;
+            _netInputs.Clear();
+            _netCommands.Clear();
+            var q = w.InputQueues[LocalSlot];
+            _netInputs.AddRange(q);
+            q.Clear();
+            _netCommands.AddRange(w.Commands);
+            w.Commands.Clear();
+            link.Send(_netInputs, _netCommands);
+            link.Step();
+            _evBuf.Clear();
+            link.DrainEvents(_evBuf);
+            for (int i = 0; i < _evBuf.Count; i++)
+            {
+                var e = _evBuf[i];
+                if (_host != null && World == w) _host.OnEvent(w, e);
+                SimEventRaised?.Invoke(w, e);
+                if (World != w) break;
+            }
+            _evBuf.Clear();
         }
 
         void Dispatch(SimWorld w)

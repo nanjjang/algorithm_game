@@ -48,10 +48,8 @@ namespace Wizard.Solo.Screens.Enhance
         // 가운데(무대)
         RectTransform _stage, _stageFx, _wandRoot, _ritual;
         UImage _sealBase, _sealElement, _outerGlyph, _wandImage, _master, _candle, _sigil;
-        UImage _stageGlow, _beam, _beamCore, _rays, _raysBack, _chargeRing, _chargeRingBack, _wandGlow;
+        UImage _stageGlow, _beam, _beamCore, _chargeRing, _chargeRingBack, _wandGlow;
         readonly List<UImage> _sealLayers = new List<UImage>();
-        readonly List<UImage> _spokes = new List<UImage>();
-        RectTransform _spokeRoot;
         UImage _aura, _resultBanner;
         UiLabel _nickname, _stageDigits;
         UImage _digitsGlow;
@@ -65,6 +63,7 @@ namespace Wizard.Solo.Screens.Enhance
         EnhanceParticles _particles;
         UImage _coreFlash, _crack, _crackShadeImg;
         Material _additive;
+        EnhanceCinematic _cinematic;
         // 오른쪽
         UiLabel _bigProb, _capTag, _lineBase, _lineSac, _lineSame, _lineAura, _hint, _probTitle;
         UImage _meterFill, _meterGlow, _hintBox;
@@ -77,7 +76,7 @@ namespace Wizard.Solo.Screens.Enhance
         readonly List<UiButton> _candidateCells = new List<UiButton>();
         UiButton _candPrev, _candNext;
         UiLabel _cost, _costGold, _costStone, _dropTag, _candTitle;
-        UImage _costStoneIcon, _enhanceGlow, _enhanceHalo;
+        UImage _costStoneIcon;
         RectTransform _costStoneIconRoot;
         UiButton _enhanceButton;
         UiToggle _fastToggle, _continueToggle, _stopOnDropToggle;
@@ -139,14 +138,10 @@ namespace Wizard.Solo.Screens.Enhance
 
         // ------------------------------------------------------------------ 판 도우미
 
-        /// <summary>둥근 카드: 짙은 유리 바탕 + 위쪽 윤기 + 강조색 테.</summary>
-        static void Card(RectTransform parent, float x, float y, float w, float h, Color accent, float fillAlpha = 0.86f)
+        static void WorkbenchPanel(RectTransform parent, float x, float y, float w, float h, Color accent)
         {
-            EnhanceGfx.Panel(parent, x + 4f, y + 6f, w, h, EnhanceFxStyle.WithA(Color.black, 0.35f), false, "CardShadow");
-            EnhanceGfx.Panel(parent, x, y, w, h, EnhanceFxStyle.WithA(UiTheme.Ink, fillAlpha), false, "CardFill");
-            var sheen = UiKit.Image(parent, EnhanceGfx.Sheen, x + 6f, y + 4f, w - 12f, Mathf.Min(120f, h * 0.3f), EnhanceFxStyle.WithA(Color.white, 0.06f), false);
-            sheen.name = "CardSheen";
-            EnhanceGfx.Panel(parent, x, y, w, h, EnhanceFxStyle.WithA(accent, 0.55f), true, "CardEdge");
+            UiKit.Rect(parent, x, y, w, h, EnhanceFxStyle.WithA(UiTheme.Ink, 0.83f), false, "PanelFill");
+            UiKit.Rect(parent, x, y, w, 2f, EnhanceFxStyle.WithA(accent, 0.62f), false, "PanelRule");
         }
 
         /// <summary>아이콘 + 숫자 칩. 돌려주는 것은 칩 뿌리(흔들림에 쓴다).</summary>
@@ -184,7 +179,7 @@ namespace Wizard.Solo.Screens.Enhance
         void BuildLeft(RectTransform content)
         {
             _left = UiKit.Node(content, "Left", 0f, PanelTop, SideW, PanelH);
-            Card(_left, 24f, 24f, 432f, 792f, UiTheme.SlateBlue);
+            WorkbenchPanel(_left, 24f, 24f, 432f, 792f, UiTheme.SlateBlue);
             float x = 48f, w = 384f;
             _slotsLabel = UiKit.Label(Ctx, _left, string.Empty, UiFontId.F24, x, 44f, w, 0f, UiTheme.Chalk, TextAnchor.MiddleLeft, false, true);
             _circuit = UiKit.Label(Ctx, _left, string.Empty, UiFontId.F12, x, 80f, w, 48f, UiTheme.SlateBlue, TextAnchor.UpperLeft, true);
@@ -225,8 +220,6 @@ namespace Wizard.Solo.Screens.Enhance
             float rc = 380f;   // 묶음 안 가운데
             _stageGlow = EnhanceGfx.Img(_ritual, EnhanceGfx.Glow, rc, rc, 820f, 820f, EnhanceFxStyle.WithA(ElementColor, 0.22f), "StageGlow");
             EnhanceGfx.Additive(Ctx, _stageGlow);
-            _raysBack = EnhanceGfx.Img(_ritual, EnhanceGfx.Rays24, rc, rc, 900f, 900f, new Color(1f, 1f, 1f, 0f), "RaysBack");
-            EnhanceGfx.Additive(Ctx, _raysBack);
             _beam = EnhanceGfx.Img(_ritual, EnhanceGfx.Beam, rc, rc - 120f, 240f, 1000f, new Color(1f, 1f, 1f, 0f), "Beam");
             EnhanceGfx.Additive(Ctx, _beam);
             _outerGlyph = EnhanceGfx.Img(_ritual, null, rc, rc, 640f, 640f, new Color(1f, 1f, 1f, 0f), "OuterGlyph");
@@ -251,27 +244,21 @@ namespace Wizard.Solo.Screens.Enhance
             _chargeRing.fillAmount = 0f;
             EnhanceGfx.Additive(Ctx, _chargeRing);
             _chargeRing.gameObject.SetActive(false);
-            _rays = EnhanceGfx.Img(_ritual, EnhanceGfx.Rays12, rc, rc, 700f, 700f, new Color(1f, 1f, 1f, 0f), "Rays");
-            EnhanceGfx.Additive(Ctx, _rays);
-            // 빛살(공통 그림 light_ray, 아래 가운데 피벗): 가운데에서 방사형으로 돌려 꽂는다. 성공 때만 켜진다.
-            _spokeRoot = EnhanceGfx.Centered(UiKit.Node(_ritual, "Spokes"), rc, rc, 0f, 0f);
-            var ray = EnhanceCommonArt.First(EnhanceCommonArt.Enh(Ctx != null ? Ctx.Art : null, EnhanceCommonArt.LightRay));
-            if (ray != null)
-                for (int i = 0; i < EnhanceFxStyle.SpokeCount; i++)
-                {
-                    var sp = EnhanceGfx.Img(_spokeRoot, ray, 0f, 0f, 64f, 512f, new Color(1f, 1f, 1f, 0f), "Spoke" + i);
-                    sp.rectTransform.pivot = new Vector2(0.5f, 0f);
-                    sp.rectTransform.anchoredPosition = Vector2.zero;
-                    sp.rectTransform.localEulerAngles = new Vector3(0f, 0f, i * 360f / EnhanceFxStyle.SpokeCount);
-                    EnhanceGfx.Additive(Ctx, sp);
-                    _spokes.Add(sp);
-                }
             _wandGlow = EnhanceGfx.Img(_ritual, EnhanceGfx.Glow, rc, rc, 420f, 420f, EnhanceFxStyle.WithA(ElementColor, 0.35f), "WandGlow");
             EnhanceGfx.Additive(Ctx, _wandGlow);
             // 단계 오라(+7 파랑 / +10 보라 / +13 무지개 금, 공통 그림 128×128을 4배).
             _aura = EnhanceGfx.Img(_ritual, null, rc, rc, 512f, 512f, new Color(1f, 1f, 1f, 0f), "Aura");
             _beamCore = EnhanceGfx.Img(_ritual, EnhanceGfx.Beam, rc, rc - 120f, 90f, 1000f, new Color(1f, 1f, 1f, 0f), "BeamCore");
             EnhanceGfx.Additive(Ctx, _beamCore);
+            var cinematic = new GameObject("RitualCinematic", typeof(RectTransform), typeof(EnhanceCinematic));
+            cinematic.transform.SetParent(_ritual, false);
+            EnhanceGfx.Centered((RectTransform)cinematic.transform, rc, rc, 760f, 760f);
+            _cinematic = cinematic.GetComponent<EnhanceCinematic>();
+            _cinematic.raycastTarget = false;
+            cinematic.SetActive(false);
+            _coreFlash = EnhanceGfx.Img(_ritual, EnhanceGfx.Glow, rc, rc, 520f, 520f, Color.clear, ImpactLightName);
+            EnhanceGfx.Additive(Ctx, _coreFlash);
+            _coreFlash.gameObject.SetActive(false);
             _wandRoot = UiKit.Node(_ritual, "Wand", rc - WandPx * 0.5f, rc - WandPx * 0.5f, WandPx, WandPx);
             _wandImage = UiKit.Image(_wandRoot, null, 0f, 0f, WandPx, WandPx, UiTheme.WoodLight);
             _markers = UiKit.Node(_wandRoot, "Markers", 0f, 0f, WandPx, WandPx);
@@ -300,7 +287,7 @@ namespace Wizard.Solo.Screens.Enhance
                 var slotSprite = EnhanceUi.EffectFrame(Ctx, EnhanceUi.GroupRitual, "offering_slot", 0);
                 if (slotSprite != null) UiKit.Image(b.ContentRoot, slotSprite, 0f, 0f, SlotPx, SlotPx);
                 Tint(EnhanceGfx.Panel(b.ContentRoot, 0f, 0f, SlotPx, SlotPx, EnhanceFxStyle.WithA(ElementColor, 0.45f), true, "SlotEdge"), 0.45f);
-                EnhanceGfx.Img(b.ContentRoot, EnhanceGfx.Sparkle, SlotPx * 0.5f, SlotPx * 0.5f, 20f, 20f, EnhanceFxStyle.WithA(ElementColor, 0.35f), "EmptyMark");
+                EnhanceGfx.Img(b.ContentRoot, EnhanceGfx.Sparkle, SlotPx * 0.5f, SlotPx * 0.5f, 12f, 12f, EnhanceFxStyle.WithA(ElementColor, 0.26f), "EmptyMark");
                 _sacrificeSlots.Add(b);
             }
             float chx = sx + MaxSacrifice * (SlotPx + 16f) + 16f;
@@ -332,18 +319,15 @@ namespace Wizard.Solo.Screens.Enhance
             var c = RitualScreen;
             _crackShadeImg = UiKit.Rect(_fxLayer, 0f, 0f, W, H, new Color(0f, 0f, 0f, 0f), false, "CrackShade");
             var crack = EnhanceUi.EffectFrame(Ctx, EnhanceUi.GroupRitual, "screen_crack", 0);
-            _crack = EnhanceGfx.Img(_fxLayer, crack, c.x, c.y, W * 1.05f, H * 1.05f, new Color(1f, 1f, 1f, 0f), "Crack");
+            _crack = EnhanceGfx.Img(_fxLayer, crack, c.x, c.y, 520f, 292.5f, new Color(1f, 1f, 1f, 0f), "Crack");
             var pr = UiKit.Node(_fxLayer, "Particles", 0f, 0f, W, H);
             _particles = new EnhanceParticles(pr, _additive, 360);
-            _coreFlash = EnhanceGfx.Img(_fxLayer, EnhanceGfx.Glow, c.x, c.y, 900f, 900f, new Color(1f, 1f, 1f, 0f), ImpactLightName);
-            EnhanceGfx.Additive(Ctx, _coreFlash);
-            _coreFlash.gameObject.SetActive(false);
         }
 
         void BuildRight(RectTransform content)
         {
             var right = UiKit.Node(content, "Right", SideW + MidW, PanelTop, SideW, PanelH);
-            Card(right, 24f, 24f, 432f, 792f, UiTheme.Gold, 0.88f);
+            WorkbenchPanel(right, 24f, 24f, 432f, 792f, UiTheme.Gold);
             float x = 48f, w = 384f;
             _probTitle = UiKit.LabelKey(Ctx, right, "str.enhance.prob.total", UiFontId.F16, x, 40f, 260f, 0f, UiTheme.SlateBlue);
             _bigProb = UiKit.Label(Ctx, right, string.Empty, UiFontId.F64, x, 64f, 240f, 96f, UiTheme.Chalk, TextAnchor.MiddleLeft, false, true);
@@ -418,12 +402,9 @@ namespace Wizard.Solo.Screens.Enhance
             _costStoneChip = Chip(bottom, CostStoneX, CostChipY, CostStoneW, CostChipH, null, UiTheme.SlateBlue, out _costStone, out _);
             _costStoneIconRoot = UiKit.Node(_costStoneChip, "StoneIcon", 6f, 4f, 32f, 32f);
             _dropTag = UiKit.LabelKey(Ctx, bottom, EnhanceNameKeys.DropPossible, UiFontId.F12, CostX, 56f, ButtonW, 16f, UiTheme.Amber, TextAnchor.MiddleCenter);
-            // 큰 주 버튼: 뒤에서 맥동하는 빛(누를 수 있을 때만). 속성색(금색 금지, 08 10.3절).
-            _enhanceHalo = EnhanceGfx.Img(bottom, EnhanceGfx.Glow, CostX + ButtonW * 0.5f, ButtonY + ButtonH * 0.5f, ButtonW + 240f, ButtonH + 150f, EnhanceFxStyle.WithA(ElementColor, 0.3f), "EnhanceHalo");
-            EnhanceGfx.Additive(Ctx, _enhanceHalo);
+            // 주 버튼의 활성·비활성 표시는 UI 키트가 맡는다.
             _enhanceButton = UiKit.Button(Ctx, bottom, T(EnhanceNameKeys.Enhance), CostX, ButtonY, ButtonW, ButtonH, OnEnhancePressed, UiButtonStyle.Primary, Focus, string.Empty, UiFontId.F32);
             _enhanceButton.Tint = ElementColor;
-            _enhanceGlow = EnhanceGfx.Panel(_enhanceButton.ContentRoot, -3f, -3f, ButtonW + 6f, ButtonH + 6f, EnhanceFxStyle.WithA(Color.white, 0.5f), true, "EnhanceEdge");
             _fastToggle = UiKit.Toggle(Ctx, bottom, T(EnhanceNameKeys.FastMode), ToggleX, 16f, ToggleW, 40f, false, SetFastMode, Focus);
             _continueToggle = UiKit.Toggle(Ctx, bottom, T(EnhanceNameKeys.AutoContinue), ToggleX, 60f, ToggleW, 40f, false, SetContinue, Focus);
             _stopOnDropToggle = UiKit.Toggle(Ctx, bottom, T(EnhanceNameKeys.StopOnDrop), ToggleX, 104f, ToggleW, 40f, _t.AutoStopOnDropDefault, v => _cont.StopOnDrop = v, Focus);

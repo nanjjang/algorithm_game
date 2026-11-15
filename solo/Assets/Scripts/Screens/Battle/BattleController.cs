@@ -30,6 +30,8 @@ namespace Wizard.Solo.Screens.Battle
 
         IGameSession Session => _ctx != null ? _ctx.Session : null;
         IScreenManager Screens => _ctx != null ? _ctx.Screens : null;
+        /// <summary>온라인 판(11-online.md): 일시정지 없음, 오프라인 프로필에 정산·저장하지 않음.</summary>
+        bool Online => Session is IOnlineSession os && os.IsOnline;
 
         public void Enter(ScreenArgs args)
         {
@@ -107,10 +109,12 @@ namespace Wizard.Solo.Screens.Battle
                     m?.Push(ScreenId.Camp, ScreenArgs.From(ScreenId.Battle).With(ScreenArgKeys.CampMode, CampMode.Camp));
                     break;
                 case BattleFlowActionKind.SaveCheckpoint:
+                    if (Online) break;
                     if (_ctx.Settlement != null && world.Mods != null && world.Mods.Run != null)
                         _ctx.Settlement.SaveCheckpoint(world.Mods.Run.BuildSummary(world));
                     break;
                 case BattleFlowActionKind.RecordArtUnlock:
+                    if (Online) break;
                     _ctx.Settlement?.RecordArtUnlock(a.Character, a.ArtId);
                     break;
                 case BattleFlowActionKind.BeginSettlement:
@@ -131,6 +135,18 @@ namespace Wizard.Solo.Screens.Battle
             var s = Session;
             var m = Screens;
             if (m == null) return;
+            if (Online)
+            {
+                // 온라인 판은 정산 화면(오프라인 프로필)으로 가지 않는다. 결과는 협동 방 화면이 보인다(서버 프로필 정산은 4단계).
+                var w = s.MainWorld;
+                var args = ScreenArgs.From(ScreenId.Battle)
+                    .With(ScreenArgKeys.CoopResultWave, w != null && w.Run != null ? w.Run.LastClearedWave : 0)
+                    .With(ScreenArgKeys.CoopResultScore, w != null && w.Run != null ? w.Run.Score : 0);
+                s.EndRun();
+                if (m.Top != ScreenId.Battle && m.IsOpen(ScreenId.Battle)) m.PopTo(ScreenId.Battle);
+                m.Replace(ScreenId.CoopLobby, args);
+                return;
+            }
             RunSummary summary = s != null ? s.LastSummary : null;
             if (summary == null && s != null)
             {

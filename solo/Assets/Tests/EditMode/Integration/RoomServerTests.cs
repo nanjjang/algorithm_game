@@ -480,5 +480,100 @@ namespace Wizard.Solo.Tests.Integration
             Assert.IsTrue(host.StartRun(3UL));
             Assert.AreEqual(proj, host.World.Run.Config.Loadout.Core, "판 출발 설정의 코어 = 서버 조립");
         }
+
+        PlazaClient PlazaPeer(PlazaHost host, string name, long accountId)
+        {
+            LoopbackPipe.CreatePair(out var se, out var ce);
+            var c = new PlazaClient();
+            c.Connect(ce, name, "char.1");
+            se.TryReceive(out var first);
+            var r = new NetReader(first);
+            r.Byte();
+            host.Accept(se, r, name, accountId);
+            return c;
+        }
+
+        void PlazaTick(PlazaHost h, params PlazaClient[] cs) { h.Tick(); foreach (var c in cs) c.Update(1f / 60f); }
+
+        [Test]
+        public void PlazaTrade_BothConfirm_Swaps_ChangeResetsConfirm()
+        {
+            var st = new AccountStore(null);
+            st.Register("상인갑", new string('1', 40), out var ra);
+            st.Register("상인을", new string('2', 40), out var rb);
+            ra.Profile.Gold = 1000;
+            ra.Profile.Add(Ids.Item.StoneLow, 5);
+            rb.Profile.Add(Ids.Item.Charm, 2);
+            var host = new PlazaHost { Accounts = st };
+            var a = PlazaPeer(host, "상인갑", ra.Id);
+            var b = PlazaPeer(host, "상인을", rb.Id);
+            var guest = PlazaPeer(host, "손님", 0);
+            for (int i = 0; i < 10; i++) PlazaTick(host, a, b, guest);
+            // 가까이 세운다(서버 자리를 직접 맞춘다).
+            foreach (var av in host.Avatars) av.Pos = new Vector2(20f, 11f);
+            for (int i = 0; i < 10; i++) PlazaTick(host, a, b, guest);
+
+            guest.RequestTrade(a.MyId);
+            for (int i = 0; i < 5; i++) PlazaTick(host, a, b, guest);
+            Assert.AreEqual(PlazaHost.TradeResult.Guest, guest.Trade.Result, "손님은 거래하지 못한다");
+
+            a.RequestTrade(b.MyId);
+            for (int i = 0; i < 5; i++) PlazaTick(host, a, b, guest);
+            Assert.AreEqual(a.MyId, b.InviteFrom, "청이 간다");
+            b.AnswerTrade(true);
+            for (int i = 0; i < 5; i++) PlazaTick(host, a, b, guest);
+            Assert.IsTrue(a.Trade.Open && b.Trade.Open);
+            Assert.AreEqual(1000, a.Trade.Inventory.Gold, "내 창고가 보인다");
+
+            var oa = new AccountStore.TradeOffer { Gold = 300 };
+            oa.Items[Ids.Item.StoneLow] = 2;
+            a.OfferTrade(oa);
+            var ob = new AccountStore.TradeOffer();
+            ob.Items[Ids.Item.Charm] = 1;
+            b.OfferTrade(ob);
+            for (int i = 0; i < 5; i++) PlazaTick(host, a, b, guest);
+            a.ConfirmTrade();
+            for (int i = 0; i < 5; i++) PlazaTick(host, a, b, guest);
+            Assert.IsTrue(b.Trade.TheirConfirm);
+            // 바꾸면 확인이 풀린다
+            oa.Gold = 200;
+            a.OfferTrade(oa);
+            for (int i = 0; i < 5; i++) PlazaTick(host, a, b, guest);
+            Assert.IsFalse(b.Trade.TheirConfirm, "내놓은 것이 바뀌면 확인이 풀린다");
+            a.ConfirmTrade(); b.ConfirmTrade();
+            for (int i = 0; i < 5; i++) PlazaTick(host, a, b, guest);
+            Assert.AreEqual(PlazaHost.TradeResult.Done, a.Trade.Result);
+            Assert.AreEqual(800, ra.Profile.Gold);
+            Assert.AreEqual(200, rb.Profile.Gold);
+            Assert.AreEqual(3, ra.Profile.Qty(Ids.Item.StoneLow));
+            Assert.AreEqual(2, rb.Profile.Qty(Ids.Item.StoneLow));
+            Assert.AreEqual(1, ra.Profile.Qty(Ids.Item.Charm));
+            Assert.AreEqual(1, rb.Profile.Qty(Ids.Item.Charm));
+        }
+
+        [Test]
+        public void PlazaTrade_CannotOfferWhatYouDontHave()
+        {
+            var st = new AccountStore(null);
+            st.Register("가난갑", new string('3', 40), out var ra);
+            st.Register("가난을", new string('4', 40), out var rb);
+            var huge = new AccountStore.TradeOffer { Gold = 999999 };
+            Assert.IsFalse(st.Owns(ra.Id, huge));
+            Assert.IsFalse(st.Swap(ra.Id, huge, rb.Id, new AccountStore.TradeOffer()), "없는 것을 내놓으면 맞바꾸지 않는다");
+        }
+
+        [Test]
+        public void RemoveMutation_CostsGold()
+        {
+            var st = new AccountStore(null);
+            st.Register("변이지움", new string('5', 40), out var rec);
+            rec.Profile.MutationsOf(1).Add(new Wizard.Solo.Meta.MutationEntry { Id = "mut.test", Seq = 1 });
+            var cfg = _k.Db.Enhance;
+            Assert.AreEqual(AccountStore.EnhanceResult.NotEnoughGold, st.RemoveMutation(rec.Id, 1, "mut.test", cfg));
+            rec.Profile.Gold = cfg.MutationRemoveGold;
+            Assert.AreEqual(AccountStore.EnhanceResult.Ok, st.RemoveMutation(rec.Id, 1, "mut.test", cfg));
+            Assert.AreEqual(0, rec.Profile.MutationsOf(1).Count);
+            Assert.AreEqual(0, rec.Profile.Gold);
+        }
 }
 }

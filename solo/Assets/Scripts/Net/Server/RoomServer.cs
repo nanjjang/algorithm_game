@@ -45,7 +45,7 @@ namespace Wizard.Solo.Net
             _content = content;
             _modules = modules ?? SimModuleSet.CreateDefault;
             _rng = seed != 0 ? new Random(seed) : new Random();
-            Plaza = new PlazaHost();
+            Plaza = new PlazaHost { Accounts = Accounts };
         }
 
         public CoopHost Room(string code) => code != null && _rooms.TryGetValue(code, out var h) ? h : null;
@@ -185,6 +185,21 @@ namespace Wizard.Solo.Net
                 pipe.Send(m.ToArray());
                 return true;
             }
+            if (kind == NetMsg.RemoveMutation)
+            {
+                int ch = 0;
+                string mid = null;
+                try { var r = new NetReader(data); r.Byte(); ch = r.Int(); mid = r.Str(); } catch (Exception) { }
+                _authed.TryGetValue(pipe, out var acct);
+                var res = acct == null ? AccountStore.EnhanceResult.NoAccount : Accounts.RemoveMutation(acct.Id, ch, mid, _content != null ? _content.Enhance : null);
+                var m = new NetWriter(NetMsg.EnhanceReply);
+                m.Byte((byte)res);
+                m.Byte((byte)Wizard.Solo.Meta.EnhanceOutcome.FailNoDrop);
+                m.Int(acct != null ? Accounts.StageOf(acct.Id, ch) : 0);
+                NetCodec.WriteProfile(m, acct != null ? acct.Profile : new ServerProfile());
+                pipe.Send(m.ToArray());
+                return true;
+            }
             if (kind == NetMsg.MutationResolve)
             {
                 int ch = 0;
@@ -282,7 +297,7 @@ namespace Wizard.Solo.Net
                         break;
                     }
                 case NetMsg.EnterPlaza:
-                    Plaza.Accept(pipe, r, acct != null ? acct.Name : null);
+                    Plaza.Accept(pipe, r, acct != null ? acct.Name : null, acct != null ? acct.Id : 0);
                     break;
                 case NetMsg.Hello:
                     // 옛 손님(방 코드 없이 바로 Hello): 협동 방을 하나 만들어 준다.

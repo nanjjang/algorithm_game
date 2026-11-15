@@ -124,6 +124,22 @@ namespace Wizard.Solo.Net
         SetLoadout = 49,
         /// <summary>방 서버 → 클라이언트: 조립 결과. 몸 = AccountStore.LoadoutResult(byte), 서버 프로필.</summary>
         LoadoutReply = 50,
+        /// <summary>클라이언트 → 방 서버(계정 뒤): 변이 지우기. 몸 = 캐릭터(int), 변이 id. 응답 EnhanceReply.</summary>
+        RemoveMutation = 51,
+        /// <summary>광장: 거래 청하기(→ 서버). 몸 = 상대 아바타 id.</summary>
+        TradeRequest = 60,
+        /// <summary>광장: 거래 청이 왔다(서버 →). 몸 = 청한 아바타 id, 이름.</summary>
+        TradeInvite = 61,
+        /// <summary>광장: 청에 답(→ 서버). 몸 = 청한 아바타 id, 받기(bool).</summary>
+        TradeAnswer = 62,
+        /// <summary>광장: 내 내놓을 것 바꾸기(→ 서버). 몸 = 골드(long), 아이템 수 n, (id, 개수)×n. 바꾸면 양쪽 확인이 풀린다.</summary>
+        TradeOffer = 63,
+        /// <summary>광장: 확인(→ 서버). 둘 다 확인하면 서버가 맞바꾼다.</summary>
+        TradeConfirm = 64,
+        /// <summary>광장: 거래 그만(→ 서버).</summary>
+        TradeCancel = 65,
+        /// <summary>광장: 거래 상태(서버 →). 몸 = 열림(bool), 상대 이름, 내 것, 상대 것, 내 확인, 상대 확인, 내 창고(거래할 수 있는 것), 결과 코드(byte).</summary>
+        TradeState = 66,
     }
 
     public enum AuthError : byte { BadName = 1, NameTaken = 2, BadSecret = 3, WrongLogin = 4 }
@@ -136,7 +152,7 @@ namespace Wizard.Solo.Net
     public static class NetProtocol
     {
         /// <summary>메시지 꼴이 바뀌면 올린다. 다르면 Reject(Version).</summary>
-        public const int Version = 9;
+        public const int Version = 10;
         /// <summary>스냅숏을 보내는 틱 간격(60틱 / 3 = 20Hz).</summary>
         public const int SnapshotEveryTicks = 3;
     }

@@ -42,7 +42,27 @@ namespace Wizard.Solo.Net
             public INetPipe Pipe;
             public PlazaAvatar Avatar;
             public int LastChatTick = -100000;
+            public long AccountId;
+            public Trade Trade;
+            public int InviteFrom = -1; // 나에게 온 청(아바타 id)
         }
+
+        /// <summary>두 사람의 거래 한 판.</summary>
+        sealed class Trade
+        {
+            public Peer A, B;
+            public AccountStore.TradeOffer OfferA = new AccountStore.TradeOffer(), OfferB = new AccountStore.TradeOffer();
+            public bool ConfirmA, ConfirmB;
+            public Peer Other(Peer p) => p == A ? B : A;
+            public AccountStore.TradeOffer Mine(Peer p) => p == A ? OfferA : OfferB;
+        }
+
+        public enum TradeResult : byte { None = 0, Done = 1, Cancelled = 2, Failed = 3, Busy = 4, Guest = 5, TooFar = 6 }
+
+        /// <summary>계정 저장소(방 서버가 넣는다). 없으면 거래를 하지 않는다.</summary>
+        public AccountStore Accounts;
+        /// <summary>거래를 청할 수 있는 거리(칸).</summary>
+        public const float TradeRange = 3f;
 
         readonly List<Peer> _peers = new List<Peer>();
         int _tick;
@@ -53,7 +73,7 @@ namespace Wizard.Solo.Net
         public IEnumerable<PlazaAvatar> Avatars { get { foreach (var p in _peers) yield return p.Avatar; } }
 
         /// <summary>EnterPlaza 메시지(이름, 캐릭터 id)를 읽고 들인다. 가득이면 RoomError(Full).</summary>
-        public void Accept(INetPipe pipe, NetReader enter, string accountName = null)
+        public void Accept(INetPipe pipe, NetReader enter, string accountName = null, long accountId = 0)
         {
             string name = null, charId = null;
             try { name = enter.Str(); charId = enter.Str(); } catch (Exception) { }
@@ -77,7 +97,7 @@ namespace Wizard.Solo.Net
                 // 광장 가운데 분수 둘레에 흩어서 선다.
                 Pos = new Vector2(Width * 0.5f + (float)(_rng.NextDouble() * 6 - 3), Height * 0.5f + (float)(_rng.NextDouble() * 4 - 2)),
             };
-            _peers.Add(new Peer { Pipe = pipe, Avatar = a });
+            _peers.Add(new Peer { Pipe = pipe, Avatar = a, AccountId = accountId });
             var w = new NetWriter(NetMsg.PlazaWelcome);
             w.Int(a.Id);
             pipe.Send(w.ToArray());
@@ -90,7 +110,7 @@ namespace Wizard.Solo.Net
             for (int i = _peers.Count - 1; i >= 0; i--)
             {
                 var p = _peers[i];
-                if (!p.Pipe.Connected) { _peers.RemoveAt(i); continue; }
+                if (!p.Pipe.Connected) { EndTrade(p, TradeResult.Cancelled); _peers.RemoveAt(i); continue; }
                 while (p.Pipe.TryReceive(out var data))
                 {
                     try { Handle(p, data); }
@@ -133,6 +153,26 @@ namespace Wizard.Solo.Net
                         p.Avatar.BubbleUntilTick = _tick + BubbleTicks;
                     }
                     break;
+                case NetMsg.TradeRequest:
+                    OnTradeRequest(p, r.Int());
+                    break;
+                case NetMsg.TradeAnswer:
+                    OnTradeAnswer(p, r.Int(), r.Bool());
+                    break;
+                case NetMsg.TradeOffer:
+                    {
+                        var o = new AccountStore.TradeOffer { Gold = Math.Max(0, r.Long()) };
+                        int n = Math.Min(r.Int(), 32);
+                        for (int k = 0; k < n; k++) { string id = r.Str(); int q = r.Int(); if (id != null && q > 0) o.Items[id] = q; }
+                        OnTradeOffer(p, o);
+                    }
+                    break;
+                case NetMsg.TradeConfirm:
+                    OnTradeConfirm(p);
+                    break;
+                case NetMsg.TradeCancel:
+                    EndTrade(p, TradeResult.Cancelled);
+                    break;
                 case NetMsg.PlazaEmote:
                     {
                         byte e = r.Byte();
@@ -142,6 +182,101 @@ namespace Wizard.Solo.Net
                     }
                     break;
             }
+        }
+
+        // ------------------------------------------------------------ 거래
+
+        Peer ById(int avatarId)
+        {
+            foreach (var q in _peers) if (q.Avatar.Id == avatarId) return q;
+            return null;
+        }
+
+        void OnTradeRequest(Peer p, int targetId)
+        {
+            var t = ById(targetId);
+            if (Accounts == null || p.AccountId <= 0 || t == null || t == p) { SendTrade(p, TradeResult.Guest); return; }
+            if (t.AccountId <= 0) { SendTrade(p, TradeResult.Guest); return; }
+            if (p.Trade != null || t.Trade != null) { SendTrade(p, TradeResult.Busy); return; }
+            if ((t.Avatar.Pos - p.Avatar.Pos).magnitude > TradeRange) { SendTrade(p, TradeResult.TooFar); return; }
+            t.InviteFrom = p.Avatar.Id;
+            var m = new NetWriter(NetMsg.TradeInvite);
+            m.Int(p.Avatar.Id);
+            m.Str(p.Avatar.Name);
+            t.Pipe.Send(m.ToArray());
+        }
+
+        void OnTradeAnswer(Peer p, int fromId, bool accept)
+        {
+            if (p.InviteFrom != fromId) return;
+            p.InviteFrom = -1;
+            var f = ById(fromId);
+            if (f == null || !accept || f.Trade != null || p.Trade != null) { if (f != null) SendTrade(f, TradeResult.Cancelled); return; }
+            var tr = new Trade { A = f, B = p };
+            f.Trade = tr;
+            p.Trade = tr;
+            SendTrade(f, TradeResult.None);
+            SendTrade(p, TradeResult.None);
+        }
+
+        void OnTradeOffer(Peer p, AccountStore.TradeOffer o)
+        {
+            var tr = p.Trade;
+            if (tr == null) return;
+            if (!Accounts.Owns(p.AccountId, o)) o = new AccountStore.TradeOffer(); // 없는 것은 못 올린다
+            if (p == tr.A) tr.OfferA = o; else tr.OfferB = o;
+            tr.ConfirmA = tr.ConfirmB = false; // 바뀌면 확인을 다시
+            SendTrade(tr.A, TradeResult.None);
+            SendTrade(tr.B, TradeResult.None);
+        }
+
+        void OnTradeConfirm(Peer p)
+        {
+            var tr = p.Trade;
+            if (tr == null) return;
+            if (p == tr.A) tr.ConfirmA = true; else tr.ConfirmB = true;
+            if (!(tr.ConfirmA && tr.ConfirmB)) { SendTrade(tr.A, TradeResult.None); SendTrade(tr.B, TradeResult.None); return; }
+            bool ok = Accounts.Swap(tr.A.AccountId, tr.OfferA, tr.B.AccountId, tr.OfferB);
+            var a = tr.A; var b = tr.B;
+            a.Trade = b.Trade = null;
+            SendTrade(a, ok ? TradeResult.Done : TradeResult.Failed);
+            SendTrade(b, ok ? TradeResult.Done : TradeResult.Failed);
+        }
+
+        void EndTrade(Peer p, TradeResult why)
+        {
+            var tr = p.Trade;
+            if (tr == null) return;
+            var o = tr.Other(p);
+            p.Trade = null;
+            if (o != null) { o.Trade = null; SendTrade(o, why); }
+            SendTrade(p, why);
+        }
+
+        static void WriteOffer(NetWriter m, AccountStore.TradeOffer o)
+        {
+            m.Long(o.Gold);
+            m.Int(o.Items.Count);
+            foreach (var kv in o.Items) { m.Str(kv.Key); m.Int(kv.Value); }
+        }
+
+        void SendTrade(Peer p, TradeResult result)
+        {
+            var tr = p.Trade;
+            var m = new NetWriter(NetMsg.TradeState);
+            m.Bool(tr != null);
+            m.Str(tr != null ? tr.Other(p).Avatar.Name : null);
+            WriteOffer(m, tr != null ? tr.Mine(p) : new AccountStore.TradeOffer());
+            WriteOffer(m, tr != null ? tr.Mine(tr.Other(p)) : new AccountStore.TradeOffer());
+            m.Bool(tr != null && (p == tr.A ? tr.ConfirmA : tr.ConfirmB));
+            m.Bool(tr != null && (p == tr.A ? tr.ConfirmB : tr.ConfirmA));
+            // 내 창고(거래할 수 있는 것): 골드 + 아이템
+            var acct = Accounts != null && p.AccountId > 0 ? Accounts.Get(p.AccountId) : null;
+            var inv = new AccountStore.TradeOffer();
+            if (acct != null) { inv.Gold = acct.Profile.Gold; if (acct.Profile.Items != null) foreach (var kv in acct.Profile.Items) inv.Items[kv.Key] = kv.Value; }
+            WriteOffer(m, inv);
+            m.Byte((byte)result);
+            p.Pipe.Send(m.ToArray());
         }
 
         void SendState()

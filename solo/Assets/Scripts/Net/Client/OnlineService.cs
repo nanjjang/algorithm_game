@@ -85,6 +85,17 @@ namespace Wizard.Solo.Net
             return res;
         }
 
+        /// <summary>받은 변이 하나를 지운다(골드).</summary>
+        public EnhanceReply? RemoveMutation(int character, string mutationId, int timeoutMs = 4000)
+        {
+            if (!Connected) return null;
+            var m = new NetWriter(NetMsg.RemoveMutation);
+            m.Int(character);
+            m.Str(mutationId);
+            _pipe.Send(m.ToArray());
+            return ReadReply(timeoutMs);
+        }
+
         /// <summary>대기 중인 변이 제시에 답한다(받기 / 거절).</summary>
         public EnhanceReply? ResolveMutation(int character, bool accept, int timeoutMs = 4000)
         {

@@ -431,6 +431,56 @@ namespace Wizard.Solo.Net
             return LoadoutResult.Ok;
         }
 
+        /// <summary>받은 변이 하나를 지운다(골드 cfg.MutationRemoveGold, 오프라인과 같은 값). 단계·기운·칸은 그대로.</summary>
+        public EnhanceResult RemoveMutation(long id, int character, string mutationId, Wizard.Solo.Data.EnhanceConfig cfg)
+        {
+            var a = Get(id);
+            if (a == null) return EnhanceResult.NoAccount;
+            if (character < 1 || character > 5 || cfg == null) return EnhanceResult.BadCharacter;
+            var p = a.Profile;
+            Fix(p);
+            if (p.OfferOf(character) != null) return EnhanceResult.MutationPending;
+            var muts = p.MutationsOf(character);
+            int index = muts.FindIndex(m => m.Id == mutationId);
+            if (index < 0) return EnhanceResult.BadCharacter;
+            if (p.Gold < cfg.MutationRemoveGold) return EnhanceResult.NotEnoughGold;
+            p.Gold -= cfg.MutationRemoveGold;
+            muts.RemoveAt(index);
+            Save();
+            return EnhanceResult.Ok;
+        }
+
+        // ------------------------------------------------------------ 거래
+
+        /// <summary>거래 한쪽이 내놓는 것: 골드와 아이템(강화석·부적·블록 — 창고에 있는 것만).</summary>
+        public sealed class TradeOffer
+        {
+            public long Gold;
+            public Dictionary<string, int> Items = new Dictionary<string, int>();
+        }
+
+        public bool Owns(long id, TradeOffer o)
+        {
+            var a = Get(id);
+            if (a == null || o == null || o.Gold < 0 || a.Profile.Gold < o.Gold) return false;
+            foreach (var kv in o.Items) if (kv.Value <= 0 || a.Profile.Qty(kv.Key) < kv.Value) return false;
+            return true;
+        }
+
+        /// <summary>두 계정이 내놓은 것을 한 번에 맞바꾼다(둘 다 가진 게 맞을 때만, 아니면 아무 일도 없다).</summary>
+        public bool Swap(long aId, TradeOffer aOffer, long bId, TradeOffer bOffer)
+        {
+            if (aId == bId || !Owns(aId, aOffer) || !Owns(bId, bOffer)) return false;
+            var a = Get(aId).Profile;
+            var b = Get(bId).Profile;
+            a.Gold -= aOffer.Gold; b.Gold += aOffer.Gold;
+            b.Gold -= bOffer.Gold; a.Gold += bOffer.Gold;
+            foreach (var kv in aOffer.Items) { a.Add(kv.Key, -kv.Value); b.Add(kv.Key, kv.Value); }
+            foreach (var kv in bOffer.Items) { b.Add(kv.Key, -kv.Value); a.Add(kv.Key, kv.Value); }
+            Save();
+            return true;
+        }
+
         /// <summary>서버 지팡이의 변이 id들(온라인 판 출발 설정에 넣는다).</summary>
         public List<string> MutationIds(long id, int character)
         {

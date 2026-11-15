@@ -44,7 +44,8 @@ namespace Wizard.Solo.Screens.Online
             return -1;
         }
 
-        UiLabel _doorPrompt;
+        UiLabel _doorPrompt, _tradeLine;
+        PlazaTradePanel _trade;
 
         sealed class AvatarView
         {
@@ -98,6 +99,10 @@ namespace Wizard.Solo.Screens.Online
             UiKit.Button(Ctx, content, T(OnlineKeys.ChatSend), 960f, by, 160f, 52f, SendChat, UiButtonStyle.Medium, Focus);
             UiKit.Button(Ctx, content, T(OnlineKeys.PlazaRooms), UiScale.RefWidth - 48f - 220f, by, 220f, 52f, GoRooms, UiButtonStyle.Primary, Focus);
             UiKit.Button(Ctx, content, T(OnlineKeys.Leave), UiScale.RefWidth - 48f - 220f - 12f - 160f, by, 160f, 52f, Leave, UiButtonStyle.Medium, Focus);
+
+            _tradeLine = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, (UiScale.RefWidth - 1200f) * 0.5f, 110f, 1200f, 40f,
+                UiTheme.SelectYellow, TextAnchor.MiddleCenter, outline: true);
+            _trade = new PlazaTradePanel(Ctx, content, Focus, _client, T);
 
             // 이름 정하기 판(처음 한 번).
             var board = UiKit.Panel(Ctx, content, UiPanelKind.Board, 0f, 0f, 560f, 260f).rectTransform;
@@ -190,7 +195,7 @@ namespace Wizard.Solo.Screens.Online
 
         public override void Tick(float dt)
         {
-            bool typing = (_chat != null && _chat.isFocused) || (_nameInput != null && _nameInput.isFocused);
+            bool typing = (_chat != null && _chat.isFocused) || (_nameInput != null && _nameInput.isFocused) || (_trade != null && _trade.Typing);
             if (Screens != null) Screens.CaptureKeys = typing;
             var kb = Keyboard.current;
             if (_nameBoard.gameObject.activeSelf)
@@ -218,7 +223,17 @@ namespace Wizard.Solo.Screens.Online
                     if (kb.digit3Key.wasPressedThisFrame) _client.Emote(3);
                     if (kb.digit4Key.wasPressedThisFrame) _client.Emote(4);
                 }
+                bool trading = _trade.Visible;
+                if (trading) dir = -1; // 거래 판이 열려 있으면 서 있는다
                 if (dir != _lastDir) { _client.Move(dir); _lastDir = dir; }
+
+                // 거래: T = 가장 가까운 사람에게 청하기, 청이 오면 Y/N.
+                if (!typing && !trading)
+                {
+                    if (kb.tKey.wasPressedThisFrame) { int near = NearestOther(); if (near > 0) _client.RequestTrade(near); }
+                    if (_client.InviteFrom > 0 && kb.yKey.wasPressedThisFrame) _client.AnswerTrade(true);
+                    if (_client.InviteFrom > 0 && kb.nKey.wasPressedThisFrame) _client.AnswerTrade(false);
+                }
 
                 // 문 위에 서 있으면 안내, Space면 그 방 화면으로.
                 int door = -1;
@@ -240,6 +255,25 @@ namespace Wizard.Solo.Screens.Online
                 return;
             }
             Render(dt);
+            bool open = _trade.Render();
+            string line = _client.InviteFrom > 0 ? T(OnlineKeys.TradeInvite).Replace("{name}", _client.InviteName ?? "?")
+                : (!open && _trade.LastResult != null ? _trade.LastResult : (open ? string.Empty : T(OnlineKeys.TradeHint)));
+            _tradeLine.SetText(line);
+        }
+
+        /// <summary>내 곁(거래 거리 안)의 가장 가까운 다른 사람 id(없으면 −1).</summary>
+        int NearestOther()
+        {
+            if (!_client.People.TryGetValue(_client.MyId, out var me)) return -1;
+            int best = -1;
+            float bd = PlazaHost.TradeRange;
+            foreach (var kv in _client.People)
+            {
+                if (kv.Key == _client.MyId) continue;
+                float d = (kv.Value.Pos - me.Pos).magnitude;
+                if (d <= bd) { bd = d; best = kv.Key; }
+            }
+            return best;
         }
 
         public static int DirOf(bool up, bool down, bool left, bool right)

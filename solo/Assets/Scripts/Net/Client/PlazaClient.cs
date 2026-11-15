@@ -26,6 +26,64 @@ namespace Wizard.Solo.Net
         public bool Connected => _pipe != null && _pipe.Connected;
         public bool Rejected { get; private set; }
         public int StatesReceived { get; private set; }
+
+        /// <summary>거래 상태(서버가 보낸 마지막 것).</summary>
+        public sealed class TradeView
+        {
+            public bool Open;
+            public string Partner;
+            public AccountStore.TradeOffer Mine = new AccountStore.TradeOffer(), Theirs = new AccountStore.TradeOffer(), Inventory = new AccountStore.TradeOffer();
+            public bool MyConfirm, TheirConfirm;
+            public PlazaHost.TradeResult Result;
+        }
+
+        public TradeView Trade { get; private set; } = new TradeView();
+        /// <summary>나에게 온 거래 청(없으면 −1).</summary>
+        public int InviteFrom { get; private set; } = -1;
+        public string InviteName { get; private set; }
+        /// <summary>새 거래 결과(Done·Cancelled·Failed …)가 왔으면 한 번 true.</summary>
+        public bool TradeResultFresh;
+
+        void SendSimple(NetMsg k) { if (_pipe != null) _pipe.Send(new NetWriter(k).ToArray()); }
+
+        public void RequestTrade(int avatarId)
+        {
+            if (_pipe == null) return;
+            var m = new NetWriter(NetMsg.TradeRequest);
+            m.Int(avatarId);
+            _pipe.Send(m.ToArray());
+        }
+
+        public void AnswerTrade(bool accept)
+        {
+            if (_pipe == null || InviteFrom < 0) return;
+            var m = new NetWriter(NetMsg.TradeAnswer);
+            m.Int(InviteFrom);
+            m.Bool(accept);
+            _pipe.Send(m.ToArray());
+            InviteFrom = -1;
+        }
+
+        public void OfferTrade(AccountStore.TradeOffer o)
+        {
+            if (_pipe == null) return;
+            var m = new NetWriter(NetMsg.TradeOffer);
+            m.Long(o.Gold);
+            m.Int(o.Items.Count);
+            foreach (var kv in o.Items) { m.Str(kv.Key); m.Int(kv.Value); }
+            _pipe.Send(m.ToArray());
+        }
+
+        public void ConfirmTrade() => SendSimple(NetMsg.TradeConfirm);
+        public void CancelTrade() => SendSimple(NetMsg.TradeCancel);
+
+        static AccountStore.TradeOffer ReadOffer(NetReader r)
+        {
+            var o = new AccountStore.TradeOffer { Gold = r.Long() };
+            int n = r.Int();
+            for (int i = 0; i < n; i++) { string k = r.Str(); o.Items[k] = r.Int(); }
+            return o;
+        }
         public IReadOnlyDictionary<int, Shown> People => _shown;
 
         /// <summary>방 서버에 붙어 광장에 들어간다.</summary>
@@ -87,6 +145,23 @@ namespace Wizard.Solo.Net
                     break;
                 case NetMsg.RoomError:
                     Rejected = true;
+                    break;
+                case NetMsg.TradeInvite:
+                    InviteFrom = r.Int();
+                    InviteName = r.Str();
+                    break;
+                case NetMsg.TradeState:
+                    {
+                        var t = new TradeView { Open = r.Bool(), Partner = r.Str() };
+                        t.Mine = ReadOffer(r);
+                        t.Theirs = ReadOffer(r);
+                        t.MyConfirm = r.Bool();
+                        t.TheirConfirm = r.Bool();
+                        t.Inventory = ReadOffer(r);
+                        t.Result = (PlazaHost.TradeResult)r.Byte();
+                        Trade = t;
+                        if (t.Result != PlazaHost.TradeResult.None) TradeResultFresh = true;
+                    }
                     break;
                 case NetMsg.PlazaState:
                     {

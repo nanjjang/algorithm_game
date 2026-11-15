@@ -25,6 +25,8 @@ namespace Wizard.Solo.Screens.Online
         readonly List<UiButton> _slotButtons = new List<UiButton>();
         readonly List<UiButton> _chipButtons = new List<UiButton>();
         readonly List<string> _chipIds = new List<string>();
+        readonly List<UiButton> _mutButtons = new List<UiButton>();
+        UiLabel _mutHead;
 
         public override ScreenId Id => ScreenId.OnlineAssembly;
         protected override bool HasFrame => false;
@@ -55,6 +57,14 @@ namespace Wizard.Solo.Screens.Online
                     () => Put(k), UiButtonStyle.Small, Focus, null, UiFontId.F12));
             }
             y += 4f * (44f + Gap) + 8f;
+            // 받은 변이: 누르면 지운다(골드).
+            _mutHead = UiKit.Label(Ctx, board, string.Empty, UiFontId.F16, Pad, y, 360f, 44f, UiTheme.SlateBlue);
+            for (int i = 0; i < 4; i++)
+            {
+                int k = i;
+                _mutButtons.Add(UiKit.Button(Ctx, board, string.Empty, Pad + 370f + i * (220f + Gap), y, 220f, 44f, () => RemoveMutation(k), UiButtonStyle.Small, Focus, null, UiFontId.F12));
+            }
+            y += 52f;
             _status = UiKit.Label(Ctx, board, string.Empty, UiFontId.F24, Pad, y, BoardW - 2f * Pad, 40f, UiTheme.Amber, TextAnchor.MiddleCenter);
             float by = BoardH - Pad - 56f;
             UiKit.Button(Ctx, board, T(OnlineKeys.AssemblyClear), Pad, by, 220f, 56f, Clear, UiButtonStyle.Medium, Focus);
@@ -127,6 +137,15 @@ namespace Wizard.Solo.Screens.Online
                 string head = i == 0 ? T(OnlineKeys.AssemblyCore) : F(OnlineKeys.AssemblyLink, "n", i);
                 _slotButtons[i].SetText((i == _selected ? "▶ " : string.Empty) + head + "\n" + (string.IsNullOrEmpty(id) ? "-" : T(id)));
             }
+            var cfg = db != null ? db.Enhance : null;
+            var mlist = p != null ? p.MutationsOf(_character) : new List<Wizard.Solo.Meta.MutationEntry>();
+            _mutHead.SetText(F(OnlineKeys.MutationRemoveHead, "gold", N(cfg != null ? cfg.MutationRemoveGold : 0)));
+            for (int i = 0; i < _mutButtons.Count; i++)
+            {
+                bool on = i < mlist.Count;
+                _mutButtons[i].gameObject.SetActive(on);
+                if (on) _mutButtons[i].SetText("✕ " + T(mlist[i].Id));
+            }
             _chipIds.Clear();
             _chipIds.Add(Wizard.Solo.Ids.Block.MagicBolt);
             var ids = new SortedSet<string>(System.StringComparer.Ordinal);
@@ -150,6 +169,20 @@ namespace Wizard.Solo.Screens.Online
                 bool projectile = db != null && db.Block(id) != null && db.Block(id).IsProjectile;
                 _chipButtons[i].Enabled = free > 0 && (_selected != 0 || projectile);
             }
+        }
+
+        void RemoveMutation(int k)
+        {
+            var p = _svc != null ? _svc.Profile : null;
+            if (p == null) return;
+            var muts = p.MutationsOf(_character);
+            if (k >= muts.Count) return;
+            var rep = _svc.RemoveMutation(_character, muts[k].Id);
+            if (rep == null) _status.SetText(T(OnlineKeys.ErrorServer));
+            else if (rep.Value.Result == AccountStore.EnhanceResult.NotEnoughGold) _status.SetText(T(OnlineKeys.EnhanceGold));
+            else if (rep.Value.Result == AccountStore.EnhanceResult.Ok) _status.SetText(T(OnlineKeys.MutationRemoved));
+            else _status.SetText(T(OnlineKeys.AssemblyBad));
+            Refresh();
         }
 
         void Put(int chip)

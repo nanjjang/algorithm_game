@@ -8,8 +8,8 @@ namespace Wizard.Solo.Net
     /// <summary>
     /// 전용 협동 서버(11-online.md 3단계). 같은 solo 빌드를 화면 없이 띄운다:
     ///   "Wizard.app/Contents/MacOS/Wizard Solo" -batchmode -nographics -coopServer [-port 27870]
-    /// 방 하나를 연다. 손님은 TCP로 붙고, 방장(가장 낮은 슬롯)이 StartRequest를 보내면 판이 시작된다.
-    /// 판이 끝나고 손님이 모두 나가면(또는 판 전에 모두 나가면) 새 방을 연다. 60틱 고정(뒤처지면 한 프레임에 최대 5틱까지 따라잡는다).
+    /// 방 서버(RoomServer)를 연다: 방 여러 개(6자리 코드로 참가) + 광장 하나. 방장이 StartRequest를 보내면 그 방의 판이 시작된다.
+    /// 끝난 방·빈 방은 지운다. 60틱 고정(뒤처지면 한 프레임에 최대 5틱까지 따라잡는다).
     /// UI·프로필·소리는 만들지 않는다 — Bootstrap.AutoBoot가 -coopServer를 보면 이것만 세운다.
     /// </summary>
     public sealed class DedicatedServer : MonoBehaviour
@@ -19,10 +19,10 @@ namespace Wizard.Solo.Net
 
         IContentDb _content;
         TcpPipeListener _listener;
-        CoopHost _host;
+        RoomServer _rooms;
         double _acc;
         double _last;
-        int _rooms;
+        int _statusTicks;
 
         public static bool RequestedByCommandLine()
         {
@@ -54,36 +54,30 @@ namespace Wizard.Solo.Net
             Application.runInBackground = true;
             _content = ContentDb.LoadFromResources(msg => Debug.LogError(msg));
             _listener = new TcpPipeListener(port, bindAll: true);
-            NewRoom();
+            _rooms = new RoomServer(_content) { Log = m => Debug.Log(m) };
             _last = Time.realtimeSinceStartupAsDouble;
             Debug.Log("[coop-server] listening on port " + _listener.Port + " (protocol " + NetProtocol.Version + ")");
         }
 
-        void NewRoom()
-        {
-            _host = new CoopHost(_content);
-            _rooms++;
-            Debug.Log("[coop-server] room " + _rooms + " open");
-        }
 
         void Update()
         {
-            if (_host == null) return;
+            if (_rooms == null) return;
             TcpPipe pipe;
-            while ((pipe = _listener.Poll()) != null) _host.Accept(pipe);
+            while ((pipe = _listener.Poll()) != null) _rooms.Accept(pipe);
 
             double now = Time.realtimeSinceStartupAsDouble;
             _acc += now - _last;
             _last = now;
             const double dt = 1.0 / SimConst.TicksPerSecond;
             int steps = 0;
-            while (_acc >= dt && steps < 5) { _host.Tick(); _acc -= dt; steps++; }
+            while (_acc >= dt && steps < 5) { _rooms.Tick(); _acc -= dt; steps++; }
             if (_acc > dt * 5) _acc = 0; // 너무 밀리면 따라잡기를 버린다
 
-            if (_host.Finished)
+            if (++_statusTicks >= 60 * 60)
             {
-                Debug.Log("[coop-server] room " + _rooms + " finished at tick " + _host.World.Tick + ", wave " + _host.World.Run.LastClearedWave);
-                NewRoom();
+                _statusTicks = 0;
+                Debug.Log("[coop-server] rooms " + _rooms.RoomCount + ", plaza " + _rooms.Plaza.Count);
             }
         }
 

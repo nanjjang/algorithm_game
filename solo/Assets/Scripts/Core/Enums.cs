@@ -91,7 +91,8 @@ namespace Wizard.Solo
 
     public enum StarfallPhase { None, Scheduled, Telegraph, Landed, Picked, Expired }
 
-    public enum RunMode { Endless, Practice, Tutorial }
+    /// <summary>Duel = 온라인 1대1 결투(Docs/11-online.md, docs/spec/10-duel.md).</summary>
+    public enum RunMode { Endless, Practice, Tutorial, Duel }
 
     /// <summary>연습 방 옵션(08 요약서 8.5절). RunCommand.PracticeSetOption의 A 값(B = 1 켬 / 0 끔).
     /// HeatFreeze = "열 고정": 켠 순간의 열 값에 묶는다(발사·냉각으로 변하지 않고 잠금에 들어가지 않는다. 00 문서 D-57).</summary>
@@ -104,7 +105,9 @@ namespace Wizard.Solo
     public enum RunPhase
     {
         NotStarted, StartCamp, WavePrelude, BossIntro, WaveCombat, PhantomFinale, PhantomDowned,
-        WaveClearing, LootPick, Camp, Practice, RunEnded
+        WaveClearing, LootPick, Camp, Practice, RunEnded,
+        /// <summary>결투: 라운드 시작 카운트다운(움직이지 못한다) → 싸움 → 라운드 끝(승패 표시). 번호는 뒤에만 더한다.</summary>
+        DuelCountdown, DuelFight, DuelRoundEnd
     }
 
     /// <summary>야영 하위 상태. 06 요약서 4.3절.</summary>

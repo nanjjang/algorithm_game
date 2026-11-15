@@ -19,10 +19,10 @@ namespace Wizard.Solo.Net
         OnlineCoop(IContentDb content) { _content = content; }
 
         /// <summary>이 기기에 방을 만들고 내가 슬롯 0으로 들어간다.</summary>
-        public static OnlineCoop HostLocal(IContentDb content, RunConfig me)
+        public static OnlineCoop HostLocal(IContentDb content, RunConfig me, RoomMode mode = RoomMode.Coop)
         {
             var o = new OnlineCoop(content);
-            o.Host = new CoopHost(content);
+            o.Host = new CoopHost(content, null, SimConst.MaxPlayers, mode);
             LoopbackPipe.CreatePair(out var serverEnd, out var clientEnd);
             o.Host.Accept(serverEnd);
             o.Me = new CoopClient(content);
@@ -30,6 +30,31 @@ namespace Wizard.Solo.Net
             o.Pump();
             return o;
         }
+
+        /// <summary>방 서버에 새 방을 만든다(코드는 Me.RoomCode). 서버에 못 붙으면 null.</summary>
+        public static OnlineCoop CreateRoom(IContentDb content, RoomMode mode, RunConfig me)
+        {
+            var pipe = OnlineServer.Connect(content);
+            if (pipe == null) return null;
+            var o = new OnlineCoop(content);
+            o.Me = new CoopClient(content);
+            o.Me.ConnectCreate(pipe, mode, me);
+            return o;
+        }
+
+        /// <summary>방 서버의 코드 방에 들어간다. 서버에 못 붙으면 null(코드가 틀리면 Me.State = Rejected, RoomErrorCode).</summary>
+        public static OnlineCoop JoinCode(IContentDb content, string code, RunConfig me)
+        {
+            var pipe = OnlineServer.Connect(content);
+            if (pipe == null) return null;
+            var o = new OnlineCoop(content);
+            o.Me = new CoopClient(content);
+            o.Me.ConnectJoin(pipe, RoomServer.Normalize(code), me);
+            return o;
+        }
+
+        public string RoomCode => Me != null ? Me.RoomCode : null;
+        public RoomMode Mode => Host != null ? Host.Mode : (Me != null ? Me.Mode : RoomMode.Coop);
 
         /// <summary>원격 서버(전용 서버)에 붙는다. 실패하면 null.</summary>
         public static OnlineCoop JoinRemote(IContentDb content, string host, int port, RunConfig me)
@@ -196,19 +221,30 @@ namespace Wizard.Solo.Net
             var w = Client.World;
             if (w == null || Client.Slot < 0) return;
             var p = w.Players[Client.Slot];
-            bool fight = w.Run != null && (w.Run.Phase == RunPhase.WavePrelude || w.Run.Phase == RunPhase.WaveCombat);
+            bool duel = w.Run != null && w.Run.Config != null && w.Run.Config.Mode == RunMode.Duel;
+            bool fight = w.Run != null && (w.Run.Phase == RunPhase.WavePrelude || w.Run.Phase == RunPhase.WaveCombat || w.Run.Phase == RunPhase.DuelFight);
             if (!fight || !p.Active || p.Downed) { ReleaseAll(); Client.Flush(); return; }
-            EnemyState best = null;
-            float bd = float.MaxValue;
-            foreach (var e in w.Enemies)
+            // 결투면 상대 사람, 아니면 가장 가까운 적을 노린다.
+            bool has = false;
+            Vector2 target = default;
+            if (duel)
             {
-                if (!e.Targetable) continue;
-                float d = (e.Pos - p.Pos).sqrMagnitude;
-                if (d < bd) { bd = d; best = e; }
+                var o = w.Players[Client.Slot == 0 ? 1 : 0];
+                if (o.Active && !o.Downed) { has = true; target = o.Pos; }
             }
-            Key(LogicalKey.Fire, best != null);
-            if (best == null) { for (int i = 0; i < 4; i++) Key((LogicalKey)i, false); Client.Flush(); return; }
-            Vector2 v = best.Pos - p.Pos;
+            else
+            {
+                float bd = float.MaxValue;
+                foreach (var e in w.Enemies)
+                {
+                    if (!e.Targetable) continue;
+                    float d = (e.Pos - p.Pos).sqrMagnitude;
+                    if (d < bd) { bd = d; target = e.Pos; has = true; }
+                }
+            }
+            Key(LogicalKey.Fire, has);
+            if (!has) { for (int i = 0; i < 4; i++) Key((LogicalKey)i, false); Client.Flush(); return; }
+            Vector2 v = target - p.Pos;
             bool h = Mathf.Abs(v.x) > Mathf.Abs(v.y);
             bool close = v.sqrMagnitude < 2.5f * 2.5f;
             bool blink = (w.Tick & 1) == 0;

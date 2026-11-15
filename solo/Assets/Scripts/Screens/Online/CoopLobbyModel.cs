@@ -15,6 +15,14 @@ namespace Wizard.Solo.Screens.Online
         readonly GameContext _ctx;
 
         public OnlineCoop Room { get; private set; }
+        /// <summary>만들 방의 종류(화면의 협동/결투 단추). 방에 들어간 뒤에는 방의 종류(Room.Mode)를 본다.</summary>
+        public RoomMode SelectedMode = RoomMode.Coop;
+        public RoomMode Mode => Room != null ? Room.Mode : SelectedMode;
+        public int MaxMembers => Mode == RoomMode.Duel ? 2 : SimConst.MaxPlayers;
+        /// <summary>방 코드(서버 방, 받은 뒤). 이 기기 방이면 null.</summary>
+        public string Code => Room != null ? Room.RoomCode : null;
+        /// <summary>결투 결과(Battle이 넘긴다): 이긴 슬롯(−1 무승부, −2 없음), 내 슬롯, 승수.</summary>
+        public int ResultDuelWinner = -2, ResultMySlot, ResultWins0, ResultWins1;
         public string ErrorKey { get; private set; }
         public int ResultWave = -1;
         public int ResultScore;
@@ -22,10 +30,11 @@ namespace Wizard.Solo.Screens.Online
         public CoopLobbyModel(GameContext ctx) { _ctx = ctx; }
 
         public bool HasRoom => Room != null && Room.Connected;
-        public bool CanAddBot => HasRoom && Room.IsLeader && Room.World == null && Room.MemberCount > 0 && Room.MemberCount < SimConst.MaxPlayers;
+        public bool CanAddBot => HasRoom && Room.IsLeader && Room.World == null && Room.MemberCount > 0 && Room.MemberCount < MaxMembers;
         public bool CanRemoveBot => HasRoom && Room.IsLeader && Room.World == null && Room.BotCount > 0;
         public bool CanOpenNetwork => HasRoom && Room.IsLocalHost && !Room.OpenToNetwork;
-        public bool CanStart => HasRoom && Room.IsLeader && Room.World == null && !_startRequested;
+        public bool CanStart => HasRoom && Room.IsLeader && Room.World == null && !_startRequested
+            && (Mode != RoomMode.Duel || Room.MemberCount == 2);
         /// <summary>원격 방에서 시작을 청했고 아직 판이 안 열렸다.</summary>
         bool _startRequested;
 
@@ -69,14 +78,42 @@ namespace Wizard.Solo.Screens.Online
             return r.Value;
         }
 
-        /// <summary>방을 만든다(이미 있으면 그대로).</summary>
+        /// <summary>온라인 서버에 방을 만든다(코드가 나온다).</summary>
+        public bool CreateOnline()
+        {
+            ErrorKey = null;
+            if (HasRoom) return true;
+            var me = MemberConfig(MyCharacter);
+            if (me == null) { ErrorKey = ErrorKey ?? OnlineKeys.ErrorWand; return false; }
+            Room = OnlineCoop.CreateRoom(_ctx.Content, SelectedMode, me);
+            if (Room == null) { ErrorKey = OnlineKeys.ErrorServer; return false; }
+            if (_ctx != null) _ctx.Online = Room;
+            return true;
+        }
+
+        /// <summary>코드로 온라인 방에 들어간다.</summary>
+        public bool JoinCode(string code)
+        {
+            ErrorKey = null;
+            if (HasRoom) return true;
+            code = RoomServer.Normalize(code);
+            if (string.IsNullOrEmpty(code) || code.Length != RoomServer.CodeLength) { ErrorKey = OnlineKeys.ErrorCode; return false; }
+            var me = MemberConfig(MyCharacter);
+            if (me == null) { ErrorKey = ErrorKey ?? OnlineKeys.ErrorWand; return false; }
+            Room = OnlineCoop.JoinCode(_ctx.Content, code, me);
+            if (Room == null) { ErrorKey = OnlineKeys.ErrorServer; return false; }
+            if (_ctx != null) _ctx.Online = Room;
+            return true;
+        }
+
+        /// <summary>이 기기에 방을 만든다(인터넷 없이 봇과 연습).</summary>
         public bool CreateRoom()
         {
             ErrorKey = null;
             if (HasRoom) return true;
             var me = MemberConfig(MyCharacter);
             if (me == null) { ErrorKey = ErrorKey ?? OnlineKeys.ErrorWand; return false; }
-            Room = OnlineCoop.HostLocal(_ctx.Content, me);
+            Room = OnlineCoop.HostLocal(_ctx.Content, me, SelectedMode);
             if (!HasRoom) { ErrorKey = OnlineKeys.ErrorConnect; Room = null; return false; }
             if (_ctx != null) _ctx.Online = Room;
             return true;
@@ -192,7 +229,11 @@ namespace Wizard.Solo.Screens.Online
                 Room.Pump();
                 if (!Room.Connected)
                 {
-                    ErrorKey = Room.Me.State == CoopClientState.Rejected ? OnlineKeys.ErrorRejected : OnlineKeys.ErrorConnect;
+                    ErrorKey = Room.Me.State != CoopClientState.Rejected ? OnlineKeys.ErrorConnect
+                        : Room.Me.RoomErrorCode == RoomError.NotFound ? OnlineKeys.ErrorNoRoom
+                        : Room.Me.RoomErrorCode == RoomError.Full ? OnlineKeys.ErrorFull
+                        : Room.Me.RoomErrorCode == RoomError.Started ? OnlineKeys.ErrorStarted
+                        : OnlineKeys.ErrorRejected;
                     Room = null;
                     _startRequested = false;
                     if (_ctx != null) _ctx.Online = null;
@@ -214,6 +255,11 @@ namespace Wizard.Solo.Screens.Online
             ErrorKey = null;
             ResultWave = args != null && args.Values.ContainsKey(ScreenArgKeys.CoopResultWave) ? args.Get(ScreenArgKeys.CoopResultWave, 0) : -1;
             ResultScore = args != null ? args.Get(ScreenArgKeys.CoopResultScore, 0) : 0;
+            ResultDuelWinner = args != null ? args.Get(ScreenArgKeys.DuelWinner, -2) : -2;
+            ResultMySlot = args != null ? args.Get(ScreenArgKeys.DuelMySlot, 0) : 0;
+            ResultWins0 = args != null ? args.Get(ScreenArgKeys.DuelWins0, 0) : 0;
+            ResultWins1 = args != null ? args.Get(ScreenArgKeys.DuelWins1, 0) : 0;
+            if (args != null && args.Values.ContainsKey(ScreenArgKeys.RoomMode)) SelectedMode = args.Get(ScreenArgKeys.RoomMode, RoomMode.Coop);
             _startRequested = false;
             if (Room != null && !Room.Connected) Room = null;
             if (_ctx != null && _ctx.Online != null && !_ctx.Online.Connected) _ctx.Online = null;
@@ -247,5 +293,30 @@ namespace Wizard.Solo.Screens.Online
         public const string AddressHint = "str.coop.address_hint";
         public const string Waiting = "str.coop.waiting";
         public const string Member = "str.coop.member";
+        public const string ModeCoop = "str.coop.mode.coop";
+        public const string ModeDuel = "str.coop.mode.duel";
+        public const string CreateOnline = "str.coop.create_online";
+        public const string CreateLocal = "str.coop.create_local";
+        public const string CodeHint = "str.coop.code_hint";
+        public const string CodeLine = "str.coop.code_line";
+        public const string ErrorCode = "str.coop.error.code";
+        public const string ErrorServer = "str.coop.error.server";
+        public const string ErrorNoRoom = "str.coop.error.no_room";
+        public const string ErrorFull = "str.coop.error.full";
+        public const string ErrorStarted = "str.coop.error.started";
+        public const string DuelWin = "str.duel.result.win";
+        public const string DuelLose = "str.duel.result.lose";
+        public const string DuelDraw = "str.duel.result.draw";
+        public const string DuelNeedTwo = "str.duel.need_two";
+        public const string MenuDuel = "str.main_menu.item.duel";
+        public const string MenuPlaza = "str.main_menu.item.plaza";
+        public const string Plaza = "str.coop.plaza";
+        public const string ChatHint = "str.plaza.chat_hint";
+        public const string ChatSend = "str.plaza.chat_send";
+        public const string PlazaRooms = "str.plaza.rooms";
+        public const string PlazaNameTitle = "str.plaza.name_title";
+        public const string PlazaNameHint = "str.plaza.name_hint";
+        public const string PlazaEnter = "str.plaza.enter";
+        public const string PlazaCount = "str.plaza.count";
     }
 }

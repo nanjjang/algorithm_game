@@ -264,11 +264,34 @@ namespace Wizard.Solo.Sim
         public float RemainingRatio = 1f;
     }
 
+    /// <summary>결투 라운드가 끝난 까닭.</summary>
+    public enum DuelRoundEndKind { Knockout = 0, Timeout = 1, Overtime = 2, Forfeit = 3 }
+
+    /// <summary>결투 상태(RunState.Duel, Mode == Duel일 때만). 주인: Run 모듈(RunFlow.Duel.cs). 값은 DataSolo/Duel.json.</summary>
+    public sealed class DuelState
+    {
+        public int Round;
+        public int RoundStartTick;
+        public bool Overtime;
+        public readonly int[] Wins = new int[2];
+        /// <summary>이번 라운드에 상대에게 준 피해 합(상한을 거친 뒤 실제로 깎인 것).</summary>
+        public readonly int[] DamageDealt = new int[2];
+        /// <summary>순간 피해 상한용: 사람마다 최근 BurstWindow틱 동안 받은 피해(틱 % 창 칸).</summary>
+        public readonly int[] TakenRing0 = new int[64];
+        public readonly int[] TakenRing1 = new int[64];
+        public int LastRoundWinner = -1;
+        public DuelRoundEndKind LastRoundEnd;
+        public int MatchWinner = -1;
+        public bool MatchOver;
+    }
+
     /// <summary>판 전체 상태. 주인: Run 모듈(RunFlow). 01·06 요약서.</summary>
     public sealed class RunState
     {
         public RunConfig Config;
         public RunPhase Phase = RunPhase.NotStarted;
+        /// <summary>결투 판이면 결투 상태(아니면 null).</summary>
+        public DuelState Duel;
         public int PhaseStartTick;
         /// <summary>웨이브 번호(누적). WaveClearing·LootPick 동안은 방금 넘긴 웨이브, 야영(Camp·StartCamp) 동안은 다음에 싸울 웨이브.</summary>
         public int Wave;

@@ -52,6 +52,31 @@ namespace Wizard.Solo.Net
         }
 
         /// <summary>서버에 붙는다. member = 내 출발 설정(캐릭터·지팡이·조립·기본 공격 유형).</summary>
+        /// <summary>방 서버에 붙어 새 방을 만든다(코드는 RoomInfo로 온다).</summary>
+        public void ConnectCreate(INetPipe pipe, RoomMode mode, RunConfig member)
+        {
+            var msg = new NetWriter(NetMsg.CreateRoom);
+            msg.Byte((byte)mode);
+            pipe.Send(msg.ToArray());
+            Mode = mode;
+            Connect(pipe, member);
+        }
+
+        /// <summary>방 서버에 붙어 코드의 방에 들어간다.</summary>
+        public void ConnectJoin(INetPipe pipe, string code, RunConfig member)
+        {
+            var msg = new NetWriter(NetMsg.JoinRoom);
+            msg.Str(code);
+            pipe.Send(msg.ToArray());
+            Connect(pipe, member);
+        }
+
+        /// <summary>방 코드(방 서버의 방이면, RoomInfo가 온 뒤).</summary>
+        public string RoomCode { get; private set; }
+        public RoomMode Mode { get; private set; }
+        public int RoomMaxPlayers { get; private set; } = SimConst.MaxPlayers;
+        public RoomError RoomErrorCode { get; private set; }
+
         public void Connect(INetPipe pipe, RunConfig member)
         {
             _pipe = pipe;
@@ -149,6 +174,15 @@ namespace Wizard.Solo.Net
                     r.Int();
                     Slot = r.Int();
                     State = CoopClientState.Lobby;
+                    break;
+                case NetMsg.RoomInfo:
+                    RoomCode = r.Str();
+                    Mode = (RoomMode)r.Byte();
+                    RoomMaxPlayers = r.Int();
+                    break;
+                case NetMsg.RoomError:
+                    RoomErrorCode = (RoomError)r.Byte();
+                    State = CoopClientState.Rejected;
                     break;
                 case NetMsg.Reject:
                     RejectedBecause = (RejectReason)r.Byte();

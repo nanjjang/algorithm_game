@@ -1,25 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Wizard.Solo.UI;
 using Wizard.Solo.Art;
+using Wizard.Solo.Net;
+using Wizard.Solo.UI;
 using UInputField = UnityEngine.UI.InputField;
 using UText = UnityEngine.UI.Text;
 
 namespace Wizard.Solo.Screens.Online
 {
     /// <summary>
-    /// 협동 방(ScreenId.CoopLobby, 11-online.md). 판 720×700: 제목, 안내, 서버 주소 칸 + [참가], 자리 네 줄, 단추 줄, 결과·오류 한 줄.
+    /// 온라인 방(ScreenId.CoopLobby, 11-online.md). 어몽어스식: [온라인 방 만들기]를 누르면 6자리 코드가 나오고,
+    /// 친구는 코드를 넣고 [참가]. 방 종류는 협동(4명)·결투(1대1). [이 기기에서]는 인터넷 없이 봇과 하는 방.
     /// 규칙은 CoopLobbyModel. Esc = 방에서 나가 메인 메뉴로.
     /// </summary>
     public sealed class CoopLobbyScreen : ScreenBase
     {
-        const float BoardW = 720f, BoardH = 700f, Pad = 32f, RowH = 44f, BtnH = 56f;
+        const float BoardW = 760f, BoardH = 820f, Pad = 32f, RowH = 44f, BtnH = 56f, Gap = 12f;
 
         CoopLobbyModel _model;
         readonly List<UiLabel> _rows = new List<UiLabel>();
-        UiLabel _status;
-        UiButton _create, _join, _addBot, _removeBot, _open, _start, _leave;
-        UInputField _address;
+        UiLabel _title, _status, _code;
+        UiButton _modeCoop, _modeDuel, _plaza, _createOnline, _createLocal, _join, _addBot, _removeBot, _start, _leave;
+        UInputField _codeInput;
 
         public override ScreenId Id => ScreenId.CoopLobby;
         protected override bool HasFrame => false;
@@ -31,37 +33,47 @@ namespace Wizard.Solo.Screens.Online
             var board = UiKit.Panel(Ctx, content, UiPanelKind.Board, 0f, 0f, BoardW, BoardH).rectTransform;
             UiKit.Center(board, BoardW, BoardH);
             board.name = "CoopLobbyBoard";
+            float inner = BoardW - 2f * Pad;
 
             float y = Pad - 8f;
             float th = UiTheme.LineHeight(UiFontId.F32);
-            UiKit.Label(Ctx, board, T(OnlineKeys.Title), UiFontId.F32, Pad, y, BoardW - 2f * Pad, th, UiTheme.Chalk, TextAnchor.MiddleCenter);
+            _title = UiKit.Label(Ctx, board, T(OnlineKeys.Title), UiFontId.F32, Pad, y, inner, th, UiTheme.Chalk, TextAnchor.MiddleCenter);
             y += th + 8f;
-            float lh = UiTheme.LineHeight(UiFontId.F16);
-            UiKit.Label(Ctx, board, T(OnlineKeys.Intro), UiFontId.F16, Pad, y, BoardW - 2f * Pad, lh * 2f, UiTheme.SlateBlue, TextAnchor.UpperLeft, wrap: true);
-            y += lh * 2f + 16f;
+
+            float w3 = (inner - 2f * Gap) / 3f;
+            _modeCoop = UiKit.Button(Ctx, board, T(OnlineKeys.ModeCoop), Pad, y, w3, BtnH, () => SelectMode(RoomMode.Coop), UiButtonStyle.Medium, Focus);
+            _modeDuel = UiKit.Button(Ctx, board, T(OnlineKeys.ModeDuel), Pad + w3 + Gap, y, w3, BtnH, () => SelectMode(RoomMode.Duel), UiButtonStyle.Medium, Focus);
+            _plaza = UiKit.Button(Ctx, board, T(OnlineKeys.Plaza), Pad + 2f * (w3 + Gap), y, w3, BtnH, OnPlaza, UiButtonStyle.Medium, Focus);
+            y += BtnH + Gap;
+
+            float w2 = (inner - Gap) / 2f;
+            _createOnline = UiKit.Button(Ctx, board, T(OnlineKeys.CreateOnline), Pad, y, w2, BtnH, OnCreateOnline, UiButtonStyle.Primary, Focus);
+            _createLocal = UiKit.Button(Ctx, board, T(OnlineKeys.CreateLocal), Pad + w2 + Gap, y, w2, BtnH, OnCreateLocal, UiButtonStyle.Medium, Focus);
+            y += BtnH + Gap;
 
             float joinW = 180f;
-            _address = BuildInput(board, Pad, y, BoardW - 2f * Pad - joinW - 12f, BtnH);
+            _codeInput = BuildInput(board, Pad, y, inner - joinW - Gap, BtnH);
             _join = UiKit.Button(Ctx, board, T(OnlineKeys.Join), BoardW - Pad - joinW, y, joinW, BtnH, OnJoin, UiButtonStyle.Medium, Focus);
-            y += BtnH + 16f;
+            y += BtnH + Gap;
 
-            var list = UiKit.Panel(Ctx, board, UiPanelKind.Recess, Pad, y, BoardW - 2f * Pad, RowH * SimConst.MaxPlayers + 16f).rectTransform;
+            float ch = UiTheme.LineHeight(UiFontId.F48);
+            _code = UiKit.Label(Ctx, board, string.Empty, UiFontId.F48, Pad, y, inner, ch, UiTheme.SelectYellow, TextAnchor.MiddleCenter);
+            y += ch + 8f;
+
+            var list = UiKit.Panel(Ctx, board, UiPanelKind.Recess, Pad, y, inner, RowH * SimConst.MaxPlayers + 16f).rectTransform;
             list.name = "CoopMembers";
             for (int i = 0; i < SimConst.MaxPlayers; i++)
-                _rows.Add(UiKit.Label(Ctx, list, string.Empty, UiFontId.F24, 16f, 8f + RowH * i, BoardW - 2f * Pad - 32f, RowH, UiTheme.Chalk));
-            y += RowH * SimConst.MaxPlayers + 32f;
+                _rows.Add(UiKit.Label(Ctx, list, string.Empty, UiFontId.F24, 16f, 8f + RowH * i, inner - 32f, RowH, UiTheme.Chalk));
+            y += RowH * SimConst.MaxPlayers + 16f + Gap;
 
-            float bw = (BoardW - 2f * Pad - 36f) / 4f;
-            _create = UiKit.Button(Ctx, board, T(OnlineKeys.Create), Pad, y, bw, BtnH, OnCreate, UiButtonStyle.Medium, Focus, null, UiFontId.F16);
-            _open = UiKit.Button(Ctx, board, T(OnlineKeys.OpenNetwork), Pad + bw + 12f, y, bw, BtnH, OnOpen, UiButtonStyle.Medium, Focus, null, UiFontId.F16);
-            _addBot = UiKit.Button(Ctx, board, T(OnlineKeys.AddBot), Pad + (bw + 12f) * 2f, y, bw, BtnH, OnAddBot, UiButtonStyle.Medium, Focus, null, UiFontId.F16);
-            _removeBot = UiKit.Button(Ctx, board, T(OnlineKeys.RemoveBot), Pad + (bw + 12f) * 3f, y, bw, BtnH, OnRemoveBot, UiButtonStyle.Medium, Focus, null, UiFontId.F16);
-            y += BtnH + 12f;
-            float bw2 = (BoardW - 2f * Pad - 12f) / 2f;
-            _start = UiKit.Button(Ctx, board, T(OnlineKeys.Start), Pad, y, bw2, BtnH, OnStart, UiButtonStyle.Primary, Focus);
-            _leave = UiKit.Button(Ctx, board, T(OnlineKeys.Leave), Pad + bw2 + 12f, y, bw2, BtnH, OnLeave, UiButtonStyle.Medium, Focus);
-            y += BtnH + 12f;
-            _status = UiKit.Label(Ctx, board, string.Empty, UiFontId.F16, Pad, y, BoardW - 2f * Pad, lh, UiTheme.Amber, TextAnchor.MiddleCenter);
+            _addBot = UiKit.Button(Ctx, board, T(OnlineKeys.AddBot), Pad, y, w2, BtnH, OnAddBot, UiButtonStyle.Medium, Focus);
+            _removeBot = UiKit.Button(Ctx, board, T(OnlineKeys.RemoveBot), Pad + w2 + Gap, y, w2, BtnH, OnRemoveBot, UiButtonStyle.Medium, Focus);
+            y += BtnH + Gap;
+            _start = UiKit.Button(Ctx, board, T(OnlineKeys.Start), Pad, y, w2, BtnH, OnStart, UiButtonStyle.Primary, Focus);
+            _leave = UiKit.Button(Ctx, board, T(OnlineKeys.Leave), Pad + w2 + Gap, y, w2, BtnH, OnLeave, UiButtonStyle.Medium, Focus);
+            y += BtnH + Gap;
+            float lh = UiTheme.LineHeight(UiFontId.F16);
+            _status = UiKit.Label(Ctx, board, string.Empty, UiFontId.F16, Pad, y, inner, lh * 2f, UiTheme.Amber, TextAnchor.UpperCenter, wrap: true);
         }
 
         UInputField BuildInput(RectTransform parent, float x, float y, float w, float h)
@@ -69,12 +81,13 @@ namespace Wizard.Solo.Screens.Online
             var bg = UiKit.NineSlice(Ctx, parent, "K-33", "input", null, x, y, w, h, UiTheme.Chalk);
             bg.raycastTarget = true;
             var field = bg.gameObject.AddComponent<UInputField>();
-            var text = UiKit.Label(Ctx, bg.rectTransform, string.Empty, UiFontId.F16, 8f, 0f, w - 16f, h, UiTheme.PaperText);
+            var text = UiKit.Label(Ctx, bg.rectTransform, string.Empty, UiFontId.F24, 8f, 0f, w - 16f, h, UiTheme.PaperText, TextAnchor.MiddleCenter);
             var ut = text.GetComponent<UText>();
             ut.supportRichText = false;
             field.textComponent = ut;
             field.lineType = UInputField.LineType.SingleLine;
-            var ph = UiKit.Label(Ctx, bg.rectTransform, T(OnlineKeys.AddressHint), UiFontId.F16, 8f, 0f, w - 16f, h, UiTheme.SlateBlue);
+            field.characterLimit = RoomServer.CodeLength + 2;
+            var ph = UiKit.Label(Ctx, bg.rectTransform, T(OnlineKeys.CodeHint), UiFontId.F16, 8f, 0f, w - 16f, h, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
             field.placeholder = ph.GetComponent<UText>();
             return field;
         }
@@ -89,8 +102,7 @@ namespace Wizard.Solo.Screens.Online
 
         public override void Tick(float dt)
         {
-            // 주소 칸에 글을 치는 동안 메뉴 키가 새지 않게 잡아 둔다(WandReleaseConfirm과 같은 방식).
-            if (Screens != null && _address != null) Screens.CaptureKeys = _address.isFocused;
+            if (Screens != null && _codeInput != null) Screens.CaptureKeys = _codeInput.isFocused;
             if (_model.Tick()) { GoBattle(); return; }
             Refresh();
         }
@@ -105,45 +117,60 @@ namespace Wizard.Solo.Screens.Online
 
         void Refresh()
         {
+            bool duel = _model.Mode == RoomMode.Duel;
+            _title.SetText(T(duel ? OnlineKeys.ModeDuel : OnlineKeys.ModeCoop));
             var members = _model.Members();
             for (int i = 0; i < _rows.Count; i++)
             {
-                CoopMemberText(i, members, out string text);
-                _rows[i].SetText(text);
+                bool shown = i < _model.MaxMembers;
+                _rows[i].gameObject.SetActive(shown);
+                if (shown) _rows[i].SetText(MemberText(i, members));
             }
-            _create.Enabled = !_model.HasRoom;
-            _join.Enabled = !_model.HasRoom;
-            _address.interactable = !_model.HasRoom;
+            bool room = _model.HasRoom;
+            _modeCoop.Enabled = !room && _model.SelectedMode != RoomMode.Coop;
+            _modeDuel.Enabled = !room && _model.SelectedMode != RoomMode.Duel;
+            _plaza.Enabled = !room;
+            _createOnline.Enabled = !room;
+            _createLocal.Enabled = !room;
+            _join.Enabled = !room;
+            _codeInput.interactable = !room;
             _addBot.Enabled = _model.CanAddBot;
             _removeBot.Enabled = _model.CanRemoveBot;
-            _open.Enabled = _model.CanOpenNetwork;
             _start.Enabled = _model.CanStart;
+            _code.SetText(_model.Code != null ? F(OnlineKeys.CodeLine, "code", _model.Code) : string.Empty);
+
             string status = string.Empty;
             if (_model.ErrorKey != null) status = T(_model.ErrorKey);
             else if (_model.WaitingForStart) status = T(OnlineKeys.Waiting);
-            else if (_model.HasRoom && _model.Room.OpenToNetwork) status = F(OnlineKeys.OpenedAt, "addr", string.Join(", ", CoopLobbyModel.LocalAddresses()), "port", _model.Room.NetworkPort);
+            else if (room && duel && _model.Room.MemberCount < 2) status = T(OnlineKeys.DuelNeedTwo);
+            else if (_model.ResultDuelWinner >= -1)
+            {
+                string head = _model.ResultDuelWinner < 0 ? T(OnlineKeys.DuelDraw) : T(_model.ResultDuelWinner == _model.ResultMySlot ? OnlineKeys.DuelWin : OnlineKeys.DuelLose);
+                status = head + "  " + _model.ResultWins0 + " : " + _model.ResultWins1;
+            }
             else if (_model.ResultWave >= 0) status = F(OnlineKeys.Result, "wave", _model.ResultWave, "score", N(_model.ResultScore));
             _status.SetText(status);
         }
 
-        void CoopMemberText(int slot, List<Wizard.Solo.Net.CoopClient.LobbyMember> members, out string text)
+        string MemberText(int slot, List<CoopClient.LobbyMember> members)
         {
             foreach (var m in members)
             {
                 if (m.Slot != slot) continue;
-                string who = T(m.CharId);
-                who += " · " + T(_model.RoleKey(slot));
-                text = F(OnlineKeys.MemberLine, "slot", slot + 1, "who", who, "stage", m.WandStage);
-                return;
+                string who = T(m.CharId) + " · " + T(_model.RoleKey(slot));
+                if (_model.Room != null && _model.Room.Slot == slot) who += " ★";
+                return F(OnlineKeys.MemberLine, "slot", slot + 1, "who", who, "stage", m.WandStage);
             }
-            text = F(OnlineKeys.Empty, "slot", slot + 1);
+            return F(OnlineKeys.Empty, "slot", slot + 1);
         }
 
-        void OnCreate() { _model.CreateRoom(); Refresh(); }
-        void OnOpen() { _model.OpenNetwork(); Refresh(); }
-        void OnJoin() { _model.JoinRoom(_address.text); Refresh(); }
+        void SelectMode(RoomMode m) { _model.SelectedMode = m; _model.ResultDuelWinner = -2; _model.ResultWave = -1; Refresh(); }
+        void OnCreateOnline() { _model.CreateOnline(); Refresh(); }
+        void OnCreateLocal() { _model.CreateRoom(); Refresh(); }
+        void OnJoin() { _model.JoinCode(_codeInput.text); Refresh(); }
         void OnAddBot() { _model.AddBot(); Refresh(); }
         void OnRemoveBot() { _model.RemoveBot(); Refresh(); }
+        void OnPlaza() { Screens?.Replace(ScreenId.Plaza, ScreenArgs.From(ScreenId.CoopLobby)); }
 
         void OnStart()
         {

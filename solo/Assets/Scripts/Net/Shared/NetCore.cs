@@ -82,12 +82,37 @@ namespace Wizard.Solo.Net
         AddBot = 11,
         /// <summary>클라이언트 → 서버: 마지막 봇 빼기(방장만, 판 전).</summary>
         RemoveBot = 12,
+        /// <summary>클라이언트 → 방 서버(첫 메시지): 새 방. 몸 = RoomMode(byte).</summary>
+        CreateRoom = 20,
+        /// <summary>클라이언트 → 방 서버(첫 메시지): 코드로 참가. 몸 = 코드(string).</summary>
+        JoinRoom = 21,
+        /// <summary>방 서버 → 클라이언트: 들어간 방. 몸 = 코드, RoomMode(byte), 최대 인원(int).</summary>
+        RoomInfo = 22,
+        /// <summary>방 서버 → 클라이언트: 방에 못 들어감. 몸 = RoomError(byte). 뒤이어 끊는다.</summary>
+        RoomError = 23,
+        /// <summary>클라이언트 → 방 서버(첫 메시지): 광장에 들어간다. 몸 = 이름, 캐릭터 id.</summary>
+        EnterPlaza = 30,
+        /// <summary>광장 서버 → 클라이언트: 광장 상태(사람들 자리·말풍선). 몸 = PlazaCodec.</summary>
+        PlazaState = 31,
+        /// <summary>클라이언트 → 광장 서버: 내 이동 방향(8방향, −1 = 멈춤).</summary>
+        PlazaMove = 32,
+        /// <summary>클라이언트 → 광장 서버: 말하기. 몸 = 글.</summary>
+        PlazaChat = 33,
+        /// <summary>광장 서버 → 클라이언트: 들어옴 확인. 몸 = 내 id.</summary>
+        PlazaWelcome = 34,
+        /// <summary>클라이언트 → 광장 서버: 감정 표현. 몸 = 번호(byte).</summary>
+        PlazaEmote = 35,
     }
+
+    /// <summary>방 종류.</summary>
+    public enum RoomMode : byte { Coop = 0, Duel = 1 }
+
+    public enum RoomError : byte { NotFound = 1, Full = 2, Started = 3, BadRequest = 4, ServerFull = 5 }
 
     public static class NetProtocol
     {
         /// <summary>메시지 꼴이 바뀌면 올린다. 다르면 Reject(Version).</summary>
-        public const int Version = 3;
+        public const int Version = 4;
         /// <summary>스냅숏을 보내는 틱 간격(60틱 / 3 = 20Hz).</summary>
         public const int SnapshotEveryTicks = 3;
     }

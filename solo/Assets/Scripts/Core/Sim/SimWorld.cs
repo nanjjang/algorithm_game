@@ -102,6 +102,7 @@ namespace Wizard.Solo.Sim
             // 9. 이동과 충돌: 적 → 내 탄 → 적 탄 → 구역 → 스침·줍기
             m.Enemies.Stage9_Move(this);
             m.Spells.Stage9_Projectiles(this);
+            m.Run.Stage9_PvpHits(this);
             m.Threats.Stage9_Shots(this);
             m.Threats.Stage9_Zones(this);
             m.Player.Stage9_GrazeAndPickups(this);
@@ -145,20 +146,21 @@ namespace Wizard.Solo.Sim
 
         /// <summary>전투가 도는 상태인가(적 AI·피해 판정).</summary>
         public bool CombatActive =>
-            Run.Phase == RunPhase.WaveCombat || Run.Phase == RunPhase.Practice || Run.Phase == RunPhase.PhantomFinale;
+            Run.Phase == RunPhase.WaveCombat || Run.Phase == RunPhase.Practice || Run.Phase == RunPhase.PhantomFinale || Run.Phase == RunPhase.DuelFight;
         /// <summary>플레이어가 움직일 수 있는 상태인가(전리품 고르기와 판 종료만 아니면).</summary>
         public bool PlayerControlActive =>
             Run.Phase != RunPhase.NotStarted && Run.Phase != RunPhase.RunEnded && Run.Phase != RunPhase.LootPick
+            && Run.Phase != RunPhase.DuelCountdown && Run.Phase != RunPhase.DuelRoundEnd
             && !(InCamp && Run.CampSub == CampSubState.CampScreen);
         /// <summary>야영 중인가(Camp 또는 출발 야영 StartCamp). 둘 다 CampSub·모닥불·출발 표식을 쓴다.</summary>
         public bool InCamp => Run.Phase == RunPhase.Camp || Run.Phase == RunPhase.StartCamp;
         /// <summary>발사·비기가 되는 상태인가: WavePrelude·WaveCombat·Practice이고 AttackLocked·InputLocked·Downed가 아니다.
         /// Player.Stage6_Fire, Arts.OnSkillPress·Stage5_Arts가 이것 하나로 본다(Modules.cs 공통 규칙 7).</summary>
         public bool AttackAllowed(PlayerState p) =>
-            (Run.Phase == RunPhase.WavePrelude || Run.Phase == RunPhase.WaveCombat || Run.Phase == RunPhase.Practice)
+            (Run.Phase == RunPhase.WavePrelude || Run.Phase == RunPhase.WaveCombat || Run.Phase == RunPhase.Practice || Run.Phase == RunPhase.DuelFight)
             && p != null && p.Active && !p.AttackLocked && !p.InputLocked && !p.Downed;
         /// <summary>플레이어가 피해를 받는 상태인가(WaveClearing부터는 피해 판정 없음).</summary>
-        public bool PlayerDamageActive => Run.Phase == RunPhase.WaveCombat || Run.Phase == RunPhase.Practice;
+        public bool PlayerDamageActive => Run.Phase == RunPhase.WaveCombat || Run.Phase == RunPhase.Practice || Run.Phase == RunPhase.DuelFight;
 
         public EnemyState FindEnemy(int id)
         {

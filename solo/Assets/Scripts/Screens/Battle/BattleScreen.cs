@@ -1,4 +1,5 @@
 using UnityEngine;
+using Wizard.Solo.Sim;
 using Wizard.Solo.Art;
 using Wizard.Solo.UI;
 
@@ -46,6 +47,49 @@ namespace Wizard.Solo.Screens.Battle
             _deathLine.gameObject.SetActive(false);
             _controller.DeathLineChanged = ShowDeathLine;
             ReadDeathTuning();
+
+            // 결투 점수판(결투 판에서만): 위 가운데 "라운드 n · 남은 시간 · 승수", 가운데 큰 글자(카운트다운·라운드 결과).
+            float sh = UiTheme.LineHeight(UiFontId.F32);
+            _duelBar = UiKit.Label(Ctx, content, string.Empty, UiFontId.F32, (UiScale.RefWidth - 900f) * 0.5f, 120f, 900f, sh,
+                UiTheme.Chalk, TextAnchor.MiddleCenter, false, true);
+            UiKit.DropShadow(_duelBar, 2f);
+            _duelBig = UiKit.Label(Ctx, content, string.Empty, UiFontId.F64, (UiScale.RefWidth - 1200f) * 0.5f, 380f, 1200f, lh,
+                UiTheme.SelectYellow, TextAnchor.MiddleCenter, false, true);
+            UiKit.DropShadow(_duelBig, 3f);
+            _duelBar.gameObject.SetActive(false);
+            _duelBig.gameObject.SetActive(false);
+        }
+
+        UiLabel _duelBar, _duelBig;
+        public const string DuelBarKey = "str.duel.bar", DuelCountKey = "str.duel.countdown", DuelFightKey = "str.duel.fight",
+            DuelRoundWinKey = "str.duel.round_win", DuelRoundLoseKey = "str.duel.round_lose", DuelRoundDrawKey = "str.duel.round_draw",
+            DuelOvertimeKey = "str.duel.overtime";
+
+        /// <summary>결투 점수판. 결투 판이 아니면 숨긴다. 시간·카운트다운 값은 DuelState와 판 상태에서 읽는다(Duel.json의 기본값과 같은 90초·3초).</summary>
+        void RenderDuel()
+        {
+            var w = Ctx != null && Ctx.Session != null ? Ctx.Session.MainWorld : null;
+            var d = w != null && w.Run != null ? w.Run.Duel : null;
+            bool on = d != null;
+            if (_duelBar.gameObject.activeSelf != on) _duelBar.gameObject.SetActive(on);
+            if (!on) { if (_duelBig.gameObject.activeSelf) _duelBig.gameObject.SetActive(false); return; }
+            int me = w.ViewSlot == 1 ? 1 : 0, them = 1 - me;
+            int roundTicks = d.Overtime ? SimConst.Ticks(30f) : SimConst.Ticks(90f);
+            int left = w.Run.Phase == RunPhase.DuelFight ? Mathf.Max(0, roundTicks - (w.Tick - d.RoundStartTick)) : roundTicks;
+            int secs = (left + SimConst.TicksPerSecond - 1) / SimConst.TicksPerSecond;
+            _duelBar.SetText(F(DuelBarKey, "round", d.Round, "time", (secs / 60) + ":" + (secs % 60).ToString("00"),
+                "me", d.Wins[me], "them", d.Wins[them]) + (d.Overtime ? "  " + T(DuelOvertimeKey) : string.Empty));
+            string big = null;
+            int since = w.Tick - w.Run.PhaseStartTick;
+            if (w.Run.Phase == RunPhase.DuelCountdown)
+                big = F(DuelCountKey, "n", Mathf.Max(1, 3 - since / SimConst.TicksPerSecond));
+            else if (w.Run.Phase == RunPhase.DuelFight && since < SimConst.TicksPerSecond && !d.Overtime)
+                big = T(DuelFightKey);
+            else if (w.Run.Phase == RunPhase.DuelRoundEnd || w.Run.Phase == RunPhase.RunEnded)
+                big = d.LastRoundWinner < 0 ? T(DuelRoundDrawKey) : T(d.LastRoundWinner == me ? DuelRoundWinKey : DuelRoundLoseKey);
+            bool show = big != null;
+            if (_duelBig.gameObject.activeSelf != show) _duelBig.gameObject.SetActive(show);
+            if (show) _duelBig.SetText(big);
         }
 
         void ReadDeathTuning()
@@ -136,6 +180,7 @@ namespace Wizard.Solo.Screens.Battle
         public override void Tick(float dt)
         {
             ApplyDeathLine(dt);
+            RenderDuel();
             if (_controller != null) _controller.Tick(dt);
         }
     }

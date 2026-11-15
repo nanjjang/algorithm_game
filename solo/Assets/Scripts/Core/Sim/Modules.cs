@@ -559,6 +559,10 @@ namespace Wizard.Solo.Sim
         /// 야영(Camp·StartCamp)의 FireIdle에서는 여기서 직접 읽는다: 모닥불 반경 안 + p.JPressedThisTick → CampSub = CampScreen,
         /// 출발 표식 반경 안 + J 눌림 유지 → DepartHold(60틱) → 출발. 보스 웨이브의 전이는 w.Boss.State만 보고 한다(공통 규칙 5).</summary>
         public virtual void Stage11_Phase(SimWorld w) { }
+        /// <summary>9단계(내 탄 이동 뒤): 결투에서 플레이어 탄이 상대 플레이어를 맞히는 판정(Mode == Duel일 때만 일한다).</summary>
+        public virtual void Stage9_PvpHits(SimWorld w) { }
+        /// <summary>결투 기권·끊김: loserSlot이 경기에서 진다(결투가 아니면 아무 일도 없다).</summary>
+        public virtual void ForfeitDuel(SimWorld w, int loserSlot) { }
         /// <summary>적이 죽었다: 골드(지갑), 점수 재료, 체력 조각, 재료 기회.</summary>
         public virtual void OnEnemyKilled(SimWorld w, EnemyState e, in HitInfo killingHit) { }
         /// <summary>플레이어 체력이 0이 됐다(Player.Stage10_ResolveHits가 부른다). 첫 만남이면 Bosses.BeginCollapse,

@@ -167,6 +167,10 @@ namespace Wizard.Solo.Screens.Battle
                 var args = ScreenArgs.From(ScreenId.Battle)
                     .With(ScreenArgKeys.CoopResultWave, w != null && w.Run != null ? w.Run.LastClearedWave : 0)
                     .With(ScreenArgKeys.CoopResultScore, w != null && w.Run != null ? w.Run.Score : 0);
+                var duel = w != null && w.Run != null ? w.Run.Duel : null;
+                if (duel != null)
+                    args.With(ScreenArgKeys.DuelWinner, duel.MatchWinner).With(ScreenArgKeys.DuelMySlot, w.ViewSlot)
+                        .With(ScreenArgKeys.DuelWins0, duel.Wins[0]).With(ScreenArgKeys.DuelWins1, duel.Wins[1]);
                 s.EndRun();
                 if (m.Top != ScreenId.Battle && m.IsOpen(ScreenId.Battle)) m.PopTo(ScreenId.Battle);
                 m.Replace(ScreenId.CoopLobby, args);

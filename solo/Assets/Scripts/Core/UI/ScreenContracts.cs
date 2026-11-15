@@ -19,7 +19,9 @@ namespace Wizard.Solo.UI
         /// <summary>조작·도감(일시정지 메뉴): 배운 것 다시 보기 — 조작, 과열, 스침, 콤보·결정, 비기, 블록, 변이, 변덕, 약점·저항.</summary>
         Codex,
         /// <summary>협동 방(11-online.md): 방 만들기·동료 목록·시작, 판이 끝나면 결과.</summary>
-        CoopLobby
+        CoopLobby,
+        /// <summary>광장(좀비고식): 걸어 다니며 말풍선으로 이야기하고, 여기서 방을 만들거나 코드로 들어간다.</summary>
+        Plaza
     }
 
     public enum ScreenLayer { Fullscreen = 0, Panel = 1, HudOverlay = 2, Modal = 3, Toast = 4 }
@@ -84,6 +86,8 @@ namespace Wizard.Solo.UI
         public const string Text = "text";
         /// <summary>int, int — CoopLobby: 방금 끝난 협동 판의 마지막 클리어 웨이브·점수(Battle이 넘긴다).</summary>
         public const string CoopResultWave = "coop_result_wave", CoopResultScore = "coop_result_score";
+        /// <summary>int — CoopLobby: 끝난 결투의 이긴 슬롯(−1 무승부), 내 슬롯, 승수. RoomMode — CoopLobby의 처음 방 종류.</summary>
+        public const string DuelWinner = "duel_winner", DuelMySlot = "duel_my_slot", DuelWins0 = "duel_wins0", DuelWins1 = "duel_wins1", RoomMode = "room_mode";
     }
 
     /// <summary>화면에 넘기는 인자. 진입점이 여럿인 화면은 Entry로만 구분한다. 열쇠는 ScreenArgKeys.</summary>

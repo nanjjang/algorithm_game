@@ -56,6 +56,12 @@ namespace Wizard.Solo.Sim.Run
 
             w.Emit(SimEventType.RunStarted, a: cfg.StartWave);
 
+            if (cfg.Mode == RunMode.Duel)
+            {
+                StartDuel(w);
+                return;
+            }
+
             if (cfg.Mode == RunMode.Practice || cfg.Mode == RunMode.Tutorial)
             {
                 EnterPractice(w, s);
@@ -233,6 +239,12 @@ namespace Wizard.Solo.Sim.Run
             var run = w.Run;
             if (run.Phase == RunPhase.NotStarted || run.Phase == RunPhase.RunEnded) return;
             var s = Scratch(w);
+            if (IsDuel(w))
+            {
+                DuelRingAdvance(w);
+                TickDuel(w, s);
+                return;
+            }
             TickRevive(w);
 
             switch (run.Phase)
@@ -609,6 +621,7 @@ namespace Wizard.Solo.Sim.Run
         {
             var run = w.Run;
             if (run.Phase == RunPhase.RunEnded || run.Phase == RunPhase.NotStarted) return;
+            if (IsDuel(w)) return; // 결투는 라운드 규칙(TickDuel)이 쓰러짐을 본다
             var s = Scratch(w);
             if (run.Phase == RunPhase.Practice)
             {

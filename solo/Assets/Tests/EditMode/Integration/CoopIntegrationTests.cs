@@ -12,7 +12,7 @@ namespace Wizard.Solo.Tests.Integration
     {
         IntegrationKit _k;
 
-        [SetUp] public void SetUp() { _k = new IntegrationKit(); }
+        [SetUp] public void SetUp() { _k = new IntegrationKit(); System.Array.Clear(_keys, 0, _keys.Length); }
         [TearDown] public void TearDown() { _k.Dispose(); }
 
         RunConfig Member(int character, ulong seed)

@@ -34,8 +34,18 @@ namespace Wizard.Solo.Net
         public int PlayerCount { get { int n = 0; foreach (var p in _peers) if (p.Slot >= 0 && !p.Dropped) n++; return n; } }
 
         /// <summary>modules = 세계마다 새 모듈 묶음(기본 SimModuleSet.CreateDefault).</summary>
-        public CoopHost(IContentDb content, Func<SimModuleSet> modules = null, int maxPlayers = SimConst.MaxPlayers)
+        /// <summary>협동(최대 4) 또는 결투(2명). 결투는 두 사람이 다 있어야 시작한다.</summary>
+        public readonly RoomMode Mode;
+        /// <summary>방 서버가 준 코드(이 기기 방이면 null).</summary>
+        public string Code;
+        public int MaxPlayers => _maxPlayers;
+        /// <summary>판 전 마지막으로 누가 있었던 틱 수(빈 방 정리용, 방 서버가 센다).</summary>
+        public int IdleTicks;
+
+        public CoopHost(IContentDb content, Func<SimModuleSet> modules = null, int maxPlayers = SimConst.MaxPlayers, RoomMode mode = RoomMode.Coop)
         {
+            Mode = mode;
+            if (mode == RoomMode.Duel) maxPlayers = 2;
             _content = content;
             _modules = modules ?? SimModuleSet.CreateDefault;
             _maxPlayers = Math.Max(1, Math.Min(maxPlayers, SimConst.MaxPlayers));
@@ -108,10 +118,17 @@ namespace Wizard.Solo.Net
             var members = new List<Peer>();
             foreach (var p in _peers) if (p.Slot >= 0 && !p.Dropped) members.Add(p);
             if (members.Count == 0) return false;
+            if (Mode == RoomMode.Duel && members.Count != 2) return false;
             members.Sort((a, b) => a.Slot.CompareTo(b.Slot));
 
             var cfg = NetCodec.Clone(members[0].Member);
             cfg.Seed = seed;
+            if (Mode == RoomMode.Duel)
+            {
+                cfg.Mode = RunMode.Duel;
+                cfg.StartWave = 1;
+            }
+            else if (cfg.Mode == RunMode.Duel) cfg.Mode = RunMode.Endless;
             cfg.Party = new List<RunConfig>();
             for (int i = 1; i < members.Count; i++) cfg.Party.Add(NetCodec.Clone(members[i].Member));
 
@@ -269,7 +286,8 @@ namespace Wizard.Solo.Net
             {
                 var pl = w.Players[p.Slot];
                 w.InputQueues[p.Slot].Clear();
-                if (pl.Active && !pl.Downed && w.Run.Phase != RunPhase.RunEnded)
+                if (w.Run.Config != null && w.Run.Config.Mode == RunMode.Duel) w.Mods.Run.ForfeitDuel(w, p.Slot);
+                else if (pl.Active && !pl.Downed && w.Run.Phase != RunPhase.RunEnded)
                 {
                     w.Mods.Player.ForceDown(w, pl, default(PlayerDamageSource));
                     w.Mods.Run.OnPlayerDowned(w, pl);

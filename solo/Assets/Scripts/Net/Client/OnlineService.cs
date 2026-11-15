@@ -55,13 +55,30 @@ namespace Wizard.Solo.Net
             return null;
         }
 
-        public EnhanceReply? Enhance(int character, bool useCharm = false, int timeoutMs = 4000)
+        public EnhanceReply? Enhance(int character, bool useCharm = false, IList<string> sacrifices = null, int timeoutMs = 4000)
         {
             if (!Connected) return null;
             var m = new NetWriter(NetMsg.EnhanceRequest);
             m.Int(character);
             m.Bool(useCharm);
+            m.StrList(sacrifices ?? new List<string>());
             _pipe.Send(m.ToArray());
+            return ReadReply(timeoutMs);
+        }
+
+        /// <summary>대기 중인 변이 제시에 답한다(받기 / 거절).</summary>
+        public EnhanceReply? ResolveMutation(int character, bool accept, int timeoutMs = 4000)
+        {
+            if (!Connected) return null;
+            var m = new NetWriter(NetMsg.MutationResolve);
+            m.Int(character);
+            m.Bool(accept);
+            _pipe.Send(m.ToArray());
+            return ReadReply(timeoutMs);
+        }
+
+        EnhanceReply? ReadReply(int timeoutMs)
+        {
             var data = Wait(timeoutMs, NetMsg.EnhanceReply);
             if (data == null) return null;
             var r = new NetReader(data);
@@ -73,8 +90,7 @@ namespace Wizard.Solo.Net
                 StageBefore = r.Int(),
                 Profile = NetCodec.ReadProfile(r),
             };
-            if (rep.Result == AccountStore.EnhanceResult.Ok || rep.Result == AccountStore.EnhanceResult.NotEnoughGold || rep.Result == AccountStore.EnhanceResult.NotEnoughStones || rep.Result == AccountStore.EnhanceResult.MaxStage)
-                Profile = rep.Profile;
+            if (rep.Result != AccountStore.EnhanceResult.NoAccount && rep.Result != AccountStore.EnhanceResult.BadCharacter) Profile = rep.Profile;
             return rep;
         }
 

@@ -153,13 +153,14 @@ namespace Wizard.Solo.Net
             {
                 int ch = 0;
                 bool charm = false;
-                try { var r = new NetReader(data); r.Byte(); ch = r.Int(); charm = r.Bool(); } catch (Exception) { }
+                var sac = new List<string>();
+                try { var r = new NetReader(data); r.Byte(); ch = r.Int(); charm = r.Bool(); sac = r.StrList() ?? sac; } catch (Exception) { }
                 _authed.TryGetValue(pipe, out var acct);
                 var m = new NetWriter(NetMsg.EnhanceReply);
                 Wizard.Solo.Meta.EnhanceOutcome outcome = Wizard.Solo.Meta.EnhanceOutcome.FailNoDrop;
                 int before = acct != null ? Accounts.StageOf(acct.Id, ch) : 0;
                 var res = acct == null ? AccountStore.EnhanceResult.NoAccount
-                    : Accounts.Enhance(acct.Id, ch, _content != null ? _content.Enhance : null, _dice.Next(10000), out outcome, charm);
+                    : Accounts.Enhance(acct.Id, ch, _content, _enhanceRng, out outcome, charm, sac);
                 m.Byte((byte)res);
                 m.Byte((byte)outcome);
                 m.Int(before);
@@ -168,8 +169,36 @@ namespace Wizard.Solo.Net
                 if (res == AccountStore.EnhanceResult.Ok) Log?.Invoke("[room-server] enhance " + acct.Id + " char " + ch + " " + before + " → " + Accounts.StageOf(acct.Id, ch) + " (" + outcome + ")");
                 return true;
             }
+            if (kind == NetMsg.MutationResolve)
+            {
+                int ch = 0;
+                bool accept = false;
+                try { var r = new NetReader(data); r.Byte(); ch = r.Int(); accept = r.Bool(); } catch (Exception) { }
+                _authed.TryGetValue(pipe, out var acct);
+                Wizard.Solo.Meta.EnhanceOutcome outcome = Wizard.Solo.Meta.EnhanceOutcome.FailNoDrop;
+                int before = acct != null ? Accounts.StageOf(acct.Id, ch) : 0;
+                var res = acct == null ? AccountStore.EnhanceResult.NoAccount : Accounts.ResolveMutation(acct.Id, ch, _content, accept, out outcome);
+                var m = new NetWriter(NetMsg.EnhanceReply);
+                m.Byte((byte)res);
+                m.Byte((byte)outcome);
+                m.Int(before);
+                NetCodec.WriteProfile(m, acct != null ? acct.Profile : new ServerProfile());
+                pipe.Send(m.ToArray());
+                return true;
+            }
             return false;
         }
+
+        sealed class DiceRandom : Wizard.Solo.Meta.Enhance.IEnhanceRandom
+        {
+            readonly Random _r;
+            public DiceRandom(Random r) { _r = r; }
+            public int Next(int maxExclusive) => _r.Next(maxExclusive);
+        }
+        Wizard.Solo.Meta.Enhance.IEnhanceRandom _enhanceRngField;
+        /// <summary>강화 주사위(테스트는 바꿔 끼운다).</summary>
+        public Wizard.Solo.Meta.Enhance.IEnhanceRandom EnhanceRng { set => _enhanceRngField = value; }
+        Wizard.Solo.Meta.Enhance.IEnhanceRandom _enhanceRng => _enhanceRngField ?? (_enhanceRngField = new DiceRandom(_dice));
 
         /// <summary>판이 끝난 방의 결과를 서버 프로필에 한 번 적는다(계정이 있는 사람만).</summary>
         void RecordIfEnded(CoopHost h)
@@ -195,7 +224,9 @@ namespace Wizard.Solo.Net
                     // 재료는 사람마다 따로 굴린다(오프라인 정산과 같은 표). 까마귀 보따리는 서버에 없다.
                     var table = _content != null && _content.Drops != null ? _content.Drops.MaterialTable : null;
                     var mats = table != null ? Wizard.Solo.Meta.Settlement.SettlementService.DrawMaterials(table, run.DropChances, false, bp => _dice.Next(10000) < bp) : null;
-                    Accounts.RecordCoop(id, run.LastClearedWave, run.Purse, mats);
+                    var blocks = new List<string>();
+                    foreach (var wb in run.Storage) if (!wb.Borrowed && !string.IsNullOrEmpty(wb.BlockId)) blocks.Add(wb.BlockId);
+                    Accounts.RecordCoop(id, run.LastClearedWave, run.Purse, mats, blocks);
                 }
             }
             Log?.Invoke("[room-server] room " + h.Code + " recorded");
@@ -215,7 +246,7 @@ namespace Wizard.Solo.Net
                         RoomMode mode;
                         try { mode = (RoomMode)r.Byte(); } catch (Exception) { mode = RoomMode.Coop; }
                         if (mode != RoomMode.Coop && mode != RoomMode.Duel) mode = RoomMode.Coop;
-                        var h = new CoopHost(_content, _modules, SimConst.MaxPlayers, mode) { Code = NewCode(), StageLookup = Accounts.StageOf };
+                        var h = new CoopHost(_content, _modules, SimConst.MaxPlayers, mode) { Code = NewCode(), StageLookup = Accounts.StageOf, MutationLookup = Accounts.MutationIds };
                         _rooms[h.Code] = h;
                         Log?.Invoke("[room-server] room " + h.Code + " created (" + mode + ")");
                         SendInfo(pipe, h);
@@ -240,7 +271,7 @@ namespace Wizard.Solo.Net
                 case NetMsg.Hello:
                     // 옛 손님(방 코드 없이 바로 Hello): 협동 방을 하나 만들어 준다.
                     {
-                        var h = new CoopHost(_content, _modules) { Code = NewCode(), StageLookup = Accounts.StageOf };
+                        var h = new CoopHost(_content, _modules) { Code = NewCode(), StageLookup = Accounts.StageOf, MutationLookup = Accounts.MutationIds };
                         _rooms[h.Code] = h;
                         var replay = new ReplayPipe(pipe, first);
                         SendInfo(pipe, h);

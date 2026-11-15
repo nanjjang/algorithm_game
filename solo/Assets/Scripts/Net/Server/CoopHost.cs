@@ -43,6 +43,8 @@ namespace Wizard.Solo.Net
         public int MaxPlayers => _maxPlayers;
         /// <summary>(계정 id, 캐릭터 1~5) → 서버 프로필의 지팡이 단계. 방 서버가 넣는다(없으면 0).</summary>
         public Func<long, int, int> StageLookup;
+        /// <summary>(계정 id, 캐릭터) → 서버 지팡이의 변이 id들.</summary>
+        public Func<long, int, List<string>> MutationLookup;
         /// <summary>판 전 마지막으로 누가 있었던 틱 수(빈 방 정리용, 방 서버가 센다).</summary>
         public int IdleTicks;
 
@@ -262,6 +264,7 @@ namespace Wizard.Solo.Net
             int ch = Ids.Char.NumberOf(member.CharId);
             int stage = p.AccountId > 0 && StageLookup != null ? StageLookup(p.AccountId, ch) : 0;
             member = OnlineMember.Build(_content, ch, stage, member.AttackStyle);
+            if (p.AccountId > 0 && MutationLookup != null) member.Mutations = MutationLookup(p.AccountId, ch) ?? new List<string>();
             p.Member = member;
             p.Slot = FreeSlot();
             var msg = new NetWriter(NetMsg.Welcome);

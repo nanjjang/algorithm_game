@@ -22,6 +22,31 @@ namespace Wizard.Solo.Net
         public int[] Auras = new int[5];
         public int[] PeakStages = new int[5];
         public int EnhanceTries;
+        /// <summary>캐릭터마다 서버 지팡이의 변이(오래된 것부터, 상한을 넘으면 가장 오래된 것이 밀려난다).</summary>
+        public List<List<Wizard.Solo.Meta.MutationEntry>> Mutations = new List<List<Wizard.Solo.Meta.MutationEntry>>();
+        /// <summary>캐릭터마다 결정 대기 중인 변이 제시(없으면 null).</summary>
+        public List<ServerMutationOffer> PendingOffers = new List<ServerMutationOffer>();
+        public long NextAttemptSeq = 1;
+
+        public List<Wizard.Solo.Meta.MutationEntry> MutationsOf(int character)
+        {
+            if (Mutations == null) Mutations = new List<List<Wizard.Solo.Meta.MutationEntry>>();
+            while (Mutations.Count < 5) Mutations.Add(new List<Wizard.Solo.Meta.MutationEntry>());
+            return Mutations[character - 1];
+        }
+
+        public ServerMutationOffer OfferOf(int character)
+        {
+            if (PendingOffers == null) PendingOffers = new List<ServerMutationOffer>();
+            while (PendingOffers.Count < 5) PendingOffers.Add(null);
+            return PendingOffers[character - 1];
+        }
+
+        public void SetOffer(int character, ServerMutationOffer o)
+        {
+            OfferOf(character);
+            PendingOffers[character - 1] = o;
+        }
         /// <summary>서버 재료 창고: 강화석(mat.stone_low/mid/high), 부적(charm.safeguard) … 아이템 id → 개수.</summary>
         public Dictionary<string, int> Items = new Dictionary<string, int>();
 
@@ -35,6 +60,17 @@ namespace Wizard.Solo.Net
         }
         public string CreatedAt;
         public string LastSeenAt;
+    }
+
+    /// <summary>서버 지팡이에 걸린 변이 제시: 받으면 변이 +기운 1, 거절하면 미리 계산해 둔 실패 결과.</summary>
+    public sealed class ServerMutationOffer
+    {
+        public long AttemptSeq;
+        public string Candidate;
+        public string WouldPushOut;
+        public int FallbackStage, FallbackAura;
+        public bool FallbackCharm;
+        public Wizard.Solo.Meta.EnhanceOutcome FallbackOutcome;
     }
 
     /// <summary>계정 한 줄(저장용). 비밀은 저장하지 않고 소금 친 PBKDF2-SHA256 값만 둔다.</summary>
@@ -154,7 +190,7 @@ namespace Wizard.Solo.Net
 
         // ------------------------------------------------------------ 서버 강화
 
-        public enum EnhanceResult { Ok, NoAccount, BadCharacter, MaxStage, NotEnoughGold, NotEnoughStones }
+        public enum EnhanceResult { Ok, NoAccount, BadCharacter, MaxStage, NotEnoughGold, NotEnoughStones, BadSacrifice, MutationPending, NoPendingMutation }
 
         /// <summary>그 단계 강화에 드는 강화석 id와 개수.</summary>
         public static string StoneFor(Wizard.Solo.Data.EnhanceConfig cfg, int stage, out int count)
@@ -164,33 +200,63 @@ namespace Wizard.Solo.Net
         }
 
         /// <summary>
-        /// 서버 지팡이 강화 한 번(강화 규칙 = 오프라인과 같은 EnhanceRules: 기본 확률, 기운, 대성공·실패·떨어짐, 비용 100 × (단계+1)²).
-        /// 골드 + 그 단계의 강화석(창고에서), 부적을 쓰면 떨어짐을 막는다(막았을 때만 하나 쓴다). [임시] 제물은 아직 없다. 변이 구간은 성공으로 친다(서버 지팡이에 변이 칸이 아직 없다).
-        /// rollBp = 0~9999 주사위(서버가 굴린다).
+        /// 서버 지팡이 강화 한 번(규칙 = 오프라인과 같은 EnhanceRules.Breakdown: 기본 확률 + 제물 + 같은 속성 + 기운, 비용 골드·강화석).
+        /// 제물은 서버 창고의 블록(협동 판에서 가져온 것)을 쓴다(최대 cfg.Sacrifice.MaxBlocks개, 시도 순간 사라진다).
+        /// 변이 구간이면 후보를 뽑아 제시만 하고(받기 전엔 단계 그대로) ResolveMutation으로 정한다. 부적은 떨어짐을 막을 때만 쓴다.
+        /// rng = 서버 주사위(0 ≤ Next(n) &lt; n).
         /// </summary>
-        public EnhanceResult Enhance(long id, int character, Wizard.Solo.Data.EnhanceConfig cfg, int rollBp, out Wizard.Solo.Meta.EnhanceOutcome outcome, bool useCharm = false)
+        public EnhanceResult Enhance(long id, int character, Wizard.Solo.Data.IContentDb db, Wizard.Solo.Meta.Enhance.IEnhanceRandom rng,
+            out Wizard.Solo.Meta.EnhanceOutcome outcome, bool useCharm = false, IReadOnlyList<string> sacrifices = null)
         {
             outcome = Wizard.Solo.Meta.EnhanceOutcome.FailNoDrop;
+            var cfg = db != null ? db.Enhance : null;
             var a = Get(id);
             if (a == null) return EnhanceResult.NoAccount;
             if (character < 1 || character > 5 || cfg == null) return EnhanceResult.BadCharacter;
             var p = a.Profile;
             Fix(p);
             int i = character - 1;
+            if (p.OfferOf(character) != null) return EnhanceResult.MutationPending;
             int stage = p.WandStages[i];
             if (stage >= cfg.MaxStage) return EnhanceResult.MaxStage;
-            long cost = Wizard.Solo.Meta.Enhance.EnhanceRules.Cost(cfg, stage);
-            if (p.Gold < cost) return EnhanceResult.NotEnoughGold;
-            string stone = StoneFor(cfg, stage, out int stones);
-            if (stone != null && p.Qty(stone) < stones) return EnhanceResult.NotEnoughStones;
-            p.Gold -= cost;
-            if (stone != null) p.Add(stone, -stones);
-            bool charm = useCharm && p.Qty(Ids.Item.Charm) > 0;
+
+            // 제물 검사: 블록이어야 하고 창고에 있어야 한다.
+            var sac = new List<string>();
+            if (sacrifices != null)
+            {
+                if (sacrifices.Count > cfg.Sacrifice.MaxBlocks) return EnhanceResult.BadSacrifice;
+                var need = new Dictionary<string, int>();
+                foreach (var b in sacrifices)
+                {
+                    if (b == null || db.Block(b) == null) return EnhanceResult.BadSacrifice;
+                    need.TryGetValue(b, out int n);
+                    need[b] = n + 1;
+                    sac.Add(b);
+                }
+                foreach (var kv in need) if (p.Qty(kv.Key) < kv.Value) return EnhanceResult.BadSacrifice;
+            }
+            var def = db.Character(Ids.Char.Of(character));
+            var bd = Wizard.Solo.Meta.Enhance.EnhanceRules.Breakdown(cfg, stage, p.PeakStages[i], p.Auras[i],
+                Wizard.Solo.Meta.Enhance.EnhanceRules.SacrificeBonus(cfg, db, sac, def != null ? def.Element : null));
+            if (p.Gold < bd.CostGold) return EnhanceResult.NotEnoughGold;
+            if (bd.StoneId != null && p.Qty(bd.StoneId) < bd.StoneCount) return EnhanceResult.NotEnoughStones;
+
+            p.Gold -= bd.CostGold;
+            if (bd.StoneId != null) p.Add(bd.StoneId, -bd.StoneCount);
+            foreach (var b in sac) p.Add(b, -1);
             p.EnhanceTries++;
-            int pct = Wizard.Solo.Meta.Enhance.EnhanceRules.SuccessPct(cfg, stage, p.Auras[i], 0);
-            int succ = Wizard.Solo.Meta.Enhance.EnhanceRules.SuccessBp(pct);
-            var band = Wizard.Solo.Meta.Enhance.EnhanceRules.Judge(rollBp, succ,
-                Wizard.Solo.Meta.Enhance.EnhanceRules.GreatBp(cfg, stage, pct), Wizard.Solo.Meta.Enhance.EnhanceRules.MutationEndBp(cfg, pct));
+            bool charm = useCharm && p.Qty(Ids.Item.Charm) > 0;
+            var band = Wizard.Solo.Meta.Enhance.EnhanceRules.Judge(rng.Next(Wizard.Solo.Meta.Enhance.EnhanceRules.BpFull), bd.SuccessBp, bd.GreatBp, bd.MutationEndBp);
+
+            string candidate = null;
+            var muts = p.MutationsOf(character);
+            if (band == Wizard.Solo.Meta.Enhance.JudgeBand.Mutation)
+            {
+                // 서버 지팡이 코어는 언제나 마력탄(폭발 아님).
+                var pool = Wizard.Solo.Meta.Enhance.EnhanceRules.MutationPool(muts, false);
+                candidate = Wizard.Solo.Meta.Enhance.EnhanceRules.DrawCandidate(pool, rng);
+                if (candidate == null) band = Wizard.Solo.Meta.Enhance.JudgeBand.Fail;
+            }
             switch (band)
             {
                 case Wizard.Solo.Meta.Enhance.JudgeBand.GreatSuccess:
@@ -199,22 +265,84 @@ namespace Wizard.Solo.Net
                     outcome = Wizard.Solo.Meta.EnhanceOutcome.GreatSuccess;
                     break;
                 case Wizard.Solo.Meta.Enhance.JudgeBand.Success:
-                case Wizard.Solo.Meta.Enhance.JudgeBand.Mutation:
                     p.WandStages[i] = Wizard.Solo.Meta.Enhance.EnhanceRules.StageAfterSuccess(cfg, stage);
                     p.Auras[i] = 0;
                     outcome = Wizard.Solo.Meta.EnhanceOutcome.Success;
                     break;
+                case Wizard.Solo.Meta.Enhance.JudgeBand.Mutation:
+                    {
+                        var fb = Wizard.Solo.Meta.Enhance.EnhanceRules.ResolveFail(cfg, stage, p.PeakStages[i], p.Auras[i], charm);
+                        p.SetOffer(character, new ServerMutationOffer
+                        {
+                            AttemptSeq = p.NextAttemptSeq++,
+                            Candidate = candidate,
+                            WouldPushOut = Wizard.Solo.Meta.Enhance.EnhanceRules.WouldPushOut(muts, Wizard.Solo.Meta.Enhance.EnhanceRules.MutationCap(cfg, db, character)),
+                            FallbackStage = fb.StageAfter, FallbackAura = fb.AuraAfter, FallbackCharm = fb.CharmConsumed, FallbackOutcome = fb.Outcome,
+                        });
+                        outcome = Wizard.Solo.Meta.EnhanceOutcome.MutationOffered;
+                        break;
+                    }
                 default:
-                    var fb = Wizard.Solo.Meta.Enhance.EnhanceRules.ResolveFail(cfg, stage, p.PeakStages[i], p.Auras[i], charm);
-                    if (fb.CharmConsumed) p.Add(Ids.Item.Charm, -1);
-                    p.WandStages[i] = fb.StageAfter;
-                    p.Auras[i] = fb.AuraAfter;
-                    outcome = fb.Outcome;
-                    break;
+                    {
+                        var fb = Wizard.Solo.Meta.Enhance.EnhanceRules.ResolveFail(cfg, stage, p.PeakStages[i], p.Auras[i], charm);
+                        p.WandStages[i] = fb.StageAfter;
+                        p.Auras[i] = fb.AuraAfter;
+                        if (fb.CharmConsumed) p.Add(Ids.Item.Charm, -1);
+                        outcome = fb.Outcome;
+                        break;
+                    }
             }
             if (p.WandStages[i] > p.PeakStages[i]) p.PeakStages[i] = p.WandStages[i];
             Save();
             return EnhanceResult.Ok;
+        }
+
+        /// <summary>대기 중인 변이 제시에 답한다. 받으면 변이(넘치면 가장 오래된 것이 밀려남) + 기운 1, 단계 그대로. 거절하면 미리 계산한 실패.</summary>
+        public EnhanceResult ResolveMutation(long id, int character, Wizard.Solo.Data.IContentDb db, bool accept, out Wizard.Solo.Meta.EnhanceOutcome outcome)
+        {
+            outcome = Wizard.Solo.Meta.EnhanceOutcome.FailNoDrop;
+            var cfg = db != null ? db.Enhance : null;
+            var a = Get(id);
+            if (a == null) return EnhanceResult.NoAccount;
+            if (character < 1 || character > 5 || cfg == null) return EnhanceResult.BadCharacter;
+            var p = a.Profile;
+            Fix(p);
+            var o = p.OfferOf(character);
+            if (o == null) return EnhanceResult.NoPendingMutation;
+            int i = character - 1;
+            if (accept)
+            {
+                Wizard.Solo.Meta.Enhance.EnhanceRules.AcceptMutation(p.MutationsOf(character), o.Candidate,
+                    Wizard.Solo.Meta.Enhance.EnhanceRules.MutationCap(cfg, db, character), o.AttemptSeq);
+                p.Auras[i] = Math.Min(cfg.AuraMax, p.Auras[i] + 1);
+                outcome = Wizard.Solo.Meta.EnhanceOutcome.MutationAccepted;
+            }
+            else
+            {
+                bool charm = o.FallbackCharm && p.Qty(Ids.Item.Charm) > 0;
+                if (o.FallbackCharm && !charm)
+                {
+                    var fb = Wizard.Solo.Meta.Enhance.EnhanceRules.ResolveFail(cfg, p.WandStages[i], p.PeakStages[i], p.Auras[i], false);
+                    o.FallbackStage = fb.StageAfter; o.FallbackAura = fb.AuraAfter; o.FallbackOutcome = fb.Outcome;
+                }
+                p.WandStages[i] = o.FallbackStage;
+                p.Auras[i] = o.FallbackAura;
+                if (charm) p.Add(Ids.Item.Charm, -1);
+                outcome = o.FallbackOutcome;
+            }
+            p.SetOffer(character, null);
+            Save();
+            return EnhanceResult.Ok;
+        }
+
+        /// <summary>서버 지팡이의 변이 id들(온라인 판 출발 설정에 넣는다).</summary>
+        public List<string> MutationIds(long id, int character)
+        {
+            var l = new List<string>();
+            var a = Get(id);
+            if (a == null || character < 1 || character > 5) return l;
+            foreach (var m in a.Profile.MutationsOf(character)) l.Add(m.Id);
+            return l;
         }
 
         static string Hash(string secret, byte[] salt)
@@ -254,7 +382,7 @@ namespace Wizard.Solo.Net
         /// 협동 한 판(오프라인 정산과 같은 몫): 원정 지갑 골드 그대로 + 재료(판의 추첨 기회마다 오프라인과 같은 표로 사람마다 따로 굴린 것).
         /// 최고 웨이브·판 수도 적는다.
         /// </summary>
-        public void RecordCoop(long id, int clearedWave, long purse = 0, IList<Wizard.Solo.Meta.MaterialGain> materials = null)
+        public void RecordCoop(long id, int clearedWave, long purse = 0, IList<Wizard.Solo.Meta.MaterialGain> materials = null, IList<string> blocks = null)
         {
             var a = Get(id);
             if (a == null) return;
@@ -262,6 +390,8 @@ namespace Wizard.Solo.Net
             if (clearedWave > a.Profile.CoopBestWave) a.Profile.CoopBestWave = clearedWave;
             a.Profile.Gold += Math.Max(0, purse);
             if (materials != null) foreach (var g in materials) a.Profile.Add(g.ItemId, g.Qty);
+            // 판의 보관함 블록(빌린 것 제외)을 사람마다 한 벌씩 창고로 — 제물로 쓴다. [임시] 귀환 가방 칸 제한은 아직 없다.
+            if (blocks != null) foreach (var b in blocks) a.Profile.Add(b, 1);
             Save();
         }
 

@@ -110,7 +110,7 @@ namespace Wizard.Solo.Net
         AuthFail = 42,
         /// <summary>클라이언트 → 방 서버(맨 앞): 기기 계정으로 들어가기. 몸 = 계정 id(long), 비밀.</summary>
         Login = 43,
-        /// <summary>클라이언트 → 방 서버(계정 뒤): 서버 지팡이 강화. 몸 = 캐릭터(int 1~5), 부적 쓰기(bool). 응답 EnhanceReply.</summary>
+        /// <summary>클라이언트 → 방 서버(계정 뒤): 서버 지팡이 강화. 몸 = 캐릭터(int 1~5), 부적 쓰기(bool), 제물 블록 id 목록. 응답 EnhanceReply.</summary>
         EnhanceRequest = 44,
         /// <summary>방 서버 → 클라이언트: 강화 결과. 몸 = AccountStore.EnhanceResult(byte), EnhanceOutcome(byte), 단계 전(int), 서버 프로필.</summary>
         EnhanceReply = 45,
@@ -118,6 +118,8 @@ namespace Wizard.Solo.Net
         LeaderboardRequest = 46,
         /// <summary>방 서버 → 클라이언트: 순위표. 몸 = n, 서버 프로필 n개.</summary>
         LeaderboardReply = 47,
+        /// <summary>클라이언트 → 방 서버(계정 뒤): 변이 제시에 답. 몸 = 캐릭터(int), 받기(bool). 응답 EnhanceReply.</summary>
+        MutationResolve = 48,
     }
 
     public enum AuthError : byte { BadName = 1, NameTaken = 2, BadSecret = 3, WrongLogin = 4 }
@@ -130,7 +132,7 @@ namespace Wizard.Solo.Net
     public static class NetProtocol
     {
         /// <summary>메시지 꼴이 바뀌면 올린다. 다르면 Reject(Version).</summary>
-        public const int Version = 7;
+        public const int Version = 8;
         /// <summary>스냅숏을 보내는 틱 간격(60틱 / 3 = 20Hz).</summary>
         public const int SnapshotEveryTicks = 3;
     }

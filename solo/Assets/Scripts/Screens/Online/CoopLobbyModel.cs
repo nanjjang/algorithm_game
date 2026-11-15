@@ -352,6 +352,14 @@ namespace Wizard.Solo.Screens.Online
         public const string ProfileNote = "str.online.profile.note";
         public const string EnhanceGold = "str.online.enhance.gold";
         public const string EnhanceStones = "str.online.enhance.stones";
+        public const string SacrificeLine = "str.online.sacrifice.line";
+        public const string SacrificeClear = "str.online.sacrifice.clear";
+        public const string SacrificeBad = "str.online.sacrifice.bad";
+        public const string MutationAccept = "str.online.mutation.accept";
+        public const string MutationDecline = "str.online.mutation.decline";
+        public const string MutationList = "str.online.mutation.list";
+        public const string MutationOfferLine = "str.online.mutation.offer";
+        public const string MutationPush = "str.online.mutation.push";
         public const string ItemsLine = "str.online.items_line";
         public const string CharmOn = "str.online.charm_on";
         public const string CharmOff = "str.online.charm_off";

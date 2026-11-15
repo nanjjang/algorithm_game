@@ -136,6 +136,15 @@ namespace Wizard.Solo.Net
             w.Int(p.CoopBestWave);
             for (int i = 0; i < 5; i++) w.Int(p.WandStages != null && i < p.WandStages.Length ? p.WandStages[i] : 0);
             for (int i = 0; i < 5; i++) w.Int(p.Auras != null && i < p.Auras.Length ? p.Auras[i] : 0);
+            for (int c = 1; c <= 5; c++)
+            {
+                var muts = p.MutationsOf(c);
+                w.Int(muts.Count);
+                foreach (var mu in muts) w.Str(mu.Id);
+                var off = p.OfferOf(c);
+                w.Str(off != null ? off.Candidate : null);
+                w.Str(off != null ? off.WouldPushOut : null);
+            }
             int n = p.Items != null ? p.Items.Count : 0;
             w.Int(n);
             if (p.Items != null)
@@ -155,6 +164,14 @@ namespace Wizard.Solo.Net
                 WandStages = new[] { r.Int(), r.Int(), r.Int(), r.Int(), r.Int() },
                 Auras = new[] { r.Int(), r.Int(), r.Int(), r.Int(), r.Int() },
             };
+            for (int c = 1; c <= 5; c++)
+            {
+                int mc = r.Int();
+                var muts = p.MutationsOf(c);
+                for (int k = 0; k < mc; k++) muts.Add(new Wizard.Solo.Meta.MutationEntry { Id = r.Str(), Seq = k });
+                string cand = r.Str(), push = r.Str();
+                if (cand != null) p.SetOffer(c, new ServerMutationOffer { Candidate = cand, WouldPushOut = push });
+            }
             int n = r.Int();
             for (int i = 0; i < n; i++) { string k = r.Str(); p.Items[k] = r.Int(); }
             return p;

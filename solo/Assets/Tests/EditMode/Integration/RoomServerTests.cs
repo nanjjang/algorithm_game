@@ -3,6 +3,7 @@ using System.Threading;
 using NUnit.Framework;
 using UnityEngine;
 using Wizard.Solo.Net;
+using Wizard.Solo.Meta.Enhance;
 using Wizard.Solo.Screens.Online;
 using Wizard.Solo.Sim;
 
@@ -317,6 +318,13 @@ namespace Wizard.Solo.Tests.Integration
             {
                 var r = WithServerThread(() => svc.Enhance(1));
                 Assert.AreEqual(AccountStore.EnhanceResult.Ok, r.Value.Result);
+                if (r.Value.Outcome == Wizard.Solo.Meta.EnhanceOutcome.MutationOffered)
+                {
+                    var rr = WithServerThread(() => svc.ResolveMutation(1, i % 2 == 0));
+                    Assert.AreEqual(AccountStore.EnhanceResult.Ok, rr.Value.Result, "변이 답");
+                    if (rr.Value.Profile.WandStages[0] != rr.Value.StageBefore) stageChanges++;
+                    continue;
+                }
                 if (r.Value.Profile.WandStages[0] != r.Value.StageBefore) stageChanges++;
             }
             var prof = _server.Accounts.Get(acct.Id).Profile;
@@ -347,10 +355,11 @@ namespace Wizard.Solo.Tests.Integration
             p.PeakStages[0] = p.WandStages[0];
             int before = p.WandStages[0];
             p.Add(Ids.Item.Charm, 1);
-            st.Enhance(rec.Id, 1, cfg, 9999, out var o1, useCharm: true);
+            var fail = new FixedRng(9999);
+            st.Enhance(rec.Id, 1, _k.Db, fail, out var o1, useCharm: true);
             Assert.AreEqual(before, p.WandStages[0], "부적이 떨어짐을 막는다: " + o1);
             Assert.AreEqual(0, p.Qty(Ids.Item.Charm), "막았으니 하나 썼다");
-            st.Enhance(rec.Id, 1, cfg, 9999, out var o2, useCharm: true);
+            st.Enhance(rec.Id, 1, _k.Db, fail, out var o2, useCharm: true);
             Assert.AreEqual(before - 1, p.WandStages[0], "부적이 없으면 떨어진다: " + o2);
 
             var mats = new List<Wizard.Solo.Meta.MaterialGain> { new Wizard.Solo.Meta.MaterialGain { ItemId = Ids.Item.StoneMid, Qty = 2 } };
@@ -359,6 +368,79 @@ namespace Wizard.Solo.Tests.Integration
             st.RecordCoop(rec.Id, 5, 300, mats);
             Assert.AreEqual(gold + 300, p.Gold, "원정 지갑 골드");
             Assert.AreEqual(mid + 2, p.Qty(Ids.Item.StoneMid), "재료가 창고로");
+        }
+
+        sealed class FixedRng : Wizard.Solo.Meta.Enhance.IEnhanceRandom
+        {
+            readonly int _v;
+            public FixedRng(int v) { _v = v; }
+            public int Next(int maxExclusive) => System.Math.Min(_v, maxExclusive - 1);
+        }
+
+        /// <summary>주사위 값을 차례로 내준다(변이 구간 → 후보 뽑기).</summary>
+        sealed class SeqRng : Wizard.Solo.Meta.Enhance.IEnhanceRandom
+        {
+            readonly int[] _v; int _i;
+            public SeqRng(params int[] v) { _v = v; }
+            public int Next(int maxExclusive) => System.Math.Min(_v[System.Math.Min(_i++, _v.Length - 1)], maxExclusive - 1);
+        }
+
+        [Test]
+        public void ServerEnhance_Sacrifice_RaisesOdds_AndIsConsumed()
+        {
+            var st = new AccountStore(null);
+            st.Register("제물시험", new string('s', 40), out var rec);
+            var p = rec.Profile;
+            p.Gold = 100000000;
+            foreach (var s2 in new[] { Ids.Item.StoneLow, Ids.Item.StoneMid, Ids.Item.StoneHigh }) p.Add(s2, 1000);
+            var cfg = _k.Db.Enhance;
+            p.WandStages[0] = 8;
+            string block = null;
+            foreach (var b in _k.Db.Blocks) { if (b.Id != Ids.Block.MagicBolt) { block = b.Id; break; } }
+            Assert.IsNotNull(block);
+            Assert.AreEqual(AccountStore.EnhanceResult.BadSacrifice, st.Enhance(rec.Id, 1, _k.Db, new FixedRng(0), out _, false, new[] { block }), "창고에 없는 블록은 못 쓴다");
+            p.Add(block, 2);
+            var def = _k.Db.Character(Ids.Char.Of(1));
+            int plain = EnhanceRules.Breakdown(cfg, 8, 8, 0, EnhanceRules.SacrificeBonus(cfg, _k.Db, new List<string>(), def.Element)).SuccessPct;
+            int withSac = EnhanceRules.Breakdown(cfg, 8, 8, 0, EnhanceRules.SacrificeBonus(cfg, _k.Db, new List<string> { block, block }, def.Element)).SuccessPct;
+            Assert.Greater(withSac, plain, "제물이 확률을 올린다");
+            Assert.AreEqual(AccountStore.EnhanceResult.Ok, st.Enhance(rec.Id, 1, _k.Db, new FixedRng(9999), out _, false, new[] { block, block }));
+            Assert.AreEqual(0, p.Qty(block), "제물은 결과와 상관없이 사라진다");
+        }
+
+        [Test]
+        public void ServerEnhance_Mutation_OfferAcceptDecline_AndRunUsesIt()
+        {
+            var st = new AccountStore(null);
+            st.Register("변이시험", new string('m', 40), out var rec);
+            var p = rec.Profile;
+            p.Gold = 100000000;
+            foreach (var s2 in new[] { Ids.Item.StoneLow, Ids.Item.StoneMid, Ids.Item.StoneHigh }) p.Add(s2, 1000);
+            var cfg = _k.Db.Enhance;
+            p.WandStages[0] = 6;
+            var def = _k.Db.Character(Ids.Char.Of(1));
+            var bd = EnhanceRules.Breakdown(cfg, 6, 0, 0, EnhanceRules.SacrificeBonus(cfg, _k.Db, new List<string>(), def.Element));
+            Assume.That(bd.MutationEndBp > bd.SuccessBp, "이 단계에 변이 구간이 있어야 한다");
+            int roll = bd.SuccessBp; // 변이 구간의 첫 값
+            Assert.AreEqual(AccountStore.EnhanceResult.Ok, st.Enhance(rec.Id, 1, _k.Db, new SeqRng(roll, 0), out var o));
+            Assert.AreEqual(Wizard.Solo.Meta.EnhanceOutcome.MutationOffered, o);
+            Assert.IsNotNull(p.OfferOf(1));
+            Assert.AreEqual(6, p.WandStages[0], "받기 전엔 단계 그대로");
+            Assert.AreEqual(AccountStore.EnhanceResult.MutationPending, st.Enhance(rec.Id, 1, _k.Db, new FixedRng(0), out _), "답하기 전엔 다시 못 한다");
+            string cand = p.OfferOf(1).Candidate;
+            Assert.AreEqual(AccountStore.EnhanceResult.Ok, st.ResolveMutation(rec.Id, 1, _k.Db, true, out var o2));
+            Assert.AreEqual(Wizard.Solo.Meta.EnhanceOutcome.MutationAccepted, o2);
+            CollectionAssert.Contains(st.MutationIds(rec.Id, 1), cand);
+            Assert.AreEqual(1, p.Auras[0], "받으면 기운 +1");
+
+            // 거절: 미리 계산한 실패
+            st.Enhance(rec.Id, 1, _k.Db, new SeqRng(roll, 0), out var o3);
+            if (o3 == Wizard.Solo.Meta.EnhanceOutcome.MutationOffered)
+            {
+                Assert.AreEqual(AccountStore.EnhanceResult.Ok, st.ResolveMutation(rec.Id, 1, _k.Db, false, out var o4));
+                Assert.AreNotEqual(Wizard.Solo.Meta.EnhanceOutcome.MutationAccepted, o4);
+                Assert.IsNull(p.OfferOf(1));
+            }
         }
 }
 }

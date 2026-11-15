@@ -210,6 +210,9 @@ namespace Wizard.Solo.Sim
         public bool IsElite => Elite != null;
         public bool IsBoss;
         public BossDef BossDef;
+        /// <summary>결투 과녁: 이 슬롯 플레이어 자리에 세운 보이지 않는 적(−1 = 보통 적). 적을 맞히는 모든 공격이 상대에게 닿게 한다(RunFlow.Duel.cs).
+        /// 움직이지·생각하지·죽지 않고, 받은 피해는 그 플레이어의 결투 피해로 넘어간다. 그리지 않는다.</summary>
+        public int DuelProxyOf = -1;
         public EnemyTags Tags;
         public string Weak, Resist;
         public int Cost;

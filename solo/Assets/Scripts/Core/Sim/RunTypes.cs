@@ -280,6 +280,8 @@ namespace Wizard.Solo.Sim
         public readonly int[] TakenRing0 = new int[64];
         public readonly int[] TakenRing1 = new int[64];
         public int LastRoundWinner = -1;
+        /// <summary>가시밭이 들어온 칸 수(0 = 아직 없음).</summary>
+        public int ThornRing;
         public DuelRoundEndKind LastRoundEnd;
         public int MatchWinner = -1;
         public bool MatchOver;

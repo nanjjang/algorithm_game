@@ -79,6 +79,13 @@ namespace Wizard.Solo.Sim.Spells
             var res = default(DamageResult);
             // 1. 죽어 가는 적(PendingDeath)·땅속 적은 없는 것이다(공통 규칙 2).
             if (e == null || !e.Targetable) { res.Immune = true; return res; }
+            // 결투 과녁: 자기 과녁·주인 없는 피해는 없음, 아니면 그 플레이어의 결투 피해로 넘긴다(상태 효과·콤보 훅 없음).
+            if (e.DuelProxyOf >= 0)
+            {
+                if (d.AttackerSlot < 0 || d.AttackerSlot == e.DuelProxyOf) { res.Immune = true; return res; }
+                res.Applied = w.Mods.Run.DuelProxyDamage(w, e.DuelProxyOf, d.AttackerSlot, d.Amount, d.HitPos);
+                return res;
+            }
 
             // 2. 속성 배율, 잠식(잠식을 거는 탄 자신에게는 아직 안 걸려 있다 → 다음 피해부터).
             Affinity affinity = AffinityOf(e, d.Element);

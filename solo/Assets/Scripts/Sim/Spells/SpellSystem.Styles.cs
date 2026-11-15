@@ -272,6 +272,7 @@ namespace Wizard.Solo.Sim.Spells
             {
                 var e = enemies[i];
                 if (!e.Targetable || e.Id == ignoreId) continue;
+                if (e.DuelProxyOf >= 0 && (e.Pos - from).sqrMagnitude < 0.04f) continue; // 결투: 쏘는 사람 자신의 과녁
                 Vector2 to = e.Pos - from;
                 float d = to.magnitude;
                 if (d - e.BodyRadius > range + Eps) continue;
@@ -380,7 +381,7 @@ namespace Wizard.Solo.Sim.Spells
             for (int i = 0; i < enemies.Count; i++)
             {
                 var e = enemies[i];
-                if (!e.Targetable || pr.HitSet.Contains(e.Id) || e.Id == pr.IgnoreEnemyId) continue;
+                if (!e.Targetable || pr.HitSet.Contains(e.Id) || e.Id == pr.IgnoreEnemyId || OwnProxy(pr, e)) continue;
                 float sq = (e.Pos - from).sqrMagnitude;
                 if (sq > bestSq + Eps) continue;
                 if (best != null && sq >= bestSq) continue;
@@ -520,7 +521,7 @@ namespace Wizard.Solo.Sim.Spells
                 for (int i = 0; i < enemies.Count; i++)
                 {
                     var e = enemies[i];
-                    if (!e.Targetable || pr.HitSet.Contains(e.Id)) continue;
+                    if (!e.Targetable || pr.HitSet.Contains(e.Id) || OwnProxy(pr, e)) continue;
                     Vector2 to = e.Pos - pr.Origin;
                     float dist = to.magnitude;
                     float gap = dist - e.BodyRadius;

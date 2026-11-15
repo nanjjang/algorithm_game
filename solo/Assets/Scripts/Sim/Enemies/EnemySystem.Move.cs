@@ -17,7 +17,7 @@ namespace Wizard.Solo.Sim.Enemies
             {
                 var e = w.Enemies[i];
                 // 죽어 가는 적은 이동·접촉·돌진이 없다(공통 규칙 2). 보스 몸통은 Bosses가 옮긴다.
-                if (!e.Alive || e.IsBoss) continue;
+                if (!e.Alive || e.IsBoss || e.DuelProxyOf >= 0) continue;
                 var b = e.Brain as EnemyBrain;
                 if (b == null) continue;
                 e.PrevPos = e.Pos;

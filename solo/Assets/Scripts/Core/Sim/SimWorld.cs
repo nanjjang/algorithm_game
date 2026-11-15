@@ -89,6 +89,7 @@ namespace Wizard.Solo.Sim
             m.Player.Stage3_ResolveFacing(this);
             // 4. 플레이어 이동과 벽
             m.Player.Stage4_Move(this);
+            m.Run.Stage4_DuelSync(this);
             // 5. 비기 발동, 플레이어 지대
             m.Arts.Stage5_Arts(this);
             // 6. J 발사
@@ -102,7 +103,6 @@ namespace Wizard.Solo.Sim
             // 9. 이동과 충돌: 적 → 내 탄 → 적 탄 → 구역 → 스침·줍기
             m.Enemies.Stage9_Move(this);
             m.Spells.Stage9_Projectiles(this);
-            m.Run.Stage9_PvpHits(this);
             m.Threats.Stage9_Shots(this);
             m.Threats.Stage9_Zones(this);
             m.Player.Stage9_GrazeAndPickups(this);

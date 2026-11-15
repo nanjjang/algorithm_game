@@ -196,7 +196,7 @@ namespace Wizard.Solo.View.Enemies
             for (int i = 0; i < w.Enemies.Count; i++)
             {
                 var e = w.Enemies[i];
-                if (e == null || e.Dead) continue;
+                if (e == null || e.Dead || e.DuelProxyOf >= 0) continue; // 결투 과녁은 그리지 않는다
                 var v = GetOrCreate(e);
                 if (v == null) continue;
                 v.Stamp = _stamp;

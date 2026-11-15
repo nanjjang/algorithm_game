@@ -142,6 +142,8 @@ namespace Wizard.Solo.Tests.Integration
             var w = StartDuel();
             _k.Step(185);
             w.Players[1].Hp -= 100; // 슬롯 1이 덜 남았다
+            w.Players[0].Pos = new Vector2(11f, 7f);
+            w.Players[1].Pos = new Vector2(13f, 7f);
             _k.Step(SimConst.Ticks(90f) + 5);
             Assert.AreEqual(RunPhase.DuelRoundEnd, w.Run.Phase);
             Assert.AreEqual(0, w.Run.Duel.LastRoundWinner);
@@ -153,7 +155,9 @@ namespace Wizard.Solo.Tests.Integration
         {
             var w = StartDuel();
             _k.Step(185);
-            // 체력 비율 같음(둘 다 가득), 준 피해 0 → 연장
+            // 체력 비율 같음(둘 다 가득), 준 피해 0 → 연장. 가시밭(85초에 6칸)에 닿지 않게 가운데에 세운다.
+            w.Players[0].Pos = new Vector2(11f, 7f);
+            w.Players[1].Pos = new Vector2(13f, 7f);
             _k.Step(SimConst.Ticks(90f) + 5);
             Assert.AreEqual(RunPhase.DuelFight, w.Run.Phase);
             Assert.IsTrue(w.Run.Duel.Overtime);
@@ -170,5 +174,48 @@ namespace Wizard.Solo.Tests.Integration
             _k.Step(SimConst.Ticks(3f));
             Assert.AreEqual(RunPhase.RunEnded, w.Run.Phase);
         }
-    }
+    
+        EnemyState Proxy(SimWorld w, int slot)
+        {
+            foreach (var e in w.Enemies) if (e.DuelProxyOf == slot) return e;
+            return null;
+        }
+
+        [Test]
+        public void Duel_DirectDamage_ArtsHitOpponent_NotSelf()
+        {
+            var w = StartDuel();
+            _k.Step(185);
+            Assert.AreEqual(RunPhase.DuelFight, w.Run.Phase);
+            var p1 = Proxy(w, 1);
+            var p0 = Proxy(w, 0);
+            Assert.IsNotNull(p1, "슬롯 1의 과녁");
+            Assert.IsNotNull(p0);
+            Assert.AreEqual(w.Players[1].Pos, p1.Pos, "과녁은 주인 자리에");
+            int hp1 = w.Players[1].Hp, hp0 = w.Players[0].Hp;
+            w.Mods.Spells.DealDirect(w, new DirectDamage { AttackerSlot = 0, TargetEnemyId = p1.Id, Amount = 50f, Element = null, Origin = DamageOrigin.Art });
+            Assert.Less(w.Players[1].Hp, hp1, "비기 직접 피해가 상대에게");
+            w.Mods.Spells.DealDirect(w, new DirectDamage { AttackerSlot = 0, TargetEnemyId = p0.Id, Amount = 50f, Element = null, Origin = DamageOrigin.Art });
+            Assert.AreEqual(hp0, w.Players[0].Hp, "자기 과녁은 맞지 않는다");
+            Assert.Greater(w.Run.Duel.DamageDealt[0], 0);
+        }
+
+        [Test]
+        public void Duel_Pillars_AndThornAfterSixtySeconds()
+        {
+            var w = StartDuel();
+            _k.Step(185);
+            Assert.AreEqual(4, w.Obstacles.Count, "기둥 넷");
+            // 슬롯 1을 가장자리에 둔다: 60초가 지나면 가시밭이 들어와 0.5초마다 4%.
+            int max = w.Players[1].MaxHp;
+            for (int t = 0; t < SimConst.Ticks(59f); t++) { w.Players[1].Pos = new Vector2(0.6f, 7f); _k.Step(); }
+            Assert.AreEqual(max, w.Players[1].Hp, "60초 전에는 가시밭이 없다");
+            Assert.AreEqual(0, w.Hazards.Count);
+            for (int t = 0; t < SimConst.Ticks(2f); t++) { w.Players[1].Pos = new Vector2(0.6f, 7f); _k.Step(); }
+            Assert.Greater(w.Hazards.Count, 0, "가시 띠가 보인다");
+            Assert.Less(w.Players[1].Hp, max, "가시밭 위에서 피해");
+            Assert.AreEqual(w.Players[0].MaxHp, w.Players[0].Hp, "가운데 쪽 사람은 멀쩡");
+            Assert.AreEqual(0, w.Run.Duel.DamageDealt[0], "가시밭 피해는 준 피해에 들지 않는다");
+        }
+}
 }

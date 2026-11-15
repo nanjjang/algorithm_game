@@ -3,12 +3,13 @@ using UnityEngine;
 namespace Wizard.Solo.Sim.Run
 {
     // 온라인 1대1 결투(Docs/11-online.md, 규칙 원문 docs/spec/10-duel.md 2·3절). 값은 DataSolo/Duel.json(없으면 아래 기본값 = 원문 [제안] 값).
-    // 솔로 시뮬 위에 얹은 것: 적·웨이브 없이 두 사람만 선다. 플레이어 탄이 상대를 맞히고(Stage9_PvpHits), 라운드·승패는 여기서 센다.
+    // 솔로 시뮬 위에 얹은 것: 적·웨이브 없이 두 사람만 선다. 공격은 결투 과녁으로 상대를 맞히고, 라운드·승패는 여기서 센다.
     // - 3판 2선승(rounds_to_win), 라운드 90초, 카운트다운 3초(움직이지 못한다), 시작 결정 1개, 체력 가득.
     // - 시간 종료: 체력 비율 → 준 피해 합 → 같으면 연장 30초(받는 피해 2배) → 그래도 같으면 무승부 라운드.
     // - 순간 피해 상한: 0.5초 동안 최대 체력의 30%. 결투 강화 배율 1 + 0.03 × 단계(무한 웨이브의 1.15^단계 대신).
     // - 라운드 수 상한 2 × 선승 + 1. 상한에서 승수가 같으면 경기 무승부.
-    // 아직 없는 것(원문에는 있음): 가시밭, 기둥, 비기·지대의 상대 피해, 스침 벌칙, 조준 보정. 11-online.md 5절에 적었다.
+    // 상대 피해: 사람마다 보이지 않는 과녁(EnemyState.DuelProxyOf)을 세워 적을 맞히는 모든 공격이 상대에게 닿게 한다.
+    // 아직 없는 것(원문에는 있음): 스침 벌칙, 조준 보정, 결투용 비기 값. 11-online.md 5절에 적었다.
     public sealed partial class RunFlow
     {
         public const string DuelExtraName = "Duel";
@@ -17,6 +18,8 @@ namespace Wizard.Solo.Sim.Run
         {
             public int RoundsToWin, RoundTicks, CountdownTicks, RoundEndTicks, OvertimeTicks, StartCrystals, BurstWindow, BurstPercent;
             public float HitRadius, EnhancePerStage, OvertimeMul;
+            public bool ThornOn, PillarsOn;
+            public int ThornStepTicks, ThornDamageTicks, ThornPercent, ThornMaxRing;
             public Vector2 LeftStart, RightStart;
         }
 
@@ -28,6 +31,7 @@ namespace Wizard.Solo.Sim.Run
                 OvertimeTicks = SimConst.Ticks(30f), StartCrystals = 1, BurstWindow = 30, BurstPercent = 30,
                 HitRadius = 0.30f, EnhancePerStage = 0.03f, OvertimeMul = 2f,
                 LeftStart = new Vector2(6f, 7f), RightStart = new Vector2(18f, 7f),
+                ThornOn = true, PillarsOn = true, ThornStepTicks = 300, ThornDamageTicks = 30, ThornPercent = 4, ThornMaxRing = 6,
             };
             var r = w.Content != null ? w.Content.SoloExtra(DuelExtraName) : null;
             if (r == null) return t;
@@ -42,6 +46,12 @@ namespace Wizard.Solo.Sim.Run
             if (r["hit_radius"] != null) t.HitRadius = (float)r["hit_radius"];
             if (r["enhance_per_stage"] != null) t.EnhancePerStage = (float)r["enhance_per_stage"];
             if (r["overtime_damage_mult"] != null) t.OvertimeMul = (float)r["overtime_damage_mult"];
+            if (r["thorn"] != null) t.ThornOn = (bool)r["thorn"];
+            if (r["pillars"] != null) t.PillarsOn = (bool)r["pillars"];
+            if (r["thorn_step_seconds"] != null) t.ThornStepTicks = SimConst.Ticks((float)r["thorn_step_seconds"]);
+            if (r["thorn_damage_seconds"] != null) t.ThornDamageTicks = SimConst.Ticks((float)r["thorn_damage_seconds"]);
+            if (r["thorn_damage_percent"] != null) t.ThornPercent = (int)r["thorn_damage_percent"];
+            if (r["thorn_max_ring"] != null) t.ThornMaxRing = (int)r["thorn_max_ring"];
             return t;
         }
 
@@ -65,6 +75,10 @@ namespace Wizard.Solo.Sim.Run
                 // 판 안 상태를 비운다: 탄·지대·적 탄, 체력·열·콤보(SetupPlayer), 결정 = 시작 개수, 자리 = 양 끝에서 마주 본다.
                 w.Projectiles.Clear();
                 w.PlayerZones.Clear();
+                w.Enemies.Clear(); // 과녁도 새로(다음 Stage4_DuelSync가 다시 세운다)
+                w.Hazards.Clear();
+                d.ThornRing = 0;
+                if (t.PillarsOn && w.Obstacles.Count == 0) SpawnPillars(w);
                 w.EnemyShots.Clear();
                 w.Zones.Clear();
                 for (int i = 0; i < 2 && i < w.Players.Length; i++)
@@ -115,6 +129,7 @@ namespace Wizard.Solo.Sim.Run
                             EndRound(w, winner, DuelRoundEndKind.Knockout);
                             break;
                         }
+                        TickThorn(w, t, d);
                         int limit = d.Overtime ? t.OvertimeTicks : t.RoundTicks;
                         if (w.Tick - d.RoundStartTick < limit) break;
                         int byTime = CompareTimeout(w, d);
@@ -170,37 +185,132 @@ namespace Wizard.Solo.Sim.Run
             EndRound(w, winner, DuelRoundEndKind.Forfeit);
         }
 
-        // ------------------------------------------------------------ 상대 탄 맞히기
+        // ------------------------------------------------------------ 기둥·가시밭 (docs/spec/10-duel.md 3.1·3.4절)
 
-        public override void Stage9_PvpHits(SimWorld w)
+        /// <summary>기둥 1×1칸 넷: 칸 (9,3)·(14,3)·(9,10)·(14,10). 탄을 막고 부서지지 않는다.</summary>
+        static void SpawnPillars(SimWorld w)
         {
-            if (!IsDuel(w) || w.Run.Phase != RunPhase.DuelFight) return;
-            var t = DuelTune(w);
-            var shots = w.Projectiles;
-            for (int i = 0; i < shots.Count; i++)
-            {
-                var pr = shots[i];
-                if (pr.Dead || pr.Block == null) continue;
-                int targetSlot = pr.OwnerSlot == 0 ? 1 : 0;
-                if (targetSlot >= w.Players.Length) continue;
-                var q = w.Players[targetSlot];
-                if (!q.Active || q.Downed) continue;
-                int mark = -1000 - targetSlot; // HitSet에 사람 표시(적 id는 양수)
-                if (pr.HitSet.Contains(mark)) continue;
-                float r = t.HitRadius + Mathf.Max(pr.Radius, pr.Block.HitRadius);
-                if (SegmentDistSq(pr.PrevPos, pr.Pos, q.Pos) > r * r) continue;
-
-                pr.HitSet.Add(mark);
-                float raw = pr.Block.BaseDamage * pr.DamageMul * DuelStageDamageScale(w, pr.OwnerSlot, t);
-                int dealt = ApplyDuelDamage(w, q, raw, t, pr.OwnerSlot, pr.Pos);
-                if (pr.OwnerSlot >= 0 && pr.OwnerSlot < 2) w.Run.Duel.DamageDealt[pr.OwnerSlot] += dealt;
-                if (!pr.Block.HasFlag(Ids.BlockFlag.PassThrough) && !pr.Block.HasFlag(Ids.BlockFlag.Returns))
+            Vector2[] cells = { new Vector2(9, 3), new Vector2(14, 3), new Vector2(9, 10), new Vector2(14, 10) };
+            foreach (var c in cells)
+                w.Obstacles.Add(new ObstacleEntity
                 {
-                    pr.State = ProjectileState.Dead;
-                    pr.Dead = true;
-                    w.Emit(SimEventType.ProjectileExpired, pr.OwnerSlot, pr.Id, a: 2, pos: pr.Pos);
-                }
+                    Id = w.NewEntityId(), Kind = "duel.pillar", Pos = c + new Vector2(0.5f, 0.5f), Radius = 0.5f,
+                    Hp = 1e9f, UntilTick = int.MaxValue, BlocksPlayerShots = true, BlocksEnemyShots = true,
+                });
+        }
+
+        /// <summary>
+        /// 가시밭: 라운드 시간 − 30초(90초면 60초)부터 가장자리에서 5초에 1칸씩(최대 6칸) 안으로. 0.5초마다 그 안에 선 사람은 최대 체력의 4%.
+        /// 순간 상한·연장 배율은 받지만 "준 피해"에는 넣지 않는다. 보이는 것은 가시 띠(HazardKind.ThornBorder, 피해 0 — 피해는 여기서만).
+        /// </summary>
+        void TickThorn(SimWorld w, DuelTuning t, DuelState d)
+        {
+            if (!t.ThornOn) return;
+            int elapsed = (d.Overtime ? t.RoundTicks : 0) + (w.Tick - d.RoundStartTick);
+            int start = Mathf.Max(0, t.RoundTicks - SimConst.Ticks(30f));
+            if (elapsed < start) return;
+            int ring = Mathf.Min(1 + (elapsed - start) / Mathf.Max(1, t.ThornStepTicks), t.ThornMaxRing);
+            if (ring != d.ThornRing)
+            {
+                d.ThornRing = ring;
+                w.Hazards.Clear();
+                float aw = w.ArenaWidth, ah = w.ArenaHeight, k = ring;
+                AddBand(w, new Vector2(0f, k * 0.5f), new Vector2(1f, 0f), aw, k);
+                AddBand(w, new Vector2(0f, ah - k * 0.5f), new Vector2(1f, 0f), aw, k);
+                AddBand(w, new Vector2(k * 0.5f, k), new Vector2(0f, 1f), ah - 2f * k, k);
+                AddBand(w, new Vector2(aw - k * 0.5f, k), new Vector2(0f, 1f), ah - 2f * k, k);
             }
+            if ((elapsed - start) % Mathf.Max(1, t.ThornDamageTicks) != 0) return;
+            for (int i = 0; i < 2 && i < w.Players.Length; i++)
+            {
+                var p = w.Players[i];
+                if (!p.Active || p.Downed) continue;
+                int cx = Mathf.FloorToInt(p.Pos.x), cy = Mathf.FloorToInt(p.Pos.y);
+                int edge = Mathf.Min(Mathf.Min(cx, (int)w.ArenaWidth - 1 - cx), Mathf.Min(cy, (int)w.ArenaHeight - 1 - cy));
+                if (edge >= ring) continue;
+                ApplyDuelDamage(w, p, Mathf.Ceil(p.MaxHp * t.ThornPercent / 100f), t, -1, p.Pos);
+            }
+        }
+
+        static void AddBand(SimWorld w, Vector2 pos, Vector2 dir, float length, float width)
+        {
+            w.Hazards.Add(new HazardEntity
+            {
+                Id = w.NewEntityId(), Kind = HazardKind.ThornBorder, Shape = ZoneShape.Band, Pos = pos, Dir = dir,
+                Width = width, Length = length, StartTick = w.Tick, UntilTick = int.MaxValue, BaseDamage = 0, SlowOnly = true, SlowPercent = 0f,
+            });
+        }
+
+        // ------------------------------------------------------------ 결투 과녁(보이지 않는 적)
+
+        /// <summary>
+        /// 사람마다 보이지 않는 적(과녁)을 하나 세워 둔다(EnemyState.DuelProxyOf = 슬롯). 적을 맞히는 모든 길(탄, 폭발, 연쇄, 비기, 지대, 화상)이
+        /// 그대로 상대에게 닿고, 피해는 SpellSystem.ApplyDamage가 DuelProxyDamage로 넘긴다. 자기 과녁은 맞히지 않는다.
+        /// </summary>
+        void EnsureDuelProxies(SimWorld w)
+        {
+            var def = FirstEnemyDef(w);
+            for (int slot = 0; slot < 2 && slot < w.Players.Length; slot++)
+            {
+                if (FindProxy(w, slot) != null) continue;
+                var p = w.Players[slot];
+                w.Enemies.Add(new EnemyState
+                {
+                    Id = w.NewEntityId(),
+                    DefId = def != null ? def.Id : null,
+                    Def = def,
+                    DuelProxyOf = slot,
+                    NoReward = true,
+                    Pos = p.Pos,
+                    PrevPos = p.Pos,
+                    BodyRadius = DuelTune(w).HitRadius,
+                    Hp = 1e9f,
+                    MaxHp = 1e9f,
+                    Ai = EnemyAiState.Waiting,
+                });
+            }
+        }
+
+        static Wizard.Solo.Data.EnemyDef FirstEnemyDef(SimWorld w)
+        {
+            var list = w.Content != null ? w.Content.Enemies : null;
+            return list != null && list.Count > 0 ? list[0] : null;
+        }
+
+        static EnemyState FindProxy(SimWorld w, int slot)
+        {
+            for (int i = 0; i < w.Enemies.Count; i++)
+                if (w.Enemies[i].DuelProxyOf == slot && !w.Enemies[i].Dead) return w.Enemies[i];
+            return null;
+        }
+
+        /// <summary>4단계 뒤: 과녁을 주인 자리로 옮긴다. 쓰러진 사람의 과녁은 땅속(맞지 않음).</summary>
+        public override void Stage4_DuelSync(SimWorld w)
+        {
+            if (!IsDuel(w)) return;
+            EnsureDuelProxies(w);
+            for (int slot = 0; slot < 2 && slot < w.Players.Length; slot++)
+            {
+                var e = FindProxy(w, slot);
+                if (e == null) continue;
+                var p = w.Players[slot];
+                e.PrevPos = e.Pos;
+                e.Pos = p.Pos;
+                e.Burrowed = !p.Active || p.Downed || w.Run.Phase != RunPhase.DuelFight;
+                e.Hp = e.MaxHp;
+            }
+        }
+
+        public override int DuelProxyDamage(SimWorld w, int victimSlot, int attackerSlot, float amount, Vector2 at)
+        {
+            if (!IsDuel(w) || w.Run.Phase != RunPhase.DuelFight) return 0;
+            if (victimSlot < 0 || victimSlot >= 2 || attackerSlot < 0 || attackerSlot >= 2) return 0;
+            var q = w.Players[victimSlot];
+            if (!q.Active || q.Downed) return 0;
+            var t = DuelTune(w);
+            int dealt = ApplyDuelDamage(w, q, amount * DuelStageDamageScale(w, attackerSlot, t), t, attackerSlot, at);
+            w.Run.Duel.DamageDealt[attackerSlot] += dealt;
+            return dealt;
         }
 
         /// <summary>탄의 피해 배율에는 무한 웨이브 강화(1.15^단계)가 들어 있다 → 결투 강화(1 + 0.03 × 단계)로 바꾼다.</summary>

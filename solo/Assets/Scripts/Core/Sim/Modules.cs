@@ -560,7 +560,9 @@ namespace Wizard.Solo.Sim
         /// 출발 표식 반경 안 + J 눌림 유지 → DepartHold(60틱) → 출발. 보스 웨이브의 전이는 w.Boss.State만 보고 한다(공통 규칙 5).</summary>
         public virtual void Stage11_Phase(SimWorld w) { }
         /// <summary>9단계(내 탄 이동 뒤): 결투에서 플레이어 탄이 상대 플레이어를 맞히는 판정(Mode == Duel일 때만 일한다).</summary>
-        public virtual void Stage9_PvpHits(SimWorld w) { }
+        public virtual void Stage4_DuelSync(SimWorld w) { }
+        /// <summary>결투 과녁이 맞았다: attackerSlot이 victimSlot에게 amount(무한 웨이브 배율이 든 값)만큼. 돌려주는 값 = 실제로 깎인 체력.</summary>
+        public virtual int DuelProxyDamage(SimWorld w, int victimSlot, int attackerSlot, float amount, UnityEngine.Vector2 at) => 0;
         /// <summary>결투 기권·끊김: loserSlot이 경기에서 진다(결투가 아니면 아무 일도 없다).</summary>
         public virtual void ForfeitDuel(SimWorld w, int loserSlot) { }
         /// <summary>적이 죽었다: 골드(지갑), 점수 재료, 체력 조각, 재료 기회.</summary>

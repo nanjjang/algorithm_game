@@ -156,7 +156,7 @@ namespace Wizard.Solo.Sim.Spells
             for (int i = 0; i < enemies.Count; i++)
             {
                 var e = enemies[i];
-                if (!e.Targetable || e.Id == pr.IgnoreEnemyId || pr.HitSet.Contains(e.Id)) continue;
+                if (!e.Targetable || e.Id == pr.IgnoreEnemyId || pr.HitSet.Contains(e.Id) || OwnProxy(pr, e)) continue;
                 if (!BodyEntry(w, e, a, dir, len, pr.Radius, out float at, out Vector2 partC, out float partR)) continue;
                 int j = hits.Count;
                 hits.Add(default);
@@ -286,7 +286,7 @@ namespace Wizard.Solo.Sim.Spells
             for (int i = 0; i < enemies.Count; i++)
             {
                 var e = enemies[i];
-                if (!e.Targetable || e.Id == pr.IgnoreEnemyId || pr.HitSet.Contains(e.Id)) continue;
+                if (!e.Targetable || e.Id == pr.IgnoreEnemyId || pr.HitSet.Contains(e.Id) || OwnProxy(pr, e)) continue;
                 Vector2 to = e.Pos - pr.Pos;
                 float sq = to.sqrMagnitude;
                 if (sq > bestSq + Eps) continue;
@@ -328,7 +328,7 @@ namespace Wizard.Solo.Sim.Spells
                 for (int i = 0; i < enemies.Count; i++)
                 {
                     var e = enemies[i];
-                    if (!e.Targetable || e.Id == pr.IgnoreEnemyId) continue;
+                    if (!e.Targetable || e.Id == pr.IgnoreEnemyId || OwnProxy(pr, e)) continue;
                     if (!BodyEntry(w, e, a, dir, len, pr.Radius, out float at, out Vector2 partC, out float partR)) continue;
                     if (first != null && at >= firstAt) continue;
                     first = e;
@@ -394,7 +394,7 @@ namespace Wizard.Solo.Sim.Spells
                 for (int i = 0; i < enemies.Count; i++)
                 {
                     var e = enemies[i];
-                    if (!e.Targetable || pr.HitSet.Contains(e.Id)) continue;
+                    if (!e.Targetable || pr.HitSet.Contains(e.Id) || OwnProxy(pr, e)) continue;
                     float sq = (e.Pos - from).sqrMagnitude;
                     if (sq > chainSq + Eps) continue;
                     if (cur != null && sq >= bestSq) continue;
@@ -472,6 +472,9 @@ namespace Wizard.Solo.Sim.Spells
                 }
             }
         }
+
+        /// <summary>결투: 쏜 사람 자신의 과녁(DuelProxyOf == 쏜 슬롯)은 맞히지 않는다.</summary>
+        static bool OwnProxy(ProjectileEntity pr, EnemyState e) => e.DuelProxyOf >= 0 && e.DuelProxyOf == pr.OwnerSlot;
 
         void Kill(SimWorld w, ProjectileEntity pr, int reason)
         {

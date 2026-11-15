@@ -43,6 +43,13 @@ namespace Wizard.Solo.Screens.Prep
         /// <summary>"흔적 {n}" — 하락 흔적 수(내 화면에서는 공개 여부와 상관없이 본인에게 보인다).</summary>
         public const string Scars = "str.expedition_prep.scars";
 
+        // ---- 이름 표 (AttackStyles 조각 — 기본 공격 카드, Docs/12-attack-styles.md 1절)
+        public const string AttackStyle = "str.expedition_prep.attack_style";
+        /// <summary>"이 캐릭터로 웨이브 {n}을 넘기면 열린다".</summary>
+        public const string AttackStyleLocked = "str.expedition_prep.attack_style.locked";
+        public const string AttackStyleSelected = "str.expedition_prep.attack_style.selected";
+        public const string StyleTagSep = "str.attack_style.tag_sep";
+
         // ---- 화면 사건 소리(08 요약서 5.5절 이벤트 줄, event_bindings.json)
         public const string SndCharacterConfirm = "ui.prep.character_confirm";
         public const string SndWandSelect = "ui.prep.wand_select";

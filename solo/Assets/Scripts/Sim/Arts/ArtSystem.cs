@@ -55,6 +55,8 @@ namespace Wizard.Solo.Sim.Arts
         public int NextShotId = -1;
         public bool HasLastDecision;
         public ArtDecision LastDecision;
+        /// <summary>고유 비기 강화의 진행 중인 단계들(불기둥 고리, 낙뢰 궤적, 책장 소용돌이, 얼음 가시 줄, 그림자 손 짓누름). Docs/12 4절.</summary>
+        public readonly List<ArtSequence> Sequences = new List<ArtSequence>();
     }
 
     /// <summary>
@@ -220,12 +222,14 @@ namespace Wizard.Solo.Sim.Arts
                     // 공격이 막힌 단계: 보관된 K와 아직 안 나간 효과를 버린다(야영·보스 등장·전리품 중에 비기가 나가지 않는다).
                     s.Parser.DropBuffered();
                     s.Casts.Clear();
+                    s.Sequences.Clear();
                     continue;
                 }
                 ArtDecision d;
                 if (s.Parser.TryTakeBuffered(w.NowU, out d))
                     Deliver(w, p, s, in d, s.BufferedHasPhysical, s.BufferedPhysical);
                 RunCasts(w, p, s);
+                RunSequences(w, p, s);
             }
             UpdateZones(w);
         }

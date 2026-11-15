@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Wizard.Solo.Data;
 
 namespace Wizard.Solo.Sim.Spells
 {
@@ -30,6 +31,8 @@ namespace Wizard.Solo.Sim.Spells
         {
             var t = Tune(w.Content);
             bool combat = w.CombatActive;
+            // 기본 공격 유형이 건 화상(적 id 오름차순). 탄보다 먼저 — 이번 틱에 새로 건 화상은 다음 간격부터 탄다.
+            if (combat) TickStyleStatuses(w, t);
             var list = w.Projectiles;
             for (int i = 0; i < list.Count; i++)
             {
@@ -47,6 +50,8 @@ namespace Wizard.Solo.Sim.Spells
                     pr.State = ProjectileState.Flying;
                 }
                 pr.PrevPos = pr.Pos;
+                // 기본 공격 유형: 범위·설치·지연 동작은 여기서 끝나고(true), 날아가는 몸 탄은 덧처리(지짐·휘기·쫓기) 뒤 아래 길을 그대로 탄다.
+                if (pr.Block.Style != null && StepStyle(w, t, pr, combat)) continue;
                 if (pr.State == ProjectileState.Returning) StepReturning(w, t, pr, combat);
                 else StepFlying(w, t, pr, combat);
             }
@@ -56,7 +61,8 @@ namespace Wizard.Solo.Sim.Spells
 
         void StepFlying(SimWorld w, SpellTuning t, ProjectileEntity pr, bool combat)
         {
-            if (pr.Mods.Homing && combat) Steer(w, t, pr);
+            // 눈알 추적탄은 자기 조향(StepStyle)을 쓴다.
+            if (pr.Mods.Homing && combat && !(pr.Block.Style != null && pr.Block.Style.Kind == AttackBehavior.Seeker)) Steer(w, t, pr);
 
             float remaining = pr.Speed * SimConst.TickSeconds;
             // 한 틱에 벽을 여러 번 만날 수 있다(구석). 남은 튕김보다 많이 돌 일은 없다.
@@ -100,7 +106,7 @@ namespace Wizard.Solo.Sim.Spells
             }
 
             // 사거리: 이동 거리가 사거리 이상이 된 틱에 끝난다(마력탄 43틱째, TV-G01).
-            if (!pr.Dead && pr.State == ProjectileState.Flying && pr.Traveled >= pr.Block.Range - Eps)
+            if (!pr.Dead && pr.State == ProjectileState.Flying && pr.Traveled >= pr.Block.Range + pr.RangeBonus - Eps)
             {
                 if (pr.Block.HasFlag(Ids.BlockFlag.Returns)) BeginReturn(pr);
                 else
@@ -183,9 +189,11 @@ namespace Wizard.Solo.Sim.Spells
                 }
 
                 pr.HitSet.Add(e.Id);
-                var res = HitEnemy(w, t, pr, e, 1f, Surface(contact, hits[i].PartCenter, hits[i].PartRadius), a);
+                Vector2 surface = Surface(contact, hits[i].PartCenter, hits[i].PartRadius);
+                var res = pr.Block.Style != null ? StyleHit(w, t, pr, e, 1f, surface, a) : HitEnemy(w, t, pr, e, 1f, surface, a);
                 if (!res.Immune) FireTrigger(w, t, pr, contact, dir, e.Id);
                 if (passThrough) w.Emit(SimEventType.ProjectilePassed, pr.OwnerSlot, pr.Id, a: e.Id, pos: contact);
+                if (pr.Block.Style != null && !res.Immune && AfterStyleBodyHit(w, t, pr, e, res, contact, hits[i].T)) return true;
                 if (passes) continue;
                 if (pr.PierceLeft > 0)
                 {
@@ -207,6 +215,8 @@ namespace Wizard.Solo.Sim.Spells
             pr.State = ProjectileState.Returning;
             pr.ReturnTraveled = 0f;
             pr.HitSet.Clear();
+            // 돌아오는 다리는 새 발동: 첫 적은 다시 온전한 피해(책 던지기 "두 번 맞힘").
+            pr.StyleHits = 0;
         }
 
         /// <summary>쏜 사람의 지금 위치로 같은 속도로 돌아온다. 도착 반경 안이거나 돌아오는 길이 한도를 넘으면 사라진다(U12).</summary>
@@ -325,6 +335,17 @@ namespace Wizard.Solo.Sim.Spells
                     firstAt = at;
                     firstHitPos = Surface(a + dir * at, partC, partR);
                 }
+                // 기본 공격 유형(연쇄 번개 핵) + 유도: 선에 걸린 적이 없으면 유도 원뿔 안의 가장 가까운 적을 겨눈다(Docs/12 2.2절).
+                if (first == null && pr.Block.Style != null && pr.Mods.Homing)
+                {
+                    first = AimTarget(w, a, dir, t.HomingConeHalfDegrees, len, pr.IgnoreEnemyId);
+                    if (first != null)
+                    {
+                        Vector2 to = first.Pos - a;
+                        if (to.sqrMagnitude > Eps * Eps) dir = to.normalized;
+                        firstHitPos = Surface(a, first.Pos, first.BodyRadius);
+                    }
+                }
             }
 
             pr.PrevPos = a;
@@ -340,7 +361,15 @@ namespace Wizard.Solo.Sim.Spells
 
             int maxHops = prm != null ? prm.ChainHops : 0;
             float hopMul = prm != null ? prm.ChainHopMultiplier : 1f;
-            float chainSq = prm != null ? prm.ChainRadius * prm.ChainRadius : 0f;
+            float chainR = prm != null ? prm.ChainRadius : 0f;
+            var cst = pr.Block.Style;
+            if (cst != null)
+            {
+                // 연쇄 번개 핵: 관통 블록 하나 = 옮겨 붙기 +1, 튕김 블록 하나 = 옮겨 붙는 반경 +덤, 크기 = 반경 ×(Docs/12 2.2절).
+                maxHops += pr.PierceLeft / Mathf.Max(1, t.PiercePerBlock);
+                chainR = (chainR + pr.BouncesLeft / Mathf.Max(1, t.BouncePerBlock) * cst.HopRadiusBonusPerBounce) * pr.AreaScale;
+            }
+            float chainSq = chainR * chainR;
             pr.HitSet.Clear();
             Vector2 from = a;
             EnemyState cur = first;
@@ -352,7 +381,7 @@ namespace Wizard.Solo.Sim.Spells
                 Vector2 at = hop == 0 ? firstHitPos : cur.Pos;
                 w.Emit(SimEventType.ChainLightningArc, pr.OwnerSlot, pr.Id, a: hop, pos: from, pos2: at);
                 pr.HitSet.Add(cur.Id);
-                var res = HitEnemy(w, t, pr, cur, mul, at, from);
+                var res = cst != null ? StyleHit(w, t, pr, cur, mul, at, from) : HitEnemy(w, t, pr, cur, mul, at, from);
                 if (hop == 0 && !res.Immune) FireTrigger(w, t, pr, at, dir, cur.Id);
                 from = at;
                 if (hop >= maxHops) break;
@@ -446,6 +475,9 @@ namespace Wizard.Solo.Sim.Spells
 
         void Kill(SimWorld w, ProjectileEntity pr, int reason)
         {
+            if (pr.Dead) return;
+            // 얼음 창: 멈추는 곳(적중·사거리·벽)에서 파편으로 깨진다. 지우기(웨이브 끝)는 StyleEnded로 건너뛴다.
+            if (pr.Block != null && pr.Block.Style != null && !pr.StyleEnded) OnStyleBodyEnd(w, Tune(w.Content), pr, reason);
             pr.State = ProjectileState.Dead;
             pr.Dead = true;
             w.Emit(SimEventType.ProjectileExpired, pr.OwnerSlot, pr.Id, a: reason, pos: pr.Pos);

@@ -23,11 +23,67 @@ namespace Wizard.Solo.Art
             // 캐릭터 교체 묶음의 새 그림(원본 자리가 없는 것): supplement/solo/char.N/manifest.json, 묶음 이름 "char.N"
             // (Tools/art_disciple2.py가 만든다). 열쇠 = 그 묶음 manifest의 graphics 열쇠(예 "fx/bolt_dash_trail").
             for (int n = 1; n <= ArtAliases.CharacterCount; n++) MergeSupplement(SoloSupplementDir + Ids.Char.Of(n) + "/");
+            LoadStyleArt();
         }
 
-        void MergeSupplement(string dir)
+        // ---------- 기본 공격 유형 그림(Docs/12-attack-styles.md, Tools/godot-fx가 만든다) ----------
+        //
+        // effects/styles/char.N/manifest.json → 묶음 "styles.char.N", effects/styles/common/manifest.json → "styles.common".
+        // 항목의 pivot(프레임 왼쪽 위 기준 px)과 clips(이름 → 프레임 구간)를 읽는다.
+        // effects/styles/reuse.json → 묶음 "styles.reuse": 다른 폴더의 있는 그림(제자 3 책장·제자 5 떠도는 눈 등)을 효과 열쇠로 묶은 표.
+        // 경로는 Resources/Art 기준이다(그림을 옮기거나 복사하지 않는다).
+
+        public const string StyleGroupPrefix = "styles.";
+        public const string StyleCommonGroup = "styles.common";
+        public const string StyleReuseGroup = "styles.reuse";
+        const string StyleDir = EffectsDir + "styles/";
+
+        void LoadStyleArt()
         {
-            var extra = Parse(dir + "manifest", j => ManifestParser.ParseEffects(j, dir), optional: true);
+            for (int n = 1; n <= ArtAliases.CharacterCount; n++) MergeSupplement(StyleDir + Ids.Char.Of(n) + "/", true);
+            MergeSupplement(StyleDir + "common/", true);
+            var reuse = Parse(StyleDir + "reuse", j => ManifestParser.ParseEffects(j, "", true), optional: true);
+            if (reuse != null)
+                foreach (var group in reuse.Groups)
+                    if (group.Name.StartsWith(StyleGroupPrefix, StringComparison.Ordinal)) AddGroup(group);
+            // 아이콘 표(핵 블록 id → "묶음/열쇠#프레임")
+            var text = _src.LoadText(ArtAliases.ResourceRoot + StyleDir + "reuse");
+            if (text == null) return;
+            try
+            {
+                var icons = Newtonsoft.Json.Linq.JObject.Parse(text)["style_icons"] as Newtonsoft.Json.Linq.JObject;
+                if (icons != null)
+                    foreach (var p in icons.Properties())
+                        if (!p.Name.StartsWith("_", StringComparison.Ordinal) && p.Value.Type == Newtonsoft.Json.Linq.JTokenType.String)
+                            _styleIcons[p.Name] = (string)p.Value;
+            }
+            catch (Exception e) { Warn("effects/styles/reuse style_icons: " + e.Message); }
+        }
+
+        readonly Dictionary<string, string> _styleIcons = new Dictionary<string, string>();
+
+        /// <summary>기본 공격 유형 아이콘: 그 유형의 탄·효과 그림 한 장(reuse.json style_icons). 표에 없거나 그림이 없으면 null.</summary>
+        public Sprite StyleIcon(string blockId)
+        {
+            string spec;
+            if (blockId == null || !_styleIcons.TryGetValue(blockId, out spec)) return null;
+            int slash = spec.IndexOf('/'), hash = spec.LastIndexOf('#');
+            if (slash <= 0) return null;
+            string group = spec.Substring(0, slash);
+            string key = hash > slash ? spec.Substring(slash + 1, hash - slash - 1) : spec.Substring(slash + 1);
+            int frame = 0;
+            if (hash > slash) int.TryParse(spec.Substring(hash + 1), out frame);
+            if (EffectInfo(group, key) == null) return null;
+            var a = Effect(group, key);
+            if (a == null || a.Frames == null || a.Frames.Length == 0) return null;
+            return a.Frames[Math.Max(0, Math.Min(frame, a.Frames.Length - 1))];
+        }
+
+        void MergeSupplement(string dir) => MergeSupplement(dir, false);
+
+        void MergeSupplement(string dir, bool readPivot)
+        {
+            var extra = Parse(dir + "manifest", j => ManifestParser.ParseEffects(j, dir, readPivot), optional: true);
             if (extra == null) return;
             foreach (var group in extra.Groups)
             {

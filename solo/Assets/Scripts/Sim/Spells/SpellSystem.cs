@@ -154,6 +154,28 @@ namespace Wizard.Solo.Sim.Spells
             int ownerSlot, int shotId, ShotSource source, Vector2 pos, float degrees, bool isCrit, int maxDepth, float comp,
             int ignoreEnemyId, ShotHitEffect hitEffect)
         {
+            var st = sp.Block.Style;
+            // 책장 날리기: 한 발이 여러 장(가운데 대칭 부채)이고 바깥 장은 가운데 쪽으로 휜다(Docs/12 2.1절).
+            if (st != null && st.Kind == AttackBehavior.Pages && st.Copies > 1)
+            {
+                ProjectileEntity first = null;
+                for (int c = 0; c < st.Copies; c++)
+                {
+                    float off = -st.CopySpreadDegrees + c * (2f * st.CopySpreadDegrees / (st.Copies - 1));
+                    var page = SpawnOne(w, t, ctx, tree, scope, sp, ownerSlot, shotId, source, pos, degrees + off, isCrit, maxDepth, comp,
+                        ignoreEnemyId, hitEffect);
+                    page.CurveLeftDegrees = -off;
+                    if (first == null) first = page;
+                }
+                return first;
+            }
+            return SpawnOne(w, t, ctx, tree, scope, sp, ownerSlot, shotId, source, pos, degrees, isCrit, maxDepth, comp, ignoreEnemyId, hitEffect);
+        }
+
+        ProjectileEntity SpawnOne(SimWorld w, SpellTuning t, ShotContext ctx, CompiledSpell tree, SpellScope scope, ScopeProjectile sp,
+            int ownerSlot, int shotId, ShotSource source, Vector2 pos, float degrees, bool isCrit, int maxDepth, float comp,
+            int ignoreEnemyId, ShotHitEffect hitEffect)
+        {
             var b = sp.Block;
             float sizeMul = 1f;
             for (int i = 0; i < scope.Mods.SizeDoublings; i++) sizeMul *= t.SizeRadiusMul;
@@ -190,6 +212,7 @@ namespace Wizard.Solo.Sim.Spells
             w.Projectiles.Add(pr);
             // A = 슬롯, B = 스코프 깊이(HUD 지팡이 회로가 켤 칸).
             w.Emit(SimEventType.ProjectileSpawned, ownerSlot, pr.Id, a: sp.Slot, b: scope.Depth, pos: pos, id: b.Id);
+            if (b.Style != null) InitStyle(w, t, pr, scope, sizeMul);
             return pr;
         }
 
@@ -221,6 +244,8 @@ namespace Wizard.Solo.Sim.Spells
                 var pr = list[i];
                 if (pr.Dead) continue;
                 if (ownerSlot >= 0 && pr.OwnerSlot != ownerSlot) continue;
+                // 지우기는 끝 처리(얼음 창 파편, 지뢰 폭발)를 하지 않는다.
+                pr.StyleEnded = true;
                 Kill(w, pr, ExpireRange);
             }
         }
@@ -291,7 +316,13 @@ namespace Wizard.Solo.Sim.Spells
                 var s = spell.Scopes[d];
                 if (s.Projectiles.Count == 0) continue;
                 float blockSum = 0f;
-                for (int i = 0; i < s.Projectiles.Count; i++) blockSum += s.Projectiles[i].Block.BaseDamage * s.Projectiles[i].DamageScale;
+                // 기본 공격 유형은 과녁 하나가 발사 1회에 받는 어림(estimate_hits: 책장 3장, 책 두 번, 화상·불바닥 포함)을 곱한다.
+                for (int i = 0; i < s.Projectiles.Count; i++)
+                {
+                    var pb = s.Projectiles[i].Block;
+                    float hits = pb.Style != null ? AttackStyleParams.OneIfZero(pb.Style.EstimateHits) : 1f;
+                    blockSum += pb.BaseDamage * hits * s.Projectiles[i].DamageScale;
+                }
                 // InstancesTotal = (부모 탄 수) × 투사체 수 × 분열 수 → 투사체 종류마다 InstancesTotal / 투사체 수 발.
                 float copies = s.InstancesTotal / (float)s.Projectiles.Count;
                 sum += blockSum * copies * baseMul * ScopeFactor(t, s, isCrit, derived.CritBonus);

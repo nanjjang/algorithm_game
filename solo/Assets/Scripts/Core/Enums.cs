@@ -50,7 +50,11 @@ namespace Wizard.Solo
     public enum CcKind { Knockback, Pull, Freeze, Stagger, Stun, Slow }
 
     /// <summary>군중 제어를 건 것(꼬리표별 예외 판단용).</summary>
-    public enum CcSource { Recoil, Overflow, ThunderSpear, Kiln, BoltDash, ThinIce, IceScreen, ShadowHand, BlockSlow }
+    public enum CcSource { Recoil, Overflow, ThunderSpear, Kiln, BoltDash, ThinIce, IceScreen, ShadowHand, BlockSlow,
+        /// <summary>기본 공격 유형(핵 블록)의 덧효과: 당김·빙결 누적 등(Docs/12-attack-styles.md). 꼬리표 예외는 블록 감속과 같다.</summary>
+        AttackStyle,
+        /// <summary>고유 비기 강화 단계(불기둥·낙뢰 궤적·책장 소용돌이·얼음 가시·그림자 손 짓누름, Docs/12 4절).</summary>
+        ArtStage }
 
     /// <summary>감속 출처별 칸. 더하지 않고 가장 큰 값 하나만 적용한다. 03 요약서 10.1절.</summary>
     public enum SlowSlot { IceSpike = 0, Frost = 1, Kiln = 2, ThinIce = 3, Count = 4 }
@@ -71,6 +75,15 @@ namespace Wizard.Solo
 
     /// <summary>플레이어가 깐 것. 10 요약서 3.1절 "내 지대" 층.</summary>
     public enum PlayerZoneKind { Kiln, CopyCircle, IceScreen }
+
+    /// <summary>기본 공격 유형의 범위 타격 종류(StyleBlast 이벤트의 B). Docs/12-attack-styles.md 3절. 번호는 더하기만 한다.</summary>
+    public enum StyleBlastKind { MortarLand = 0, MortarFloorTick = 1, SkyStrike = 2, IcicleDrop = 3, RuneBurst = 4, OrbZap = 5 }
+
+    /// <summary>기본 공격 유형이 적에게 거는 누적 상태(StyleStatus 이벤트의 B).</summary>
+    public enum StyleStatusKind { Burn = 0, Chill = 1 }
+
+    /// <summary>고유 비기 강화의 단계(ArtStage 이벤트의 A). Docs/12-attack-styles.md 4절. 번호는 더하기만 한다.</summary>
+    public enum ArtStageKind { Warn = 0, Rise = 1, Land = 2, Blast = 3, Grip = 4, Crush = 5, Pulse = 6, End = 7 }
 
     public enum ProjectileState { Pending, Flying, Returning, Dead }
 

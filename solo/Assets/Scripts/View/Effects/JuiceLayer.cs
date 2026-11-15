@@ -136,7 +136,7 @@ namespace Wizard.Solo.View.Effects
                 case SimEventType.EnemyKilled: OnKill(w, e); break;
                 case SimEventType.BossKilled: OnBossKilled(e); break;
                 case SimEventType.ShotFired: OnShot(w, e); break;
-                case SimEventType.Explosion: OnExplosion(e); break;
+                case SimEventType.Explosion: if (!StyleFxRules.IsStyleExplosion(e)) OnExplosion(e); break; // 유형 폭발은 StyleFxLayer
                 case SimEventType.ArtFired: OnArt(w, e); break;
                 case SimEventType.ArtPulse: OnArtPulse(w, e); break;
                 case SimEventType.PlayerHit: Punch(J("player_hit", "punch")); break;
@@ -307,6 +307,7 @@ namespace Wizard.Solo.View.Effects
             float alpha = color.a;
             int occ = 0;
             float occR = 0f;
+            if (order < SortBands.TelegraphFill) occlusion = false; // 땅에 까는 빛은 예고·적 탄을 가리지 않는다(가림 셈 밖)
             if (occlusion && _s.Occlusion != null)
             {
                 occR = Mathf.Max(first.rect.width, first.rect.height) / Mathf.Max(1f, first.pixelsPerUnit) * Mathf.Max(scaleFrom, scaleTo) * 0.5f;
@@ -430,6 +431,8 @@ namespace Wizard.Solo.View.Effects
             var s = big ? (CombatFxArt.Single(_art, CombatFxArt.BloomGlow) ?? ProcSprites.SoftDot) : ProcSprites.SoftDot;
             if (big) c.a *= FlashScale;
             if (c.a <= 0f) return null;
+            // 큰 빛 덩이는 땅(바닥 띠 맨 위)에 깐다 — 내 캐릭터·적·적 탄·적 예고를 주황빛으로 덮어 흐리게 만들지 않는다(가독성).
+            if (big) order = SortBands.TelegraphFill - 1;
             return Spawn(s, null, pos, Vector2.zero, life, Fit(s, fromCells), Fit(s, toCells), c, order, true, null, 0f, 0f, big);
         }
 
@@ -743,6 +746,7 @@ namespace Wizard.Solo.View.Effects
             {
                 var pr = w.Projectiles[i];
                 if (pr == null || pr.State == ProjectileState.Dead || pr.State == ProjectileState.Pending) continue;
+                if (StyleFxRules.BodyHidden(_t, pr)) continue; // 몸 없는 유형(포탄·부채꼴·낙뢰·고드름·룬)은 StyleFxLayer가 빛까지 그린다
                 if (shown >= maxGlows) break;
                 shown++;
                 ShotGlow g;

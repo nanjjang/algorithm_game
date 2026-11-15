@@ -49,6 +49,7 @@ python -I Tools/sfx/synth.py --report   # 파일을 쓰지 않고 길이·피크
 | art / heat | −15 / −18 | 비기 / 열·스침·결정 보조음 |
 | enemy · cry · drop · wave · enh_small | −18 · −19 · −19 · −17 · −21 | 적 탄·등장, 적 울음, 줍기, 웨이브, 제물·확률 숫자 |
 | ambient / loop | −22 / −30 | 시간대 전환 / 대기 반복음 |
+| style_loop | −21 | 기본 공격 반복음(불꽃 방사·눈보라·번개 구체 — 쏘는 동안 이어짐) |
 
 - 피크는 −1 dBFS 이하: −7 dBFS 위만 tanh로 부드럽게 누르고, 그래도 넘으면 줄인다(실제 최대 −1.3).
 - 가장 큰 분류(−12)와 보통(−16)의 차이는 4dB — "평소보다 6dB 넘게 크지 않다"(10 요약서 5.2절) 안.
@@ -61,3 +62,7 @@ python -I Tools/sfx/synth.py --report   # 파일을 쓰지 않고 길이·피크
 - 원문 bindings에 sfx가 없던 사건(웨이브 시작·클리어, 줍기, 발사 블록별, 적 종별 울음, 처치 음색 묶음, 불가마 꺼짐)은
   `Assets/Resources/DataSolo/G16.json` `sound.solo_events · shot_block_prefix · enemy_windup · kill_groups`가 정하고 `SoundEventMap`이 낸다.
 - 배치와 음량은 원문에 없는 솔로 임시다. 실제 듣기와 조정은 사용자 QA에서 한다(소리를 고치려면 synth.py의 그 함수를 고치고 다시 돌린다).
+- 기본 공격 유형 15종·고유 비기 강화(Docs/12-attack-styles.md 8절)의 소리는 공용 폴더 `sty_*`(27개): 포탄 퉁·쿵, 불바닥 지글, 화염 분사·눈보라·구체 반복음,
+  사슬 찌직, 낙뢰 예고·콰광, 책장 펄럭, 룬 각인·무장·폭발, 얼음 창 쨍·파편, 고드름 휙·쨍, 파동 우웅, 낫 휙, 눈알 깜빡·갈라짐,
+  비기 땅 내리침(쿵 + 우르릉)·불기둥·책 촤라락·소용돌이·가시 콰직·손 짓누름 쾅. 배치는 `Audio.json` `style.*`·`heat.shot_block.core.*`.
+  다시 만들기: `python -I Tools/sfx/synth.py --only sty_mortar_boom,…`(이름 목록) — `--only`는 char.1/audio.json을 고쳐 쓰지 않는다.

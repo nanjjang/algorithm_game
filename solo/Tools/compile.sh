@@ -59,6 +59,10 @@ if [ -z "$UNITY_DATA" ]; then
   for base in "/c/Program Files/Unity/Hub/Editor" "/d/Program Files/Unity/Hub/Editor" "/c/Program Files/Unity"; do
     if [ -d "$base/$VER/Editor/Data" ]; then UNITY_DATA="$base/$VER/Editor/Data"; break; fi
   done
+  # macOS: /Applications/Unity/Hub/Editor/<버전>/Unity.app/Contents (Data 폴더에 해당)
+  if [ -z "$UNITY_DATA" ] && [ -d "/Applications/Unity/Hub/Editor/$VER/Unity.app/Contents" ]; then
+    UNITY_DATA="/Applications/Unity/Hub/Editor/$VER/Unity.app/Contents"
+  fi
 fi
 if [ -z "$UNITY_DATA" ] || [ ! -d "$UNITY_DATA" ]; then
   echo "compile.sh: Unity Editor/Data 폴더를 찾지 못했다. UNITY_EDITOR_DATA 환경 변수로 알려 달라." >&2
@@ -67,6 +71,7 @@ fi
 
 CSC="$UNITY_DATA/DotNetSdkRoslyn/csc.dll"
 DOTNET="$UNITY_DATA/NetCoreRuntime/dotnet.exe"
+if [ ! -f "$DOTNET" ] && [ -f "$UNITY_DATA/NetCoreRuntime/dotnet" ]; then DOTNET="$UNITY_DATA/NetCoreRuntime/dotnet"; fi
 if [ ! -f "$DOTNET" ]; then DOTNET="$(command -v dotnet || true)"; fi
 if [ ! -f "$CSC" ] || [ -z "$DOTNET" ]; then
   echo "compile.sh: csc.dll 또는 dotnet을 찾지 못했다 ($CSC)." >&2

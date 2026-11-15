@@ -37,6 +37,8 @@ namespace Wizard.Solo.Sim.Spells
         public float RecoilKnockback;
         public int RecoilStaggerTicks;
         public float MirrorHeatMul = 1f;
+        /// <summary>벽 튕김·관통 변형 블록 하나가 더하는 수(blocks.json bounce_count 2, pierce_count 2). 기본 공격 유형이 "블록 수"로 바꿔 읽는다.</summary>
+        public int BouncePerBlock = 1, PiercePerBlock = 1;
 
         // 판 한정 블록 성장(★). 조각이 없으면 0 = 별이 아무것도 바꾸지 않는다.
         public int StarMax;
@@ -101,6 +103,11 @@ namespace Wizard.Solo.Sim.Spells
                 if (size.Params.RadiusMultiplier > 0f) t.SizeRadiusMul = size.Params.RadiusMultiplier;
                 if (size.Params.RadiusMultiplierCap > 0f) t.SizeRadiusCap = size.Params.RadiusMultiplierCap;
             }
+
+            var bounce = db.Block(Ids.Block.WallBounce);
+            if (bounce != null && bounce.Params != null && bounce.Params.BounceCount > 0) t.BouncePerBlock = bounce.Params.BounceCount;
+            var pierce = db.Block(Ids.Block.Pierce);
+            if (pierce != null && pierce.Params != null && pierce.Params.PierceCount > 0) t.PiercePerBlock = pierce.Params.PierceCount;
 
             var recoil = db.Art(Ids.Art.Recoil);
             if (recoil != null && recoil.Effect != null)

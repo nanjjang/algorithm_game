@@ -84,6 +84,8 @@ namespace Wizard.Solo.Meta
         public int BestHit;
         public int BestGrazeChain;
         public int BestCombo;
+        /// <summary>원정 준비에서 마지막으로 고른 기본 공격 유형(핵 블록 id, block.core.*). 옛 저장에는 없어 null = 그 캐릭터의 A 유형.</summary>
+        public string AttackStyle;
     }
 
     public sealed class WandData

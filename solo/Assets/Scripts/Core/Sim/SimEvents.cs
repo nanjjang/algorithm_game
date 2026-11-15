@@ -153,7 +153,22 @@ namespace Wizard.Solo.Sim
         DepartHold,                 // A = 누른 틱(0 = 취소)
         RunEnded,                   // A = RunEndReason
         TutorialStepDone,           // A = 단계
-        PracticeReport              // Id = PracticeReportKeys.*, F = 값 (연습장 수치. Run이 practice.json report_interval_seconds마다 낸다)
+        PracticeReport,             // Id = PracticeReportKeys.*, F = 값 (연습장 수치. Run이 practice.json report_interval_seconds마다 낸다)
+
+        // --- 기본 공격 유형(핵 블록 block.core.*) — Docs/12-attack-styles.md 3절이 필드 표의 정본. Id = 블록 id(그림·소리 열쇠).
+        StyleLobLaunched = 260,     // S, E = 탄 id, Id = 블록, P = 출발, P2 = 떨어질 자리, A = 날아가는 틱 수, B = 몇 번째 튐(0 = 처음)
+        StyleBlast,                 // S, E = 탄 id, Id = 블록, P = 중심, F = 반경, A = 맞은 적 수, B = StyleBlastKind
+        StyleGroundSpawned,         // S, E = 탄 id, Id = 블록, P = 자리, F = 반경, A = 남는 틱 수, B = 0 불바닥 / 1 룬 지뢰
+        StyleGroundExpired,         // S, E = 탄 id, Id = 블록, P = 자리, B = 0 시간 끝 / 1 발동(룬 폭발)
+        StyleConeStarted,           // S, E = 탄 id, Id = 블록, P = 원점, P2 = 가운데 방향(단위), F = 반경, A = 반각(도), B = 휩쓰기: n > 0 반지름이 n틱에 퍼짐 / −n 각도로 n틱(−반각 → +반각) / −(1000 + n) 각도로 n틱(+반각 → −반각)
+        StyleStrikeWarned,          // S, E = 탄 id, Id = 블록, P = 떨어질 자리, F = 반경, A = 남은 예고 틱, B = 몇 번째(고드름 줄)
+        StyleRicochet,              // S, E = 탄 id, Id = 블록, P = 튄 자리, P2 = 새 대상 위치, A = 새 대상 적 id
+        StyleZap,                   // S, E = 탄 id, Id = 블록, P = 구체 위치, P2 = 맞은 적 위치, A = 맞은 적 id
+        StyleSplit,                 // S, E = 부모 탄 id, Id = 블록, P = 갈라진 자리, A = 새 탄 수, B = 세대
+        StyleShatter,               // S, E = 탄 id, Id = 블록, P = 깨진 자리, A = 파편 수
+        StyleStatus,                // S, E = 적 id, A = 지금 겹 수(0 = 풀림), B = StyleStatusKind, P = 적 위치
+        StyleMineArmed,             // S, E = 탄 id, Id = 블록, P = 자리, F = 발동 반경
+        ArtStage = 280              // S, Id = 비기 id, A = ArtStageKind, B = 순번(0부터), P = 중심, P2 = 방향 또는 끝점, F = 반경(고유 비기 강화 단계)
     }
 
     /// <summary>PracticeReport 이벤트의 Id(08 요약서 8.5절 허수아비 수치).</summary>

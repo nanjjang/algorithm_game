@@ -33,8 +33,9 @@ namespace Wizard.Solo.Tests.Art
             Assert.AreEqual(0, _art.LoadedTextureCount);
             Assert.AreEqual(0, _art.CachedSpriteCount);
             Assert.AreEqual(5, _art.Players.Characters.Count);
-            // 효과 7묶음 + 보강 2묶음(enhance, layers) + 솔로 보충 4묶음(ambient, icons, char.1, char.2 — supplement/solo manifest).
-            Assert.AreEqual(13, _art.Effects.Groups.Count, "효과 7 + 보강 2 + 솔로 보충 4");
+            // 효과 7묶음 + 보강 2묶음(enhance, layers) + 솔로 보충 4묶음(ambient, icons, char.1, char.2 — supplement/solo manifest)
+            // + 기본 공격 유형 7묶음(styles.char.1~5, styles.common, styles.reuse — effects/styles, Docs/12-attack-styles.md 8절).
+            Assert.AreEqual(20, _art.Effects.Groups.Count, "효과 7 + 보강 2 + 솔로 보충 4 + 기본 공격 유형 7");
             Assert.IsEmpty(_art.Warnings, string.Join("\n", _art.Warnings));
         }
 

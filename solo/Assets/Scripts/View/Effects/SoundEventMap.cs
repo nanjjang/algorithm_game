@@ -233,7 +233,27 @@ namespace Wizard.Solo.View.Effects
                 case SimEventType.UnstableCoreExploded: Add(into, "mutation.unstable_core.self_detonate"); break;
                 case SimEventType.ThinIceFroze: Add(into, "char.thin_ice_frozen"); break;
 
-                case SimEventType.Explosion: Add(into, "explosion.detonated"); break;
+                case SimEventType.Explosion:
+                    // 기본 공격 유형이 낸 폭발(B = 1)은 유형 소리(StyleBlast)가 대신한다 — 두 번 내지 않는다.
+                    if (!StyleFxRules.IsStyleExplosion(e)) Add(into, "explosion.detonated");
+                    break;
+                // ---- 기본 공격 유형·고유 비기 강화(Docs/12-attack-styles.md 3·4절). 클립은 Audio.json common.events style.*
+                case SimEventType.StyleBlast:
+                    switch ((StyleBlastKind)e.B)
+                    {
+                        case StyleBlastKind.MortarLand: Add(into, "style.lob.land", e.A > 0 ? 0f : -1f); break;
+                        case StyleBlastKind.SkyStrike: Add(into, "style.strike.land"); break;
+                        case StyleBlastKind.IcicleDrop: Add(into, "style.icicle.land", _random(-1.5f, 1.5f)); break;
+                        case StyleBlastKind.RuneBurst: Add(into, "style.rune.burst"); break;
+                    }
+                    break;
+                case SimEventType.StyleGroundSpawned: if (e.B == 0) Add(into, "style.floor.start"); break;
+                case SimEventType.StyleMineArmed: Add(into, "style.rune.arm"); break;
+                case SimEventType.StyleRicochet: Add(into, "style.ricochet", _random(-1f, 2f)); break;
+                case SimEventType.StyleZap: Add(into, "style.zap", _random(-1f, 1f)); break;
+                case SimEventType.StyleShatter: Add(into, "style.shatter"); break;
+                case SimEventType.StyleSplit: Add(into, "style.split"); break;
+                case SimEventType.ArtStage: StyleArtStage(e, into); break;
                 case SimEventType.ChainLightningArc: Add(into, "chain.hop", e.A * _t.F("sound", "chain_hop_semitones")); break;
                 case SimEventType.EnemyDamaged:
                 {
@@ -336,6 +356,36 @@ namespace Wizard.Solo.View.Effects
                 case SimEventType.TodChanged: Add(into, "tod.transition"); break;
                 case SimEventType.StarfallLanded: Add(into, "starfall.landed"); break;
                 case SimEventType.StarfallPicked: Add(into, "starfall.picked"); break;
+            }
+        }
+
+        /// <summary>고유 비기 강화 단계(ArtStage) → 소리. 큰 순간(내리침·펼침·짓누름)과 단계마다의 작은 소리.</summary>
+        void StyleArtStage(in SimEvent e, List<SoundCue> into)
+        {
+            var kind = (ArtStageKind)e.A;
+            switch (e.Id)
+            {
+                case Ids.Art.Kiln:
+                    if (kind != ArtStageKind.Rise) break;
+                    if (e.B == 0) Add(into, "style.art.kiln.slam");
+                    Add(into, "style.art.kiln.pillar", e.B * 2f);
+                    break;
+                case Ids.Art.BoltDash:
+                    if (kind == ArtStageKind.Land) Add(into, "style.art.bolt_dash.land", PentatonicSemitones(e.B));
+                    break;
+                case Ids.Art.CopyCircle:
+                    if (kind == ArtStageKind.Pulse) Add(into, e.B == 0 ? "style.art.copy.open" : "style.art.copy.pulse");
+                    else if (kind == ArtStageKind.End) Add(into, "style.art.copy.end");
+                    break;
+                case Ids.Art.IceScreen:
+                    if (kind != ArtStageKind.Rise) break;
+                    if (e.B == 0) Add(into, "style.art.ice.slam");
+                    Add(into, "style.art.ice.spike", e.B * 1.5f);
+                    break;
+                case Ids.Art.ShadowHand:
+                    if (kind == ArtStageKind.Grip) Add(into, "style.art.hand.grip");
+                    else if (kind == ArtStageKind.Crush) Add(into, "style.art.hand.crush");
+                    break;
             }
         }
 

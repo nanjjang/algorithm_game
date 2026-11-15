@@ -20,7 +20,7 @@ namespace Wizard.Solo.Screens.Hints
         public const string ResetHintsKey = "str.codex.reset_hints";
         public const string ResetDoneKey = "str.settings.reset_hints_done";
         public const string CloseKey = "str.common.close";
-        const float W = 1440f, H = 840f, Pad = 28f, TabW = 248f, TabH = 64f, TabGap = 8f, RowH = 46f;
+        const float W = 1440f, H = 840f, Pad = 28f, TabW = 248f, TabH = 56f, TabGap = 8f, RowH = 46f;
 
         public override ScreenId Id => ScreenId.Codex;
         public override ScreenLayer Layer => ScreenLayer.Modal;

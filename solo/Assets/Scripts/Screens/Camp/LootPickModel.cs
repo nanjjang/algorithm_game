@@ -39,6 +39,8 @@ namespace Wizard.Solo.Screens.Camp
         public readonly List<KeyValuePair<string, string>> StatLines = new List<KeyValuePair<string, string>>();
         /// <summary>효과 한 줄과 붙는 규칙 한 줄(BlockDescriber).</summary>
         public BlockDescriber.Line Desc, Scope;
+        /// <summary>지금 코어가 기본 공격 유형의 핵일 때 이 블록이 그 핵에서 하는 일("이 핵에서는 …", BlockDescriber.OnCore). 없으면 Key = null.</summary>
+        public BlockDescriber.Line OnCore;
 
         // ---- 지금 조립과의 관계(시뮬레이션이 제시할 때 정한 값)
         public LootSynergy Synergy;
@@ -115,6 +117,9 @@ namespace Wizard.Solo.Screens.Camp
             m.SkipHealCells = offer.SkipHealCells;
 
             var stars = BlockDescriber.Stars(db);
+            // 지금 코어가 기본 공격 유형의 핵이면 카드마다 "이 핵에서는 …" 줄(Docs/12-attack-styles.md 2.2절)
+            BlockDef coreDef = null;
+            if (db != null && p != null && p.Loadout != null && !p.Loadout.Core.IsEmpty) coreDef = db.Block(p.Loadout.Core.BlockId);
             SpellPreviewResult baseR = rules != null && p != null && p.Loadout != null ? SpellPreview.ForPlayer(rules, db, p) : null;
             for (int i = 0; i < offer.Cards.Count; i++)
             {
@@ -128,6 +133,7 @@ namespace Wizard.Solo.Screens.Camp
                 v.SynergyFirst = c.SynergyFirst;
                 v.StarTarget = c.StarTarget;
                 if (c.StarTarget > 0) v.StarLine = BlockDescriber.StarLine(db != null ? db.Block(c.BlockId) : null, c.StarTarget, stars);
+                if (coreDef != null && coreDef.Style != null) v.OnCore = BlockDescriber.OnCore(db != null ? db.Block(c.BlockId) : null, coreDef);
                 if (baseR != null) Preview(v, rules, db, p, run, lt, baseR);
                 if (c.Picked) m.Picked++;
                 m.Cards.Add(v);
@@ -136,6 +142,7 @@ namespace Wizard.Solo.Screens.Camp
             {
                 m.BorrowedCard = Card(db, offer.BorrowedBlockId, drops != null ? drops.BorrowedBlockRarity : Ids.Rarity.Hero, true);
                 m.BorrowedCard.Index = -1;
+                if (coreDef != null && coreDef.Style != null) m.BorrowedCard.OnCore = BlockDescriber.OnCore(db.Block(offer.BorrowedBlockId), coreDef);
                 if (baseR != null) Preview(m.BorrowedCard, rules, db, p, run, lt, baseR);
             }
             return m;

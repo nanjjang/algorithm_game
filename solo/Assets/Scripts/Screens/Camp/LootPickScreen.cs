@@ -266,6 +266,12 @@ namespace Wizard.Solo.Screens.Camp
             string desc = c.Desc.Key != null ? c.Desc.Format(Ctx.Names) : string.Empty;
             UiKit.Label(Ctx, cr, desc, UiFontId.F12, 12f, y, w - 24f, 44f, UiTheme.Chalk, TextAnchor.UpperLeft, wrap: true);
             y += 46f;
+            if (c.OnCore.Key != null)
+            {
+                // 기본 공격 유형의 핵에서 이 블록이 하는 일("이 핵에서는 …")
+                UiKit.Label(Ctx, cr, c.OnCore.Format(Ctx.Names), UiFontId.F12, 12f, y, w - 24f, 30f, UiTheme.Good, TextAnchor.UpperLeft, wrap: true);
+                y += 32f;
+            }
             if (c.StarTarget > 0)
             {
                 // 별 몫 한 줄(★n: 피해 +x% · 열 −y%). 몫이 없는 블록이면 "겹치기 ★n". 아이콘 위 ★ 표식이 겹치기임을 따로 알린다.

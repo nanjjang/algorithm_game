@@ -412,6 +412,8 @@ namespace Wizard.Solo.Meta.Inventory
                 Loadout = spec.Clone(),
                 UnlockedArts = rec != null ? new List<string>(rec.UnlockedArts) : new List<string>(),
                 KnownAffinities = new List<string>(p.KnownAffinities ?? new List<string>()),
+                // 원정 준비에서 고른 기본 공격 유형(Docs/12-attack-styles.md 1절). 판 시작 때 Run이 그 캐릭터의 유형인지 다시 본다.
+                AttackStyle = rec != null ? rec.AttackStyle : null,
             };
         }
     }

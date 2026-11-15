@@ -29,7 +29,12 @@ namespace Wizard.Solo.Data
         public List<string> Flags = new List<string>();
         public string Effect = Ids.BlockEffect.None;
         public BlockParams Params = new BlockParams();
+        /// <summary>기본 공격 유형(핵 블록 block.core.*)의 동작 수치(DataSolo/AttackStyles.json). blocks.json의 블록은 null.
+        /// Docs/12-attack-styles.md 2절.</summary>
+        public AttackStyleParams Style;
 
+        /// <summary>기본 공격 유형의 핵 블록(또는 그 부속 탄)인가.</summary>
+        [JsonIgnore] public bool IsStyle => Style != null;
         [JsonIgnore] public BlockKind KindEnum => Kind == "projectile" ? BlockKind.Projectile : Kind == "control" ? BlockKind.Control : BlockKind.Modifier;
         [JsonIgnore] public bool IsProjectile => Kind == "projectile";
         [JsonIgnore] public bool IsSplit => Kind == "control" && SplitCount > 1;

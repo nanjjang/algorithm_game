@@ -29,6 +29,23 @@ namespace Wizard.Solo.Screens.Prep
         public ScreenArgs NextArgs;
     }
 
+    /// <summary>기본 공격 카드 한 장(원정 준비 화면, Docs/12-attack-styles.md 1절).</summary>
+    public struct AttackStyleCard
+    {
+        /// <summary>핵 블록 id = 이름 표 열쇠.</summary>
+        public string Id;
+        public string DescKey;
+        /// <summary>특징 꼬리표 열쇠(str.attack_style.tag.*).</summary>
+        public List<string> TagKeys;
+        /// <summary>자리 이름 열쇠(str.attack_style.slot.a/b/c).</summary>
+        public string SlotKey;
+        public string Element;
+        public bool Unlocked;
+        /// <summary>잠겨 있으면 여는 최고 웨이브(해금 손잡이가 꺼져 있으면 0).</summary>
+        public int UnlockWave;
+        public bool Selected;
+    }
+
     /// <summary>
     /// 원정 준비 화면의 규칙과 상태(엔진 없음). 08 요약서 5절, 01 요약서 2.3·4.6절, 00 문서 8.1절 표.
     /// 서비스(ctx.Wands, ctx.Settlement, ctx.Profiles, ctx.Rules)가 null이어도 빈 상태로 돌고 예외를 던지지 않는다.
@@ -65,6 +82,97 @@ namespace Wizard.Solo.Screens.Prep
         public bool ShowStartWaveRow => _skips.Count > 1;
 
         ProfileData Profile => _ctx != null ? _ctx.Profile : null;
+        IContentDb Db => _ctx != null ? _ctx.Content : null;
+
+        // ------------------------------------------------------------------ 기본 공격 유형 (Docs/12-attack-styles.md 1절)
+
+        public const string StyleDescPrefix = "str.attack_style.";
+        public const string StyleDescSuffix = ".desc";
+        public const string StyleTagPrefix = "str.attack_style.tag.";
+        public const string StyleSlotPrefix = "str.attack_style.slot.";
+        const string CorePrefix = "block.core.";
+
+        /// <summary>고른 기본 공격(핵 블록 id). 유형 표가 없으면 null(출발 조립 그대로).</summary>
+        public string SelectedStyle { get; private set; }
+
+        /// <summary>그 캐릭터의 기본 공격 카드 3장(A, B, C 순).</summary>
+        public List<AttackStyleCard> StyleCards()
+        {
+            var cards = new List<AttackStyleCard>(3);
+            var ids = AttackStyles.StylesOf(Db, CharId);
+            for (int i = 0; i < ids.Count; i++)
+            {
+                string id = ids[i];
+                var b = Db != null ? Db.Block(id) : null;
+                var tags = new List<string>();
+                if (b != null && b.Style != null && b.Style.Tags != null)
+                    for (int k = 0; k < b.Style.Tags.Count; k++) tags.Add(StyleTagPrefix + b.Style.Tags[k]);
+                string slot = AttackStyles.SlotOf(Db, CharId, id);
+                cards.Add(new AttackStyleCard
+                {
+                    Id = id,
+                    DescKey = StyleDescKey(id),
+                    TagKeys = tags,
+                    SlotKey = slot != null ? StyleSlotPrefix + slot : null,
+                    Element = b != null ? b.Element : null,
+                    Unlocked = AttackStyles.IsUnlocked(Db, CharId, id, BestWave),
+                    UnlockWave = AttackStyles.UnlockWave(Db, CharId, id),
+                    Selected = id == SelectedStyle
+                });
+            }
+            return cards;
+        }
+
+        /// <summary>
+        /// 출발 조립 판에 보일 코어. 판 시작 규칙(RunFlow.StartRun → AttackStyles.ApplyToLoadout)과 같다:
+        /// 저장된 코어가 replace_cores(다섯 캐릭터 공통 시작 블록 마력탄)이면 고른 유형의 핵, 일부러 끼운 다른 투사체면 그대로.
+        /// </summary>
+        public string EffectiveCore(string savedCore)
+        {
+            if (string.IsNullOrEmpty(savedCore) || SelectedStyle == null) return savedCore;
+            var applied = AttackStyles.ApplyToLoadout(Db, new LoadoutSpec { Core = savedCore }, SelectedStyle);
+            return applied != null ? applied.Core : savedCore;
+        }
+
+        /// <summary>"block.core.ember_mortar" → "str.attack_style.ember_mortar.desc".</summary>
+        public static string StyleDescKey(string styleId)
+        {
+            if (string.IsNullOrEmpty(styleId)) return null;
+            string key = styleId.StartsWith(CorePrefix, System.StringComparison.Ordinal) ? styleId.Substring(CorePrefix.Length) : styleId;
+            return StyleDescPrefix + key + StyleDescSuffix;
+        }
+
+        /// <summary>
+        /// 기본 공격을 고른다(그 캐릭터의 유형이고 열려 있을 때만). 캐릭터 기록의 attack_style에 적고 저장한다 — 메인 메뉴의 연습과
+        /// 튜토리얼 판 설정도 이 값을 쓴다(WandService.BaseConfig). 바뀌었으면 true.
+        /// </summary>
+        public bool SelectStyle(string styleId)
+        {
+            if (!AttackStyles.IsUnlocked(Db, CharId, styleId, BestWave)) return false;
+            bool changed = SelectedStyle != styleId;
+            SelectedStyle = styleId;
+            SaveStyle();
+            return changed;
+        }
+
+        /// <summary>캐릭터 기록의 선택(없거나 잠겼거나 다른 캐릭터의 값이면 A).</summary>
+        void ReloadStyle()
+        {
+            var p = Profile;
+            var rec = p != null ? p.Character(Character) : null;
+            string wanted = AttackStyles.Resolve(Db, CharId, rec != null ? rec.AttackStyle : null);
+            if (wanted != null && !AttackStyles.IsUnlocked(Db, CharId, wanted, BestWave)) wanted = AttackStyles.DefaultOf(Db, CharId);
+            SelectedStyle = wanted;
+        }
+
+        void SaveStyle()
+        {
+            var p = Profile;
+            var rec = p != null ? p.Character(Character) : null;
+            if (rec == null || rec.AttackStyle == SelectedStyle) return;
+            rec.AttackStyle = SelectedStyle;
+            _ctx.Profiles?.Save();
+        }
 
         public WandListEntry SelectedEntry
         {
@@ -111,6 +219,7 @@ namespace Wizard.Solo.Screens.Prep
             Character = ValidCharacter(c) ? c : 1;
             WandId = 0;
             Reload();
+            ReloadStyle();
         }
 
         public static bool ValidCharacter(int c) => c >= 1 && c <= Ids.Char.Count;
@@ -131,6 +240,7 @@ namespace Wizard.Solo.Screens.Prep
             }
             WandId = 0;
             Reload();
+            ReloadStyle();
             return true;
         }
 
@@ -299,6 +409,12 @@ namespace Wizard.Solo.Screens.Prep
                 return new PrepDepartResult { Error = code, ErrorKey = PrepErrorKeys.Of(code) };
             }
             var cfg = r.Value;
+            // 고른 기본 공격(Docs/12 1절). 판 시작 때 Run이 출발 조립의 코어(마력탄)를 이 핵으로 바꾼다. 기록에도 남긴다(연습·튜토리얼이 읽는다).
+            if (SelectedStyle != null)
+            {
+                cfg.AttackStyle = SelectedStyle;
+                SaveStyle();
+            }
             var p = Profile;
             bool tutorialDone = p != null && p.Flags != null && p.Flags.TutorialDummyDone;
             var runArgs = ScreenArgs.From(ScreenId.ExpeditionPrep).With(ScreenArgKeys.RunConfig, cfg);

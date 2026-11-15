@@ -5,8 +5,10 @@ w/h/frames (must match the original's frame size and count), shader + params,
 ramp (palettes.py), ss (supersample factor)."""
 import json
 import os
+import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.dont_write_bytecode = True  # python -I ignores PYTHONDONTWRITEBYTECODE
 JOBS = []
 
 
@@ -222,6 +224,12 @@ for name, (mat, nvar) in GROUND.items():
         JOBS.append({"id": "ground__%s__v%d" % (name, v), "orig": None, "w": 64, "h": 64, "frames": 1,
                      "shader": "ground", "ramp": "smoke", "params": {"mat": mat, "variant": v},
                      "seed": 11.0 + mat, "ss": 4})
+
+# ---------------------------------------------------------------- per-character attack styles (styles.py)
+import sys as _sys  # noqa: E402
+_sys.path.insert(0, HERE)
+from styles import STYLES  # noqa: E402
+JOBS.extend(STYLES)
 
 if __name__ == "__main__":
     ids = [j["id"] for j in JOBS]

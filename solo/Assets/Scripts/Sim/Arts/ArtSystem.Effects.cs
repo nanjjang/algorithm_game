@@ -58,22 +58,25 @@ namespace Wizard.Solo.Sim.Arts
                     break;
                 case Ids.Art.Kiln:
                     SpawnKiln(w, p, c);
+                    StartKilnPillars(w, p, s, c);
                     c.Done = true;
                     break;
                 case Ids.Art.BoltDash:
-                    CastBoltDash(w, p, c);
+                    CastBoltDash(w, p, s, c);
                     c.Done = true;
                     break;
                 case Ids.Art.CopyCircle:
                     SpawnCopyCircle(w, p, c);
+                    StartPageVortex(w, p, s, c);
                     c.Done = true;
                     break;
                 case Ids.Art.IceScreen:
                     SpawnIceScreen(w, p, c);
+                    StartIceSpikes(w, p, s, c);
                     c.Done = true;
                     break;
                 case Ids.Art.ShadowHand:
-                    CastShadowHand(w, p, c);
+                    CastShadowHand(w, p, s, c);
                     c.Done = true;
                     break;
                 default:
@@ -274,7 +277,7 @@ namespace Wizard.Solo.Sim.Arts
         // ------------------------------------------------------------ 고유 비기(즉발)
 
         /// <summary>벼락 질주: 시야 정면으로 적을 뚫고 이동(벽·기둥 앞 멈춤), 길 위 적마다 1회 3T(번개) + 경직, 무적, 길 위 적 탄은 스침 1회.</summary>
-        void CastBoltDash(SimWorld w, PlayerState p, ArtCast c)
+        void CastBoltDash(SimWorld w, PlayerState p, ArtPlayerState s, ArtCast c)
         {
             var e = c.Def.Effect;
             Vector2 dir = Dir8Util.ToSimVector(p.Facing);
@@ -283,6 +286,8 @@ namespace Wizard.Solo.Sim.Arts
             w.Mods.Player.GrantInvuln(w, p, SimConst.Ticks(e.InvulnSeconds), false);
             w.Emit(SimEventType.PlayerMovedByArt, p.Slot, id: c.Def.Id, pos: start, pos2: end);
             w.Emit(SimEventType.ArtLine, p.Slot, id: c.Def.Id, pos: start, pos2: end, f: e.Width);
+            // 강화(Docs/12 4절): 지나간 궤적에 낙뢰가 차례로 떨어진다(예약만 — 피해는 다음 틱부터 5단계에서).
+            StartBoltTrail(w, p, s, c, start, end);
 
             float amount = e.Damage * w.Mods.Spells.StandardT(w, p) * c.CharMul;
             string element = CharElement(p);
@@ -309,11 +314,13 @@ namespace Wizard.Solo.Sim.Arts
         }
 
         /// <summary>그림자 손: 시야 정면 지점(벽 안쪽으로 자름) 둘레의 적을 중심 쪽으로 당김(중심을 넘지 않음) + 3T(암흑) + 경직.</summary>
-        void CastShadowHand(SimWorld w, PlayerState p, ArtCast c)
+        void CastShadowHand(SimWorld w, PlayerState p, ArtPlayerState s, ArtCast c)
         {
             var e = c.Def.Effect;
             Vector2 center = w.ClampToArena(p.Pos + Dir8Util.ToSimVector(p.Facing) * e.Offset, 0f);
             w.Emit(SimEventType.ArtPulse, p.Slot, id: c.Def.Id, pos: center, f: e.Radius);
+            // 강화(Docs/12 4절): 땅에서 솟은 손이 움켜쥔 뒤(지금의 당김·피해) 짓눌러 범위 피해(예약).
+            StartShadowCrush(w, p, s, c, center);
 
             float amount = e.Damage * w.Mods.Spells.StandardT(w, p) * c.CharMul;
             string element = CharElement(p);

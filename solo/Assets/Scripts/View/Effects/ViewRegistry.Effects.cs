@@ -27,6 +27,8 @@ namespace Wizard.Solo.View
             layers.Add(fx);
             // 타격감 덧층(표시 전용 연출, Juice.json). 같은 입자 예산·가림 셈·번쩍 관리기를 쓴다.
             layers.Add(new JuiceLayer(fx.Shared, fx));
+            // 기본 공격 유형 15종·고유 비기 강화의 그림(Docs/12-attack-styles.md 3·4절, Juice.json styles)
+            layers.Add(new StyleFxLayer(fx.Shared, fx));
             // 쓰러짐 연출(체력 0으로 판이 끝날 때, 표시 전용 — Juice.json death)
             layers.Add(new DeathSequenceLayer());
         }

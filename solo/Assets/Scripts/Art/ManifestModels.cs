@@ -149,6 +149,8 @@ namespace Wizard.Solo.Art
         public float PixelScale = 1f;
         /// <summary>원본 항목 그대로(보강 층의 attachment·offsetByDirection 같은 붙임 정보를 표시 작업이 읽는다).</summary>
         public Newtonsoft.Json.Linq.JObject Raw;
+        /// <summary>이름 붙은 프레임 구간(styles manifest의 "clips": {"rise": [0, 2]} — 처음·끝 프레임 번호, 끝 포함). 없으면 null.</summary>
+        public Dictionary<string, int[]> Clips;
     }
 
     public sealed class EffectGroup

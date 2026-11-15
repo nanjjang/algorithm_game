@@ -60,6 +60,7 @@ namespace Wizard.Solo.View.Effects
         readonly Dictionary<int, List<int>> _recentHits = new Dictionary<int, List<int>>();
         readonly Dictionary<int, int> _bigHitUntil = new Dictionary<int, int>();
         readonly Dictionary<int, Vector2> _shotSnapshot = new Dictionary<int, Vector2>();
+        readonly HashSet<int> _styleChains = new HashSet<int>();
         readonly List<PendingKill> _kills = new List<PendingKill>();
         readonly List<int> _tmp = new List<int>();
         readonly int[] _artTick = new int[SimConst.MaxPlayers];
@@ -144,8 +145,13 @@ namespace Wizard.Solo.View.Effects
                     InterruptPlate(e.Pos);
                     ShakeFor("art.recoil_shot.charge_broken");
                     break;
-                case SimEventType.Explosion: OnExplosion(e); break;
-                case SimEventType.ChainLightningArc: OnChainArc(e); break;
+                case SimEventType.Explosion: if (!StyleFxRules.IsStyleExplosion(e)) OnExplosion(e); break; // 유형 폭발(B = 1)은 StyleFxLayer가 그린다
+                case SimEventType.ChainLightningArc: if (!_styleChains.Contains(e.EntityId)) OnChainArc(e); break;
+                case SimEventType.ProjectileSpawned:
+                    // 사슬 번개 유형(block.core.chain_bolt)의 선은 StyleFxLayer가 전용 그림(chain_link)으로 그린다
+                    if (IsStyleChain(w, e.Id)) _styleChains.Add(e.EntityId);
+                    break;
+                case SimEventType.ProjectileExpired: _styleChains.Remove(e.EntityId); break;
                 case SimEventType.EnemyKilled:
                     _kills.Add(new PendingKill { E = e });
                     // 0.3초 안 5마리 이상 처치 → 흔들림 소(enemy.multi_kill)
@@ -210,6 +216,7 @@ namespace Wizard.Solo.View.Effects
             _bigHitUntil.Clear();
             _bloomReps.Clear();
             _shotSnapshot.Clear();
+            _styleChains.Clear();
             _kills.Clear();
             if (_merger != null) _merger.Clear();
             if (_killBurst != null) _killBurst.Reset();
@@ -715,6 +722,14 @@ namespace Wizard.Solo.View.Effects
             var trace = Fx("player", "trace_" + FxEl(elId));
             if (trace != null && trace.At(0f) != null) traceNative = trace.At(0f).rect.width / SimConst.PixelsPerUnit;
             GroundMark("player", "trace_" + FxEl(elId), e.Pos, traceNative > 0f ? Mathf.Min(1f, r * 2f / traceNative) : 1f, 0f, _t.F("ground_marks", "trace_seconds"));
+        }
+
+        /// <summary>기본 공격 유형의 사슬(동작 chain)이고 전용 그림(styles.char.2/chain_link)이 있는가.</summary>
+        bool IsStyleChain(SimWorld w, string blockId)
+        {
+            if (blockId == null || w == null || w.Content == null || _art == null) return false;
+            var b = w.Content.Block(blockId);
+            return b != null && b.Style != null && b.Style.Kind == AttackBehavior.Chain && _art.EffectInfo(StyleFxLayer.Group(2), "chain_link") != null;
         }
 
         void OnChainArc(in SimEvent e)

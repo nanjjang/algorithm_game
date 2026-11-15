@@ -167,6 +167,21 @@
           }
         }
       }
+    },
+    {
+      "id": "attack_style.tutorial_default",
+      "_note": "기본 공격 유형(Docs/12-attack-styles.md). 튜토리얼 판을 그 캐릭터의 A 유형으로 돌린다(사용자 지시 '튜토리얼은 A 유형으로'). 관문 값은 그대로 — AttackStyleTutorialTests가 다섯 캐릭터의 A로 관문을 통과시켜 확인한다.",
+      "target": "DataSolo/AttackStyles",
+      "set": { "tutorial_uses_default_style": true },
+      "was": { "tutorial_uses_default_style": false }
+    },
+    {
+      "id": "attack_style.art_upgrades",
+      "_note": "고유 비기 강화(불기둥 고리·낙뢰 궤적·책장 소용돌이·얼음 가시·그림자 손 짓누름). 비용·커맨드는 그대로, 덧피해는 원래 총량의 +20% 이내(AttackStyles.json art_upgrades 표, Docs/12 4절).",
+      "target": "DataSolo/AttackStyles",
+      "select": "art_upgrades",
+      "set": { "enabled": true },
+      "was": { "enabled": false }
     }
   ]
 }

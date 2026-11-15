@@ -21,13 +21,16 @@ namespace Wizard.Solo.Screens.Prep
 
         const float Top = TopBarHeight;
         // 08 5.2절 배치(화면 좌표)
-        const float CardX = 80f, CardY = 104f, CardW = 336f, CardH = 376f, CardGap = 20f;
-        const float StatX = 80f, StatY = 504f, StatW = 640f, StatH = 480f, StatRowH = 32f;
-        const float WandX = 744f, WandY = 504f, WandW = 480f, WandH = 480f, WandColW = 104f, WandCell = 80f;
-        const float LoadX = 1248f, LoadY = 504f, LoadW = 592f, LoadH = 352f;
+        // 기본 공격 카드 줄(Docs/12-attack-styles.md 1절)을 캐릭터 카드 아래에 넣느라 08 5.2절 배치에서 카드 높이(376 → 288)와
+        // 아래 판들의 y(504 → 536)·높이를 줄였다. 좌우 배치·판 순서는 그대로.
+        const float CardX = 80f, CardY = 104f, CardW = 336f, CardH = 288f, CardGap = 20f;
+        const float StyleX = 80f, StyleY = 404f, StyleW = 573f, StyleH = 120f, StyleGap = 20f, StyleIconPx = 64f;
+        const float StatX = 80f, StatY = 536f, StatW = 640f, StatH = 448f, StatRowH = 28f;
+        const float WandX = 744f, WandY = 536f, WandW = 480f, WandH = 448f, WandColW = 104f, WandCell = 80f, WandRows = 4f;
+        const float LoadX = 1248f, LoadY = 536f, LoadW = 592f, LoadH = 320f;
         const float TrackerH = 24f;
-        const float SkipX = 1248f, SkipY = 872f, SkipW = 592f, SkipH = 48f;
-        const float DepartX = 1248f, DepartY = 936f, DepartW = 592f, DepartH = 64f;
+        const float SkipX = 1248f, SkipY = 888f, SkipW = 592f, SkipH = 48f;
+        const float DepartX = 1248f, DepartY = 956f, DepartW = 592f, DepartH = 60f;
         const int SelectionPx = 192, EmblemPx = 64, InspectPx = 192;
 
         ExpeditionPrepModel _model;
@@ -37,6 +40,20 @@ namespace Wizard.Solo.Screens.Prep
         readonly UImage[] _cardBg = new UImage[Ids.Char.Count];
         readonly UImage[] _cardStrip = new UImage[Ids.Char.Count];
         readonly UiLabel[] _cardTitle = new UiLabel[Ids.Char.Count];
+
+        // 기본 공격 카드 3장
+        readonly List<UiButton> _styleCards = new List<UiButton>();
+        readonly List<UImage> _styleBg = new List<UImage>();
+        readonly List<UImage> _styleIcon = new List<UImage>();
+        readonly List<UImage> _styleStrip = new List<UImage>();
+        readonly List<UImage> _styleShade = new List<UImage>();
+        readonly List<UiLabel> _styleName = new List<UiLabel>();
+        readonly List<UiLabel> _styleSlot = new List<UiLabel>();
+        readonly List<UiLabel> _styleDesc = new List<UiLabel>();
+        readonly List<UiLabel> _styleTags = new List<UiLabel>();
+        readonly List<string> _styleIds = new List<string>();
+        readonly List<StylePreview> _stylePreview = new List<StylePreview>();
+        const float StylePreviewW = 150f, StylePreviewH = 100f;
 
         // 능력치 판
         RectTransform _statRoot;
@@ -79,6 +96,7 @@ namespace Wizard.Solo.Screens.Prep
         {
             _model = new ExpeditionPrepModel(Ctx);
             BuildCards(content);
+            BuildStyleCards(content);
             BuildStats(content);
             BuildWandPanel(content);
             BuildLoadout(content);
@@ -106,14 +124,45 @@ namespace Wizard.Solo.Screens.Prep
                     UiKit.Image(root, UiKit.IconSprite(Ctx, element, EmblemPx), CardW - EmblemPx - 16f, 16f, EmblemPx, EmblemPx,
                         UiTheme.WithAlpha(Color.white, 0.2f));
                 var sel = Ctx != null && Ctx.Art != null ? Ctx.Art.CharacterSelection(charId) : null;
-                UiKit.Image(root, sel, (CardW - SelectionPx) * 0.5f, 24f, SelectionPx, SelectionPx);
-                UiKit.Label(Ctx, root, T(charId), UiFontId.F24, 16f, 232f, CardW - 32f, 0f, UiTheme.Chalk, TextAnchor.MiddleCenter);
-                _cardTitle[i] = UiKit.Label(Ctx, root, string.Empty, UiFontId.F16, 16f, 272f, CardW - 32f, 0f, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
+                UiKit.Image(root, sel, (CardW - SelectionPx) * 0.5f, 8f, SelectionPx, SelectionPx);
+                UiKit.Label(Ctx, root, T(charId), UiFontId.F24, 16f, 202f, CardW - 32f, 0f, UiTheme.Chalk, TextAnchor.MiddleCenter);
+                _cardTitle[i] = UiKit.Label(Ctx, root, string.Empty, UiFontId.F16, 16f, 234f, CardW - 32f, 0f, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
                 if (element != null)
-                    UiKit.Label(Ctx, root, T(element), UiFontId.F16, 16f, 304f, CardW - 32f, 0f, UiTheme.ElementColor(element), TextAnchor.MiddleCenter);
+                    UiKit.Label(Ctx, root, T(element), UiFontId.F16, 16f, 256f, CardW - 32f, 0f, UiTheme.ElementColor(element), TextAnchor.MiddleCenter);
                 // 고른 캐릭터 = 확정 체크 + 아랫변 속성색 8px 줄
                 _cardStrip[i] = UiKit.Rect(root, 0f, CardH - 8f, CardW, 8f, UiTheme.ElementColor(element));
                 _cards[i] = b;
+            }
+        }
+
+        /// <summary>기본 공격 카드 3장(아이콘·이름·한 줄 설명·특징 꼬리표). 고른 캐릭터가 바뀌면 RefreshStyles가 글과 그림을 갈아 끼운다.</summary>
+        void BuildStyleCards(RectTransform content)
+        {
+            const int count = 3;
+            for (int i = 0; i < count; i++)
+            {
+                int index = i;
+                float x = StyleX + i * (StyleW + StyleGap);
+                var b = UiKit.Button(Ctx, content, null, x, StyleY - Top, StyleW, StyleH, () => OnStylePicked(index), UiButtonStyle.Plain, Focus, "");
+                b.name = "AttackStyle" + (i + 1);
+                var root = b.ContentRoot != null ? b.ContentRoot : b.Rect;
+                _styleBg.Add(UiKit.Image(root, KitSprite("S-0601", "character_card", "normal"), 0f, 0f, StyleW, StyleH, null, false));
+                // 아이콘 = 그 유형의 실제 탄·효과 그림 한 장(ArtLibrary.Icon → effects/styles/reuse.json style_icons)
+                _styleIcon.Add(UiKit.Image(root, null, 16f, (StyleH - StyleIconPx) * 0.5f, StyleIconPx, StyleIconPx));
+                // 미리보기 상자(오른쪽): 그 유형이 실제로 나가는 모양을 반복해서 보여 준다(DataSolo/StylePreview.json)
+                float px = StyleW - StylePreviewW - 12f, py = (StyleH - StylePreviewH) * 0.5f;
+                UiKit.Rect(root, px, py, StylePreviewW, StylePreviewH, UiTheme.WithAlpha(UiTheme.Ink, 0.7f));
+                _stylePreview.Add(new StylePreview(Ctx, root, px, py, StylePreviewW, StylePreviewH));
+                float tx = 16f + StyleIconPx + 16f, tw = px - tx - 12f;
+                _styleName.Add(UiKit.Label(Ctx, root, string.Empty, UiFontId.F24, tx, 8f, tw, 30f, UiTheme.Chalk));
+                _styleSlot.Add(UiKit.Label(Ctx, root, string.Empty, UiFontId.F12, tx, 38f, tw, 18f, UiTheme.SlateBlue));
+                _styleDesc.Add(UiKit.Label(Ctx, root, string.Empty, UiFontId.F16, tx, 56f, tw, 42f, UiTheme.Chalk, TextAnchor.UpperLeft, true));
+                _styleTags.Add(UiKit.Label(Ctx, root, string.Empty, UiFontId.F12, tx, 98f, tw, 18f, UiTheme.SlateBlue));
+                // 잠김(해금 손잡이를 켰을 때)은 어두운 덮개, 고름은 아랫변 속성색 6px 줄.
+                _styleShade.Add(UiKit.Rect(root, 0f, 0f, StyleW, StyleH, UiTheme.WithAlpha(UiTheme.Ink, 0.55f)));
+                _styleStrip.Add(UiKit.Rect(root, 0f, StyleH - 6f, StyleW, 6f, Color.white));
+                _styleCards.Add(b);
+                _styleIds.Add(null);
             }
         }
 
@@ -128,7 +177,7 @@ namespace Wizard.Solo.Screens.Prep
                 _statIcons.Add(UiKit.Image(_statRoot, null, 0f, y + 4f, 24f, 24f));
                 // 이름은 Refresh에서 채운다(열쇠는 모델이 준다).
                 _statValues.Add(UiKit.Label(Ctx, _statRoot, string.Empty, UiFontId.F16, 32f, y, w - 32f, StatRowH));
-                _statBars.Add(UiKit.ProgressBar(Ctx, _statRoot, w - 200f, y + 12f, 200f, 8f));
+                _statBars.Add(UiKit.ProgressBar(Ctx, _statRoot, w - 200f, y + 10f, 200f, 8f));
             }
             float y0 = PrepStats.RowCount * StatRowH;
             _passive = UiKit.Label(Ctx, _statRoot, string.Empty, UiFontId.F16, 0f, y0, w, StatRowH);
@@ -144,11 +193,11 @@ namespace Wizard.Solo.Screens.Prep
             _sortButton = UiKit.Button(Ctx, content, string.Empty, WandX + WandW - 232f, py + 8f, 216f, 32f, OnSortPressed,
                 UiButtonStyle.Small, Focus, null, UiFontId.F16);
             // 왼쪽 104px: 보관 지팡이 칸(80×80) 세로 줄, 한 화면 5칸, 세로 스크롤
-            _wandList = UiKit.ScrollList(Ctx, content, WandX + 8f, py + 48f, WandColW, 5f * (WandCell + 4f), Focus, 4f);
+            _wandList = UiKit.ScrollList(Ctx, content, WandX + 8f, py + 48f, WandColW, WandRows * (WandCell + 4f), Focus, 4f);
             float rx = WandX + WandColW + 16f, rw = WandW - WandColW - 32f;
             UiKit.Image(content, KitSprite("S-0602", "wand_pedestal", null), rx + (rw - 224f) * 0.5f, py + 48f + InspectPx - 24f, 224f, 48f);
             _inspect = UiKit.Image(content, null, rx + (rw - InspectPx) * 0.5f, py + 48f, InspectPx, InspectPx);
-            float ty = py + 48f + InspectPx + 32f;
+            float ty = py + 48f + InspectPx + 24f;
             _wandName = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, rx, ty, rw, 0f);
             _wandNick = UiKit.Label(Ctx, content, string.Empty, UiFontId.F16, rx, ty + 32f, rw, 0f, UiTheme.SlateBlue);
             _wandStage = UiKit.Label(Ctx, content, string.Empty, UiFontId.F16, rx, ty + 56f, rw * 0.5f, 0f);
@@ -168,9 +217,9 @@ namespace Wizard.Solo.Screens.Prep
             _loadPanel = UiKit.Plate(Ctx, content, UiPanelKind.Board, LoadX, py, LoadW, LoadH);
             UiKit.Label(Ctx, content, T(PrepKeys.Loadout), UiFontId.F24, LoadX + 16f, py + 12f, LoadW - 32f, 0f);
             _slotRoot = UiKit.Node(content, "Slots", LoadX + 16f, py + 56f, LoadW - 32f, 160f);
-            _coreWarn = UiKit.WarningTriangle(content, LoadX + 16f, py + 228f, 24f);
-            _coreWarnLabel = UiKit.Label(Ctx, content, T(PrepKeys.WarnCoreEmpty), UiFontId.F16, LoadX + 48f, py + 228f, LoadW - 64f, 24f, UiTheme.Amber);
-            _changeLoadout = UiKit.Button(Ctx, content, T(PrepKeys.ChangeLoadout), LoadX + 16f, py + LoadH - 80f, LoadW - 32f, 56f,
+            _coreWarn = UiKit.WarningTriangle(content, LoadX + 16f, py + 212f, 24f);
+            _coreWarnLabel = UiKit.Label(Ctx, content, T(PrepKeys.WarnCoreEmpty), UiFontId.F16, LoadX + 48f, py + 212f, LoadW - 64f, 24f, UiTheme.Amber);
+            _changeLoadout = UiKit.Button(Ctx, content, T(PrepKeys.ChangeLoadout), LoadX + 16f, py + 240f, LoadW - 32f, 48f,
                 OnChangeLoadoutPressed, UiButtonStyle.Medium, Focus);
             _tracker = UiKit.Label(Ctx, content, string.Empty, UiFontId.F16, LoadX, SkipY - Top - TrackerH - 4f, LoadW, TrackerH, UiTheme.SlateBlue);
         }
@@ -205,7 +254,11 @@ namespace Wizard.Solo.Screens.Prep
         {
             // 조립 바꾸기(Camp)에서 돌아오면 목록을 다시 읽는다(덮였다 드러날 때는 OnEnter가 오지 않는다).
             if (_awaitLoadoutReturn && Screens != null && Screens.Top == ScreenId.ExpeditionPrep) OnLoadoutReturned();
+            for (int i = 0; i < _stylePreview.Count; i++) _stylePreview[i].Tick(dt);
         }
+
+        /// <summary>테스트·점검: i번째 기본 공격 카드의 미리보기(없으면 null).</summary>
+        public StylePreview StylePreviewAt(int i) => i >= 0 && i < _stylePreview.Count ? _stylePreview[i] : null;
 
         public override bool OnMenuKey(MenuKey key)
         {
@@ -231,6 +284,19 @@ namespace Wizard.Solo.Screens.Prep
             RefreshAll();
             if (changed) Focus.SetCursor(_cards[number - 1], false);
             FocusLoadoutIfBlocked();
+        }
+
+        void OnStylePicked(int index)
+        {
+            if (index < 0 || index >= _styleIds.Count || _styleIds[index] == null) return;
+            if (!_model.SelectStyle(_styleIds[index]))
+            {
+                if (_model.SelectedStyle != _styleIds[index]) OnDepartBlocked();
+                return;
+            }
+            PlayUi(PrepKeys.SndWandSelect);
+            RefreshStyles();
+            RefreshLoadout();
         }
 
         void OnWandPicked(long wandId)
@@ -322,6 +388,7 @@ namespace Wizard.Solo.Screens.Prep
         void RefreshAll()
         {
             RefreshCards();
+            RefreshStyles();
             RefreshStats();
             RefreshWandList();
             RefreshLoadout();
@@ -345,6 +412,38 @@ namespace Wizard.Solo.Screens.Prep
                 var held = rec != null && p != null ? p.Wand(rec.EquippedWandId) : null;
                 if (held != null) stage = held.Stage;
                 _cardTitle[i].SetText(T(ExpeditionPrepModel.StageTitleKey(Ctx != null ? Ctx.Content : null, number, stage)));
+            }
+        }
+
+        void RefreshStyles()
+        {
+            var cards = _model.StyleCards();
+            string sep = T(PrepKeys.StyleTagSep);
+            for (int i = 0; i < _styleCards.Count; i++)
+            {
+                bool has = i < cards.Count;
+                _styleCards[i].gameObject.SetActive(has);
+                _styleIds[i] = has ? cards[i].Id : null;
+                if (!has) continue;
+                var c = cards[i];
+                _styleCards[i].Picked = c.Selected;
+                _styleBg[i].sprite = KitSprite("S-0601", "character_card", c.Selected ? "selected" : "normal");
+                var icon = UiKit.IconSprite(Ctx, c.Id, (int)StyleIconPx);
+                _styleIcon[i].sprite = icon;
+                _styleIcon[i].preserveAspect = true;
+                if (i < _stylePreview.Count) _stylePreview[i].Show(c.Unlocked ? c.Id : null);
+                _styleIcon[i].color = icon != null ? Color.white : UiTheme.ElementColor(c.Element);
+                _styleName[i].SetText(T(c.Id));
+                _styleSlot[i].SetText(T(PrepKeys.AttackStyle) + (c.SlotKey != null ? sep + T(c.SlotKey) : string.Empty)
+                    + (c.Selected ? sep + T(PrepKeys.AttackStyleSelected) : string.Empty));
+                _styleDesc[i].SetText(c.Unlocked ? T(c.DescKey) : F(PrepKeys.AttackStyleLocked, "n", c.UnlockWave));
+                var tags = new List<string>(c.TagKeys.Count);
+                for (int k = 0; k < c.TagKeys.Count; k++) tags.Add(T(c.TagKeys[k]));
+                _styleTags[i].SetText(string.Join(sep, tags));
+                _styleShade[i].enabled = !c.Unlocked;
+                _styleStrip[i].enabled = c.Selected;
+                _styleStrip[i].color = UiTheme.ElementColor(c.Element);
+                if (c.Unlocked) _styleCards[i].SetEnabled(); else _styleCards[i].SetDisabled(PrepKeys.AttackStyle);
             }
         }
 
@@ -481,9 +580,12 @@ namespace Wizard.Solo.Screens.Prep
             var def = db != null ? db.Character(_model.CharId) : null;
             int baseLinks = def != null ? def.BaseLinkSlots : lo.Links.Count;
             // 첫 줄: 코어 72 + 연결 칸 64 × base(4, 제자 3은 5) / 둘째 줄: 확장 칸 64 × slots_extra (03 요약서 3절 SL-3)
-            string core = lo.Core;
+            // 코어는 판 시작 규칙대로 보인다: 마력탄 자리면 고른 기본 공격의 핵(Docs/12-attack-styles.md 1절).
+            string core = _model.EffectiveCore(lo.Core);
             UiKit.Image(_slotRoot, KitSprite("K-63", string.IsNullOrEmpty(core) ? "core_slot_empty" : "core_slot_filled", null), 0f, 0f, 72f, 72f, null, false);
             if (!string.IsNullOrEmpty(core)) UiKit.Image(_slotRoot, UiKit.IconSprite(Ctx, core, 48), 12f, 12f, 48f, 48f);
+            if (!string.IsNullOrEmpty(core) && core != lo.Core)
+                UiKit.Label(Ctx, _slotRoot, T(core) + T(PrepKeys.StyleTagSep) + T(PrepKeys.AttackStyle), UiFontId.F12, 0f, 150f, LoadW - 32f, 18f, UiTheme.SlateBlue);
             for (int i = 0; i < baseLinks; i++)
             {
                 string id = i < lo.Links.Count ? lo.Links[i] : null;

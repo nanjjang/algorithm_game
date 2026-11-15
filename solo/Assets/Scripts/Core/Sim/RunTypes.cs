@@ -51,6 +51,9 @@ namespace Wizard.Solo.Sim
         public bool PracticeHeatFreeze;
         /// <summary>Mode == Tutorial일 때 시작 단계(1~5, 보통 1). 지금 단계는 RunState.TutorialStep.</summary>
         public int TutorialStep = 1;
+        /// <summary>기본 공격 유형(핵 블록 id, block.core.*). null = 고르지 않음(출발 조립 그대로). 판 시작 때 Run이 출발 조립의 코어가
+        /// 마력탄이면 이 블록으로 바꾼다(Docs/12-attack-styles.md 1절). 튜토리얼 판은 손잡이(tutorial_uses_default_style)가 켜져 있으면 A 유형.</summary>
+        public string AttackStyle;
     }
 
     /// <summary>판 중 얻은 야생 블록. 06 요약서 4.4절.</summary>

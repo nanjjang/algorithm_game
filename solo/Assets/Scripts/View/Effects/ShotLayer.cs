@@ -94,6 +94,8 @@ namespace Wizard.Solo.View.Effects
             _vc = vc;
             _s.Ensure(vc, w);
             _t = _s.Data.Tuning;
+            _unrotated = null;
+            _bodyScale = null;
             _art = vc != null && vc.Game != null ? vc.Game.Art : null;
             // 이벤트 없이 지금 상태만 보고 집어 든다.
             Sync(w, 1f, 0f);
@@ -149,6 +151,7 @@ namespace Wizard.Solo.View.Effects
                 var p = w.Projectiles[i];
                 if (p.Dead || p.State == ProjectileState.Pending || p.State == ProjectileState.Dead) continue;
                 if (p.Block != null && p.Block.Instant && _t.B("shots", "chain_projectile_hidden")) continue; // 순간 탄(연쇄 번개)은 ChainLightningArc 선으로
+                if (StyleBodyHidden(p)) continue; // 기본 공격 유형의 몸 없는 동작(포탄·부채꼴·낙뢰·고드름·룬)은 StyleFxLayer가 그린다
                 ShotView v;
                 if (!_shots.TryGetValue(p.Id, out v)) { v = CreateShot(p); _shots[p.Id] = v; }
                 v.Seen = true;
@@ -174,6 +177,48 @@ namespace Wizard.Solo.View.Effects
         }
 
         // ------------------------------------------------------------ 내 탄
+
+        HashSet<string> _unrotated;
+
+        /// <summary>G16 shots.style_body_hidden(동작 글자): 탄 몸을 내 탄 층이 그리지 않는 기본 공격 유형.</summary>
+        bool StyleBodyHidden(ProjectileEntity p) => StyleFxRules.BodyHidden(_t, p);
+
+        /// <summary>G16 shots.unrotated_blocks: 진행 방향으로 돌리지 않는 탄(그림이 스스로 도는 책, 둥근 구체·눈알).</summary>
+        bool Unrotated(ProjectileEntity p)
+        {
+            if (p.Block == null) return false;
+            if (_unrotated == null) _unrotated = StringSet("shots", "unrotated_blocks");
+            return _unrotated.Contains(p.Block.Id);
+        }
+
+        Dictionary<string, float> _bodyScale;
+
+        /// <summary>G16 shots.body_scale: 판정보다 작게 그려진 유형 탄 그림의 배율(없으면 1).</summary>
+        float BodyScale(ProjectileEntity p)
+        {
+            if (p.Block == null) return 1f;
+            if (_bodyScale == null)
+            {
+                _bodyScale = new Dictionary<string, float>();
+                var o = _t != null ? _t.Token("shots", "body_scale") as Newtonsoft.Json.Linq.JObject : null;
+                if (o != null)
+                    foreach (var prop in o.Properties())
+                        if (prop.Value.Type == Newtonsoft.Json.Linq.JTokenType.Float || prop.Value.Type == Newtonsoft.Json.Linq.JTokenType.Integer)
+                            _bodyScale[prop.Name] = (float)prop.Value;
+            }
+            float k;
+            return _bodyScale.TryGetValue(p.Block.Id, out k) && k > 0f ? k : 1f;
+        }
+
+        HashSet<string> StringSet(params string[] path)
+        {
+            var set = new HashSet<string>();
+            var arr = _t != null ? _t.Token(path) as Newtonsoft.Json.Linq.JArray : null;
+            if (arr != null)
+                foreach (var x in arr)
+                    if (x.Type == Newtonsoft.Json.Linq.JTokenType.String) set.Add((string)x);
+            return set;
+        }
 
         ShotView CreateShot(ProjectileEntity p)
         {
@@ -213,8 +258,9 @@ namespace Wizard.Solo.View.Effects
                 if (v.Anim != null) { var spr = v.Anim.At(age); if (spr != null) v.Body.sprite = spr; }
                 var t = v.Body.transform;
                 t.localPosition = vp;
-                t.localRotation = Quaternion.Euler(0f, 0f, angle);
-                t.localScale = new Vector3(sizeMul, sizeMul, 1f);
+                t.localRotation = Quaternion.Euler(0f, 0f, Unrotated(p) ? 0f : angle);
+                float bodyK = BodyScale(p);
+                t.localScale = new Vector3(sizeMul * bodyK, sizeMul * bodyK, 1f);
                 var c = v.Anim == null ? _t.ElementPrimary(el) : Color.white;
                 // 내 탄 색이 위험색(적 공격·예고 전용)에 들면 디버그 경고 + 주황 쪽으로 고친다
                 if (_s.ColorGuard != null && !_s.ColorGuard.Check(c, "shot.body." + el)) c = JuiceLayer.Safe(c);

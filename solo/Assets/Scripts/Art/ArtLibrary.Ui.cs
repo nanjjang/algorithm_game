@@ -106,6 +106,12 @@ namespace Wizard.Solo.Art
                 if (idx >= 0 && anim.Frames != null && idx < anim.Frames.Length && EffectInfo(EnhanceGroup, MutationIconsKey) != null) return anim.Frames[idx];
                 return Placeholder(sizePx, sizePx);
             }
+            if (contentId.StartsWith("block.core.", StringComparison.Ordinal))
+            {
+                // 기본 공격 유형(핵 블록): 그 유형의 탄·효과 그림 한 장(Docs/12-attack-styles.md, effects/styles/reuse.json style_icons)
+                var style = StyleIcon(contentId);
+                if (style != null) return style;
+            }
             if (contentId.StartsWith("boss.", StringComparison.Ordinal))
                 return sizePx >= BossPortraitMinPx ? BossPortrait(contentId) : BossHudIcon(contentId);
             if (contentId == Ids.Item.HealthShard)

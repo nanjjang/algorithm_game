@@ -1,0 +1,242 @@
+{
+ "notes": {
+  "origin": "top-left",
+  "filter": "point",
+  "mipmaps": false,
+  "pixelsPerUnit": 64,
+  "built_by": "solo/Tools/godot-fx/bake.sh (styles.py, compose.py, manifest.py)",
+  "pivot": "pivot = 프레임 왼쪽 위 기준 픽셀 좌표",
+  "reuse": [
+   "A 3갈래 파편 탄 = effects/special/ice_screen_shard_16x16_f3_v2.png, 갈라질 때 섬광 = effects/player/hit_ice_32x32_f3_v2.png",
+   "C 고드름 착지 깨짐 = CharacterAssets/char.4/thin-ice-break.png (48x48 x4) 또는 effects/status/frozen_shatter_96x96_f4_v2.png"
+  ]
+ },
+ "styles.char.4": {
+  "blizzard": {
+   "path": "blizzard_128x64_f6.png",
+   "size": [
+    128,
+    64
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     128,
+     64
+    ],
+    [
+     128,
+     0,
+     128,
+     64
+    ],
+    [
+     256,
+     0,
+     128,
+     64
+    ],
+    [
+     384,
+     0,
+     128,
+     64
+    ],
+    [
+     512,
+     0,
+     128,
+     64
+    ],
+    [
+     640,
+     0,
+     128,
+     64
+    ]
+   ],
+   "fps": 12,
+   "loop": true,
+   "pivot": [
+    5,
+    32
+   ],
+   "use": "B 눈보라: 넓은 눈송이 분사 반복(왼쪽 끝 = 지팡이 끝)"
+  },
+  "ice_spear": {
+   "path": "ice_spear_48x16_f2.png",
+   "size": [
+    48,
+    16
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     48,
+     16
+    ],
+    [
+     48,
+     0,
+     48,
+     16
+    ]
+   ],
+   "fps": 8,
+   "loop": true,
+   "pivot": [
+    30,
+    8
+   ],
+   "use": "A 얼음 창: 길쭉한 창 탄(오른쪽을 향함)"
+  },
+  "ice_spike": {
+   "path": "ice_spike_48x64_f8.png",
+   "size": [
+    48,
+    64
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     48,
+     64
+    ],
+    [
+     48,
+     0,
+     48,
+     64
+    ],
+    [
+     96,
+     0,
+     48,
+     64
+    ],
+    [
+     144,
+     0,
+     48,
+     64
+    ],
+    [
+     192,
+     0,
+     48,
+     64
+    ],
+    [
+     240,
+     0,
+     48,
+     64
+    ],
+    [
+     288,
+     0,
+     48,
+     64
+    ],
+    [
+     336,
+     0,
+     48,
+     64
+    ]
+   ],
+   "fps": 12,
+   "loop": false,
+   "pivot": [
+    24,
+    58
+   ],
+   "clips": {
+    "rise": [
+     0,
+     2
+    ],
+    "hold": [
+     2,
+     4
+    ],
+    "break": [
+     5,
+     7
+    ]
+   },
+   "use": "K 얼음 병풍 강화: 땅에서 줄지어 솟는 얼음 가시(솟음 0-2, 유지 2-4, 깨짐 5-7)"
+  },
+  "icicle": {
+   "path": "icicle_16x48_f2.png",
+   "size": [
+    16,
+    48
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     16,
+     48
+    ],
+    [
+     16,
+     0,
+     16,
+     48
+    ]
+   ],
+   "fps": 10,
+   "loop": true,
+   "pivot": [
+    8,
+    42
+   ],
+   "use": "C 고드름 낙하: 떨어지는 고드름(아래 끝이 착지점)"
+  },
+  "icicle_marker": {
+   "path": "icicle_marker_48x24_f4.png",
+   "size": [
+    48,
+    24
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     48,
+     24
+    ],
+    [
+     48,
+     0,
+     48,
+     24
+    ],
+    [
+     96,
+     0,
+     48,
+     24
+    ],
+    [
+     144,
+     0,
+     48,
+     24
+    ]
+   ],
+   "fps": 8,
+   "loop": true,
+   "pivot": [
+    24,
+    12
+   ],
+   "use": "C 고드름 낙하 예고 원(바닥, 플레이어 쪽 얼음색)"
+  }
+ }
+}

@@ -44,6 +44,15 @@ namespace Wizard.Solo.Sim.Run
             if (cfg.KnownAffinities != null)
                 for (int i = 0; i < cfg.KnownAffinities.Count; i++) run.AffinityKnown.Add(cfg.KnownAffinities[i]);
 
+            // 기본 공격 유형(Docs/12-attack-styles.md 1절): 출발 조립의 코어가 공통 시작 블록(마력탄)이면 고른 유형의 핵 블록으로 바꾼다.
+            // 튜토리얼 판은 손잡이가 켜져 있으면 A 유형. 판 설정 객체의 조립은 사본으로 갈아 끼운다(같은 설정으로 다시 열어도 같은 결과).
+            string style = AttackStyles.EffectiveStyle(w.Content, cfg);
+            if (style != null)
+            {
+                cfg.AttackStyle = style;
+                cfg.Loadout = AttackStyles.ApplyToLoadout(w.Content, cfg.Loadout, style);
+            }
+
             // 솔로는 슬롯 0만 선다. 나머지 코드는 Active인 플레이어를 전부 돈다.
             var p0 = w.Players[0];
             p0.Active = true;

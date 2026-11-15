@@ -253,6 +253,18 @@ namespace Wizard.Solo.Sim
         public int StaggerUntilTick;
         public int StunUntilTick;
         public int ThinIceCount;
+        // 기본 공격 유형의 누적 상태(주인 Spells — 피해 적용과 같은 모듈. Docs/12-attack-styles.md 2절)
+        /// <summary>화상 겹 수(0 = 없음), 끝 틱, 다음 화상 틱, 한 겹이 한 번에 주는 피해(속성·잠식·적 쪽 조정 전), 건 플레이어.</summary>
+        public int BurnStacks;
+        public int BurnUntilTick;
+        public int BurnNextTick;
+        public float BurnPerStack;
+        public int BurnOwnerSlot = -1;
+        /// <summary>화상 한 번 사이의 틱(건 유형의 burn_interval_seconds).</summary>
+        public int BurnIntervalTicks;
+        /// <summary>냉기 누적(눈보라) 겹 수와 끝 틱. 정해진 겹에 이르면 빙결하고 0으로.</summary>
+        public int ChillStacks;
+        public int ChillUntilTick;
         /// <summary>북두꺼비 버프를 받고 있다.</summary>
         public bool DrumBuffed;
 
@@ -350,6 +362,43 @@ namespace Wizard.Solo.Sim
         /// <summary>강화 × (1 + 변형 보너스) × 변이 × 임계 × 비기 × 감쇠 × 캐릭터 × 보전까지 곱한 값(기본 피해·속성·대상 상태 제외).</summary>
         public float DamageMul;
         public ShotHitEffect HitEffect;
+        // ---- 기본 공격 유형(핵 블록 Block.Style != null)의 상태. 주인 Spells. Docs/12-attack-styles.md 2절.
+        /// <summary>단계(포탄: 0 날기 · 1 불바닥 / 룬: 0 대기 / 그 밖 0).</summary>
+        public int StylePhase;
+        /// <summary>떨어질 자리·지뢰 자리·낙뢰 자리.</summary>
+        public Vector2 TargetPos;
+        /// <summary>출발점(포탄 포물선, 부채꼴 원점, 고드름 줄의 시작).</summary>
+        public Vector2 Origin;
+        /// <summary>부채꼴·고드름 줄의 방향(단위).</summary>
+        public Vector2 AimDir;
+        /// <summary>다음 사건 틱(착탄, 화상 틱, 번개 지짐, 다음 고드름).</summary>
+        public int TimerTick;
+        /// <summary>끝나는 틱(불바닥, 지뢰 자동 폭발).</summary>
+        public int EndTick;
+        /// <summary>지뢰가 무장되는 틱.</summary>
+        public int ArmTick;
+        /// <summary>부채꼴 휩쓴 틱 수, 다음 고드름 번호.</summary>
+        public int StepIndex;
+        /// <summary>고드름 개수(튕김이 늘린다).</summary>
+        public int StepCount;
+        /// <summary>이번 발동(폭발 하나·부채꼴 하나·탄의 한 다리)에서 이미 맞힌 적 수. 둘째부터 extra_target_mul.</summary>
+        public int StyleHits;
+        /// <summary>남은 적 사이 튕김(튀는 불씨).</summary>
+        public int RicochetsLeft;
+        /// <summary>책장: 아직 덜 꺾은 각(도, 부호 = 꺾는 쪽).</summary>
+        public float CurveLeftDegrees;
+        /// <summary>범위 배율(크기 변형 ×2^n, 상한까지): 폭발·부채꼴·지짐·지뢰 반경에 곱한다.</summary>
+        public float AreaScale = 1f;
+        /// <summary>사거리 덤(칸, 책 던지기의 튕김).</summary>
+        public float RangeBonus;
+        /// <summary>눈알 추적탄의 세대(0 = 처음 탄).</summary>
+        public int Generation;
+        /// <summary>쫓는 적 id(포탄 추적·추적탄). -1 = 없음.</summary>
+        public int TargetEnemyId = -1;
+        /// <summary>이 탄이 콤보 덤을 이미 줬다(발사 1회에 한 번).</summary>
+        public bool ComboBonusGiven;
+        /// <summary>끝 처리(얼음 창 파편)를 이미 했거나 하지 않는다(웨이브 끝 지우기).</summary>
+        public bool StyleEnded;
         public bool Dead;
     }
 

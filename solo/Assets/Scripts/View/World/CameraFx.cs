@@ -31,6 +31,35 @@ namespace Wizard.Solo.View
             if (Director != null) Director.AddPunch(amount);
         }
 
+        // ---- 방향 흔들림(내리침·착탄의 "쿵"): 화면 내용이 viewDir 쪽으로 한 번 밀렸다가 감쇠 진동으로 돌아온다.
+        // 세기는 그림 px(64px = 1칸). 호스트가 연출 감도·흔들림 배율을 곱하고 한도(ShakeAccumulator.MaxAmplitudePx)로 자른다.
+        Vector2 _kickDir;
+        float _kickPx, _kickAge = 10f, _kickDecay = 16f, _kickFreq = 38f;
+
+        /// <summary>방향 흔들림. viewDir = 화면 내용이 밀리는 쪽(화면 좌표, 정규화하지 않아도 된다). 지금 남은 것보다 세면 바꾼다.</summary>
+        public void Kick(Vector2 viewDir, float px, float decayPerSecond = 16f, float frequency = 38f)
+        {
+            if (float.IsNaN(px) || px <= 0f || viewDir.sqrMagnitude < 1e-6f) return;
+            if (px < KickRemainingPx) return;
+            _kickDir = viewDir.normalized;
+            _kickPx = px;
+            _kickAge = 0f;
+            _kickDecay = decayPerSecond > 0f ? decayPerSecond : 16f;
+            _kickFreq = frequency > 0f ? frequency : 38f;
+        }
+
+        public float KickRemainingPx => _kickPx * Mathf.Exp(-_kickAge * _kickDecay);
+
+        /// <summary>호스트가 매 프레임 부른다(실제 초). 카메라에 더할 자리 옮김(그림 px, 화면 좌표) — 내용이 밀리는 쪽의 반대로 카메라가 간다.</summary>
+        public Vector2 TickKick(float dt)
+        {
+            if (_kickPx <= 0f) return Vector2.zero;
+            _kickAge += Mathf.Max(0f, dt);
+            float env = Mathf.Exp(-_kickAge * _kickDecay);
+            if (env < 0.02f) { _kickPx = 0f; return Vector2.zero; }
+            return -_kickDir * (_kickPx * env * Mathf.Cos(_kickAge * _kickFreq));
+        }
+
         /// <summary>seconds 동안 따라가는 점을 focus 쪽으로 weight(0~1)만큼 당긴다.</summary>
         public void Focus(Vector2 viewPoint, float weight, float seconds)
         {
@@ -48,7 +77,7 @@ namespace Wizard.Solo.View
             return FocusWeight;
         }
 
-        public void ClearFocus() { _focusLeft = 0f; FocusWeight = 0f; TimeScale = 1f; ZoomHold = 1f; ClampSlack = 0f; }
+        public void ClearFocus() { _focusLeft = 0f; FocusWeight = 0f; TimeScale = 1f; ZoomHold = 1f; ClampSlack = 0f; _kickPx = 0f; }
 
         /// <summary>카메라가 전장 경계 밖으로 더 갈 수 있는 거리(칸). 쓰러짐 연출이 구석의 캐릭터를 가운데로 데려올 때.</summary>
         public float ClampSlack { get; private set; }

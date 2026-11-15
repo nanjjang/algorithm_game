@@ -135,7 +135,8 @@ namespace Wizard.Solo.Sim.Spells
             // 표준 T의 바탕(D-07): 루트 스코프만, 분열 반영, 거울상 제외.
             var root = scopes[0];
             float baseSum = 0f;
-            for (int i = 0; i < root.Projectiles.Count; i++) baseSum += root.Projectiles[i].Block.BaseDamage * root.Projectiles[i].DamageScale;
+            // 기본 공격 유형의 핵은 standard_t_base(마력탄과 같은 비기 단위)로 센다(Docs/12-attack-styles.md 2.1절).
+            for (int i = 0; i < root.Projectiles.Count; i++) baseSum += TBaseOf(root.Projectiles[i].Block) * root.Projectiles[i].DamageScale;
             spell.StandardTBase = baseSum * root.SplitCount * (1f + root.Mods.DamageBonusSum);
 
             SortDiagnostics(diags);
@@ -164,9 +165,19 @@ namespace Wizard.Solo.Sim.Spells
             return 0;
         }
 
-        /// <summary>그 변형이 그 투사체에 효과가 있나(03 요약서 4.6절 W_NO_EFFECT 표).</summary>
+        /// <summary>표준 T 바탕에 넣는 블록 피해: 기본 공격 유형이면 standard_t_base(0이면 기본 피해).</summary>
+        public static float TBaseOf(BlockDef b)
+        {
+            if (b == null) return 0f;
+            if (b.Style != null && b.Style.StandardTBase > 0f) return b.Style.StandardTBase;
+            return b.BaseDamage;
+        }
+
+        /// <summary>그 변형이 그 투사체에 효과가 있나(03 요약서 4.6절 W_NO_EFFECT 표).
+        /// 기본 공격 유형의 핵은 관통·튕김·유도를 저마다의 뜻으로 받는다(Docs/12-attack-styles.md 2.2절) → 언제나 효과 있음.</summary>
         public static bool ModifierAffects(BlockDef modifier, BlockDef projectile)
         {
+            if (projectile != null && projectile.Style != null) return true;
             switch (modifier.Effect)
             {
                 case Ids.BlockEffect.Pierce:

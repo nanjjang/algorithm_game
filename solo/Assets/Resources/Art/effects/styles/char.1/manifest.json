@@ -1,0 +1,277 @@
+{
+ "notes": {
+  "origin": "top-left",
+  "filter": "point",
+  "mipmaps": false,
+  "pixelsPerUnit": 64,
+  "built_by": "solo/Tools/godot-fx/bake.sh (styles.py, compose.py, manifest.py)",
+  "pivot": "pivot = 프레임 왼쪽 위 기준 픽셀 좌표",
+  "reuse": [
+   "C 튀는 불씨 탄 = supplement/solo/char.1/kiln_ember_16x16_f2.png (또는 effects/special/kiln_ember_8x8_f2_v2.png)",
+   "C 튕김 불티 = effects/player/hit_fire_32x32_f3_v2.png, 꼬리 = effects/wand/trail_fire_32x16_f4_v2.png",
+   "K 땅 내리침 = styles/common ground_slam + ground_crack + debris_burst + dust_skirt"
+  ]
+ },
+ "styles.char.1": {
+  "fire_floor": {
+   "path": "fire_floor_64x32_f6.png",
+   "size": [
+    64,
+    32
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     64,
+     32
+    ],
+    [
+     64,
+     0,
+     64,
+     32
+    ],
+    [
+     128,
+     0,
+     64,
+     32
+    ],
+    [
+     192,
+     0,
+     64,
+     32
+    ],
+    [
+     256,
+     0,
+     64,
+     32
+    ],
+    [
+     320,
+     0,
+     64,
+     32
+    ]
+   ],
+   "fps": 10,
+   "loop": true,
+   "pivot": [
+    32,
+    22
+   ],
+   "use": "A 화로 포탄 불바닥(착탄 자리에 남는 반복)"
+  },
+  "fire_pillar": {
+   "path": "fire_pillar_48x128_f8.png",
+   "size": [
+    48,
+    128
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     48,
+     128
+    ],
+    [
+     48,
+     0,
+     48,
+     128
+    ],
+    [
+     96,
+     0,
+     48,
+     128
+    ],
+    [
+     144,
+     0,
+     48,
+     128
+    ],
+    [
+     192,
+     0,
+     48,
+     128
+    ],
+    [
+     240,
+     0,
+     48,
+     128
+    ],
+    [
+     288,
+     0,
+     48,
+     128
+    ],
+    [
+     336,
+     0,
+     48,
+     128
+    ]
+   ],
+   "fps": 14,
+   "loop": false,
+   "pivot": [
+    24,
+    120
+   ],
+   "use": "K 불가마 강화: 바깥으로 연달아 솟는 불기둥(바닥 기준, 하나씩 시간차로 놓는다)"
+  },
+  "flame_jet": {
+   "path": "flame_jet_96x48_f6.png",
+   "size": [
+    96,
+    48
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     96,
+     48
+    ],
+    [
+     96,
+     0,
+     96,
+     48
+    ],
+    [
+     192,
+     0,
+     96,
+     48
+    ],
+    [
+     288,
+     0,
+     96,
+     48
+    ],
+    [
+     384,
+     0,
+     96,
+     48
+    ],
+    [
+     480,
+     0,
+     96,
+     48
+    ]
+   ],
+   "fps": 14,
+   "loop": true,
+   "pivot": [
+    5,
+    24
+   ],
+   "use": "B 불꽃 방사: 짧은 부채꼴 화염 줄기(왼쪽 끝 = 지팡이 끝, 오른쪽으로 분사)"
+  },
+  "mortar_blast": {
+   "path": "mortar_blast_96x96_f6.png",
+   "size": [
+    96,
+    96
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     96,
+     96
+    ],
+    [
+     96,
+     0,
+     96,
+     96
+    ],
+    [
+     192,
+     0,
+     96,
+     96
+    ],
+    [
+     288,
+     0,
+     96,
+     96
+    ],
+    [
+     384,
+     0,
+     96,
+     96
+    ],
+    [
+     480,
+     0,
+     96,
+     96
+    ]
+   ],
+   "fps": 16,
+   "loop": false,
+   "pivot": [
+    48,
+    48
+   ],
+   "use": "A 화로 포탄 착탄 폭발"
+  },
+  "mortar_shell": {
+   "path": "mortar_shell_32x32_f4.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     32,
+     32
+    ],
+    [
+     32,
+     0,
+     32,
+     32
+    ],
+    [
+     64,
+     0,
+     32,
+     32
+    ],
+    [
+     96,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 12,
+   "loop": true,
+   "pivot": [
+    22,
+    16
+   ],
+   "use": "A 화로 포탄: 포물선으로 나는 불덩이 탄(오른쪽으로 날아감, 진행 방향으로 회전)"
+  }
+ }
+}

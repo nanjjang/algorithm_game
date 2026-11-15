@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 using Wizard.Solo.Sim;
 
 namespace Wizard.Solo.View.Effects
@@ -71,10 +72,46 @@ namespace Wizard.Solo.View.Effects
             if (_sound != null) _sound.SetMusic(track);
         }
 
-        public void Render(SimWorld w, float alpha, float dt) { }
+        // ---- 기본 공격 유형의 반복음(불꽃 방사·눈보라·번개 구체 — G16 sound.style_loops): 그 블록 탄이 살아 있는 동안 슬롯마다 하나.
+        Dictionary<string, string> _loopEvents;
+        readonly Dictionary<string, float> _loopSeen = new Dictionary<string, float>();
+        readonly List<string> _loopStop = new List<string>();
+        float _loopClock;
+
+        public void Render(SimWorld w, float alpha, float dt)
+        {
+            if (w == null || _data == null) return;
+            if (_loopEvents == null) _loopEvents = _data.Tuning.StringMap("sound", "style_loops") ?? new Dictionary<string, string>();
+            if (_loopEvents.Count == 0) return;
+            _loopClock += Mathf.Max(dt, 1e-4f);
+            for (int i = 0; i < w.Projectiles.Count; i++)
+            {
+                var p = w.Projectiles[i];
+                if (p.Dead || p.Block == null) continue;
+                string ev;
+                if (!_loopEvents.TryGetValue(p.Block.Id, out ev)) continue;
+                string key = ev + "#" + p.OwnerSlot;
+                if (!_loopSeen.ContainsKey(key) && _sound != null) _sound.StartLoop(key, ev, SoundBus.Sfx);
+                _loopSeen[key] = _loopClock;
+            }
+            float grace = _data.Tuning.F("sound", "style_loop_grace_seconds");
+            if (grace <= 0f) grace = 0.15f;
+            _loopStop.Clear();
+            foreach (var kv in _loopSeen) if (_loopClock - kv.Value > grace) _loopStop.Add(kv.Key);
+            for (int i = 0; i < _loopStop.Count; i++)
+            {
+                if (_sound != null) _sound.StopLoop(_loopStop[i]);
+                _loopSeen.Remove(_loopStop[i]);
+            }
+        }
+
+        /// <summary>테스트: 지금 도는 유형 반복음 열쇠 수.</summary>
+        public int StyleLoopCount => _loopSeen.Count;
 
         public void Dispose()
         {
+            if (_sound != null) foreach (var kv in _loopSeen) _sound.StopLoop(kv.Key);
+            _loopSeen.Clear();
             _cues.Clear();
             _sound = null;
         }

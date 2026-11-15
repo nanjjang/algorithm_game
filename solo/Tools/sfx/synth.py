@@ -39,6 +39,7 @@ TARGET = {
     "drop": -19.0, "wave": -17.0,
     "enh_small": -21.0, "enh": -16.0, "enh_big": -12.0, "theme": -14.0,
     "loop": -30.0,
+    "style_loop": -21.0,
 }
 
 SOUNDS = []
@@ -1820,6 +1821,274 @@ def _(r):
     m.add(bell(note_hz("D4"), 1.6, r, tau=1.0, bright=0.8), at=0.0, gain=0.5)
     m.add(_idle_hum(r, 1.2) * env_points(1.2, [(0, 0), (0.2, 1), (1.2, 0)]), at=0.9, gain=0.7)
     return fit(reverb(m.out(), r, t60=1.2, wet=0.25), n_of(d))
+
+
+# ================================================================== 기본 공격 유형 15종·고유 비기 강화(Docs/12-attack-styles.md)
+# 공용 폴더 sty_* — 배치는 DataSolo/Audio.json common.events(style.*, heat.shot_block.core.*). 분류 음량은 위 표 그대로:
+# 발사 fire(−17), 착탄·깨짐 hit(−16), 큰 폭발·낙뢰·비기 절정 big(−12), 비기 단계 art(−15), 반복음 style_loop(−21 — 발사 중 이어지는 소리라
+# 대기 반복음(−30)보다 크고 발사음(−17)보다 작다).
+
+@snd("common", "sty_mortar_launch", "fire")          # 화로 포탄 발사 "퉁" — 통 안에서 쏘아 올리는 둔한 소리 + 짧은 불티
+def _(r):
+    d = 0.22
+    y = thump(150, 62, d, 0.06, click=0.6, r=r) * 1.2
+    y += whoosh(r, d, 500, 1600, q=1.2, peak_at=0.3) * 0.5
+    y += crackle(r, d, 90, lo=2500, hi=8000, amp_env=env_exp(d, 0.05)) * 0.35
+    return filt(drive(y, 1.6), hi=6000)
+
+
+@snd("common", "sty_mortar_boom", "big")             # 포탄 착탄 "쿵" — 묵직한 폭발 + 흙 튐
+def _(r):
+    m = Mix()
+    m.add(explosion(r, 0.5, 0.35), gain=1.0)
+    m.add(thump(80, 38, 0.4, 0.12), gain=0.8)
+    m.add(grains(r, 0.3, 140, glen=0.01, lo=1200, hi=5000, amp_env=env_exp(0.3, 0.08)), at=0.02, gain=0.35)
+    return fit(m.out(), n_of(0.55))
+
+
+@snd("common", "sty_floor_sizzle", "hit")            # 불바닥 "지글" — 불붙는 순간 + 1초 지글거림
+def _(r):
+    d = 1.0
+    e = env_points(d, [(0, 0), (0.03, 1), (0.25, 0.55), (0.8, 0.4), (d, 0)])
+    y = sizzle(r, d, rate=520, env=e) * 0.9
+    y += filt(noise(r, d), lo=300, hi=1400) * e * 0.25
+    y = S(y, whoosh(r, 0.18, 400, 2200, q=1.0, peak_at=0.2) * 0.6)
+    return y
+
+
+def _flame_loop(r, d):
+    x = noise(r, d)
+    t = t_of(d)
+    c = 1100 * (1 + 0.35 * np.sin(2 * np.pi * 3.1 * t) + 0.2 * np.sin(2 * np.pi * 7.3 * t + 1))
+    roar = sweep_bp(x, c, q=0.8)
+    low = filt(noise(r, d), lo=90, hi=420) * (1 + 0.4 * np.sin(2 * np.pi * 11 * t))
+    cr = crackle(r, d, 160, lo=2500, hi=9000, decay=0.001)
+    return roar + low * 0.7 + cr * 0.4
+
+
+@snd("common", "sty_flame_loop", "style_loop", loop=True)   # 불꽃 방사 "화르르" 반복(쏘는 동안)
+def _(r):
+    return make_loop(_flame_loop, r, 1.2)
+
+
+@snd("common", "sty_chain_zap", "fire")              # 사슬 번개 "찌직" — 짧고 날카로운 전기 + 탁 튀는 끝
+def _(r):
+    y = zap(r, 0.16, 1.25) * 1.2
+    y += crackle(r, 0.16, 1200, lo=4000, hi=13000, decay=0.0004, amp_env=env_exp(0.16, 0.05)) * 0.8
+    y += puff(r, 0.16, 5000, 14000, 0.0003, 0.008) * 0.5
+    return y
+
+
+def _orb_hum(r, d):
+    t = t_of(d)
+    f = 110 * (1 + 0.01 * np.sin(2 * np.pi * 0.8333 * t))
+    hum = saw(f, d, bright=18) * 0.35 + sine(f * 2, d) * 0.3 + sine(f * 3.01, d) * 0.12
+    hum = filt(hum, lo=80, hi=1800) * (1 + 0.25 * np.sin(2 * np.pi * 6.6667 * t))
+    fizz = crackle(r, d, 70, lo=3000, hi=11000, decay=0.0006) * 0.5
+    return hum + fizz
+
+
+@snd("common", "sty_orb_hum", "style_loop", loop=True)      # 번개 구체 "웅웅" 반복
+def _(r):
+    return make_loop(_orb_hum, r, 1.2)
+
+
+@snd("common", "sty_strike_charge", "fire")          # 낙뢰 예고 — 하늘이 찌릿 모이는 짧은 오르막
+def _(r):
+    d = 0.3
+    y = sweep_bp(noise(r, d), ramp(d, 1500, 7000), q=3.0) * env_points(d, [(0, 0), (0.25, 1), (d, 0.2)])
+    y += crackle(r, d, 400, lo=4000, hi=12000, decay=0.0005, amp_env=ramp(d, 0.1, 1.0, "lin")) * 0.6
+    y += sine(ramp(d, 600, 1400), d) * env_ar(d, 0.2, 0.08) * 0.1
+    return y
+
+
+@snd("common", "sty_thunder_crack", "big")           # 낙뢰 "콰광" — 날카로운 갈라짐 + 낮은 우르릉
+def _(r):
+    m = Mix()
+    crack = filt(noise(r, 0.08), lo=1500, hi=14000) * env_exp(0.08, 0.012, 0.0002)
+    m.add(crack, gain=1.2)
+    m.add(zap(r, 0.12, 1.4), gain=0.8)
+    m.add(thump(120, 40, 0.6, 0.18), at=0.01, gain=0.9)
+    rum = filt(noise(r, 0.7), lo=40, hi=380) * env_points(0.7, [(0, 0), (0.05, 1), (0.7, 0)]) ** 1.5
+    m.add(rum, at=0.03, gain=0.9)
+    y = reverb(drive(m.out(), 1.8), r, t60=0.6, wet=0.22, damp=4000)
+    return fit(y, n_of(0.75))
+
+
+@snd("common", "sty_page_flutter", "fire")           # 책장 날리기 발사 "펄럭" — 종이 세 장이 차례로
+def _(r):
+    m = Mix()
+    for i in range(3):
+        m.add(page_flip(r, 0.1, True) * (1 - 0.15 * i), at=i * 0.035)
+    m.add(whoosh(r, 0.16, 2500, 6000, q=1.4, peak_at=0.3), gain=0.4)
+    return m.out()
+
+
+@snd("common", "sty_rune_etch", "fire")              # 룬 각인 — 바닥에 문양이 새겨지는 긁힘 + 맑은 울림
+def _(r):
+    d = 0.24
+    scr = sweep_bp(noise(r, d), ramp(d, 2500, 5500), q=4.0) * env_points(d, [(0, 0), (0.02, 1), (0.14, 0.6), (d, 0)])
+    m = Mix().add(scr * 0.9)
+    m.add(chime(note_hz("E6"), 0.2, r, tau=0.08), at=0.05, gain=0.45)
+    m.add(thump(320, 160, 0.06, 0.015), gain=0.4)
+    return m.out()
+
+
+@snd("common", "sty_rune_arm", "heat")               # 룬 무장 — 짧은 두 음 반짝
+def _(r):
+    m = Mix()
+    m.add(chime(note_hz("B6"), 0.12, r, tau=0.05), gain=0.7)
+    m.add(chime(note_hz("E7"), 0.12, r, tau=0.05), at=0.05, gain=0.6)
+    return m.out()
+
+
+@snd("common", "sty_rune_burst", "big")              # 룬 폭발 — 마력 펑 + 유리 같은 잔향
+def _(r):
+    m = Mix()
+    m.add(explosion(r, 0.35, 0.0), gain=0.8)
+    m.add(fm(ramp(0.3, 900, 260), 1.5, env_exp(0.3, 0.06) * 3.0, 0.3) * env_exp(0.3, 0.09), gain=0.5)
+    m.add(chime(note_hz("A6"), 0.4, r, tau=0.12), at=0.02, gain=0.35)
+    return fit(reverb(m.out(), r, t60=0.4, wet=0.2), n_of(0.45))
+
+
+@snd("common", "sty_ice_spear", "fire")              # 얼음 창 발사 "쨍" — 높은 금속성 울림 + 바람 가르기
+def _(r):
+    f0 = 2400
+    y = modal([f0, f0 * 1.51, f0 * 2.37, f0 * 3.3], [1.0, 0.6, 0.35, 0.2], [0.12, 0.08, 0.05, 0.03], 0.25, r)
+    return S(y, whoosh(r, 0.18, 3000, 9000, q=1.6, peak_at=0.15) * 0.5, thump(500, 240, 0.05, 0.012) * 0.3)
+
+
+@snd("common", "sty_ice_shards", "hit")              # 얼음 창 깨짐(3갈래 파편)
+def _(r):
+    return S(glass_shatter(r, 0.3, density=50, lo=3000, hi=11000, tau=0.06), hit_punch(r, 1.25, 0.08) * 0.4)
+
+
+def _blizzard_loop(r, d):
+    t = t_of(d)
+    c = 2600 * (1 + 0.3 * np.sin(2 * np.pi * 1.6667 * t) + 0.15 * np.sin(2 * np.pi * 4.1667 * t + 2))
+    wind = sweep_bp(noise(r, d), c, q=1.1)
+    hiss = filt(noise(r, d), lo=6000, hi=13000) * 0.35
+    tinkle = grains(r, d, 30, glen=0.01, lo=5000, hi=10000) * 0.4
+    return wind + hiss + tinkle
+
+
+@snd("common", "sty_blizzard_loop", "style_loop", loop=True)  # 눈보라 "쉬이익" 반복
+def _(r):
+    return make_loop(_blizzard_loop, r, 1.2)
+
+
+@snd("common", "sty_icicle_whistle", "fire")         # 고드름 떨어지는 "휙"(내려가는 바람 소리)
+def _(r):
+    d = 0.32
+    y = whoosh(r, d, 7000, 1800, q=3.0, peak_at=0.75) * 1.1
+    y += sine(ramp(d, 2200, 900), d) * env_points(d, [(0, 0), (0.25, 0.25), (d, 0)]) * 0.12
+    return y
+
+
+@snd("common", "sty_icicle_land", "hit")             # 고드름 착지 "쨍" — 꽂히며 깨짐
+def _(r):
+    f0 = 3100 * r.uniform(0.95, 1.05)
+    y = modal([f0, f0 * 1.63, f0 * 2.4], [1.0, 0.5, 0.3], [0.06, 0.04, 0.025], 0.15, r)
+    return S(y, glass_shatter(r, 0.16, density=40, lo=3500, hi=11000, tau=0.03) * 0.7, thump(300, 120, 0.06, 0.015) * 0.5)
+
+
+@snd("common", "sty_wave_woom", "fire")              # 그림자 파동 "우웅" — 낮게 부풀어 퍼지는 어둠
+def _(r):
+    d = 0.42
+    f = ramp(d, 70, 140)
+    y = fm(f, 0.5, env_points(d, [(0, 0.5), (0.15, 3.0), (d, 0.5)]), d) * env_points(d, [(0, 0), (0.08, 1), (d, 0)]) ** 1.2
+    y += sweep_bp(noise(r, d), ramp(d, 300, 1400), q=1.5) * env_points(d, [(0, 0), (0.15, 1), (d, 0)]) * 0.6
+    return filt(drive(y, 1.6), hi=3500)
+
+
+@snd("common", "sty_scythe_swish", "fire")           # 그림자 낫 "휙" — 크게 베는 바람 + 금속 스침
+def _(r):
+    d = 0.2
+    y = whoosh(r, d, 900, 4500, q=2.2, peak_at=0.45) * 1.2
+    y += sweep_bp(noise(r, d), ramp(d, 5000, 9000), q=6) * env_points(d, [(0, 0), (0.1, 1), (d, 0)]) * 0.35
+    return S(y, metal(1700, d, r, tau=0.04) * 0.12)
+
+
+@snd("common", "sty_eye_blink", "fire")              # 눈알 추적탄 "깜빡" — 축축한 눈꺼풀 + 낮은 웅
+def _(r):
+    d = 0.16
+    lid = filt(noise(r, 0.03), lo=800, hi=3000) * env_exp(0.03, 0.006)
+    m = Mix().add(lid, gain=0.9)
+    m.add(filt(noise(r, 0.03), lo=900, hi=2800) * env_exp(0.03, 0.005), at=0.06, gain=0.7)
+    m.add(fm(ramp(d, 260, 180), 0.5, env_exp(d, 0.05) * 2.0, d) * env_exp(d, 0.06), gain=0.6)
+    return m.out()
+
+
+@snd("common", "sty_eye_split", "hit")               # 눈알이 갈라짐 — 축축하게 툭 + 두 갈래 휙
+def _(r):
+    m = Mix()
+    m.add(thump(240, 90, 0.12, 0.03) * 0.8)
+    m.add(filt(noise(r, 0.06), lo=500, hi=2500) * env_exp(0.06, 0.012), gain=0.7)
+    m.add(whoosh(r, 0.12, 1200, 3500, q=2.0, peak_at=0.3), at=0.03, gain=0.5)
+    m.add(whoosh(r, 0.12, 1400, 4000, q=2.0, peak_at=0.3), at=0.05, gain=0.4)
+    return m.out()
+
+
+@snd("common", "sty_slam_boom", "big")               # 비기: 땅 내리침 "쿵" + 땅이 솟는 우르릉
+def _(r):
+    m = Mix()
+    m.add(thump(90, 30, 0.7, 0.2, click=1.0, r=r), gain=1.3)
+    m.add(explosion(r, 0.6, 0.8), gain=0.7)
+    rum = filt(noise(r, 0.9), lo=35, hi=260) * env_points(0.9, [(0, 0), (0.05, 1), (0.35, 0.7), (0.9, 0)])
+    m.add(rum, at=0.02, gain=1.0)
+    m.add(grains(r, 0.5, 220, glen=0.012, lo=900, hi=4500, amp_env=env_exp(0.5, 0.15)), at=0.06, gain=0.5)
+    return fit(reverb(m.out(), r, t60=0.6, wet=0.2, damp=3000), n_of(1.0))
+
+
+@snd("common", "sty_pillar_rise", "art")             # 불기둥 고리 "화악" — 솟구치는 불
+def _(r):
+    d = 0.4
+    y = whoosh(r, d, 300, 3500, q=0.9, peak_at=0.3) * 1.2
+    y += crackle(r, d, 300, lo=2000, hi=9000, amp_env=env_exp(d, 0.15)) * 0.5
+    y += thump(130, 60, d, 0.08) * 0.6
+    return drive(y, 1.5)
+
+
+@snd("common", "sty_book_riffle", "art")             # 베껴 쓰기 "촤라락" — 책장이 빠르게 넘어간다
+def _(r):
+    d = 0.6
+    m = Mix()
+    k = 16
+    for i in range(k):
+        at = d * 0.8 * (i / k) ** 0.8
+        m.add(page_flip(r, 0.07, (i & 1) == 0) * (0.6 + 0.4 * r.uniform()), at=at, gain=1.0 - 0.4 * i / k)
+    m.add(whoosh(r, d, 1500, 5000, q=1.0, peak_at=0.4), gain=0.35)
+    m.add(thump(220, 120, 0.12, 0.03), at=0.0, gain=0.5)
+    return fit(m.out(), n_of(d))
+
+
+@snd("common", "sty_page_swirl", "art")              # 소용돌이 맥박 — 종이가 빙글 빨려 드는 짧은 휘익
+def _(r):
+    d = 0.3
+    e = env_points(d, [(0, 0), (0.1, 1), (d, 0)])
+    y = sweep_bp(noise(r, d), ramp(d, 5000, 1800), q=2.0) * e
+    y *= 1 + 0.4 * np.sin(2 * np.pi * 26 * t_of(d))
+    return S(y, grains(r, d, 60, glen=0.015, lo=2000, hi=6000, amp_env=e) * 0.5)
+
+
+@snd("common", "sty_spike_crunch", "art")            # 얼음 가시 솟음 "콰직"
+def _(r):
+    m = Mix()
+    m.add(thump(200, 80, 0.15, 0.04, click=0.8, r=r), gain=0.9)
+    m.add(glass_shatter(r, 0.25, density=70, lo=2000, hi=9000, tau=0.05), gain=0.9)
+    m.add(grains(r, 0.15, 400, glen=0.006, lo=1500, hi=6000, amp_env=env_exp(0.15, 0.04)), gain=0.6)
+    return m.out()
+
+
+@snd("common", "sty_hand_crush", "big")              # 그림자 손 짓누름 "쾅" — 무겁게 내려찍음 + 어둠 울림
+def _(r):
+    m = Mix()
+    m.add(thump(75, 28, 0.8, 0.22, click=1.2, r=r), gain=1.4)
+    m.add(explosion(r, 0.6, 1.0), gain=0.6)
+    m.add(fm(ramp(0.8, 90, 55), 0.5, env_exp(0.8, 0.3) * 2.5, 0.8) * env_exp(0.8, 0.3), gain=0.5)
+    m.add(filt(noise(r, 0.3), lo=300, hi=1500) * env_exp(0.3, 0.05), gain=0.4)
+    return fit(reverb(m.out(), r, t60=0.8, wet=0.25, damp=2500), n_of(1.0))
+
 
 
 # ================================================================== 쓰기·그림

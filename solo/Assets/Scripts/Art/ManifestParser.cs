@@ -257,7 +257,14 @@ namespace Wizard.Solo.Art
         // ---------- effects ----------
 
         /// <summary>effects/manifest.json. 묶음 7개(notes 제외). pathPrefix는 Path 앞에 붙인다(Resources/Art 기준 폴더, 예 "effects/").</summary>
-        public static EffectManifest ParseEffects(string json, string pathPrefix = "")
+        public static EffectManifest ParseEffects(string json, string pathPrefix = "") => ParseEffects(json, pathPrefix, false);
+
+        /// <summary>
+        /// readPivot = 항목의 "pivot"(프레임 왼쪽 위 기준 px)을 기준점으로 쓴다(기본 공격 유형 그림 effects/styles/*, Tools/godot-fx).
+        /// 기존 효과 묶음은 pivot 칸이 있어도 가운데 기준으로 그려 왔으므로 false로 둔다(그림이 옮겨지지 않게).
+        /// "clips"(이름 → [처음, 끝] 프레임)는 늘 읽는다.
+        /// </summary>
+        public static EffectManifest ParseEffects(string json, string pathPrefix, bool readPivot)
         {
             var root = JObject.Parse(json);
             var m = new EffectManifest();
@@ -281,6 +288,20 @@ namespace Wizard.Solo.Art
                         PixelScale = PixelScaleOf(e["pixelScale"]),
                         Raw = e
                     };
+                    if (readPivot && HasPoint(e["pivot"]))
+                    {
+                        ee.HasPivot = true;
+                        ee.Pivot = Point(e["pivot"]);
+                    }
+                    if (e["clips"] is JObject clips)
+                    {
+                        ee.Clips = new Dictionary<string, int[]>();
+                        foreach (var cp in clips.Properties())
+                        {
+                            var range = IntArray(cp.Value);
+                            if (range != null && range.Length >= 2) ee.Clips[cp.Name] = new[] { range[0], range[1] };
+                        }
+                    }
                     if (e["frames"] is JArray frames) foreach (var f in frames) ee.Frames.Add(Rect(f));
                     g.Add(ee);
                 }

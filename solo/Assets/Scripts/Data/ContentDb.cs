@@ -223,6 +223,7 @@ namespace Wizard.Solo.Data
 
             _blocks = blocks != null && blocks.Blocks != null ? blocks.Blocks : new List<BlockDef>();
             Index(_blocks, b => b.Id, _blockById, "block");
+            LoadAttackStyleBlocks();
 
             BaselineCharacter = chars != null && chars.Baseline != null ? chars.Baseline : new CharacterDef();
             _characters = chars != null && chars.Characters != null ? chars.Characters : new List<CharacterDef>();
@@ -279,6 +280,43 @@ namespace Wizard.Solo.Data
 
             BuildRarityOrder();
         }
+
+        /// <summary>
+        /// 기본 공격 유형의 핵 블록(block.core.*)과 그 부속 탄(얼음 창 파편 등)을 DataSolo/AttackStyles.json의 blocks·sub_blocks에서 읽어
+        /// Block(id) 조회에만 더한다(Docs/12-attack-styles.md 1절). blocks.json 목록(Blocks)·등급 순서(BlocksOfRarity)에는 넣지 않는다 —
+        /// 전리품·서고·제물에 나오지 않는 캐릭터 고유의 핵이라서. 조정 손잡이(FunPass)는 SoloExtra가 이미 덮어쓴 값으로 읽는다.
+        /// </summary>
+        void LoadAttackStyleBlocks()
+        {
+            JObject jo = SoloExtra(AttackStylesExtraName);
+            if (jo == null) return;
+            string[] sections = { "blocks", "sub_blocks" };
+            for (int s = 0; s < sections.Length; s++)
+            {
+                var arr = jo[sections[s]] as JArray;
+                if (arr == null) continue;
+                List<BlockDef> list;
+                try { list = arr.ToObject<List<BlockDef>>(_serializer); }
+                catch (Exception e) { _errors.Add("ContentDb: AttackStyles " + sections[s] + ": " + e.Message); continue; }
+                if (list == null) continue;
+                for (int i = 0; i < list.Count; i++)
+                {
+                    var b = list[i];
+                    if (b == null || string.IsNullOrEmpty(b.Id)) { _errors.Add("ContentDb: AttackStyles " + sections[s] + " without id at " + i); continue; }
+                    if (_blockById.ContainsKey(b.Id)) { _errors.Add("ContentDb: duplicate block id '" + b.Id + "' (AttackStyles)"); continue; }
+                    if (b.Style == null) b.Style = new AttackStyleParams();
+                    _blockById[b.Id] = b;
+                    _styleBlocks.Add(b);
+                }
+            }
+        }
+
+        /// <summary>기본 공격 유형 조각 이름(Resources/DataSolo/AttackStyles.json).</summary>
+        public const string AttackStylesExtraName = "AttackStyles";
+
+        /// <summary>AttackStyles.json에서 더한 핵 블록과 부속 탄(파일 순서). Blocks에는 들어 있지 않다.</summary>
+        public IReadOnlyList<BlockDef> StyleBlocks => _styleBlocks;
+        readonly List<BlockDef> _styleBlocks = new List<BlockDef>();
 
         T Parse<T>(Dictionary<string, string> texts, string rel) where T : class
         {

@@ -80,16 +80,27 @@ def run(raw_dir, only=""):
             continue
         if job["shader"] == "ground":
             continue  # tiles are assembled by tiles.py
-        orig = os.path.join(ART, job["orig"])
-        dst = orig[:-4] + "_v2.png"
-        if not os.path.exists(orig):
-            print("MISSING ORIGINAL", job["orig"]); bad += 1; continue
-        if not ours(dst):
-            print("REFUSE (hand-made v2 exists)", dst); bad += 1; continue
-        ow, oh = Image.open(orig).size
         fw, fh, n, ss = job["w"], job["h"], job["frames"], job.get("ss", 4)
-        if (ow, oh) != (fw * n, fh):
-            print("SIZE MISMATCH", job["orig"], (ow, oh), (fw * n, fh)); bad += 1; continue
+        if job.get("orig") is None:
+            # style sheets (styles.py): new files, no original to match
+            if job.get("part"):
+                dst = os.path.join(raw_dir, "_parts", job["id"] + ".png")
+                os.makedirs(os.path.dirname(dst), exist_ok=True)
+            else:
+                dst = os.path.join(ART, job["out"])
+                os.makedirs(os.path.dirname(dst), exist_ok=True)
+                if not ours(dst):
+                    print("REFUSE (not made by this tool)", dst); bad += 1; continue
+        else:
+            orig = os.path.join(ART, job["orig"])
+            dst = orig[:-4] + "_v2.png"
+            if not os.path.exists(orig):
+                print("MISSING ORIGINAL", job["orig"]); bad += 1; continue
+            if not ours(dst):
+                print("REFUSE (hand-made v2 exists)", dst); bad += 1; continue
+            ow, oh = Image.open(orig).size
+            if (ow, oh) != (fw * n, fh):
+                print("SIZE MISMATCH", job["orig"], (ow, oh), (fw * n, fh)); bad += 1; continue
         sheet = np.zeros((fh, fw * n, 4), dtype=np.uint8)
         for i in range(n):
             raw = np.array(Image.open(os.path.join(raw_dir, "%s__%d.png" % (job["id"], i))).convert("RGBA")).astype(np.float64)
@@ -103,7 +114,7 @@ def run(raw_dir, only=""):
             vis = sheet[sheet[..., 3] > 0]
             hits = sum(1 for p in vis if is_danger(*p[:3]))
             if hits:
-                print("DANGER COLOUR in player-side asset", job["orig"], hits); bad += 1; continue
+                print("DANGER COLOUR in player-side asset", job.get("orig") or job["id"], hits); bad += 1; continue
         info = PngImagePlugin.PngInfo()
         info.add_text("Software", MARK)
         Image.fromarray(sheet, "RGBA").save(dst, pnginfo=info)

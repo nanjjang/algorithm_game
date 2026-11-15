@@ -112,6 +112,11 @@ namespace Wizard.Solo.Sim.Arts
             for (int i = 0; i < w.PlayerZones.Count; i++) RemoveZone(w, w.PlayerZones[i], false);
             for (int i = 0; i < w.Players.Length; i++)
             {
+                var st = StateOf(w.Players[i]);
+                if (st != null) st.Sequences.Clear();
+            }
+            for (int i = 0; i < w.Players.Length; i++)
+            {
                 w.Players[i].KilnAbsorbLeftHu = 0;
                 w.Players[i].InKilnZone = false;
             }

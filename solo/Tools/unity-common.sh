@@ -5,7 +5,12 @@
 # - Unity 자리는 환경 변수 UNITY_EXE로 바꿀 수 있다.
 
 SOLO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-UNITY_EXE="${UNITY_EXE:-/c/Program Files/Unity/Hub/Editor/6000.3.20f1/Editor/Unity.exe}"
+if [ "$(uname -s)" = "Darwin" ]; then
+  _UVER="$(sed -n 's/^m_EditorVersion: *//p' "$SOLO_ROOT/ProjectSettings/ProjectVersion.txt" | tr -d '')"
+  UNITY_EXE="${UNITY_EXE:-/Applications/Unity/Hub/Editor/$_UVER/Unity.app/Contents/MacOS/Unity}"
+else
+  UNITY_EXE="${UNITY_EXE:-/c/Program Files/Unity/Hub/Editor/6000.3.20f1/Editor/Unity.exe}"
+fi
 UNITY_LOG_DIR="$SOLO_ROOT/Logs/unity"
 
 winpath() {

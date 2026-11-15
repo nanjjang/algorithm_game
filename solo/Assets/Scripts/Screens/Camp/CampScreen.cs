@@ -419,6 +419,14 @@ namespace Wizard.Solo.Screens.Camp
             // 효과 한 줄 + 붙는 규칙, 판 한정 별(★)이면 그 몫(BlockDescriber — 블록 데이터에서 만든다).
             var def = Ctx.Content != null ? Ctx.Content.Block(item.BlockId) : null;
             string desc = BlockDescriber.Text(Ctx.Names, def, true);
+            // 코어가 기본 공격 유형의 핵이면 연결 블록이 그 핵에서 하는 일("이 핵에서는 …", Docs/12-attack-styles.md 2.2절)
+            if (r != SlotRefs.Core && _assembly != null)
+            {
+                var coreId = _assembly.At(SlotRefs.Core).BlockId;
+                var coreDef = coreId != null && Ctx.Content != null ? Ctx.Content.Block(coreId) : null;
+                var on = BlockDescriber.OnCore(def, coreDef);
+                if (on.Key != null) desc += T("str.ui.hint.sep") + on.Format(Ctx.Names);
+            }
             if (item.Stars > 0)
             {
                 var sl = BlockDescriber.StarLine(def, item.Stars, BlockDescriber.Stars(Ctx.Content));

@@ -198,3 +198,9 @@ GODOT=<경로> solo/Tools/godot-fx/bake.sh  # Godot 실행 파일 경로를 바�
 ### ui/kit (145장), ui/icon (284장)
 - kit: 판·오목판·종이(k-01~03 48x48, 9-slice 테두리 12px), 머리띠·조작띠(k-04~06), 버튼 4종 × normal/hover/pressed/disabled(k-20~24), 탭, 토글, 체크, 라디오, 슬라이더, 드롭다운, 입력칸, 스크롤, 닫기, 진행 막대, 페이지, 선택 모서리(f2), 키캡·마우스·방향 입력 그림(k-50~55), 아이템·지팡이·코어·확장 칸(k-60~64), 회로 연결(k-65, k-70), 등급 테두리(k-66~68), 변이 칸(k-80~81). 같은 번호의 상태 그림은 같은 틀에서 색·눌림만 다르게.
 - icon: 블록(i-b1 48, i-b2 24 각 14종, 같은 그림 두 크기), 판(i-b3), 재화(i-c1~3: 16/24/48 같은 그림), 원소(i-e1~4), 메뉴·조작·상태(i-f1~f13), 지팡이 단계(i-g1 80x80 5단계, 단계별 실루엣이 달라야 함), 리그(i-l1~l9), 재료·꾸미기(i-m1~m9), 능력치·패시브(i-s1~s5), 비기(i-t1 48, i-t2 24 각 13종), 기타(i-t3, i-t4). 이미 v2가 있는 i-b1/b2 corrosion·shadow_orb, i-t1/t2 copy_circle·shadow_hand, i-e* shadow, i-s2 shadow_contract와 같은 양식으로.
+
+## 캐릭터 공격 유형·비기 강화 시트 (styles)
+
+`styles.py`(목록) → Godot(`cone`, `plasma`, `rune`, `swirl`, `debris`, `patch` 셰이더 추가) → `post.py` → `compose.py`(책, 얼음 창·고드름·가시, 거대한 손, 책장 소용돌이: 도형/기존 GPT 그림 조합) → `manifest.py`.
+결과는 `Assets/Resources/Art/effects/styles/<char.N|common>/<키>_<W>x<H>_f<N>.png`와 같은 폴더 `manifest.json`(묶음 `styles.<폴더>`, 효과 manifest 형식 + `pivot`(프레임 왼쪽 위 기준 px), `clips`, `use`, notes.reuse = 재사용할 기존 그림).
+미리보기 `preview-styles.png`(위: 어두운 바탕, 아래: 풀밭색 바탕). `--only` 로 일부만 구울 때 `page_vortex`는 `vortex_base` 부품이 같이 걸리게(`--only styles` 또는 `--only char.3`) 한다.

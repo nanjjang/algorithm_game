@@ -26,9 +26,9 @@ namespace Wizard.Solo.Screens.Hints
     public static class CodexModel
     {
         public const string Controls = "controls", Heat = "heat", Graze = "graze", Combo = "combo", Arts = "arts", Blocks = "blocks",
-            Mutations = "mutations", Whims = "whims", Affinity = "affinity";
+            Mutations = "mutations", Whims = "whims", Affinity = "affinity", Styles = "styles";
 
-        public static readonly string[] Sections = { Controls, Heat, Graze, Combo, Arts, Blocks, Mutations, Whims, Affinity };
+        public static readonly string[] Sections = { Controls, Heat, Graze, Combo, Arts, Styles, Blocks, Mutations, Whims, Affinity };
 
         public static string TabKey(string section) => "str.codex.tab." + section;
         public static string LineKey(string section, int n) => "str.codex." + section + ".line." + n;
@@ -79,6 +79,7 @@ namespace Wizard.Solo.Screens.Hints
             {
                 case Arts: AddArts(rows, names, db, charId); break;
                 case Blocks: AddBlocks(rows, names, db); break;
+                case Styles: AddStyles(rows, names, db); break;
                 case Mutations:
                     foreach (var id in MutationIds)
                         rows.Add(new CodexRow
@@ -141,6 +142,26 @@ namespace Wizard.Solo.Screens.Hints
                 case "L": return CmdDir.Left;
                 case "R": return CmdDir.Right;
                 default: return CmdDir.Forward;
+            }
+        }
+
+        /// <summary>기본 공격 15종(Docs/12-attack-styles.md 2절): 캐릭터 순, 그 안에서 A·B·C. 본문 = 한 줄 설명, 옆 = 캐릭터 · 자리.</summary>
+        static void AddStyles(List<CodexRow> rows, INameTable names, IContentDb db)
+        {
+            if (db == null) return;
+            for (int n = 1; n <= Ids.Char.Count; n++)
+            {
+                string ch = Ids.Char.Of(n);
+                var ids = AttackStyles.StylesOf(db, ch);
+                for (int i = 0; i < ids.Count; i++)
+                {
+                    string id = ids[i];
+                    string slot = AttackStyles.SlotOf(db, ch, id);
+                    string side = names != null
+                        ? names.Format("str.codex.styles.side", "char", names.Get(ch), "slot", slot != null ? names.Get(Prep.ExpeditionPrepModel.StyleSlotPrefix + slot) : string.Empty)
+                        : null;
+                    rows.Add(new CodexRow { Head = Get(names, id), IconId = id, Body = Get(names, Prep.ExpeditionPrepModel.StyleDescKey(id)), Side = side });
+                }
             }
         }
 

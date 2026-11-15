@@ -247,6 +247,16 @@ namespace Wizard.Solo.App
                 pos.x += o.x;
                 pos.y += o.y;
             }
+            if (_cameraFx != null)
+            {
+                // 방향 흔들림(CameraFx.Kick): 연출 감도·흔들림 배율을 곱하고 폭 한도(16px)로 자른다(실제 시간으로 감쇠).
+                Vector2 kick = _cameraFx.TickKick(Time.unscaledDeltaTime);
+                float lv = ShakeAccumulator.LevelScale(_options.EffectsLevel) * Mathf.Clamp01(_options.ShakeScale) * _shakeMul;
+                kick *= lv;
+                if (kick.magnitude > ShakeAccumulator.MaxAmplitudePx) kick = kick.normalized * ShakeAccumulator.MaxAmplitudePx;
+                pos.x += kick.x / SimConst.PixelsPerUnit;
+                pos.y += kick.y / SimConst.PixelsPerUnit;
+            }
             _cameraGo.transform.position = pos;
 
             if (_layers == null || w == null) return;

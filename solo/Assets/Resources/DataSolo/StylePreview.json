@@ -1,0 +1,972 @@
+{
+ "_note": "원정 준비 기본 공격 카드의 미리보기 애니(표시 전용, 솔로 임시). 상자 150×100(px, 1920×1080 기준, 왼쪽 위 원점·y 아래), 시전자 자리 = caster. 줄마다 그림 하나: anim '묶음/열쇠'(clip 있으면 그 구간), at 시작 초, dur 길이, from→to 자리(arc = 위로 휘는 높이 px), scale(그림 px 배율, scale_to 끝 배율), rot·rot_to(도, 화면 반시계 +), travel = 진행 방향으로 돌림, loop = 길이 동안 반복, fps, fade(끝 흐려짐 초), stretch = from→to를 잇는 선으로 늘임, flip. 한 바퀴 = 가장 늦게 끝나는 줄 + pause. 읽는 곳: Screens/Prep/StylePreview.",
+ "box": [
+  150,
+  100
+ ],
+ "caster": [
+  16,
+  62
+ ],
+ "pause": 0.35,
+ "styles": {
+  "block.core.ember_mortar": [
+   {
+    "anim": "styles.char.1/mortar_shell",
+    "at": 0,
+    "dur": 0.45,
+    "from": [
+     20,
+     60
+    ],
+    "to": [
+     118,
+     70
+    ],
+    "arc": 46,
+    "scale": 1.0,
+    "travel": true,
+    "loop": true
+   },
+   {
+    "anim": "styles.char.1/mortar_blast",
+    "at": 0.45,
+    "dur": 0.4,
+    "from": [
+     118,
+     66
+    ],
+    "to": [
+     118,
+     66
+    ],
+    "scale": 0.85
+   },
+   {
+    "anim": "styles.char.1/fire_floor",
+    "at": 0.6,
+    "dur": 0.8,
+    "from": [
+     118,
+     76
+    ],
+    "to": [
+     118,
+     76
+    ],
+    "scale": 1.1,
+    "loop": true,
+    "fade": 0.2
+   }
+  ],
+  "block.core.flame_jet": [
+   {
+    "anim": "styles.char.1/flame_jet",
+    "at": 0,
+    "dur": 1.4,
+    "from": [
+     14,
+     58
+    ],
+    "to": [
+     14,
+     58
+    ],
+    "scale": 1.35,
+    "loop": true,
+    "fade": 0.15
+   },
+   {
+    "anim": "styles.char.1/flame_jet",
+    "at": 0.05,
+    "dur": 1.35,
+    "from": [
+     14,
+     58
+    ],
+    "to": [
+     14,
+     58
+    ],
+    "scale": 1.1,
+    "rot": 14,
+    "loop": true,
+    "fade": 0.15,
+    "alpha": 0.6
+   },
+   {
+    "anim": "styles.char.1/flame_jet",
+    "at": 0.1,
+    "dur": 1.3,
+    "from": [
+     14,
+     58
+    ],
+    "to": [
+     14,
+     58
+    ],
+    "scale": 1.1,
+    "rot": -14,
+    "loop": true,
+    "fade": 0.15,
+    "alpha": 0.6
+   }
+  ],
+  "block.core.bouncing_ember": [
+   {
+    "anim": "char.1/kiln_ember",
+    "at": 0,
+    "dur": 0.22,
+    "from": [
+     18,
+     60
+    ],
+    "to": [
+     70,
+     30
+    ],
+    "scale": 2.0,
+    "loop": true
+   },
+   {
+    "anim": "player/hit_fire",
+    "at": 0.22,
+    "dur": 0.2,
+    "from": [
+     70,
+     30
+    ],
+    "to": [
+     70,
+     30
+    ],
+    "scale": 1.0
+   },
+   {
+    "anim": "char.1/kiln_ember",
+    "at": 0.22,
+    "dur": 0.22,
+    "from": [
+     70,
+     30
+    ],
+    "to": [
+     128,
+     62
+    ],
+    "scale": 2.0,
+    "loop": true
+   },
+   {
+    "anim": "player/hit_fire",
+    "at": 0.44,
+    "dur": 0.2,
+    "from": [
+     128,
+     62
+    ],
+    "to": [
+     128,
+     62
+    ],
+    "scale": 1.0
+   },
+   {
+    "anim": "char.1/kiln_ember",
+    "at": 0.44,
+    "dur": 0.22,
+    "from": [
+     128,
+     62
+    ],
+    "to": [
+     88,
+     88
+    ],
+    "scale": 2.0,
+    "loop": true
+   },
+   {
+    "anim": "player/hit_fire",
+    "at": 0.66,
+    "dur": 0.2,
+    "from": [
+     88,
+     88
+    ],
+    "to": [
+     88,
+     88
+    ],
+    "scale": 1.0
+   }
+  ],
+  "block.core.chain_bolt": [
+   {
+    "anim": "styles.char.2/chain_link",
+    "at": 0,
+    "dur": 0.3,
+    "from": [
+     18,
+     58
+    ],
+    "to": [
+     72,
+     42
+    ],
+    "stretch": true,
+    "loop": true,
+    "scale": 0.8,
+    "fade": 0.1
+   },
+   {
+    "anim": "player/hit_lightning",
+    "at": 0.02,
+    "dur": 0.2,
+    "from": [
+     72,
+     42
+    ],
+    "to": [
+     72,
+     42
+    ],
+    "scale": 1.0
+   },
+   {
+    "anim": "styles.char.2/chain_link",
+    "at": 0.12,
+    "dur": 0.3,
+    "from": [
+     72,
+     42
+    ],
+    "to": [
+     128,
+     70
+    ],
+    "stretch": true,
+    "loop": true,
+    "scale": 0.65,
+    "fade": 0.1
+   },
+   {
+    "anim": "player/hit_lightning",
+    "at": 0.14,
+    "dur": 0.2,
+    "from": [
+     128,
+     70
+    ],
+    "to": [
+     128,
+     70
+    ],
+    "scale": 1.0
+   },
+   {
+    "anim": "styles.char.2/chain_link",
+    "at": 0.24,
+    "dur": 0.28,
+    "from": [
+     128,
+     70
+    ],
+    "to": [
+     96,
+     92
+    ],
+    "stretch": true,
+    "loop": true,
+    "scale": 0.5,
+    "fade": 0.1
+   }
+  ],
+  "block.core.thunder_orb": [
+   {
+    "anim": "styles.char.2/ball_lightning",
+    "at": 0,
+    "dur": 1.2,
+    "from": [
+     24,
+     58
+    ],
+    "to": [
+     136,
+     58
+    ],
+    "scale": 1.1,
+    "loop": true,
+    "fade": 0.15
+   },
+   {
+    "anim": "player/hit_lightning",
+    "at": 0.5,
+    "dur": 0.2,
+    "from": [
+     84,
+     36
+    ],
+    "to": [
+     84,
+     36
+    ],
+    "scale": 0.8
+   },
+   {
+    "anim": "player/hit_lightning",
+    "at": 0.8,
+    "dur": 0.2,
+    "from": [
+     110,
+     82
+    ],
+    "to": [
+     110,
+     82
+    ],
+    "scale": 0.8
+   }
+  ],
+  "block.core.sky_strike": [
+   {
+    "anim": "styles.char.2/strike_marker",
+    "at": 0,
+    "dur": 0.4,
+    "from": [
+     100,
+     80
+    ],
+    "to": [
+     100,
+     80
+    ],
+    "scale": 1.2,
+    "scale_to": 0.9,
+    "loop": true
+   },
+   {
+    "anim": "styles.char.2/strike_bolt",
+    "at": 0.38,
+    "dur": 0.24,
+    "from": [
+     100,
+     82
+    ],
+    "to": [
+     100,
+     82
+    ],
+    "scale": 0.45
+   },
+   {
+    "anim": "styles.char.2/strike_blast",
+    "at": 0.4,
+    "dur": 0.32,
+    "from": [
+     100,
+     80
+    ],
+    "to": [
+     100,
+     80
+    ],
+    "scale": 0.85
+   }
+  ],
+  "block.core.page_flurry": [
+   {
+    "anim": "styles.reuse/page_large",
+    "at": 0,
+    "dur": 0.55,
+    "from": [
+     18,
+     58
+    ],
+    "to": [
+     136,
+     40
+    ],
+    "arc": -14,
+    "scale": 2.0,
+    "loop": true
+   },
+   {
+    "anim": "styles.reuse/page_large",
+    "at": 0,
+    "dur": 0.55,
+    "from": [
+     18,
+     58
+    ],
+    "to": [
+     136,
+     58
+    ],
+    "scale": 2.0,
+    "loop": true
+   },
+   {
+    "anim": "styles.reuse/page_large",
+    "at": 0,
+    "dur": 0.55,
+    "from": [
+     18,
+     58
+    ],
+    "to": [
+     136,
+     76
+    ],
+    "arc": 14,
+    "scale": 2.0,
+    "loop": true
+   },
+   {
+    "anim": "styles.reuse/hit_page",
+    "at": 0.5,
+    "dur": 0.25,
+    "from": [
+     136,
+     58
+    ],
+    "to": [
+     136,
+     58
+    ],
+    "scale": 1.0
+   }
+  ],
+  "block.core.tome_throw": [
+   {
+    "anim": "styles.char.3/book_spin",
+    "at": 0,
+    "dur": 0.45,
+    "from": [
+     22,
+     58
+    ],
+    "to": [
+     128,
+     58
+    ],
+    "scale": 1.4,
+    "loop": true
+   },
+   {
+    "anim": "styles.char.3/book_spin",
+    "at": 0.45,
+    "dur": 0.45,
+    "from": [
+     128,
+     58
+    ],
+    "to": [
+     22,
+     58
+    ],
+    "scale": 1.4,
+    "loop": true
+   }
+  ],
+  "block.core.rune_mine": [
+   {
+    "anim": "styles.char.3/rune_trap",
+    "at": 0,
+    "dur": 0.9,
+    "from": [
+     100,
+     72
+    ],
+    "to": [
+     100,
+     72
+    ],
+    "scale": 1.15,
+    "loop": true
+   },
+   {
+    "anim": "styles.char.3/rune_burst",
+    "at": 0.9,
+    "dur": 0.32,
+    "from": [
+     100,
+     70
+    ],
+    "to": [
+     100,
+     70
+    ],
+    "scale": 1.15
+   }
+  ],
+  "block.core.frost_lance": [
+   {
+    "anim": "styles.char.4/ice_spear",
+    "at": 0,
+    "dur": 0.4,
+    "from": [
+     18,
+     58
+    ],
+    "to": [
+     108,
+     58
+    ],
+    "scale": 1.3,
+    "loop": true
+   },
+   {
+    "anim": "player/hit_ice",
+    "at": 0.4,
+    "dur": 0.2,
+    "from": [
+     108,
+     58
+    ],
+    "to": [
+     108,
+     58
+    ],
+    "scale": 1.0
+   },
+   {
+    "anim": "special/ice_screen_shard",
+    "at": 0.4,
+    "dur": 0.25,
+    "from": [
+     108,
+     58
+    ],
+    "to": [
+     144,
+     40
+    ],
+    "scale": 1.4,
+    "travel": true,
+    "loop": true
+   },
+   {
+    "anim": "special/ice_screen_shard",
+    "at": 0.4,
+    "dur": 0.25,
+    "from": [
+     108,
+     58
+    ],
+    "to": [
+     146,
+     58
+    ],
+    "scale": 1.4,
+    "travel": true,
+    "loop": true
+   },
+   {
+    "anim": "special/ice_screen_shard",
+    "at": 0.4,
+    "dur": 0.25,
+    "from": [
+     108,
+     58
+    ],
+    "to": [
+     144,
+     76
+    ],
+    "scale": 1.4,
+    "travel": true,
+    "loop": true
+   }
+  ],
+  "block.core.blizzard": [
+   {
+    "anim": "styles.char.4/blizzard",
+    "at": 0,
+    "dur": 1.4,
+    "from": [
+     12,
+     58
+    ],
+    "to": [
+     12,
+     58
+    ],
+    "scale": 1.05,
+    "loop": true,
+    "fade": 0.15
+   },
+   {
+    "anim": "styles.char.4/blizzard",
+    "at": 0.08,
+    "dur": 1.32,
+    "from": [
+     12,
+     58
+    ],
+    "to": [
+     12,
+     58
+    ],
+    "scale": 0.9,
+    "rot": 22,
+    "loop": true,
+    "fade": 0.15,
+    "alpha": 0.6
+   },
+   {
+    "anim": "styles.char.4/blizzard",
+    "at": 0.12,
+    "dur": 1.28,
+    "from": [
+     12,
+     58
+    ],
+    "to": [
+     12,
+     58
+    ],
+    "scale": 0.9,
+    "rot": -22,
+    "loop": true,
+    "fade": 0.15,
+    "alpha": 0.6
+   }
+  ],
+  "block.core.icicle_fall": [
+   {
+    "anim": "styles.char.4/icicle_marker",
+    "at": 0,
+    "dur": 0.32,
+    "from": [
+     46,
+     78
+    ],
+    "to": [
+     46,
+     78
+    ],
+    "scale": 0.8,
+    "loop": true
+   },
+   {
+    "anim": "styles.char.4/icicle_marker",
+    "at": 0,
+    "dur": 0.4,
+    "from": [
+     76,
+     78
+    ],
+    "to": [
+     76,
+     78
+    ],
+    "scale": 0.8,
+    "loop": true
+   },
+   {
+    "anim": "styles.char.4/icicle_marker",
+    "at": 0,
+    "dur": 0.48,
+    "from": [
+     106,
+     78
+    ],
+    "to": [
+     106,
+     78
+    ],
+    "scale": 0.8,
+    "loop": true
+   },
+   {
+    "anim": "styles.char.4/icicle_marker",
+    "at": 0,
+    "dur": 0.56,
+    "from": [
+     136,
+     78
+    ],
+    "to": [
+     136,
+     78
+    ],
+    "scale": 0.8,
+    "loop": true
+   },
+   {
+    "anim": "styles.char.4/icicle",
+    "at": 0.2,
+    "dur": 0.12,
+    "from": [
+     46,
+     16
+    ],
+    "to": [
+     46,
+     80
+    ],
+    "scale": 1.1,
+    "loop": true
+   },
+   {
+    "anim": "styles.char.4/icicle",
+    "at": 0.28,
+    "dur": 0.12,
+    "from": [
+     76,
+     16
+    ],
+    "to": [
+     76,
+     80
+    ],
+    "scale": 1.1,
+    "loop": true
+   },
+   {
+    "anim": "styles.char.4/icicle",
+    "at": 0.36,
+    "dur": 0.12,
+    "from": [
+     106,
+     16
+    ],
+    "to": [
+     106,
+     80
+    ],
+    "scale": 1.1,
+    "loop": true
+   },
+   {
+    "anim": "styles.char.4/icicle",
+    "at": 0.44,
+    "dur": 0.12,
+    "from": [
+     136,
+     16
+    ],
+    "to": [
+     136,
+     80
+    ],
+    "scale": 1.1,
+    "loop": true
+   },
+   {
+    "anim": "status/frozen_shatter",
+    "at": 0.32,
+    "dur": 0.24,
+    "from": [
+     46,
+     78
+    ],
+    "to": [
+     46,
+     78
+    ],
+    "scale": 0.45
+   },
+   {
+    "anim": "status/frozen_shatter",
+    "at": 0.4,
+    "dur": 0.24,
+    "from": [
+     76,
+     78
+    ],
+    "to": [
+     76,
+     78
+    ],
+    "scale": 0.45
+   },
+   {
+    "anim": "status/frozen_shatter",
+    "at": 0.48,
+    "dur": 0.24,
+    "from": [
+     106,
+     78
+    ],
+    "to": [
+     106,
+     78
+    ],
+    "scale": 0.45
+   },
+   {
+    "anim": "status/frozen_shatter",
+    "at": 0.56,
+    "dur": 0.24,
+    "from": [
+     136,
+     78
+    ],
+    "to": [
+     136,
+     78
+    ],
+    "scale": 0.45
+   }
+  ],
+  "block.core.shadow_wave": [
+   {
+    "anim": "styles.char.5/shadow_wave",
+    "at": 0,
+    "dur": 0.4,
+    "from": [
+     12,
+     56
+    ],
+    "to": [
+     12,
+     56
+    ],
+    "scale": 0.6,
+    "scale_to": 1.1
+   }
+  ],
+  "block.core.shadow_scythe": [
+   {
+    "anim": "special/bloom_dark",
+    "at": 0,
+    "dur": 0.24,
+    "from": [
+     40,
+     58
+    ],
+    "to": [
+     40,
+     58
+    ],
+    "scale": 0.55,
+    "rot": -80,
+    "rot_to": 80,
+    "orbit": 42,
+    "fade": 0.08
+   },
+   {
+    "anim": "special/bloom_dark",
+    "at": 0.04,
+    "dur": 0.24,
+    "from": [
+     40,
+     58
+    ],
+    "to": [
+     40,
+     58
+    ],
+    "scale": 0.55,
+    "rot": -80,
+    "rot_to": 80,
+    "orbit": 42,
+    "fade": 0.12,
+    "alpha": 0.45
+   },
+   {
+    "anim": "special/bloom_dark",
+    "at": 0.08,
+    "dur": 0.24,
+    "from": [
+     40,
+     58
+    ],
+    "to": [
+     40,
+     58
+    ],
+    "scale": 0.55,
+    "rot": -80,
+    "rot_to": 80,
+    "orbit": 42,
+    "fade": 0.16,
+    "alpha": 0.25
+   }
+  ],
+  "block.core.eye_seeker": [
+   {
+    "anim": "player/shadow_orb",
+    "at": 0,
+    "dur": 0.6,
+    "from": [
+     22,
+     60
+    ],
+    "to": [
+     118,
+     52
+    ],
+    "arc": 30,
+    "scale": 0.8,
+    "loop": true,
+    "alpha": 0.6
+   },
+   {
+    "anim": "styles.reuse/floating_eye",
+    "at": 0,
+    "dur": 0.6,
+    "from": [
+     22,
+     60
+    ],
+    "to": [
+     118,
+     52
+    ],
+    "arc": 30,
+    "scale": 1.4,
+    "loop": true
+   },
+   {
+    "anim": "player/shadow_orb_fade",
+    "at": 0.6,
+    "dur": 0.3,
+    "from": [
+     118,
+     52
+    ],
+    "to": [
+     118,
+     52
+    ],
+    "scale": 0.9
+   },
+   {
+    "anim": "styles.reuse/floating_eye",
+    "at": 0.62,
+    "dur": 0.4,
+    "from": [
+     118,
+     52
+    ],
+    "to": [
+     146,
+     30
+    ],
+    "scale": 1.0,
+    "loop": true,
+    "fade": 0.1
+   },
+   {
+    "anim": "styles.reuse/floating_eye",
+    "at": 0.62,
+    "dur": 0.4,
+    "from": [
+     118,
+     52
+    ],
+    "to": [
+     146,
+     76
+    ],
+    "scale": 1.0,
+    "loop": true,
+    "fade": 0.1
+   }
+  ]
+ }
+}

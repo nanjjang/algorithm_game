@@ -20,6 +20,7 @@ namespace Wizard.Solo.Screens.Online
 
         OnlineService _svc;
         UiLabel _status, _reqHead, _frHead, _noReq, _noFr;
+        UImage _noFrArt;
         UInputField _name;
         RectTransform _reqRoot, _frRoot;
         sealed class Row
@@ -56,13 +57,14 @@ namespace Wizard.Solo.Screens.Online
             UiKit.DropShadow(n);
 
             // 오른쪽 서랍.
-            var d = UiKit.Panel(Ctx, content, UiPanelKind.Board, DrawerX, DrawerY, DrawerW, DrawerH).rectTransform;
-            UiKit.Bevel(d);
+            var drawer = OnlineUi.OnlineImg(content, "frame_drawer", DrawerX, DrawerY, DrawerW, DrawerH);
+            var d = (drawer ?? UiKit.Panel(Ctx, content, UiPanelKind.Board, DrawerX, DrawerY, DrawerW, DrawerH)).rectTransform;
+            if (drawer == null) UiKit.Bevel(d);
             float inner = DrawerW - 2f * P, y = 24f;
             _name = OnlineUi.Field(Ctx, Focus, d, null, T(OnlineKeys.FriendsNameHint), P, y, inner - 196f, AccountStore.NameMax);
             UiKit.Button(Ctx, d, T(OnlineKeys.FriendsAdd), P + inner - 184f, y, 184f, 48f, Add, UiButtonStyle.Primary, Focus, null, UiFontId.F16, OnlineUi.Sprite(Ctx, "I-F3", "friend_add"));
             y += 72f;
-            _reqHead = UiKit.Label(Ctx, d, string.Empty, UiFontId.F16, P, y, inner, 28f, UiTheme.SelectYellow);
+            _reqHead = UiKit.Label(Ctx, d, string.Empty, UiFontId.F24, P, y, inner, 32f, UiTheme.SelectYellow);
             y += 32f;
             _reqRoot = UiKit.Node(d, "Requests", P, y, inner, RequestRows * (RowH + 6f));
             for (int i = 0; i < RequestRows; i++) _reqRows.Add(BuildRow(_reqRoot, i, true));
@@ -70,11 +72,12 @@ namespace Wizard.Solo.Screens.Online
             y += RequestRows * (RowH + 6f) + 12f;
             UiKit.Divider(Ctx, d, P, y, inner);
             y += 12f;
-            _frHead = UiKit.Label(Ctx, d, string.Empty, UiFontId.F16, P, y, inner, 28f, UiTheme.SelectYellow);
+            _frHead = UiKit.Label(Ctx, d, string.Empty, UiFontId.F24, P, y, inner, 32f, UiTheme.SelectYellow);
             y += 32f;
             _frRoot = UiKit.Node(d, "Friends", P, y, inner, FriendRows * (RowH + 6f));
             for (int i = 0; i < FriendRows; i++) _frRows.Add(BuildRow(_frRoot, i, false));
-            _noFr = UiKit.Label(Ctx, _frRoot, T(OnlineKeys.FrNoFriends), UiFontId.F16, 8f, 0f, inner, 48f, UiTheme.SlateBlue, TextAnchor.UpperLeft, wrap: true);
+            _noFrArt = OnlineUi.OnlineImg(_frRoot, "empty_friends", (inner - 192f) * 0.5f, 24f, 192f, 192f);
+            _noFr = UiKit.Label(Ctx, _frRoot, T(OnlineKeys.FrNoFriends), UiFontId.F24, 8f, _noFrArt != null ? 232f : 24f, inner - 16f, 72f, UiTheme.SlateBlue, TextAnchor.UpperCenter, wrap: true);
             _status = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, 160f, 960f, 1000f, 40f, UiTheme.Amber);
             UiKit.DropShadow(_status);
         }
@@ -86,8 +89,8 @@ namespace Wizard.Solo.Screens.Online
             UiKit.Panel(Ctx, r.Root, UiPanelKind.Recess, 0f, 0f, w, RowH);
             r.Status = UiKit.Image(r.Root, null, 16f, (RowH - 32f) * 0.5f, 32f, 32f, Color.white, true);
             r.Name = UiKit.Label(Ctx, r.Root, string.Empty, UiFontId.F24, 60f, 4f, 260f, 32f, UiTheme.Chalk);
-            r.Sub = UiKit.Label(Ctx, r.Root, string.Empty, UiFontId.F12, 60f, 36f, 140f, 22f, UiTheme.SlateBlue);
-            r.Where = UiKit.Label(Ctx, r.Root, string.Empty, UiFontId.F12, 200f, 36f, 200f, 22f, UiTheme.SlateBlue);
+            r.Sub = UiKit.Label(Ctx, r.Root, string.Empty, UiFontId.F16, 60f, 36f, 150f, 24f, UiTheme.SlateBlue);
+            r.Where = UiKit.Label(Ctx, r.Root, string.Empty, UiFontId.F16, 212f, 36f, 200f, 24f, UiTheme.SlateBlue);
             int k = i;
             if (request)
             {
@@ -131,6 +134,7 @@ namespace Wizard.Solo.Screens.Online
             _frHead.SetText(F(OnlineKeys.FrFriendsHead, "n", _friends.Count));
             _noReq.gameObject.SetActive(_requests.Count == 0);
             _noFr.gameObject.SetActive(_friends.Count == 0);
+            if (_noFrArt != null) _noFrArt.gameObject.SetActive(_friends.Count == 0);
             for (int i = 0; i < _reqRows.Count; i++)
             {
                 var row = _reqRows[i];

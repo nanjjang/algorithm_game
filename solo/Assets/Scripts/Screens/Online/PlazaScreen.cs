@@ -80,17 +80,19 @@ namespace Wizard.Solo.Screens.Online
         {
             UiKit.Rect(content, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, UiTheme.Night, true, "Background");
             Sprite bg = null;
-            try { bg = Ctx != null && Ctx.Art != null ? Ctx.Art.Background("S-0501") : null; } catch (System.Exception) { }
+            bg = OnlineUi.Online("plaza_ground");
+            bool customGround = bg != null;
+            if (bg == null) { try { bg = Ctx != null && Ctx.Art != null ? Ctx.Art.Background("S-0501") : null; } catch (System.Exception) { } }
             _field = UiKit.Node(content, "PlazaField", OriginX, OriginY, PlazaHost.Width * Cell, PlazaHost.Height * Cell);
-            if (bg != null) UiKit.Image(_field, bg, 0f, 0f, PlazaHost.Width * Cell, PlazaHost.Height * Cell, new Color(0.85f, 0.85f, 0.9f, 1f), false);
+            if (bg != null) UiKit.Image(_field, bg, 0f, 0f, PlazaHost.Width * Cell, PlazaHost.Height * Cell, customGround ? Color.white : new Color(0.85f, 0.85f, 0.9f, 1f), false);
             else UiKit.Rect(_field, 0f, 0f, PlazaHost.Width * Cell, PlazaHost.Height * Cell, UiTheme.Wood, false, "Ground");
 
             // 문: 협동 = 한뎃벌로 나가는 문(facility.field_gate), 결투 = 결투 게시판(facility.duel_board). 위에 시설 팻말(S-2007).
             foreach (var d in Doors)
             {
                 string prop = d.Mode == RoomMode.Duel ? "facility.duel_board" : "facility.field_gate";
-                Sprite ps = null;
-                try { var anim = Ctx != null && Ctx.Art != null ? Ctx.Art.World(prop) : null; ps = anim != null && anim.Frames != null && anim.Frames.Length > 0 ? anim.Frames[0] : null; }
+                Sprite ps = OnlineUi.Online(d.Mode == RoomMode.Duel ? "plaza_gate_duel" : "plaza_gate_field");
+                if (ps == null) try { var anim = Ctx != null && Ctx.Art != null ? Ctx.Art.World(prop) : null; ps = anim != null && anim.Frames != null && anim.Frames.Length > 0 ? anim.Frames[0] : null; }
                 catch (System.Exception) { ps = null; }
                 float dw = d.Area.width * Cell, dh = d.Area.height * Cell;
                 var area = UiKit.Node(_field, "Door", d.Area.x * Cell, d.Area.y * Cell, dw, dh);

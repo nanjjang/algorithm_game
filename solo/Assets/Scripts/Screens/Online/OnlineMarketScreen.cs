@@ -26,6 +26,7 @@ namespace Wizard.Solo.Screens.Online
 
         OnlineService _svc;
         UiLabel _gold, _count, _status, _browseEmpty, _mineEmpty, _pickLine;
+        UImage _browseEmptyArt;
         readonly List<MarketListing> _listings = new List<MarketListing>();
         readonly List<MarketListing> _mine = new List<MarketListing>();
         readonly List<string> _invIds = new List<string>();
@@ -48,7 +49,7 @@ namespace Wizard.Solo.Screens.Online
 
         protected override void BuildContent(RectTransform content)
         {
-            OnlineUi.Scene(Ctx, content, "S-2307", "market_street", 0.35f);
+            OnlineUi.Scene(Ctx, content, "S-2307", "market_street", 0.5f, "bg_market");
             OnlineUi.HeaderBand(Ctx, content, "I-F1", "market", T(OnlineKeys.MarketButton), out var band);
             _gold = OnlineUi.IconText(Ctx, band, "I-C2", "gold", string.Empty, 360f, 0f, 220f, 80f, UiFontId.F24, UiTheme.Gold);
             _count = UiKit.Label(Ctx, band, string.Empty, UiFontId.F16, 600f, 0f, 400f, 80f, UiTheme.SlateBlue);
@@ -58,7 +59,8 @@ namespace Wizard.Solo.Screens.Online
 
             // 왼쪽: 수레 띠 + 카드.
             var banner = OnlineUi.Img(Ctx, content, "S-2305", "shop_banner_cart", LeftX + (LeftW - 1200f) * 0.5f, LeftY, 1200f, 96f).rectTransform;
-            var bt = UiKit.Label(Ctx, banner, T(OnlineKeys.MarketBuyHead), UiFontId.F24, 360f, 0f, 820f, 96f, UiTheme.Chalk, TextAnchor.MiddleLeft);
+            UiKit.Rect(banner, 0f, 0f, 600f, 96f, UiTheme.WithAlpha(UiTheme.Ink, 0.55f), false, "BannerShade");
+            var bt = UiKit.Label(Ctx, banner, T(OnlineKeys.MarketBuyHead), UiFontId.F24, 32f, 0f, 560f, 96f, UiTheme.Chalk, TextAnchor.MiddleLeft);
             UiKit.DropShadow(bt);
             float gx = LeftX + (LeftW - (Cols * CardW + (Cols - 1) * CardGap)) * 0.5f, gy = LeftY + 120f;
             for (int i = 0; i < Cols * CardRows; i++)
@@ -72,11 +74,12 @@ namespace Wizard.Solo.Screens.Online
                 c.Icon = UiKit.Image(r, null, (CardW - 96f) * 0.5f, 28f, 96f, 96f, Color.white, true);
                 c.Name = UiKit.Label(Ctx, r, string.Empty, UiFontId.F16, 12f, 132f, CardW - 24f, 24f, UiTheme.PaperText, TextAnchor.MiddleCenter);
                 c.Price = OnlineUi.IconText(Ctx, r, "I-C2", "gold", string.Empty, 40f, 164f, CardW - 64f, 32f, UiFontId.F24, UiTheme.PaperText);
-                c.Each = UiKit.Label(Ctx, r, string.Empty, UiFontId.F12, 12f, 198f, CardW - 24f, 20f, UiTheme.WithAlpha(UiTheme.PaperText, 0.7f), TextAnchor.MiddleCenter);
-                c.Who = UiKit.Label(Ctx, r, string.Empty, UiFontId.F12, 12f, 222f, CardW - 24f, 20f, UiTheme.WithAlpha(UiTheme.PaperText, 0.7f), TextAnchor.MiddleCenter);
+                c.Each = UiKit.Label(Ctx, r, string.Empty, UiFontId.F16, 12f, 198f, CardW - 24f, 20f, UiTheme.WithAlpha(UiTheme.PaperText, 0.7f), TextAnchor.MiddleCenter);
+                c.Who = UiKit.Label(Ctx, r, string.Empty, UiFontId.F16, 12f, 222f, CardW - 24f, 20f, UiTheme.WithAlpha(UiTheme.PaperText, 0.7f), TextAnchor.MiddleCenter);
                 _cards.Add(c);
             }
-            _browseEmpty = UiKit.Label(Ctx, content, T(OnlineKeys.MktBrowseEmpty), UiFontId.F24, LeftX, gy + 220f, LeftW, 48f, UiTheme.Chalk, TextAnchor.MiddleCenter);
+            _browseEmptyArt = OnlineUi.OnlineImg(content, "empty_market", LeftX + (LeftW - 256f) * 0.5f, gy + 60f, 256f, 256f);
+            _browseEmpty = UiKit.Label(Ctx, content, T(OnlineKeys.MktBrowseEmpty), UiFontId.F24, LeftX, gy + 340f, LeftW, 48f, UiTheme.Chalk, TextAnchor.MiddleCenter);
             UiKit.DropShadow(_browseEmpty);
             float py = gy + CardRows * (CardH + CardGap);
             UiKit.IconButton(Ctx, content, OnlineUi.Sprite(Ctx, "K-38", "page"), LeftX + LeftW * 0.5f - 72f, py, 48f, 48f, () => { _page = Math.Max(0, _page - 1); Refresh(); });
@@ -102,7 +105,7 @@ namespace Wizard.Solo.Screens.Online
                 var r = b.ContentRoot != null ? b.ContentRoot : b.Rect;
                 OnlineUi.Img(Ctx, r, "K-60", "item_slot_filled", 8f, 0f, 64f, 64f);
                 _invIcons.Add(UiKit.Image(r, null, 16f, 8f, 48f, 48f, Color.white, true));
-                _invQty.Add(UiKit.Label(Ctx, r, string.Empty, UiFontId.F12, 0f, 64f, 80f, 22f, UiTheme.Chalk, TextAnchor.MiddleCenter));
+                _invQty.Add(UiKit.Label(Ctx, r, string.Empty, UiFontId.F16, 0f, 64f, 80f, 22f, UiTheme.Chalk, TextAnchor.MiddleCenter));
                 UiKit.AttachTooltip(b.gameObject, () => k < _invIds.Count ? T(_invIds[k]) : string.Empty);
                 _inv.Add(b);
             }
@@ -137,7 +140,7 @@ namespace Wizard.Solo.Screens.Online
                 UiKit.Panel(Ctx, row.Root, UiPanelKind.Recess, 0f, 0f, inner, 44f);
                 row.Icon = UiKit.Image(row.Root, null, 6f, 6f, 32f, 32f, Color.white, true);
                 row.Text = UiKit.Label(Ctx, row.Root, string.Empty, UiFontId.F16, 46f, 0f, inner - 250f, 44f, UiTheme.Chalk);
-                row.Left = UiKit.Label(Ctx, row.Root, string.Empty, UiFontId.F12, inner - 200f, 0f, 90f, 44f, UiTheme.SlateBlue, TextAnchor.MiddleRight);
+                row.Left = UiKit.Label(Ctx, row.Root, string.Empty, UiFontId.F16, inner - 200f, 0f, 90f, 44f, UiTheme.SlateBlue, TextAnchor.MiddleRight);
                 row.Unlist = UiKit.Button(Ctx, row.Root, T(OnlineKeys.MktUnlist), inner - 100f, 6f, 94f, 32f, () => Unlist(k), UiButtonStyle.Small, Focus, null, UiFontId.F16);
                 _mineRows.Add(row);
             }
@@ -147,7 +150,7 @@ namespace Wizard.Solo.Screens.Online
         UiLabel ReceiptRow(RectTransform paper, float y, string caption)
         {
             float w = RightW - 2f * RP;
-            UiKit.Label(Ctx, paper, caption, UiFontId.F12, 16f, y, w - 160f, 24f, UiTheme.PaperText);
+            UiKit.Label(Ctx, paper, caption, UiFontId.F16, 16f, y, w - 180f, 26f, UiTheme.PaperText);
             return UiKit.Label(Ctx, paper, string.Empty, UiFontId.F16, w - 176f, y, 160f, 24f, UiTheme.PaperText, TextAnchor.MiddleRight);
         }
 
@@ -202,6 +205,7 @@ namespace Wizard.Solo.Screens.Online
             int pages = Math.Max(1, (_listings.Count + per - 1) / per);
             if (_page >= pages) _page = pages - 1;
             _browseEmpty.gameObject.SetActive(_listings.Count == 0);
+            if (_browseEmptyArt != null) _browseEmptyArt.gameObject.SetActive(_listings.Count == 0);
             for (int i = 0; i < _cards.Count; i++)
             {
                 int li = _page * per + i;

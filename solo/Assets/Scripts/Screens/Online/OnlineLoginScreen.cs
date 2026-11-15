@@ -46,7 +46,8 @@ namespace Wizard.Solo.Screens.Online
         protected override void BuildContent(RectTransform content)
         {
             BuildScene(content);
-            var boardImg = UiKit.Panel(Ctx, content, UiPanelKind.Board, BoardX, BoardY, BoardW, BoardH);
+            var ledger = OnlineUi.OnlineImg(content, "frame_ledger", BoardX, BoardY, BoardW, BoardH);
+            var boardImg = ledger ?? UiKit.Panel(Ctx, content, UiPanelKind.Board, BoardX, BoardY, BoardW, BoardH);
             _board = boardImg.rectTransform;
             _board.name = "LoginBoard";
             UiKit.Bevel(_board);
@@ -63,16 +64,16 @@ namespace Wizard.Solo.Screens.Online
             _tabSignup = UiKit.Button(Ctx, _tabs, T(OnlineKeys.LoginTabSignup), Pad + tabW, 0f, tabW, 48f, () => SetMode(Mode.Signup), UiButtonStyle.Tab, Focus);
 
             _emailRow = UiKit.Node(_loginGroup, "EmailRow", 0f, 0f, BoardW, 80f);
-            _email = OnlineUi.Field(Ctx, Focus, _emailRow, T(OnlineKeys.LoginEmail), T(OnlineKeys.LoginEmailHint), Pad, 0f, FieldW, AccountStore.EmailMax, false, UiFontId.F16);
+            _email = OnlineUi.Field(Ctx, Focus, _emailRow, T(OnlineKeys.LoginEmail), T(OnlineKeys.LoginEmailHint), Pad, 0f, FieldW, AccountStore.EmailMax, false, UiFontId.F24);
             _email.contentType = UInputField.ContentType.EmailAddress;
             _emailNote = UiKit.Node(_loginGroup, "EmailNote", Pad, 0f, FieldW, 22f);
             UiKit.Label(Ctx, _emailNote, T(OnlineKeys.LoginEmailNote), UiFontId.F12, 2f, 0f, FieldW, 22f, UiTheme.SlateBlue);
             _nameRow = UiKit.Node(_loginGroup, "NameRow", 0f, 0f, BoardW, 80f);
             _name = OnlineUi.Field(Ctx, Focus, _nameRow, T(OnlineKeys.LoginName), T(OnlineKeys.LoginNameHint), Pad, 0f, FieldW, AccountStore.NameMax);
             _passwordRow = UiKit.Node(_loginGroup, "PasswordRow", 0f, 0f, BoardW, 80f);
-            _password = OnlineUi.Field(Ctx, Focus, _passwordRow, T(OnlineKeys.LoginPassword), T(OnlineKeys.LoginPasswordHint), Pad, 0f, FieldW, AccountStore.PasswordMax, true, UiFontId.F16);
+            _password = OnlineUi.Field(Ctx, Focus, _passwordRow, T(OnlineKeys.LoginPassword), T(OnlineKeys.LoginPasswordHint), Pad, 0f, FieldW, AccountStore.PasswordMax, true, UiFontId.F24);
             _password2Row = UiKit.Node(_loginGroup, "Password2Row", 0f, 0f, BoardW, 80f);
-            _password2 = OnlineUi.Field(Ctx, Focus, _password2Row, T(OnlineKeys.LoginPassword2), T(OnlineKeys.LoginPassword2Hint), Pad, 0f, FieldW, AccountStore.PasswordMax, true, UiFontId.F16);
+            _password2 = OnlineUi.Field(Ctx, Focus, _password2Row, T(OnlineKeys.LoginPassword2), T(OnlineKeys.LoginPassword2Hint), Pad, 0f, FieldW, AccountStore.PasswordMax, true, UiFontId.F24);
 
             // 아래 묶음(버튼·또는·Google·잊음·오류)은 칸 수에 따라 위아래로 옮긴다.
             _lowerBlock = UiKit.Node(_loginGroup, "Lower", 0f, 0f, BoardW, 360f);
@@ -101,7 +102,7 @@ namespace Wizard.Solo.Screens.Online
         /// <summary>야영지 밤 장면 + 모닥불 + 오른쪽에 서버에서 할 수 있는 것 세 줄(그림 + 짧은 글).</summary>
         void BuildScene(RectTransform content)
         {
-            OnlineUi.Scene(Ctx, content, "S-0501", "camp_background", 0.35f);
+            OnlineUi.Scene(Ctx, content, "S-0501", "camp_background", 0.35f, "bg_login");
             var fire = OnlineUi.AnimImg(Ctx, content, "S-0501", "campfire", 1236f - 64f, 780f - 100f, 128f, 128f);
             fire.name = "Campfire";
             float x = 880f, y = 168f;

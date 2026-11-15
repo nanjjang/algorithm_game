@@ -51,13 +51,14 @@ namespace Wizard.Solo.Screens.Online
         readonly List<UImage> _rankBg = new List<UImage>(), _rankMedal = new List<UImage>();
         readonly List<UiLabel> _rankNo = new List<UiLabel>(), _rankName = new List<UiLabel>(), _rankRating = new List<UiLabel>(), _rankWl = new List<UiLabel>();
         UiLabel _rankEmpty, _youName, _youRating;
+        UImage _rankEmptyArt;
 
         public override ScreenId Id => ScreenId.OnlineProfile;
         protected override bool HasFrame => false;
 
         protected override void BuildContent(RectTransform content)
         {
-            OnlineUi.Scene(Ctx, content, "S-2506", "tower_wall", 0.5f);
+            OnlineUi.Scene(Ctx, content, "S-2506", "tower_wall", 0.5f, "bg_records_hall");
             OnlineUi.HeaderBand(Ctx, content, "I-F1", "record", T(OnlineKeys.ProfileTitle), out var band);
             float hx = 560f;
             _gold = OnlineUi.IconText(Ctx, band, "I-C2", "gold", string.Empty, hx, 0f, 170f, 80f, UiFontId.F24, UiTheme.Gold);
@@ -124,8 +125,8 @@ namespace Wizard.Solo.Screens.Online
             {
                 UiKit.Rect(panel, lx, 168f, 12f, 12f, col, false, "Legend");
                 string txt = key == OnlineKeys.ProfOddsSuccess ? T(OnlineKeys.ProfOddsSuccess).Replace(" {pct}%", string.Empty) : T(key);
-                UiKit.Label(Ctx, panel, txt, UiFontId.F12, lx + 16f, 162f, 100f, 24f, UiTheme.SlateBlue);
-                lx += 110f;
+                UiKit.Label(Ctx, panel, txt, UiFontId.F16, lx + 18f, 160f, 110f, 24f, UiTheme.SlateBlue);
+                lx += 128f;
             }
             _dropLine = UiKit.Label(Ctx, panel, string.Empty, UiFontId.F16, tx, 192f, tw, 24f, UiTheme.SlateBlue);
             // 비용.
@@ -141,7 +142,7 @@ namespace Wizard.Solo.Screens.Online
             // 제물 칸 5개.
             UiKit.Divider(Ctx, panel, P, 332f, AnvilW - 2f * P);
             _sacHead = UiKit.Label(Ctx, panel, string.Empty, UiFontId.F24, P, 348f, 260f, 36f, UiTheme.Chalk);
-            UiKit.Label(Ctx, panel, T(OnlineKeys.ProfSacrificeHint), UiFontId.F12, P, 384f, 520f, 20f, UiTheme.SlateBlue);
+            UiKit.Label(Ctx, panel, T(OnlineKeys.ProfSacrificeHint), UiFontId.F16, P, 384f, 480f, 40f, UiTheme.SlateBlue, TextAnchor.UpperLeft, wrap: true);
             for (int i = 0; i < SacSlots; i++)
             {
                 float sx = P + 520f + i * 72f;
@@ -187,8 +188,9 @@ namespace Wizard.Solo.Screens.Online
 
         void BuildRanking(RectTransform content)
         {
-            var panel = UiKit.Panel(Ctx, content, UiPanelKind.Board, RankX, RankY, RankW, RankH).rectTransform;
-            UiKit.Bevel(panel);
+            var tablet = OnlineUi.OnlineImg(content, "frame_tablet", RankX, RankY, RankW, RankH);
+            var panel = (tablet ?? UiKit.Panel(Ctx, content, UiPanelKind.Board, RankX, RankY, RankW, RankH)).rectTransform;
+            if (tablet == null) UiKit.Bevel(panel);
             OnlineUi.Img(Ctx, panel, "I-F1", "ranking", 24f, 24f, 32f, 32f);
             UiKit.Label(Ctx, panel, T(OnlineKeys.ProfileTop), UiFontId.F32, 68f, 18f, RankW - 92f, 44f, UiTheme.Chalk);
             for (int i = 0; i < RankRows; i++)
@@ -204,7 +206,8 @@ namespace Wizard.Solo.Screens.Online
                 _rankWl.Add(UiKit.Label(Ctx, row, string.Empty, UiFontId.F12, 368f, 0f, 92f, RankRowH, UiTheme.SlateBlue, TextAnchor.MiddleRight));
                 _rankRows.Add(row);
             }
-            _rankEmpty = UiKit.Label(Ctx, panel, T(OnlineKeys.TopEmpty), UiFontId.F16, 24f, 96f, RankW - 48f, 48f, UiTheme.SlateBlue, TextAnchor.MiddleCenter, wrap: true);
+            _rankEmptyArt = OnlineUi.OnlineImg(panel, "empty_ranking", (RankW - 256f) * 0.5f, 220f, 256f, 256f);
+            _rankEmpty = UiKit.Label(Ctx, panel, T(OnlineKeys.ProfUnranked), UiFontId.F24, 32f, 500f, RankW - 64f, 72f, UiTheme.SlateBlue, TextAnchor.MiddleCenter, wrap: true);
             // 내 줄(아래 고정).
             var you = UiKit.Node(panel, "You", 16f, RankH - 16f - RankRowH, RankW - 32f, RankRowH);
             OnlineUi.Nine(Ctx, you, "S-2503", "leaderboard_row_you", 0f, 0f, RankW - 32f, RankRowH);
@@ -236,6 +239,7 @@ namespace Wizard.Solo.Screens.Online
             var top = _svc != null ? _svc.Leaderboard() : null;
             int n = top != null ? Mathf.Min(top.Count, RankRows) : 0;
             _rankEmpty.gameObject.SetActive(n == 0);
+            if (_rankEmptyArt != null) _rankEmptyArt.gameObject.SetActive(n == 0);
             for (int i = 0; i < RankRows; i++)
             {
                 bool on = i < n;

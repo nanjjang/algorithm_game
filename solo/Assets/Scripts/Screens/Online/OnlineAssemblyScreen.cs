@@ -25,6 +25,7 @@ namespace Wizard.Solo.Screens.Online
         int _selected; // 0 = 코어, 1.. = 연결 칸
         UiLabel _title, _status, _mutHead;
         UnityEngine.UI.Image _wandArt;
+        RectTransform _top;
         readonly List<UiButton> _slotButtons = new List<UiButton>();
         readonly List<UnityEngine.UI.Image> _slotIcons = new List<UnityEngine.UI.Image>();
         readonly List<UiLabel> _slotNames = new List<UiLabel>(), _slotCaps = new List<UiLabel>();
@@ -49,8 +50,9 @@ namespace Wizard.Solo.Screens.Online
             // 위 판: 지팡이 + 회로.
             var top = UiKit.Panel(Ctx, content, UiPanelKind.Board, TopX, TopY, TopW, TopH).rectTransform;
             UiKit.Bevel(top);
-            OnlineUi.Img(Ctx, top, "S-0602", "wand_pedestal", 40f, 236f, 224f, 48f);
-            _wandArt = UiKit.Image(top, null, 88f, 72f, 128f, 128f, Color.white, true);
+            _top = top;
+            OnlineUi.Img(Ctx, top, "S-0602", "wand_pedestal", 40f, 248f, 224f, 48f);
+            _wandArt = UiKit.Image(top, null, 64f, 40f, 176f, 208f, Color.white, true);
             float x = 320f, cy = 96f;
             for (int i = 0; i <= MaxSlots; i++)
             {
@@ -65,14 +67,15 @@ namespace Wizard.Solo.Screens.Online
                 if (i == 0) OnlineUi.Img(Ctx, r, "K-63", "core_slot_filled", 0f, 0f, SlotSize, SlotSize);
                 else OnlineUi.Img(Ctx, r, "K-60", "item_slot_empty", 0f, 0f, SlotSize, SlotSize);
                 _slotIcons.Add(UiKit.Image(r, null, (SlotSize - 56f) * 0.5f, (SlotSize - 56f) * 0.5f, 56f, 56f, Color.white, true));
-                _slotNames.Add(UiKit.Label(Ctx, top, string.Empty, UiFontId.F12, x - 16f, cy + SlotSize + 8f, SlotSize + 32f, 36f, UiTheme.Chalk, TextAnchor.UpperCenter, wrap: true));
-                _slotCaps.Add(UiKit.Label(Ctx, top, i == 0 ? T(OnlineKeys.AssemblyCore) : F(OnlineKeys.AssemblyLink, "n", i), UiFontId.F12, x, cy - 26f, SlotSize, 20f, i == 0 ? UiTheme.SelectYellow : UiTheme.SlateBlue, TextAnchor.MiddleCenter));
+                _slotNames.Add(UiKit.Label(Ctx, top, string.Empty, UiFontId.F16, x - 20f, cy + SlotSize + 8f, SlotSize + 40f, 48f, UiTheme.Chalk, TextAnchor.UpperCenter, wrap: true));
+                _slotCaps.Add(UiKit.Label(Ctx, top, i == 0 ? T(OnlineKeys.AssemblyCore) : F(OnlineKeys.AssemblyLink, "n", i), UiFontId.F16, x - 8f, cy - 30f, SlotSize + 16f, 24f, i == 0 ? UiTheme.SelectYellow : UiTheme.SlateBlue, TextAnchor.MiddleCenter));
                 _slotButtons.Add(b);
                 x += SlotSize + LinkW + 8f;
             }
 
             // 창고 격자.
-            UiKit.Label(Ctx, content, T(OnlineKeys.AssemblyChips), UiFontId.F16, TopX, TopY + TopH + 20f, TopW, 28f, UiTheme.Chalk);
+            var chipsHead = UiKit.Label(Ctx, content, T(OnlineKeys.AssemblyChips), UiFontId.F24, TopX, TopY + TopH + 12f, TopW, 36f, UiTheme.Chalk, TextAnchor.MiddleCenter);
+            UiKit.DropShadow(chipsHead);
             float gy = TopY + TopH + 56f;
             for (int i = 0; i < Chips; i++)
             {
@@ -84,12 +87,13 @@ namespace Wizard.Solo.Screens.Online
                 UiKit.Panel(Ctx, r, UiPanelKind.Recess, 0f, 0f, 140f, 124f).raycastTarget = false;
                 OnlineUi.Img(Ctx, r, "K-60", "item_slot_filled", 38f, 8f, 64f, 64f);
                 _chipIcons.Add(UiKit.Image(r, null, 46f, 16f, 48f, 48f, Color.white, true));
-                _chipQty.Add(UiKit.Label(Ctx, r, string.Empty, UiFontId.F12, 4f, 76f, 132f, 44f, UiTheme.Chalk, TextAnchor.UpperCenter, wrap: true));
+                _chipQty.Add(UiKit.Label(Ctx, r, string.Empty, UiFontId.F16, 4f, 76f, 132f, 44f, UiTheme.Chalk, TextAnchor.UpperCenter, wrap: true));
                 _chipButtons.Add(b);
             }
 
             // 받은 변이 + 버튼 줄.
-            float by = UiScale.RefHeight - 48f - 64f;
+            // 버튼 줄은 창고 격자(최대 2줄) 바로 아래.
+            float by = TopY + TopH + 56f + 2f * 132f + 56f;
             _mutHead = UiKit.Label(Ctx, content, string.Empty, UiFontId.F16, TopX, by - 44f, 900f, 32f, UiTheme.SlateBlue);
             UiKit.DropShadow(_mutHead);
             for (int i = 0; i < 4; i++)
@@ -161,7 +165,7 @@ namespace Wizard.Solo.Screens.Online
             string charId = Wizard.Solo.Ids.Char.Of(_character);
             _title.SetText(F(OnlineKeys.AssemblyTitle, "who", T(charId), "stage", stage));
             Sprite wa = null;
-            try { wa = Ctx != null && Ctx.Art != null ? Ctx.Art.WandIcon(charId, stage) : null; } catch (System.Exception) { }
+            try { wa = Ctx != null && Ctx.Art != null ? (Ctx.Art.WandInspection(charId, stage) ?? Ctx.Art.WandIcon(charId, stage)) : null; } catch (System.Exception) { }
             _wandArt.sprite = wa;
             _wandArt.enabled = wa != null;
             for (int i = 0; i < _slotButtons.Count; i++)
@@ -179,6 +183,10 @@ namespace Wizard.Solo.Screens.Online
                 _slotNames[i].SetText(string.IsNullOrEmpty(id) ? "-" : T(id));
                 _slotButtons[i].Picked = i == _selected;
             }
+            // 위 판은 칸 수에 맞춰 폭을 줄이고 가운데에 둔다.
+            int slots = 1 + _links.Count;
+            float tw = 320f + slots * (SlotSize + LinkW + 8f) + 24f;
+            UiKit.Place(_top, (UiScale.RefWidth - tw) * 0.5f, TopY, tw, TopH);
             var cfg = db != null ? db.Enhance : null;
             var mlist = p != null ? p.MutationsOf(_character) : new List<Wizard.Solo.Meta.MutationEntry>();
             _mutHead.SetText(F(OnlineKeys.MutationRemoveHead, "gold", N(cfg != null ? cfg.MutationRemoveGold : 0)));
@@ -201,11 +209,14 @@ namespace Wizard.Solo.Screens.Online
                 foreach (var l in lo.Links) if (!string.IsNullOrEmpty(l) && l != Wizard.Solo.Ids.Block.MagicBolt) ids.Add(l);
             }
             _chipIds.AddRange(ids);
+            int cols = Mathf.Min(12, _chipIds.Count);
+            float gx0 = (UiScale.RefWidth - (cols * 152f - 12f)) * 0.5f;
             for (int i = 0; i < _chipButtons.Count; i++)
             {
                 bool on = i < _chipIds.Count;
                 _chipButtons[i].gameObject.SetActive(on);
                 if (!on) continue;
+                UiKit.Place(_chipButtons[i].Rect, gx0 + (i % 12) * 152f, TopY + TopH + 56f + (i / 12) * 132f, 140f, 124f);
                 string id = _chipIds[i];
                 int free = Free(id);
                 _chipIcons[i].sprite = Icon(id, 48);

@@ -17,6 +17,36 @@ namespace Wizard.Solo.Screens.Online
     {
         public const float Edge = 48f, Band = 80f;
 
+        // ---- 격자와 글자 크기(1920×1080, docs/ui-assets.md 1.1: 8px 격자, 가장자리 48) ----
+        /// <summary>12칸 격자: 바깥 여백 48, 칸 사이 24, 한 칸 130.</summary>
+        public const float Gutter = 24f, Col = 130f;
+        /// <summary>n칸 너비(사이 여백 포함).</summary>
+        public static float Span(int n) => n * Col + (n - 1) * Gutter;
+        /// <summary>k번째 칸(0부터)의 왼쪽 x.</summary>
+        public static float ColX(int k) => Edge + k * (Col + Gutter);
+
+        // ---- 받아 올 그림(Docs/15-online-asset-requests.md): Resources/Art/online/&lt;이름&gt;.png. 없으면 null ----
+        static readonly System.Collections.Generic.Dictionary<string, Sprite> _online = new System.Collections.Generic.Dictionary<string, Sprite>();
+
+        public static Sprite Online(string name)
+        {
+            if (string.IsNullOrEmpty(name)) return null;
+            if (_online.TryGetValue(name, out var s)) return s;
+            try { s = Resources.Load<Sprite>("Art/online/" + name); } catch (Exception) { s = null; }
+            _online[name] = s;
+            return s;
+        }
+
+        /// <summary>받아 온 그림이 있으면 그것을, 없으면 null(부르는 쪽이 지금 그림으로 대신한다).</summary>
+        public static UImage OnlineImg(RectTransform parent, string name, float x, float y, float w, float h)
+        {
+            var s = Online(name);
+            if (s == null) return null;
+            var img = UiKit.Image(parent, s, x, y, w, h, Color.white, false);
+            img.name = name;
+            return img;
+        }
+
         public static Sprite Sprite(GameContext ctx, string id, string variant, string state = null)
         {
             if (ctx == null || ctx.Art == null) return null;
@@ -48,10 +78,17 @@ namespace Wizard.Solo.Screens.Online
         /// <summary>
         /// 장면 바탕: 화면 전체 그림 + 먹색 덮개(dim 0~1). 아래쪽을 조금 더 어둡게 해 글자가 읽히게 한다.
         /// </summary>
-        public static RectTransform Scene(GameContext ctx, RectTransform parent, string id, string variant, float dim)
+        public static RectTransform Scene(GameContext ctx, RectTransform parent, string id, string variant, float dim, string onlineBg = null)
         {
             var node = UiKit.Node(parent, "Scene", 0f, 0f, UiScale.RefWidth, UiScale.RefHeight);
             UiKit.Rect(node, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, UiTheme.WoodDark, true, "Background");
+            var custom = Online(onlineBg);
+            if (custom != null)
+            {
+                UiKit.Image(node, custom, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, Color.white, false);
+                if (dim > 0f) UiKit.Rect(node, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, UiTheme.WithAlpha(UiTheme.Ink, dim * 0.5f), false, "Dim");
+                return node;
+            }
             // UI 그림(S-xxxx)은 manifest에서, 그 밖의 열쇠("enhance.workbench" 등)는 배경에서 찾는다(없는 UI id는 바둑판 대체 그림이 나오므로 섞지 않는다).
             Sprite s = id != null && id.StartsWith("S-", StringComparison.Ordinal) ? Sprite(ctx, id, variant) : null;
             if (s == null && ctx != null && ctx.Art != null) { try { s = ctx.Art.Background(id); } catch (Exception) { s = null; } }

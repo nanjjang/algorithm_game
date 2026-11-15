@@ -326,6 +326,11 @@ namespace Wizard.Solo.Screens.Online
     /// <summary>협동 방 글자 열쇠(Resources/NamesSolo/Online.ko.json).</summary>
     public static class OnlineKeys
     {
+        public const string HubPickHint = "str.online.hub.pick_hint";
+        public const string NavRecords = "str.online.nav.records";
+        public const string NavFriends = "str.online.nav.friends";
+        public const string NavMarket = "str.online.nav.market";
+        public const string NavLogout = "str.online.nav.logout";
         public const string MktCount = "str.online.mkt.count";
         public const string FrSideTitle = "str.online.fr.side_title";
         public const string FrSideNote = "str.online.fr.side_note";

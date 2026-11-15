@@ -10,41 +10,43 @@ using UInputField = UnityEngine.UI.InputField;
 namespace Wizard.Solo.Screens.Online
 {
     /// <summary>
-    /// 온라인 들머리(ScreenId.CoopLobby, docs/ui-assets.md 4.5·4.7·4.21절, 11-online.md). 야영지 장면 위:
-    ///  - 방 밖: 왼쪽에 모드 카드 3장(협동·결투·광장, S-0502 그림 400×520), 오른쪽 528 폭 판에 고른 모드의 할 일
-    ///    ([방 만들고 코드 받기], 코드로 참가, [이 기기에서 봇과]). 위 띠에 내 이름·종류·골드·레이팅과 기록·친구·장터·로그아웃.
-    ///  - 방 안: 왼쪽은 "벤치" — 핀에 꽂힌 쪽지(S-2102)에 큰 방 코드, 자리마다 캐릭터 그림(192) + 흙 받침(S-0503) + 준비 표시(S-2103)
-    ///    + 방장(S-2104)·봇 꼬리표, 빈자리는 모래시계(S-2105). 결투는 두 자리 사이에 VS(S-0902). 오른쪽 판에 [시작]·봇·나가기·결과.
-    /// 계정이 없거나 로그인 표가 지워졌으면 로그인 화면(OnlineLogin)을 먼저 연다 — 돌아와서도 없으면 메인 메뉴로.
-    /// 규칙은 CoopLobbyModel. Esc = 방에서 나가 메인 메뉴로.
+    /// 온라인 들머리(ScreenId.CoopLobby, docs/ui-assets.md 4.5·4.7·4.21절, Docs/14-online-ui.md). 12칸 격자(OnlineUi.Span).
+    ///  - 위 띠: 왼쪽 제목, 가운데 "내 판"(이름·계정 종류·골드·레이팅), 오른쪽 아이콘 단추 4개(기록·친구·장터·로그아웃).
+    ///  - 방 밖: 모드 카드 3장(440×640)이 화면 가운데. 고른 카드만 밝고 위로 올라오며, 카드 아래쪽에 그 모드의 할 일이 들어 있다
+    ///    (협동·결투: [방 만들고 코드 받기], 코드 칸 + [참가], [이 기기에서 봇과] / 광장: [광장으로 가기]). 따로 떠 있는 판이 없다.
+    ///  - 방 안: 왼쪽 위 방 코드 쪽지, 그 아래 자리(협동 4·결투 2 + 가운데 "대"), 오른쪽 판: 모드·인원·결과·[시작]·봇·[나가기].
+    ///    결투 방은 결투장 바닥(S-0901) 장면.
+    /// 받아 온 그림(Docs/15)이 있으면 그것을 쓴다. 계정이 없으면 로그인 화면을 먼저 연다.
     /// </summary>
     public sealed class CoopLobbyScreen : ScreenBase
     {
-        const float CardX = 48f, CardY = 128f, CardW = 400f, CardH = 520f, CardGap = 24f;
-        const float PanelX = 1344f, PanelY = 128f, PanelW = 528f, PanelH = 760f, PanelPad = 32f;
-        const float BenchX = 48f, BenchY = 128f, BenchW = 1272f, BenchH = 760f;
+        const float CardW = 440f, CardH = 640f, CardGap = 32f, CardY = 152f, Lift = 16f;
+        const float SeatW = 288f, SeatH = 440f;
 
         CoopLobbyModel _model;
         bool _askedLogin;
 
-        // 위 띠
-        UiLabel _who, _gold, _rating;
-        RectTransform _kindTagRoot;
-        UiLabel _kindTag;
-        UiButton _profile, _friends, _market, _logout;
+        RectTransform _sceneCamp, _sceneDuel;
 
-        // 방 밖
-        RectTransform _outside;
-        readonly UiButton[] _cards = new UiButton[3];
-        readonly UiLabel[] _cardRecords = new UiLabel[3];
-        UiLabel _panelTitle, _panelDesc, _localNote, _joinHead;
+        UiLabel _who, _gold, _rating, _kindTag;
+        RectTransform _kindTagRoot;
+        readonly List<UiButton> _nav = new List<UiButton>();
+
+        RectTransform _outside, _roomActions;
+        sealed class Card
+        {
+            public UiButton Button;
+            public RectTransform Root, Actions;
+            public CanvasGroup Fade;
+            public UiLabel Record, Hint;
+            public UImage SelectedFrame;
+        }
+        readonly Card[] _cards = new Card[3];
         UiButton _createOnline, _createLocal, _join, _plazaEnter;
         UInputField _codeInput;
-        RectTransform _roomActions;
 
-        // 방 안
-        RectTransform _inside;
-        UiLabel _codeLabel, _codeCaption, _share, _roomTitle, _members, _roomDesc;
+        RectTransform _inside, _panel;
+        UiLabel _codeLabel, _localLabel, _share, _roomTitle, _members, _roomDesc;
         UiButton _copy;
         RectTransform _benchRoot;
         readonly List<Seat> _seats = new List<Seat>();
@@ -53,13 +55,14 @@ namespace Wizard.Solo.Screens.Online
         UImage _resultBanner;
 
         UiLabel _status;
+        float _copiedTimer;
+        int _picked; // 0 협동, 1 결투, 2 광장
 
         sealed class Seat
         {
-            public RectTransform Root;
-            public UImage Board, Art, Pedestal, Ready, Leader, Hourglass;
+            public RectTransform Root, BotTag, StageRoot;
+            public UImage Frame, EmptyFrame, Art, Pedestal, Ready, Leader, Hourglass;
             public UiLabel Name, Role, Stage, Waiting;
-            public RectTransform BotTag, StageRoot;
         }
 
         public override ScreenId Id => ScreenId.CoopLobby;
@@ -68,29 +71,40 @@ namespace Wizard.Solo.Screens.Online
         protected override void BuildContent(RectTransform content)
         {
             _model = new CoopLobbyModel(Ctx);
-            OnlineUi.Scene(Ctx, content, "S-0501", "camp_background", 0.45f);
-            OnlineUi.AnimImg(Ctx, content, "S-0501", "campfire", 1236f - 64f, 780f - 100f, 128f, 128f);
+            _sceneCamp = OnlineUi.Scene(Ctx, content, "S-0501", "camp_background", 0.4f, "bg_online_hub");
+            if (OnlineUi.Online("bg_online_hub") == null)
+                OnlineUi.AnimImg(Ctx, _sceneCamp, "S-0501", "campfire", 1236f - 64f, 780f - 100f, 128f, 128f);
+            _sceneDuel = OnlineUi.Scene(Ctx, content, "S-0901", "duel_floor", 0.45f);
             BuildHeader(content);
             BuildOutside(content);
             BuildInside(content);
-            _status = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, CardX, 952f, 1824f, 48f, UiTheme.Amber, TextAnchor.MiddleLeft);
+            _status = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, OnlineUi.Edge, 1000f, OnlineUi.Span(12), 40f, UiTheme.Amber, TextAnchor.MiddleCenter);
             UiKit.DropShadow(_status);
         }
 
         void BuildHeader(RectTransform content)
         {
             OnlineUi.HeaderBand(Ctx, content, "I-F1", "square", T(OnlineKeys.Title), out var band);
-            float x = 380f;
-            _who = UiKit.Label(Ctx, band, string.Empty, UiFontId.F24, x, 0f, 300f, 80f, UiTheme.Chalk, TextAnchor.MiddleLeft);
-            _kindTag = OnlineUi.Tag(Ctx, band, T(OnlineKeys.KindEmail), x + 300f, 28f, UiTheme.SlateBlue, 120f);
+            float px = 640f, pw = 720f;
+            var plate = UiKit.Panel(Ctx, band, UiPanelKind.Recess, px, 12f, pw, 56f).rectTransform;
+            OnlineUi.Img(Ctx, plate, "I-F3", "person", 16f, 16f, 24f, 24f);
+            _who = UiKit.Label(Ctx, plate, string.Empty, UiFontId.F24, 48f, 0f, 240f, 56f, UiTheme.Chalk);
+            _kindTag = OnlineUi.Tag(Ctx, plate, T(OnlineKeys.KindEmail), 296f, 16f, UiTheme.SlateBlue, 112f);
             _kindTagRoot = (RectTransform)_kindTag.transform.parent;
-            _gold = OnlineUi.IconText(Ctx, band, "I-C2", "gold", string.Empty, x + 440f, 0f, 180f, 80f, UiFontId.F24, UiTheme.Gold);
-            _rating = OnlineUi.IconText(Ctx, band, "I-L1", "league_sprout", string.Empty, x + 630f, 0f, 170f, 80f, UiFontId.F24, UiTheme.Chalk);
-            float bw = 176f, bx = UiScale.RefWidth - OnlineUi.Edge - 4f * bw - 3f * 8f;
-            _profile = UiKit.Button(Ctx, band, T(OnlineKeys.ProfileButton), bx, 16f, bw, 48f, OnProfile, UiButtonStyle.Medium, Focus, null, UiFontId.F16, OnlineUi.Sprite(Ctx, "I-F1", "record"));
-            _friends = UiKit.Button(Ctx, band, T(OnlineKeys.FriendsButton), bx + (bw + 8f), 16f, bw, 48f, () => OpenChild(ScreenId.OnlineFriends), UiButtonStyle.Medium, Focus, null, UiFontId.F16, OnlineUi.Sprite(Ctx, "I-F1", "friends"));
-            _market = UiKit.Button(Ctx, band, T(OnlineKeys.MarketButton), bx + 2f * (bw + 8f), 16f, bw, 48f, () => OpenChild(ScreenId.OnlineMarket), UiButtonStyle.Medium, Focus, null, UiFontId.F16, OnlineUi.Sprite(Ctx, "I-F1", "market"));
-            _logout = UiKit.Button(Ctx, band, T(OnlineKeys.Logout), bx + 3f * (bw + 8f), 16f, bw, 48f, OnLogout, UiButtonStyle.Medium, Focus, null, UiFontId.F16, OnlineUi.Sprite(Ctx, "I-F1", "exit"));
+            _gold = OnlineUi.IconText(Ctx, plate, "I-C2", "gold", string.Empty, 432f, 0f, 150f, 56f, UiFontId.F24, UiTheme.Gold);
+            _rating = OnlineUi.IconText(Ctx, plate, "I-L1", "league_sprout", string.Empty, 596f, 0f, 116f, 56f, UiFontId.F24, UiTheme.Chalk);
+            string[] icons = { "record", "friends", "market", "exit" };
+            string[] labels = { OnlineKeys.NavRecords, OnlineKeys.NavFriends, OnlineKeys.NavMarket, OnlineKeys.NavLogout };
+            System.Action[] acts = { OnProfile, () => OpenChild(ScreenId.OnlineFriends), () => OpenChild(ScreenId.OnlineMarket), OnLogout };
+            float bx = UiScale.RefWidth - OnlineUi.Edge - 4f * 96f - 3f * 8f;
+            for (int i = 0; i < 4; i++)
+            {
+                var b = UiKit.Button(Ctx, band, null, bx + i * 104f, 4f, 96f, 72f, acts[i], UiButtonStyle.Plain, Focus);
+                var r = b.ContentRoot != null ? b.ContentRoot : b.Rect;
+                OnlineUi.Img(Ctx, r, "I-F1", icons[i], 32f, 6f, 32f, 32f);
+                UiKit.Label(Ctx, r, T(labels[i]), UiFontId.F16, 0f, 42f, 96f, 24f, UiTheme.Chalk, TextAnchor.MiddleCenter);
+                _nav.Add(b);
+            }
         }
 
         static readonly string[] CardArt = { "mode_expedition", "mode_duel", "mode_square" };
@@ -98,7 +112,7 @@ namespace Wizard.Solo.Screens.Online
         static readonly string[] CardDesc = { OnlineKeys.HubDescCoop, OnlineKeys.HubDescDuel, OnlineKeys.HubDescPlaza };
         static readonly string[] CardIcon = { "expedition", "duel", "square" };
 
-        int _picked; // 0 협동, 1 결투, 2 광장
+        static float CardX(int i) => (UiScale.RefWidth - (3f * CardW + 2f * CardGap)) * 0.5f + i * (CardW + CardGap);
 
         void BuildOutside(RectTransform content)
         {
@@ -106,93 +120,96 @@ namespace Wizard.Solo.Screens.Online
             for (int i = 0; i < 3; i++)
             {
                 int k = i;
-                float x = CardX + i * (CardW + CardGap);
-                var b = UiKit.Button(Ctx, _outside, null, x, CardY, CardW, CardH, () => PickCard(k), UiButtonStyle.Plain, Focus);
-                var r = b.ContentRoot != null ? b.ContentRoot : b.Rect;
-                UiKit.Panel(Ctx, r, UiPanelKind.Board, 0f, 0f, CardW, CardH).raycastTarget = false;
-                OnlineUi.Img(Ctx, r, "S-0502", CardArt[i], 16f, 16f, 368f, 240f);
-                OnlineUi.Img(Ctx, r, "I-F1", CardIcon[i], 24f, 276f, 32f, 32f);
-                UiKit.Label(Ctx, r, T(CardTitle[i]), UiFontId.F32, 64f, 270f, CardW - 80f, 44f, UiTheme.Chalk, TextAnchor.MiddleLeft);
-                UiKit.Label(Ctx, r, T(CardDesc[i]), UiFontId.F16, 24f, 324f, CardW - 48f, 72f, UiTheme.SlateBlue, TextAnchor.UpperLeft, wrap: true);
-                UiKit.Divider(Ctx, r, 24f, 420f, CardW - 48f);
-                _cardRecords[i] = UiKit.Label(Ctx, r, string.Empty, UiFontId.F16, 24f, 436f, CardW - 48f, 32f, UiTheme.Chalk, TextAnchor.MiddleLeft);
-                _cards[i] = b;
+                var c = new Card();
+                c.Root = UiKit.Node(_outside, "Card" + i, CardX(i), CardY, CardW, CardH);
+                c.Fade = c.Root.gameObject.AddComponent<CanvasGroup>();
+                c.Button = UiKit.Button(Ctx, c.Root, null, 0f, 0f, CardW, CardH, () => PickCard(k), UiButtonStyle.Plain, Focus);
+                var r = c.Button.ContentRoot != null ? c.Button.ContentRoot : c.Button.Rect;
+                if (OnlineUi.OnlineImg(r, "frame_mode_card", 0f, 0f, CardW, CardH) == null)
+                    UiKit.Panel(Ctx, r, UiPanelKind.Board, 0f, 0f, CardW, CardH).raycastTarget = false;
+                c.SelectedFrame = OnlineUi.OnlineImg(r, "frame_mode_card_selected", 0f, 0f, CardW, CardH);
+                OnlineUi.Img(Ctx, r, "S-0502", CardArt[i], (CardW - 368f) * 0.5f, 24f, 368f, 240f);
+                OnlineUi.Img(Ctx, r, "I-F1", CardIcon[i], 36f, 284f, 32f, 32f);
+                UiKit.Label(Ctx, r, T(CardTitle[i]), UiFontId.F32, 80f, 278f, CardW - 112f, 44f, UiTheme.Chalk);
+                UiKit.Label(Ctx, r, T(CardDesc[i]), UiFontId.F16, 36f, 332f, CardW - 72f, 52f, UiTheme.SlateBlue, TextAnchor.UpperLeft, wrap: true);
+                c.Record = UiKit.Label(Ctx, r, string.Empty, UiFontId.F16, 36f, 388f, CardW - 72f, 28f, UiTheme.Chalk);
+                UiKit.Divider(Ctx, r, 36f, 428f, CardW - 72f);
+                c.Hint = UiKit.Label(Ctx, r, T(OnlineKeys.HubPickHint), UiFontId.F24, 36f, 500f, CardW - 72f, 64f, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
+                c.Actions = UiKit.Node(c.Root, "Actions", 0f, 444f, CardW, 180f);
+                _cards[i] = c;
             }
-
-            var panel = UiKit.Panel(Ctx, _outside, UiPanelKind.Board, PanelX, PanelY, PanelW, PanelH).rectTransform;
-            UiKit.Bevel(panel);
-            float inner = PanelW - 2f * PanelPad, y = PanelPad;
-            _panelTitle = UiKit.Label(Ctx, panel, string.Empty, UiFontId.F32, PanelPad, y, inner, 44f, UiTheme.Chalk, TextAnchor.MiddleLeft);
-            y += 52f;
-            _panelDesc = UiKit.Label(Ctx, panel, string.Empty, UiFontId.F16, PanelPad, y, inner, 72f, UiTheme.SlateBlue, TextAnchor.UpperLeft, wrap: true);
-            y += 88f;
-            _roomActions = UiKit.Node(panel, "RoomActions", 0f, y, PanelW, PanelH - y);
-            float ry = 0f;
-            _createOnline = UiKit.Button(Ctx, _roomActions, T(OnlineKeys.HubCreate), PanelPad, ry, inner, 64f, OnCreateOnline, UiButtonStyle.Primary, Focus, null, UiFontId.F24, OnlineUi.Sprite(Ctx, "I-F2", "plus"));
-            ry += 96f;
-            _joinHead = UiKit.Label(Ctx, _roomActions, T(OnlineKeys.HubJoinHead), UiFontId.F16, PanelPad, ry, inner, 24f, UiTheme.SlateBlue);
-            ry += 28f;
-            _codeInput = OnlineUi.Field(Ctx, Focus, _roomActions, null, T(OnlineKeys.CodeHint), PanelPad, ry, inner - 152f, RoomServer.CodeLength + 2, false, UiFontId.F32);
+            _roomActions = UiKit.Node(_outside, "RoomActions", 0f, 0f, CardW, 180f);
+            float inner = CardW - 72f;
+            _createOnline = UiKit.Button(Ctx, _roomActions, T(OnlineKeys.HubCreate), 36f, 0f, inner, 56f, OnCreateOnline, UiButtonStyle.Primary, Focus, null, UiFontId.F24, OnlineUi.Sprite(Ctx, "I-F2", "plus"));
+            _codeInput = OnlineUi.Field(Ctx, Focus, _roomActions, null, T(OnlineKeys.CodeHint), 36f, 68f, inner - 132f, RoomServer.CodeLength + 2, false, UiFontId.F24);
             _codeInput.characterValidation = UInputField.CharacterValidation.Alphanumeric;
-            _join = UiKit.Button(Ctx, _roomActions, T(OnlineKeys.Join), PanelPad + inner - 140f, ry, 140f, 48f, OnJoin, UiButtonStyle.Medium, Focus);
-            ry += 80f;
-            UiKit.Divider(Ctx, _roomActions, PanelPad, ry, inner);
-            ry += 24f;
-            _createLocal = UiKit.Button(Ctx, _roomActions, T(OnlineKeys.HubLocal), PanelPad, ry, inner, 48f, OnCreateLocal, UiButtonStyle.Medium, Focus);
-            ry += 52f;
-            _localNote = UiKit.Label(Ctx, _roomActions, T(OnlineKeys.HubLocalNote), UiFontId.F12, PanelPad, ry, inner, 20f, UiTheme.SlateBlue);
-            _plazaEnter = UiKit.Button(Ctx, panel, T(OnlineKeys.HubPlazaEnter), PanelPad, y, inner, 64f, OnPlaza, UiButtonStyle.Primary, Focus, null, UiFontId.F24, OnlineUi.Sprite(Ctx, "I-F1", "square"));
+            _join = UiKit.Button(Ctx, _roomActions, T(OnlineKeys.Join), 36f + inner - 120f, 68f, 120f, 48f, OnJoin, UiButtonStyle.Medium, Focus);
+            _createLocal = UiKit.Button(Ctx, _roomActions, T(OnlineKeys.HubLocal), 36f, 128f, inner, 40f, OnCreateLocal, UiButtonStyle.Small, Focus, null, UiFontId.F16);
+            _plazaEnter = UiKit.Button(Ctx, _cards[2].Actions, T(OnlineKeys.HubPlazaEnter), 36f, 0f, inner, 64f, OnPlaza, UiButtonStyle.Primary, Focus, null, UiFontId.F24, OnlineUi.Sprite(Ctx, "I-F1", "square"));
         }
 
         void BuildInside(RectTransform content)
         {
             _inside = UiKit.Node(content, "Inside", 0f, 0f, UiScale.RefWidth, UiScale.RefHeight);
-            // 핀에 꽂힌 쪽지: 방 코드.
-            var note = OnlineUi.Nine(Ctx, _inside, "S-2102", "room_note", BenchX, BenchY, 440f, 152f, null, UiTheme.Paper).rectTransform;
-            _codeCaption = UiKit.Label(Ctx, note, T(OnlineKeys.HubCodeCaption), UiFontId.F16, 28f, 20f, 300f, 24f, UiTheme.PaperText);
-            _codeLabel = UiKit.Label(Ctx, note, string.Empty, UiFontId.F48, 28f, 48f, 300f, 64f, UiTheme.PaperText, TextAnchor.MiddleLeft);
-            _copy = UiKit.Button(Ctx, note, T(OnlineKeys.HubCopy), 316f, 56f, 104f, 48f, OnCopy, UiButtonStyle.Small, Focus, null, UiFontId.F16, OnlineUi.Sprite(Ctx, "I-F2", "copy"));
-            _share = UiKit.Label(Ctx, _inside, T(OnlineKeys.HubShare), UiFontId.F24, BenchX + 472f, BenchY + 56f, 800f, 40f, UiTheme.Chalk);
+            float leftW = OnlineUi.Span(9);
+            var noteImg = OnlineUi.OnlineImg(_inside, "frame_code_note", OnlineUi.Edge, 112f, 480f, 176f);
+            var note = noteImg != null ? noteImg.rectTransform : OnlineUi.Nine(Ctx, _inside, "S-2102", "room_note", OnlineUi.Edge, 112f, 480f, 176f, null, UiTheme.Paper).rectTransform;
+            UiKit.Label(Ctx, note, T(OnlineKeys.HubCodeCaption), UiFontId.F16, 32f, 24f, 300f, 24f, UiTheme.PaperText);
+            _codeLabel = UiKit.Label(Ctx, note, string.Empty, UiFontId.F64, 32f, 56f, 300f, 88f, UiTheme.PaperText, TextAnchor.MiddleLeft);
+            _localLabel = UiKit.Label(Ctx, note, T(OnlineKeys.HubLocalRoom), UiFontId.F32, 32f, 56f, 416f, 88f, UiTheme.PaperText, TextAnchor.MiddleLeft);
+            _copy = UiKit.Button(Ctx, note, T(OnlineKeys.HubCopy), 344f, 76f, 112f, 48f, OnCopy, UiButtonStyle.Small, Focus, null, UiFontId.F16, OnlineUi.Sprite(Ctx, "I-F2", "copy"));
+            _share = UiKit.Label(Ctx, _inside, T(OnlineKeys.HubShare), UiFontId.F24, OnlineUi.Edge + 512f, 176f, leftW - 512f, 48f, UiTheme.Chalk);
             UiKit.DropShadow(_share);
-            _benchRoot = UiKit.Node(_inside, "Bench", BenchX, BenchY + 184f, BenchW, BenchH - 184f);
+            _benchRoot = UiKit.Node(_inside, "Bench", OnlineUi.Edge, 336f, leftW, SeatH);
             for (int i = 0; i < SimConst.MaxPlayers; i++) _seats.Add(BuildSeat(_benchRoot));
-            _versus = OnlineUi.AnimImg(Ctx, _benchRoot, "S-0902", "versus_hangul", 0f, 0f, 256f, 160f, 6f, loop: false);
+            _versus = OnlineUi.OnlineImg(_benchRoot, "vs_emblem", 0f, 0f, 256f, 256f)
+                ?? OnlineUi.AnimImg(Ctx, _benchRoot, "S-0902", "versus_hangul", 0f, 0f, 256f, 160f, 6f, loop: false);
 
-            var panel = UiKit.Panel(Ctx, _inside, UiPanelKind.Board, PanelX, PanelY, PanelW, PanelH).rectTransform;
-            UiKit.Bevel(panel);
-            float inner = PanelW - 2f * PanelPad, y = PanelPad;
-            _roomTitle = UiKit.Label(Ctx, panel, string.Empty, UiFontId.F32, PanelPad, y, inner, 44f, UiTheme.Chalk);
-            _members = OnlineUi.IconText(Ctx, panel, "I-F3", "person", string.Empty, PanelPad, y + 52f, inner, 32f, UiFontId.F24);
-            _roomDesc = UiKit.Label(Ctx, panel, string.Empty, UiFontId.F16, PanelPad, y + 96f, inner, 56f, UiTheme.SlateBlue, TextAnchor.UpperLeft, wrap: true);
-            y += 164f;
-            _resultBanner = UiKit.Image(panel, null, PanelPad - 8f, y, inner + 16f, 64f, Color.white, true);
-            y += 88f;
-            _start = UiKit.Button(Ctx, panel, T(OnlineKeys.Start), PanelPad, y, inner, 64f, OnStart, UiButtonStyle.Primary, Focus, null, UiFontId.F24, OnlineUi.Sprite(Ctx, "I-F2", "play"));
-            y += 88f;
-            float half = (inner - 12f) / 2f;
-            _addBot = UiKit.Button(Ctx, panel, T(OnlineKeys.AddBot), PanelPad, y, half, 48f, OnAddBot, UiButtonStyle.Medium, Focus, null, UiFontId.F16, OnlineUi.Sprite(Ctx, "I-F2", "plus"));
-            _removeBot = UiKit.Button(Ctx, panel, T(OnlineKeys.RemoveBot), PanelPad + half + 12f, y, half, 48f, OnRemoveBot, UiButtonStyle.Medium, Focus, null, UiFontId.F16, OnlineUi.Sprite(Ctx, "I-F2", "minus"));
-            _leave = UiKit.Button(Ctx, panel, T(OnlineKeys.Leave), PanelPad, PanelH - PanelPad - 48f, inner, 48f, OnLeave, UiButtonStyle.Medium, Focus, null, UiFontId.F24, OnlineUi.Sprite(Ctx, "I-F2", "back"));
+            float px = OnlineUi.ColX(9), pw = OnlineUi.Span(3);
+            _panel = UiKit.Panel(Ctx, _inside, UiPanelKind.Board, px, 112f, pw, 496f).rectTransform;
+            UiKit.Bevel(_panel);
+            float P = 28f, inner = pw - 2f * P, y = 24f;
+            _roomTitle = UiKit.Label(Ctx, _panel, string.Empty, UiFontId.F32, P, y, inner, 44f, UiTheme.Chalk);
+            y += 48f;
+            _members = OnlineUi.IconText(Ctx, _panel, "I-F3", "person", string.Empty, P, y, inner, 32f, UiFontId.F24);
+            y += 40f;
+            _roomDesc = UiKit.Label(Ctx, _panel, string.Empty, UiFontId.F16, P, y, inner, 72f, UiTheme.SlateBlue, TextAnchor.UpperLeft, wrap: true);
+            y += 84f;
+            // 결과 띠(S-1701 1200×120)는 판 밖, 자리 위 가운데에 크게.
+            _resultBanner = UiKit.Image(_inside, null, OnlineUi.Edge + (OnlineUi.Span(9) - 960f) * 0.5f, 232f, 960f, 96f, Color.white, true);
+            _start = UiKit.Button(Ctx, _panel, T(OnlineKeys.Start), P, y, inner, 64f, OnStart, UiButtonStyle.Primary, Focus, null, UiFontId.F32, OnlineUi.Sprite(Ctx, "I-F2", "play"));
+            y += 80f;
+            _addBot = UiKit.Button(Ctx, _panel, T(OnlineKeys.AddBot), P, y, inner, 48f, OnAddBot, UiButtonStyle.Medium, Focus, null, UiFontId.F24, OnlineUi.Sprite(Ctx, "I-F2", "plus"));
+            y += 56f;
+            _removeBot = UiKit.Button(Ctx, _panel, T(OnlineKeys.RemoveBot), P, y, inner, 48f, OnRemoveBot, UiButtonStyle.Medium, Focus, null, UiFontId.F24, OnlineUi.Sprite(Ctx, "I-F2", "minus"));
+            y += 80f;
+            _leave = UiKit.Button(Ctx, _panel, T(OnlineKeys.Leave), P, y, inner, 48f, OnLeave, UiButtonStyle.Medium, Focus, null, UiFontId.F24, OnlineUi.Sprite(Ctx, "I-F2", "back"));
         }
 
         Seat BuildSeat(RectTransform parent)
         {
             var s = new Seat();
-            s.Root = UiKit.Node(parent, "Seat", 0f, 0f, 288f, 560f);
-            s.Board = UiKit.Panel(Ctx, s.Root, UiPanelKind.Recess, 0f, 0f, 288f, 560f);
-            s.Board.color = UiTheme.WithAlpha(Color.white, 0.85f);
-            s.Pedestal = OnlineUi.Img(Ctx, s.Root, "S-0503", "dirt_pedestal", 24f, 232f, 240f, 72f);
-            s.Art = UiKit.Image(s.Root, null, 48f, 64f, 192f, 192f, Color.white, false);
-            s.Leader = OnlineUi.Img(Ctx, s.Root, "S-2104", "room_leader", 16f, 16f, 32f, 32f);
-            s.Name = UiKit.Label(Ctx, s.Root, string.Empty, UiFontId.F24, 16f, 316f, 256f, 36f, UiTheme.Chalk, TextAnchor.MiddleCenter);
-            s.Role = UiKit.Label(Ctx, s.Root, string.Empty, UiFontId.F16, 16f, 352f, 256f, 24f, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
-            s.StageRoot = UiKit.Node(s.Root, "Stage", 84f, 384f, 160f, 28f);
-            s.Stage = OnlineUi.IconText(Ctx, s.StageRoot, "I-F5", "hammer", string.Empty, 0f, 0f, 160f, 28f, UiFontId.F16, UiTheme.Chalk, 16f);
-            s.Ready = OnlineUi.Img(Ctx, s.Root, "S-2103", "ready_ready", 96f, 440f, 96f, 32f);
-            var tag = OnlineUi.Tag(Ctx, s.Root, T(OnlineKeys.Bot), 220f, 20f, UiTheme.SlateBlue, 52f);
+            s.Root = UiKit.Node(parent, "Seat", 0f, 0f, SeatW, SeatH);
+            s.Frame = OnlineUi.OnlineImg(s.Root, "frame_seat", 0f, 0f, SeatW, SeatH) ?? UiKit.Panel(Ctx, s.Root, UiPanelKind.Board, 0f, 0f, SeatW, SeatH);
+            s.EmptyFrame = OnlineUi.OnlineImg(s.Root, "frame_seat_empty", 0f, 0f, SeatW, SeatH);
+            if (s.EmptyFrame == null)
+            {
+                s.EmptyFrame = UiKit.Panel(Ctx, s.Root, UiPanelKind.Recess, 0f, 0f, SeatW, SeatH);
+                s.EmptyFrame.color = UiTheme.WithAlpha(Color.white, 0.45f);
+            }
+            s.Pedestal = OnlineUi.Img(Ctx, s.Root, "S-0503", "dirt_pedestal", (SeatW - 240f) * 0.5f, 220f, 240f, 72f);
+            s.Art = UiKit.Image(s.Root, null, (SeatW - 192f) * 0.5f, 52f, 192f, 192f, Color.white, false);
+            s.Leader = OnlineUi.Img(Ctx, s.Root, "S-2104", "room_leader", 20f, 20f, 32f, 32f);
+            var tag = OnlineUi.Tag(Ctx, s.Root, T(OnlineKeys.Bot), SeatW - 76f, 24f, UiTheme.SlateBlue, 52f);
             s.BotTag = (RectTransform)tag.transform.parent;
-            s.Hourglass = OnlineUi.AnimImg(Ctx, s.Root, "S-2105", "waiting_hourglass", 120f, 180f, 48f, 48f);
-            s.Waiting = UiKit.Label(Ctx, s.Root, T(OnlineKeys.HubWaitingSlot), UiFontId.F16, 16f, 240f, 256f, 28f, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
+            s.Name = UiKit.Label(Ctx, s.Root, string.Empty, UiFontId.F32, 16f, 300f, SeatW - 32f, 44f, UiTheme.Chalk, TextAnchor.MiddleCenter);
+            s.Role = UiKit.Label(Ctx, s.Root, string.Empty, UiFontId.F16, 16f, 344f, SeatW - 32f, 24f, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
+            s.StageRoot = UiKit.Node(s.Root, "Stage", (SeatW - 140f) * 0.5f, 372f, 140f, 28f);
+            s.Stage = OnlineUi.IconText(Ctx, s.StageRoot, "I-F5", "hammer", string.Empty, 0f, 0f, 140f, 28f, UiFontId.F16, UiTheme.Chalk, 16f);
+            s.Ready = OnlineUi.OnlineImg(s.Root, "badge_ready", (SeatW - 96f) * 0.5f, 400f, 96f, 40f)
+                ?? OnlineUi.Img(Ctx, s.Root, "S-2103", "ready_ready", (SeatW - 96f) * 0.5f, 404f, 96f, 32f);
+            s.Hourglass = OnlineUi.AnimImg(Ctx, s.Root, "S-2105", "waiting_hourglass", (SeatW - 48f) * 0.5f, 172f, 48f, 48f);
+            s.Waiting = UiKit.Label(Ctx, s.Root, T(OnlineKeys.HubWaitingSlot), UiFontId.F24, 16f, 232f, SeatW - 32f, 36f, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
             return s;
         }
 
@@ -240,6 +257,9 @@ namespace Wizard.Solo.Screens.Online
         void Refresh()
         {
             bool room = _model.HasRoom;
+            bool duelRoom = room && _model.Mode == RoomMode.Duel;
+            _sceneDuel.gameObject.SetActive(duelRoom);
+            _sceneCamp.gameObject.SetActive(!duelRoom);
             _outside.gameObject.SetActive(!room);
             _inside.gameObject.SetActive(room);
             RefreshHeader(room);
@@ -265,10 +285,7 @@ namespace Wizard.Solo.Screens.Online
             if (acct != null) _kindTag.SetText(T(OnlineKeys.KindPrefix + acct.Kind));
             _gold.SetText(pr != null ? N(pr.Gold) : _model.ProfileLoading ? "…" : "-");
             _rating.SetText(pr != null ? pr.Rating.ToString() : "-");
-            _profile.Enabled = !room && acct != null;
-            _friends.Enabled = !room && acct != null;
-            _market.Enabled = !room && acct != null;
-            _logout.Enabled = !room && acct != null;
+            foreach (var b in _nav) b.Enabled = !room && acct != null;
         }
 
         void RefreshOutside()
@@ -276,17 +293,25 @@ namespace Wizard.Solo.Screens.Online
             var pr = _model.Profile;
             for (int i = 0; i < 3; i++)
             {
-                _cards[i].Picked = i == _picked;
-                _cards[i].On = i == _picked;
+                var c = _cards[i];
+                bool sel = i == _picked;
+                c.Button.Picked = sel;
+                c.Fade.alpha = sel ? 1f : 0.62f;
+                UiKit.Place(c.Root, CardX(i), CardY - (sel ? Lift : 0f), CardW, CardH);
+                c.Hint.gameObject.SetActive(!sel);
+                c.Actions.gameObject.SetActive(sel);
+                if (c.SelectedFrame != null) c.SelectedFrame.gameObject.SetActive(sel);
             }
-            _cardRecords[0].SetText(pr != null ? F(OnlineKeys.HubRecCoop, "wave", pr.CoopBestWave, "runs", pr.CoopRuns) : T(OnlineKeys.HubLoading));
-            _cardRecords[1].SetText(pr != null ? F(OnlineKeys.HubRecDuel, "rating", pr.Rating, "w", pr.DuelWins, "l", pr.DuelLosses) : T(OnlineKeys.HubLoading));
-            _cardRecords[2].SetText(T(OnlineKeys.HubRecPlaza));
-            _panelTitle.SetText(T(CardTitle[_picked]));
-            _panelDesc.SetText(T(CardDesc[_picked]));
+            _cards[0].Record.SetText(pr != null ? F(OnlineKeys.HubRecCoop, "wave", pr.CoopBestWave, "runs", pr.CoopRuns) : T(OnlineKeys.HubLoading));
+            _cards[1].Record.SetText(pr != null ? F(OnlineKeys.HubRecDuel, "rating", pr.Rating, "w", pr.DuelWins, "l", pr.DuelLosses) : T(OnlineKeys.HubLoading));
+            _cards[2].Record.SetText(T(OnlineKeys.HubRecPlaza));
             bool plaza = _picked == 2;
             _roomActions.gameObject.SetActive(!plaza);
-            _plazaEnter.gameObject.SetActive(plaza);
+            if (!plaza && _roomActions.parent != _cards[_picked].Actions)
+            {
+                _roomActions.SetParent(_cards[_picked].Actions, false);
+                UiKit.Place(_roomActions, 0f, 0f, CardW, 180f);
+            }
             bool online = _model.Account != null;
             _createOnline.Enabled = online;
             _join.Enabled = online;
@@ -294,39 +319,43 @@ namespace Wizard.Solo.Screens.Online
             _plazaEnter.Enabled = online;
         }
 
-        static string RoleKey(CoopLobbyModel m, int slot) => m.RoleKey(slot);
-
         void RefreshInside()
         {
             bool duel = _model.Mode == RoomMode.Duel;
             int max = _model.MaxMembers;
             var members = _model.Members();
             string code = _model.Code;
-            _codeLabel.SetText(code ?? T(OnlineKeys.HubLocalRoom));
-            _codeLabel.Text.fontSize = code != null ? (int)UiFontId.F48 : (int)UiFontId.F24;
+            _codeLabel.gameObject.SetActive(code != null);
+            _localLabel.gameObject.SetActive(code == null);
+            if (code != null) _codeLabel.SetText(code);
             _copy.gameObject.SetActive(code != null);
             _share.gameObject.SetActive(code != null);
             _roomTitle.SetText(T(duel ? OnlineKeys.ModeDuel : OnlineKeys.ModeCoop));
             _roomDesc.SetText(T(duel ? OnlineKeys.HubDescDuel : OnlineKeys.HubDescCoop));
             _members.SetText(F(OnlineKeys.HubMembers, "n", _model.Room.MemberCount, "max", max));
 
-            // 자리 배치: 협동 4자리(288, 간격 24), 결투 2자리 + 가운데 VS.
-            float seatW = 288f, gap = duel ? 360f : 24f;
-            float total = max * seatW + (max - 1) * gap;
-            float x0 = (BenchW - total) * 0.5f;
+            float benchW = OnlineUi.Span(9);
+            // 결투는 결투장 바닥의 가운데 선(x 960)을 사이에 두고 마주 선다.
+            float gap = duel ? 256f : OnlineUi.Gutter;
+            float total = max * SeatW + (max - 1) * gap;
+            float x0 = duel ? UiScale.RefWidth * 0.5f - OnlineUi.Edge - total * 0.5f : (benchW - total) * 0.5f;
             for (int i = 0; i < _seats.Count; i++)
             {
                 var s = _seats[i];
                 bool shown = i < max;
                 s.Root.gameObject.SetActive(shown);
                 if (!shown) continue;
-                UiKit.Place(s.Root, x0 + i * (seatW + gap), 0f, seatW, 560f);
+                UiKit.Place(s.Root, x0 + i * (SeatW + gap), 0f, SeatW, SeatH);
                 CoopClient.LobbyMember? m = null;
                 foreach (var mm in members) if (mm.Slot == i) { m = mm; break; }
                 FillSeat(s, i, m);
             }
             _versus.gameObject.SetActive(duel);
-            if (duel) UiKit.Place(_versus.rectTransform, x0 + seatW + (gap - 256f) * 0.5f, 200f, 256f, 160f);
+            if (duel)
+            {
+                float vh = _versus.sprite != null && _versus.sprite.rect.width > 0f ? 256f * _versus.sprite.rect.height / _versus.sprite.rect.width : 160f;
+                UiKit.Place(_versus.rectTransform, x0 + SeatW + (gap - 256f) * 0.5f, (SeatH - vh) * 0.5f, 256f, vh);
+            }
 
             _addBot.Enabled = _model.CanAddBot;
             _removeBot.Enabled = _model.CanRemoveBot;
@@ -345,6 +374,8 @@ namespace Wizard.Solo.Screens.Online
         {
             bool filled = mm.HasValue;
             var m = mm.GetValueOrDefault();
+            s.Frame.gameObject.SetActive(filled);
+            s.EmptyFrame.gameObject.SetActive(!filled);
             s.Art.gameObject.SetActive(filled);
             s.Pedestal.gameObject.SetActive(filled);
             s.Name.gameObject.SetActive(filled);
@@ -353,11 +384,8 @@ namespace Wizard.Solo.Screens.Online
             s.Ready.gameObject.SetActive(filled);
             s.Hourglass.gameObject.SetActive(!filled);
             s.Waiting.gameObject.SetActive(!filled);
-            s.Board.color = UiTheme.WithAlpha(Color.white, filled ? 0.9f : 0.45f);
-            bool leader = filled && RoleKey(_model, slot) == OnlineKeys.Host;
-            s.Leader.gameObject.SetActive(leader);
-            bool bot = filled && m.IsBot;
-            s.BotTag.gameObject.SetActive(bot);
+            s.Leader.gameObject.SetActive(filled && _model.RoleKey(slot) == OnlineKeys.Host);
+            s.BotTag.gameObject.SetActive(filled && m.IsBot);
             if (!filled) return;
             var art = OnlineUi.CharacterArt(Ctx, m.CharId);
             s.Art.sprite = art;
@@ -365,13 +393,11 @@ namespace Wizard.Solo.Screens.Online
             bool me = _model.Room != null && _model.Room.Slot == slot;
             s.Name.SetText(T(m.CharId));
             s.Name.Text.color = me ? UiTheme.SelectYellow : UiTheme.Chalk;
-            string role = T(RoleKey(_model, slot));
+            string role = T(_model.RoleKey(slot));
             if (me) role = T(OnlineKeys.HubYou) + " · " + role;
             s.Role.SetText(role);
             s.Stage.SetText(F(OnlineKeys.HubStage, "stage", m.WandStage));
         }
-
-        float _copiedTimer;
 
         void PickCard(int k)
         {
@@ -402,7 +428,6 @@ namespace Wizard.Solo.Screens.Online
         void OnLogout()
         {
             if (_model.HasRoom) return;
-            // 이 기기 파일은 바로 지우고, 서버의 로그인 표 지우기는 따로 스레드로(서버가 없어도 막히지 않게).
             var acct = OnlineAccount.Load();
             OnlineAccount.Forget();
             OnlineAuth.Logout(Ctx != null ? Ctx.Content : null, acct);

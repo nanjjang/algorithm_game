@@ -1,0 +1,1570 @@
+{
+  "coordinates": "top-left pixel coordinates",
+  "filter": "point",
+  "mipmaps": false,
+  "spec": "docs/ui-assets.md",
+  "entries": {
+    "i-b1/magic_bolt": {
+      "path": "i-b1/magic_bolt.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-B1",
+      "source": "0e8046dd"
+    },
+    "i-b1/fireball": {
+      "path": "i-b1/fireball.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-B1",
+      "source": "0e8046dd"
+    },
+    "i-b1/chain_lightning": {
+      "path": "i-b1/chain_lightning.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-B1",
+      "source": "0e8046dd"
+    },
+    "i-b1/boomerang": {
+      "path": "i-b1/boomerang.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-B1",
+      "source": "0e8046dd"
+    },
+    "i-b1/ice_spike": {
+      "path": "i-b1/ice_spike.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-B1",
+      "source": "0e8046dd"
+    },
+    "i-b1/shadow_orb": {
+      "path": "i-b1/shadow_orb.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-B1",
+      "source": "0e8046dd"
+    },
+    "i-b1/split_two": {
+      "path": "i-b1/split_two.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-B1",
+      "source": "0e8046dd"
+    },
+    "i-b1/split_three": {
+      "path": "i-b1/split_three.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-B1",
+      "source": "0e8046dd"
+    },
+    "i-b1/on_hit_trigger": {
+      "path": "i-b1/on_hit_trigger.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-B1",
+      "source": "10d809fe"
+    },
+    "i-b1/wall_bounce": {
+      "path": "i-b1/wall_bounce.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-B1",
+      "source": "10d809fe"
+    },
+    "i-b1/double_size": {
+      "path": "i-b1/double_size.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-B1",
+      "source": "10d809fe"
+    },
+    "i-b1/pierce": {
+      "path": "i-b1/pierce.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-B1",
+      "source": "10d809fe"
+    },
+    "i-b1/frost": {
+      "path": "i-b1/frost.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-B1",
+      "source": "10d809fe"
+    },
+    "i-b1/homing": {
+      "path": "i-b1/homing.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-B1",
+      "source": "10d809fe"
+    },
+    "i-b1/triple_heat": {
+      "path": "i-b1/triple_heat.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-B1",
+      "source": "10d809fe"
+    },
+    "i-b1/corrosion": {
+      "path": "i-b1/corrosion.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-B1",
+      "source": "10d809fe"
+    },
+    "sheets/i-b1": {
+      "path": "sheets/i-b1.png",
+      "size": [
+        192,
+        192
+      ],
+      "cell": [
+        48,
+        48
+      ],
+      "columns": 4,
+      "frames": [
+        {
+          "path": "i-b1/magic_bolt.png",
+          "rect": [
+            0,
+            0,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-b1/fireball.png",
+          "rect": [
+            48,
+            0,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-b1/chain_lightning.png",
+          "rect": [
+            96,
+            0,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-b1/boomerang.png",
+          "rect": [
+            144,
+            0,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-b1/ice_spike.png",
+          "rect": [
+            0,
+            48,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-b1/shadow_orb.png",
+          "rect": [
+            48,
+            48,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-b1/split_two.png",
+          "rect": [
+            96,
+            48,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-b1/split_three.png",
+          "rect": [
+            144,
+            48,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-b1/on_hit_trigger.png",
+          "rect": [
+            0,
+            96,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-b1/wall_bounce.png",
+          "rect": [
+            48,
+            96,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-b1/double_size.png",
+          "rect": [
+            96,
+            96,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-b1/pierce.png",
+          "rect": [
+            144,
+            96,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-b1/frost.png",
+          "rect": [
+            0,
+            144,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-b1/homing.png",
+          "rect": [
+            48,
+            144,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-b1/triple_heat.png",
+          "rect": [
+            96,
+            144,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-b1/corrosion.png",
+          "rect": [
+            144,
+            144,
+            48,
+            48
+          ]
+        }
+      ]
+    },
+    "i-b2/magic_bolt": {
+      "path": "i-b2/magic_bolt.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-B2",
+      "source": "2c730ca8"
+    },
+    "i-b2/fireball": {
+      "path": "i-b2/fireball.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-B2",
+      "source": "2c730ca8"
+    },
+    "i-b2/chain_lightning": {
+      "path": "i-b2/chain_lightning.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-B2",
+      "source": "2c730ca8"
+    },
+    "i-b2/boomerang": {
+      "path": "i-b2/boomerang.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-B2",
+      "source": "2c730ca8"
+    },
+    "i-b2/ice_spike": {
+      "path": "i-b2/ice_spike.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-B2",
+      "source": "2c730ca8"
+    },
+    "i-b2/shadow_orb": {
+      "path": "i-b2/shadow_orb.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-B2",
+      "source": "2c730ca8"
+    },
+    "i-b2/split_two": {
+      "path": "i-b2/split_two.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-B2",
+      "source": "2c730ca8"
+    },
+    "i-b2/split_three": {
+      "path": "i-b2/split_three.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-B2",
+      "source": "2c730ca8"
+    },
+    "i-b2/on_hit_trigger": {
+      "path": "i-b2/on_hit_trigger.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-B2",
+      "source": "2880565d"
+    },
+    "i-b2/wall_bounce": {
+      "path": "i-b2/wall_bounce.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-B2",
+      "source": "2880565d"
+    },
+    "i-b2/double_size": {
+      "path": "i-b2/double_size.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-B2",
+      "source": "2880565d"
+    },
+    "i-b2/pierce": {
+      "path": "i-b2/pierce.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-B2",
+      "source": "2880565d"
+    },
+    "i-b2/frost": {
+      "path": "i-b2/frost.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-B2",
+      "source": "2880565d"
+    },
+    "i-b2/homing": {
+      "path": "i-b2/homing.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-B2",
+      "source": "2880565d"
+    },
+    "i-b2/triple_heat": {
+      "path": "i-b2/triple_heat.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-B2",
+      "source": "2880565d"
+    },
+    "i-b2/corrosion": {
+      "path": "i-b2/corrosion.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-B2",
+      "source": "2880565d"
+    },
+    "sheets/i-b2": {
+      "path": "sheets/i-b2.png",
+      "size": [
+        96,
+        96
+      ],
+      "cell": [
+        24,
+        24
+      ],
+      "columns": 4,
+      "frames": [
+        {
+          "path": "i-b2/magic_bolt.png",
+          "rect": [
+            0,
+            0,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-b2/fireball.png",
+          "rect": [
+            24,
+            0,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-b2/chain_lightning.png",
+          "rect": [
+            48,
+            0,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-b2/boomerang.png",
+          "rect": [
+            72,
+            0,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-b2/ice_spike.png",
+          "rect": [
+            0,
+            24,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-b2/shadow_orb.png",
+          "rect": [
+            24,
+            24,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-b2/split_two.png",
+          "rect": [
+            48,
+            24,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-b2/split_three.png",
+          "rect": [
+            72,
+            24,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-b2/on_hit_trigger.png",
+          "rect": [
+            0,
+            48,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-b2/wall_bounce.png",
+          "rect": [
+            24,
+            48,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-b2/double_size.png",
+          "rect": [
+            48,
+            48,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-b2/pierce.png",
+          "rect": [
+            72,
+            48,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-b2/frost.png",
+          "rect": [
+            0,
+            72,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-b2/homing.png",
+          "rect": [
+            24,
+            72,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-b2/triple_heat.png",
+          "rect": [
+            48,
+            72,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-b2/corrosion.png",
+          "rect": [
+            72,
+            72,
+            24,
+            24
+          ]
+        }
+      ]
+    },
+    "i-t1/mana_burst": {
+      "path": "i-t1/mana_burst.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-T1",
+      "source": "ae4a7a8d"
+    },
+    "i-t1/recoil_shot": {
+      "path": "i-t1/recoil_shot.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-T1",
+      "source": "ae4a7a8d"
+    },
+    "i-t1/fan_spread": {
+      "path": "i-t1/fan_spread.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-T1",
+      "source": "ae4a7a8d"
+    },
+    "i-t1/twin_wing": {
+      "path": "i-t1/twin_wing.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-T1",
+      "source": "ae4a7a8d"
+    },
+    "i-t1/afterimage_step": {
+      "path": "i-t1/afterimage_step.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-T1",
+      "source": "ae4a7a8d"
+    },
+    "i-t1/piercing_lance": {
+      "path": "i-t1/piercing_lance.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-T1",
+      "source": "ae4a7a8d"
+    },
+    "i-t1/heat_vent": {
+      "path": "i-t1/heat_vent.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-T1",
+      "source": "ae4a7a8d"
+    },
+    "i-t1/eight_way": {
+      "path": "i-t1/eight_way.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-T1",
+      "source": "ae4a7a8d"
+    },
+    "i-t1/thunder_lance": {
+      "path": "i-t1/thunder_lance.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-T1",
+      "source": "089587f2"
+    },
+    "i-t1/full_bloom": {
+      "path": "i-t1/full_bloom.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-T1",
+      "source": "089587f2"
+    },
+    "i-t1/kiln": {
+      "path": "i-t1/kiln.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-T1",
+      "source": "089587f2"
+    },
+    "i-t1/thunder_dash": {
+      "path": "i-t1/thunder_dash.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-T1",
+      "source": "089587f2"
+    },
+    "i-t1/transcribe": {
+      "path": "i-t1/transcribe.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-T1",
+      "source": "089587f2"
+    },
+    "i-t1/ice_screen": {
+      "path": "i-t1/ice_screen.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-T1",
+      "source": "089587f2"
+    },
+    "i-t1/shadow_hand": {
+      "path": "i-t1/shadow_hand.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-T1",
+      "source": "089587f2"
+    },
+    "sheets/i-t1": {
+      "path": "sheets/i-t1.png",
+      "size": [
+        192,
+        192
+      ],
+      "cell": [
+        48,
+        48
+      ],
+      "columns": 4,
+      "frames": [
+        {
+          "path": "i-t1/mana_burst.png",
+          "rect": [
+            0,
+            0,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-t1/recoil_shot.png",
+          "rect": [
+            48,
+            0,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-t1/fan_spread.png",
+          "rect": [
+            96,
+            0,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-t1/twin_wing.png",
+          "rect": [
+            144,
+            0,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-t1/afterimage_step.png",
+          "rect": [
+            0,
+            48,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-t1/piercing_lance.png",
+          "rect": [
+            48,
+            48,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-t1/heat_vent.png",
+          "rect": [
+            96,
+            48,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-t1/eight_way.png",
+          "rect": [
+            144,
+            48,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-t1/thunder_lance.png",
+          "rect": [
+            0,
+            96,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-t1/full_bloom.png",
+          "rect": [
+            48,
+            96,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-t1/kiln.png",
+          "rect": [
+            96,
+            96,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-t1/thunder_dash.png",
+          "rect": [
+            144,
+            96,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-t1/transcribe.png",
+          "rect": [
+            0,
+            144,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-t1/ice_screen.png",
+          "rect": [
+            48,
+            144,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-t1/shadow_hand.png",
+          "rect": [
+            96,
+            144,
+            48,
+            48
+          ]
+        }
+      ]
+    },
+    "i-t2/mana_burst": {
+      "path": "i-t2/mana_burst.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-T2",
+      "source": "9e889330"
+    },
+    "i-t2/recoil_shot": {
+      "path": "i-t2/recoil_shot.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-T2",
+      "source": "9e889330"
+    },
+    "i-t2/fan_spread": {
+      "path": "i-t2/fan_spread.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-T2",
+      "source": "9e889330"
+    },
+    "i-t2/twin_wing": {
+      "path": "i-t2/twin_wing.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-T2",
+      "source": "9e889330"
+    },
+    "i-t2/afterimage_step": {
+      "path": "i-t2/afterimage_step.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-T2",
+      "source": "9e889330"
+    },
+    "i-t2/piercing_lance": {
+      "path": "i-t2/piercing_lance.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-T2",
+      "source": "9e889330"
+    },
+    "i-t2/heat_vent": {
+      "path": "i-t2/heat_vent.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-T2",
+      "source": "9e889330"
+    },
+    "i-t2/eight_way": {
+      "path": "i-t2/eight_way.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-T2",
+      "source": "9e889330"
+    },
+    "i-t2/thunder_lance": {
+      "path": "i-t2/thunder_lance.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-T2",
+      "source": "a7396a52"
+    },
+    "i-t2/full_bloom": {
+      "path": "i-t2/full_bloom.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-T2",
+      "source": "a7396a52"
+    },
+    "i-t2/kiln": {
+      "path": "i-t2/kiln.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-T2",
+      "source": "a7396a52"
+    },
+    "i-t2/thunder_dash": {
+      "path": "i-t2/thunder_dash.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-T2",
+      "source": "a7396a52"
+    },
+    "i-t2/transcribe": {
+      "path": "i-t2/transcribe.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-T2",
+      "source": "a7396a52"
+    },
+    "i-t2/ice_screen": {
+      "path": "i-t2/ice_screen.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-T2",
+      "source": "a7396a52"
+    },
+    "i-t2/shadow_hand": {
+      "path": "i-t2/shadow_hand.png",
+      "size": [
+        24,
+        24
+      ],
+      "designId": "I-T2",
+      "source": "a7396a52"
+    },
+    "sheets/i-t2": {
+      "path": "sheets/i-t2.png",
+      "size": [
+        96,
+        96
+      ],
+      "cell": [
+        24,
+        24
+      ],
+      "columns": 4,
+      "frames": [
+        {
+          "path": "i-t2/mana_burst.png",
+          "rect": [
+            0,
+            0,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-t2/recoil_shot.png",
+          "rect": [
+            24,
+            0,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-t2/fan_spread.png",
+          "rect": [
+            48,
+            0,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-t2/twin_wing.png",
+          "rect": [
+            72,
+            0,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-t2/afterimage_step.png",
+          "rect": [
+            0,
+            24,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-t2/piercing_lance.png",
+          "rect": [
+            24,
+            24,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-t2/heat_vent.png",
+          "rect": [
+            48,
+            24,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-t2/eight_way.png",
+          "rect": [
+            72,
+            24,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-t2/thunder_lance.png",
+          "rect": [
+            0,
+            48,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-t2/full_bloom.png",
+          "rect": [
+            24,
+            48,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-t2/kiln.png",
+          "rect": [
+            48,
+            48,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-t2/thunder_dash.png",
+          "rect": [
+            72,
+            48,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-t2/transcribe.png",
+          "rect": [
+            0,
+            72,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-t2/ice_screen.png",
+          "rect": [
+            24,
+            72,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "i-t2/shadow_hand.png",
+          "rect": [
+            48,
+            72,
+            24,
+            24
+          ]
+        }
+      ]
+    },
+    "i-m1/stone_basic": {
+      "path": "i-m1/stone_basic.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-M1",
+      "source": "ecd40cb5"
+    },
+    "i-m1/stone_cut": {
+      "path": "i-m1/stone_cut.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-M1",
+      "source": "ecd40cb5"
+    },
+    "i-m1/stone_clear": {
+      "path": "i-m1/stone_clear.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-M1",
+      "source": "ecd40cb5"
+    },
+    "i-m3/ward": {
+      "path": "i-m3/ward.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-M3",
+      "source": "ecd40cb5"
+    },
+    "i-m4/supplies": {
+      "path": "i-m4/supplies.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-M4",
+      "source": "ecd40cb5"
+    },
+    "i-m4/crow_bundle": {
+      "path": "i-m4/crow_bundle.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-M4",
+      "source": "ecd40cb5"
+    },
+    "i-m5/cloth": {
+      "path": "i-m5/cloth.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-M5",
+      "source": "ecd40cb5"
+    },
+    "i-m6/wand_box": {
+      "path": "i-m6/wand_box.png",
+      "size": [
+        48,
+        48
+      ],
+      "designId": "I-M6",
+      "source": "ecd40cb5"
+    },
+    "sheets/materials": {
+      "path": "sheets/materials.png",
+      "size": [
+        192,
+        96
+      ],
+      "cell": [
+        48,
+        48
+      ],
+      "columns": 4,
+      "frames": [
+        {
+          "path": "i-m1/stone_basic.png",
+          "rect": [
+            0,
+            0,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-m1/stone_cut.png",
+          "rect": [
+            48,
+            0,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-m1/stone_clear.png",
+          "rect": [
+            96,
+            0,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-m3/ward.png",
+          "rect": [
+            144,
+            0,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-m4/supplies.png",
+          "rect": [
+            0,
+            48,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-m4/crow_bundle.png",
+          "rect": [
+            48,
+            48,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-m5/cloth.png",
+          "rect": [
+            96,
+            48,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "i-m6/wand_box.png",
+          "rect": [
+            144,
+            48,
+            48,
+            48
+          ]
+        }
+      ]
+    },
+    "s-0502/expedition": {
+      "path": "s-0502/expedition.png",
+      "size": [
+        368,
+        240
+      ],
+      "designId": "S-0502",
+      "source": "20503c69"
+    },
+    "s-0502/duel": {
+      "path": "s-0502/duel.png",
+      "size": [
+        368,
+        240
+      ],
+      "designId": "S-0502",
+      "source": "20503c69"
+    },
+    "s-0502/plaza": {
+      "path": "s-0502/plaza.png",
+      "size": [
+        368,
+        240
+      ],
+      "designId": "S-0502",
+      "source": "20503c69"
+    },
+    "sheets/s-0502": {
+      "path": "sheets/s-0502.png",
+      "size": [
+        1104,
+        240
+      ],
+      "cell": [
+        368,
+        240
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "path": "s-0502/expedition.png",
+          "rect": [
+            0,
+            0,
+            368,
+            240
+          ]
+        },
+        {
+          "path": "s-0502/duel.png",
+          "rect": [
+            368,
+            0,
+            368,
+            240
+          ]
+        },
+        {
+          "path": "s-0502/plaza.png",
+          "rect": [
+            736,
+            0,
+            368,
+            240
+          ]
+        }
+      ]
+    },
+    "k-01/wood_panel": {
+      "path": "k-01/wood_panel.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "bf49002a",
+      "nineSlice": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "k-02/recessed_panel": {
+      "path": "k-02/recessed_panel.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "bf49002a",
+      "nineSlice": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "k-03/parchment": {
+      "path": "k-03/parchment.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "bf49002a",
+      "nineSlice": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "k-21/normal": {
+      "path": "k-21/normal.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "bf49002a",
+      "nineSlice": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "k-21/hover": {
+      "path": "k-21/hover.png",
+      "size": [
+        48,
+        48
+      ],
+      "nineSlice": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "derivedFrom": "k-21/normal"
+    },
+    "k-21/pressed": {
+      "path": "k-21/pressed.png",
+      "size": [
+        48,
+        48
+      ],
+      "nineSlice": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "derivedFrom": "k-21/normal"
+    },
+    "k-21/disabled": {
+      "path": "k-21/disabled.png",
+      "size": [
+        48,
+        48
+      ],
+      "nineSlice": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "derivedFrom": "k-21/normal"
+    },
+    "sheets/k-21": {
+      "path": "sheets/k-21.png",
+      "size": [
+        192,
+        48
+      ],
+      "cell": [
+        48,
+        48
+      ],
+      "columns": 4,
+      "frames": [
+        {
+          "path": "k-21/normal.png",
+          "rect": [
+            0,
+            0,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "k-21/hover.png",
+          "rect": [
+            48,
+            0,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "k-21/pressed.png",
+          "rect": [
+            96,
+            0,
+            48,
+            48
+          ]
+        },
+        {
+          "path": "k-21/disabled.png",
+          "rect": [
+            144,
+            0,
+            48,
+            48
+          ]
+        }
+      ]
+    },
+    "k-60/empty": {
+      "path": "k-60/empty.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "bf49002a"
+    },
+    "k-60/locked": {
+      "path": "k-60/locked.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "bf49002a"
+    }
+  }
+}

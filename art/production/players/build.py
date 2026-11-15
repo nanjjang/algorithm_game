@@ -1,22 +1,15 @@
-"""Normalize the five turnarounds and export game-size body animation and sockets."""
-from collections import deque
+"""Export the directly drawn apprentices and game animation coordinates."""
 from pathlib import Path
 import json
 import math
 
-from PIL import Image, ImageColor, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont
+
+from pixels import ANCHORS, DIRECTIONS, FAMILIES, GROUND, INK, SOCKETS, draw_body, draw_selection
 
 ROOT = Path(__file__).parent
 NEAREST = Image.Resampling.NEAREST
-DIRECTIONS = ("down", "right", "up")
-FEET = (30, 60)
-FAMILIES = {
-    "dalgu": ("2A1A20 7A4322 B5692F E39A4E FFD79A 16655F 1F8C82 4FC2B0 F2CFA0 5A3A2A E8E4DA A85535 573135 B9936D 447B78 CA8652", 51, (22, 44), (34, 44), (43, 45)),
-    "chorong": ("1C1830 3A2A6A 5A45A0 8068C8 8A6A14 C89A22 EBC04A 6FE0C0 F0CFA8 FFF36B FFFFFF 4A3A2A 4B3548 38264C B98D48 67457F", 53, (22, 44), (34, 44), (42, 46)),
-    "galpi": ("1A2030 5A3A2E 8A5A3E B88A5A EDE3C8 3A4658 55657C 7C8EA6 F2D2AC 4FE3C1 D6FFF3 C8A24A 453345 554D69 2B314A C2AA91", 48, (23, 46), (35, 45), (42, 46)),
-    "seonge": ("1E2238 B9A8E8 E4DAFF C9B88A F3E7C0 FFF8E2 2E55B8 4F7CE0 9FDCFF F4FBFF F4D6B4 7A5A3A 5D4C75 546599 A18A9B 91AFD2", 57, (24, 45), (36, 45), (43, 43)),
-    "geumeum": ("1B0D1B 561F4C 7A336A B25A9B E2ACFA 222641 3E4675 6271AE CA8F44 F8C062 704456 A47384 67315E 8E507C 2C3050 545D8E", 55, (25, 46), (35, 45), (43, 45)),
-}
+FEET = GROUND
 COSTUME = {
     "dalgu": ("#16655F", "#4FC2B0", "#F2CFA0"),
     "chorong": ("#8A6A14", "#C89A22", "#F0CFA8"),
@@ -35,58 +28,6 @@ FRONT = (
     ("upgrade_charge", 2, 5), ("upgrade_success", 4, 8), ("upgrade_fail", 4, 8),
     ("duel_win", 4, 8), ("duel_loss", 4, 8)
 )
-
-
-def trim_components(im):
-    width, height = im.size
-    alpha = im.getchannel("A")
-    px = alpha.load()
-    visited = set()
-    for y in range(height):
-        for x in range(width):
-            if (x, y) in visited or not px[x, y]:
-                continue
-            path = [(x, y)]
-            visited.add((x, y))
-            pending = deque(path)
-            while pending:
-                a, b = pending.popleft()
-                for c, d in ((a - 1, b), (a + 1, b), (a, b - 1), (a, b + 1)):
-                    if 0 <= c < width and 0 <= d < height and (c, d) not in visited and px[c, d]:
-                        path.append((c, d))
-                        pending.append((c, d))
-                        visited.add((c, d))
-            if len(path) <= 3:
-                for c, d in path:
-                    px[c, d] = 0
-    im.putalpha(alpha)
-    return im
-
-
-def from_atlas(source, col, row, colors, height):
-    xs = (0, 350, 650, 950, 1250, source.width)
-    ys = (0, 333, 650, source.height)
-    tile = source.crop((xs[col], ys[row], xs[col + 1], ys[row + 1]))
-    tile.putalpha(tile.getchannel("A").point(lambda x: 255 if x >= 241 else 0))
-    tile = tile.crop(tile.getbbox())
-    width = round(tile.width * height / tile.height)
-    tile = tile.resize((width, height), NEAREST)
-    palette = [ImageColor.getrgb("#" + c) for c in colors.split()]
-    fixed = []
-    for r, g, b, a in tile.get_flattened_data():
-        if a == 0:
-            fixed.append((0, 0, 0, 0))
-            continue
-        color = min(palette, key=lambda c: (c[0] - r) ** 2 + (c[1] - g) ** 2 + (c[2] - b) ** 2)
-        fixed.append((*color, 255))
-    tile.putdata(fixed)
-    tile = trim_components(tile)
-    # Keep the body center aligned by its boot span, including asymmetric headwear.
-    boot = tile.crop((0, height - 6, width, height)).getbbox()
-    boot_center = ((boot[0] + boot[2]) // 2) if boot else width // 2
-    frame = Image.new("RGBA", (64, 64))
-    frame.alpha_composite(tile, (max(1, min(63 - width, FEET[0] - boot_center)), FEET[1] - height))
-    return frame
 
 
 def place(base, x=0, y=0, compression=0, lean=0):
@@ -123,7 +64,7 @@ def step(base, index, count, stance):
 def arm(frame, family, socket, target, width=6):
     if socket == target:
         return
-    ink = "#" + FAMILIES[family][0].split()[0]
+    ink = INK[FAMILIES.index(family)]
     shadow, light, hand = COSTUME[family]
     d = ImageDraw.Draw(frame)
     x0, y0 = socket
@@ -135,13 +76,14 @@ def arm(frame, family, socket, target, width=6):
 
 
 def body_pose(base, family, direction, action, i, count):
-    hand = FAMILIES[family][1 + DIRECTIONS.index(direction) + 1]
+    hand = SOCKETS[family][DIRECTIONS.index(direction)]
+    head = ANCHORS[family][DIRECTIONS.index(direction)]
     dx = dy = 0
     target = None
     if action in ("walk", "stance_walk"):
         frame, dx, dy = step(base, i, count, action == "stance_walk")
         if action == "stance_walk":
-            target = (hand[0] + (-6 if direction == "down" else 4 if direction == "up" else 6), hand[1] + 2)
+            target = (hand[0] + (4 if direction == "up" else 6), hand[1] + 2)
     elif action in ("idle", "upgrade_wait", "upgrade_charge"):
         dy = (0, -1, -1, 0)[i]
         frame = place(base, y=dy, compression=int(action == "upgrade_charge") * 2)
@@ -155,7 +97,7 @@ def body_pose(base, family, direction, action, i, count):
         dx = -int(action == "fire" and i == 2)
         dy = -(i in (1, 2, 3))
         frame = place(base, dx, dy, lean=3 if action == "signature" else 1)
-        target = (hand[0] + (-extent if direction == "down" else extent // 2 if direction == "up" else extent),
+        target = (hand[0] + (extent // 2 if direction == "up" else extent),
                   hand[1] - (extent * rise) // 4)
     elif action == "hit":
         dx, dy = ((-3, -1), (1, 0))[i]
@@ -201,7 +143,7 @@ def body_pose(base, family, direction, action, i, count):
     if target:
         arm(frame, family, original, target)
     return frame, {"feet": list(FEET), "hand": list(target or original),
-                   "head": [30 + dx, 13 + dy], "shoulder": [30 + dx, 35 + dy]}
+                   "head": [head[0] + dx, head[1] + dy], "shoulder": [30 + dx, 35 + dy]}
 
 
 def size_center(im, size, extent):
@@ -214,50 +156,12 @@ def size_center(im, size, extent):
     return result
 
 
-def selection_art(source, col, family, base):
-    if family == "galpi":
-        revised = ROOT / "source/galpi_selection.png"
-        if not revised.exists():
-            return size_center(base, 192, 144)
-        tile = Image.open(revised).convert("RGBA")
-    else:
-        xs = (0, 425, 841, 1260, 1674, source.width)
-        tile = source.crop((xs[col], 0, xs[col + 1], source.height))
-    tile.putalpha(tile.getchannel("A").point(lambda x: 255 if x >= 241 else 0))
-    tile = size_center(tile, 96, 73 if family == "galpi" else 84)
-    return trim_components(tile).resize((192, 192), NEAREST)
-
-
-def make_portraits(base, selection, family, folder):
-    full = selection
-    full.save(folder / "selection_192x192.png")
-    bounds = base.getbbox()
-    head = base.crop((bounds[0], bounds[1], bounds[2], 40))
+def make_portraits(base, family, folder):
+    draw_selection(family).save(folder / "selection_192x192.png")
     portraits = Image.new("RGBA", (64 * 4, 64))
-    ink = "#" + FAMILIES[family][0].split()[0]
-    for i, name in enumerate(("neutral", "happy", "strained", "blink")):
-        crop = head.copy()
-        if i and family == "geumeum":
-            d = ImageDraw.Draw(crop)
-            for y in range(crop.height):
-                for x in range(crop.width):
-                    if crop.getpixel((x, y))[:3] == (226, 172, 250):
-                        if i == 3 or (i == 2 and y % 2):
-                            d.point((x, y), fill=ink)
-                        if i == 1 and y > 0:
-                            d.point((x, y - 1), fill="#E2ACFA")
-        elif i:
-            # Small face inclination and expression emphasis preserve the base silhouette.
-            crop = crop.rotate((0, 3, -4, 0)[i], resample=NEAREST, expand=True)
-            if i == 3:
-                px = crop.load()
-                skin = ImageColor.getrgb(COSTUME[family][2])
-                dark = ImageColor.getrgb(ink)
-                for y in range(crop.height * 2 // 3, crop.height - 2):
-                    for x in range(2, crop.width - 2):
-                        if px[x, y][:3] == dark and px[x - 2, y][:3] == skin and px[x + 2, y][:3] == skin:
-                            px[x, y] = (*skin, 255)
-        portraits.alpha_composite(size_center(crop, 64, 54), (64 * i, 0))
+    for i, mood in enumerate(("neutral", "happy", "strained", "blink")):
+        tile = draw_body(family, "down", mood=mood).crop((0, 0, 64, 41))
+        portraits.alpha_composite(size_center(tile, 64, 54), (64 * i, 0))
     portraits.save(folder / "portraits_64x64_f4.png")
     silhouette = Image.new("RGBA", (32, 32), "black")
     silhouette.putalpha(size_center(base, 32, 29).getchannel("A"))
@@ -265,23 +169,22 @@ def make_portraits(base, selection, family, folder):
 
 
 def main():
-    source = Image.open(ROOT / "source/turnaround.png").convert("RGBA")
-    selection = Image.open(ROOT / "source/selection.png").convert("RGBA")
     manifest = {"source": "docs/world-characters.md §3, §10.1", "filter": "point", "mipmaps": False,
-                "canvas": [64, 64], "pivotPx": list(FEET), "mirrorRightForLeft": True, "characters": {}}
+                "canvas": [64, 64], "pivotPx": list(FEET), "mirrorRightForLeft": True,
+                "artworkSource": "pixels.py", "characters": {}}
     preview = Image.new("RGBA", (5 * 151 + 118, 3 * 153 + 49), "#171827")
     d = ImageDraw.Draw(preview)
     d.text((12, 12), "APPRENTICES  /  64 PX GAME SPRITES", "#D9C7A9", font=ImageFont.load_default())
     for row, direction in enumerate(DIRECTIONS):
         d.text((12, 101 + 153 * row), direction.upper(), "#A9A2B5", font=ImageFont.load_default())
-    for col, (family, (colors, height, *_)) in enumerate(FAMILIES.items()):
+    for col, family in enumerate(FAMILIES):
         folder = ROOT / family
         folder.mkdir(exist_ok=True)
-        bases = {direction: from_atlas(source, col, row, colors, height) for row, direction in enumerate(DIRECTIONS)}
+        bases = {direction: draw_body(family, direction) for direction in DIRECTIONS}
         for row, base in enumerate(bases.values()):
             preview.alpha_composite(base.resize((128, 128), NEAREST), (103 + col * 151, 39 + row * 153))
         d.text((135 + col * 151, 498), family.upper(), "#D9C7A9", font=ImageFont.load_default())
-        make_portraits(bases["down"], selection_art(selection, col, family, bases["down"]), family, folder)
+        make_portraits(bases["down"], family, folder)
         poses = [(action, direction, count, fps) for action, count, fps in THREE_WAY for direction in DIRECTIONS]
         poses.extend((action, "down", count, fps) for action, count, fps in FRONT)
         count = sum(c for _, _, c, _ in poses)
@@ -293,7 +196,12 @@ def main():
             key = f"{action}_{direction}"
             sequence = []
             for i in range(frames):
-                sprite, sockets = body_pose(bases[direction], family, direction, action, i, frames)
+                expression = {"hit": "strained", "duel_win": "happy", "upgrade_success": "happy",
+                              "duel_loss": "strained", "upgrade_fail": "strained"}.get(action)
+                if action == "idle" and i == 2:
+                    expression = "blink"
+                base = draw_body(family, direction, mood=expression) if expression else bases[direction]
+                sprite, sockets = body_pose(base, family, direction, action, i, frames)
                 x, y = (index % 12) * 64, (index // 12) * 64
                 sheet.alpha_composite(sprite, (x, y))
                 sequence.append({"rect": [x, y, 64, 64], **sockets})

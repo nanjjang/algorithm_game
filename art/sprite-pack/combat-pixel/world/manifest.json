@@ -1,0 +1,234 @@
+{
+  "pixelScale": 2,
+  "origin": "top-left",
+  "entries": {
+    "facility.master_chair": {
+      "name": "느루의 흔들의자",
+      "frameSize": [
+        96,
+        96
+      ],
+      "pivotPx": [
+        48,
+        91
+      ],
+      "source": "source/world.png",
+      "clip": "rock",
+      "loop": true,
+      "sheet": "facility.master_chair/sheet.png",
+      "frames": [
+        {
+          "file": "facility.master_chair/01.png",
+          "rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "durationMs": 170
+        },
+        {
+          "file": "facility.master_chair/02.png",
+          "rect": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "durationMs": 220
+        },
+        {
+          "file": "facility.master_chair/03.png",
+          "rect": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "durationMs": 190
+        },
+        {
+          "file": "facility.master_chair/04.png",
+          "rect": [
+            288,
+            0,
+            96,
+            96
+          ],
+          "durationMs": 210
+        }
+      ]
+    },
+    "npc.merchant_cart": {
+      "name": "행상 수레",
+      "frameSize": [
+        128,
+        96
+      ],
+      "pivotPx": [
+        64,
+        91
+      ],
+      "source": "source/world.png",
+      "clip": "wave",
+      "loop": true,
+      "sheet": "npc.merchant_cart/sheet.png",
+      "frames": [
+        {
+          "file": "npc.merchant_cart/01.png",
+          "rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "durationMs": 300
+        },
+        {
+          "file": "npc.merchant_cart/02.png",
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "durationMs": 170
+        },
+        {
+          "file": "npc.merchant_cart/03.png",
+          "rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "durationMs": 220
+        },
+        {
+          "file": "npc.merchant_cart/04.png",
+          "rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "durationMs": 230
+        }
+      ]
+    },
+    "field.crow": {
+      "name": "까마귀",
+      "frameSize": [
+        32,
+        32
+      ],
+      "pivotPx": [
+        16,
+        27
+      ],
+      "source": "source/world.png",
+      "clip": "fly",
+      "loop": true,
+      "sheet": "field.crow/sheet.png",
+      "frames": [
+        {
+          "file": "field.crow/01.png",
+          "rect": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "durationMs": 90
+        },
+        {
+          "file": "field.crow/02.png",
+          "rect": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "durationMs": 85
+        },
+        {
+          "file": "field.crow/03.png",
+          "rect": [
+            64,
+            0,
+            32,
+            32
+          ],
+          "durationMs": 80
+        },
+        {
+          "file": "field.crow/04.png",
+          "rect": [
+            96,
+            0,
+            32,
+            32
+          ],
+          "durationMs": 95
+        }
+      ]
+    },
+    "practice_dummy": {
+      "name": "연습 허수아비",
+      "frameSize": [
+        64,
+        96
+      ],
+      "pivotPx": [
+        32,
+        91
+      ],
+      "source": "source/world.png",
+      "clip": "hit",
+      "loop": false,
+      "sheet": "practice_dummy/sheet.png",
+      "frames": [
+        {
+          "file": "practice_dummy/01.png",
+          "rect": [
+            0,
+            0,
+            64,
+            96
+          ],
+          "durationMs": 85
+        },
+        {
+          "file": "practice_dummy/02.png",
+          "rect": [
+            64,
+            0,
+            64,
+            96
+          ],
+          "durationMs": 110
+        },
+        {
+          "file": "practice_dummy/03.png",
+          "rect": [
+            128,
+            0,
+            64,
+            96
+          ],
+          "durationMs": 130
+        },
+        {
+          "file": "practice_dummy/04.png",
+          "rect": [
+            192,
+            0,
+            64,
+            96
+          ],
+          "durationMs": 220
+        }
+      ]
+    }
+  }
+}

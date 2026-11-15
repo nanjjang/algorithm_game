@@ -1,0 +1,20 @@
+{
+  "pngAssets": 606,
+  "manifestedNineSliceAssets": 96,
+  "pixelMatchedSheetFrames": 48,
+  "glyphsWithNonemptyCells": 47,
+  "newDesignFiles": 580,
+  "previousRedrawnDesignFiles": 82,
+  "rasterSpecIds": 197,
+  "runtimeOrUndeterminedSpecIds": 7,
+  "backdrops1920x1080": 7,
+  "manifestSha256": "a9708d9a8c85700fe031bad866f54d769ab677fd241f0d97a3b2df4f16302b04",
+  "verified": [
+    "PNG reads, RGBA, nonempty content, and matching dimensions",
+    "Nine-slice borders inside texture",
+    "Frame rects equal individual PNGs pixel-for-pixel",
+    "Nonempty exact-size glyph cells",
+    "Every expected numbered image and state counted once"
+  ],
+  "visualReview": "Title composite and spelling, backgrounds, profile cards, panels, portraits, navigation, utility glyphs, numbers, campfire frames, practice preview overlays, and launcher variants"
+}

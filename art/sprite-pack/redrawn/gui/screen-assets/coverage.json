@@ -1,0 +1,2292 @@
+{
+  "f-n1": {
+    "label": "화면 숫자 글꼴(작은 것)",
+    "planned": 1,
+    "new": [
+      "f-n1/numbers.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "f-n2": {
+    "label": "화면 숫자 글꼴(큰 것)",
+    "planned": 1,
+    "new": [
+      "f-n2/numbers.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "f-n3": {
+    "label": "큰 확률 숫자 글꼴",
+    "planned": 1,
+    "new": [
+      "f-n3/numbers.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "f-n4": {
+    "label": "\"상한\" 딱지",
+    "planned": 1,
+    "new": [
+      "f-n4/probability_cap.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-01": {
+    "label": "기본 판(어두운 나무판)",
+    "planned": 1,
+    "new": [],
+    "previousRedrawn": [
+      "k-01/wood_panel.png"
+    ],
+    "status": "covered_by_count"
+  },
+  "k-02": {
+    "label": "안쪽 판(눌린 칸)",
+    "planned": 1,
+    "new": [],
+    "previousRedrawn": [
+      "k-02/recessed_panel.png"
+    ],
+    "status": "covered_by_count"
+  },
+  "k-03": {
+    "label": "쪽지 판",
+    "planned": 1,
+    "new": [],
+    "previousRedrawn": [
+      "k-03/parchment.png"
+    ],
+    "status": "covered_by_count"
+  },
+  "k-04": {
+    "label": "제목 띠",
+    "planned": 1,
+    "new": [
+      "k-04/title_band.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-05": {
+    "label": "화면 제목 띠",
+    "planned": 1,
+    "new": [
+      "k-05/screen_title.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-06": {
+    "label": "아래 조작 안내 띠",
+    "planned": 1,
+    "new": [
+      "k-06/footer_band.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-07": {
+    "label": "구분선",
+    "planned": 2,
+    "new": [
+      "k-07/horizontal.png",
+      "k-07/vertical.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-08": {
+    "label": "툴팁 판",
+    "planned": 1,
+    "new": [
+      "k-08/tooltip.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-09": {
+    "label": "툴팁 꼬리",
+    "planned": 1,
+    "new": [
+      "k-09/tooltip_tail.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-10": {
+    "label": "창 뒤 어둡게 깔개",
+    "planned": 0,
+    "new": [],
+    "previousRedrawn": [],
+    "status": "runtime_or_unspecified"
+  },
+  "k-11": {
+    "label": "알림 쪽지(토스트)",
+    "planned": 1,
+    "new": [
+      "k-11/toast.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-12": {
+    "label": "판 귀퉁이 장식(까마귀 깃, 빨래집게, 분필 낙서)",
+    "planned": 3,
+    "new": [
+      "k-12/chalk.png",
+      "k-12/clothespin.png",
+      "k-12/feather.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-20": {
+    "label": "큰 버튼",
+    "planned": 4,
+    "new": [
+      "k-20/disabled.png",
+      "k-20/hover.png",
+      "k-20/normal.png",
+      "k-20/pressed.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-21": {
+    "label": "보통 버튼",
+    "planned": 4,
+    "new": [],
+    "previousRedrawn": [
+      "k-21/disabled.png",
+      "k-21/hover.png",
+      "k-21/normal.png",
+      "k-21/pressed.png"
+    ],
+    "status": "covered_by_count"
+  },
+  "k-22": {
+    "label": "작은 버튼",
+    "planned": 4,
+    "new": [
+      "k-22/disabled.png",
+      "k-22/hover.png",
+      "k-22/normal.png",
+      "k-22/pressed.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-23": {
+    "label": "주 버튼(출발, 강화, 확인)",
+    "planned": 4,
+    "new": [
+      "k-23/disabled.png",
+      "k-23/hover.png",
+      "k-23/normal.png",
+      "k-23/pressed.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-24": {
+    "label": "조심 버튼(포기, 삭제, 신고, 승급 확정)",
+    "planned": 4,
+    "new": [
+      "k-24/disabled.png",
+      "k-24/hover.png",
+      "k-24/normal.png",
+      "k-24/pressed.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-25": {
+    "label": "탭",
+    "planned": 4,
+    "new": [
+      "k-25/disabled.png",
+      "k-25/hover.png",
+      "k-25/normal.png",
+      "k-25/selected.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-26": {
+    "label": "세로 분류 탭",
+    "planned": 3,
+    "new": [
+      "k-26/hover.png",
+      "k-26/normal.png",
+      "k-26/selected.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-27": {
+    "label": "토글 스위치",
+    "planned": 3,
+    "new": [
+      "k-27/disabled.png",
+      "k-27/off.png",
+      "k-27/on.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-28": {
+    "label": "체크 상자",
+    "planned": 3,
+    "new": [
+      "k-28/checked.png",
+      "k-28/disabled.png",
+      "k-28/empty.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-29": {
+    "label": "고르기 단추(라디오)",
+    "planned": 3,
+    "new": [
+      "k-29/checked.png",
+      "k-29/disabled.png",
+      "k-29/empty.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-30": {
+    "label": "슬라이더",
+    "planned": 5,
+    "new": [
+      "k-30/fill.png",
+      "k-30/rail.png",
+      "k-30/thumb.png",
+      "k-30/thumb_hover.png",
+      "k-30/thumb_pressed.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-31": {
+    "label": "고르기 상자(드롭다운)",
+    "planned": 3,
+    "new": [
+      "k-31/hover.png",
+      "k-31/normal.png",
+      "k-31/selected.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-32": {
+    "label": "단계 고르기(◀ 값 ▶)",
+    "planned": 3,
+    "new": [
+      "k-32/disabled.png",
+      "k-32/hover.png",
+      "k-32/normal.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-33": {
+    "label": "입력 칸",
+    "planned": 4,
+    "new": [
+      "k-33/disabled.png",
+      "k-33/hover.png",
+      "k-33/normal.png",
+      "k-33/warning.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-34": {
+    "label": "스크롤 막대",
+    "planned": 4,
+    "new": [
+      "k-34/rail.png",
+      "k-34/thumb.png",
+      "k-34/thumb_hover.png",
+      "k-34/thumb_pressed.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-35": {
+    "label": "닫기 단추(×)",
+    "planned": 3,
+    "new": [
+      "k-35/hover.png",
+      "k-35/normal.png",
+      "k-35/pressed.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-36": {
+    "label": "진행 막대",
+    "planned": 2,
+    "new": [
+      "k-36/fill.png",
+      "k-36/rail.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-37": {
+    "label": "수량 조절",
+    "planned": 0,
+    "new": [],
+    "previousRedrawn": [],
+    "status": "runtime_or_unspecified"
+  },
+  "k-38": {
+    "label": "쪽 넘김 화살",
+    "planned": 3,
+    "new": [
+      "k-38/disabled.png",
+      "k-38/hover.png",
+      "k-38/normal.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-40": {
+    "label": "선택 괄호(한 모서리)",
+    "planned": 6,
+    "new": [
+      "k-40/corner_16_01.png",
+      "k-40/corner_16_02.png",
+      "k-40/corner_24_01.png",
+      "k-40/corner_24_02.png",
+      "k-40/corner_32_01.png",
+      "k-40/corner_32_02.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-41": {
+    "label": "확정 체크",
+    "planned": 2,
+    "new": [
+      "k-41/check_16.png",
+      "k-41/check_24.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-42": {
+    "label": "새 소식 점",
+    "planned": 2,
+    "new": [
+      "k-42/news_dot_01.png",
+      "k-42/news_dot_02.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-43": {
+    "label": "자물쇠(잠김 표시)",
+    "planned": 2,
+    "new": [
+      "k-43/lock_16.png",
+      "k-43/lock_24.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-44": {
+    "label": "불러오는 중(작은 모닥불)",
+    "planned": 6,
+    "new": [
+      "k-44/campfire_01.png",
+      "k-44/campfire_02.png",
+      "k-44/campfire_03.png",
+      "k-44/campfire_04.png",
+      "k-44/campfire_05.png",
+      "k-44/campfire_06.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-45": {
+    "label": "숫자 딱지",
+    "planned": 1,
+    "new": [
+      "k-45/number_tag.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-46": {
+    "label": "꼬리표",
+    "planned": 1,
+    "new": [
+      "k-46/chip.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-47": {
+    "label": "원형 남은 시간 고리",
+    "planned": 0,
+    "new": [],
+    "previousRedrawn": [],
+    "status": "runtime_or_unspecified"
+  },
+  "k-50": {
+    "label": "키 마개",
+    "planned": 2,
+    "new": [
+      "k-50/normal.png",
+      "k-50/pressed.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-51": {
+    "label": "큰 키 마개",
+    "planned": 2,
+    "new": [
+      "k-51/normal.png",
+      "k-51/pressed.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-52": {
+    "label": "마우스(왼쪽 누름, 오른쪽 누름, 휠)",
+    "planned": 3,
+    "new": [
+      "k-52/mouse_left.png",
+      "k-52/mouse_right.png",
+      "k-52/mouse_wheel.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-53": {
+    "label": "방향 입력 문양(앞, 뒤, 옆, 반대쪽 옆)",
+    "planned": 8,
+    "new": [
+      "k-53/back_16.png",
+      "k-53/back_24.png",
+      "k-53/forward_16.png",
+      "k-53/forward_24.png",
+      "k-53/opposite_16.png",
+      "k-53/opposite_24.png",
+      "k-53/side_16.png",
+      "k-53/side_24.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-54": {
+    "label": "K 입력 문양, 섬(저스트) 문양",
+    "planned": 4,
+    "new": [
+      "k-54/just_16.png",
+      "k-54/just_24.png",
+      "k-54/keystroke_16.png",
+      "k-54/keystroke_24.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-55": {
+    "label": "입력 사이 이음줄(이어짐, 끊어짐)",
+    "planned": 2,
+    "new": [
+      "k-55/connected.png",
+      "k-55/gap.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-60": {
+    "label": "물건 칸",
+    "planned": 4,
+    "new": [
+      "k-60/blocked.png",
+      "k-60/filled.png"
+    ],
+    "previousRedrawn": [
+      "k-60/empty.png",
+      "k-60/locked.png"
+    ],
+    "status": "covered_by_count"
+  },
+  "k-61": {
+    "label": "작은 칸",
+    "planned": 2,
+    "new": [
+      "k-61/empty.png",
+      "k-61/filled.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-62": {
+    "label": "지팡이 칸",
+    "planned": 3,
+    "new": [
+      "k-62/empty.png",
+      "k-62/filled.png",
+      "k-62/locked.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-63": {
+    "label": "코어 칸",
+    "planned": 2,
+    "new": [
+      "k-63/empty.png",
+      "k-63/filled.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-64": {
+    "label": "확장 칸",
+    "planned": 2,
+    "new": [
+      "k-64/absent.png",
+      "k-64/open.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-65": {
+    "label": "칸 사이 이음",
+    "planned": 3,
+    "new": [
+      "k-65/flow_01.png",
+      "k-65/flow_02.png",
+      "k-65/normal.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-66": {
+    "label": "등급 테(칸용)",
+    "planned": 3,
+    "new": [
+      "k-66/common.png",
+      "k-66/heroic.png",
+      "k-66/rare.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-67": {
+    "label": "등급 테(작은 칸용)",
+    "planned": 3,
+    "new": [
+      "k-67/common.png",
+      "k-67/heroic.png",
+      "k-67/rare.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-68": {
+    "label": "등급 테(카드용)",
+    "planned": 3,
+    "new": [
+      "k-68/common.png",
+      "k-68/heroic.png",
+      "k-68/rare.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-69": {
+    "label": "빌림 점선 테",
+    "planned": 2,
+    "new": [
+      "k-69/card.png",
+      "k-69/slot.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-70": {
+    "label": "HUD 회로 칸",
+    "planned": 3,
+    "new": [
+      "k-70/off.png",
+      "k-70/on_01.png",
+      "k-70/on_02.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-71": {
+    "label": "조립 경고 딱지",
+    "planned": 2,
+    "new": [
+      "k-71/warning_16.png",
+      "k-71/warning_24.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-72": {
+    "label": "끌어 옮기는 중 그림자",
+    "planned": 0,
+    "new": [],
+    "previousRedrawn": [],
+    "status": "runtime_or_unspecified"
+  },
+  "k-73": {
+    "label": "같은 속성 점",
+    "planned": 1,
+    "new": [
+      "k-73/same_element.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-b1": {
+    "label": "블록 아이콘(보통)",
+    "planned": 16,
+    "new": [],
+    "previousRedrawn": [
+      "i-b1/boomerang.png",
+      "i-b1/chain_lightning.png",
+      "i-b1/corrosion.png",
+      "i-b1/double_size.png",
+      "i-b1/fireball.png",
+      "i-b1/frost.png",
+      "i-b1/homing.png",
+      "i-b1/ice_spike.png",
+      "i-b1/magic_bolt.png",
+      "i-b1/on_hit_trigger.png",
+      "i-b1/pierce.png",
+      "i-b1/shadow_orb.png",
+      "i-b1/split_three.png",
+      "i-b1/split_two.png",
+      "i-b1/triple_heat.png",
+      "i-b1/wall_bounce.png"
+    ],
+    "status": "covered_by_count"
+  },
+  "i-b2": {
+    "label": "블록 아이콘(작은 것)",
+    "planned": 16,
+    "new": [],
+    "previousRedrawn": [
+      "i-b2/boomerang.png",
+      "i-b2/chain_lightning.png",
+      "i-b2/corrosion.png",
+      "i-b2/double_size.png",
+      "i-b2/fireball.png",
+      "i-b2/frost.png",
+      "i-b2/homing.png",
+      "i-b2/ice_spike.png",
+      "i-b2/magic_bolt.png",
+      "i-b2/on_hit_trigger.png",
+      "i-b2/pierce.png",
+      "i-b2/shadow_orb.png",
+      "i-b2/split_three.png",
+      "i-b2/split_two.png",
+      "i-b2/triple_heat.png",
+      "i-b2/wall_bounce.png"
+    ],
+    "status": "covered_by_count"
+  },
+  "i-b3": {
+    "label": "종류 바탕 판",
+    "planned": 6,
+    "new": [
+      "i-b3/clipped_square_24.png",
+      "i-b3/clipped_square_48.png",
+      "i-b3/hexagon_24.png",
+      "i-b3/hexagon_48.png",
+      "i-b3/round_24.png",
+      "i-b3/round_48.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-b4": {
+    "label": "종류 글자표",
+    "planned": 0,
+    "new": [],
+    "previousRedrawn": [],
+    "status": "runtime_or_unspecified"
+  },
+  "i-e1": {
+    "label": "속성 문양(보통)",
+    "planned": 6,
+    "new": [
+      "i-e1/arcane.png",
+      "i-e1/fire.png",
+      "i-e1/ice.png",
+      "i-e1/lightning.png",
+      "i-e1/neutral.png",
+      "i-e1/shadow.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-e2": {
+    "label": "속성 문양(큰 것)",
+    "planned": 5,
+    "new": [
+      "i-e2/arcane.png",
+      "i-e2/fire.png",
+      "i-e2/ice.png",
+      "i-e2/lightning.png",
+      "i-e2/shadow.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-e3": {
+    "label": "속성 문양 \"무\"(작은 것)",
+    "planned": 1,
+    "new": [
+      "i-e3/neutral.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-e4": {
+    "label": "약점·저항 묶음 틀",
+    "planned": 2,
+    "new": [
+      "i-e4/resistance.png",
+      "i-e4/weakness.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-g1": {
+    "label": "지팡이 단계 묶음 테",
+    "planned": 5,
+    "new": [
+      "i-g1/0_to_3.png",
+      "i-g1/10_to_12.png",
+      "i-g1/13.png",
+      "i-g1/4_to_6.png",
+      "i-g1/7_to_9.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-g2": {
+    "label": "흔적 딱지",
+    "planned": 1,
+    "new": [
+      "i-g2/trace.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-l1": {
+    "label": "리그 휘장(작은 것)",
+    "planned": 3,
+    "new": [
+      "i-l1/beast.png",
+      "i-l1/heir.png",
+      "i-l1/sprout.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-l2": {
+    "label": "리그 휘장(보통)",
+    "planned": 3,
+    "new": [
+      "i-l2/beast.png",
+      "i-l2/heir.png",
+      "i-l2/sprout.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-l3": {
+    "label": "리그 휘장(큰 것)",
+    "planned": 3,
+    "new": [
+      "i-l3/beast.png",
+      "i-l3/heir.png",
+      "i-l3/sprout.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-l4": {
+    "label": "휘장 덧테(리그 결투 점수 상위 10%의 휘장 꾸미기)",
+    "planned": 9,
+    "new": [
+      "i-l4/beast_128.png",
+      "i-l4/beast_24.png",
+      "i-l4/beast_48.png",
+      "i-l4/heir_128.png",
+      "i-l4/heir_24.png",
+      "i-l4/heir_48.png",
+      "i-l4/sprout_128.png",
+      "i-l4/sprout_24.png",
+      "i-l4/sprout_48.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-l5": {
+    "label": "시즌 기념 휘장(참가 보상)",
+    "planned": 2,
+    "new": [
+      "i-l5/season_24.png",
+      "i-l5/season_48.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-l6": {
+    "label": "승급 화살",
+    "planned": 2,
+    "new": [
+      "i-l6/promotion_01.png",
+      "i-l6/promotion_02.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-l7": {
+    "label": "순위 표식(1위 후계자, 2~10위 수제자)",
+    "planned": 2,
+    "new": [
+      "i-l7/disciple.png",
+      "i-l7/heir.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-l8": {
+    "label": "순위 숫자 메달(1, 2, 3)",
+    "planned": 3,
+    "new": [
+      "i-l8/first.png",
+      "i-l8/second.png",
+      "i-l8/third.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-l9": {
+    "label": "순위 변동(오름, 내림, 그대로)",
+    "planned": 3,
+    "new": [
+      "i-l9/down.png",
+      "i-l9/same.png",
+      "i-l9/up.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-t1": {
+    "label": "비기 아이콘(보통)",
+    "planned": 15,
+    "new": [],
+    "previousRedrawn": [
+      "i-t1/afterimage_step.png",
+      "i-t1/eight_way.png",
+      "i-t1/fan_spread.png",
+      "i-t1/full_bloom.png",
+      "i-t1/heat_vent.png",
+      "i-t1/ice_screen.png",
+      "i-t1/kiln.png",
+      "i-t1/mana_burst.png",
+      "i-t1/piercing_lance.png",
+      "i-t1/recoil_shot.png",
+      "i-t1/shadow_hand.png",
+      "i-t1/thunder_dash.png",
+      "i-t1/thunder_lance.png",
+      "i-t1/transcribe.png",
+      "i-t1/twin_wing.png"
+    ],
+    "status": "covered_by_count"
+  },
+  "i-t2": {
+    "label": "비기 아이콘(작은 것)",
+    "planned": 15,
+    "new": [],
+    "previousRedrawn": [
+      "i-t2/afterimage_step.png",
+      "i-t2/eight_way.png",
+      "i-t2/fan_spread.png",
+      "i-t2/full_bloom.png",
+      "i-t2/heat_vent.png",
+      "i-t2/ice_screen.png",
+      "i-t2/kiln.png",
+      "i-t2/mana_burst.png",
+      "i-t2/piercing_lance.png",
+      "i-t2/recoil_shot.png",
+      "i-t2/shadow_hand.png",
+      "i-t2/thunder_dash.png",
+      "i-t2/thunder_lance.png",
+      "i-t2/transcribe.png",
+      "i-t2/twin_wing.png"
+    ],
+    "status": "covered_by_count"
+  },
+  "i-t3": {
+    "label": "난이도 점",
+    "planned": 2,
+    "new": [
+      "i-t3/difficulty_empty.png",
+      "i-t3/difficulty_filled.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-t4": {
+    "label": "결정 비용 표시",
+    "planned": 2,
+    "new": [
+      "i-t4/crystal.png",
+      "i-t4/debt.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-80": {
+    "label": "변이 칸",
+    "planned": 3,
+    "new": [
+      "k-80/empty.png",
+      "k-80/filled.png",
+      "k-80/oldest.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "k-81": {
+    "label": "변이 이득·대가 줄 머리",
+    "planned": 2,
+    "new": [
+      "k-81/benefit.png",
+      "k-81/cost.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-m1": {
+    "label": "강화석(하급, 중급, 상급)",
+    "planned": 3,
+    "new": [],
+    "previousRedrawn": [
+      "i-m1/stone_basic.png",
+      "i-m1/stone_clear.png",
+      "i-m1/stone_cut.png"
+    ],
+    "status": "covered_by_count"
+  },
+  "i-m2": {
+    "label": "강화석(작은 것)",
+    "planned": 3,
+    "new": [
+      "i-m2/stone_basic.png",
+      "i-m2/stone_clear.png",
+      "i-m2/stone_cut.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-m3": {
+    "label": "하락 방지 부적",
+    "planned": 2,
+    "new": [
+      "i-m3/ward_24.png"
+    ],
+    "previousRedrawn": [
+      "i-m3/ward.png"
+    ],
+    "status": "covered_by_count"
+  },
+  "i-m4": {
+    "label": "재료 꾸러미, 까마귀 보따리",
+    "planned": 2,
+    "new": [],
+    "previousRedrawn": [
+      "i-m4/crow_bundle.png",
+      "i-m4/supplies.png"
+    ],
+    "status": "covered_by_count"
+  },
+  "i-m5": {
+    "label": "시즌 꾸미기 조각",
+    "planned": 2,
+    "new": [
+      "i-m5/cloth_24.png"
+    ],
+    "previousRedrawn": [
+      "i-m5/cloth.png"
+    ],
+    "status": "covered_by_count"
+  },
+  "i-m6": {
+    "label": "지팡이 상자",
+    "planned": 1,
+    "new": [],
+    "previousRedrawn": [
+      "i-m6/wand_box.png"
+    ],
+    "status": "covered_by_count"
+  },
+  "i-m7": {
+    "label": "꾸미기 분류 아이콘",
+    "planned": 12,
+    "new": [
+      "i-m7/badge.png",
+      "i-m7/border.png",
+      "i-m7/cape.png",
+      "i-m7/emote.png",
+      "i-m7/footsteps.png",
+      "i-m7/head.png",
+      "i-m7/kill_effect.png",
+      "i-m7/projectile_trail.png",
+      "i-m7/ritual.png",
+      "i-m7/sitting.png",
+      "i-m7/title.png",
+      "i-m7/wand.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-m8": {
+    "label": "꾸미기 낱개 아이콘",
+    "planned": 0,
+    "new": [],
+    "previousRedrawn": [],
+    "status": "runtime_or_unspecified"
+  },
+  "i-m9": {
+    "label": "서고 확장, 닉네임 바꾸기",
+    "planned": 2,
+    "new": [
+      "i-m9/expand_library.png",
+      "i-m9/rename.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-c1": {
+    "label": "재화 아이콘(작은 것)",
+    "planned": 4,
+    "new": [
+      "i-c1/expedition.png",
+      "i-c1/gold.png",
+      "i-c1/season.png",
+      "i-c1/starlight.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-c2": {
+    "label": "재화 아이콘(보통)",
+    "planned": 4,
+    "new": [
+      "i-c2/expedition.png",
+      "i-c2/gold.png",
+      "i-c2/season.png",
+      "i-c2/starlight.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-c3": {
+    "label": "재화 아이콘(큰 것)",
+    "planned": 4,
+    "new": [
+      "i-c3/expedition.png",
+      "i-c3/gold.png",
+      "i-c3/season.png",
+      "i-c3/starlight.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-c4": {
+    "label": "값 줄",
+    "planned": 0,
+    "new": [],
+    "previousRedrawn": [],
+    "status": "runtime_or_unspecified"
+  },
+  "i-s1": {
+    "label": "능력치 아이콘",
+    "planned": 11,
+    "new": [
+      "i-s1/combos_per_crystal.png",
+      "i-s1/cooling.png",
+      "i-s1/crystal_limit.png",
+      "i-s1/crystal_loss.png",
+      "i-s1/graze.png",
+      "i-s1/health.png",
+      "i-s1/heat_lock.png",
+      "i-s1/link_slot.png",
+      "i-s1/movement_speed.png",
+      "i-s1/stance_speed.png",
+      "i-s1/threshold.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-s2": {
+    "label": "패시브 아이콘",
+    "planned": 5,
+    "new": [
+      "i-s2/boil_over.png",
+      "i-s2/lightning_rod.png",
+      "i-s2/shadow_pact.png",
+      "i-s2/thin_ice.png",
+      "i-s2/underline.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-s3": {
+    "label": "지팡이 특성 아이콘",
+    "planned": 5,
+    "new": [
+      "i-s3/depth_decay.png",
+      "i-s3/heat_at_80.png",
+      "i-s3/keep_crystal.png",
+      "i-s3/on_credit.png",
+      "i-s3/three_mutations.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-s4": {
+    "label": "능력치 막대",
+    "planned": 2,
+    "new": [
+      "i-s4/fill.png",
+      "i-s4/rail.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-s5": {
+    "label": "아이템 레벨(IL) 표식",
+    "planned": 1,
+    "new": [
+      "i-s5/item_level.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-f1": {
+    "label": "메뉴 아이콘",
+    "planned": 16,
+    "new": [
+      "i-f1/assembly.png",
+      "i-f1/duel.png",
+      "i-f1/enhance.png",
+      "i-f1/exit.png",
+      "i-f1/expedition.png",
+      "i-f1/friends.png",
+      "i-f1/mail.png",
+      "i-f1/market.png",
+      "i-f1/plaza.png",
+      "i-f1/rankings.png",
+      "i-f1/records.png",
+      "i-f1/season.png",
+      "i-f1/settings.png",
+      "i-f1/shop.png",
+      "i-f1/training.png",
+      "i-f1/wardrobe.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-f2": {
+    "label": "기능 아이콘",
+    "planned": 21,
+    "new": [
+      "i-f2/back.png",
+      "i-f2/clock.png",
+      "i-f2/copy.png",
+      "i-f2/delete.png",
+      "i-f2/eye.png",
+      "i-f2/eye_hidden.png",
+      "i-f2/filter.png",
+      "i-f2/hourglass.png",
+      "i-f2/info.png",
+      "i-f2/minus.png",
+      "i-f2/pause.png",
+      "i-f2/pencil.png",
+      "i-f2/pin.png",
+      "i-f2/play.png",
+      "i-f2/plus.png",
+      "i-f2/question.png",
+      "i-f2/refresh.png",
+      "i-f2/search.png",
+      "i-f2/sort.png",
+      "i-f2/spectate.png",
+      "i-f2/warning.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-f3": {
+    "label": "사람 관계 아이콘",
+    "planned": 10,
+    "new": [
+      "i-f3/add_friend.png",
+      "i-f3/block.png",
+      "i-f3/duel.png",
+      "i-f3/follow.png",
+      "i-f3/friend.png",
+      "i-f3/inspect.png",
+      "i-f3/invite.png",
+      "i-f3/report.png",
+      "i-f3/trade.png",
+      "i-f3/whisper.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-f4": {
+    "label": "상태 아이콘(머리 위, 목록)",
+    "planned": 8,
+    "new": [
+      "i-f4/away.png",
+      "i-f4/duel.png",
+      "i-f4/expedition.png",
+      "i-f4/offline.png",
+      "i-f4/online.png",
+      "i-f4/queued.png",
+      "i-f4/spectating.png",
+      "i-f4/trade.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-f5": {
+    "label": "서버 상태",
+    "planned": 3,
+    "new": [
+      "i-f5/connected.png",
+      "i-f5/disconnected.png",
+      "i-f5/maintenance.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-f6": {
+    "label": "회선 표시",
+    "planned": 5,
+    "new": [
+      "i-f6/good.png",
+      "i-f6/over.png",
+      "i-f6/tight.png",
+      "i-f6/wired.png",
+      "i-f6/wireless.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-f7": {
+    "label": "우편 봉투",
+    "planned": 4,
+    "new": [
+      "i-f7/attachment.png",
+      "i-f7/claimed.png",
+      "i-f7/read.png",
+      "i-f7/unread.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-f8": {
+    "label": "채팅 채널 아이콘",
+    "planned": 7,
+    "new": [
+      "i-f8/duel_room.png",
+      "i-f8/friends.png",
+      "i-f8/nearby.png",
+      "i-f8/plaza.png",
+      "i-f8/system.png",
+      "i-f8/trade.png",
+      "i-f8/whisper.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-f9": {
+    "label": "방 옵션 아이콘",
+    "planned": 13,
+    "new": [
+      "i-f9/enhancement_cap.png",
+      "i-f9/equal_gear.png",
+      "i-f9/floor_color.png",
+      "i-f9/health_multiplier.png",
+      "i-f9/heroic_cap.png",
+      "i-f9/il_cap.png",
+      "i-f9/mutations.png",
+      "i-f9/password.png",
+      "i-f9/round_time.png",
+      "i-f9/rounds.png",
+      "i-f9/spectator.png",
+      "i-f9/thorns_off.png",
+      "i-f9/wild_intrusion.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-f10": {
+    "label": "감정표현 아이콘",
+    "planned": 8,
+    "new": [
+      "i-f10/bow.png",
+      "i-f10/clap.png",
+      "i-f10/dance.png",
+      "i-f10/despair.png",
+      "i-f10/raise_wand.png",
+      "i-f10/sit.png",
+      "i-f10/taunt.png",
+      "i-f10/wave.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-f11": {
+    "label": "설정 분류 아이콘",
+    "planned": 6,
+    "new": [
+      "i-f11/account.png",
+      "i-f11/combat_view.png",
+      "i-f11/controls.png",
+      "i-f11/display.png",
+      "i-f11/social.png",
+      "i-f11/sound.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-f12": {
+    "label": "프로필 표지",
+    "planned": 2,
+    "new": [
+      "i-f12/offline.png",
+      "i-f12/server.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "i-f13": {
+    "label": "기록 딱지",
+    "planned": 4,
+    "new": [
+      "i-f13/closing.png",
+      "i-f13/pending.png",
+      "i-f13/record.png",
+      "i-f13/verified.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-0201": {
+    "label": "타이틀 배경",
+    "planned": 5,
+    "new": [
+      "s-0201/campfire_01.png",
+      "s-0201/campfire_02.png",
+      "s-0201/campfire_03.png",
+      "s-0201/campfire_04.png",
+      "s-0201/title_background.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-0202": {
+    "label": "제목 그림",
+    "planned": 1,
+    "new": [
+      "s-0202/title_korean.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-0203": {
+    "label": "게임 아이콘(실행 파일용)",
+    "planned": 4,
+    "new": [
+      "s-0203/launcher_icon_1024.png",
+      "s-0203/launcher_icon_256.png",
+      "s-0203/launcher_icon_32.png",
+      "s-0203/launcher_icon_64.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-0301": {
+    "label": "프로필 카드 그림",
+    "planned": 2,
+    "new": [
+      "s-0301/offline_card.png",
+      "s-0301/server_card.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-0302": {
+    "label": "비밀번호 가림 점, 보기 단추",
+    "planned": 3,
+    "new": [
+      "s-0302/password_dot.png",
+      "s-0302/password_eye.png",
+      "s-0302/password_eye_hidden.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-0401": {
+    "label": "묶음 상자",
+    "planned": 1,
+    "new": [
+      "s-0401/server_features_group.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-0501": {
+    "label": "메인 메뉴 배경",
+    "planned": 5,
+    "new": [
+      "s-0501/camp_background.png",
+      "s-0501/campfire_01.png",
+      "s-0501/campfire_02.png",
+      "s-0501/campfire_03.png",
+      "s-0501/campfire_04.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-0502": {
+    "label": "모드 카드 그림",
+    "planned": 3,
+    "new": [],
+    "previousRedrawn": [
+      "s-0502/duel.png",
+      "s-0502/expedition.png",
+      "s-0502/plaza.png"
+    ],
+    "status": "covered_by_count"
+  },
+  "s-0503": {
+    "label": "캐릭터 받침(발밑 흙더미)",
+    "planned": 1,
+    "new": [
+      "s-0503/dirt_pedestal.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-0601": {
+    "label": "캐릭터 카드 틀",
+    "planned": 2,
+    "new": [
+      "s-0601/character_card_normal.png",
+      "s-0601/character_card_selected.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-0602": {
+    "label": "지팡이 받침대",
+    "planned": 1,
+    "new": [
+      "s-0602/wand_pedestal.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-0801": {
+    "label": "웨이브 진행 바",
+    "planned": 2,
+    "new": [
+      "s-0801/wave_fill.png",
+      "s-0801/wave_rail.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-0802": {
+    "label": "초상 테",
+    "planned": 2,
+    "new": [
+      "s-0802/portrait_hit.png",
+      "s-0802/portrait_normal.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-0803": {
+    "label": "보스 체력 바",
+    "planned": 5,
+    "new": [
+      "s-0803/boss_health_fill.png",
+      "s-0803/boss_health_rail.png",
+      "s-0803/boss_health_tick.png",
+      "s-0803/enrage_ember_01.png",
+      "s-0803/enrage_ember_02.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-0804": {
+    "label": "점수, 처치 수 아이콘",
+    "planned": 2,
+    "new": [
+      "s-0804/kills.png",
+      "s-0804/score.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-0805": {
+    "label": "과열 잠금 남은 시간 딱지",
+    "planned": 1,
+    "new": [
+      "s-0805/heat_lock.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-0901": {
+    "label": "결투 시작 배경",
+    "planned": 1,
+    "new": [
+      "s-0901/duel_floor.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-0902": {
+    "label": "\"대\" 글씨",
+    "planned": 3,
+    "new": [
+      "s-0902/versus_01.png",
+      "s-0902/versus_02.png",
+      "s-0902/versus_03.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-0903": {
+    "label": "결투 체력 바",
+    "planned": 4,
+    "new": [
+      "s-0903/duel_health_fill.png",
+      "s-0903/duel_health_rail.png",
+      "s-0903/duel_health_recent.png",
+      "s-0903/duel_health_tick.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-0904": {
+    "label": "라운드 점",
+    "planned": 4,
+    "new": [
+      "s-0904/round_draw.png",
+      "s-0904/round_empty.png",
+      "s-0904/round_opponent.png",
+      "s-0904/round_player.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-0905": {
+    "label": "가시밭 경고",
+    "planned": 2,
+    "new": [
+      "s-0905/thorn_warning_01.png",
+      "s-0905/thorn_warning_02.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-0906": {
+    "label": "입력 버려짐 아이콘",
+    "planned": 1,
+    "new": [
+      "s-0906/dropped_input.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-0907": {
+    "label": "문구 바퀴",
+    "planned": 2,
+    "new": [
+      "s-0907/phrase_highlight.png",
+      "s-0907/phrase_wheel.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1001": {
+    "label": "전리품 카드 바탕",
+    "planned": 2,
+    "new": [
+      "s-1001/loot_back.png",
+      "s-1001/loot_front.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1002": {
+    "label": "카드 뒤집힘",
+    "planned": 3,
+    "new": [
+      "s-1002/loot_flip_01.png",
+      "s-1002/loot_flip_02.png",
+      "s-1002/loot_flip_03.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1101": {
+    "label": "트리 마디 틀",
+    "planned": 4,
+    "new": [
+      "s-1101/tree_node_control.png",
+      "s-1101/tree_node_modifier.png",
+      "s-1101/tree_node_projectile.png",
+      "s-1101/tree_node_scope.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1102": {
+    "label": "스코프 묶음 선",
+    "planned": 3,
+    "new": [
+      "s-1102/scope_head.png",
+      "s-1102/scope_line.png",
+      "s-1102/scope_tail.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1103": {
+    "label": "분열 가지",
+    "planned": 2,
+    "new": [
+      "s-1103/split_2.png",
+      "s-1103/split_3.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1104": {
+    "label": "생략 마디(점선)",
+    "planned": 1,
+    "new": [
+      "s-1104/omitted_node.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1105": {
+    "label": "마디 이음 선",
+    "planned": 2,
+    "new": [
+      "s-1105/tree_link_corner.png",
+      "s-1105/tree_link_line.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1106": {
+    "label": "실행 순서 번호 딱지",
+    "planned": 1,
+    "new": [
+      "s-1106/execution_number.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1107": {
+    "label": "수치 아이콘(발사당 열, 임계 사격 횟수, DPS)",
+    "planned": 3,
+    "new": [
+      "s-1107/dps.png",
+      "s-1107/heat.png",
+      "s-1107/threshold.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1108": {
+    "label": "서고 칸",
+    "planned": 2,
+    "new": [
+      "s-1108/library_slot_empty.png",
+      "s-1108/library_slot_normal.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1201": {
+    "label": "결과 띠",
+    "planned": 3,
+    "new": [
+      "s-1201/odds_boundary.png",
+      "s-1201/odds_fill.png",
+      "s-1201/odds_rail.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1202": {
+    "label": "확률 내역 줄 머리",
+    "planned": 4,
+    "new": [
+      "s-1202/odds_base.png",
+      "s-1202/odds_momentum.png",
+      "s-1202/odds_sacrifice.png",
+      "s-1202/odds_same_element.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1203": {
+    "label": "새기기 누적 눈금",
+    "planned": 2,
+    "new": [
+      "s-1203/engraving_tick_empty.png",
+      "s-1203/engraving_tick_filled.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1204": {
+    "label": "목표 단계 깃발",
+    "planned": 1,
+    "new": [
+      "s-1204/enhance_goal.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1301": {
+    "label": "트라이 마디",
+    "planned": 7,
+    "new": [
+      "s-1301/trie_dot_off.png",
+      "s-1301/trie_dot_on.png",
+      "s-1301/trie_node_candidate.png",
+      "s-1301/trie_node_current_01.png",
+      "s-1301/trie_node_current_02.png",
+      "s-1301/trie_node_locked.png",
+      "s-1301/trie_node_unlocked.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1302": {
+    "label": "트라이 가지",
+    "planned": 4,
+    "new": [
+      "s-1302/trie_corner_off.png",
+      "s-1302/trie_corner_on.png",
+      "s-1302/trie_line_off.png",
+      "s-1302/trie_line_on.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1303": {
+    "label": "해금 후보 카드",
+    "planned": 1,
+    "new": [
+      "s-1303/unlock_candidate.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1401": {
+    "label": "입력 간격 막대",
+    "planned": 3,
+    "new": [
+      "s-1401/timing_marker_late.png",
+      "s-1401/timing_marker_valid.png",
+      "s-1401/timing_rail.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1402": {
+    "label": "저스트 게이지",
+    "planned": 3,
+    "new": [
+      "s-1402/just_marker.png",
+      "s-1402/just_rail.png",
+      "s-1402/just_window.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1403": {
+    "label": "무한 표시",
+    "planned": 1,
+    "new": [
+      "s-1403/infinity.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1601": {
+    "label": "귀환 가방 그림",
+    "planned": 2,
+    "new": [
+      "s-1601/return_bag_closed.png",
+      "s-1601/return_bag_open.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1602": {
+    "label": "정산 배경",
+    "planned": 1,
+    "new": [
+      "s-1602/expedition_dawn.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1603": {
+    "label": "쓰러진 캐릭터 받침",
+    "planned": 1,
+    "new": [
+      "s-1603/fallen_pedestal.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1701": {
+    "label": "승패 띠",
+    "planned": 3,
+    "new": [
+      "s-1701/result_banner_defeat.png",
+      "s-1701/result_banner_draw.png",
+      "s-1701/result_banner_victory.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1901": {
+    "label": "옵션 미리보기 그림(작은 전장)",
+    "planned": 7,
+    "new": [
+      "s-1901/options_enemy_bolt.png",
+      "s-1901/options_field.png",
+      "s-1901/options_flash.png",
+      "s-1901/options_hatching.png",
+      "s-1901/options_player_bolt.png",
+      "s-1901/options_shake.png",
+      "s-1901/options_telegraph.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1902": {
+    "label": "키보드 바탕",
+    "planned": 1,
+    "new": [
+      "s-1902/keyboard_board.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-1903": {
+    "label": "칭호 줄",
+    "planned": 3,
+    "new": [
+      "s-1903/title_row_heir.png",
+      "s-1903/title_row_ordinary.png",
+      "s-1903/title_row_thirteen.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2001": {
+    "label": "닉네임 판",
+    "planned": 3,
+    "new": [
+      "s-2001/nameplate_friend.png",
+      "s-2001/nameplate_other.png",
+      "s-2001/nameplate_self.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2002": {
+    "label": "칭호 띠(머리 위)",
+    "planned": 4,
+    "new": [
+      "s-2002/title_ribbon_disciple.png",
+      "s-2002/title_ribbon_heir.png",
+      "s-2002/title_ribbon_ordinary.png",
+      "s-2002/title_ribbon_thirteen.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2003": {
+    "label": "감정표현 바퀴",
+    "planned": 2,
+    "new": [
+      "s-2003/emote_highlight.png",
+      "s-2003/emote_wheel.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2004": {
+    "label": "말줄임표",
+    "planned": 3,
+    "new": [
+      "s-2004/typing_ellipsis_01.png",
+      "s-2004/typing_ellipsis_02.png",
+      "s-2004/typing_ellipsis_03.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2005": {
+    "label": "말풍선",
+    "planned": 4,
+    "new": [
+      "s-2005/bubble_nearby.png",
+      "s-2005/bubble_system.png",
+      "s-2005/bubble_tail_nearby.png",
+      "s-2005/bubble_tail_system.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2006": {
+    "label": "물건 이름표",
+    "planned": 1,
+    "new": [
+      "s-2006/item_nameplate.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2007": {
+    "label": "시설 팻말",
+    "planned": 1,
+    "new": [
+      "s-2007/facility_sign.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2101": {
+    "label": "결투 게시판 판",
+    "planned": 1,
+    "new": [
+      "s-2101/duel_board.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2102": {
+    "label": "방 줄 쪽지",
+    "planned": 2,
+    "new": [
+      "s-2102/room_note_full.png",
+      "s-2102/room_note_normal.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2103": {
+    "label": "준비 표시",
+    "planned": 2,
+    "new": [
+      "s-2103/ready_not_ready.png",
+      "s-2103/ready_ready.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2104": {
+    "label": "방장 표식",
+    "planned": 1,
+    "new": [
+      "s-2104/room_leader.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2105": {
+    "label": "대기 중 표시",
+    "planned": 5,
+    "new": [
+      "s-2105/waiting_banner.png",
+      "s-2105/waiting_hourglass_01.png",
+      "s-2105/waiting_hourglass_02.png",
+      "s-2105/waiting_hourglass_03.png",
+      "s-2105/waiting_hourglass_04.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2301": {
+    "label": "거래 돗자리",
+    "planned": 2,
+    "new": [
+      "s-2301/trade_mat_locked.png",
+      "s-2301/trade_mat_open.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2302": {
+    "label": "거래 자물쇠",
+    "planned": 5,
+    "new": [
+      "s-2302/trade_lock_locked.png",
+      "s-2302/trade_lock_open.png",
+      "s-2302/trade_locking_01.png",
+      "s-2302/trade_locking_02.png",
+      "s-2302/trade_locking_03.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2303": {
+    "label": "바뀐 칸 테",
+    "planned": 2,
+    "new": [
+      "s-2303/trade_changed_slot_01.png",
+      "s-2303/trade_changed_slot_02.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2304": {
+    "label": "시세 그림 틀",
+    "planned": 1,
+    "new": [
+      "s-2304/price_history_frame.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2305": {
+    "label": "상점 머리 그림",
+    "planned": 2,
+    "new": [
+      "s-2305/shop_banner_cart.png",
+      "s-2305/shop_banner_chair.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2306": {
+    "label": "품목 카드 바탕",
+    "planned": 2,
+    "new": [
+      "s-2306/catalog_card_normal.png",
+      "s-2306/catalog_card_sold_out.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2307": {
+    "label": "장터 배경",
+    "planned": 1,
+    "new": [
+      "s-2307/market_street.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2401": {
+    "label": "우편함 판",
+    "planned": 1,
+    "new": [
+      "s-2401/mailbox_board.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2402": {
+    "label": "옷장 미리보기 바탕",
+    "planned": 1,
+    "new": [
+      "s-2402/wardrobe_preview.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2403": {
+    "label": "꾸미기 칸",
+    "planned": 2,
+    "new": [
+      "s-2403/cosmetic_slot_equipped.png",
+      "s-2403/cosmetic_slot_normal.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2404": {
+    "label": "대화 판(느루와 NPC)",
+    "planned": 1,
+    "new": [
+      "s-2404/dialogue_board.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2405": {
+    "label": "느루 대화 초상",
+    "planned": 5,
+    "new": [
+      "s-2405/neuru_both_eyes.png",
+      "s-2405/neuru_one_eye.png",
+      "s-2405/neuru_sleeping.png",
+      "s-2405/neuru_speaking_01.png",
+      "s-2405/neuru_speaking_02.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2406": {
+    "label": "후계 점수 막대",
+    "planned": 3,
+    "new": [
+      "s-2406/heir_score_expedition.png",
+      "s-2406/heir_score_pvp.png",
+      "s-2406/heir_score_rail.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2407": {
+    "label": "행상 대화 초상",
+    "planned": 3,
+    "new": [
+      "s-2407/merchant_neutral.png",
+      "s-2407/merchant_speaking_01.png",
+      "s-2407/merchant_speaking_02.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2501": {
+    "label": "리그 카드 바탕",
+    "planned": 3,
+    "new": [
+      "s-2501/league_card_beast.png",
+      "s-2501/league_card_heir.png",
+      "s-2501/league_card_sprout.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2502": {
+    "label": "IL 긴 막대",
+    "planned": 4,
+    "new": [
+      "s-2502/item_level_fill.png",
+      "s-2502/item_level_rail.png",
+      "s-2502/item_level_tick.png",
+      "s-2502/item_level_you.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2503": {
+    "label": "순위 줄 바탕",
+    "planned": 4,
+    "new": [
+      "s-2503/leaderboard_row_alternate.png",
+      "s-2503/leaderboard_row_normal.png",
+      "s-2503/leaderboard_row_top_three.png",
+      "s-2503/leaderboard_row_you.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2504": {
+    "label": "비석 판",
+    "planned": 1,
+    "new": [
+      "s-2504/heir_monument.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2505": {
+    "label": "새긴 이름 줄",
+    "planned": 2,
+    "new": [
+      "s-2505/monument_inscription_latest.png",
+      "s-2505/monument_inscription_ordinary.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2506": {
+    "label": "순위표 배경",
+    "planned": 1,
+    "new": [
+      "s-2506/tower_wall.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2601": {
+    "label": "불러오는 화면 배경",
+    "planned": 1,
+    "new": [
+      "s-2601/brush_trail.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2602": {
+    "label": "마우스 커서",
+    "planned": 4,
+    "new": [
+      "s-2602/cursor_click.png",
+      "s-2602/cursor_drag.png",
+      "s-2602/cursor_normal.png",
+      "s-2602/cursor_text.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  },
+  "s-2603": {
+    "label": "복수 추적기의 거울 표식",
+    "planned": 3,
+    "new": [
+      "s-2603/revenge_mirror_cracked.png",
+      "s-2603/revenge_mirror_shattered.png",
+      "s-2603/revenge_mirror_whole.png"
+    ],
+    "previousRedrawn": [],
+    "status": "covered_by_count"
+  }
+}

@@ -3902,5 +3902,79 @@
         60
       ]
     }
+  },
+  "bossUi": {
+    "boss.kiln_boar": {
+      "portrait": "boss.kiln_boar.portrait.png",
+      "portraitSize": [
+        96,
+        96
+      ],
+      "hud": "boss.kiln_boar.hud.png",
+      "hudSize": [
+        32,
+        32
+      ]
+    },
+    "boss.mirror_phantom": {
+      "portrait": "boss.mirror_phantom.portrait.png",
+      "portraitSize": [
+        96,
+        96
+      ],
+      "hud": "boss.mirror_phantom.hud.png",
+      "hudSize": [
+        32,
+        32
+      ]
+    },
+    "boss.spore_queen": {
+      "portrait": "boss.spore_queen.portrait.png",
+      "portraitSize": [
+        96,
+        96
+      ],
+      "hud": "boss.spore_queen.hud.png",
+      "hudSize": [
+        32,
+        32
+      ]
+    },
+    "boss.storm_owl": {
+      "portrait": "boss.storm_owl.portrait.png",
+      "portraitSize": [
+        96,
+        96
+      ],
+      "hud": "boss.storm_owl.hud.png",
+      "hudSize": [
+        32,
+        32
+      ]
+    },
+    "boss.frost_goat": {
+      "portrait": "boss.frost_goat.portrait.png",
+      "portraitSize": [
+        96,
+        96
+      ],
+      "hud": "boss.frost_goat.hud.png",
+      "hudSize": [
+        32,
+        32
+      ]
+    },
+    "boss.night_serpent": {
+      "portrait": "boss.night_serpent.portrait.png",
+      "portraitSize": [
+        96,
+        96
+      ],
+      "hud": "boss.night_serpent.hud.png",
+      "hudSize": [
+        32,
+        32
+      ]
+    }
   }
 }

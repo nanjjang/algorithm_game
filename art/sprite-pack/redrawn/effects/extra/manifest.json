@@ -1,0 +1,977 @@
+{
+  "version": 1,
+  "origin": "top-left",
+  "filter": "nearest",
+  "mipmaps": false,
+  "source": "Built-in ImageGen using the redrawn elemental impacts as style references",
+  "boards": {
+    "enemy": {
+      "sha256": "972836afb88c0a584b10d47a11df3b42c1a942d5397bfc816f63fe4bf5fb8c20"
+    },
+    "circles": {
+      "sha256": "557147dfe61bf1a7b67c85c03c620552ef49bfab1ed938c512af9706a670bbe4"
+    },
+    "ice": {
+      "sha256": "7f22d0d00811ba9546e5097973cecfbef01fdc92459a64dda00b73407ef84ae3"
+    },
+    "shadow": {
+      "sha256": "885acd8881805d6a295a4d5a334c8c73b1a81b490acdc2aeb2f293e6333676af"
+    },
+    "dash": {
+      "sha256": "4c79344156a687fa6164d1a1a590f08379a2b6b9bf56ea20d2108c71a849b6ea"
+    },
+    "vertical_ice": {
+      "sha256": "97718934e0c2281f7ee6a64621dafd2f2750775b9250951480c1cefa3ba41f34"
+    },
+    "accessories": {
+      "sha256": "b164d78d968fb5018a7237e58c1c81cb0ba9799c1b29cabb88c66d4add839cba"
+    }
+  },
+  "runtimeTelegraphs": "docs/effects.md \u00a714.1, \u00a720.5",
+  "sprites": [
+    {
+      "id": "enemy/impact_circle",
+      "frameSize": [
+        128,
+        128
+      ],
+      "pivotPx": [
+        64,
+        64
+      ],
+      "loop": false,
+      "sheet": "enemy/impact_circle/sheet.png",
+      "frames": [
+        {
+          "file": "enemy/impact_circle/01.png",
+          "rect": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "enemy/impact_circle/02.png",
+          "rect": [
+            128,
+            0,
+            128,
+            128
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "enemy/impact_circle/03.png",
+          "rect": [
+            256,
+            0,
+            128,
+            128
+          ],
+          "durationMs": null
+        }
+      ],
+      "sourceBoard": "enemy",
+      "gameplay": "enemy danger"
+    },
+    {
+      "id": "enemy/impact_lane",
+      "frameSize": [
+        128,
+        64
+      ],
+      "pivotPx": [
+        64,
+        32
+      ],
+      "loop": false,
+      "sheet": "enemy/impact_lane/sheet.png",
+      "frames": [
+        {
+          "file": "enemy/impact_lane/01.png",
+          "rect": [
+            0,
+            0,
+            128,
+            64
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "enemy/impact_lane/02.png",
+          "rect": [
+            128,
+            0,
+            128,
+            64
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "enemy/impact_lane/03.png",
+          "rect": [
+            256,
+            0,
+            128,
+            64
+          ],
+          "durationMs": null
+        }
+      ],
+      "sourceBoard": "enemy",
+      "gameplay": "enemy danger"
+    },
+    {
+      "id": "enemy/impact_fan",
+      "frameSize": [
+        128,
+        128
+      ],
+      "pivotPx": [
+        28,
+        64
+      ],
+      "loop": false,
+      "sheet": "enemy/impact_fan/sheet.png",
+      "frames": [
+        {
+          "file": "enemy/impact_fan/01.png",
+          "rect": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "enemy/impact_fan/02.png",
+          "rect": [
+            128,
+            0,
+            128,
+            128
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "enemy/impact_fan/03.png",
+          "rect": [
+            256,
+            0,
+            128,
+            128
+          ],
+          "durationMs": null
+        }
+      ],
+      "sourceBoard": "enemy",
+      "gameplay": "enemy danger",
+      "facing": "right"
+    },
+    {
+      "id": "signatures/kiln_border",
+      "frameSize": [
+        320,
+        320
+      ],
+      "pivotPx": [
+        160,
+        160
+      ],
+      "loop": true,
+      "sheet": "signatures/kiln_border/sheet.png",
+      "frames": [
+        {
+          "file": "signatures/kiln_border/01.png",
+          "rect": [
+            0,
+            0,
+            320,
+            320
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/kiln_border/02.png",
+          "rect": [
+            320,
+            0,
+            320,
+            320
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/kiln_border/03.png",
+          "rect": [
+            640,
+            0,
+            320,
+            320
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/kiln_border/04.png",
+          "rect": [
+            960,
+            0,
+            320,
+            320
+          ],
+          "durationMs": null
+        }
+      ],
+      "sourceBoard": "circles"
+    },
+    {
+      "id": "signatures/arcane_copy",
+      "frameSize": [
+        96,
+        96
+      ],
+      "pivotPx": [
+        48,
+        48
+      ],
+      "loop": false,
+      "sheet": "signatures/arcane_copy/sheet.png",
+      "frames": [
+        {
+          "file": "signatures/arcane_copy/01.png",
+          "rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/arcane_copy/02.png",
+          "rect": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/arcane_copy/03.png",
+          "rect": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/arcane_copy/04.png",
+          "rect": [
+            288,
+            0,
+            96,
+            96
+          ],
+          "durationMs": null
+        }
+      ],
+      "sourceBoard": "circles"
+    },
+    {
+      "id": "signatures/lightning_dash",
+      "frameSize": [
+        256,
+        64
+      ],
+      "pivotPx": [
+        0,
+        32
+      ],
+      "loop": false,
+      "sheet": "signatures/lightning_dash/sheet.png",
+      "frames": [
+        {
+          "file": "signatures/lightning_dash/01.png",
+          "rect": [
+            0,
+            0,
+            256,
+            64
+          ],
+          "durationMs": 67
+        },
+        {
+          "file": "signatures/lightning_dash/02.png",
+          "rect": [
+            256,
+            0,
+            256,
+            64
+          ],
+          "durationMs": 66
+        },
+        {
+          "file": "signatures/lightning_dash/03.png",
+          "rect": [
+            512,
+            0,
+            256,
+            64
+          ],
+          "durationMs": 67
+        }
+      ],
+      "sourceBoard": "dash",
+      "facing": "right"
+    },
+    {
+      "id": "signatures/ice_screen_horizontal",
+      "frameSize": [
+        192,
+        96
+      ],
+      "pivotPx": [
+        96,
+        87
+      ],
+      "loop": false,
+      "sheet": "signatures/ice_screen_horizontal/sheet.png",
+      "frames": [
+        {
+          "file": "signatures/ice_screen_horizontal/01.png",
+          "rect": [
+            0,
+            0,
+            192,
+            96
+          ],
+          "durationMs": 50
+        },
+        {
+          "file": "signatures/ice_screen_horizontal/02.png",
+          "rect": [
+            192,
+            0,
+            192,
+            96
+          ],
+          "durationMs": 50
+        },
+        {
+          "file": "signatures/ice_screen_horizontal/03.png",
+          "rect": [
+            384,
+            0,
+            192,
+            96
+          ],
+          "durationMs": 50
+        },
+        {
+          "file": "signatures/ice_screen_horizontal/04.png",
+          "rect": [
+            576,
+            0,
+            192,
+            96
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/ice_screen_horizontal/05.png",
+          "rect": [
+            768,
+            0,
+            192,
+            96
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/ice_screen_horizontal/06.png",
+          "rect": [
+            960,
+            0,
+            192,
+            96
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/ice_screen_horizontal/07.png",
+          "rect": [
+            1152,
+            0,
+            192,
+            96
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/ice_screen_horizontal/08.png",
+          "rect": [
+            1344,
+            0,
+            192,
+            96
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/ice_screen_horizontal/09.png",
+          "rect": [
+            1536,
+            0,
+            192,
+            96
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/ice_screen_horizontal/10.png",
+          "rect": [
+            1728,
+            0,
+            192,
+            96
+          ],
+          "durationMs": null
+        }
+      ],
+      "sourceBoard": "ice",
+      "opacityAtRuntime": 0.75,
+      "phases": {
+        "rise": [
+          1,
+          2,
+          3
+        ],
+        "stand": [
+          4
+        ],
+        "crack": [
+          5,
+          6
+        ],
+        "shatter": [
+          7,
+          8,
+          9,
+          10
+        ]
+      }
+    },
+    {
+      "id": "signatures/shadow_pool",
+      "frameSize": [
+        128,
+        128
+      ],
+      "pivotPx": [
+        64,
+        64
+      ],
+      "loop": true,
+      "sheet": "signatures/shadow_pool/sheet.png",
+      "frames": [
+        {
+          "file": "signatures/shadow_pool/01.png",
+          "rect": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/shadow_pool/02.png",
+          "rect": [
+            128,
+            0,
+            128,
+            128
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/shadow_pool/03.png",
+          "rect": [
+            256,
+            0,
+            128,
+            128
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/shadow_pool/04.png",
+          "rect": [
+            384,
+            0,
+            128,
+            128
+          ],
+          "durationMs": null
+        }
+      ],
+      "sourceBoard": "shadow"
+    },
+    {
+      "id": "signatures/shadow_hand",
+      "frameSize": [
+        32,
+        32
+      ],
+      "pivotPx": [
+        16,
+        29
+      ],
+      "loop": false,
+      "sheet": "signatures/shadow_hand/sheet.png",
+      "frames": [
+        {
+          "file": "signatures/shadow_hand/01.png",
+          "rect": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/shadow_hand/02.png",
+          "rect": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/shadow_hand/03.png",
+          "rect": [
+            64,
+            0,
+            32,
+            32
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/shadow_hand/04.png",
+          "rect": [
+            96,
+            0,
+            32,
+            32
+          ],
+          "durationMs": null
+        }
+      ],
+      "sourceBoard": "shadow"
+    },
+    {
+      "id": "signatures/shadow_fist",
+      "frameSize": [
+        64,
+        64
+      ],
+      "pivotPx": [
+        32,
+        56
+      ],
+      "loop": false,
+      "sheet": "signatures/shadow_fist/sheet.png",
+      "frames": [
+        {
+          "file": "signatures/shadow_fist/01.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/shadow_fist/02.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/shadow_fist/03.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "durationMs": null
+        }
+      ],
+      "sourceBoard": "shadow"
+    },
+    {
+      "id": "signatures/ice_screen_vertical",
+      "frameSize": [
+        192,
+        96
+      ],
+      "pivotPx": [
+        96,
+        86
+      ],
+      "loop": false,
+      "sheet": "signatures/ice_screen_vertical/sheet.png",
+      "frames": [
+        {
+          "file": "signatures/ice_screen_vertical/01.png",
+          "rect": [
+            0,
+            0,
+            192,
+            96
+          ],
+          "durationMs": 50
+        },
+        {
+          "file": "signatures/ice_screen_vertical/02.png",
+          "rect": [
+            192,
+            0,
+            192,
+            96
+          ],
+          "durationMs": 50
+        },
+        {
+          "file": "signatures/ice_screen_vertical/03.png",
+          "rect": [
+            384,
+            0,
+            192,
+            96
+          ],
+          "durationMs": 50
+        },
+        {
+          "file": "signatures/ice_screen_vertical/04.png",
+          "rect": [
+            576,
+            0,
+            192,
+            96
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/ice_screen_vertical/05.png",
+          "rect": [
+            768,
+            0,
+            192,
+            96
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/ice_screen_vertical/06.png",
+          "rect": [
+            960,
+            0,
+            192,
+            96
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/ice_screen_vertical/07.png",
+          "rect": [
+            1152,
+            0,
+            192,
+            96
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/ice_screen_vertical/08.png",
+          "rect": [
+            1344,
+            0,
+            192,
+            96
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/ice_screen_vertical/09.png",
+          "rect": [
+            1536,
+            0,
+            192,
+            96
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/ice_screen_vertical/10.png",
+          "rect": [
+            1728,
+            0,
+            192,
+            96
+          ],
+          "durationMs": null
+        }
+      ],
+      "sourceBoard": "vertical_ice",
+      "opacityAtRuntime": 0.75,
+      "phases": {
+        "rise": [
+          1,
+          2,
+          3
+        ],
+        "stand": [
+          4
+        ],
+        "crack": [
+          5,
+          6
+        ],
+        "shatter": [
+          7,
+          8,
+          9,
+          10
+        ]
+      }
+    },
+    {
+      "id": "signatures/kiln_ember",
+      "frameSize": [
+        8,
+        8
+      ],
+      "pivotPx": [
+        4,
+        4
+      ],
+      "loop": false,
+      "sheet": "signatures/kiln_ember/sheet.png",
+      "frames": [
+        {
+          "file": "signatures/kiln_ember/01.png",
+          "rect": [
+            0,
+            0,
+            8,
+            8
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/kiln_ember/02.png",
+          "rect": [
+            8,
+            0,
+            8,
+            8
+          ],
+          "durationMs": null
+        }
+      ],
+      "sourceBoard": "accessories"
+    },
+    {
+      "id": "signatures/scattered_pages",
+      "frameSize": [
+        16,
+        16
+      ],
+      "pivotPx": [
+        8,
+        8
+      ],
+      "loop": false,
+      "sheet": "signatures/scattered_pages/sheet.png",
+      "frames": [
+        {
+          "file": "signatures/scattered_pages/01.png",
+          "rect": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/scattered_pages/02.png",
+          "rect": [
+            16,
+            0,
+            16,
+            16
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/scattered_pages/03.png",
+          "rect": [
+            32,
+            0,
+            16,
+            16
+          ],
+          "durationMs": null
+        }
+      ],
+      "sourceBoard": "accessories"
+    },
+    {
+      "id": "signatures/ice_screen_ripple",
+      "frameSize": [
+        32,
+        32
+      ],
+      "pivotPx": [
+        16,
+        16
+      ],
+      "loop": false,
+      "sheet": "signatures/ice_screen_ripple/sheet.png",
+      "frames": [
+        {
+          "file": "signatures/ice_screen_ripple/01.png",
+          "rect": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/ice_screen_ripple/02.png",
+          "rect": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/ice_screen_ripple/03.png",
+          "rect": [
+            64,
+            0,
+            32,
+            32
+          ],
+          "durationMs": null
+        }
+      ],
+      "sourceBoard": "accessories"
+    },
+    {
+      "id": "signatures/ice_screen_shard",
+      "frameSize": [
+        16,
+        16
+      ],
+      "pivotPx": [
+        8,
+        8
+      ],
+      "loop": false,
+      "sheet": "signatures/ice_screen_shard/sheet.png",
+      "frames": [
+        {
+          "file": "signatures/ice_screen_shard/01.png",
+          "rect": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/ice_screen_shard/02.png",
+          "rect": [
+            16,
+            0,
+            16,
+            16
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/ice_screen_shard/03.png",
+          "rect": [
+            32,
+            0,
+            16,
+            16
+          ],
+          "durationMs": null
+        }
+      ],
+      "sourceBoard": "accessories"
+    },
+    {
+      "id": "signatures/shadow_arm",
+      "frameSize": [
+        32,
+        16
+      ],
+      "pivotPx": [
+        0,
+        8
+      ],
+      "loop": false,
+      "sheet": "signatures/shadow_arm/sheet.png",
+      "frames": [
+        {
+          "file": "signatures/shadow_arm/01.png",
+          "rect": [
+            0,
+            0,
+            32,
+            16
+          ],
+          "durationMs": null
+        },
+        {
+          "file": "signatures/shadow_arm/02.png",
+          "rect": [
+            32,
+            0,
+            32,
+            16
+          ],
+          "durationMs": null
+        }
+      ],
+      "sourceBoard": "accessories",
+      "repeatAxis": "x"
+    }
+  ]
+}

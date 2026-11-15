@@ -1,0 +1,1261 @@
+{
+  "coordinates": "top-left pixel coordinates",
+  "filter": "point",
+  "mipmaps": false,
+  "spec": "docs/wands/",
+  "entries": {
+    "dalgu/+13/inspection": {
+      "path": "dalgu/+13/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 13,
+      "source": "d5092495"
+    },
+    "dalgu/+13/icon": {
+      "path": "dalgu/+13/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 13,
+      "source": "d5092495"
+    },
+    "dalgu/+13/hand_down_hold": {
+      "path": "dalgu/+13/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 13,
+      "source": "d5092495",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "chorong/+13/inspection": {
+      "path": "chorong/+13/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 13,
+      "source": "d5092495"
+    },
+    "chorong/+13/icon": {
+      "path": "chorong/+13/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 13,
+      "source": "d5092495"
+    },
+    "chorong/+13/hand_down_hold": {
+      "path": "chorong/+13/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 13,
+      "source": "d5092495",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "galpi/+13/inspection": {
+      "path": "galpi/+13/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 13,
+      "source": "d5092495"
+    },
+    "galpi/+13/icon": {
+      "path": "galpi/+13/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 13,
+      "source": "d5092495"
+    },
+    "galpi/+13/hand_down_hold": {
+      "path": "galpi/+13/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 13,
+      "source": "d5092495",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "seonge/+13/inspection": {
+      "path": "seonge/+13/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 13,
+      "source": "d5092495"
+    },
+    "seonge/+13/icon": {
+      "path": "seonge/+13/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 13,
+      "source": "d5092495"
+    },
+    "seonge/+13/hand_down_hold": {
+      "path": "seonge/+13/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 13,
+      "source": "d5092495",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "geumeum/+13/inspection": {
+      "path": "geumeum/+13/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 13,
+      "source": "d5092495"
+    },
+    "geumeum/+13/icon": {
+      "path": "geumeum/+13/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 13,
+      "source": "d5092495"
+    },
+    "geumeum/+13/hand_down_hold": {
+      "path": "geumeum/+13/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 13,
+      "source": "d5092495",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "geumeum/+00/inspection": {
+      "path": "geumeum/+00/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 0,
+      "source": "d5092495"
+    },
+    "geumeum/+00/icon": {
+      "path": "geumeum/+00/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 0,
+      "source": "d5092495"
+    },
+    "geumeum/+00/hand_down_hold": {
+      "path": "geumeum/+00/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 0,
+      "source": "d5092495",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "dalgu/+00/inspection": {
+      "path": "dalgu/+00/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 0,
+      "source": "422b56eb"
+    },
+    "dalgu/+00/icon": {
+      "path": "dalgu/+00/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 0,
+      "source": "422b56eb"
+    },
+    "dalgu/+00/hand_down_hold": {
+      "path": "dalgu/+00/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 0,
+      "source": "422b56eb",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "chorong/+00/inspection": {
+      "path": "chorong/+00/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 0,
+      "source": "422b56eb"
+    },
+    "chorong/+00/icon": {
+      "path": "chorong/+00/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 0,
+      "source": "422b56eb"
+    },
+    "chorong/+00/hand_down_hold": {
+      "path": "chorong/+00/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 0,
+      "source": "422b56eb",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "galpi/+00/inspection": {
+      "path": "galpi/+00/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 0,
+      "source": "422b56eb"
+    },
+    "galpi/+00/icon": {
+      "path": "galpi/+00/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 0,
+      "source": "422b56eb"
+    },
+    "galpi/+00/hand_down_hold": {
+      "path": "galpi/+00/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 0,
+      "source": "422b56eb",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "seonge/+00/inspection": {
+      "path": "seonge/+00/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 0,
+      "source": "422b56eb"
+    },
+    "seonge/+00/icon": {
+      "path": "seonge/+00/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 0,
+      "source": "422b56eb"
+    },
+    "seonge/+00/hand_down_hold": {
+      "path": "seonge/+00/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 0,
+      "source": "422b56eb",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "dalgu/+04/inspection": {
+      "path": "dalgu/+04/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 4,
+      "source": "0c8a594c"
+    },
+    "dalgu/+04/icon": {
+      "path": "dalgu/+04/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 4,
+      "source": "0c8a594c"
+    },
+    "dalgu/+04/hand_down_hold": {
+      "path": "dalgu/+04/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 4,
+      "source": "0c8a594c",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "dalgu/+07/inspection": {
+      "path": "dalgu/+07/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 7,
+      "source": "0c8a594c"
+    },
+    "dalgu/+07/icon": {
+      "path": "dalgu/+07/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 7,
+      "source": "0c8a594c"
+    },
+    "dalgu/+07/hand_down_hold": {
+      "path": "dalgu/+07/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 7,
+      "source": "0c8a594c",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "dalgu/+10/inspection": {
+      "path": "dalgu/+10/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 10,
+      "source": "0c8a594c"
+    },
+    "dalgu/+10/icon": {
+      "path": "dalgu/+10/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 10,
+      "source": "0c8a594c"
+    },
+    "dalgu/+10/hand_down_hold": {
+      "path": "dalgu/+10/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 10,
+      "source": "0c8a594c",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "chorong/+04/inspection": {
+      "path": "chorong/+04/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 4,
+      "source": "0c8a594c"
+    },
+    "chorong/+04/icon": {
+      "path": "chorong/+04/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 4,
+      "source": "0c8a594c"
+    },
+    "chorong/+04/hand_down_hold": {
+      "path": "chorong/+04/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 4,
+      "source": "0c8a594c",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "chorong/+07/inspection": {
+      "path": "chorong/+07/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 7,
+      "source": "0c8a594c"
+    },
+    "chorong/+07/icon": {
+      "path": "chorong/+07/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 7,
+      "source": "0c8a594c"
+    },
+    "chorong/+07/hand_down_hold": {
+      "path": "chorong/+07/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 7,
+      "source": "0c8a594c",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "chorong/+10/inspection": {
+      "path": "chorong/+10/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 10,
+      "source": "0c8a594c"
+    },
+    "chorong/+10/icon": {
+      "path": "chorong/+10/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 10,
+      "source": "0c8a594c"
+    },
+    "chorong/+10/hand_down_hold": {
+      "path": "chorong/+10/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 10,
+      "source": "0c8a594c",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "galpi/+04/inspection": {
+      "path": "galpi/+04/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 4,
+      "source": "0c8a594c"
+    },
+    "galpi/+04/icon": {
+      "path": "galpi/+04/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 4,
+      "source": "0c8a594c"
+    },
+    "galpi/+04/hand_down_hold": {
+      "path": "galpi/+04/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 4,
+      "source": "0c8a594c",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "galpi/+07/inspection": {
+      "path": "galpi/+07/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 7,
+      "source": "0c8a594c"
+    },
+    "galpi/+07/icon": {
+      "path": "galpi/+07/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 7,
+      "source": "0c8a594c"
+    },
+    "galpi/+07/hand_down_hold": {
+      "path": "galpi/+07/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 7,
+      "source": "0c8a594c",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "galpi/+10/inspection": {
+      "path": "galpi/+10/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 10,
+      "source": "0c8a594c"
+    },
+    "galpi/+10/icon": {
+      "path": "galpi/+10/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 10,
+      "source": "0c8a594c"
+    },
+    "galpi/+10/hand_down_hold": {
+      "path": "galpi/+10/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 10,
+      "source": "0c8a594c",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "seonge/+04/inspection": {
+      "path": "seonge/+04/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 4,
+      "source": "0c8a594c"
+    },
+    "seonge/+04/icon": {
+      "path": "seonge/+04/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 4,
+      "source": "0c8a594c"
+    },
+    "seonge/+04/hand_down_hold": {
+      "path": "seonge/+04/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 4,
+      "source": "0c8a594c",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "seonge/+07/inspection": {
+      "path": "seonge/+07/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 7,
+      "source": "0c8a594c"
+    },
+    "seonge/+07/icon": {
+      "path": "seonge/+07/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 7,
+      "source": "0c8a594c"
+    },
+    "seonge/+07/hand_down_hold": {
+      "path": "seonge/+07/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 7,
+      "source": "0c8a594c",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "seonge/+10/inspection": {
+      "path": "seonge/+10/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 10,
+      "source": "0c8a594c"
+    },
+    "seonge/+10/icon": {
+      "path": "seonge/+10/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 10,
+      "source": "0c8a594c"
+    },
+    "seonge/+10/hand_down_hold": {
+      "path": "seonge/+10/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 10,
+      "source": "0c8a594c",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "geumeum/+04/inspection": {
+      "path": "geumeum/+04/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 4,
+      "source": "0c8a594c"
+    },
+    "geumeum/+04/icon": {
+      "path": "geumeum/+04/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 4,
+      "source": "0c8a594c"
+    },
+    "geumeum/+04/hand_down_hold": {
+      "path": "geumeum/+04/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 4,
+      "source": "0c8a594c",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "geumeum/+07/inspection": {
+      "path": "geumeum/+07/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 7,
+      "source": "0c8a594c"
+    },
+    "geumeum/+07/icon": {
+      "path": "geumeum/+07/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 7,
+      "source": "0c8a594c"
+    },
+    "geumeum/+07/hand_down_hold": {
+      "path": "geumeum/+07/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 7,
+      "source": "0c8a594c",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "geumeum/+10/inspection": {
+      "path": "geumeum/+10/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 10,
+      "source": "0c8a594c"
+    },
+    "geumeum/+10/icon": {
+      "path": "geumeum/+10/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 10,
+      "source": "0c8a594c"
+    },
+    "geumeum/+10/hand_down_hold": {
+      "path": "geumeum/+10/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 10,
+      "source": "0c8a594c",
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "sheets/featured_inspection": {
+      "path": "sheets/featured_inspection.png",
+      "size": [
+        960,
+        960
+      ],
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 5,
+      "frames": [
+        {
+          "path": "dalgu/+00/inspection.png",
+          "rect": [
+            0,
+            0,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "chorong/+00/inspection.png",
+          "rect": [
+            192,
+            0,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "galpi/+00/inspection.png",
+          "rect": [
+            384,
+            0,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "seonge/+00/inspection.png",
+          "rect": [
+            576,
+            0,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "geumeum/+00/inspection.png",
+          "rect": [
+            768,
+            0,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "dalgu/+04/inspection.png",
+          "rect": [
+            0,
+            192,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "chorong/+04/inspection.png",
+          "rect": [
+            192,
+            192,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "galpi/+04/inspection.png",
+          "rect": [
+            384,
+            192,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "seonge/+04/inspection.png",
+          "rect": [
+            576,
+            192,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "geumeum/+04/inspection.png",
+          "rect": [
+            768,
+            192,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "dalgu/+07/inspection.png",
+          "rect": [
+            0,
+            384,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "chorong/+07/inspection.png",
+          "rect": [
+            192,
+            384,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "galpi/+07/inspection.png",
+          "rect": [
+            384,
+            384,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "seonge/+07/inspection.png",
+          "rect": [
+            576,
+            384,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "geumeum/+07/inspection.png",
+          "rect": [
+            768,
+            384,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "dalgu/+10/inspection.png",
+          "rect": [
+            0,
+            576,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "chorong/+10/inspection.png",
+          "rect": [
+            192,
+            576,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "galpi/+10/inspection.png",
+          "rect": [
+            384,
+            576,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "seonge/+10/inspection.png",
+          "rect": [
+            576,
+            576,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "geumeum/+10/inspection.png",
+          "rect": [
+            768,
+            576,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "dalgu/+13/inspection.png",
+          "rect": [
+            0,
+            768,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "chorong/+13/inspection.png",
+          "rect": [
+            192,
+            768,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "galpi/+13/inspection.png",
+          "rect": [
+            384,
+            768,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "seonge/+13/inspection.png",
+          "rect": [
+            576,
+            768,
+            192,
+            192
+          ]
+        },
+        {
+          "path": "geumeum/+13/inspection.png",
+          "rect": [
+            768,
+            768,
+            192,
+            192
+          ]
+        }
+      ]
+    },
+    "sheets/featured_hand": {
+      "path": "sheets/featured_hand.png",
+      "size": [
+        160,
+        320
+      ],
+      "cell": [
+        32,
+        64
+      ],
+      "columns": 5,
+      "frames": [
+        {
+          "path": "dalgu/+00/hand_down_hold.png",
+          "rect": [
+            0,
+            0,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "chorong/+00/hand_down_hold.png",
+          "rect": [
+            32,
+            0,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "galpi/+00/hand_down_hold.png",
+          "rect": [
+            64,
+            0,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "seonge/+00/hand_down_hold.png",
+          "rect": [
+            96,
+            0,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "geumeum/+00/hand_down_hold.png",
+          "rect": [
+            128,
+            0,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "dalgu/+04/hand_down_hold.png",
+          "rect": [
+            0,
+            64,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "chorong/+04/hand_down_hold.png",
+          "rect": [
+            32,
+            64,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "galpi/+04/hand_down_hold.png",
+          "rect": [
+            64,
+            64,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "seonge/+04/hand_down_hold.png",
+          "rect": [
+            96,
+            64,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "geumeum/+04/hand_down_hold.png",
+          "rect": [
+            128,
+            64,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "dalgu/+07/hand_down_hold.png",
+          "rect": [
+            0,
+            128,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "chorong/+07/hand_down_hold.png",
+          "rect": [
+            32,
+            128,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "galpi/+07/hand_down_hold.png",
+          "rect": [
+            64,
+            128,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "seonge/+07/hand_down_hold.png",
+          "rect": [
+            96,
+            128,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "geumeum/+07/hand_down_hold.png",
+          "rect": [
+            128,
+            128,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "dalgu/+10/hand_down_hold.png",
+          "rect": [
+            0,
+            192,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "chorong/+10/hand_down_hold.png",
+          "rect": [
+            32,
+            192,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "galpi/+10/hand_down_hold.png",
+          "rect": [
+            64,
+            192,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "seonge/+10/hand_down_hold.png",
+          "rect": [
+            96,
+            192,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "geumeum/+10/hand_down_hold.png",
+          "rect": [
+            128,
+            192,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "dalgu/+13/hand_down_hold.png",
+          "rect": [
+            0,
+            256,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "chorong/+13/hand_down_hold.png",
+          "rect": [
+            32,
+            256,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "galpi/+13/hand_down_hold.png",
+          "rect": [
+            64,
+            256,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "seonge/+13/hand_down_hold.png",
+          "rect": [
+            96,
+            256,
+            32,
+            64
+          ]
+        },
+        {
+          "path": "geumeum/+13/hand_down_hold.png",
+          "rect": [
+            128,
+            256,
+            32,
+            64
+          ]
+        }
+      ]
+    }
+  }
+}

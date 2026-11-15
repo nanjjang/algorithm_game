@@ -1,0 +1,4671 @@
+{
+  "coordinates": "top-left pixel coordinates",
+  "filter": "point",
+  "mipmaps": false,
+  "spec": "docs/monsters.md sections 2, 3, 5.4, 9.1 and 9.3",
+  "provenance": "Individual action poses drawn with built-in ImageGen against the linked redrawn idle sprites. Canvas assembly and shared per-character palette are deterministic exports.",
+  "entries": {
+    "enemy.slime_moss": {
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        59
+      ],
+      "identityReference": "../enemy.slime_moss/idle.png",
+      "sources": [
+        "82579d2c-7158-4aa1-ae28-1324d5e22350"
+      ],
+      "sequences": {
+        "move": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.slime_moss/move/01.png",
+            "enemy.slime_moss/move/02.png"
+          ],
+          "sheet": "enemy.slime_moss/move/sheet.png",
+          "durationsMs": [
+            140,
+            140
+          ]
+        },
+        "death": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.slime_moss/death/01.png",
+            "enemy.slime_moss/death/02.png"
+          ],
+          "sheet": "enemy.slime_moss/death/sheet.png",
+          "durationsMs": [
+            170,
+            170
+          ]
+        }
+      }
+    },
+    "enemy.wolf_bramble": {
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        59
+      ],
+      "identityReference": "../enemy.wolf_bramble/idle.png",
+      "sources": [
+        "768f8fe4-d356-4489-b554-67ae29b1f338"
+      ],
+      "sequences": {
+        "move": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.wolf_bramble/move/01.png",
+            "enemy.wolf_bramble/move/02.png",
+            "enemy.wolf_bramble/move/03.png",
+            "enemy.wolf_bramble/move/04.png"
+          ],
+          "sheet": "enemy.wolf_bramble/move/sheet.png",
+          "durationsMs": [
+            90,
+            90,
+            90,
+            90
+          ]
+        },
+        "charge_warning": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.wolf_bramble/charge_warning/01.png"
+          ],
+          "sheet": "enemy.wolf_bramble/charge_warning/sheet.png",
+          "durationsMs": [
+            500
+          ]
+        },
+        "charge": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.wolf_bramble/charge/01.png"
+          ],
+          "sheet": "enemy.wolf_bramble/charge/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        },
+        "stagger": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.wolf_bramble/stagger/01.png",
+            "enemy.wolf_bramble/stagger/02.png"
+          ],
+          "sheet": "enemy.wolf_bramble/stagger/sheet.png",
+          "durationsMs": [
+            160,
+            160
+          ]
+        },
+        "dodge": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.wolf_bramble/dodge/01.png"
+          ],
+          "sheet": "enemy.wolf_bramble/dodge/sheet.png",
+          "durationsMs": [
+            110
+          ]
+        },
+        "death": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.wolf_bramble/death/01.png",
+            "enemy.wolf_bramble/death/02.png"
+          ],
+          "sheet": "enemy.wolf_bramble/death/sheet.png",
+          "durationsMs": [
+            155,
+            180
+          ]
+        }
+      }
+    },
+    "enemy.weasel_pot": {
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        59
+      ],
+      "identityReference": "../enemy.weasel_pot/idle.png",
+      "sources": [
+        "051baab1-b210-44f8-bb4d-82609d0ad349"
+      ],
+      "sequences": {
+        "burrow_move": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.weasel_pot/burrow_move/01.png",
+            "enemy.weasel_pot/burrow_move/02.png"
+          ],
+          "sheet": "enemy.weasel_pot/burrow_move/sheet.png",
+          "durationsMs": [
+            135,
+            135
+          ]
+        },
+        "emerge": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.weasel_pot/emerge/01.png",
+            "enemy.weasel_pot/emerge/02.png"
+          ],
+          "sheet": "enemy.weasel_pot/emerge/sheet.png",
+          "durationsMs": [
+            120,
+            160
+          ]
+        },
+        "surface": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.weasel_pot/surface/01.png",
+            "enemy.weasel_pot/surface/02.png"
+          ],
+          "sheet": "enemy.weasel_pot/surface/sheet.png",
+          "durationsMs": [
+            150,
+            150
+          ]
+        },
+        "dive": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.weasel_pot/dive/01.png",
+            "enemy.weasel_pot/dive/02.png"
+          ],
+          "sheet": "enemy.weasel_pot/dive/sheet.png",
+          "durationsMs": [
+            250,
+            250
+          ]
+        },
+        "death": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.weasel_pot/death/01.png",
+            "enemy.weasel_pot/death/02.png"
+          ],
+          "sheet": "enemy.weasel_pot/death/sheet.png",
+          "durationsMs": [
+            145,
+            190
+          ]
+        }
+      }
+    },
+    "enemy.bat_dusk": {
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        59
+      ],
+      "identityReference": "../enemy.bat_dusk/idle.png",
+      "sources": [
+        "47c58a7a-460f-4f07-888a-47963abaa3cf"
+      ],
+      "sequences": {
+        "fly": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.bat_dusk/fly/01.png",
+            "enemy.bat_dusk/fly/02.png",
+            "enemy.bat_dusk/fly/03.png"
+          ],
+          "sheet": "enemy.bat_dusk/fly/sheet.png",
+          "durationsMs": [
+            105,
+            105,
+            105
+          ]
+        },
+        "death": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.bat_dusk/death/01.png",
+            "enemy.bat_dusk/death/02.png"
+          ],
+          "sheet": "enemy.bat_dusk/death/sheet.png",
+          "durationsMs": [
+            145,
+            180
+          ]
+        }
+      }
+    },
+    "enemy.golem_menhir": {
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        91
+      ],
+      "identityReference": "../enemy.golem_menhir/idle.png",
+      "sources": [
+        "fcbcb34e-eb18-49f2-97f3-919cecc47353"
+      ],
+      "sequences": {
+        "move": {
+          "size": [
+            96,
+            96
+          ],
+          "pivot": [
+            48,
+            91
+          ],
+          "frames": [
+            "enemy.golem_menhir/move/01.png",
+            "enemy.golem_menhir/move/02.png"
+          ],
+          "sheet": "enemy.golem_menhir/move/sheet.png",
+          "durationsMs": [
+            170,
+            170
+          ]
+        },
+        "slam_warning": {
+          "size": [
+            96,
+            96
+          ],
+          "pivot": [
+            48,
+            91
+          ],
+          "frames": [
+            "enemy.golem_menhir/slam_warning/01.png",
+            "enemy.golem_menhir/slam_warning/02.png"
+          ],
+          "sheet": "enemy.golem_menhir/slam_warning/sheet.png",
+          "durationsMs": [
+            550,
+            550
+          ]
+        },
+        "slam": {
+          "size": [
+            96,
+            96
+          ],
+          "pivot": [
+            48,
+            91
+          ],
+          "frames": [
+            "enemy.golem_menhir/slam/01.png"
+          ],
+          "sheet": "enemy.golem_menhir/slam/sheet.png",
+          "durationsMs": [
+            160
+          ]
+        },
+        "sweep_warning": {
+          "size": [
+            96,
+            96
+          ],
+          "pivot": [
+            48,
+            91
+          ],
+          "frames": [
+            "enemy.golem_menhir/sweep_warning/01.png"
+          ],
+          "sheet": "enemy.golem_menhir/sweep_warning/sheet.png",
+          "durationsMs": [
+            800
+          ]
+        },
+        "sweep": {
+          "size": [
+            96,
+            96
+          ],
+          "pivot": [
+            48,
+            91
+          ],
+          "frames": [
+            "enemy.golem_menhir/sweep/01.png"
+          ],
+          "sheet": "enemy.golem_menhir/sweep/sheet.png",
+          "durationsMs": [
+            150
+          ]
+        },
+        "exposed": {
+          "size": [
+            96,
+            96
+          ],
+          "pivot": [
+            48,
+            91
+          ],
+          "frames": [
+            "enemy.golem_menhir/exposed/01.png",
+            "enemy.golem_menhir/exposed/02.png"
+          ],
+          "sheet": "enemy.golem_menhir/exposed/sheet.png",
+          "durationsMs": [
+            175,
+            175
+          ]
+        },
+        "death": {
+          "size": [
+            96,
+            96
+          ],
+          "pivot": [
+            48,
+            91
+          ],
+          "frames": [
+            "enemy.golem_menhir/death/01.png",
+            "enemy.golem_menhir/death/02.png",
+            "enemy.golem_menhir/death/03.png"
+          ],
+          "sheet": "enemy.golem_menhir/death/sheet.png",
+          "durationsMs": [
+            150,
+            175,
+            210
+          ]
+        }
+      }
+    },
+    "enemy.wisp_stray": {
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        59
+      ],
+      "identityReference": "../enemy.wisp_stray/idle.png",
+      "sources": [
+        "e623651b-2741-4113-8e2e-b7449743030d"
+      ],
+      "sequences": {
+        "hover": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.wisp_stray/hover/01.png",
+            "enemy.wisp_stray/hover/02.png",
+            "enemy.wisp_stray/hover/03.png"
+          ],
+          "sheet": "enemy.wisp_stray/hover/sheet.png",
+          "durationsMs": [
+            120,
+            120,
+            120
+          ]
+        },
+        "cast": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.wisp_stray/cast/01.png",
+            "enemy.wisp_stray/cast/02.png"
+          ],
+          "sheet": "enemy.wisp_stray/cast/sheet.png",
+          "durationsMs": [
+            300,
+            300
+          ]
+        },
+        "blink": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.wisp_stray/blink/01.png",
+            "enemy.wisp_stray/blink/02.png"
+          ],
+          "sheet": "enemy.wisp_stray/blink/sheet.png",
+          "durationsMs": [
+            150,
+            150
+          ]
+        },
+        "death": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.wisp_stray/death/01.png",
+            "enemy.wisp_stray/death/02.png"
+          ],
+          "sheet": "enemy.wisp_stray/death/sheet.png",
+          "durationsMs": [
+            150,
+            190
+          ]
+        }
+      }
+    },
+    "enemy.shaman_cap": {
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        59
+      ],
+      "identityReference": "../enemy.shaman_cap/idle.png",
+      "sources": [
+        "531c7843-371f-4d4a-91c6-aa0562a32963"
+      ],
+      "sequences": {
+        "move": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.shaman_cap/move/01.png",
+            "enemy.shaman_cap/move/02.png"
+          ],
+          "sheet": "enemy.shaman_cap/move/sheet.png",
+          "durationsMs": [
+            135,
+            135
+          ]
+        },
+        "cast": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.shaman_cap/cast/01.png",
+            "enemy.shaman_cap/cast/02.png"
+          ],
+          "sheet": "enemy.shaman_cap/cast/sheet.png",
+          "durationsMs": [
+            200,
+            200
+          ]
+        },
+        "fire": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.shaman_cap/fire/01.png"
+          ],
+          "sheet": "enemy.shaman_cap/fire/sheet.png",
+          "durationsMs": [
+            150
+          ]
+        },
+        "take_cover": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.shaman_cap/take_cover/01.png"
+          ],
+          "sheet": "enemy.shaman_cap/take_cover/sheet.png",
+          "durationsMs": [
+            160
+          ]
+        },
+        "death": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.shaman_cap/death/01.png",
+            "enemy.shaman_cap/death/02.png"
+          ],
+          "sheet": "enemy.shaman_cap/death/sheet.png",
+          "durationsMs": [
+            150,
+            190
+          ]
+        }
+      }
+    },
+    "enemy.vine_thorn": {
+      "size": [
+        64,
+        96
+      ],
+      "pivot": [
+        32,
+        91
+      ],
+      "identityReference": "../enemy.vine_thorn/idle.png",
+      "sources": [
+        "581cb31b-360e-40ba-993d-bc864c462be3"
+      ],
+      "sequences": {
+        "idle_sway": {
+          "size": [
+            64,
+            96
+          ],
+          "pivot": [
+            32,
+            91
+          ],
+          "frames": [
+            "enemy.vine_thorn/idle_sway/01.png",
+            "enemy.vine_thorn/idle_sway/02.png"
+          ],
+          "sheet": "enemy.vine_thorn/idle_sway/sheet.png",
+          "durationsMs": [
+            160,
+            160
+          ]
+        },
+        "cast": {
+          "size": [
+            64,
+            96
+          ],
+          "pivot": [
+            32,
+            91
+          ],
+          "frames": [
+            "enemy.vine_thorn/cast/01.png",
+            "enemy.vine_thorn/cast/02.png"
+          ],
+          "sheet": "enemy.vine_thorn/cast/sheet.png",
+          "durationsMs": [
+            160,
+            160
+          ]
+        },
+        "emerge": {
+          "size": [
+            64,
+            96
+          ],
+          "pivot": [
+            32,
+            91
+          ],
+          "frames": [
+            "enemy.vine_thorn/emerge/01.png",
+            "enemy.vine_thorn/emerge/02.png"
+          ],
+          "sheet": "enemy.vine_thorn/emerge/sheet.png",
+          "durationsMs": [
+            150,
+            150
+          ]
+        },
+        "death": {
+          "size": [
+            64,
+            96
+          ],
+          "pivot": [
+            32,
+            91
+          ],
+          "frames": [
+            "enemy.vine_thorn/death/01.png",
+            "enemy.vine_thorn/death/02.png"
+          ],
+          "sheet": "enemy.vine_thorn/death/sheet.png",
+          "durationsMs": [
+            150,
+            190
+          ]
+        }
+      }
+    },
+    "enemy.bug_lantern": {
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        59
+      ],
+      "identityReference": "../enemy.bug_lantern/idle.png",
+      "sources": [
+        "cbd1d5ef-23eb-4d6e-ac45-5944944d176a"
+      ],
+      "sequences": {
+        "move": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.bug_lantern/move/01.png",
+            "enemy.bug_lantern/move/02.png"
+          ],
+          "sheet": "enemy.bug_lantern/move/sheet.png",
+          "durationsMs": [
+            105,
+            105
+          ]
+        },
+        "ignite": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.bug_lantern/ignite/01.png",
+            "enemy.bug_lantern/ignite/02.png"
+          ],
+          "sheet": "enemy.bug_lantern/ignite/sheet.png",
+          "durationsMs": [
+            450,
+            450
+          ]
+        }
+      }
+    },
+    "enemy.boar_tusk": {
+      "size": [
+        96,
+        64
+      ],
+      "pivot": [
+        48,
+        59
+      ],
+      "identityReference": "../enemy.boar_tusk/idle.png",
+      "sources": [
+        "82aa29a7-c1ee-4685-a0be-15157b456228",
+        "e748392c-ee8d-4622-846c-be5afb665dc4"
+      ],
+      "sequences": {
+        "move": {
+          "size": [
+            96,
+            64
+          ],
+          "pivot": [
+            48,
+            59
+          ],
+          "frames": [
+            "enemy.boar_tusk/move/01.png",
+            "enemy.boar_tusk/move/02.png",
+            "enemy.boar_tusk/move/03.png",
+            "enemy.boar_tusk/move/04.png"
+          ],
+          "sheet": "enemy.boar_tusk/move/sheet.png",
+          "durationsMs": [
+            105,
+            105,
+            105,
+            105
+          ]
+        },
+        "charge_warning": {
+          "size": [
+            96,
+            64
+          ],
+          "pivot": [
+            48,
+            59
+          ],
+          "frames": [
+            "enemy.boar_tusk/charge_warning/01.png",
+            "enemy.boar_tusk/charge_warning/02.png"
+          ],
+          "sheet": "enemy.boar_tusk/charge_warning/sheet.png",
+          "durationsMs": [
+            450,
+            450
+          ]
+        },
+        "charge": {
+          "size": [
+            96,
+            64
+          ],
+          "pivot": [
+            48,
+            59
+          ],
+          "frames": [
+            "enemy.boar_tusk/charge/01.png",
+            "enemy.boar_tusk/charge/02.png"
+          ],
+          "sheet": "enemy.boar_tusk/charge/sheet.png",
+          "durationsMs": [
+            105,
+            105
+          ]
+        },
+        "stun": {
+          "size": [
+            96,
+            64
+          ],
+          "pivot": [
+            48,
+            59
+          ],
+          "frames": [
+            "enemy.boar_tusk/stun/01.png",
+            "enemy.boar_tusk/stun/02.png"
+          ],
+          "sheet": "enemy.boar_tusk/stun/sheet.png",
+          "durationsMs": [
+            160,
+            160
+          ]
+        },
+        "death": {
+          "size": [
+            96,
+            64
+          ],
+          "pivot": [
+            48,
+            59
+          ],
+          "frames": [
+            "enemy.boar_tusk/death/01.png",
+            "enemy.boar_tusk/death/02.png"
+          ],
+          "sheet": "enemy.boar_tusk/death/sheet.png",
+          "durationsMs": [
+            150,
+            190
+          ]
+        }
+      }
+    },
+    "enemy.hog_needle": {
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        59
+      ],
+      "identityReference": "../enemy.hog_needle/idle.png",
+      "sources": [
+        "aef8072e-3f52-4a91-a008-a5be9b7d98d5"
+      ],
+      "sequences": {
+        "move": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.hog_needle/move/01.png",
+            "enemy.hog_needle/move/02.png"
+          ],
+          "sheet": "enemy.hog_needle/move/sheet.png",
+          "durationsMs": [
+            140,
+            140
+          ]
+        },
+        "aim": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.hog_needle/aim/01.png",
+            "enemy.hog_needle/aim/02.png"
+          ],
+          "sheet": "enemy.hog_needle/aim/sheet.png",
+          "durationsMs": [
+            600,
+            400
+          ]
+        },
+        "fire": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.hog_needle/fire/01.png"
+          ],
+          "sheet": "enemy.hog_needle/fire/sheet.png",
+          "durationsMs": [
+            120
+          ]
+        },
+        "exposed": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.hog_needle/exposed/01.png"
+          ],
+          "sheet": "enemy.hog_needle/exposed/sheet.png",
+          "durationsMs": [
+            160
+          ]
+        },
+        "death": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.hog_needle/death/01.png",
+            "enemy.hog_needle/death/02.png"
+          ],
+          "sheet": "enemy.hog_needle/death/sheet.png",
+          "durationsMs": [
+            150,
+            190
+          ]
+        }
+      }
+    },
+    "enemy.toad_drum": {
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        59
+      ],
+      "identityReference": "../enemy.toad_drum/idle.png",
+      "sources": [
+        "62035d6b-9ca9-4e0d-aff2-73c5d7e1a450"
+      ],
+      "sequences": {
+        "move": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.toad_drum/move/01.png",
+            "enemy.toad_drum/move/02.png"
+          ],
+          "sheet": "enemy.toad_drum/move/sheet.png",
+          "durationsMs": [
+            135,
+            135
+          ]
+        },
+        "croak": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.toad_drum/croak/01.png",
+            "enemy.toad_drum/croak/02.png",
+            "enemy.toad_drum/croak/03.png"
+          ],
+          "sheet": "enemy.toad_drum/croak/sheet.png",
+          "durationsMs": [
+            670,
+            670,
+            660
+          ]
+        },
+        "tongue_warning": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.toad_drum/tongue_warning/01.png"
+          ],
+          "sheet": "enemy.toad_drum/tongue_warning/sheet.png",
+          "durationsMs": [
+            600
+          ]
+        },
+        "tongue_strike": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.toad_drum/tongue_strike/01.png"
+          ],
+          "sheet": "enemy.toad_drum/tongue_strike/sheet.png",
+          "durationsMs": [
+            125
+          ]
+        },
+        "death": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "enemy.toad_drum/death/01.png",
+            "enemy.toad_drum/death/02.png"
+          ],
+          "sheet": "enemy.toad_drum/death/sheet.png",
+          "durationsMs": [
+            155,
+            190
+          ]
+        }
+      }
+    },
+    "boss.kiln_boar": {
+      "size": [
+        192,
+        128
+      ],
+      "pivot": [
+        96,
+        123
+      ],
+      "identityReference": "../boss.kiln_boar/idle.png",
+      "sources": [
+        "ebbcb916-63f8-4148-b88f-ad36452e6a44",
+        "71873c59-54cb-4f5c-a579-0bfe6f9a3b64"
+      ],
+      "sequences": {
+        "charge_warning": {
+          "size": [
+            192,
+            128
+          ],
+          "pivot": [
+            96,
+            123
+          ],
+          "frames": [
+            "boss.kiln_boar/charge_warning/01.png",
+            "boss.kiln_boar/charge_warning/02.png"
+          ],
+          "sheet": "boss.kiln_boar/charge_warning/sheet.png",
+          "durationsMs": [
+            450,
+            450
+          ]
+        },
+        "charge": {
+          "size": [
+            192,
+            128
+          ],
+          "pivot": [
+            96,
+            123
+          ],
+          "frames": [
+            "boss.kiln_boar/charge/01.png",
+            "boss.kiln_boar/charge/02.png"
+          ],
+          "sheet": "boss.kiln_boar/charge/sheet.png",
+          "durationsMs": [
+            100,
+            100
+          ]
+        },
+        "stomp": {
+          "size": [
+            192,
+            128
+          ],
+          "pivot": [
+            96,
+            123
+          ],
+          "frames": [
+            "boss.kiln_boar/stomp/01.png",
+            "boss.kiln_boar/stomp/02.png",
+            "boss.kiln_boar/stomp/03.png"
+          ],
+          "sheet": "boss.kiln_boar/stomp/sheet.png",
+          "durationsMs": [
+            300,
+            300,
+            300
+          ]
+        },
+        "rockfall_roar": {
+          "size": [
+            192,
+            128
+          ],
+          "pivot": [
+            96,
+            123
+          ],
+          "frames": [
+            "boss.kiln_boar/rockfall_roar/01.png",
+            "boss.kiln_boar/rockfall_roar/02.png"
+          ],
+          "sheet": "boss.kiln_boar/rockfall_roar/sheet.png",
+          "durationsMs": [
+            500,
+            500
+          ]
+        },
+        "stun": {
+          "size": [
+            192,
+            128
+          ],
+          "pivot": [
+            96,
+            123
+          ],
+          "frames": [
+            "boss.kiln_boar/stun/01.png",
+            "boss.kiln_boar/stun/02.png"
+          ],
+          "sheet": "boss.kiln_boar/stun/sheet.png",
+          "durationsMs": [
+            180,
+            180
+          ]
+        },
+        "phase_change": {
+          "size": [
+            192,
+            128
+          ],
+          "pivot": [
+            96,
+            123
+          ],
+          "frames": [
+            "boss.kiln_boar/phase_change/01.png",
+            "boss.kiln_boar/phase_change/02.png"
+          ],
+          "sheet": "boss.kiln_boar/phase_change/sheet.png",
+          "durationsMs": [
+            160,
+            160
+          ]
+        },
+        "death": {
+          "size": [
+            192,
+            128
+          ],
+          "pivot": [
+            96,
+            123
+          ],
+          "frames": [
+            "boss.kiln_boar/death/01.png",
+            "boss.kiln_boar/death/02.png",
+            "boss.kiln_boar/death/03.png",
+            "boss.kiln_boar/death/04.png"
+          ],
+          "sheet": "boss.kiln_boar/death/sheet.png",
+          "durationsMs": [
+            250,
+            250,
+            250,
+            250
+          ]
+        },
+        "move": {
+          "size": [
+            192,
+            128
+          ],
+          "pivot": [
+            96,
+            123
+          ],
+          "frames": [
+            "boss.kiln_boar/move/01.png",
+            "boss.kiln_boar/move/02.png",
+            "boss.kiln_boar/move/03.png",
+            "boss.kiln_boar/move/04.png"
+          ],
+          "sheet": "boss.kiln_boar/move/sheet.png",
+          "durationsMs": [
+            125,
+            125,
+            125,
+            125
+          ]
+        }
+      }
+    },
+    "boss.mirror_phantom": {
+      "size": [
+        64,
+        96
+      ],
+      "pivot": [
+        32,
+        91
+      ],
+      "identityReference": "../boss.mirror_phantom/idle.png",
+      "sources": [
+        "b6756db7-a0f0-4eef-9566-37572bfe8bb8",
+        "c7f1f379-847e-46d4-b9a3-ecc1e92b1c37"
+      ],
+      "sequences": {
+        "copy_shot": {
+          "size": [
+            64,
+            96
+          ],
+          "pivot": [
+            32,
+            91
+          ],
+          "frames": [
+            "boss.mirror_phantom/copy_shot/01.png",
+            "boss.mirror_phantom/copy_shot/02.png"
+          ],
+          "sheet": "boss.mirror_phantom/copy_shot/sheet.png",
+          "durationsMs": [
+            150,
+            150
+          ]
+        },
+        "special_cast": {
+          "size": [
+            64,
+            96
+          ],
+          "pivot": [
+            32,
+            91
+          ],
+          "frames": [
+            "boss.mirror_phantom/special_cast/01.png",
+            "boss.mirror_phantom/special_cast/02.png"
+          ],
+          "sheet": "boss.mirror_phantom/special_cast/sheet.png",
+          "durationsMs": [
+            400,
+            400
+          ]
+        },
+        "full_bloom": {
+          "size": [
+            64,
+            96
+          ],
+          "pivot": [
+            32,
+            91
+          ],
+          "frames": [
+            "boss.mirror_phantom/full_bloom/01.png",
+            "boss.mirror_phantom/full_bloom/02.png",
+            "boss.mirror_phantom/full_bloom/03.png"
+          ],
+          "sheet": "boss.mirror_phantom/full_bloom/sheet.png",
+          "durationsMs": [
+            400,
+            400,
+            400
+          ]
+        },
+        "exposed": {
+          "size": [
+            64,
+            96
+          ],
+          "pivot": [
+            32,
+            91
+          ],
+          "frames": [
+            "boss.mirror_phantom/exposed/01.png",
+            "boss.mirror_phantom/exposed/02.png"
+          ],
+          "sheet": "boss.mirror_phantom/exposed/sheet.png",
+          "durationsMs": [
+            180,
+            180
+          ]
+        },
+        "first_encounter_mirror": {
+          "size": [
+            64,
+            96
+          ],
+          "pivot": [
+            32,
+            91
+          ],
+          "frames": [
+            "boss.mirror_phantom/first_encounter_mirror/01.png",
+            "boss.mirror_phantom/first_encounter_mirror/02.png"
+          ],
+          "sheet": "boss.mirror_phantom/first_encounter_mirror/sheet.png",
+          "durationsMs": [
+            175,
+            175
+          ]
+        },
+        "first_encounter_look_down": {
+          "size": [
+            64,
+            96
+          ],
+          "pivot": [
+            32,
+            91
+          ],
+          "frames": [
+            "boss.mirror_phantom/first_encounter_look_down/01.png"
+          ],
+          "sheet": "boss.mirror_phantom/first_encounter_look_down/sheet.png",
+          "durationsMs": [
+            200
+          ]
+        },
+        "death": {
+          "size": [
+            64,
+            96
+          ],
+          "pivot": [
+            32,
+            91
+          ],
+          "frames": [
+            "boss.mirror_phantom/death/01.png",
+            "boss.mirror_phantom/death/02.png",
+            "boss.mirror_phantom/death/03.png",
+            "boss.mirror_phantom/death/04.png"
+          ],
+          "sheet": "boss.mirror_phantom/death/sheet.png",
+          "durationsMs": [
+            250,
+            250,
+            250,
+            250
+          ]
+        },
+        "hover": {
+          "size": [
+            64,
+            96
+          ],
+          "pivot": [
+            32,
+            91
+          ],
+          "frames": [
+            "boss.mirror_phantom/hover/01.png",
+            "boss.mirror_phantom/hover/02.png",
+            "boss.mirror_phantom/hover/03.png"
+          ],
+          "sheet": "boss.mirror_phantom/hover/sheet.png",
+          "durationsMs": [
+            135,
+            135,
+            135
+          ]
+        },
+        "phase_change": {
+          "size": [
+            64,
+            96
+          ],
+          "pivot": [
+            32,
+            91
+          ],
+          "frames": [
+            "boss.mirror_phantom/phase_change/01.png",
+            "boss.mirror_phantom/phase_change/02.png"
+          ],
+          "sheet": "boss.mirror_phantom/phase_change/sheet.png",
+          "durationsMs": [
+            170,
+            170
+          ]
+        }
+      }
+    },
+    "boss.spore_queen": {
+      "size": [
+        128,
+        160
+      ],
+      "pivot": [
+        64,
+        155
+      ],
+      "identityReference": "../boss.spore_queen/idle.png",
+      "sources": [
+        "bbd14e78-0bab-4130-a73f-9373f7f023ba",
+        "c128ec57-cffa-41ea-9ece-e6ad04c89bdd"
+      ],
+      "sequences": {
+        "spore_ring": {
+          "size": [
+            128,
+            160
+          ],
+          "pivot": [
+            64,
+            155
+          ],
+          "frames": [
+            "boss.spore_queen/spore_ring/01.png",
+            "boss.spore_queen/spore_ring/02.png",
+            "boss.spore_queen/spore_ring/03.png"
+          ],
+          "sheet": "boss.spore_queen/spore_ring/sheet.png",
+          "durationsMs": [
+            230,
+            235,
+            235
+          ]
+        },
+        "spore_cloud": {
+          "size": [
+            128,
+            160
+          ],
+          "pivot": [
+            64,
+            155
+          ],
+          "frames": [
+            "boss.spore_queen/spore_cloud/01.png",
+            "boss.spore_queen/spore_cloud/02.png"
+          ],
+          "sheet": "boss.spore_queen/spore_cloud/sheet.png",
+          "durationsMs": [
+            500,
+            500
+          ]
+        },
+        "summon": {
+          "size": [
+            128,
+            160
+          ],
+          "pivot": [
+            64,
+            155
+          ],
+          "frames": [
+            "boss.spore_queen/summon/01.png",
+            "boss.spore_queen/summon/02.png"
+          ],
+          "sheet": "boss.spore_queen/summon/sheet.png",
+          "durationsMs": [
+            500,
+            500
+          ]
+        },
+        "leap": {
+          "size": [
+            128,
+            160
+          ],
+          "pivot": [
+            64,
+            155
+          ],
+          "frames": [
+            "boss.spore_queen/leap/01.png",
+            "boss.spore_queen/leap/02.png",
+            "boss.spore_queen/leap/03.png",
+            "boss.spore_queen/leap/04.png"
+          ],
+          "sheet": "boss.spore_queen/leap/sheet.png",
+          "durationsMs": [
+            400,
+            400,
+            400,
+            180
+          ]
+        },
+        "exposed": {
+          "size": [
+            128,
+            160
+          ],
+          "pivot": [
+            64,
+            155
+          ],
+          "frames": [
+            "boss.spore_queen/exposed/01.png",
+            "boss.spore_queen/exposed/02.png"
+          ],
+          "sheet": "boss.spore_queen/exposed/sheet.png",
+          "durationsMs": [
+            180,
+            180
+          ]
+        },
+        "phase_change": {
+          "size": [
+            128,
+            160
+          ],
+          "pivot": [
+            64,
+            155
+          ],
+          "frames": [
+            "boss.spore_queen/phase_change/01.png",
+            "boss.spore_queen/phase_change/02.png",
+            "boss.spore_queen/phase_change/03.png"
+          ],
+          "sheet": "boss.spore_queen/phase_change/sheet.png",
+          "durationsMs": [
+            180,
+            180,
+            180
+          ]
+        },
+        "death": {
+          "size": [
+            128,
+            160
+          ],
+          "pivot": [
+            64,
+            155
+          ],
+          "frames": [
+            "boss.spore_queen/death/01.png",
+            "boss.spore_queen/death/02.png",
+            "boss.spore_queen/death/03.png",
+            "boss.spore_queen/death/04.png"
+          ],
+          "sheet": "boss.spore_queen/death/sheet.png",
+          "durationsMs": [
+            250,
+            250,
+            250,
+            250
+          ]
+        },
+        "move": {
+          "size": [
+            128,
+            160
+          ],
+          "pivot": [
+            64,
+            155
+          ],
+          "frames": [
+            "boss.spore_queen/move/01.png",
+            "boss.spore_queen/move/02.png"
+          ],
+          "sheet": "boss.spore_queen/move/sheet.png",
+          "durationsMs": [
+            175,
+            175
+          ]
+        }
+      }
+    },
+    "boss.storm_owl": {
+      "size": [
+        192,
+        128
+      ],
+      "pivot": [
+        96,
+        123
+      ],
+      "identityReference": "../boss.storm_owl/idle.png",
+      "sources": [
+        "f3cd69b1-e3ec-40b2-8923-25e95374c6dd",
+        "65cb4ac6-549c-403a-820e-99998edc87bf"
+      ],
+      "sequences": {
+        "glide": {
+          "size": [
+            192,
+            128
+          ],
+          "pivot": [
+            96,
+            123
+          ],
+          "frames": [
+            "boss.storm_owl/glide/01.png",
+            "boss.storm_owl/glide/02.png"
+          ],
+          "sheet": "boss.storm_owl/glide/sheet.png",
+          "durationsMs": [
+            450,
+            450
+          ]
+        },
+        "feather_fan": {
+          "size": [
+            192,
+            128
+          ],
+          "pivot": [
+            96,
+            123
+          ],
+          "frames": [
+            "boss.storm_owl/feather_fan/01.png",
+            "boss.storm_owl/feather_fan/02.png",
+            "boss.storm_owl/feather_fan/03.png"
+          ],
+          "sheet": "boss.storm_owl/feather_fan/sheet.png",
+          "durationsMs": [
+            250,
+            250,
+            140
+          ]
+        },
+        "lightning": {
+          "size": [
+            192,
+            128
+          ],
+          "pivot": [
+            96,
+            123
+          ],
+          "frames": [
+            "boss.storm_owl/lightning/01.png",
+            "boss.storm_owl/lightning/02.png"
+          ],
+          "sheet": "boss.storm_owl/lightning/sheet.png",
+          "durationsMs": [
+            400,
+            400
+          ]
+        },
+        "land": {
+          "size": [
+            96,
+            128
+          ],
+          "pivot": [
+            48,
+            123
+          ],
+          "frames": [
+            "boss.storm_owl/land/01.png",
+            "boss.storm_owl/land/02.png"
+          ],
+          "sheet": "boss.storm_owl/land/sheet.png",
+          "durationsMs": [
+            150,
+            150
+          ]
+        },
+        "phase_change": {
+          "size": [
+            192,
+            128
+          ],
+          "pivot": [
+            96,
+            123
+          ],
+          "frames": [
+            "boss.storm_owl/phase_change/01.png",
+            "boss.storm_owl/phase_change/02.png"
+          ],
+          "sheet": "boss.storm_owl/phase_change/sheet.png",
+          "durationsMs": [
+            180,
+            180
+          ]
+        },
+        "death": {
+          "size": [
+            192,
+            128
+          ],
+          "pivot": [
+            96,
+            123
+          ],
+          "frames": [
+            "boss.storm_owl/death/01.png",
+            "boss.storm_owl/death/02.png",
+            "boss.storm_owl/death/03.png",
+            "boss.storm_owl/death/04.png"
+          ],
+          "sheet": "boss.storm_owl/death/sheet.png",
+          "durationsMs": [
+            250,
+            250,
+            250,
+            250
+          ]
+        },
+        "fly": {
+          "size": [
+            192,
+            128
+          ],
+          "pivot": [
+            96,
+            123
+          ],
+          "frames": [
+            "boss.storm_owl/fly/01.png",
+            "boss.storm_owl/fly/02.png",
+            "boss.storm_owl/fly/03.png",
+            "boss.storm_owl/fly/04.png"
+          ],
+          "sheet": "boss.storm_owl/fly/sheet.png",
+          "durationsMs": [
+            125,
+            125,
+            125,
+            125
+          ]
+        }
+      }
+    },
+    "boss.frost_goat": {
+      "size": [
+        128,
+        160
+      ],
+      "pivot": [
+        64,
+        155
+      ],
+      "identityReference": "../boss.frost_goat/idle.png",
+      "sources": [
+        "2cc2bb6d-bee5-4809-8ae6-40d9bff90e9f",
+        "838dcf63-7a41-42f3-8db2-3235df6b7c2d"
+      ],
+      "sequences": {
+        "ice_pillars": {
+          "size": [
+            128,
+            160
+          ],
+          "pivot": [
+            64,
+            155
+          ],
+          "frames": [
+            "boss.frost_goat/ice_pillars/01.png",
+            "boss.frost_goat/ice_pillars/02.png"
+          ],
+          "sheet": "boss.frost_goat/ice_pillars/sheet.png",
+          "durationsMs": [
+            400,
+            400
+          ]
+        },
+        "horn_swing": {
+          "size": [
+            128,
+            160
+          ],
+          "pivot": [
+            64,
+            155
+          ],
+          "frames": [
+            "boss.frost_goat/horn_swing/01.png",
+            "boss.frost_goat/horn_swing/02.png",
+            "boss.frost_goat/horn_swing/03.png"
+          ],
+          "sheet": "boss.frost_goat/horn_swing/sheet.png",
+          "durationsMs": [
+            500,
+            500,
+            160
+          ]
+        },
+        "frost_breath": {
+          "size": [
+            128,
+            160
+          ],
+          "pivot": [
+            64,
+            155
+          ],
+          "frames": [
+            "boss.frost_goat/frost_breath/01.png",
+            "boss.frost_goat/frost_breath/02.png",
+            "boss.frost_goat/frost_breath/03.png"
+          ],
+          "sheet": "boss.frost_goat/frost_breath/sheet.png",
+          "durationsMs": [
+            400,
+            400,
+            180
+          ]
+        },
+        "charge_warning": {
+          "size": [
+            128,
+            160
+          ],
+          "pivot": [
+            64,
+            155
+          ],
+          "frames": [
+            "boss.frost_goat/charge_warning/01.png",
+            "boss.frost_goat/charge_warning/02.png"
+          ],
+          "sheet": "boss.frost_goat/charge_warning/sheet.png",
+          "durationsMs": [
+            450,
+            450
+          ]
+        },
+        "charge": {
+          "size": [
+            128,
+            160
+          ],
+          "pivot": [
+            64,
+            155
+          ],
+          "frames": [
+            "boss.frost_goat/charge/01.png",
+            "boss.frost_goat/charge/02.png"
+          ],
+          "sheet": "boss.frost_goat/charge/sheet.png",
+          "durationsMs": [
+            105,
+            105
+          ]
+        },
+        "death": {
+          "size": [
+            128,
+            160
+          ],
+          "pivot": [
+            64,
+            155
+          ],
+          "frames": [
+            "boss.frost_goat/death/01.png",
+            "boss.frost_goat/death/02.png",
+            "boss.frost_goat/death/03.png",
+            "boss.frost_goat/death/04.png"
+          ],
+          "sheet": "boss.frost_goat/death/sheet.png",
+          "durationsMs": [
+            250,
+            250,
+            250,
+            250
+          ]
+        },
+        "move": {
+          "size": [
+            128,
+            160
+          ],
+          "pivot": [
+            64,
+            155
+          ],
+          "frames": [
+            "boss.frost_goat/move/01.png",
+            "boss.frost_goat/move/02.png",
+            "boss.frost_goat/move/03.png",
+            "boss.frost_goat/move/04.png"
+          ],
+          "sheet": "boss.frost_goat/move/sheet.png",
+          "durationsMs": [
+            135,
+            135,
+            135,
+            135
+          ]
+        },
+        "wall_impact": {
+          "size": [
+            128,
+            160
+          ],
+          "pivot": [
+            64,
+            155
+          ],
+          "frames": [
+            "boss.frost_goat/wall_impact/01.png",
+            "boss.frost_goat/wall_impact/02.png"
+          ],
+          "sheet": "boss.frost_goat/wall_impact/sheet.png",
+          "durationsMs": [
+            200,
+            190
+          ]
+        },
+        "phase_change": {
+          "size": [
+            128,
+            160
+          ],
+          "pivot": [
+            64,
+            155
+          ],
+          "frames": [
+            "boss.frost_goat/phase_change/01.png",
+            "boss.frost_goat/phase_change/02.png"
+          ],
+          "sheet": "boss.frost_goat/phase_change/sheet.png",
+          "durationsMs": [
+            165,
+            175
+          ]
+        }
+      }
+    },
+    "boss.night_serpent": {
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        91
+      ],
+      "identityReference": "../boss.night_serpent/idle.png",
+      "sources": [
+        "6ea9ea62-6a1a-4f25-843a-668d112392d2",
+        "4101d094-66dd-42d7-8b46-fc4313a6c8d8"
+      ],
+      "sequences": {
+        "bite": {
+          "size": [
+            96,
+            96
+          ],
+          "pivot": [
+            48,
+            91
+          ],
+          "frames": [
+            "boss.night_serpent/bite/01.png",
+            "boss.night_serpent/bite/02.png",
+            "boss.night_serpent/bite/03.png"
+          ],
+          "sheet": "boss.night_serpent/bite/sheet.png",
+          "durationsMs": [
+            400,
+            400,
+            130
+          ]
+        },
+        "spit": {
+          "size": [
+            96,
+            96
+          ],
+          "pivot": [
+            48,
+            91
+          ],
+          "frames": [
+            "boss.night_serpent/spit/01.png",
+            "boss.night_serpent/spit/02.png"
+          ],
+          "sheet": "boss.night_serpent/spit/sheet.png",
+          "durationsMs": [
+            350,
+            350
+          ]
+        },
+        "burrow": {
+          "size": [
+            96,
+            96
+          ],
+          "pivot": [
+            48,
+            91
+          ],
+          "frames": [
+            "boss.night_serpent/burrow/01.png",
+            "boss.night_serpent/burrow/02.png"
+          ],
+          "sheet": "boss.night_serpent/burrow/sheet.png",
+          "durationsMs": [
+            135,
+            150
+          ]
+        },
+        "emerge": {
+          "size": [
+            96,
+            96
+          ],
+          "pivot": [
+            48,
+            91
+          ],
+          "frames": [
+            "boss.night_serpent/emerge/01.png",
+            "boss.night_serpent/emerge/02.png"
+          ],
+          "sheet": "boss.night_serpent/emerge/sheet.png",
+          "durationsMs": [
+            450,
+            450
+          ]
+        },
+        "exposed": {
+          "size": [
+            96,
+            96
+          ],
+          "pivot": [
+            48,
+            91
+          ],
+          "frames": [
+            "boss.night_serpent/exposed/01.png",
+            "boss.night_serpent/exposed/02.png"
+          ],
+          "sheet": "boss.night_serpent/exposed/sheet.png",
+          "durationsMs": [
+            180,
+            180
+          ]
+        },
+        "phase_change": {
+          "size": [
+            96,
+            96
+          ],
+          "pivot": [
+            48,
+            91
+          ],
+          "frames": [
+            "boss.night_serpent/phase_change/01.png",
+            "boss.night_serpent/phase_change/02.png"
+          ],
+          "sheet": "boss.night_serpent/phase_change/sheet.png",
+          "durationsMs": [
+            170,
+            170
+          ]
+        },
+        "death": {
+          "size": [
+            96,
+            96
+          ],
+          "pivot": [
+            48,
+            91
+          ],
+          "frames": [
+            "boss.night_serpent/death/01.png",
+            "boss.night_serpent/death/02.png",
+            "boss.night_serpent/death/03.png"
+          ],
+          "sheet": "boss.night_serpent/death/sheet.png",
+          "durationsMs": [
+            330,
+            330,
+            340
+          ]
+        },
+        "move": {
+          "size": [
+            96,
+            96
+          ],
+          "pivot": [
+            48,
+            91
+          ],
+          "frames": [
+            "boss.night_serpent/move/01.png",
+            "boss.night_serpent/move/02.png"
+          ],
+          "sheet": "boss.night_serpent/move/sheet.png",
+          "durationsMs": [
+            165,
+            165
+          ]
+        }
+      }
+    },
+    "boss.night_serpent.segment": {
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        59
+      ],
+      "identityReference": "../boss.night_serpent.segment/idle.png",
+      "sources": [
+        "4101d094-66dd-42d7-8b46-fc4313a6c8d8"
+      ],
+      "sequences": {
+        "move": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "boss.night_serpent.segment/move/01.png",
+            "boss.night_serpent.segment/move/02.png"
+          ],
+          "sheet": "boss.night_serpent.segment/move/sheet.png",
+          "durationsMs": [
+            125,
+            125
+          ]
+        },
+        "scale_shot_warning": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "boss.night_serpent.segment/scale_shot_warning/01.png"
+          ],
+          "sheet": "boss.night_serpent.segment/scale_shot_warning/sheet.png",
+          "durationsMs": [
+            600
+          ]
+        },
+        "death": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "boss.night_serpent.segment/death/01.png"
+          ],
+          "sheet": "boss.night_serpent.segment/death/sheet.png",
+          "durationsMs": [
+            250
+          ]
+        }
+      }
+    },
+    "boss.night_serpent.tail": {
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        59
+      ],
+      "identityReference": "../boss.night_serpent.tail/idle.png",
+      "sources": [
+        "4101d094-66dd-42d7-8b46-fc4313a6c8d8"
+      ],
+      "sequences": {
+        "move": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "boss.night_serpent.tail/move/01.png",
+            "boss.night_serpent.tail/move/02.png"
+          ],
+          "sheet": "boss.night_serpent.tail/move/sheet.png",
+          "durationsMs": [
+            125,
+            125
+          ]
+        },
+        "death": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "boss.night_serpent.tail/death/01.png"
+          ],
+          "sheet": "boss.night_serpent.tail/death/sheet.png",
+          "durationsMs": [
+            250
+          ]
+        }
+      }
+    },
+    "boss.spore_queen.sprout": {
+      "size": [
+        32,
+        32
+      ],
+      "pivot": [
+        16,
+        27
+      ],
+      "identityReference": "../enemy.shaman_cap/idle.png",
+      "sources": [
+        "23ccb416-91bc-44ae-aaa6-763d857e5d76"
+      ],
+      "sequences": {
+        "move": {
+          "size": [
+            32,
+            32
+          ],
+          "pivot": [
+            16,
+            27
+          ],
+          "frames": [
+            "boss.spore_queen.sprout/move/01.png",
+            "boss.spore_queen.sprout/move/02.png"
+          ],
+          "sheet": "boss.spore_queen.sprout/move/sheet.png",
+          "durationsMs": [
+            125,
+            125
+          ]
+        },
+        "death": {
+          "size": [
+            32,
+            32
+          ],
+          "pivot": [
+            16,
+            27
+          ],
+          "frames": [
+            "boss.spore_queen.sprout/death/01.png"
+          ],
+          "sheet": "boss.spore_queen.sprout/death/sheet.png",
+          "durationsMs": [
+            180
+          ]
+        }
+      }
+    },
+    "elite.slime_moss": {
+      "size": [
+        64,
+        32
+      ],
+      "pivot": [
+        32,
+        16
+      ],
+      "identityReference": "../enemy.slime_moss/idle.png",
+      "sources": [
+        "9a1b0c9f-976f-4438-af93-52fce4c16657"
+      ],
+      "sequences": {
+        "ornament": {
+          "size": [
+            64,
+            32
+          ],
+          "pivot": [
+            32,
+            16
+          ],
+          "frames": [
+            "elite.slime_moss/ornament/01.png"
+          ],
+          "sheet": "elite.slime_moss/ornament/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "elite.wolf_bramble": {
+      "size": [
+        64,
+        32
+      ],
+      "pivot": [
+        32,
+        16
+      ],
+      "identityReference": "../enemy.wolf_bramble/idle.png",
+      "sources": [
+        "9a1b0c9f-976f-4438-af93-52fce4c16657"
+      ],
+      "sequences": {
+        "ornament": {
+          "size": [
+            64,
+            32
+          ],
+          "pivot": [
+            32,
+            16
+          ],
+          "frames": [
+            "elite.wolf_bramble/ornament/01.png"
+          ],
+          "sheet": "elite.wolf_bramble/ornament/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "elite.golem_menhir": {
+      "size": [
+        96,
+        32
+      ],
+      "pivot": [
+        48,
+        16
+      ],
+      "identityReference": "../enemy.golem_menhir/idle.png",
+      "sources": [
+        "9a1b0c9f-976f-4438-af93-52fce4c16657"
+      ],
+      "sequences": {
+        "ornament": {
+          "size": [
+            96,
+            32
+          ],
+          "pivot": [
+            48,
+            16
+          ],
+          "frames": [
+            "elite.golem_menhir/ornament/01.png"
+          ],
+          "sheet": "elite.golem_menhir/ornament/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "elite.shaman_cap": {
+      "size": [
+        64,
+        32
+      ],
+      "pivot": [
+        32,
+        16
+      ],
+      "identityReference": "../enemy.shaman_cap/idle.png",
+      "sources": [
+        "9a1b0c9f-976f-4438-af93-52fce4c16657"
+      ],
+      "sequences": {
+        "ornament": {
+          "size": [
+            64,
+            32
+          ],
+          "pivot": [
+            32,
+            16
+          ],
+          "frames": [
+            "elite.shaman_cap/ornament/01.png"
+          ],
+          "sheet": "elite.shaman_cap/ornament/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "elite.bug_lantern": {
+      "size": [
+        64,
+        32
+      ],
+      "pivot": [
+        32,
+        16
+      ],
+      "identityReference": "../enemy.bug_lantern/idle.png",
+      "sources": [
+        "9a1b0c9f-976f-4438-af93-52fce4c16657"
+      ],
+      "sequences": {
+        "ornament": {
+          "size": [
+            64,
+            32
+          ],
+          "pivot": [
+            32,
+            16
+          ],
+          "frames": [
+            "elite.bug_lantern/ornament/01.png"
+          ],
+          "sheet": "elite.bug_lantern/ornament/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "elite.hog_needle": {
+      "size": [
+        64,
+        32
+      ],
+      "pivot": [
+        32,
+        16
+      ],
+      "identityReference": "../enemy.hog_needle/idle.png",
+      "sources": [
+        "9a1b0c9f-976f-4438-af93-52fce4c16657"
+      ],
+      "sequences": {
+        "ornament": {
+          "size": [
+            64,
+            32
+          ],
+          "pivot": [
+            32,
+            16
+          ],
+          "frames": [
+            "elite.hog_needle/ornament/01.png"
+          ],
+          "sheet": "elite.hog_needle/ornament/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "elite.weasel_pot": {
+      "size": [
+        64,
+        32
+      ],
+      "pivot": [
+        32,
+        16
+      ],
+      "identityReference": "../enemy.weasel_pot/idle.png",
+      "sources": [
+        "9a1b0c9f-976f-4438-af93-52fce4c16657"
+      ],
+      "sequences": {
+        "ornament": {
+          "size": [
+            64,
+            32
+          ],
+          "pivot": [
+            32,
+            16
+          ],
+          "frames": [
+            "elite.weasel_pot/ornament/01.png"
+          ],
+          "sheet": "elite.weasel_pot/ornament/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "elite.bat_dusk": {
+      "size": [
+        64,
+        32
+      ],
+      "pivot": [
+        32,
+        16
+      ],
+      "identityReference": "../enemy.bat_dusk/idle.png",
+      "sources": [
+        "9a1b0c9f-976f-4438-af93-52fce4c16657"
+      ],
+      "sequences": {
+        "ornament": {
+          "size": [
+            64,
+            32
+          ],
+          "pivot": [
+            32,
+            16
+          ],
+          "frames": [
+            "elite.bat_dusk/ornament/01.png"
+          ],
+          "sheet": "elite.bat_dusk/ornament/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "elite.wisp_stray": {
+      "size": [
+        64,
+        32
+      ],
+      "pivot": [
+        32,
+        16
+      ],
+      "identityReference": "../enemy.wisp_stray/idle.png",
+      "sources": [
+        "9a1b0c9f-976f-4438-af93-52fce4c16657"
+      ],
+      "sequences": {
+        "ornament": {
+          "size": [
+            64,
+            32
+          ],
+          "pivot": [
+            32,
+            16
+          ],
+          "frames": [
+            "elite.wisp_stray/ornament/01.png"
+          ],
+          "sheet": "elite.wisp_stray/ornament/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "elite.vine_thorn": {
+      "size": [
+        64,
+        32
+      ],
+      "pivot": [
+        32,
+        16
+      ],
+      "identityReference": "../enemy.vine_thorn/idle.png",
+      "sources": [
+        "9a1b0c9f-976f-4438-af93-52fce4c16657"
+      ],
+      "sequences": {
+        "ornament": {
+          "size": [
+            64,
+            32
+          ],
+          "pivot": [
+            32,
+            16
+          ],
+          "frames": [
+            "elite.vine_thorn/ornament/01.png"
+          ],
+          "sheet": "elite.vine_thorn/ornament/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "elite.boar_tusk": {
+      "size": [
+        96,
+        32
+      ],
+      "pivot": [
+        48,
+        16
+      ],
+      "identityReference": "../enemy.boar_tusk/idle.png",
+      "sources": [
+        "9a1b0c9f-976f-4438-af93-52fce4c16657"
+      ],
+      "sequences": {
+        "ornament": {
+          "size": [
+            96,
+            32
+          ],
+          "pivot": [
+            48,
+            16
+          ],
+          "frames": [
+            "elite.boar_tusk/ornament/01.png"
+          ],
+          "sheet": "elite.boar_tusk/ornament/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "elite.toad_drum": {
+      "size": [
+        64,
+        32
+      ],
+      "pivot": [
+        32,
+        16
+      ],
+      "identityReference": "../enemy.toad_drum/idle.png",
+      "sources": [
+        "9a1b0c9f-976f-4438-af93-52fce4c16657"
+      ],
+      "sequences": {
+        "ornament": {
+          "size": [
+            64,
+            32
+          ],
+          "pivot": [
+            32,
+            16
+          ],
+          "frames": [
+            "elite.toad_drum/ornament/01.png"
+          ],
+          "sheet": "elite.toad_drum/ornament/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "elite.bat_queen": {
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "identityReference": "../enemy.bat_dusk/idle.png",
+      "sources": [
+        "7ef50569-eabc-4e03-9f1b-a0a6318a2737"
+      ],
+      "sequences": {
+        "dive": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            32
+          ],
+          "frames": [
+            "elite.bat_queen/dive/01.png"
+          ],
+          "sheet": "elite.bat_queen/dive/sheet.png",
+          "durationsMs": [
+            125
+          ]
+        }
+      }
+    },
+    "elite.twin_wisp": {
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "identityReference": "../enemy.wisp_stray/idle.png",
+      "sources": [
+        "7ef50569-eabc-4e03-9f1b-a0a6318a2737"
+      ],
+      "sequences": {
+        "hover": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            32
+          ],
+          "frames": [
+            "elite.twin_wisp/hover/01.png",
+            "elite.twin_wisp/hover/02.png",
+            "elite.twin_wisp/hover/03.png"
+          ],
+          "sheet": "elite.twin_wisp/hover/sheet.png",
+          "durationsMs": [
+            130,
+            130,
+            130
+          ]
+        }
+      }
+    },
+    "elite.horn_mark": {
+      "size": [
+        16,
+        16
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "identityReference": null,
+      "sources": [
+        "7ef50569-eabc-4e03-9f1b-a0a6318a2737"
+      ],
+      "sequences": {
+        "idle": {
+          "size": [
+            16,
+            16
+          ],
+          "pivot": [
+            8,
+            8
+          ],
+          "frames": [
+            "elite.horn_mark/idle/01.png"
+          ],
+          "sheet": "elite.horn_mark/idle/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "boss_ui.kiln_boar.portrait": {
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        48
+      ],
+      "identityReference": "../boss.kiln_boar/idle.png",
+      "sources": [
+        "f1c0de55-9b8a-4857-abcf-e0648a86233b"
+      ],
+      "sequences": {
+        "idle": {
+          "size": [
+            96,
+            96
+          ],
+          "pivot": [
+            48,
+            48
+          ],
+          "frames": [
+            "boss_ui.kiln_boar.portrait/idle/01.png"
+          ],
+          "sheet": "boss_ui.kiln_boar.portrait/idle/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "boss_ui.kiln_boar.hud": {
+      "size": [
+        32,
+        32
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "identityReference": "../boss.kiln_boar/idle.png",
+      "sources": [
+        "ef2287d0-face-4bb4-b0f5-9725f2f2fbfb"
+      ],
+      "sequences": {
+        "idle": {
+          "size": [
+            32,
+            32
+          ],
+          "pivot": [
+            16,
+            16
+          ],
+          "frames": [
+            "boss_ui.kiln_boar.hud/idle/01.png"
+          ],
+          "sheet": "boss_ui.kiln_boar.hud/idle/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "boss_ui.mirror_phantom.portrait": {
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        48
+      ],
+      "identityReference": "../boss.mirror_phantom/idle.png",
+      "sources": [
+        "f1c0de55-9b8a-4857-abcf-e0648a86233b"
+      ],
+      "sequences": {
+        "idle": {
+          "size": [
+            96,
+            96
+          ],
+          "pivot": [
+            48,
+            48
+          ],
+          "frames": [
+            "boss_ui.mirror_phantom.portrait/idle/01.png"
+          ],
+          "sheet": "boss_ui.mirror_phantom.portrait/idle/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "boss_ui.mirror_phantom.hud": {
+      "size": [
+        32,
+        32
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "identityReference": "../boss.mirror_phantom/idle.png",
+      "sources": [
+        "ef2287d0-face-4bb4-b0f5-9725f2f2fbfb"
+      ],
+      "sequences": {
+        "idle": {
+          "size": [
+            32,
+            32
+          ],
+          "pivot": [
+            16,
+            16
+          ],
+          "frames": [
+            "boss_ui.mirror_phantom.hud/idle/01.png"
+          ],
+          "sheet": "boss_ui.mirror_phantom.hud/idle/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "boss_ui.spore_queen.portrait": {
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        48
+      ],
+      "identityReference": "../boss.spore_queen/idle.png",
+      "sources": [
+        "f1c0de55-9b8a-4857-abcf-e0648a86233b"
+      ],
+      "sequences": {
+        "idle": {
+          "size": [
+            96,
+            96
+          ],
+          "pivot": [
+            48,
+            48
+          ],
+          "frames": [
+            "boss_ui.spore_queen.portrait/idle/01.png"
+          ],
+          "sheet": "boss_ui.spore_queen.portrait/idle/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "boss_ui.spore_queen.hud": {
+      "size": [
+        32,
+        32
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "identityReference": "../boss.spore_queen/idle.png",
+      "sources": [
+        "ef2287d0-face-4bb4-b0f5-9725f2f2fbfb"
+      ],
+      "sequences": {
+        "idle": {
+          "size": [
+            32,
+            32
+          ],
+          "pivot": [
+            16,
+            16
+          ],
+          "frames": [
+            "boss_ui.spore_queen.hud/idle/01.png"
+          ],
+          "sheet": "boss_ui.spore_queen.hud/idle/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "boss_ui.storm_owl.portrait": {
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        48
+      ],
+      "identityReference": "../boss.storm_owl/idle.png",
+      "sources": [
+        "f1c0de55-9b8a-4857-abcf-e0648a86233b"
+      ],
+      "sequences": {
+        "idle": {
+          "size": [
+            96,
+            96
+          ],
+          "pivot": [
+            48,
+            48
+          ],
+          "frames": [
+            "boss_ui.storm_owl.portrait/idle/01.png"
+          ],
+          "sheet": "boss_ui.storm_owl.portrait/idle/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "boss_ui.storm_owl.hud": {
+      "size": [
+        32,
+        32
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "identityReference": "../boss.storm_owl/idle.png",
+      "sources": [
+        "ef2287d0-face-4bb4-b0f5-9725f2f2fbfb"
+      ],
+      "sequences": {
+        "idle": {
+          "size": [
+            32,
+            32
+          ],
+          "pivot": [
+            16,
+            16
+          ],
+          "frames": [
+            "boss_ui.storm_owl.hud/idle/01.png"
+          ],
+          "sheet": "boss_ui.storm_owl.hud/idle/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "boss_ui.frost_goat.portrait": {
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        48
+      ],
+      "identityReference": "../boss.frost_goat/idle.png",
+      "sources": [
+        "f1c0de55-9b8a-4857-abcf-e0648a86233b"
+      ],
+      "sequences": {
+        "idle": {
+          "size": [
+            96,
+            96
+          ],
+          "pivot": [
+            48,
+            48
+          ],
+          "frames": [
+            "boss_ui.frost_goat.portrait/idle/01.png"
+          ],
+          "sheet": "boss_ui.frost_goat.portrait/idle/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "boss_ui.frost_goat.hud": {
+      "size": [
+        32,
+        32
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "identityReference": "../boss.frost_goat/idle.png",
+      "sources": [
+        "ef2287d0-face-4bb4-b0f5-9725f2f2fbfb"
+      ],
+      "sequences": {
+        "idle": {
+          "size": [
+            32,
+            32
+          ],
+          "pivot": [
+            16,
+            16
+          ],
+          "frames": [
+            "boss_ui.frost_goat.hud/idle/01.png"
+          ],
+          "sheet": "boss_ui.frost_goat.hud/idle/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "boss_ui.night_serpent.portrait": {
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        48
+      ],
+      "identityReference": "../boss.night_serpent/idle.png",
+      "sources": [
+        "f1c0de55-9b8a-4857-abcf-e0648a86233b"
+      ],
+      "sequences": {
+        "idle": {
+          "size": [
+            96,
+            96
+          ],
+          "pivot": [
+            48,
+            48
+          ],
+          "frames": [
+            "boss_ui.night_serpent.portrait/idle/01.png"
+          ],
+          "sheet": "boss_ui.night_serpent.portrait/idle/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "boss_ui.night_serpent.hud": {
+      "size": [
+        32,
+        32
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "identityReference": "../boss.night_serpent/idle.png",
+      "sources": [
+        "ef2287d0-face-4bb4-b0f5-9725f2f2fbfb"
+      ],
+      "sequences": {
+        "idle": {
+          "size": [
+            32,
+            32
+          ],
+          "pivot": [
+            16,
+            16
+          ],
+          "frames": [
+            "boss_ui.night_serpent.hud/idle/01.png"
+          ],
+          "sheet": "boss_ui.night_serpent.hud/idle/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "drop.gold_coin": {
+      "size": [
+        16,
+        16
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "identityReference": null,
+      "sources": [
+        "f3b38a9d-640b-4c2c-a131-67c81b086d4f"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            16,
+            16
+          ],
+          "pivot": [
+            8,
+            8
+          ],
+          "frames": [
+            "drop.gold_coin/cycle/01.png",
+            "drop.gold_coin/cycle/02.png",
+            "drop.gold_coin/cycle/03.png",
+            "drop.gold_coin/cycle/04.png"
+          ],
+          "sheet": "drop.gold_coin/cycle/sheet.png",
+          "durationsMs": [
+            90,
+            90,
+            90,
+            90
+          ]
+        }
+      }
+    },
+    "drop.spell_block_common": {
+      "size": [
+        24,
+        24
+      ],
+      "pivot": [
+        12,
+        12
+      ],
+      "identityReference": null,
+      "sources": [
+        "f3b38a9d-640b-4c2c-a131-67c81b086d4f"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            24,
+            24
+          ],
+          "pivot": [
+            12,
+            12
+          ],
+          "frames": [
+            "drop.spell_block_common/cycle/01.png",
+            "drop.spell_block_common/cycle/02.png"
+          ],
+          "sheet": "drop.spell_block_common/cycle/sheet.png",
+          "durationsMs": [
+            160,
+            160
+          ]
+        }
+      }
+    },
+    "drop.spell_block_rare": {
+      "size": [
+        24,
+        24
+      ],
+      "pivot": [
+        12,
+        12
+      ],
+      "identityReference": null,
+      "sources": [
+        "f3b38a9d-640b-4c2c-a131-67c81b086d4f"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            24,
+            24
+          ],
+          "pivot": [
+            12,
+            12
+          ],
+          "frames": [
+            "drop.spell_block_rare/cycle/01.png",
+            "drop.spell_block_rare/cycle/02.png"
+          ],
+          "sheet": "drop.spell_block_rare/cycle/sheet.png",
+          "durationsMs": [
+            160,
+            160
+          ]
+        }
+      }
+    },
+    "drop.spell_block_heroic": {
+      "size": [
+        24,
+        24
+      ],
+      "pivot": [
+        12,
+        12
+      ],
+      "identityReference": null,
+      "sources": [
+        "f3b38a9d-640b-4c2c-a131-67c81b086d4f"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            24,
+            24
+          ],
+          "pivot": [
+            12,
+            12
+          ],
+          "frames": [
+            "drop.spell_block_heroic/cycle/01.png",
+            "drop.spell_block_heroic/cycle/02.png"
+          ],
+          "sheet": "drop.spell_block_heroic/cycle/sheet.png",
+          "durationsMs": [
+            160,
+            160
+          ]
+        }
+      }
+    },
+    "drop.material_bundle": {
+      "size": [
+        24,
+        24
+      ],
+      "pivot": [
+        12,
+        12
+      ],
+      "identityReference": null,
+      "sources": [
+        "f3b38a9d-640b-4c2c-a131-67c81b086d4f"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            24,
+            24
+          ],
+          "pivot": [
+            12,
+            12
+          ],
+          "frames": [
+            "drop.material_bundle/cycle/01.png",
+            "drop.material_bundle/cycle/02.png"
+          ],
+          "sheet": "drop.material_bundle/cycle/sheet.png",
+          "durationsMs": [
+            160,
+            160
+          ]
+        }
+      }
+    },
+    "drop.health_leaf": {
+      "size": [
+        16,
+        16
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "identityReference": null,
+      "sources": [
+        "f3b38a9d-640b-4c2c-a131-67c81b086d4f"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            16,
+            16
+          ],
+          "pivot": [
+            8,
+            8
+          ],
+          "frames": [
+            "drop.health_leaf/cycle/01.png",
+            "drop.health_leaf/cycle/02.png"
+          ],
+          "sheet": "drop.health_leaf/cycle/sheet.png",
+          "durationsMs": [
+            165,
+            165
+          ]
+        }
+      }
+    },
+    "drop.crow_parcel": {
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "identityReference": null,
+      "sources": [
+        "b2971b18-6f7a-4152-b141-b3cf14a992ef"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            32
+          ],
+          "frames": [
+            "drop.crow_parcel/cycle/01.png",
+            "drop.crow_parcel/cycle/02.png",
+            "drop.crow_parcel/cycle/03.png",
+            "drop.crow_parcel/cycle/04.png"
+          ],
+          "sheet": "drop.crow_parcel/cycle/sheet.png",
+          "durationsMs": [
+            125,
+            125,
+            125,
+            125
+          ]
+        }
+      }
+    },
+    "drop.season_relic": {
+      "size": [
+        32,
+        32
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "identityReference": null,
+      "sources": [
+        "b2971b18-6f7a-4152-b141-b3cf14a992ef"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            32,
+            32
+          ],
+          "pivot": [
+            16,
+            16
+          ],
+          "frames": [
+            "drop.season_relic/cycle/01.png",
+            "drop.season_relic/cycle/02.png",
+            "drop.season_relic/cycle/03.png",
+            "drop.season_relic/cycle/04.png"
+          ],
+          "sheet": "drop.season_relic/cycle/sheet.png",
+          "durationsMs": [
+            120,
+            120,
+            120,
+            120
+          ]
+        }
+      }
+    },
+    "drop.light_pillar": {
+      "size": [
+        16,
+        64
+      ],
+      "pivot": [
+        8,
+        32
+      ],
+      "identityReference": null,
+      "sources": [
+        "b2971b18-6f7a-4152-b141-b3cf14a992ef"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            16,
+            64
+          ],
+          "pivot": [
+            8,
+            32
+          ],
+          "frames": [
+            "drop.light_pillar/cycle/01.png",
+            "drop.light_pillar/cycle/02.png",
+            "drop.light_pillar/cycle/03.png"
+          ],
+          "sheet": "drop.light_pillar/cycle/sheet.png",
+          "durationsMs": [
+            330,
+            330,
+            330
+          ]
+        }
+      }
+    },
+    "world.departure_marker": {
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "identityReference": null,
+      "sources": [
+        "b2971b18-6f7a-4152-b141-b3cf14a992ef"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            32
+          ],
+          "frames": [
+            "world.departure_marker/cycle/01.png",
+            "world.departure_marker/cycle/02.png"
+          ],
+          "sheet": "world.departure_marker/cycle/sheet.png",
+          "durationsMs": [
+            220,
+            220
+          ]
+        }
+      }
+    },
+    "world.boss_moonlight_ring": {
+      "size": [
+        256,
+        256
+      ],
+      "pivot": [
+        128,
+        128
+      ],
+      "identityReference": null,
+      "sources": [
+        "b2971b18-6f7a-4152-b141-b3cf14a992ef"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            256,
+            256
+          ],
+          "pivot": [
+            128,
+            128
+          ],
+          "frames": [
+            "world.boss_moonlight_ring/cycle/01.png"
+          ],
+          "sheet": "world.boss_moonlight_ring/cycle/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "world.night_firefly": {
+      "size": [
+        4,
+        4
+      ],
+      "pivot": [
+        2,
+        2
+      ],
+      "identityReference": null,
+      "sources": [
+        "b2971b18-6f7a-4152-b141-b3cf14a992ef"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            4,
+            4
+          ],
+          "pivot": [
+            2,
+            2
+          ],
+          "frames": [
+            "world.night_firefly/cycle/01.png"
+          ],
+          "sheet": "world.night_firefly/cycle/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "projectile.small_pellet": {
+      "size": [
+        16,
+        16
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "identityReference": null,
+      "sources": [
+        "47c1ffe1-d51b-427a-82d3-e3e13e058e0c"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            16,
+            16
+          ],
+          "pivot": [
+            8,
+            8
+          ],
+          "frames": [
+            "projectile.small_pellet/cycle/01.png",
+            "projectile.small_pellet/cycle/02.png"
+          ],
+          "sheet": "projectile.small_pellet/cycle/sheet.png",
+          "durationsMs": [
+            100,
+            100
+          ]
+        }
+      }
+    },
+    "projectile.large_pellet": {
+      "size": [
+        24,
+        24
+      ],
+      "pivot": [
+        12,
+        12
+      ],
+      "identityReference": null,
+      "sources": [
+        "47c1ffe1-d51b-427a-82d3-e3e13e058e0c"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            24,
+            24
+          ],
+          "pivot": [
+            12,
+            12
+          ],
+          "frames": [
+            "projectile.large_pellet/cycle/01.png",
+            "projectile.large_pellet/cycle/02.png"
+          ],
+          "sheet": "projectile.large_pellet/cycle/sheet.png",
+          "durationsMs": [
+            100,
+            100
+          ]
+        }
+      }
+    },
+    "projectile.pine_needle": {
+      "size": [
+        24,
+        8
+      ],
+      "pivot": [
+        12,
+        4
+      ],
+      "identityReference": null,
+      "sources": [
+        "47c1ffe1-d51b-427a-82d3-e3e13e058e0c"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            24,
+            8
+          ],
+          "pivot": [
+            12,
+            4
+          ],
+          "frames": [
+            "projectile.pine_needle/cycle/01.png"
+          ],
+          "sheet": "projectile.pine_needle/cycle/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "projectile.owl_feather": {
+      "size": [
+        24,
+        12
+      ],
+      "pivot": [
+        12,
+        6
+      ],
+      "identityReference": null,
+      "sources": [
+        "47c1ffe1-d51b-427a-82d3-e3e13e058e0c"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            24,
+            12
+          ],
+          "pivot": [
+            12,
+            6
+          ],
+          "frames": [
+            "projectile.owl_feather/cycle/01.png",
+            "projectile.owl_feather/cycle/02.png"
+          ],
+          "sheet": "projectile.owl_feather/cycle/sheet.png",
+          "durationsMs": [
+            95,
+            95
+          ]
+        }
+      }
+    },
+    "projectile.ice_shard": {
+      "size": [
+        16,
+        16
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "identityReference": null,
+      "sources": [
+        "47c1ffe1-d51b-427a-82d3-e3e13e058e0c"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            16,
+            16
+          ],
+          "pivot": [
+            8,
+            8
+          ],
+          "frames": [
+            "projectile.ice_shard/cycle/01.png"
+          ],
+          "sheet": "projectile.ice_shard/cycle/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "projectile.night_spit": {
+      "size": [
+        24,
+        12
+      ],
+      "pivot": [
+        12,
+        6
+      ],
+      "identityReference": null,
+      "sources": [
+        "47c1ffe1-d51b-427a-82d3-e3e13e058e0c"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            24,
+            12
+          ],
+          "pivot": [
+            12,
+            6
+          ],
+          "frames": [
+            "projectile.night_spit/cycle/01.png",
+            "projectile.night_spit/cycle/02.png"
+          ],
+          "sheet": "projectile.night_spit/cycle/sheet.png",
+          "durationsMs": [
+            100,
+            100
+          ]
+        }
+      }
+    },
+    "projectile.thorn_seed": {
+      "size": [
+        16,
+        16
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "identityReference": null,
+      "sources": [
+        "47c1ffe1-d51b-427a-82d3-e3e13e058e0c"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            16,
+            16
+          ],
+          "pivot": [
+            8,
+            8
+          ],
+          "frames": [
+            "projectile.thorn_seed/cycle/01.png",
+            "projectile.thorn_seed/cycle/02.png"
+          ],
+          "sheet": "projectile.thorn_seed/cycle/sheet.png",
+          "durationsMs": [
+            100,
+            100
+          ]
+        }
+      }
+    },
+    "projectile.thorn_seed_shadow": {
+      "size": [
+        16,
+        8
+      ],
+      "pivot": [
+        8,
+        4
+      ],
+      "identityReference": null,
+      "sources": [
+        "495837a3-7aca-4cd1-84f5-ca0cfc114a1b"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            16,
+            8
+          ],
+          "pivot": [
+            8,
+            4
+          ],
+          "frames": [
+            "projectile.thorn_seed_shadow/cycle/01.png"
+          ],
+          "sheet": "projectile.thorn_seed_shadow/cycle/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "hazard.thorn_patch": {
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        48
+      ],
+      "identityReference": null,
+      "sources": [
+        "495837a3-7aca-4cd1-84f5-ca0cfc114a1b"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            96,
+            96
+          ],
+          "pivot": [
+            48,
+            48
+          ],
+          "frames": [
+            "hazard.thorn_patch/cycle/01.png",
+            "hazard.thorn_patch/cycle/02.png"
+          ],
+          "sheet": "hazard.thorn_patch/cycle/sheet.png",
+          "durationsMs": [
+            200,
+            200
+          ]
+        }
+      }
+    },
+    "hazard.ember_lane": {
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "identityReference": null,
+      "sources": [
+        "495837a3-7aca-4cd1-84f5-ca0cfc114a1b"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            32
+          ],
+          "frames": [
+            "hazard.ember_lane/cycle/01.png",
+            "hazard.ember_lane/cycle/02.png",
+            "hazard.ember_lane/cycle/03.png"
+          ],
+          "sheet": "hazard.ember_lane/cycle/sheet.png",
+          "durationsMs": [
+            150,
+            150,
+            150
+          ]
+        }
+      }
+    },
+    "hazard.spore_cloud": {
+      "size": [
+        128,
+        128
+      ],
+      "pivot": [
+        64,
+        64
+      ],
+      "identityReference": null,
+      "sources": [
+        "495837a3-7aca-4cd1-84f5-ca0cfc114a1b"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            128,
+            128
+          ],
+          "pivot": [
+            64,
+            64
+          ],
+          "frames": [
+            "hazard.spore_cloud/cycle/01.png",
+            "hazard.spore_cloud/cycle/02.png",
+            "hazard.spore_cloud/cycle/03.png",
+            "hazard.spore_cloud/cycle/04.png"
+          ],
+          "sheet": "hazard.spore_cloud/cycle/sheet.png",
+          "durationsMs": [
+            160,
+            160,
+            160,
+            160
+          ]
+        }
+      }
+    },
+    "hazard.frost_field": {
+      "size": [
+        160,
+        160
+      ],
+      "pivot": [
+        80,
+        80
+      ],
+      "identityReference": null,
+      "sources": [
+        "495837a3-7aca-4cd1-84f5-ca0cfc114a1b"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            160,
+            160
+          ],
+          "pivot": [
+            80,
+            80
+          ],
+          "frames": [
+            "hazard.frost_field/cycle/01.png",
+            "hazard.frost_field/cycle/02.png"
+          ],
+          "sheet": "hazard.frost_field/cycle/sheet.png",
+          "durationsMs": [
+            225,
+            225
+          ]
+        }
+      }
+    },
+    "obstacle.ice_pillar": {
+      "size": [
+        64,
+        96
+      ],
+      "pivot": [
+        32,
+        91
+      ],
+      "identityReference": null,
+      "sources": [
+        "a71a75aa-6bbe-4090-94d7-119fdd58c3f2"
+      ],
+      "sequences": {
+        "rise": {
+          "size": [
+            64,
+            96
+          ],
+          "pivot": [
+            32,
+            91
+          ],
+          "frames": [
+            "obstacle.ice_pillar/rise/01.png",
+            "obstacle.ice_pillar/rise/02.png"
+          ],
+          "sheet": "obstacle.ice_pillar/rise/sheet.png",
+          "durationsMs": [
+            125,
+            125
+          ]
+        },
+        "idle": {
+          "size": [
+            64,
+            96
+          ],
+          "pivot": [
+            32,
+            91
+          ],
+          "frames": [
+            "obstacle.ice_pillar/idle/01.png"
+          ],
+          "sheet": "obstacle.ice_pillar/idle/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        },
+        "break": {
+          "size": [
+            64,
+            96
+          ],
+          "pivot": [
+            32,
+            91
+          ],
+          "frames": [
+            "obstacle.ice_pillar/break/01.png",
+            "obstacle.ice_pillar/break/02.png",
+            "obstacle.ice_pillar/break/03.png"
+          ],
+          "sheet": "obstacle.ice_pillar/break/sheet.png",
+          "durationsMs": [
+            110,
+            110,
+            110
+          ]
+        }
+      }
+    },
+    "obstacle.boulder": {
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        59
+      ],
+      "identityReference": null,
+      "sources": [
+        "a71a75aa-6bbe-4090-94d7-119fdd58c3f2"
+      ],
+      "sequences": {
+        "fall": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "obstacle.boulder/fall/01.png",
+            "obstacle.boulder/fall/02.png"
+          ],
+          "sheet": "obstacle.boulder/fall/sheet.png",
+          "durationsMs": [
+            125,
+            125
+          ]
+        },
+        "idle": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "obstacle.boulder/idle/01.png"
+          ],
+          "sheet": "obstacle.boulder/idle/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        },
+        "break": {
+          "size": [
+            64,
+            64
+          ],
+          "pivot": [
+            32,
+            59
+          ],
+          "frames": [
+            "obstacle.boulder/break/01.png",
+            "obstacle.boulder/break/02.png"
+          ],
+          "sheet": "obstacle.boulder/break/sheet.png",
+          "durationsMs": [
+            135,
+            135
+          ]
+        }
+      }
+    },
+    "effect.lightning_column": {
+      "size": [
+        64,
+        128
+      ],
+      "pivot": [
+        32,
+        64
+      ],
+      "identityReference": null,
+      "sources": [
+        "cc12d329-b09e-4898-af5c-7bc04e6c4bed"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            64,
+            128
+          ],
+          "pivot": [
+            32,
+            64
+          ],
+          "frames": [
+            "effect.lightning_column/cycle/01.png",
+            "effect.lightning_column/cycle/02.png",
+            "effect.lightning_column/cycle/03.png"
+          ],
+          "sheet": "effect.lightning_column/cycle/sheet.png",
+          "durationsMs": [
+            90,
+            90,
+            90
+          ]
+        }
+      }
+    },
+    "effect.ground_crack": {
+      "size": [
+        64,
+        32
+      ],
+      "pivot": [
+        32,
+        16
+      ],
+      "identityReference": null,
+      "sources": [
+        "cc12d329-b09e-4898-af5c-7bc04e6c4bed"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            64,
+            32
+          ],
+          "pivot": [
+            32,
+            16
+          ],
+          "frames": [
+            "effect.ground_crack/cycle/01.png",
+            "effect.ground_crack/cycle/02.png"
+          ],
+          "sheet": "effect.ground_crack/cycle/sheet.png",
+          "durationsMs": [
+            180,
+            180
+          ]
+        }
+      }
+    },
+    "effect.soil_grain": {
+      "size": [
+        8,
+        8
+      ],
+      "pivot": [
+        4,
+        4
+      ],
+      "identityReference": null,
+      "sources": [
+        "cc12d329-b09e-4898-af5c-7bc04e6c4bed"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            8,
+            8
+          ],
+          "pivot": [
+            4,
+            4
+          ],
+          "frames": [
+            "effect.soil_grain/cycle/01.png"
+          ],
+          "sheet": "effect.soil_grain/cycle/sheet.png",
+          "durationsMs": [
+            100
+          ]
+        }
+      }
+    },
+    "effect.explosion": {
+      "size": [
+        128,
+        128
+      ],
+      "pivot": [
+        64,
+        64
+      ],
+      "identityReference": null,
+      "sources": [
+        "cc12d329-b09e-4898-af5c-7bc04e6c4bed"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            128,
+            128
+          ],
+          "pivot": [
+            64,
+            64
+          ],
+          "frames": [
+            "effect.explosion/cycle/01.png",
+            "effect.explosion/cycle/02.png",
+            "effect.explosion/cycle/03.png",
+            "effect.explosion/cycle/04.png",
+            "effect.explosion/cycle/05.png"
+          ],
+          "sheet": "effect.explosion/cycle/sheet.png",
+          "durationsMs": [
+            100,
+            100,
+            100,
+            100,
+            100
+          ]
+        }
+      }
+    },
+    "effect.death_smoke": {
+      "size": [
+        48,
+        48
+      ],
+      "pivot": [
+        24,
+        24
+      ],
+      "identityReference": null,
+      "sources": [
+        "cc12d329-b09e-4898-af5c-7bc04e6c4bed"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            48,
+            48
+          ],
+          "pivot": [
+            24,
+            24
+          ],
+          "frames": [
+            "effect.death_smoke/cycle/01.png",
+            "effect.death_smoke/cycle/02.png",
+            "effect.death_smoke/cycle/03.png",
+            "effect.death_smoke/cycle/04.png"
+          ],
+          "sheet": "effect.death_smoke/cycle/sheet.png",
+          "durationsMs": [
+            100,
+            100,
+            100,
+            100
+          ]
+        }
+      }
+    },
+    "effect.elite_spawn_pillar": {
+      "size": [
+        32,
+        128
+      ],
+      "pivot": [
+        16,
+        64
+      ],
+      "identityReference": null,
+      "sources": [
+        "bcbf2c71-7793-4e93-a144-7514615361a4"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            32,
+            128
+          ],
+          "pivot": [
+            16,
+            64
+          ],
+          "frames": [
+            "effect.elite_spawn_pillar/cycle/01.png",
+            "effect.elite_spawn_pillar/cycle/02.png",
+            "effect.elite_spawn_pillar/cycle/03.png"
+          ],
+          "sheet": "effect.elite_spawn_pillar/cycle/sheet.png",
+          "durationsMs": [
+            120,
+            120,
+            120
+          ]
+        }
+      }
+    },
+    "effect.toad_buff_ripple": {
+      "size": [
+        64,
+        32
+      ],
+      "pivot": [
+        32,
+        16
+      ],
+      "identityReference": null,
+      "sources": [
+        "bcbf2c71-7793-4e93-a144-7514615361a4"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            64,
+            32
+          ],
+          "pivot": [
+            32,
+            16
+          ],
+          "frames": [
+            "effect.toad_buff_ripple/cycle/01.png",
+            "effect.toad_buff_ripple/cycle/02.png",
+            "effect.toad_buff_ripple/cycle/03.png"
+          ],
+          "sheet": "effect.toad_buff_ripple/cycle/sheet.png",
+          "durationsMs": [
+            110,
+            110,
+            110
+          ]
+        }
+      }
+    },
+    "effect.stun_stars": {
+      "size": [
+        32,
+        16
+      ],
+      "pivot": [
+        16,
+        8
+      ],
+      "identityReference": null,
+      "sources": [
+        "bcbf2c71-7793-4e93-a144-7514615361a4"
+      ],
+      "sequences": {
+        "cycle": {
+          "size": [
+            32,
+            16
+          ],
+          "pivot": [
+            16,
+            8
+          ],
+          "frames": [
+            "effect.stun_stars/cycle/01.png",
+            "effect.stun_stars/cycle/02.png",
+            "effect.stun_stars/cycle/03.png"
+          ],
+          "sheet": "effect.stun_stars/cycle/sheet.png",
+          "durationsMs": [
+            110,
+            110,
+            110
+          ]
+        }
+      }
+    }
+  },
+  "notes": {
+    "enemy.bug_lantern": "Uses the shared explosion effect in place of a death animation.",
+    "enemy.slime_moss": "Contact attack only.",
+    "enemy.bat_dusk": "Contact attack only.",
+    "boss.mirror_phantom": "Weapon is a separate greyscale runtime overlay. The first encounter dissolution can reuse the last two death frames.",
+    "enemy.shaman_cap": "Use move/01 as a standing option for the faceless cap design; original idle remains in the parent character pack.",
+    "enemy.wisp_stray": "Use the hover sequence for the documented pale yellow idle palette.",
+    "boss.storm_owl": "The land sequence uses a 96×128 canvas.",
+    "world.boss_moonlight_ring": "Uses a centered 256×256 decorative canvas."
+  },
+  "sharedRuntime": {
+    "enemy.bug_lantern/death": "effect.explosion/cycle",
+    "boss.mirror_phantom/first_encounter_dissolve": "boss.mirror_phantom/death frames 3 and 4",
+    "boss.mirror_phantom/wand": "player equipped wand, greyscale shader",
+    "elite.golden_death_ring": "shader",
+    "elite.golden_outline": "shader",
+    "world.attack_telegraph": "procedural shape, docs/effects.md §14.1",
+    "world.night_firefly_flicker": "shader"
+  },
+  "imagegenPrompts": "imagegen-prompts.json",
+  "sharedAssets": {
+    "world.campfire": {
+      "manifest": "../../world/manifest.json",
+      "sheet": "../../world/sprites/field.campfire.png",
+      "size": [
+        64,
+        64
+      ],
+      "frameCount": 4
+    },
+    "boss.mirror_phantom/command_glyphs": {
+      "size": [
+        16,
+        16
+      ],
+      "source": "Existing UI asset K-53, as allowed by docs/monsters.md §9.4",
+      "paths": {
+        "forward": "shared/command-glyphs/forward.png",
+        "back": "shared/command-glyphs/back.png",
+        "side": "shared/command-glyphs/side.png",
+        "reverse_side": "shared/command-glyphs/reverse_side.png"
+      }
+    }
+  }
+}

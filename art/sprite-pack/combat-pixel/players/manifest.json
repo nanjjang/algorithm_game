@@ -1,0 +1,2408 @@
+{
+  "version": 1,
+  "origin": "top-left",
+  "pixelScale": 2,
+  "filter": "nearest",
+  "mipmaps": false,
+  "entries": {
+    "geumeum": {
+      "name": "그믐",
+      "sheet": "geumeum/sheet.png",
+      "source": "source/geumeum.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "pivotPx": [
+        30,
+        60
+      ],
+      "facing": "down_right_three_quarter",
+      "palette": [
+        "#1b0d1b",
+        "#35172f",
+        "#561f4c",
+        "#7a336a",
+        "#984478",
+        "#b25a9b",
+        "#e2acfa",
+        "#222641",
+        "#3e4675",
+        "#6271ae",
+        "#ca8f44",
+        "#f8c062",
+        "#704456",
+        "#a47384"
+      ],
+      "clips": {
+        "idle": {
+          "strip": "geumeum/idle/sheet.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "geumeum/idle/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 350,
+              "handPx": [
+                44,
+                40
+              ]
+            },
+            {
+              "file": "geumeum/idle/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 240,
+              "handPx": [
+                44,
+                40
+              ]
+            },
+            {
+              "file": "geumeum/idle/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 100,
+              "handPx": [
+                42,
+                40
+              ]
+            },
+            {
+              "file": "geumeum/idle/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 250,
+              "handPx": [
+                44,
+                40
+              ]
+            }
+          ]
+        },
+        "walk": {
+          "strip": "geumeum/walk/sheet.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "geumeum/walk/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 110,
+              "handPx": [
+                42,
+                40
+              ]
+            },
+            {
+              "file": "geumeum/walk/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 110,
+              "handPx": [
+                46,
+                40
+              ]
+            },
+            {
+              "file": "geumeum/walk/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 110,
+              "handPx": [
+                44,
+                40
+              ]
+            },
+            {
+              "file": "geumeum/walk/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 110,
+              "handPx": [
+                44,
+                40
+              ]
+            }
+          ]
+        },
+        "cast": {
+          "strip": "geumeum/cast/sheet.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "geumeum/cast/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 120,
+              "handPx": [
+                48,
+                36
+              ]
+            },
+            {
+              "file": "geumeum/cast/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                44,
+                36
+              ]
+            },
+            {
+              "file": "geumeum/cast/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 120,
+              "handPx": [
+                54,
+                36
+              ]
+            },
+            {
+              "file": "geumeum/cast/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 170,
+              "handPx": [
+                46,
+                36
+              ]
+            }
+          ]
+        },
+        "walk_down": {
+          "strip": "geumeum/walk_down/sheet.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "geumeum/walk_down/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                48,
+                42
+              ]
+            },
+            {
+              "file": "geumeum/walk_down/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                46,
+                42
+              ]
+            }
+          ],
+          "source": "source/directions.png"
+        },
+        "walk_up": {
+          "strip": "geumeum/walk_up/sheet.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "geumeum/walk_up/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                46,
+                42
+              ]
+            },
+            {
+              "file": "geumeum/walk_up/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                44,
+                42
+              ]
+            }
+          ],
+          "source": "source/directions.png"
+        },
+        "hurt": {
+          "strip": "geumeum/hurt/sheet.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "geumeum/hurt/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 100,
+              "handPx": [
+                44,
+                42
+              ]
+            },
+            {
+              "file": "geumeum/hurt/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 130,
+              "handPx": [
+                44,
+                44
+              ]
+            }
+          ],
+          "source": "source/hurt-fall.png"
+        },
+        "fall": {
+          "strip": "geumeum/fall/sheet.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "geumeum/fall/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 145,
+              "handPx": [
+                44,
+                46
+              ]
+            },
+            {
+              "file": "geumeum/fall/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 240,
+              "handPx": [
+                52,
+                50
+              ]
+            }
+          ],
+          "source": "source/hurt-fall.png"
+        }
+      }
+    },
+    "dalgu": {
+      "name": "달구",
+      "sheet": "dalgu/sheet.png",
+      "source": "source/dalgu.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "pivotPx": [
+        30,
+        60
+      ],
+      "facing": "down_right_three_quarter",
+      "palette": [
+        "#fae5d0",
+        "#fbcfb0",
+        "#dc8b6a",
+        "#ba875f",
+        "#d07053",
+        "#ce7053",
+        "#cd6d51",
+        "#a6604e",
+        "#28656e",
+        "#683136",
+        "#251329",
+        "#200e23",
+        "#20051b",
+        "#1b0b1c",
+        "#1c0518",
+        "#180316"
+      ],
+      "clips": {
+        "idle": {
+          "strip": "dalgu/idle/sheet.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "dalgu/idle/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 350,
+              "handPx": [
+                40,
+                40
+              ]
+            },
+            {
+              "file": "dalgu/idle/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 240,
+              "handPx": [
+                40,
+                40
+              ]
+            },
+            {
+              "file": "dalgu/idle/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 100,
+              "handPx": [
+                42,
+                40
+              ]
+            },
+            {
+              "file": "dalgu/idle/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 250,
+              "handPx": [
+                42,
+                40
+              ]
+            }
+          ]
+        },
+        "walk": {
+          "strip": "dalgu/walk/sheet.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "dalgu/walk/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 110,
+              "handPx": [
+                40,
+                40
+              ]
+            },
+            {
+              "file": "dalgu/walk/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 110,
+              "handPx": [
+                42,
+                40
+              ]
+            },
+            {
+              "file": "dalgu/walk/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 110,
+              "handPx": [
+                44,
+                40
+              ]
+            },
+            {
+              "file": "dalgu/walk/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 110,
+              "handPx": [
+                44,
+                40
+              ]
+            }
+          ]
+        },
+        "cast": {
+          "strip": "dalgu/cast/sheet.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "dalgu/cast/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 120,
+              "handPx": [
+                46,
+                36
+              ]
+            },
+            {
+              "file": "dalgu/cast/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                46,
+                36
+              ]
+            },
+            {
+              "file": "dalgu/cast/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 120,
+              "handPx": [
+                44,
+                36
+              ]
+            },
+            {
+              "file": "dalgu/cast/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 170,
+              "handPx": [
+                44,
+                36
+              ]
+            }
+          ]
+        },
+        "walk_down": {
+          "strip": "dalgu/walk_down/sheet.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "dalgu/walk_down/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                40,
+                42
+              ]
+            },
+            {
+              "file": "dalgu/walk_down/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                40,
+                42
+              ]
+            }
+          ],
+          "source": "source/directions.png"
+        },
+        "walk_up": {
+          "strip": "dalgu/walk_up/sheet.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "dalgu/walk_up/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                40,
+                42
+              ]
+            },
+            {
+              "file": "dalgu/walk_up/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                42,
+                42
+              ]
+            }
+          ],
+          "source": "source/directions.png"
+        },
+        "hurt": {
+          "strip": "dalgu/hurt/sheet.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "dalgu/hurt/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 100,
+              "handPx": [
+                44,
+                42
+              ]
+            },
+            {
+              "file": "dalgu/hurt/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 130,
+              "handPx": [
+                42,
+                44
+              ]
+            }
+          ],
+          "source": "source/hurt-fall.png"
+        },
+        "fall": {
+          "strip": "dalgu/fall/sheet.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "dalgu/fall/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 145,
+              "handPx": [
+                36,
+                44
+              ]
+            },
+            {
+              "file": "dalgu/fall/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 240,
+              "handPx": [
+                50,
+                48
+              ]
+            }
+          ],
+          "source": "source/hurt-fall.png"
+        }
+      }
+    },
+    "chorong": {
+      "name": "초롱",
+      "sheet": "chorong/sheet.png",
+      "source": "source/chorong.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "pivotPx": [
+        30,
+        60
+      ],
+      "facing": "down_right_three_quarter",
+      "palette": [
+        "#e5d5af",
+        "#f3c19d",
+        "#dfad70",
+        "#c7a7cd",
+        "#8e627e",
+        "#743e81",
+        "#6e3a7b",
+        "#552f5d",
+        "#49264e",
+        "#3b1d3c",
+        "#260b24",
+        "#230620",
+        "#1e081c",
+        "#1e061c",
+        "#1d051b",
+        "#180317"
+      ],
+      "clips": {
+        "idle": {
+          "strip": "chorong/idle/sheet.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "chorong/idle/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 350,
+              "handPx": [
+                40,
+                40
+              ]
+            },
+            {
+              "file": "chorong/idle/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 240,
+              "handPx": [
+                38,
+                40
+              ]
+            },
+            {
+              "file": "chorong/idle/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 100,
+              "handPx": [
+                38,
+                40
+              ]
+            },
+            {
+              "file": "chorong/idle/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 250,
+              "handPx": [
+                40,
+                40
+              ]
+            }
+          ]
+        },
+        "walk": {
+          "strip": "chorong/walk/sheet.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "chorong/walk/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 110,
+              "handPx": [
+                38,
+                40
+              ]
+            },
+            {
+              "file": "chorong/walk/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 110,
+              "handPx": [
+                40,
+                40
+              ]
+            },
+            {
+              "file": "chorong/walk/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 110,
+              "handPx": [
+                38,
+                40
+              ]
+            },
+            {
+              "file": "chorong/walk/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 110,
+              "handPx": [
+                40,
+                40
+              ]
+            }
+          ]
+        },
+        "cast": {
+          "strip": "chorong/cast/sheet.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "chorong/cast/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 120,
+              "handPx": [
+                42,
+                36
+              ]
+            },
+            {
+              "file": "chorong/cast/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                42,
+                36
+              ]
+            },
+            {
+              "file": "chorong/cast/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 120,
+              "handPx": [
+                46,
+                36
+              ]
+            },
+            {
+              "file": "chorong/cast/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 170,
+              "handPx": [
+                44,
+                36
+              ]
+            }
+          ]
+        },
+        "walk_down": {
+          "strip": "chorong/walk_down/sheet.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "chorong/walk_down/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                38,
+                42
+              ]
+            },
+            {
+              "file": "chorong/walk_down/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                40,
+                42
+              ]
+            }
+          ],
+          "source": "source/directions.png"
+        },
+        "walk_up": {
+          "strip": "chorong/walk_up/sheet.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "chorong/walk_up/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                40,
+                42
+              ]
+            },
+            {
+              "file": "chorong/walk_up/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                42,
+                42
+              ]
+            }
+          ],
+          "source": "source/directions.png"
+        },
+        "hurt": {
+          "strip": "chorong/hurt/sheet.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "chorong/hurt/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 100,
+              "handPx": [
+                44,
+                42
+              ]
+            },
+            {
+              "file": "chorong/hurt/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 130,
+              "handPx": [
+                38,
+                44
+              ]
+            }
+          ],
+          "source": "source/hurt-fall.png"
+        },
+        "fall": {
+          "strip": "chorong/fall/sheet.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "chorong/fall/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 145,
+              "handPx": [
+                38,
+                46
+              ]
+            },
+            {
+              "file": "chorong/fall/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 240,
+              "handPx": [
+                56,
+                48
+              ]
+            }
+          ],
+          "source": "source/hurt-fall.png"
+        }
+      }
+    },
+    "galpi": {
+      "name": "갈피",
+      "sheet": "galpi/sheet.png",
+      "source": "source/galpi.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "pivotPx": [
+        30,
+        60
+      ],
+      "facing": "down_right_three_quarter",
+      "palette": [
+        "#fce5ca",
+        "#f9dcbe",
+        "#fac09e",
+        "#cebb98",
+        "#9b8183",
+        "#7c6172",
+        "#8b5052",
+        "#76484f",
+        "#67373e",
+        "#412a3d",
+        "#321728",
+        "#2e1626",
+        "#2d1425",
+        "#2c1224",
+        "#291222",
+        "#230b1e"
+      ],
+      "clips": {
+        "idle": {
+          "strip": "galpi/idle/sheet.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "galpi/idle/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 350,
+              "handPx": [
+                40,
+                40
+              ]
+            },
+            {
+              "file": "galpi/idle/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 240,
+              "handPx": [
+                42,
+                40
+              ]
+            },
+            {
+              "file": "galpi/idle/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 100,
+              "handPx": [
+                42,
+                40
+              ]
+            },
+            {
+              "file": "galpi/idle/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 250,
+              "handPx": [
+                38,
+                40
+              ]
+            }
+          ]
+        },
+        "walk": {
+          "strip": "galpi/walk/sheet.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "galpi/walk/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 110,
+              "handPx": [
+                38,
+                40
+              ]
+            },
+            {
+              "file": "galpi/walk/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 110,
+              "handPx": [
+                40,
+                40
+              ]
+            },
+            {
+              "file": "galpi/walk/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 110,
+              "handPx": [
+                38,
+                40
+              ]
+            },
+            {
+              "file": "galpi/walk/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 110,
+              "handPx": [
+                40,
+                40
+              ]
+            }
+          ]
+        },
+        "cast": {
+          "strip": "galpi/cast/sheet.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "galpi/cast/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 120,
+              "handPx": [
+                40,
+                36
+              ]
+            },
+            {
+              "file": "galpi/cast/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                38,
+                36
+              ]
+            },
+            {
+              "file": "galpi/cast/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 120,
+              "handPx": [
+                48,
+                36
+              ]
+            },
+            {
+              "file": "galpi/cast/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 170,
+              "handPx": [
+                38,
+                36
+              ]
+            }
+          ]
+        },
+        "walk_down": {
+          "strip": "galpi/walk_down/sheet.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "galpi/walk_down/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                42,
+                42
+              ]
+            },
+            {
+              "file": "galpi/walk_down/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                42,
+                42
+              ]
+            }
+          ],
+          "source": "source/directions.png"
+        },
+        "walk_up": {
+          "strip": "galpi/walk_up/sheet.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "galpi/walk_up/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                44,
+                42
+              ]
+            },
+            {
+              "file": "galpi/walk_up/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                44,
+                42
+              ]
+            }
+          ],
+          "source": "source/directions.png"
+        },
+        "hurt": {
+          "strip": "galpi/hurt/sheet.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "galpi/hurt/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 100,
+              "handPx": [
+                48,
+                42
+              ]
+            },
+            {
+              "file": "galpi/hurt/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 130,
+              "handPx": [
+                40,
+                42
+              ]
+            }
+          ],
+          "source": "source/hurt-fall.png"
+        },
+        "fall": {
+          "strip": "galpi/fall/sheet.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "galpi/fall/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 145,
+              "handPx": [
+                40,
+                46
+              ]
+            },
+            {
+              "file": "galpi/fall/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 240,
+              "handPx": [
+                54,
+                48
+              ]
+            }
+          ],
+          "source": "source/hurt-fall.png"
+        }
+      }
+    },
+    "seonge": {
+      "name": "성에",
+      "sheet": "seonge/sheet.png",
+      "source": "source/seonge.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "pivotPx": [
+        30,
+        60
+      ],
+      "facing": "down_right_three_quarter",
+      "palette": [
+        "#fae8d6",
+        "#f1dcdc",
+        "#ebd6ea",
+        "#e7d4ec",
+        "#f9cbb4",
+        "#e2ccdc",
+        "#b7adcf",
+        "#948bb9",
+        "#7f6892",
+        "#544262",
+        "#291128",
+        "#230f23",
+        "#220d20",
+        "#200a1e",
+        "#1c0a1b",
+        "#150515"
+      ],
+      "clips": {
+        "idle": {
+          "strip": "seonge/idle/sheet.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "seonge/idle/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 350,
+              "handPx": [
+                40,
+                40
+              ]
+            },
+            {
+              "file": "seonge/idle/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 240,
+              "handPx": [
+                40,
+                40
+              ]
+            },
+            {
+              "file": "seonge/idle/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 100,
+              "handPx": [
+                40,
+                40
+              ]
+            },
+            {
+              "file": "seonge/idle/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 250,
+              "handPx": [
+                40,
+                40
+              ]
+            }
+          ]
+        },
+        "walk": {
+          "strip": "seonge/walk/sheet.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "seonge/walk/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 110,
+              "handPx": [
+                44,
+                40
+              ]
+            },
+            {
+              "file": "seonge/walk/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 110,
+              "handPx": [
+                44,
+                40
+              ]
+            },
+            {
+              "file": "seonge/walk/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 110,
+              "handPx": [
+                40,
+                40
+              ]
+            },
+            {
+              "file": "seonge/walk/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 110,
+              "handPx": [
+                46,
+                40
+              ]
+            }
+          ]
+        },
+        "cast": {
+          "strip": "seonge/cast/sheet.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "seonge/cast/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 120,
+              "handPx": [
+                46,
+                36
+              ]
+            },
+            {
+              "file": "seonge/cast/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                48,
+                36
+              ]
+            },
+            {
+              "file": "seonge/cast/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 120,
+              "handPx": [
+                50,
+                36
+              ]
+            },
+            {
+              "file": "seonge/cast/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 170,
+              "handPx": [
+                48,
+                36
+              ]
+            }
+          ]
+        },
+        "walk_down": {
+          "strip": "seonge/walk_down/sheet.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "seonge/walk_down/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                42,
+                42
+              ]
+            },
+            {
+              "file": "seonge/walk_down/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                40,
+                42
+              ]
+            }
+          ],
+          "source": "source/directions.png"
+        },
+        "walk_up": {
+          "strip": "seonge/walk_up/sheet.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "seonge/walk_up/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                40,
+                42
+              ]
+            },
+            {
+              "file": "seonge/walk_up/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                40,
+                42
+              ]
+            }
+          ],
+          "source": "source/directions.png"
+        },
+        "hurt": {
+          "strip": "seonge/hurt/sheet.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "seonge/hurt/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 100,
+              "handPx": [
+                44,
+                42
+              ]
+            },
+            {
+              "file": "seonge/hurt/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 130,
+              "handPx": [
+                36,
+                44
+              ]
+            }
+          ],
+          "source": "source/hurt-fall.png"
+        },
+        "fall": {
+          "strip": "seonge/fall/sheet.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "seonge/fall/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 145,
+              "handPx": [
+                42,
+                44
+              ]
+            },
+            {
+              "file": "seonge/fall/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 240,
+              "handPx": [
+                50,
+                48
+              ]
+            }
+          ],
+          "source": "source/hurt-fall.png"
+        }
+      }
+    }
+  },
+  "leftFacing": "Mirror the right-facing 3/4 sprite around its foot pivot and mirror handPx."
+}

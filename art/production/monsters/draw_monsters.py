@@ -1014,6 +1014,81 @@ ELITES = [
 ]
 
 
+BOSS_PORTRAIT_CROPS = {
+    'boss.kiln_boar': (90, 13, 184, 105),
+    'boss.mirror_phantom': (14, 8, 51, 79),
+    'boss.spore_queen': (8, 12, 121, 111),
+    'boss.storm_owl': (42, 12, 150, 102),
+    'boss.frost_goat': (34, 21, 119, 108),
+    'boss.night_serpent': (4, 1, 94, 87),
+}
+
+
+def boss_icon(p, state, i, boss_id):
+    p.shift(0,-2)
+    if boss_id == 'boss.kiln_boar':
+        p.poly([(-6,1),(-6,-3),(-5,-7),(-2,-10),(2,-10),(5,-7),(6,-3),(6,1)],'#8E8A96')
+        p.poly([(-4,0),(-4,-4),(-2,-6),(2,-6),(4,-4),(4,0)],INK)
+        p.poly([(-3,0),(-2,-2),(-1,-1),(0,-4),(2,-2),(3,0)],CREAM)
+        p.line([(-3,-8),(-4,-12),(-6,-14)],'#C8D0E0')
+        p.line([(4,-8),(5,-11),(6,-12)],'#C8D0E0')
+    elif boss_id == 'boss.mirror_phantom':
+        p.poly([(-5,-2),(-6,-6),(-5,-10),(-3,-13),(2,-13),(5,-11),(6,-8),(5,-3),(3,0),(-2,0)],'#AEB6C2')
+        p.poly([(-3,-3),(-4,-7),(-3,-10),(-1,-11),(2,-11),(4,-8),(3,-4),(1,-2),(-1,-2)],'#F4F1E6','#5E6678')
+        p.line([(-2,-5),(2,-9)],'#AEB6C2')
+    elif boss_id == 'boss.spore_queen':
+        p.poly([(-2,-5),(2,-5),(3,1),(1,2),(-3,1)],'#EDE3C8')
+        cap(p,-7,-4,14,7)
+        for x,y in [(-3,-7),(3,-7),(0,-5)]:
+            p.rect((x,y,x+1,y),'#8A6F48')
+        p.line([(-3,1),(-5,2),(4,2)],'#8A6F48')
+    elif boss_id == 'boss.storm_owl':
+        p.poly([(-6,-6),(-7,-12),(-3,-9),(3,-9),(7,-12),(6,-5),(3,-2),(-3,-2)],'#8E9CC4')
+        p.poly([(-6,-6),(-3,-8),(-1,-6),(0,-4),(1,-6),(3,-8),(6,-6),(3,-3),(-3,-3)],'#C8D0E0',None)
+        p.rect((-5,-6,-3,-5),CREAM)
+        p.rect((3,-6,5,-5),CREAM)
+        p.rect((0,-5,0,-3),'#3A2E2A')
+    elif boss_id == 'boss.frost_goat':
+        p.poly([(-2,-2),(-1,-7),(2,-8),(5,-5),(6,-2),(3,2),(1,3),(-1,1)],'#D8E4EC')
+        p.poly([(-1,-6),(-2,-10),(-6,-10),(-7,-13),(-5,-12),(0,-12),(3,-10),(4,-7),(2,-6)],'#8FA9C4')
+        for x,y in [(-5,-10),(-2,-9),(1,-8)]:
+            p.rect((x,y,x,y+2),WHITE)
+        p.rect((3,-5,4,-5),WHITE)
+    elif boss_id == 'boss.night_serpent':
+        p.poly([(-6,0),(-6,-5),(-2,-8),(2,-8),(5,-6),(7,-3),(5,0),(2,1),(-3,1)],SCALES)
+        p.line([(-5,-1),(-1,0),(5,-1)],BELLY,2)
+        p.poly([(-2,-8),(-1,-11),(-3,-13),(-6,-12),(-4,-10),(-5,-7),(-2,-6)],CREST)
+        p.rect((3,-6,3,-4),CREAM)
+        p.rect((-4,-4,-4,-4),WHITE)
+        p.rect((-2,-3,-2,-3),WHITE)
+
+
+def write_boss_ui(boss_cards):
+    assets = {}
+    portraits, icons = {}, {}
+    for boss_id, box in BOSS_PORTRAIT_CROPS.items():
+        crop = boss_cards[boss_id].crop(box)
+        crop = crop.crop(crop.getbbox())
+        crop.thumbnail((88,88),Image.Resampling.NEAREST)
+        if max(crop.size)<48:
+            crop = crop.resize(tuple(n*2 for n in crop.size),Image.Resampling.NEAREST)
+        portrait = Image.new('RGBA',(96,96))
+        portrait.paste(crop,((96-crop.width)//2,(96-crop.height)//2))
+        portrait_name = f'{boss_id}.portrait.png'
+        portrait.save(OUT / portrait_name,optimize=True)
+        p = Pixels((32,32))
+        boss_icon(p,'idle',0,boss_id)
+        icon = p.png()
+        icon_name = f'{boss_id}.hud.png'
+        icon.save(OUT / icon_name,optimize=True)
+        assets[boss_id]={'portrait':portrait_name,'portraitSize':[96,96],'hud':icon_name,'hudSize':[32,32]}
+        portraits[boss_id]=portrait
+        icons[boss_id]=icon
+    preview('preview-portraits',portraits,3)
+    preview('preview-boss-icons',icons,3)
+    return assets
+
+
 def main():
     regular, regular_cards = render(REGULAR)
     bosses, boss_cards = render(BOSSES)
@@ -1026,6 +1101,7 @@ def main():
         'artwork':'hand-authored pixel sprites',
         'scaleMode':'nearest',
         'entries':regular|bosses|elites,
+        'bossUi':write_boss_ui(boss_cards),
     }
     (OUT/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
 

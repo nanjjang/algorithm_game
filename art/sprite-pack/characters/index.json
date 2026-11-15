@@ -1,0 +1,322 @@
+{
+  "formatVersion": 1,
+  "textureFilter": "nearest",
+  "coordinates": {
+    "origin": "top-left",
+    "unit": "pixel",
+    "rect": [
+      "x",
+      "y",
+      "width",
+      "height"
+    ]
+  },
+  "manifests": {
+    "players": "players/manifest.json",
+    "playerLayers": "players/layers/manifest.json",
+    "worldCharacters": "world-characters/manifest.json",
+    "monsters": "monsters/manifest.json"
+  },
+  "counts": {
+    "players/source": 20,
+    "players/frames": 755,
+    "player-layers/base": 5,
+    "player-layers/sheets": 36,
+    "player-layers/reactive-frames": 71,
+    "player-layers/wild-stain-frames": 105,
+    "player-layers/cosmetic-frames": 3,
+    "player-layers/equipment-frames": 3,
+    "player-layers/preview": 1,
+    "world-characters/source": 16,
+    "world-characters/frames": 61,
+    "monsters/source": 49,
+    "monsters/frames": 252
+  },
+  "players": {
+    "char.1": {
+      "name": "달구",
+      "element": "화염",
+      "manifestKey": "dalgu",
+      "body": "players/dalgu/body.png",
+      "portrait": "players/dalgu/frames/portraits/00.png",
+      "selection": "players/dalgu/selection_192x192.png",
+      "representative": "players/dalgu/frames/idle_down/00.png"
+    },
+    "char.2": {
+      "name": "초롱",
+      "element": "번개",
+      "manifestKey": "chorong",
+      "body": "players/chorong/body.png",
+      "portrait": "players/chorong/frames/portraits/00.png",
+      "selection": "players/chorong/selection_192x192.png",
+      "representative": "players/chorong/frames/idle_down/00.png"
+    },
+    "char.3": {
+      "name": "갈피",
+      "element": "비전",
+      "manifestKey": "galpi",
+      "body": "players/galpi/body.png",
+      "portrait": "players/galpi/frames/portraits/00.png",
+      "selection": "players/galpi/selection_192x192.png",
+      "representative": "players/galpi/frames/idle_down/00.png"
+    },
+    "char.4": {
+      "name": "성에",
+      "element": "냉기",
+      "manifestKey": "seonge",
+      "body": "players/seonge/body.png",
+      "portrait": "players/seonge/frames/portraits/00.png",
+      "selection": "players/seonge/selection_192x192.png",
+      "representative": "players/seonge/frames/idle_down/00.png"
+    },
+    "char.5": {
+      "name": "그믐",
+      "element": "암흑",
+      "manifestKey": "geumeum",
+      "body": "players/geumeum/body.png",
+      "portrait": "players/geumeum/frames/portraits/00.png",
+      "selection": "players/geumeum/selection_192x192.png",
+      "representative": "players/geumeum/frames/idle_down/00.png"
+    }
+  },
+  "npcs": {
+    "npc.master": {
+      "name": "느루",
+      "primary": "facility.master_chair",
+      "frame": 4,
+      "related": [
+        "field.tower.window",
+        "arena.master_applause",
+        "ritual.master.reaction"
+      ],
+      "representative": "world-characters/frames/facility.master_chair/04.png"
+    },
+    "npc.peddler": {
+      "name": "행상",
+      "primary": "npc.merchant",
+      "frame": 0,
+      "related": [
+        "facility.merchant_cart"
+      ],
+      "representative": "world-characters/frames/npc.merchant/00.png"
+    },
+    "npc.crow": {
+      "name": "까마귀",
+      "primary": "field.crow",
+      "frame": 0,
+      "related": [
+        "field.crow.note",
+        "facility.crow_mail"
+      ],
+      "representative": "world-characters/frames/field.crow/00.png"
+    }
+  },
+  "monsters": {
+    "enemy.slime_moss": {
+      "name": "이끼 슬라임",
+      "manifestKey": "enemy.slime_moss",
+      "representative": "monsters/frames/enemy.slime_moss/move/00.png"
+    },
+    "enemy.wolf_bramble": {
+      "name": "덤불 늑대",
+      "manifestKey": "enemy.wolf_bramble",
+      "representative": "monsters/frames/enemy.wolf_bramble/move/00.png"
+    },
+    "enemy.golem_menhir": {
+      "name": "선돌지기",
+      "manifestKey": "enemy.golem_menhir",
+      "representative": "monsters/frames/enemy.golem_menhir/move/00.png"
+    },
+    "enemy.shaman_cap": {
+      "name": "갓버섯 술사",
+      "manifestKey": "enemy.shaman_cap",
+      "representative": "monsters/frames/enemy.shaman_cap/move/00.png"
+    },
+    "enemy.bug_lantern": {
+      "name": "꽈리 벌레",
+      "manifestKey": "enemy.bug_lantern",
+      "representative": "monsters/frames/enemy.bug_lantern/move/00.png"
+    },
+    "enemy.hog_needle": {
+      "name": "솔침 고슴도치",
+      "manifestKey": "enemy.hog_needle",
+      "representative": "monsters/frames/enemy.hog_needle/move/00.png"
+    },
+    "enemy.weasel_pot": {
+      "name": "화분 족제비",
+      "manifestKey": "enemy.weasel_pot",
+      "representative": "monsters/frames/enemy.weasel_pot/stand/00.png"
+    },
+    "enemy.bat_dusk": {
+      "name": "해거름 박쥐",
+      "manifestKey": "enemy.bat_dusk",
+      "representative": "monsters/frames/enemy.bat_dusk/fly/00.png"
+    },
+    "enemy.wisp_stray": {
+      "name": "도깨비불",
+      "manifestKey": "enemy.wisp_stray",
+      "representative": "monsters/frames/enemy.wisp_stray/hover/00.png"
+    },
+    "enemy.vine_thorn": {
+      "name": "가시덩굴",
+      "manifestKey": "enemy.vine_thorn",
+      "representative": "monsters/frames/enemy.vine_thorn/idle/00.png"
+    },
+    "enemy.boar_tusk": {
+      "name": "엄니 멧돼지",
+      "manifestKey": "enemy.boar_tusk",
+      "representative": "monsters/frames/enemy.boar_tusk/move/00.png"
+    },
+    "enemy.toad_drum": {
+      "name": "북두꺼비",
+      "manifestKey": "enemy.toad_drum",
+      "representative": "monsters/frames/enemy.toad_drum/hop/00.png"
+    },
+    "boss.kiln_boar": {
+      "name": "가마등",
+      "manifestKey": "boss.kiln_boar",
+      "representative": "monsters/frames/boss.kiln_boar/walk/00.png",
+      "portrait": "monsters/boss.kiln_boar.portrait.png",
+      "hud": "monsters/boss.kiln_boar.hud.png"
+    },
+    "boss.mirror_phantom": {
+      "name": "스승의 허상",
+      "manifestKey": "boss.mirror_phantom",
+      "representative": "monsters/frames/boss.mirror_phantom/hover/00.png",
+      "portrait": "monsters/boss.mirror_phantom.portrait.png",
+      "hud": "monsters/boss.mirror_phantom.hud.png"
+    },
+    "boss.spore_queen": {
+      "name": "천 갓",
+      "manifestKey": "boss.spore_queen",
+      "representative": "monsters/frames/boss.spore_queen/walk/00.png",
+      "portrait": "monsters/boss.spore_queen.portrait.png",
+      "hud": "monsters/boss.spore_queen.hud.png"
+    },
+    "boss.storm_owl": {
+      "name": "밤눈",
+      "manifestKey": "boss.storm_owl",
+      "representative": "monsters/frames/boss.storm_owl/fly/00.png",
+      "portrait": "monsters/boss.storm_owl.portrait.png",
+      "hud": "monsters/boss.storm_owl.hud.png",
+      "componentKeys": [
+        "boss.storm_owl.ground"
+      ]
+    },
+    "boss.frost_goat": {
+      "name": "흰뿔",
+      "manifestKey": "boss.frost_goat",
+      "representative": "monsters/frames/boss.frost_goat/walk/00.png",
+      "portrait": "monsters/boss.frost_goat.portrait.png",
+      "hud": "monsters/boss.frost_goat.hud.png"
+    },
+    "boss.night_serpent": {
+      "name": "밤삼킴",
+      "manifestKey": "boss.night_serpent",
+      "representative": "monsters/frames/boss.night_serpent/move/00.png",
+      "portrait": "monsters/boss.night_serpent.portrait.png",
+      "hud": "monsters/boss.night_serpent.hud.png",
+      "componentKeys": [
+        "boss.night_serpent.segment",
+        "boss.night_serpent.tail"
+      ]
+    },
+    "enemy.spore_seedling": {
+      "name": "갓버섯 새싹",
+      "manifestKey": "enemy.spore_seedling",
+      "representative": "monsters/frames/enemy.spore_seedling/move/00.png"
+    },
+    "elite.slime_moss": {
+      "name": "왕이끼 슬라임",
+      "baseEntity": "enemy.slime_moss",
+      "overlay": "monsters/elite.slime_moss.overlay.png",
+      "commonHorn": "monsters/elite.horn.png",
+      "composition": "runtime"
+    },
+    "elite.wolf_bramble": {
+      "name": "우두머리 늑대",
+      "baseEntity": "enemy.wolf_bramble",
+      "overlay": "monsters/elite.wolf_bramble.overlay.png",
+      "commonHorn": "monsters/elite.horn.png",
+      "composition": "runtime"
+    },
+    "elite.golem_menhir": {
+      "name": "고인돌지기",
+      "baseEntity": "enemy.golem_menhir",
+      "overlay": "monsters/elite.golem_menhir.overlay.png",
+      "commonHorn": "monsters/elite.horn.png",
+      "composition": "runtime"
+    },
+    "elite.shaman_cap": {
+      "name": "큰갓 술사",
+      "baseEntity": "enemy.shaman_cap",
+      "overlay": "monsters/elite.shaman_cap.overlay.png",
+      "commonHorn": "monsters/elite.horn.png",
+      "composition": "runtime"
+    },
+    "elite.bug_lantern": {
+      "name": "왕꽈리 벌레",
+      "baseEntity": "enemy.bug_lantern",
+      "overlay": "monsters/elite.bug_lantern.overlay.png",
+      "commonHorn": "monsters/elite.horn.png",
+      "composition": "runtime"
+    },
+    "elite.hog_needle": {
+      "name": "삼연 고슴도치",
+      "baseEntity": "enemy.hog_needle",
+      "overlay": "monsters/elite.hog_needle.overlay.png",
+      "commonHorn": "monsters/elite.horn.png",
+      "composition": "runtime"
+    },
+    "elite.weasel_pot": {
+      "name": "화분 어미",
+      "baseEntity": "enemy.weasel_pot",
+      "overlay": "monsters/elite.weasel_pot.overlay.png",
+      "commonHorn": "monsters/elite.horn.png",
+      "composition": "runtime"
+    },
+    "elite.bat_dusk": {
+      "name": "박쥐 여왕",
+      "baseEntity": "enemy.bat_dusk",
+      "overlay": "monsters/elite.bat_dusk.overlay.png",
+      "commonHorn": "monsters/elite.horn.png",
+      "composition": "runtime",
+      "dive": "monsters/elite.bat_dusk.dive.png"
+    },
+    "elite.wisp_stray": {
+      "name": "쌍둥이불",
+      "baseEntity": "enemy.wisp_stray",
+      "overlay": "monsters/elite.wisp_stray.overlay.png",
+      "commonHorn": "monsters/elite.horn.png",
+      "composition": "runtime",
+      "replacementBody": "monsters/elite.wisp_stray.twin.png"
+    },
+    "elite.vine_thorn": {
+      "name": "꽃 핀 가시덩굴",
+      "baseEntity": "enemy.vine_thorn",
+      "overlay": "monsters/elite.vine_thorn.overlay.png",
+      "commonHorn": "monsters/elite.horn.png",
+      "composition": "runtime"
+    },
+    "elite.boar_tusk": {
+      "name": "외엄니",
+      "baseEntity": "enemy.boar_tusk",
+      "overlay": "monsters/elite.boar_tusk.overlay.png",
+      "commonHorn": "monsters/elite.horn.png",
+      "composition": "runtime"
+    },
+    "elite.toad_drum": {
+      "name": "큰북 두꺼비",
+      "baseEntity": "enemy.toad_drum",
+      "overlay": "monsters/elite.toad_drum.overlay.png",
+      "commonHorn": "monsters/elite.horn.png",
+      "composition": "runtime"
+    }
+  },
+  "undefinedFutureArt": [
+    {
+      "asset": "Future season cosmetics have no sprite specification",
+      "spec": "content-ids-assets §9 U-15"
+    }
+  ]
+}

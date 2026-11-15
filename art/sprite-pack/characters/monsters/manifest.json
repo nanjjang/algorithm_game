@@ -1,0 +1,4236 @@
+{
+  "schema": 1,
+  "artwork": "hand-authored pixel sprites",
+  "scaleMode": "nearest",
+  "entries": {
+    "enemy.slime_moss": {
+      "path": "enemy.slime_moss.png",
+      "size": [
+        64,
+        64
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "clips": {
+        "move": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.slime_moss/move/00.png"
+          },
+          {
+            "rect": [
+              64,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.slime_moss/move/01.png"
+          }
+        ],
+        "death": [
+          {
+            "rect": [
+              128,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.slime_moss/death/00.png"
+          },
+          {
+            "rect": [
+              192,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.slime_moss/death/01.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        58
+      ]
+    },
+    "enemy.wolf_bramble": {
+      "path": "enemy.wolf_bramble.png",
+      "size": [
+        64,
+        64
+      ],
+      "grid": [
+        6,
+        2
+      ],
+      "clips": {
+        "move": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.wolf_bramble/move/00.png"
+          },
+          {
+            "rect": [
+              64,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.wolf_bramble/move/01.png"
+          },
+          {
+            "rect": [
+              128,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.wolf_bramble/move/02.png"
+          },
+          {
+            "rect": [
+              192,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.wolf_bramble/move/03.png"
+          }
+        ],
+        "warn": [
+          {
+            "rect": [
+              256,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.wolf_bramble/warn/00.png"
+          }
+        ],
+        "lunge": [
+          {
+            "rect": [
+              320,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.wolf_bramble/lunge/00.png"
+          }
+        ],
+        "stagger": [
+          {
+            "rect": [
+              0,
+              64,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.wolf_bramble/stagger/00.png"
+          },
+          {
+            "rect": [
+              64,
+              64,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.wolf_bramble/stagger/01.png"
+          }
+        ],
+        "dodge": [
+          {
+            "rect": [
+              128,
+              64,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.wolf_bramble/dodge/00.png"
+          }
+        ],
+        "death": [
+          {
+            "rect": [
+              192,
+              64,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.wolf_bramble/death/00.png"
+          },
+          {
+            "rect": [
+              256,
+              64,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.wolf_bramble/death/01.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        58
+      ]
+    },
+    "enemy.golem_menhir": {
+      "path": "enemy.golem_menhir.png",
+      "size": [
+        96,
+        96
+      ],
+      "grid": [
+        6,
+        2
+      ],
+      "clips": {
+        "move": [
+          {
+            "rect": [
+              0,
+              0,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              90
+            ],
+            "file": "frames/enemy.golem_menhir/move/00.png"
+          },
+          {
+            "rect": [
+              96,
+              0,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              90
+            ],
+            "file": "frames/enemy.golem_menhir/move/01.png"
+          }
+        ],
+        "slam_warn": [
+          {
+            "rect": [
+              192,
+              0,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              90
+            ],
+            "file": "frames/enemy.golem_menhir/slam_warn/00.png"
+          },
+          {
+            "rect": [
+              288,
+              0,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              90
+            ],
+            "file": "frames/enemy.golem_menhir/slam_warn/01.png"
+          }
+        ],
+        "slam": [
+          {
+            "rect": [
+              384,
+              0,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              90
+            ],
+            "file": "frames/enemy.golem_menhir/slam/00.png"
+          }
+        ],
+        "sweep_warn": [
+          {
+            "rect": [
+              480,
+              0,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              90
+            ],
+            "file": "frames/enemy.golem_menhir/sweep_warn/00.png"
+          }
+        ],
+        "sweep": [
+          {
+            "rect": [
+              0,
+              96,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              90
+            ],
+            "file": "frames/enemy.golem_menhir/sweep/00.png"
+          }
+        ],
+        "open": [
+          {
+            "rect": [
+              96,
+              96,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              90
+            ],
+            "file": "frames/enemy.golem_menhir/open/00.png"
+          },
+          {
+            "rect": [
+              192,
+              96,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              90
+            ],
+            "file": "frames/enemy.golem_menhir/open/01.png"
+          }
+        ],
+        "death": [
+          {
+            "rect": [
+              288,
+              96,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              90
+            ],
+            "file": "frames/enemy.golem_menhir/death/00.png"
+          },
+          {
+            "rect": [
+              384,
+              96,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              90
+            ],
+            "file": "frames/enemy.golem_menhir/death/01.png"
+          },
+          {
+            "rect": [
+              480,
+              96,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              90
+            ],
+            "file": "frames/enemy.golem_menhir/death/02.png"
+          }
+        ]
+      },
+      "origin": [
+        48,
+        90
+      ]
+    },
+    "enemy.shaman_cap": {
+      "path": "enemy.shaman_cap.png",
+      "size": [
+        64,
+        64
+      ],
+      "grid": [
+        6,
+        2
+      ],
+      "clips": {
+        "move": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.shaman_cap/move/00.png"
+          },
+          {
+            "rect": [
+              64,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.shaman_cap/move/01.png"
+          }
+        ],
+        "cast": [
+          {
+            "rect": [
+              128,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.shaman_cap/cast/00.png"
+          },
+          {
+            "rect": [
+              192,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.shaman_cap/cast/01.png"
+          }
+        ],
+        "fire": [
+          {
+            "rect": [
+              256,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.shaman_cap/fire/00.png"
+          }
+        ],
+        "hide": [
+          {
+            "rect": [
+              320,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.shaman_cap/hide/00.png"
+          }
+        ],
+        "death": [
+          {
+            "rect": [
+              0,
+              64,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.shaman_cap/death/00.png"
+          },
+          {
+            "rect": [
+              64,
+              64,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.shaman_cap/death/01.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        58
+      ]
+    },
+    "enemy.bug_lantern": {
+      "path": "enemy.bug_lantern.png",
+      "size": [
+        64,
+        64
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "clips": {
+        "move": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.bug_lantern/move/00.png"
+          },
+          {
+            "rect": [
+              64,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.bug_lantern/move/01.png"
+          }
+        ],
+        "ignite": [
+          {
+            "rect": [
+              128,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.bug_lantern/ignite/00.png"
+          },
+          {
+            "rect": [
+              192,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.bug_lantern/ignite/01.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        58
+      ]
+    },
+    "enemy.hog_needle": {
+      "path": "enemy.hog_needle.png",
+      "size": [
+        64,
+        64
+      ],
+      "grid": [
+        6,
+        2
+      ],
+      "clips": {
+        "move": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.hog_needle/move/00.png"
+          },
+          {
+            "rect": [
+              64,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.hog_needle/move/01.png"
+          }
+        ],
+        "aim": [
+          {
+            "rect": [
+              128,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.hog_needle/aim/00.png"
+          },
+          {
+            "rect": [
+              192,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.hog_needle/aim/01.png"
+          }
+        ],
+        "fire": [
+          {
+            "rect": [
+              256,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.hog_needle/fire/00.png"
+          }
+        ],
+        "recover": [
+          {
+            "rect": [
+              320,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.hog_needle/recover/00.png"
+          }
+        ],
+        "death": [
+          {
+            "rect": [
+              0,
+              64,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.hog_needle/death/00.png"
+          },
+          {
+            "rect": [
+              64,
+              64,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.hog_needle/death/01.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        58
+      ]
+    },
+    "enemy.weasel_pot": {
+      "path": "enemy.weasel_pot.png",
+      "size": [
+        64,
+        64
+      ],
+      "grid": [
+        6,
+        2
+      ],
+      "clips": {
+        "burrow": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.weasel_pot/burrow/00.png"
+          },
+          {
+            "rect": [
+              64,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.weasel_pot/burrow/01.png"
+          }
+        ],
+        "rise": [
+          {
+            "rect": [
+              128,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.weasel_pot/rise/00.png"
+          },
+          {
+            "rect": [
+              192,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.weasel_pot/rise/01.png"
+          }
+        ],
+        "stand": [
+          {
+            "rect": [
+              256,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.weasel_pot/stand/00.png"
+          },
+          {
+            "rect": [
+              320,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.weasel_pot/stand/01.png"
+          }
+        ],
+        "dive": [
+          {
+            "rect": [
+              0,
+              64,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.weasel_pot/dive/00.png"
+          },
+          {
+            "rect": [
+              64,
+              64,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.weasel_pot/dive/01.png"
+          }
+        ],
+        "death": [
+          {
+            "rect": [
+              128,
+              64,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.weasel_pot/death/00.png"
+          },
+          {
+            "rect": [
+              192,
+              64,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.weasel_pot/death/01.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        58
+      ]
+    },
+    "enemy.bat_dusk": {
+      "path": "enemy.bat_dusk.png",
+      "size": [
+        64,
+        64
+      ],
+      "grid": [
+        5,
+        1
+      ],
+      "clips": {
+        "fly": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.bat_dusk/fly/00.png"
+          },
+          {
+            "rect": [
+              64,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.bat_dusk/fly/01.png"
+          },
+          {
+            "rect": [
+              128,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.bat_dusk/fly/02.png"
+          }
+        ],
+        "death": [
+          {
+            "rect": [
+              192,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              54
+            ],
+            "file": "frames/enemy.bat_dusk/death/00.png"
+          },
+          {
+            "rect": [
+              256,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.bat_dusk/death/01.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        58
+      ]
+    },
+    "enemy.wisp_stray": {
+      "path": "enemy.wisp_stray.png",
+      "size": [
+        64,
+        64
+      ],
+      "grid": [
+        6,
+        2
+      ],
+      "clips": {
+        "hover": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.wisp_stray/hover/00.png"
+          },
+          {
+            "rect": [
+              64,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.wisp_stray/hover/01.png"
+          },
+          {
+            "rect": [
+              128,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.wisp_stray/hover/02.png"
+          }
+        ],
+        "cast": [
+          {
+            "rect": [
+              192,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.wisp_stray/cast/00.png"
+          },
+          {
+            "rect": [
+              256,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.wisp_stray/cast/01.png"
+          }
+        ],
+        "blink": [
+          {
+            "rect": [
+              320,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.wisp_stray/blink/00.png"
+          },
+          {
+            "rect": [
+              0,
+              64,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.wisp_stray/blink/01.png"
+          }
+        ],
+        "death": [
+          {
+            "rect": [
+              64,
+              64,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.wisp_stray/death/00.png"
+          },
+          {
+            "rect": [
+              128,
+              64,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.wisp_stray/death/01.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        58
+      ]
+    },
+    "enemy.vine_thorn": {
+      "path": "enemy.vine_thorn.png",
+      "size": [
+        64,
+        96
+      ],
+      "grid": [
+        6,
+        2
+      ],
+      "clips": {
+        "idle": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/enemy.vine_thorn/idle/00.png"
+          },
+          {
+            "rect": [
+              64,
+              0,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/enemy.vine_thorn/idle/01.png"
+          }
+        ],
+        "cast": [
+          {
+            "rect": [
+              128,
+              0,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/enemy.vine_thorn/cast/00.png"
+          },
+          {
+            "rect": [
+              192,
+              0,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/enemy.vine_thorn/cast/01.png"
+          }
+        ],
+        "emerge": [
+          {
+            "rect": [
+              256,
+              0,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/enemy.vine_thorn/emerge/00.png"
+          },
+          {
+            "rect": [
+              320,
+              0,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/enemy.vine_thorn/emerge/01.png"
+          }
+        ],
+        "death": [
+          {
+            "rect": [
+              0,
+              96,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/enemy.vine_thorn/death/00.png"
+          },
+          {
+            "rect": [
+              64,
+              96,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/enemy.vine_thorn/death/01.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        90
+      ]
+    },
+    "enemy.boar_tusk": {
+      "path": "enemy.boar_tusk.png",
+      "size": [
+        96,
+        64
+      ],
+      "grid": [
+        6,
+        2
+      ],
+      "clips": {
+        "move": [
+          {
+            "rect": [
+              0,
+              0,
+              96,
+              64
+            ],
+            "origin": [
+              48,
+              58
+            ],
+            "file": "frames/enemy.boar_tusk/move/00.png"
+          },
+          {
+            "rect": [
+              96,
+              0,
+              96,
+              64
+            ],
+            "origin": [
+              48,
+              58
+            ],
+            "file": "frames/enemy.boar_tusk/move/01.png"
+          },
+          {
+            "rect": [
+              192,
+              0,
+              96,
+              64
+            ],
+            "origin": [
+              48,
+              58
+            ],
+            "file": "frames/enemy.boar_tusk/move/02.png"
+          },
+          {
+            "rect": [
+              288,
+              0,
+              96,
+              64
+            ],
+            "origin": [
+              48,
+              58
+            ],
+            "file": "frames/enemy.boar_tusk/move/03.png"
+          }
+        ],
+        "warn": [
+          {
+            "rect": [
+              384,
+              0,
+              96,
+              64
+            ],
+            "origin": [
+              48,
+              58
+            ],
+            "file": "frames/enemy.boar_tusk/warn/00.png"
+          },
+          {
+            "rect": [
+              480,
+              0,
+              96,
+              64
+            ],
+            "origin": [
+              48,
+              58
+            ],
+            "file": "frames/enemy.boar_tusk/warn/01.png"
+          }
+        ],
+        "charge": [
+          {
+            "rect": [
+              0,
+              64,
+              96,
+              64
+            ],
+            "origin": [
+              48,
+              58
+            ],
+            "file": "frames/enemy.boar_tusk/charge/00.png"
+          },
+          {
+            "rect": [
+              96,
+              64,
+              96,
+              64
+            ],
+            "origin": [
+              48,
+              58
+            ],
+            "file": "frames/enemy.boar_tusk/charge/01.png"
+          }
+        ],
+        "stagger": [
+          {
+            "rect": [
+              192,
+              64,
+              96,
+              64
+            ],
+            "origin": [
+              48,
+              58
+            ],
+            "file": "frames/enemy.boar_tusk/stagger/00.png"
+          },
+          {
+            "rect": [
+              288,
+              64,
+              96,
+              64
+            ],
+            "origin": [
+              48,
+              58
+            ],
+            "file": "frames/enemy.boar_tusk/stagger/01.png"
+          }
+        ],
+        "death": [
+          {
+            "rect": [
+              384,
+              64,
+              96,
+              64
+            ],
+            "origin": [
+              48,
+              58
+            ],
+            "file": "frames/enemy.boar_tusk/death/00.png"
+          },
+          {
+            "rect": [
+              480,
+              64,
+              96,
+              64
+            ],
+            "origin": [
+              48,
+              58
+            ],
+            "file": "frames/enemy.boar_tusk/death/01.png"
+          }
+        ]
+      },
+      "origin": [
+        48,
+        58
+      ]
+    },
+    "enemy.toad_drum": {
+      "path": "enemy.toad_drum.png",
+      "size": [
+        64,
+        64
+      ],
+      "grid": [
+        6,
+        2
+      ],
+      "clips": {
+        "hop": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.toad_drum/hop/00.png"
+          },
+          {
+            "rect": [
+              64,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.toad_drum/hop/01.png"
+          }
+        ],
+        "call": [
+          {
+            "rect": [
+              128,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.toad_drum/call/00.png"
+          },
+          {
+            "rect": [
+              192,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.toad_drum/call/01.png"
+          },
+          {
+            "rect": [
+              256,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.toad_drum/call/02.png"
+          }
+        ],
+        "tongue_warn": [
+          {
+            "rect": [
+              320,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.toad_drum/tongue_warn/00.png"
+          }
+        ],
+        "tongue": [
+          {
+            "rect": [
+              0,
+              64,
+              64,
+              64
+            ],
+            "origin": [
+              26,
+              58
+            ],
+            "file": "frames/enemy.toad_drum/tongue/00.png"
+          }
+        ],
+        "death": [
+          {
+            "rect": [
+              64,
+              64,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.toad_drum/death/00.png"
+          },
+          {
+            "rect": [
+              128,
+              64,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              58
+            ],
+            "file": "frames/enemy.toad_drum/death/01.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        58
+      ]
+    },
+    "boss.kiln_boar": {
+      "path": "boss.kiln_boar.png",
+      "size": [
+        192,
+        128
+      ],
+      "grid": [
+        6,
+        4
+      ],
+      "clips": {
+        "walk": [
+          {
+            "rect": [
+              0,
+              0,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.kiln_boar/walk/00.png"
+          },
+          {
+            "rect": [
+              192,
+              0,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.kiln_boar/walk/01.png"
+          },
+          {
+            "rect": [
+              384,
+              0,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.kiln_boar/walk/02.png"
+          },
+          {
+            "rect": [
+              576,
+              0,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.kiln_boar/walk/03.png"
+          }
+        ],
+        "charge_warn": [
+          {
+            "rect": [
+              768,
+              0,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.kiln_boar/charge_warn/00.png"
+          },
+          {
+            "rect": [
+              960,
+              0,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.kiln_boar/charge_warn/01.png"
+          }
+        ],
+        "charge": [
+          {
+            "rect": [
+              0,
+              128,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              124
+            ],
+            "file": "frames/boss.kiln_boar/charge/00.png"
+          },
+          {
+            "rect": [
+              192,
+              128,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.kiln_boar/charge/01.png"
+          }
+        ],
+        "stomp": [
+          {
+            "rect": [
+              384,
+              128,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              124
+            ],
+            "file": "frames/boss.kiln_boar/stomp/00.png"
+          },
+          {
+            "rect": [
+              576,
+              128,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              120
+            ],
+            "file": "frames/boss.kiln_boar/stomp/01.png"
+          },
+          {
+            "rect": [
+              768,
+              128,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.kiln_boar/stomp/02.png"
+          }
+        ],
+        "roar": [
+          {
+            "rect": [
+              960,
+              128,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.kiln_boar/roar/00.png"
+          },
+          {
+            "rect": [
+              0,
+              256,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.kiln_boar/roar/01.png"
+          }
+        ],
+        "stun": [
+          {
+            "rect": [
+              192,
+              256,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.kiln_boar/stun/00.png"
+          },
+          {
+            "rect": [
+              384,
+              256,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.kiln_boar/stun/01.png"
+          }
+        ],
+        "phase": [
+          {
+            "rect": [
+              576,
+              256,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.kiln_boar/phase/00.png"
+          },
+          {
+            "rect": [
+              768,
+              256,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.kiln_boar/phase/01.png"
+          }
+        ],
+        "death": [
+          {
+            "rect": [
+              960,
+              256,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              120
+            ],
+            "file": "frames/boss.kiln_boar/death/00.png"
+          },
+          {
+            "rect": [
+              0,
+              384,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              116
+            ],
+            "file": "frames/boss.kiln_boar/death/01.png"
+          },
+          {
+            "rect": [
+              192,
+              384,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.kiln_boar/death/02.png"
+          },
+          {
+            "rect": [
+              384,
+              384,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.kiln_boar/death/03.png"
+          }
+        ]
+      },
+      "origin": [
+        96,
+        122
+      ]
+    },
+    "boss.mirror_phantom": {
+      "path": "boss.mirror_phantom.png",
+      "size": [
+        64,
+        96
+      ],
+      "grid": [
+        6,
+        4
+      ],
+      "clips": {
+        "hover": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/boss.mirror_phantom/hover/00.png"
+          },
+          {
+            "rect": [
+              64,
+              0,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/boss.mirror_phantom/hover/01.png"
+          },
+          {
+            "rect": [
+              128,
+              0,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/boss.mirror_phantom/hover/02.png"
+          }
+        ],
+        "fire": [
+          {
+            "rect": [
+              192,
+              0,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/boss.mirror_phantom/fire/00.png"
+          },
+          {
+            "rect": [
+              256,
+              0,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/boss.mirror_phantom/fire/01.png"
+          }
+        ],
+        "cast": [
+          {
+            "rect": [
+              320,
+              0,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/boss.mirror_phantom/cast/00.png"
+          },
+          {
+            "rect": [
+              0,
+              96,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/boss.mirror_phantom/cast/01.png"
+          }
+        ],
+        "burst": [
+          {
+            "rect": [
+              64,
+              96,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/boss.mirror_phantom/burst/00.png"
+          },
+          {
+            "rect": [
+              128,
+              96,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/boss.mirror_phantom/burst/01.png"
+          },
+          {
+            "rect": [
+              192,
+              96,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/boss.mirror_phantom/burst/02.png"
+          }
+        ],
+        "open": [
+          {
+            "rect": [
+              256,
+              96,
+              64,
+              96
+            ],
+            "origin": [
+              36,
+              90
+            ],
+            "file": "frames/boss.mirror_phantom/open/00.png"
+          },
+          {
+            "rect": [
+              320,
+              96,
+              64,
+              96
+            ],
+            "origin": [
+              30,
+              90
+            ],
+            "file": "frames/boss.mirror_phantom/open/01.png"
+          }
+        ],
+        "phase": [
+          {
+            "rect": [
+              0,
+              192,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/boss.mirror_phantom/phase/00.png"
+          },
+          {
+            "rect": [
+              64,
+              192,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/boss.mirror_phantom/phase/01.png"
+          }
+        ],
+        "death": [
+          {
+            "rect": [
+              128,
+              192,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/boss.mirror_phantom/death/00.png"
+          },
+          {
+            "rect": [
+              192,
+              192,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/boss.mirror_phantom/death/01.png"
+          },
+          {
+            "rect": [
+              256,
+              192,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/boss.mirror_phantom/death/02.png"
+          },
+          {
+            "rect": [
+              320,
+              192,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/boss.mirror_phantom/death/03.png"
+          }
+        ],
+        "crack": [
+          {
+            "rect": [
+              0,
+              288,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/boss.mirror_phantom/crack/00.png"
+          },
+          {
+            "rect": [
+              64,
+              288,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/boss.mirror_phantom/crack/01.png"
+          }
+        ],
+        "look": [
+          {
+            "rect": [
+              128,
+              288,
+              64,
+              96
+            ],
+            "origin": [
+              32,
+              90
+            ],
+            "file": "frames/boss.mirror_phantom/look/00.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        90
+      ]
+    },
+    "boss.spore_queen": {
+      "path": "boss.spore_queen.png",
+      "size": [
+        128,
+        160
+      ],
+      "grid": [
+        6,
+        4
+      ],
+      "clips": {
+        "walk": [
+          {
+            "rect": [
+              0,
+              0,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.spore_queen/walk/00.png"
+          },
+          {
+            "rect": [
+              128,
+              0,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.spore_queen/walk/01.png"
+          }
+        ],
+        "ring": [
+          {
+            "rect": [
+              256,
+              0,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.spore_queen/ring/00.png"
+          },
+          {
+            "rect": [
+              384,
+              0,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.spore_queen/ring/01.png"
+          },
+          {
+            "rect": [
+              512,
+              0,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.spore_queen/ring/02.png"
+          }
+        ],
+        "cloud": [
+          {
+            "rect": [
+              640,
+              0,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.spore_queen/cloud/00.png"
+          },
+          {
+            "rect": [
+              0,
+              160,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.spore_queen/cloud/01.png"
+          }
+        ],
+        "call": [
+          {
+            "rect": [
+              128,
+              160,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.spore_queen/call/00.png"
+          },
+          {
+            "rect": [
+              256,
+              160,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.spore_queen/call/01.png"
+          }
+        ],
+        "jump": [
+          {
+            "rect": [
+              384,
+              160,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.spore_queen/jump/00.png"
+          },
+          {
+            "rect": [
+              512,
+              160,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.spore_queen/jump/01.png"
+          },
+          {
+            "rect": [
+              640,
+              160,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              159
+            ],
+            "file": "frames/boss.spore_queen/jump/02.png"
+          },
+          {
+            "rect": [
+              0,
+              320,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.spore_queen/jump/03.png"
+          }
+        ],
+        "open": [
+          {
+            "rect": [
+              128,
+              320,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.spore_queen/open/00.png"
+          },
+          {
+            "rect": [
+              256,
+              320,
+              128,
+              160
+            ],
+            "origin": [
+              62,
+              154
+            ],
+            "file": "frames/boss.spore_queen/open/01.png"
+          }
+        ],
+        "phase": [
+          {
+            "rect": [
+              384,
+              320,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.spore_queen/phase/00.png"
+          },
+          {
+            "rect": [
+              512,
+              320,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.spore_queen/phase/01.png"
+          },
+          {
+            "rect": [
+              640,
+              320,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.spore_queen/phase/02.png"
+          }
+        ],
+        "death": [
+          {
+            "rect": [
+              0,
+              480,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              152
+            ],
+            "file": "frames/boss.spore_queen/death/00.png"
+          },
+          {
+            "rect": [
+              128,
+              480,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              152
+            ],
+            "file": "frames/boss.spore_queen/death/01.png"
+          },
+          {
+            "rect": [
+              256,
+              480,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              150
+            ],
+            "file": "frames/boss.spore_queen/death/02.png"
+          },
+          {
+            "rect": [
+              384,
+              480,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              150
+            ],
+            "file": "frames/boss.spore_queen/death/03.png"
+          }
+        ]
+      },
+      "origin": [
+        64,
+        154
+      ]
+    },
+    "boss.storm_owl": {
+      "path": "boss.storm_owl.png",
+      "size": [
+        192,
+        128
+      ],
+      "grid": [
+        6,
+        3
+      ],
+      "clips": {
+        "fly": [
+          {
+            "rect": [
+              0,
+              0,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.storm_owl/fly/00.png"
+          },
+          {
+            "rect": [
+              192,
+              0,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.storm_owl/fly/01.png"
+          },
+          {
+            "rect": [
+              384,
+              0,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              116
+            ],
+            "file": "frames/boss.storm_owl/fly/02.png"
+          },
+          {
+            "rect": [
+              576,
+              0,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.storm_owl/fly/03.png"
+          }
+        ],
+        "dive": [
+          {
+            "rect": [
+              768,
+              0,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.storm_owl/dive/00.png"
+          },
+          {
+            "rect": [
+              960,
+              0,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.storm_owl/dive/01.png"
+          }
+        ],
+        "fan": [
+          {
+            "rect": [
+              0,
+              128,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.storm_owl/fan/00.png"
+          },
+          {
+            "rect": [
+              192,
+              128,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.storm_owl/fan/01.png"
+          },
+          {
+            "rect": [
+              384,
+              128,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.storm_owl/fan/02.png"
+          }
+        ],
+        "weather": [
+          {
+            "rect": [
+              576,
+              128,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.storm_owl/weather/00.png"
+          },
+          {
+            "rect": [
+              768,
+              128,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              118
+            ],
+            "file": "frames/boss.storm_owl/weather/01.png"
+          }
+        ],
+        "phase": [
+          {
+            "rect": [
+              960,
+              128,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.storm_owl/phase/00.png"
+          },
+          {
+            "rect": [
+              0,
+              256,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.storm_owl/phase/01.png"
+          }
+        ],
+        "death": [
+          {
+            "rect": [
+              192,
+              256,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.storm_owl/death/00.png"
+          },
+          {
+            "rect": [
+              384,
+              256,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.storm_owl/death/01.png"
+          },
+          {
+            "rect": [
+              576,
+              256,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.storm_owl/death/02.png"
+          },
+          {
+            "rect": [
+              768,
+              256,
+              192,
+              128
+            ],
+            "origin": [
+              96,
+              122
+            ],
+            "file": "frames/boss.storm_owl/death/03.png"
+          }
+        ]
+      },
+      "origin": [
+        96,
+        122
+      ]
+    },
+    "boss.storm_owl.ground": {
+      "path": "boss.storm_owl.ground.png",
+      "size": [
+        96,
+        128
+      ],
+      "grid": [
+        2,
+        1
+      ],
+      "clips": {
+        "land": [
+          {
+            "rect": [
+              0,
+              0,
+              96,
+              128
+            ],
+            "origin": [
+              48,
+              122
+            ],
+            "file": "frames/boss.storm_owl.ground/land/00.png"
+          },
+          {
+            "rect": [
+              96,
+              0,
+              96,
+              128
+            ],
+            "origin": [
+              48,
+              122
+            ],
+            "file": "frames/boss.storm_owl.ground/land/01.png"
+          }
+        ]
+      },
+      "origin": [
+        48,
+        122
+      ]
+    },
+    "boss.frost_goat": {
+      "path": "boss.frost_goat.png",
+      "size": [
+        128,
+        160
+      ],
+      "grid": [
+        6,
+        4
+      ],
+      "clips": {
+        "walk": [
+          {
+            "rect": [
+              0,
+              0,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.frost_goat/walk/00.png"
+          },
+          {
+            "rect": [
+              128,
+              0,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.frost_goat/walk/01.png"
+          },
+          {
+            "rect": [
+              256,
+              0,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.frost_goat/walk/02.png"
+          },
+          {
+            "rect": [
+              384,
+              0,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.frost_goat/walk/03.png"
+          }
+        ],
+        "pillars": [
+          {
+            "rect": [
+              512,
+              0,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.frost_goat/pillars/00.png"
+          },
+          {
+            "rect": [
+              640,
+              0,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.frost_goat/pillars/01.png"
+          }
+        ],
+        "sweep": [
+          {
+            "rect": [
+              0,
+              160,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.frost_goat/sweep/00.png"
+          },
+          {
+            "rect": [
+              128,
+              160,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.frost_goat/sweep/01.png"
+          },
+          {
+            "rect": [
+              256,
+              160,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.frost_goat/sweep/02.png"
+          }
+        ],
+        "breath": [
+          {
+            "rect": [
+              384,
+              160,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.frost_goat/breath/00.png"
+          },
+          {
+            "rect": [
+              512,
+              160,
+              128,
+              160
+            ],
+            "origin": [
+              62,
+              154
+            ],
+            "file": "frames/boss.frost_goat/breath/01.png"
+          },
+          {
+            "rect": [
+              640,
+              160,
+              128,
+              160
+            ],
+            "origin": [
+              62,
+              154
+            ],
+            "file": "frames/boss.frost_goat/breath/02.png"
+          }
+        ],
+        "charge_warn": [
+          {
+            "rect": [
+              0,
+              320,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.frost_goat/charge_warn/00.png"
+          },
+          {
+            "rect": [
+              128,
+              320,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.frost_goat/charge_warn/01.png"
+          }
+        ],
+        "charge": [
+          {
+            "rect": [
+              256,
+              320,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.frost_goat/charge/00.png"
+          },
+          {
+            "rect": [
+              384,
+              320,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.frost_goat/charge/01.png"
+          }
+        ],
+        "impact": [
+          {
+            "rect": [
+              512,
+              320,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.frost_goat/impact/00.png"
+          },
+          {
+            "rect": [
+              640,
+              320,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.frost_goat/impact/01.png"
+          }
+        ],
+        "phase": [
+          {
+            "rect": [
+              0,
+              480,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.frost_goat/phase/00.png"
+          },
+          {
+            "rect": [
+              128,
+              480,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.frost_goat/phase/01.png"
+          }
+        ],
+        "death": [
+          {
+            "rect": [
+              256,
+              480,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.frost_goat/death/00.png"
+          },
+          {
+            "rect": [
+              384,
+              480,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              152
+            ],
+            "file": "frames/boss.frost_goat/death/01.png"
+          },
+          {
+            "rect": [
+              512,
+              480,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.frost_goat/death/02.png"
+          },
+          {
+            "rect": [
+              640,
+              480,
+              128,
+              160
+            ],
+            "origin": [
+              64,
+              154
+            ],
+            "file": "frames/boss.frost_goat/death/03.png"
+          }
+        ]
+      },
+      "origin": [
+        64,
+        154
+      ]
+    },
+    "boss.night_serpent": {
+      "path": "boss.night_serpent.png",
+      "size": [
+        96,
+        96
+      ],
+      "grid": [
+        6,
+        3
+      ],
+      "clips": {
+        "move": [
+          {
+            "rect": [
+              0,
+              0,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              70
+            ],
+            "file": "frames/boss.night_serpent/move/00.png"
+          },
+          {
+            "rect": [
+              96,
+              0,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              70
+            ],
+            "file": "frames/boss.night_serpent/move/01.png"
+          }
+        ],
+        "bite": [
+          {
+            "rect": [
+              192,
+              0,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              70
+            ],
+            "file": "frames/boss.night_serpent/bite/00.png"
+          },
+          {
+            "rect": [
+              288,
+              0,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              70
+            ],
+            "file": "frames/boss.night_serpent/bite/01.png"
+          },
+          {
+            "rect": [
+              384,
+              0,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              70
+            ],
+            "file": "frames/boss.night_serpent/bite/02.png"
+          }
+        ],
+        "spit": [
+          {
+            "rect": [
+              480,
+              0,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              70
+            ],
+            "file": "frames/boss.night_serpent/spit/00.png"
+          },
+          {
+            "rect": [
+              0,
+              96,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              70
+            ],
+            "file": "frames/boss.night_serpent/spit/01.png"
+          }
+        ],
+        "sink": [
+          {
+            "rect": [
+              96,
+              96,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              70
+            ],
+            "file": "frames/boss.night_serpent/sink/00.png"
+          },
+          {
+            "rect": [
+              192,
+              96,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              70
+            ],
+            "file": "frames/boss.night_serpent/sink/01.png"
+          }
+        ],
+        "rise": [
+          {
+            "rect": [
+              288,
+              96,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              70
+            ],
+            "file": "frames/boss.night_serpent/rise/00.png"
+          },
+          {
+            "rect": [
+              384,
+              96,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              70
+            ],
+            "file": "frames/boss.night_serpent/rise/01.png"
+          }
+        ],
+        "rest": [
+          {
+            "rect": [
+              480,
+              96,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              70
+            ],
+            "file": "frames/boss.night_serpent/rest/00.png"
+          },
+          {
+            "rect": [
+              0,
+              192,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              70
+            ],
+            "file": "frames/boss.night_serpent/rest/01.png"
+          }
+        ],
+        "phase": [
+          {
+            "rect": [
+              96,
+              192,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              70
+            ],
+            "file": "frames/boss.night_serpent/phase/00.png"
+          },
+          {
+            "rect": [
+              192,
+              192,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              70
+            ],
+            "file": "frames/boss.night_serpent/phase/01.png"
+          }
+        ],
+        "death": [
+          {
+            "rect": [
+              288,
+              192,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              70
+            ],
+            "file": "frames/boss.night_serpent/death/00.png"
+          },
+          {
+            "rect": [
+              384,
+              192,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              66
+            ],
+            "file": "frames/boss.night_serpent/death/01.png"
+          },
+          {
+            "rect": [
+              480,
+              192,
+              96,
+              96
+            ],
+            "origin": [
+              48,
+              90
+            ],
+            "file": "frames/boss.night_serpent/death/02.png"
+          }
+        ]
+      },
+      "origin": [
+        48,
+        70
+      ]
+    },
+    "boss.night_serpent.segment": {
+      "path": "boss.night_serpent.segment.png",
+      "size": [
+        64,
+        64
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "clips": {
+        "move": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              36
+            ],
+            "file": "frames/boss.night_serpent.segment/move/00.png"
+          },
+          {
+            "rect": [
+              64,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              36
+            ],
+            "file": "frames/boss.night_serpent.segment/move/01.png"
+          }
+        ],
+        "warn": [
+          {
+            "rect": [
+              128,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              36
+            ],
+            "file": "frames/boss.night_serpent.segment/warn/00.png"
+          }
+        ],
+        "death": [
+          {
+            "rect": [
+              192,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              36
+            ],
+            "file": "frames/boss.night_serpent.segment/death/00.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        36
+      ]
+    },
+    "boss.night_serpent.tail": {
+      "path": "boss.night_serpent.tail.png",
+      "size": [
+        64,
+        64
+      ],
+      "grid": [
+        3,
+        1
+      ],
+      "clips": {
+        "move": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              36
+            ],
+            "file": "frames/boss.night_serpent.tail/move/00.png"
+          },
+          {
+            "rect": [
+              64,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              36
+            ],
+            "file": "frames/boss.night_serpent.tail/move/01.png"
+          }
+        ],
+        "death": [
+          {
+            "rect": [
+              128,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              36
+            ],
+            "file": "frames/boss.night_serpent.tail/death/00.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        36
+      ]
+    },
+    "enemy.spore_seedling": {
+      "path": "enemy.spore_seedling.png",
+      "size": [
+        32,
+        32
+      ],
+      "grid": [
+        3,
+        1
+      ],
+      "clips": {
+        "move": [
+          {
+            "rect": [
+              0,
+              0,
+              32,
+              32
+            ],
+            "origin": [
+              16,
+              26
+            ],
+            "file": "frames/enemy.spore_seedling/move/00.png"
+          },
+          {
+            "rect": [
+              32,
+              0,
+              32,
+              32
+            ],
+            "origin": [
+              16,
+              26
+            ],
+            "file": "frames/enemy.spore_seedling/move/01.png"
+          }
+        ],
+        "death": [
+          {
+            "rect": [
+              64,
+              0,
+              32,
+              32
+            ],
+            "origin": [
+              16,
+              26
+            ],
+            "file": "frames/enemy.spore_seedling/death/00.png"
+          }
+        ]
+      },
+      "origin": [
+        16,
+        26
+      ]
+    },
+    "elite.slime_moss.overlay": {
+      "path": "elite.slime_moss.overlay.png",
+      "size": [
+        64,
+        32
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "clips": {
+        "overlay": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              32
+            ],
+            "origin": [
+              32,
+              31
+            ],
+            "file": "frames/elite.slime_moss.overlay/overlay/00.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        31
+      ]
+    },
+    "elite.wolf_bramble.overlay": {
+      "path": "elite.wolf_bramble.overlay.png",
+      "size": [
+        64,
+        32
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "clips": {
+        "overlay": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              32
+            ],
+            "origin": [
+              32,
+              30
+            ],
+            "file": "frames/elite.wolf_bramble.overlay/overlay/00.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        30
+      ]
+    },
+    "elite.golem_menhir.overlay": {
+      "path": "elite.golem_menhir.overlay.png",
+      "size": [
+        96,
+        32
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "clips": {
+        "overlay": [
+          {
+            "rect": [
+              0,
+              0,
+              96,
+              32
+            ],
+            "origin": [
+              48,
+              30
+            ],
+            "file": "frames/elite.golem_menhir.overlay/overlay/00.png"
+          }
+        ]
+      },
+      "origin": [
+        48,
+        30
+      ]
+    },
+    "elite.shaman_cap.overlay": {
+      "path": "elite.shaman_cap.overlay.png",
+      "size": [
+        64,
+        32
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "clips": {
+        "overlay": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              32
+            ],
+            "origin": [
+              32,
+              31
+            ],
+            "file": "frames/elite.shaman_cap.overlay/overlay/00.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        31
+      ]
+    },
+    "elite.bug_lantern.overlay": {
+      "path": "elite.bug_lantern.overlay.png",
+      "size": [
+        64,
+        32
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "clips": {
+        "overlay": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              32
+            ],
+            "origin": [
+              32,
+              31
+            ],
+            "file": "frames/elite.bug_lantern.overlay/overlay/00.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        31
+      ]
+    },
+    "elite.hog_needle.overlay": {
+      "path": "elite.hog_needle.overlay.png",
+      "size": [
+        64,
+        32
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "clips": {
+        "overlay": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              32
+            ],
+            "origin": [
+              32,
+              31
+            ],
+            "file": "frames/elite.hog_needle.overlay/overlay/00.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        31
+      ]
+    },
+    "elite.weasel_pot.overlay": {
+      "path": "elite.weasel_pot.overlay.png",
+      "size": [
+        64,
+        32
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "clips": {
+        "overlay": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              32
+            ],
+            "origin": [
+              32,
+              30
+            ],
+            "file": "frames/elite.weasel_pot.overlay/overlay/00.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        30
+      ]
+    },
+    "elite.bat_dusk.overlay": {
+      "path": "elite.bat_dusk.overlay.png",
+      "size": [
+        64,
+        32
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "clips": {
+        "overlay": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              32
+            ],
+            "origin": [
+              32,
+              28
+            ],
+            "file": "frames/elite.bat_dusk.overlay/overlay/00.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        28
+      ]
+    },
+    "elite.wisp_stray.overlay": {
+      "path": "elite.wisp_stray.overlay.png",
+      "size": [
+        64,
+        32
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "clips": {
+        "overlay": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              32
+            ],
+            "origin": [
+              32,
+              30
+            ],
+            "file": "frames/elite.wisp_stray.overlay/overlay/00.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        30
+      ]
+    },
+    "elite.vine_thorn.overlay": {
+      "path": "elite.vine_thorn.overlay.png",
+      "size": [
+        64,
+        32
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "clips": {
+        "overlay": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              32
+            ],
+            "origin": [
+              32,
+              31
+            ],
+            "file": "frames/elite.vine_thorn.overlay/overlay/00.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        31
+      ]
+    },
+    "elite.boar_tusk.overlay": {
+      "path": "elite.boar_tusk.overlay.png",
+      "size": [
+        96,
+        32
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "clips": {
+        "overlay": [
+          {
+            "rect": [
+              0,
+              0,
+              96,
+              32
+            ],
+            "origin": [
+              48,
+              26
+            ],
+            "file": "frames/elite.boar_tusk.overlay/overlay/00.png"
+          }
+        ]
+      },
+      "origin": [
+        48,
+        26
+      ]
+    },
+    "elite.toad_drum.overlay": {
+      "path": "elite.toad_drum.overlay.png",
+      "size": [
+        64,
+        32
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "clips": {
+        "overlay": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              32
+            ],
+            "origin": [
+              32,
+              26
+            ],
+            "file": "frames/elite.toad_drum.overlay/overlay/00.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        26
+      ]
+    },
+    "elite.horn": {
+      "path": "elite.horn.png",
+      "size": [
+        16,
+        16
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "clips": {
+        "idle": [
+          {
+            "rect": [
+              0,
+              0,
+              16,
+              16
+            ],
+            "origin": [
+              8,
+              12
+            ],
+            "file": "frames/elite.horn/idle/00.png"
+          }
+        ]
+      },
+      "origin": [
+        8,
+        12
+      ]
+    },
+    "elite.bat_dusk.dive": {
+      "path": "elite.bat_dusk.dive.png",
+      "size": [
+        64,
+        64
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "clips": {
+        "dive": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              54
+            ],
+            "file": "frames/elite.bat_dusk.dive/dive/00.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        54
+      ]
+    },
+    "elite.wisp_stray.twin": {
+      "path": "elite.wisp_stray.twin.png",
+      "size": [
+        64,
+        64
+      ],
+      "grid": [
+        3,
+        1
+      ],
+      "clips": {
+        "hover": [
+          {
+            "rect": [
+              0,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              60
+            ],
+            "file": "frames/elite.wisp_stray.twin/hover/00.png"
+          },
+          {
+            "rect": [
+              64,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              60
+            ],
+            "file": "frames/elite.wisp_stray.twin/hover/01.png"
+          },
+          {
+            "rect": [
+              128,
+              0,
+              64,
+              64
+            ],
+            "origin": [
+              32,
+              60
+            ],
+            "file": "frames/elite.wisp_stray.twin/hover/02.png"
+          }
+        ]
+      },
+      "origin": [
+        32,
+        60
+      ]
+    }
+  },
+  "bossUi": {
+    "boss.kiln_boar": {
+      "portrait": "boss.kiln_boar.portrait.png",
+      "portraitSize": [
+        96,
+        96
+      ],
+      "hud": "boss.kiln_boar.hud.png",
+      "hudSize": [
+        32,
+        32
+      ]
+    },
+    "boss.mirror_phantom": {
+      "portrait": "boss.mirror_phantom.portrait.png",
+      "portraitSize": [
+        96,
+        96
+      ],
+      "hud": "boss.mirror_phantom.hud.png",
+      "hudSize": [
+        32,
+        32
+      ]
+    },
+    "boss.spore_queen": {
+      "portrait": "boss.spore_queen.portrait.png",
+      "portraitSize": [
+        96,
+        96
+      ],
+      "hud": "boss.spore_queen.hud.png",
+      "hudSize": [
+        32,
+        32
+      ]
+    },
+    "boss.storm_owl": {
+      "portrait": "boss.storm_owl.portrait.png",
+      "portraitSize": [
+        96,
+        96
+      ],
+      "hud": "boss.storm_owl.hud.png",
+      "hudSize": [
+        32,
+        32
+      ]
+    },
+    "boss.frost_goat": {
+      "portrait": "boss.frost_goat.portrait.png",
+      "portraitSize": [
+        96,
+        96
+      ],
+      "hud": "boss.frost_goat.hud.png",
+      "hudSize": [
+        32,
+        32
+      ]
+    },
+    "boss.night_serpent": {
+      "portrait": "boss.night_serpent.portrait.png",
+      "portraitSize": [
+        96,
+        96
+      ],
+      "hud": "boss.night_serpent.hud.png",
+      "hudSize": [
+        32,
+        32
+      ]
+    }
+  },
+  "facing": {
+    "horizontal": "mirror at runtime according to movement",
+    "timing": "runtime"
+  }
+}

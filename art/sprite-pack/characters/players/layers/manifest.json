@@ -1,0 +1,3035 @@
+{
+  "paletteReplacements": {
+    "dalgu": {
+      "2": {
+        "#16655F": "#245A46",
+        "#1F8C82": "#32846B",
+        "#4FC2B0": "#58BA94",
+        "#B5692F": "#A56031"
+      },
+      "3": {
+        "#16655F": "#1F5D48",
+        "#1F8C82": "#3A8A70",
+        "#4FC2B0": "#66C3A1",
+        "#B5692F": "#B7733F"
+      },
+      "4": {
+        "#16655F": "#1B5447",
+        "#1F8C82": "#378D73",
+        "#4FC2B0": "#78C5A3",
+        "#B5692F": "#BE773D"
+      }
+    },
+    "chorong": {
+      "2": {
+        "#8A6A14": "#806522",
+        "#C89A22": "#BA952F",
+        "#EBC04A": "#E1BB5C"
+      },
+      "3": {
+        "#8A6A14": "#786325",
+        "#C89A22": "#BD963A",
+        "#EBC04A": "#E6BE67"
+      },
+      "4": {
+        "#8A6A14": "#786422",
+        "#C89A22": "#C39F43",
+        "#EBC04A": "#ECC771"
+      }
+    },
+    "galpi": {
+      "2": {
+        "#3A4658": "#38484F",
+        "#55657C": "#586D72",
+        "#7C8EA6": "#819A98"
+      },
+      "3": {
+        "#3A4658": "#36464D",
+        "#55657C": "#566F71",
+        "#7C8EA6": "#90AAA0"
+      },
+      "4": {
+        "#3A4658": "#36484E",
+        "#55657C": "#536E78",
+        "#7C8EA6": "#8CA9A9"
+      }
+    },
+    "seonge": {
+      "2": {
+        "#C9B88A": "#AD9878",
+        "#F3E7C0": "#E6D8B6",
+        "#FFF8E2": "#F8EAD1"
+      },
+      "3": {
+        "#C9B88A": "#B5AA96",
+        "#F3E7C0": "#EBE3D6",
+        "#FFF8E2": "#F6F5EC"
+      },
+      "4": {
+        "#C9B88A": "#AAADAA",
+        "#F3E7C0": "#E4EAF0",
+        "#FFF8E2": "#F6F8F5"
+      }
+    },
+    "geumeum": {
+      "2": {
+        "#222641": "#282941",
+        "#3E4675": "#424871",
+        "#6271AE": "#6A78A7"
+      },
+      "3": {
+        "#222641": "#282842",
+        "#3E4675": "#414675",
+        "#6271AE": "#7382B3"
+      },
+      "4": {
+        "#222641": "#2B2945",
+        "#3E4675": "#494A78",
+        "#6271AE": "#7E82B9"
+      }
+    }
+  },
+  "wildStainStageWaves": {
+    "1": 0,
+    "2": 100,
+    "3": 500,
+    "4": 2000
+  },
+  "wildStainStageInheritance": {
+    "2": [],
+    "3": [
+      2
+    ],
+    "4": [
+      2,
+      3
+    ]
+  },
+  "mirrorRightForLeft": true,
+  "textureFilter": "nearest",
+  "layerOrder": [
+    "body",
+    "reactive",
+    "wild-stain",
+    "cosmetic",
+    "wand"
+  ],
+  "notes": [
+    "Layer placement offsets are starting values for engine QA; the base frame sockets are unchanged.",
+    "Stain stages inherit earlier ornaments. Stage 4 has one state effect animated with three images per direction.",
+    "Apply the listed palette colors as exact-match replacements. Face, hand, and black contour colors are omitted from these tables.",
+    "Where a body part is baked into the original atlas, use the alternative atlas and attach the replacement layer.",
+    "There is no artwork definition for the future season-only heir cosmetics in spec §14 U-15."
+  ],
+  "groups": {
+    "reactive/dalgu/steam": {
+      "sheet": "reactive/dalgu/steam/sheet.png",
+      "frameSize": [
+        16,
+        16
+      ],
+      "columns": 8,
+      "frames": [
+        {
+          "key": "normal_00",
+          "rect": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/dalgu/steam/frames/normal_00.png"
+        },
+        {
+          "key": "normal_01",
+          "rect": [
+            16,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/dalgu/steam/frames/normal_01.png"
+        },
+        {
+          "key": "normal_02",
+          "rect": [
+            32,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/dalgu/steam/frames/normal_02.png"
+        },
+        {
+          "key": "normal_03",
+          "rect": [
+            48,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/dalgu/steam/frames/normal_03.png"
+        },
+        {
+          "key": "threshold_00",
+          "rect": [
+            64,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/dalgu/steam/frames/threshold_00.png"
+        },
+        {
+          "key": "threshold_01",
+          "rect": [
+            80,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/dalgu/steam/frames/threshold_01.png"
+        },
+        {
+          "key": "threshold_02",
+          "rect": [
+            96,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/dalgu/steam/frames/threshold_02.png"
+        },
+        {
+          "key": "threshold_03",
+          "rect": [
+            112,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/dalgu/steam/frames/threshold_03.png"
+        },
+        {
+          "key": "near_lock_00",
+          "rect": [
+            0,
+            16,
+            16,
+            16
+          ],
+          "file": "reactive/dalgu/steam/frames/near_lock_00.png"
+        },
+        {
+          "key": "near_lock_01",
+          "rect": [
+            16,
+            16,
+            16,
+            16
+          ],
+          "file": "reactive/dalgu/steam/frames/near_lock_01.png"
+        },
+        {
+          "key": "near_lock_02",
+          "rect": [
+            32,
+            16,
+            16,
+            16
+          ],
+          "file": "reactive/dalgu/steam/frames/near_lock_02.png"
+        },
+        {
+          "key": "near_lock_03",
+          "rect": [
+            48,
+            16,
+            16,
+            16
+          ],
+          "file": "reactive/dalgu/steam/frames/near_lock_03.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        2,
+        14
+      ],
+      "offsetByDirection": {
+        "down": [
+          27,
+          -2
+        ],
+        "right": [
+          28,
+          -1
+        ],
+        "up": [
+          -24,
+          -2
+        ]
+      },
+      "mirrorFor": [
+        "up"
+      ],
+      "fps": 10,
+      "timingSource": "suggested"
+    },
+    "reactive/dalgu/lid": {
+      "sheet": "reactive/dalgu/lid/sheet.png",
+      "frameSize": [
+        24,
+        16
+      ],
+      "columns": 4,
+      "frames": [
+        {
+          "key": "00",
+          "rect": [
+            0,
+            0,
+            24,
+            16
+          ],
+          "file": "reactive/dalgu/lid/frames/00.png"
+        },
+        {
+          "key": "01",
+          "rect": [
+            24,
+            0,
+            24,
+            16
+          ],
+          "file": "reactive/dalgu/lid/frames/01.png"
+        },
+        {
+          "key": "02",
+          "rect": [
+            48,
+            0,
+            24,
+            16
+          ],
+          "file": "reactive/dalgu/lid/frames/02.png"
+        },
+        {
+          "key": "03",
+          "rect": [
+            72,
+            0,
+            24,
+            16
+          ],
+          "file": "reactive/dalgu/lid/frames/03.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        10,
+        12
+      ],
+      "offsetByDirection": {
+        "down": [
+          0,
+          0
+        ],
+        "right": [
+          1,
+          1
+        ],
+        "up": [
+          0,
+          0
+        ]
+      },
+      "mirrorFor": [
+        "up"
+      ],
+      "fps": 10,
+      "timingSource": "suggested",
+      "useDuring": "heat lock"
+    },
+    "reactive/chorong/head_lantern": {
+      "sheet": "reactive/chorong/head_lantern/sheet.png",
+      "frameSize": [
+        16,
+        16
+      ],
+      "columns": 8,
+      "frames": [
+        {
+          "key": "dim_00",
+          "rect": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/chorong/head_lantern/frames/dim_00.png"
+        },
+        {
+          "key": "dim_01",
+          "rect": [
+            16,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/chorong/head_lantern/frames/dim_01.png"
+        },
+        {
+          "key": "lit_00",
+          "rect": [
+            32,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/chorong/head_lantern/frames/lit_00.png"
+        },
+        {
+          "key": "lit_01",
+          "rect": [
+            48,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/chorong/head_lantern/frames/lit_01.png"
+        },
+        {
+          "key": "bright_00",
+          "rect": [
+            64,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/chorong/head_lantern/frames/bright_00.png"
+        },
+        {
+          "key": "bright_01",
+          "rect": [
+            80,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/chorong/head_lantern/frames/bright_01.png"
+        },
+        {
+          "key": "flash_00",
+          "rect": [
+            96,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/chorong/head_lantern/frames/flash_00.png"
+        },
+        {
+          "key": "flash_01",
+          "rect": [
+            112,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/chorong/head_lantern/frames/flash_01.png"
+        },
+        {
+          "key": "flash_02",
+          "rect": [
+            0,
+            16,
+            16,
+            16
+          ],
+          "file": "reactive/chorong/head_lantern/frames/flash_02.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        8,
+        8
+      ],
+      "offsetByDirection": {
+        "down": [
+          23,
+          17
+        ],
+        "right": [
+          -19,
+          17
+        ],
+        "up": [
+          20,
+          17
+        ]
+      },
+      "mirrorFor": [
+        "right"
+      ],
+      "wandFlashDelayMs": 100,
+      "simultaneousOnGraze": true,
+      "movementLag": "half-phase runtime follow",
+      "flashFrameDurationMs": 50,
+      "timingSource": "flash frame duration suggested"
+    },
+    "reactive/galpi/bookmark": {
+      "sheet": "reactive/galpi/bookmark/sheet.png",
+      "frameSize": [
+        16,
+        24
+      ],
+      "columns": 8,
+      "frames": [
+        {
+          "key": "down_00",
+          "rect": [
+            0,
+            0,
+            16,
+            24
+          ],
+          "file": "reactive/galpi/bookmark/frames/down_00.png"
+        },
+        {
+          "key": "down_01",
+          "rect": [
+            16,
+            0,
+            16,
+            24
+          ],
+          "file": "reactive/galpi/bookmark/frames/down_01.png"
+        },
+        {
+          "key": "down_02",
+          "rect": [
+            32,
+            0,
+            16,
+            24
+          ],
+          "file": "reactive/galpi/bookmark/frames/down_02.png"
+        },
+        {
+          "key": "down_03",
+          "rect": [
+            48,
+            0,
+            16,
+            24
+          ],
+          "file": "reactive/galpi/bookmark/frames/down_03.png"
+        },
+        {
+          "key": "right_00",
+          "rect": [
+            64,
+            0,
+            16,
+            24
+          ],
+          "file": "reactive/galpi/bookmark/frames/right_00.png"
+        },
+        {
+          "key": "right_01",
+          "rect": [
+            80,
+            0,
+            16,
+            24
+          ],
+          "file": "reactive/galpi/bookmark/frames/right_01.png"
+        },
+        {
+          "key": "right_02",
+          "rect": [
+            96,
+            0,
+            16,
+            24
+          ],
+          "file": "reactive/galpi/bookmark/frames/right_02.png"
+        },
+        {
+          "key": "right_03",
+          "rect": [
+            112,
+            0,
+            16,
+            24
+          ],
+          "file": "reactive/galpi/bookmark/frames/right_03.png"
+        },
+        {
+          "key": "up_00",
+          "rect": [
+            0,
+            24,
+            16,
+            24
+          ],
+          "file": "reactive/galpi/bookmark/frames/up_00.png"
+        },
+        {
+          "key": "up_01",
+          "rect": [
+            16,
+            24,
+            16,
+            24
+          ],
+          "file": "reactive/galpi/bookmark/frames/up_01.png"
+        },
+        {
+          "key": "up_02",
+          "rect": [
+            32,
+            24,
+            16,
+            24
+          ],
+          "file": "reactive/galpi/bookmark/frames/up_02.png"
+        },
+        {
+          "key": "up_03",
+          "rect": [
+            48,
+            24,
+            16,
+            24
+          ],
+          "file": "reactive/galpi/bookmark/frames/up_03.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        7,
+        3
+      ],
+      "offsetByDirection": {
+        "down": [
+          13,
+          6
+        ],
+        "right": [
+          -15,
+          6
+        ],
+        "up": [
+          13,
+          6
+        ]
+      },
+      "fps": 10,
+      "timingSource": "suggested; synchronize to walk"
+    },
+    "reactive/galpi/falling_glyph": {
+      "sheet": "reactive/galpi/falling_glyph/sheet.png",
+      "frameSize": [
+        8,
+        8
+      ],
+      "columns": 4,
+      "frames": [
+        {
+          "key": "00",
+          "rect": [
+            0,
+            0,
+            8,
+            8
+          ],
+          "file": "reactive/galpi/falling_glyph/frames/00.png"
+        },
+        {
+          "key": "01",
+          "rect": [
+            8,
+            0,
+            8,
+            8
+          ],
+          "file": "reactive/galpi/falling_glyph/frames/01.png"
+        },
+        {
+          "key": "02",
+          "rect": [
+            16,
+            0,
+            8,
+            8
+          ],
+          "file": "reactive/galpi/falling_glyph/frames/02.png"
+        },
+        {
+          "key": "03",
+          "rect": [
+            24,
+            0,
+            8,
+            8
+          ],
+          "file": "reactive/galpi/falling_glyph/frames/03.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        4,
+        4
+      ],
+      "offsetByDirection": {
+        "down": [
+          10,
+          13
+        ],
+        "right": [
+          12,
+          12
+        ],
+        "up": [
+          10,
+          13
+        ]
+      },
+      "fps": 12,
+      "timingSource": "suggested; trigger on fire"
+    },
+    "reactive/seonge/crown_shard": {
+      "sheet": "reactive/seonge/crown_shard/sheet.png",
+      "frameSize": [
+        8,
+        12
+      ],
+      "columns": 8,
+      "frames": [
+        {
+          "key": "small_00",
+          "rect": [
+            0,
+            0,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/small_00.png"
+        },
+        {
+          "key": "small_01",
+          "rect": [
+            8,
+            0,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/small_01.png"
+        },
+        {
+          "key": "small_02",
+          "rect": [
+            16,
+            0,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/small_02.png"
+        },
+        {
+          "key": "small_03",
+          "rect": [
+            24,
+            0,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/small_03.png"
+        },
+        {
+          "key": "small_04",
+          "rect": [
+            32,
+            0,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/small_04.png"
+        },
+        {
+          "key": "medium_00",
+          "rect": [
+            40,
+            0,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/medium_00.png"
+        },
+        {
+          "key": "medium_01",
+          "rect": [
+            48,
+            0,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/medium_01.png"
+        },
+        {
+          "key": "medium_02",
+          "rect": [
+            56,
+            0,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/medium_02.png"
+        },
+        {
+          "key": "medium_03",
+          "rect": [
+            0,
+            12,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/medium_03.png"
+        },
+        {
+          "key": "medium_04",
+          "rect": [
+            8,
+            12,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/medium_04.png"
+        },
+        {
+          "key": "large_00",
+          "rect": [
+            16,
+            12,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/large_00.png"
+        },
+        {
+          "key": "large_01",
+          "rect": [
+            24,
+            12,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/large_01.png"
+        },
+        {
+          "key": "large_02",
+          "rect": [
+            32,
+            12,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/large_02.png"
+        },
+        {
+          "key": "large_03",
+          "rect": [
+            40,
+            12,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/large_03.png"
+        },
+        {
+          "key": "large_04",
+          "rect": [
+            48,
+            12,
+            8,
+            12
+          ],
+          "file": "reactive/seonge/crown_shard/frames/large_04.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        3,
+        6
+      ],
+      "offsets": [
+        [
+          -16,
+          3
+        ],
+        [
+          -10,
+          -4
+        ],
+        [
+          0,
+          -8
+        ],
+        [
+          8,
+          -5
+        ],
+        [
+          17,
+          2
+        ]
+      ],
+      "motion": "offset the five shards out of phase and select size from heat"
+    },
+    "reactive/seonge/frost_footprint": {
+      "sheet": "reactive/seonge/frost_footprint/sheet.png",
+      "frameSize": [
+        16,
+        8
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "00",
+          "rect": [
+            0,
+            0,
+            16,
+            8
+          ],
+          "file": "reactive/seonge/frost_footprint/frames/00.png"
+        },
+        {
+          "key": "01",
+          "rect": [
+            16,
+            0,
+            16,
+            8
+          ],
+          "file": "reactive/seonge/frost_footprint/frames/01.png"
+        },
+        {
+          "key": "02",
+          "rect": [
+            32,
+            0,
+            16,
+            8
+          ],
+          "file": "reactive/seonge/frost_footprint/frames/02.png"
+        }
+      ],
+      "attachment": "feet",
+      "pivot": [
+        8,
+        4
+      ],
+      "durationMs": 500,
+      "frameDurationMs": [
+        167,
+        166,
+        167
+      ],
+      "timingSource": "total lifetime specified; subdivision suggested",
+      "layer": "ground"
+    },
+    "reactive/geumeum/eyes": {
+      "sheet": "reactive/geumeum/eyes/sheet.png",
+      "frameSize": [
+        16,
+        8
+      ],
+      "columns": 8,
+      "frames": [
+        {
+          "key": "down_neutral",
+          "rect": [
+            0,
+            0,
+            16,
+            8
+          ],
+          "file": "reactive/geumeum/eyes/frames/down_neutral.png"
+        },
+        {
+          "key": "down_bright",
+          "rect": [
+            16,
+            0,
+            16,
+            8
+          ],
+          "file": "reactive/geumeum/eyes/frames/down_bright.png"
+        },
+        {
+          "key": "down_blink",
+          "rect": [
+            32,
+            0,
+            16,
+            8
+          ],
+          "file": "reactive/geumeum/eyes/frames/down_blink.png"
+        },
+        {
+          "key": "down_crescent",
+          "rect": [
+            48,
+            0,
+            16,
+            8
+          ],
+          "file": "reactive/geumeum/eyes/frames/down_crescent.png"
+        },
+        {
+          "key": "down_dot",
+          "rect": [
+            64,
+            0,
+            16,
+            8
+          ],
+          "file": "reactive/geumeum/eyes/frames/down_dot.png"
+        },
+        {
+          "key": "right_neutral",
+          "rect": [
+            80,
+            0,
+            16,
+            8
+          ],
+          "file": "reactive/geumeum/eyes/frames/right_neutral.png"
+        },
+        {
+          "key": "right_bright",
+          "rect": [
+            96,
+            0,
+            16,
+            8
+          ],
+          "file": "reactive/geumeum/eyes/frames/right_bright.png"
+        },
+        {
+          "key": "right_blink",
+          "rect": [
+            112,
+            0,
+            16,
+            8
+          ],
+          "file": "reactive/geumeum/eyes/frames/right_blink.png"
+        },
+        {
+          "key": "right_crescent",
+          "rect": [
+            0,
+            8,
+            16,
+            8
+          ],
+          "file": "reactive/geumeum/eyes/frames/right_crescent.png"
+        },
+        {
+          "key": "right_dot",
+          "rect": [
+            16,
+            8,
+            16,
+            8
+          ],
+          "file": "reactive/geumeum/eyes/frames/right_dot.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        0,
+        0
+      ],
+      "offsetByDirection": {
+        "down": [
+          1,
+          10
+        ],
+        "right": [
+          8,
+          10
+        ]
+      },
+      "note": "up does not expose eyes; right mirrors for left"
+    },
+    "reactive/geumeum/debt_ring": {
+      "sheet": "reactive/geumeum/debt_ring/sheet.png",
+      "frameSize": [
+        16,
+        16
+      ],
+      "columns": 2,
+      "frames": [
+        {
+          "key": "dim",
+          "rect": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/geumeum/debt_ring/frames/dim.png"
+        },
+        {
+          "key": "lit",
+          "rect": [
+            16,
+            0,
+            16,
+            16
+          ],
+          "file": "reactive/geumeum/debt_ring/frames/lit.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        8,
+        8
+      ],
+      "offset": [
+        0,
+        -15
+      ],
+      "fps": 3,
+      "timingSource": "suggested"
+    },
+    "wild-stain/dalgu/stage-2/soot": {
+      "sheet": "wild-stain/dalgu/stage-2/soot/sheet.png",
+      "frameSize": [
+        8,
+        5
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            8,
+            5
+          ],
+          "file": "wild-stain/dalgu/stage-2/soot/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            8,
+            0,
+            8,
+            5
+          ],
+          "file": "wild-stain/dalgu/stage-2/soot/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            16,
+            0,
+            8,
+            5
+          ],
+          "file": "wild-stain/dalgu/stage-2/soot/frames/up.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        4,
+        2
+      ],
+      "offsetByDirection": {
+        "down": [
+          -10,
+          5
+        ],
+        "right": [
+          -8,
+          5
+        ],
+        "up": [
+          10,
+          5
+        ]
+      }
+    },
+    "wild-stain/dalgu/stage-2/grass_hem": {
+      "sheet": "wild-stain/dalgu/stage-2/grass_hem/sheet.png",
+      "frameSize": [
+        11,
+        4
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            11,
+            4
+          ],
+          "file": "wild-stain/dalgu/stage-2/grass_hem/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            11,
+            0,
+            11,
+            4
+          ],
+          "file": "wild-stain/dalgu/stage-2/grass_hem/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            22,
+            0,
+            11,
+            4
+          ],
+          "file": "wild-stain/dalgu/stage-2/grass_hem/frames/up.png"
+        }
+      ],
+      "attachment": "feet",
+      "pivot": [
+        5,
+        2
+      ],
+      "offsetByDirection": {
+        "down": [
+          -7,
+          -7
+        ],
+        "right": [
+          -5,
+          -6
+        ],
+        "up": [
+          3,
+          -7
+        ]
+      }
+    },
+    "wild-stain/dalgu/stage-3/metal_patch": {
+      "sheet": "wild-stain/dalgu/stage-3/metal_patch/sheet.png",
+      "frameSize": [
+        8,
+        5
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            8,
+            5
+          ],
+          "file": "wild-stain/dalgu/stage-3/metal_patch/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            8,
+            0,
+            8,
+            5
+          ],
+          "file": "wild-stain/dalgu/stage-3/metal_patch/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            16,
+            0,
+            8,
+            5
+          ],
+          "file": "wild-stain/dalgu/stage-3/metal_patch/frames/up.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        4,
+        2
+      ],
+      "offsetByDirection": {
+        "down": [
+          11,
+          6
+        ],
+        "right": [
+          13,
+          7
+        ],
+        "up": [
+          -9,
+          7
+        ]
+      }
+    },
+    "wild-stain/dalgu/stage-3/lid_feather": {
+      "sheet": "wild-stain/dalgu/stage-3/lid_feather/sheet.png",
+      "frameSize": [
+        6,
+        7
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            6,
+            7
+          ],
+          "file": "wild-stain/dalgu/stage-3/lid_feather/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            6,
+            0,
+            6,
+            7
+          ],
+          "file": "wild-stain/dalgu/stage-3/lid_feather/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            12,
+            0,
+            6,
+            7
+          ],
+          "file": "wild-stain/dalgu/stage-3/lid_feather/frames/up.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        3,
+        3
+      ],
+      "offsetByDirection": {
+        "down": [
+          0,
+          -5
+        ],
+        "right": [
+          1,
+          -4
+        ],
+        "up": [
+          2,
+          -5
+        ]
+      }
+    },
+    "wild-stain/dalgu/stage-4/spout_embers": {
+      "sheet": "wild-stain/dalgu/stage-4/spout_embers/sheet.png",
+      "frameSize": [
+        16,
+        16
+      ],
+      "columns": 8,
+      "frames": [
+        {
+          "key": "down_00",
+          "rect": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "file": "wild-stain/dalgu/stage-4/spout_embers/frames/down_00.png"
+        },
+        {
+          "key": "down_01",
+          "rect": [
+            16,
+            0,
+            16,
+            16
+          ],
+          "file": "wild-stain/dalgu/stage-4/spout_embers/frames/down_01.png"
+        },
+        {
+          "key": "down_02",
+          "rect": [
+            32,
+            0,
+            16,
+            16
+          ],
+          "file": "wild-stain/dalgu/stage-4/spout_embers/frames/down_02.png"
+        },
+        {
+          "key": "right_00",
+          "rect": [
+            48,
+            0,
+            16,
+            16
+          ],
+          "file": "wild-stain/dalgu/stage-4/spout_embers/frames/right_00.png"
+        },
+        {
+          "key": "right_01",
+          "rect": [
+            64,
+            0,
+            16,
+            16
+          ],
+          "file": "wild-stain/dalgu/stage-4/spout_embers/frames/right_01.png"
+        },
+        {
+          "key": "right_02",
+          "rect": [
+            80,
+            0,
+            16,
+            16
+          ],
+          "file": "wild-stain/dalgu/stage-4/spout_embers/frames/right_02.png"
+        },
+        {
+          "key": "up_00",
+          "rect": [
+            96,
+            0,
+            16,
+            16
+          ],
+          "file": "wild-stain/dalgu/stage-4/spout_embers/frames/up_00.png"
+        },
+        {
+          "key": "up_01",
+          "rect": [
+            112,
+            0,
+            16,
+            16
+          ],
+          "file": "wild-stain/dalgu/stage-4/spout_embers/frames/up_01.png"
+        },
+        {
+          "key": "up_02",
+          "rect": [
+            0,
+            16,
+            16,
+            16
+          ],
+          "file": "wild-stain/dalgu/stage-4/spout_embers/frames/up_02.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        2,
+        14
+      ],
+      "offsetByDirection": {
+        "down": [
+          26,
+          -2
+        ],
+        "right": [
+          27,
+          -1
+        ],
+        "up": [
+          -24,
+          -2
+        ]
+      },
+      "fps": 10,
+      "timingSource": "suggested",
+      "inheritsStages": [
+        2,
+        3
+      ]
+    },
+    "wild-stain/chorong/stage-2/hat_leaf": {
+      "sheet": "wild-stain/chorong/stage-2/hat_leaf/sheet.png",
+      "frameSize": [
+        7,
+        7
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            7,
+            7
+          ],
+          "file": "wild-stain/chorong/stage-2/hat_leaf/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            7,
+            0,
+            7,
+            7
+          ],
+          "file": "wild-stain/chorong/stage-2/hat_leaf/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            14,
+            0,
+            7,
+            7
+          ],
+          "file": "wild-stain/chorong/stage-2/hat_leaf/frames/up.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        3,
+        3
+      ],
+      "offsetByDirection": {
+        "down": [
+          11,
+          -3
+        ],
+        "right": [
+          -12,
+          0
+        ],
+        "up": [
+          9,
+          -4
+        ]
+      }
+    },
+    "wild-stain/chorong/stage-2/straw_slipper": {
+      "sheet": "wild-stain/chorong/stage-2/straw_slipper/sheet.png",
+      "frameSize": [
+        8,
+        4
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            8,
+            4
+          ],
+          "file": "wild-stain/chorong/stage-2/straw_slipper/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            8,
+            0,
+            8,
+            4
+          ],
+          "file": "wild-stain/chorong/stage-2/straw_slipper/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            16,
+            0,
+            8,
+            4
+          ],
+          "file": "wild-stain/chorong/stage-2/straw_slipper/frames/up.png"
+        }
+      ],
+      "attachment": "feet",
+      "pivot": [
+        4,
+        2
+      ],
+      "offsetByDirection": {
+        "down": [
+          6,
+          -2
+        ],
+        "right": [
+          8,
+          -2
+        ],
+        "up": [
+          -6,
+          -2
+        ]
+      }
+    },
+    "wild-stain/chorong/stage-3/fireflies": {
+      "sheet": "wild-stain/chorong/stage-3/fireflies/sheet.png",
+      "frameSize": [
+        13,
+        6
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            13,
+            6
+          ],
+          "file": "wild-stain/chorong/stage-3/fireflies/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            13,
+            0,
+            13,
+            6
+          ],
+          "file": "wild-stain/chorong/stage-3/fireflies/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            26,
+            0,
+            13,
+            6
+          ],
+          "file": "wild-stain/chorong/stage-3/fireflies/frames/up.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        6,
+        3
+      ],
+      "offsetByDirection": {
+        "down": [
+          23,
+          17
+        ],
+        "right": [
+          -21,
+          17
+        ],
+        "up": [
+          20,
+          17
+        ]
+      }
+    },
+    "wild-stain/chorong/stage-3/sewn_robe": {
+      "sheet": "wild-stain/chorong/stage-3/sewn_robe/sheet.png",
+      "frameSize": [
+        8,
+        6
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            8,
+            6
+          ],
+          "file": "wild-stain/chorong/stage-3/sewn_robe/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            8,
+            0,
+            8,
+            6
+          ],
+          "file": "wild-stain/chorong/stage-3/sewn_robe/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            16,
+            0,
+            8,
+            6
+          ],
+          "file": "wild-stain/chorong/stage-3/sewn_robe/frames/up.png"
+        }
+      ],
+      "attachment": "shoulder",
+      "pivot": [
+        4,
+        3
+      ],
+      "offsetByDirection": {
+        "down": [
+          -7,
+          9
+        ],
+        "right": [
+          -6,
+          10
+        ],
+        "up": [
+          7,
+          9
+        ]
+      }
+    },
+    "wild-stain/chorong/stage-4/floating_lantern": {
+      "sheet": "wild-stain/chorong/stage-4/floating_lantern/sheet.png",
+      "frameSize": [
+        16,
+        16
+      ],
+      "columns": 8,
+      "frames": [
+        {
+          "key": "down_00",
+          "rect": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "file": "wild-stain/chorong/stage-4/floating_lantern/frames/down_00.png"
+        },
+        {
+          "key": "down_01",
+          "rect": [
+            16,
+            0,
+            16,
+            16
+          ],
+          "file": "wild-stain/chorong/stage-4/floating_lantern/frames/down_01.png"
+        },
+        {
+          "key": "down_02",
+          "rect": [
+            32,
+            0,
+            16,
+            16
+          ],
+          "file": "wild-stain/chorong/stage-4/floating_lantern/frames/down_02.png"
+        },
+        {
+          "key": "right_00",
+          "rect": [
+            48,
+            0,
+            16,
+            16
+          ],
+          "file": "wild-stain/chorong/stage-4/floating_lantern/frames/right_00.png"
+        },
+        {
+          "key": "right_01",
+          "rect": [
+            64,
+            0,
+            16,
+            16
+          ],
+          "file": "wild-stain/chorong/stage-4/floating_lantern/frames/right_01.png"
+        },
+        {
+          "key": "right_02",
+          "rect": [
+            80,
+            0,
+            16,
+            16
+          ],
+          "file": "wild-stain/chorong/stage-4/floating_lantern/frames/right_02.png"
+        },
+        {
+          "key": "up_00",
+          "rect": [
+            96,
+            0,
+            16,
+            16
+          ],
+          "file": "wild-stain/chorong/stage-4/floating_lantern/frames/up_00.png"
+        },
+        {
+          "key": "up_01",
+          "rect": [
+            112,
+            0,
+            16,
+            16
+          ],
+          "file": "wild-stain/chorong/stage-4/floating_lantern/frames/up_01.png"
+        },
+        {
+          "key": "up_02",
+          "rect": [
+            0,
+            16,
+            16,
+            16
+          ],
+          "file": "wild-stain/chorong/stage-4/floating_lantern/frames/up_02.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        8,
+        8
+      ],
+      "offsetByDirection": {
+        "down": [
+          24,
+          17
+        ],
+        "right": [
+          -21,
+          17
+        ],
+        "up": [
+          21,
+          17
+        ]
+      },
+      "fps": 7,
+      "timingSource": "suggested",
+      "inheritsStages": [
+        2,
+        3
+      ],
+      "replaces": "head_lantern"
+    },
+    "wild-stain/galpi/stage-2/tied_hem": {
+      "sheet": "wild-stain/galpi/stage-2/tied_hem/sheet.png",
+      "frameSize": [
+        10,
+        5
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            10,
+            5
+          ],
+          "file": "wild-stain/galpi/stage-2/tied_hem/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            10,
+            0,
+            10,
+            5
+          ],
+          "file": "wild-stain/galpi/stage-2/tied_hem/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            20,
+            0,
+            10,
+            5
+          ],
+          "file": "wild-stain/galpi/stage-2/tied_hem/frames/up.png"
+        }
+      ],
+      "attachment": "feet",
+      "pivot": [
+        5,
+        2
+      ],
+      "offsetByDirection": {
+        "down": [
+          1,
+          -7
+        ],
+        "right": [
+          -4,
+          -7
+        ],
+        "up": [
+          7,
+          -7
+        ]
+      }
+    },
+    "wild-stain/galpi/stage-2/roof_spot": {
+      "sheet": "wild-stain/galpi/stage-2/roof_spot/sheet.png",
+      "frameSize": [
+        7,
+        6
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            7,
+            6
+          ],
+          "file": "wild-stain/galpi/stage-2/roof_spot/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            7,
+            0,
+            7,
+            6
+          ],
+          "file": "wild-stain/galpi/stage-2/roof_spot/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            14,
+            0,
+            7,
+            6
+          ],
+          "file": "wild-stain/galpi/stage-2/roof_spot/frames/up.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        3,
+        3
+      ],
+      "offsetByDirection": {
+        "down": [
+          14,
+          4
+        ],
+        "right": [
+          11,
+          6
+        ],
+        "up": [
+          -11,
+          6
+        ]
+      }
+    },
+    "wild-stain/galpi/stage-3/roof_grass": {
+      "sheet": "wild-stain/galpi/stage-3/roof_grass/sheet.png",
+      "frameSize": [
+        9,
+        6
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            9,
+            6
+          ],
+          "file": "wild-stain/galpi/stage-3/roof_grass/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            9,
+            0,
+            9,
+            6
+          ],
+          "file": "wild-stain/galpi/stage-3/roof_grass/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            18,
+            0,
+            9,
+            6
+          ],
+          "file": "wild-stain/galpi/stage-3/roof_grass/frames/up.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        4,
+        3
+      ],
+      "offsetByDirection": {
+        "down": [
+          -9,
+          1
+        ],
+        "right": [
+          -9,
+          0
+        ],
+        "up": [
+          9,
+          1
+        ]
+      }
+    },
+    "wild-stain/galpi/stage-3/second_scroll": {
+      "sheet": "wild-stain/galpi/stage-3/second_scroll/sheet.png",
+      "frameSize": [
+        9,
+        7
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            9,
+            7
+          ],
+          "file": "wild-stain/galpi/stage-3/second_scroll/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            9,
+            0,
+            9,
+            7
+          ],
+          "file": "wild-stain/galpi/stage-3/second_scroll/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            18,
+            0,
+            9,
+            7
+          ],
+          "file": "wild-stain/galpi/stage-3/second_scroll/frames/up.png"
+        }
+      ],
+      "attachment": "shoulder",
+      "pivot": [
+        4,
+        3
+      ],
+      "offsetByDirection": {
+        "down": [
+          4,
+          13
+        ],
+        "right": [
+          1,
+          14
+        ],
+        "up": [
+          -5,
+          13
+        ]
+      }
+    },
+    "wild-stain/galpi/stage-4/glowing_bookmark": {
+      "sheet": "wild-stain/galpi/stage-4/glowing_bookmark/sheet.png",
+      "frameSize": [
+        16,
+        24
+      ],
+      "columns": 8,
+      "frames": [
+        {
+          "key": "down_00",
+          "rect": [
+            0,
+            0,
+            16,
+            24
+          ],
+          "file": "wild-stain/galpi/stage-4/glowing_bookmark/frames/down_00.png"
+        },
+        {
+          "key": "down_01",
+          "rect": [
+            16,
+            0,
+            16,
+            24
+          ],
+          "file": "wild-stain/galpi/stage-4/glowing_bookmark/frames/down_01.png"
+        },
+        {
+          "key": "down_02",
+          "rect": [
+            32,
+            0,
+            16,
+            24
+          ],
+          "file": "wild-stain/galpi/stage-4/glowing_bookmark/frames/down_02.png"
+        },
+        {
+          "key": "right_00",
+          "rect": [
+            48,
+            0,
+            16,
+            24
+          ],
+          "file": "wild-stain/galpi/stage-4/glowing_bookmark/frames/right_00.png"
+        },
+        {
+          "key": "right_01",
+          "rect": [
+            64,
+            0,
+            16,
+            24
+          ],
+          "file": "wild-stain/galpi/stage-4/glowing_bookmark/frames/right_01.png"
+        },
+        {
+          "key": "right_02",
+          "rect": [
+            80,
+            0,
+            16,
+            24
+          ],
+          "file": "wild-stain/galpi/stage-4/glowing_bookmark/frames/right_02.png"
+        },
+        {
+          "key": "up_00",
+          "rect": [
+            96,
+            0,
+            16,
+            24
+          ],
+          "file": "wild-stain/galpi/stage-4/glowing_bookmark/frames/up_00.png"
+        },
+        {
+          "key": "up_01",
+          "rect": [
+            112,
+            0,
+            16,
+            24
+          ],
+          "file": "wild-stain/galpi/stage-4/glowing_bookmark/frames/up_01.png"
+        },
+        {
+          "key": "up_02",
+          "rect": [
+            0,
+            24,
+            16,
+            24
+          ],
+          "file": "wild-stain/galpi/stage-4/glowing_bookmark/frames/up_02.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        7,
+        3
+      ],
+      "offsetByDirection": {
+        "down": [
+          13,
+          6
+        ],
+        "right": [
+          -15,
+          6
+        ],
+        "up": [
+          13,
+          6
+        ]
+      },
+      "fps": 10,
+      "timingSource": "suggested",
+      "inheritsStages": [
+        2,
+        3
+      ],
+      "replaces": "bookmark"
+    },
+    "wild-stain/seonge/stage-2/earth_hem": {
+      "sheet": "wild-stain/seonge/stage-2/earth_hem/sheet.png",
+      "frameSize": [
+        11,
+        5
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            11,
+            5
+          ],
+          "file": "wild-stain/seonge/stage-2/earth_hem/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            11,
+            0,
+            11,
+            5
+          ],
+          "file": "wild-stain/seonge/stage-2/earth_hem/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            22,
+            0,
+            11,
+            5
+          ],
+          "file": "wild-stain/seonge/stage-2/earth_hem/frames/up.png"
+        }
+      ],
+      "attachment": "feet",
+      "pivot": [
+        5,
+        2
+      ],
+      "offsetByDirection": {
+        "down": [
+          12,
+          -7
+        ],
+        "right": [
+          -11,
+          -7
+        ],
+        "up": [
+          10,
+          -7
+        ]
+      }
+    },
+    "wild-stain/seonge/stage-2/shard_crack": {
+      "sheet": "wild-stain/seonge/stage-2/shard_crack/sheet.png",
+      "frameSize": [
+        4,
+        6
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            4,
+            6
+          ],
+          "file": "wild-stain/seonge/stage-2/shard_crack/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            4,
+            0,
+            4,
+            6
+          ],
+          "file": "wild-stain/seonge/stage-2/shard_crack/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            8,
+            0,
+            4,
+            6
+          ],
+          "file": "wild-stain/seonge/stage-2/shard_crack/frames/up.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        2,
+        3
+      ],
+      "offsetByDirection": {
+        "down": [
+          8,
+          -5
+        ],
+        "right": [
+          8,
+          -5
+        ],
+        "up": [
+          8,
+          -5
+        ]
+      }
+    },
+    "wild-stain/seonge/stage-3/fur_collar": {
+      "sheet": "wild-stain/seonge/stage-3/fur_collar/sheet.png",
+      "frameSize": [
+        12,
+        6
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            12,
+            6
+          ],
+          "file": "wild-stain/seonge/stage-3/fur_collar/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            12,
+            0,
+            12,
+            6
+          ],
+          "file": "wild-stain/seonge/stage-3/fur_collar/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            24,
+            0,
+            12,
+            6
+          ],
+          "file": "wild-stain/seonge/stage-3/fur_collar/frames/up.png"
+        }
+      ],
+      "attachment": "shoulder",
+      "pivot": [
+        6,
+        3
+      ],
+      "offsetByDirection": {
+        "down": [
+          -8,
+          2
+        ],
+        "right": [
+          -8,
+          2
+        ],
+        "up": [
+          7,
+          3
+        ]
+      }
+    },
+    "wild-stain/seonge/stage-3/sixth_crown_shard": {
+      "sheet": "wild-stain/seonge/stage-3/sixth_crown_shard/sheet.png",
+      "frameSize": [
+        8,
+        12
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            8,
+            12
+          ],
+          "file": "wild-stain/seonge/stage-3/sixth_crown_shard/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            8,
+            0,
+            8,
+            12
+          ],
+          "file": "wild-stain/seonge/stage-3/sixth_crown_shard/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            16,
+            0,
+            8,
+            12
+          ],
+          "file": "wild-stain/seonge/stage-3/sixth_crown_shard/frames/up.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        4,
+        6
+      ],
+      "offsetByDirection": {
+        "down": [
+          21,
+          -1
+        ],
+        "right": [
+          21,
+          -1
+        ],
+        "up": [
+          -21,
+          -1
+        ]
+      }
+    },
+    "wild-stain/seonge/stage-4/snowflake_track": {
+      "sheet": "wild-stain/seonge/stage-4/snowflake_track/sheet.png",
+      "frameSize": [
+        16,
+        8
+      ],
+      "columns": 8,
+      "frames": [
+        {
+          "key": "down_00",
+          "rect": [
+            0,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/seonge/stage-4/snowflake_track/frames/down_00.png"
+        },
+        {
+          "key": "down_01",
+          "rect": [
+            16,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/seonge/stage-4/snowflake_track/frames/down_01.png"
+        },
+        {
+          "key": "down_02",
+          "rect": [
+            32,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/seonge/stage-4/snowflake_track/frames/down_02.png"
+        },
+        {
+          "key": "right_00",
+          "rect": [
+            48,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/seonge/stage-4/snowflake_track/frames/right_00.png"
+        },
+        {
+          "key": "right_01",
+          "rect": [
+            64,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/seonge/stage-4/snowflake_track/frames/right_01.png"
+        },
+        {
+          "key": "right_02",
+          "rect": [
+            80,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/seonge/stage-4/snowflake_track/frames/right_02.png"
+        },
+        {
+          "key": "up_00",
+          "rect": [
+            96,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/seonge/stage-4/snowflake_track/frames/up_00.png"
+        },
+        {
+          "key": "up_01",
+          "rect": [
+            112,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/seonge/stage-4/snowflake_track/frames/up_01.png"
+        },
+        {
+          "key": "up_02",
+          "rect": [
+            0,
+            8,
+            16,
+            8
+          ],
+          "file": "wild-stain/seonge/stage-4/snowflake_track/frames/up_02.png"
+        }
+      ],
+      "attachment": "feet",
+      "pivot": [
+        8,
+        4
+      ],
+      "offsetByDirection": {
+        "down": [
+          0,
+          0
+        ],
+        "right": [
+          0,
+          0
+        ],
+        "up": [
+          0,
+          0
+        ]
+      },
+      "fps": 6,
+      "timingSource": "0.5 second track from spec",
+      "inheritsStages": [
+        2,
+        3
+      ],
+      "replaces": "frost_footprint"
+    },
+    "wild-stain/geumeum/stage-2/frayed_cape": {
+      "sheet": "wild-stain/geumeum/stage-2/frayed_cape/sheet.png",
+      "frameSize": [
+        9,
+        5
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            9,
+            5
+          ],
+          "file": "wild-stain/geumeum/stage-2/frayed_cape/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            9,
+            0,
+            9,
+            5
+          ],
+          "file": "wild-stain/geumeum/stage-2/frayed_cape/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            18,
+            0,
+            9,
+            5
+          ],
+          "file": "wild-stain/geumeum/stage-2/frayed_cape/frames/up.png"
+        }
+      ],
+      "attachment": "feet",
+      "pivot": [
+        4,
+        2
+      ],
+      "offsetByDirection": {
+        "down": [
+          -12,
+          -7
+        ],
+        "right": [
+          -13,
+          -7
+        ],
+        "up": [
+          12,
+          -7
+        ]
+      }
+    },
+    "wild-stain/geumeum/stage-2/hood_burr": {
+      "sheet": "wild-stain/geumeum/stage-2/hood_burr/sheet.png",
+      "frameSize": [
+        7,
+        6
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            7,
+            6
+          ],
+          "file": "wild-stain/geumeum/stage-2/hood_burr/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            7,
+            0,
+            7,
+            6
+          ],
+          "file": "wild-stain/geumeum/stage-2/hood_burr/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            14,
+            0,
+            7,
+            6
+          ],
+          "file": "wild-stain/geumeum/stage-2/hood_burr/frames/up.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        3,
+        3
+      ],
+      "offsetByDirection": {
+        "down": [
+          -9,
+          -5
+        ],
+        "right": [
+          -9,
+          -5
+        ],
+        "up": [
+          10,
+          -5
+        ]
+      }
+    },
+    "wild-stain/geumeum/stage-3/hood_moon": {
+      "sheet": "wild-stain/geumeum/stage-3/hood_moon/sheet.png",
+      "frameSize": [
+        6,
+        6
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            6,
+            6
+          ],
+          "file": "wild-stain/geumeum/stage-3/hood_moon/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            6,
+            0,
+            6,
+            6
+          ],
+          "file": "wild-stain/geumeum/stage-3/hood_moon/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            12,
+            0,
+            6,
+            6
+          ],
+          "file": "wild-stain/geumeum/stage-3/hood_moon/frames/up.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        3,
+        3
+      ],
+      "offsetByDirection": {
+        "down": [
+          -19,
+          1
+        ],
+        "right": [
+          -19,
+          1
+        ],
+        "up": [
+          21,
+          1
+        ]
+      }
+    },
+    "wild-stain/geumeum/stage-3/shoulder_crow": {
+      "sheet": "wild-stain/geumeum/stage-3/shoulder_crow/sheet.png",
+      "frameSize": [
+        10,
+        7
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            10,
+            7
+          ],
+          "file": "wild-stain/geumeum/stage-3/shoulder_crow/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            10,
+            0,
+            10,
+            7
+          ],
+          "file": "wild-stain/geumeum/stage-3/shoulder_crow/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            20,
+            0,
+            10,
+            7
+          ],
+          "file": "wild-stain/geumeum/stage-3/shoulder_crow/frames/up.png"
+        }
+      ],
+      "attachment": "shoulder",
+      "pivot": [
+        5,
+        3
+      ],
+      "offsetByDirection": {
+        "down": [
+          -11,
+          -2
+        ],
+        "right": [
+          -12,
+          -2
+        ],
+        "up": [
+          12,
+          -2
+        ]
+      }
+    },
+    "wild-stain/geumeum/stage-4/eye_afterimage": {
+      "sheet": "wild-stain/geumeum/stage-4/eye_afterimage/sheet.png",
+      "frameSize": [
+        16,
+        8
+      ],
+      "columns": 8,
+      "frames": [
+        {
+          "key": "down_00",
+          "rect": [
+            0,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/geumeum/stage-4/eye_afterimage/frames/down_00.png"
+        },
+        {
+          "key": "down_01",
+          "rect": [
+            16,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/geumeum/stage-4/eye_afterimage/frames/down_01.png"
+        },
+        {
+          "key": "down_02",
+          "rect": [
+            32,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/geumeum/stage-4/eye_afterimage/frames/down_02.png"
+        },
+        {
+          "key": "right_00",
+          "rect": [
+            48,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/geumeum/stage-4/eye_afterimage/frames/right_00.png"
+        },
+        {
+          "key": "right_01",
+          "rect": [
+            64,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/geumeum/stage-4/eye_afterimage/frames/right_01.png"
+        },
+        {
+          "key": "right_02",
+          "rect": [
+            80,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/geumeum/stage-4/eye_afterimage/frames/right_02.png"
+        },
+        {
+          "key": "up_00",
+          "rect": [
+            96,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/geumeum/stage-4/eye_afterimage/frames/up_00.png"
+        },
+        {
+          "key": "up_01",
+          "rect": [
+            112,
+            0,
+            16,
+            8
+          ],
+          "file": "wild-stain/geumeum/stage-4/eye_afterimage/frames/up_01.png"
+        },
+        {
+          "key": "up_02",
+          "rect": [
+            0,
+            8,
+            16,
+            8
+          ],
+          "file": "wild-stain/geumeum/stage-4/eye_afterimage/frames/up_02.png"
+        }
+      ],
+      "attachment": "head",
+      "pivot": [
+        8,
+        4
+      ],
+      "offsetByDirection": {
+        "down": [
+          4,
+          13
+        ],
+        "right": [
+          -2,
+          13
+        ],
+        "up": [
+          9,
+          9
+        ]
+      },
+      "fps": 10,
+      "timingSource": "suggested",
+      "inheritsStages": [
+        2,
+        3
+      ],
+      "useDuring": "walk"
+    },
+    "cosmetic/cracked-mirror-shard": {
+      "sheet": "cosmetic/cracked-mirror-shard/sheet.png",
+      "frameSize": [
+        24,
+        24
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            24,
+            24
+          ],
+          "file": "cosmetic/cracked-mirror-shard/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            24,
+            0,
+            24,
+            24
+          ],
+          "file": "cosmetic/cracked-mirror-shard/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            48,
+            0,
+            24,
+            24
+          ],
+          "file": "cosmetic/cracked-mirror-shard/frames/up.png"
+        }
+      ],
+      "contentId": "cosmetic.headwear.cracked_mirror_shard",
+      "attachment": "head",
+      "pivot": [
+        12,
+        12
+      ],
+      "offsetByDirection": {
+        "down": [
+          27,
+          10
+        ],
+        "right": [
+          26,
+          10
+        ],
+        "up": [
+          -26,
+          10
+        ]
+      },
+      "motion": "float beside the head; avoid covering silhouette"
+    },
+    "equipment/seonge/pillar-grip": {
+      "sheet": "equipment/seonge/pillar-grip/sheet.png",
+      "frameSize": [
+        12,
+        12
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "key": "down",
+          "rect": [
+            0,
+            0,
+            12,
+            12
+          ],
+          "file": "equipment/seonge/pillar-grip/frames/down.png"
+        },
+        {
+          "key": "right",
+          "rect": [
+            12,
+            0,
+            12,
+            12
+          ],
+          "file": "equipment/seonge/pillar-grip/frames/right.png"
+        },
+        {
+          "key": "up",
+          "rect": [
+            24,
+            0,
+            12,
+            12
+          ],
+          "file": "equipment/seonge/pillar-grip/frames/up.png"
+        }
+      ],
+      "attachment": "hand",
+      "pivot": [
+        5,
+        6
+      ],
+      "wandStage": 13,
+      "clips": [
+        "idle",
+        "walk",
+        "stance_walk"
+      ],
+      "anchorBehavior": "apply overlay above base hand; preserve hand socket"
+    }
+  },
+  "preview": "preview.png"
+}

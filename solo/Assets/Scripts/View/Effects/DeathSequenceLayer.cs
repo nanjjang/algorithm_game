@@ -228,6 +228,10 @@ namespace Wizard.Solo.View.Effects
                 vr.sizeDelta = new Vector2(side, side);
                 vr.anchoredPosition = _vc != null ? _vc.WorldToHud(w.Players[_slot].Pos) : Vector2.zero;
             }
+            {
+                var cfy = CameraFx.Of(_vc);
+                if (cfy != null && _vc.Camera != null) cfy.SubjectViewportY = _vc.Camera.WorldToViewportPoint(_vc.ToView(w.Players[_slot].Pos)).y;
+            }
 
             // 낮은 쿵
             if (!_thudPlayed && _t >= Seconds("thud_delay"))

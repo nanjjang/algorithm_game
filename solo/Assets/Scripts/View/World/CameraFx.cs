@@ -12,6 +12,9 @@ namespace Wizard.Solo.View
     {
         public CameraDirector Director;
 
+        /// <summary>쓰러진 캐릭터가 화면의 어느 높이에 있는가(뷰포트 y, 0 = 아래, 1 = 위, 모르면 −1). 사망 글이 캐릭터를 가리지 않게 BattleScreen이 읽는다.</summary>
+        public float SubjectViewportY { get; set; } = -1f;
+
         /// <summary>잠깐 볼 곳(view 좌표)과 끝나는 표시 시각. 보스 등장 같은 데 쓴다.</summary>
         public Vector2 FocusPoint { get; private set; }
         public float FocusWeight { get; private set; }

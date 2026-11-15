@@ -70,10 +70,25 @@ namespace Wizard.Solo.Screens.Battle
         void ShowDeathLine(bool on)
         {
             if (_deathLine == null) return;
-            if (on) _deathLine.SetText(T(DeathLineKey));
+            if (on)
+            {
+                _deathLine.SetText(T(DeathLineKey));
+                PlaceDeathLineAwayFromSubject();
+            }
             _deathLine.gameObject.SetActive(on);
             _deathT = on ? 0f : -1f;
             ApplyDeathLine(0f);
+        }
+
+        /// <summary>쓰러진 캐릭터가 화면 위쪽 반에 있으면 글을 아래쪽 1/3 높이에, 아래쪽 반이면 위쪽 1/3 높이에 둔다(QA: 위쪽 벽 근처에서 쓰러지면 글이 캐릭터를 덮었다).</summary>
+        void PlaceDeathLineAwayFromSubject()
+        {
+            var cf = Object.FindFirstObjectByType<Wizard.Solo.View.CameraFx>();
+            float vy = cf != null ? cf.SubjectViewportY : -1f;
+            if (vy < 0f) return;   // 모르면 기본 자리(가운데에서 조금 위)
+            float centerFromTop = vy > 0.5f ? UiScale.RefHeight * 0.68f : UiScale.RefHeight * 0.30f;
+            var rt = _deathLine.Rect;
+            rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, -centerFromTop);
         }
 
         /// <summary>쓰러짐 연출 뒤 글이 크게 나타난다: text_delay초 기다렸다가 text_fade_seconds에 걸쳐 불투명 + text_scale_from배 → 1배.
@@ -82,6 +97,7 @@ namespace Wizard.Solo.Screens.Battle
         {
             if (_deathLine == null || _deathT < 0f) return;
             _deathT += dt;
+            if (_deathT <= _deathDelay) PlaceDeathLineAwayFromSubject();   // 글이 보이기 전까지는 쓰러짐 층이 잰 자리를 따라간다
             float k = _deathFade > 0f ? Mathf.Clamp01((_deathT - _deathDelay) / _deathFade) : (_deathT >= _deathDelay ? 1f : 0f);
             float e = 1f - (1f - k) * (1f - k) * (1f - k);
             var c = _deathLine.Color;

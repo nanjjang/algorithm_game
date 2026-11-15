@@ -15,6 +15,8 @@ namespace Wizard.Solo.Tests.Waves
     {
         static IContentDb Db => TestContent.Db;
         static WaveTuning Horde => WaveTuning.From(Db, true);
+        /// <summary>보상·진행 시험에 쓰는 웨이브: 늘린 적이 있어야 한다(G09 곡선에서 웨이브 1은 배율 1.0이라 늘린 적이 없다).</summary>
+        const int HordeWave = 3;
 
         static bool IsNormal(WavePlan plan, in WaveEntry e) =>
             !e.Elite && !e.OutsideBudget && WaveHorde.IsNormalSpecies(Db, Horde, Db.Enemy(e.Species), plan.Whims);
@@ -49,13 +51,27 @@ namespace Wizard.Solo.Tests.Waves
             Assert.IsFalse(on.HordeKeepRewardTotal, "split은 늘린 적도 보상(나눠서)");
             Assert.IsTrue(on.HordeSplitReward, "기본은 나누기(split)");
             Assert.IsTrue(on.HordeScaleFastClearTarget);
-            Assert.AreEqual(1.6f, on.HordeMultiplier(1, "swarm"), 0.0001f);
+            // QA 조정(G09 _horde_note, Docs/11-fun-pass.md 1절 마지막 줄): 첫날 앞쪽을 낮춘 곡선 1.0 → 1.2 → 1.35 → 1.5 → 1.8
+            Assert.AreEqual(1.0f, on.HordeMultiplier(1, "swarm"), 0.0001f, "웨이브 1은 명세 구성 그대로");
+            Assert.AreEqual(1.2f, on.HordeMultiplier(2, "swarm"), 0.0001f);
+            Assert.AreEqual(1.35f, on.HordeMultiplier(3, "swarm"), 0.0001f);
+            Assert.AreEqual(1.425f, on.HordeMultiplier(4, "swarm"), 0.0001f, "1.35 → 1.5 사이 직선");
+            Assert.AreEqual(1.5f, on.HordeMultiplier(5, "swarm"), 0.0001f);
             Assert.AreEqual(1.8f, on.HordeMultiplier(8, "swarm"), 0.0001f);
             Assert.AreEqual(1.8f, on.HordeMultiplier(12, "swarm"), 0.0001f, "8~15 평탄(성장 곡선 F절)");
             Assert.AreEqual(2.5f, on.HordeMultiplier(30, "swarm"), 0.0001f);
             Assert.AreEqual(2.5f, on.HordeMultiplier(99, "swarm"), 0.0001f, "곡선 끝 밖은 끝 값");
             Assert.AreEqual(1.5f, on.HordeMultiplier(30, "evasive_charger"), 0.0001f, "늑대 상한");
-            Assert.AreEqual(1.5f, on.HordeMultiplier(3, "evasive_charger"), 0.0001f);
+            Assert.AreEqual(1.35f, on.HordeMultiplier(3, "evasive_charger"), 0.0001f, "곡선이 상한보다 낮으면 곡선");
+            Assert.AreEqual(1.5f, on.HordeMultiplier(8, "evasive_charger"), 0.0001f);
+            // 무리 크기 계단: 1~3 = 3~5, 4~7 = 4~8, 8 이후 = 6~12(pack_size_min·max는 계단이 없을 때의 값)
+            int lo, hi;
+            on.PackSizeRange(1, out lo, out hi); Assert.AreEqual(3, lo); Assert.AreEqual(5, hi);
+            on.PackSizeRange(3, out lo, out hi); Assert.AreEqual(3, lo); Assert.AreEqual(5, hi);
+            on.PackSizeRange(4, out lo, out hi); Assert.AreEqual(4, lo); Assert.AreEqual(8, hi);
+            on.PackSizeRange(7, out lo, out hi); Assert.AreEqual(4, lo); Assert.AreEqual(8, hi);
+            on.PackSizeRange(8, out lo, out hi); Assert.AreEqual(6, lo); Assert.AreEqual(12, hi);
+            on.PackSizeRange(30, out lo, out hi); Assert.AreEqual(6, lo); Assert.AreEqual(12, hi);
             CollectionAssert.Contains(on.HordeNormalRoles, "swarm");
             Assert.IsTrue(on.HordeMultiplies);
             Assert.IsTrue(on.HordePacks);
@@ -101,7 +117,33 @@ namespace Wizard.Solo.Tests.Waves
             Assert.AreEqual(1.0f, t.HordeMultiplier(21, "swarm"), 1e-4f, "1 아래는 1");
             Assert.AreEqual(1.2f, t.HordeMultiplier(11, "evasive_charger"), 1e-4f);
             Assert.IsTrue(t.HordeSplitReward);
+            Assert.IsFalse(t.HordePacks, "계단도 최소·최대도 없으면 무리 없음");
             Assert.IsFalse(t.HordeKeepRewardTotal);
+        }
+
+        [Test]
+        public void Horde_Json__PackSizeStepsAreStairsClampedAndSorted()
+        {
+            var t = new WaveTuning();
+            WaveTuning.ReadHorde(Newtonsoft.Json.Linq.JObject.Parse(
+                "{\"enabled\":true,\"pack_size_min\":6,\"pack_size_max\":12," +
+                "\"pack_size_by_wave\":[[2,3,5],[6,0,2],[4,9,4],[3,1],[10,7,7]]}"), t);
+            Assert.AreEqual(3, t.HordePackSizeByWave.Count, "값 셋 미만·오름차순 아닌 점(4)은 버린다");
+            int lo, hi;
+            t.PackSizeRange(1, out lo, out hi);
+            Assert.AreEqual(3, lo, "첫 점 앞은 첫 점"); Assert.AreEqual(5, hi);
+            t.PackSizeRange(5, out lo, out hi);
+            Assert.AreEqual(3, lo, "계단: 다음 점(6) 앞까지 그대로"); Assert.AreEqual(5, hi);
+            t.PackSizeRange(6, out lo, out hi);
+            Assert.AreEqual(1, lo, "최소는 1 아래로 안 간다"); Assert.AreEqual(2, hi);
+            t.PackSizeRange(99, out lo, out hi);
+            Assert.AreEqual(7, lo); Assert.AreEqual(7, hi);
+            Assert.IsTrue(t.HordePacks);
+
+            var none = new WaveTuning();
+            WaveTuning.ReadHorde(Newtonsoft.Json.Linq.JObject.Parse("{\"enabled\":true,\"pack_size_min\":6,\"pack_size_max\":12}"), none);
+            none.PackSizeRange(1, out lo, out hi);
+            Assert.AreEqual(6, lo, "계단이 없으면 pack_size_min·max"); Assert.AreEqual(12, hi);
         }
 
         // ------------------------------------------------------------ 잡몹 수 배율
@@ -270,10 +312,12 @@ namespace Wizard.Solo.Tests.Waves
             for (ulong seed = 1; seed <= 20; seed++)
             {
                 var rig = WaveRig.Create(seed, horde: true);
-                rig.Director.BeginWave(rig.World, WaveRig.SlimePlan(3, t.HordePackSizeMin));
+                int lo, hi;
+                t.PackSizeRange(3, out lo, out hi);
+                rig.Director.BeginWave(rig.World, WaveRig.SlimePlan(3, lo));
                 rig.Steps(1);
                 var specs = rig.Enemies.Specs;
-                Assert.AreEqual(t.HordePackSizeMin, specs.Count);
+                Assert.AreEqual(lo, specs.Count);
                 // 무리 하나 = 한 자리에서 반경 안: 둘씩 거리 ≤ 지름
                 for (int i = 0; i < specs.Count; i++)
                 {
@@ -333,10 +377,10 @@ namespace Wizard.Solo.Tests.Waves
         public void Horde_Reward__KeepTotalExtrasHaveNoRewardOriginalsDo()
         {
             var rig = WaveRig.Create(9, horde: true);
-            var plan = rig.Director.BuildPlan(rig.World, 1);   // 여기서 콘텐츠가 붙어 Tuning이 읽힌다
+            var plan = rig.Director.BuildPlan(rig.World, HordeWave);   // 여기서 콘텐츠가 붙어 Tuning이 읽힌다
             rig.Director.Tuning.HordeKeepRewardTotal = true;   // 재미 조정 전의 기본(keep_total)
             rig.Director.Tuning.HordeSplitReward = false;
-            var spec = WaveRig.Build(9, 1);
+            var spec = WaveRig.Build(9, HordeWave);
             rig.Director.BeginWave(rig.World, plan);
             for (int i = 0; i < 4000 && !rig.World.Wave.AllReleased; i++) rig.Steps(1);
             rig.Steps(1);
@@ -354,7 +398,7 @@ namespace Wizard.Solo.Tests.Waves
         {
             // split(기본): 늘린 적도 NoReward가 아니다 — 한 마리 몫을 나누는 것은 Run(RunFlow.HordeReward, 통합 테스트)이 한다.
             var rig = WaveRig.Create(9, horde: true);
-            var plan = rig.Director.BuildPlan(rig.World, 1);
+            var plan = rig.Director.BuildPlan(rig.World, HordeWave);
             Assert.IsTrue(rig.Director.Tuning.HordeSplitReward);
             rig.Director.BeginWave(rig.World, plan);
             for (int i = 0; i < 4000 && !rig.World.Wave.AllReleased; i++) rig.Steps(1);
@@ -368,7 +412,7 @@ namespace Wizard.Solo.Tests.Waves
         public void Horde_Reward__FullModeEveryoneRewarded()
         {
             var rig = WaveRig.Create(9, horde: true);
-            var plan = rig.Director.BuildPlan(rig.World, 1);
+            var plan = rig.Director.BuildPlan(rig.World, HordeWave);
             rig.Director.Tuning.HordeKeepRewardTotal = false;
             rig.Director.BeginWave(rig.World, plan);
             for (int i = 0; i < 4000 && !rig.World.Wave.AllReleased; i++) rig.Steps(1);
@@ -381,18 +425,22 @@ namespace Wizard.Solo.Tests.Waves
         public void Horde_Progress__UnrewardedExtrasStillCountInRemainingRatio()
         {
             var rig = WaveRig.Create(9, horde: true);
-            var plan = rig.Director.BuildPlan(rig.World, 1);
+            var plan = rig.Director.BuildPlan(rig.World, HordeWave);
             rig.Director.Tuning.HordeKeepRewardTotal = true;   // 보상 없는 늘린 개체가 있는 모드
             rig.Director.Tuning.HordeSplitReward = false;
             rig.Director.BeginWave(rig.World, plan);
             rig.Steps(1);
             Assert.Greater(rig.World.Enemies.Count, 0);
-            Assert.AreEqual(1f, rig.World.Wave.RemainingRatio, 0.001f, "다친 적이 없으면 진행 바는 가득");
+            // (시험용 가짜 적 모듈은 웨이브 체력 배율 없이 개체를 만든다 — 웨이브 3에서는 처음 값이 1보다 조금 작다. 줄어드는지만 본다.)
+            float before = rig.World.Wave.RemainingRatio;
+            Assert.Greater(before, 0.5f);
             // 늘린 개체(보상 없음) 하나를 죽이면 바가 준다
+            bool killed = false;
             for (int i = 0; i < rig.World.Enemies.Count; i++)
-                if (rig.World.Enemies[i].NoReward) { rig.World.Enemies[i].Dead = true; break; }
+                if (rig.World.Enemies[i].NoReward) { rig.World.Enemies[i].Dead = true; killed = true; break; }
+            Assert.IsTrue(killed, "첫 묶음에 늘린 개체가 있어야 시험이 된다");
             rig.Steps(1);
-            Assert.Less(rig.World.Wave.RemainingRatio, 1f);
+            Assert.Less(rig.World.Wave.RemainingRatio, before);
         }
 
         // ------------------------------------------------------------ 결정론

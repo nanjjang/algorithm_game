@@ -103,6 +103,39 @@ namespace Wizard.Solo.Sim.Score
             return (int)final;
         }
 
+        /// <summary>
+        /// 진행 중 웨이브의 쌓인 몫(HUD "+n" 표시용, 판 점수에 더하지 않는다). WaveScore와 같은 식에서 처치·보스 처치·스침 줄만 쓴다
+        /// (클리어·빠른 처리·무피격은 클리어 순간에 정해진다). 웨이브 계수 곱은 한 번만 내리고 변덕 배율은 차례로 내린다 — WaveScore와 같은 순서.
+        /// 허상 첫 만남 웨이브는 고정 점수라 0. 읽기만 한다(새 상태 없음).
+        /// </summary>
+        public override int WaveProgressScore(IContentDb db, WaveStats stats)
+        {
+            if (db == null || stats == null) return 0;
+            ScoringDef sc = db.Scoring;
+            if (sc == null) return 0;
+            int w = stats.Wave;
+            if (w <= 0) return 0;
+            if (stats.PhantomFirst && w == ExtraInt(db, KeyPhantomFirstWave)) return 0;
+            bool boss = stats.IsBoss || DayCycle.IsBossWave(w);
+            long s10 = S10(sc, w);
+            long div = (long)TicksPerSecond * CoefScale;
+            long kill60 = (long)stats.KillScoreX2 * (TicksPerSecond / 2);
+            long boss60 = stats.BossKilled ? (long)sc.BossKill * TicksPerSecond : 0;
+            int grazeCap = boss ? sc.Graze.BossCap : sc.Graze.Cap;
+            int grazes = stats.Grazes < grazeCap ? stats.Grazes : grazeCap;
+            if (grazes < 0) grazes = 0;
+            long graze60 = (long)sc.Graze.PerGraze * grazes * TicksPerSecond;
+            long s = (kill60 + boss60 + graze60) * s10 / div;
+            for (int i = 0; i < stats.Whims.Count; i++)
+            {
+                ModifierDef m = db.Modifier(stats.Whims[i]);
+                if (m == null) continue;
+                int pct = Mathf.RoundToInt(m.ScoreMultiplier * PercentScale);
+                s = s * pct / PercentScale;
+            }
+            return s > int.MaxValue ? int.MaxValue : (int)s;
+        }
+
         /// <summary>건너뛴 웨이브 하나의 점수(01 요약서 6.3절). 웨이브마다 내린다.</summary>
         public override int SkipScore(IContentDb db, int wave)
         {

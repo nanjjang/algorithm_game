@@ -581,6 +581,11 @@ namespace Wizard.Solo.Sim
     {
         public virtual int WaveScore(IContentDb db, WaveStats stats, out ScoreBreakdown breakdown) { breakdown = default; return 0; }
         public virtual int SkipScore(IContentDb db, int wave) { return 0; }
+        /// <summary>
+        /// 진행 중인 웨이브에서 지금까지 쌓인 몫(처치·보스 처치·스침, 웨이브 계수·변덕 배율 적용). 표시 전용 읽기 — 판 점수(넘긴 웨이브의 합,
+        /// 01 요약서 6.2절)에는 더하지 않는다. 클리어·빠른 처리·무피격 몫은 클리어 때 정해지므로 들지 않는다. 상태를 바꾸지 않는 순수 함수.
+        /// </summary>
+        public virtual int WaveProgressScore(IContentDb db, WaveStats stats) { return 0; }
     }
 
     // ---------------------------------------------------------------- 모듈 묶음과 조립

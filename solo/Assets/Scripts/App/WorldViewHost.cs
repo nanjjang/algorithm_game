@@ -250,7 +250,9 @@ namespace Wizard.Solo.App
             _cameraGo.transform.position = pos;
 
             if (_layers == null || w == null) return;
+            // 그림 정지 뒤 표시 시간 배율(쓰러짐 슬로모션 — CameraFx.TimeScale). 시뮬 틱은 위 Frame의 누적기가 그대로 돌린다.
             float layerDt = _hitStop.Filter(dt);
+            if (_cameraFx != null) layerDt *= _cameraFx.TimeScale;
             for (int i = 0; i < _layers.Count; i++)
             {
                 try { _layers[i].Render(w, alpha, layerDt); }
@@ -319,6 +321,7 @@ namespace Wizard.Solo.App
 
             // 줌 펀치는 움직임 연출: 연출 감도(전체 1 / 줄임 0.3 / 최소 0)와 흔들림 배율을 따른다
             _director.MotionScale = ShakeAccumulator.LevelScale(_options.EffectsLevel) * Mathf.Clamp01(_options.ShakeScale);
+            _director.ClampSlackCells = _cameraFx != null ? _cameraFx.ClampSlack : 0f;
             _director.Step(dt, sw, sh, ui, focus, look, WantZoom(w), arenaW, arenaH);
             _camera.orthographicSize = _director.OrthographicSize;
         }
@@ -327,6 +330,9 @@ namespace Wizard.Solo.App
         float WantZoom(SimWorld w)
         {
             float want = 1f;
+            // 층이 붙잡은 줌(쓰러짐 줌인)은 다른 목표 위에 곱한다
+            float hold = _cameraFx != null ? _cameraFx.ZoomHold : 1f;
+            if (hold != 1f) return hold * (w.Boss != null && w.Boss.State != BossFightState.Dead && w.Boss.State != BossFightState.CollapseDone ? _bossZoom : 1f);
             if (w.Boss != null && w.Boss.State != BossFightState.Dead && w.Boss.State != BossFightState.CollapseDone)
                 want = Mathf.Min(want, _bossZoom);
             if (_wideCells > 0f)

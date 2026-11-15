@@ -35,6 +35,8 @@ namespace Wizard.Solo.View
 
         /// <summary>움직임 연출 배율(줌 펀치에만). 흔들림 옵션과 연출 감도에서 호스트가 넣는다. 0이면 펀치 없음.</summary>
         public float MotionScale = 1f;
+        /// <summary>전장 경계 밖으로 더 갈 수 있는 거리(칸, 0 = 경계 안). 쓰러짐 연출이 구석에 쓰러진 캐릭터를 화면 가운데로 데려올 때만 쓴다.</summary>
+        public float ClampSlackCells;
 
         Vector2 _pos, _look;
         float _zoomMul = 1f, _punch;
@@ -107,7 +109,7 @@ namespace Wizard.Solo.View
 
             if (!_has) { _pos = target; _has = true; }
             else _pos = Vector2.Lerp(_pos, target, 1f - Mathf.Exp(-FollowRate * dt));
-            _pos = Clamp(_pos, halfW, halfH, arenaW, arenaH);
+            _pos = Clamp(_pos, halfW, halfH, arenaW, arenaH, ClampSlackCells);
 
             Vector2 outPos = _pos;
             if (PixelSnap)
@@ -115,7 +117,7 @@ namespace Wizard.Solo.View
                 float step = SnapStep(ppu);
                 outPos.x = Mathf.Round(outPos.x / step) * step;
                 outPos.y = Mathf.Round(outPos.y / step) * step;
-                outPos = Clamp(outPos, halfW, halfH, arenaW, arenaH);
+                outPos = Clamp(outPos, halfW, halfH, arenaW, arenaH, ClampSlackCells);
             }
             Position = outPos;
         }
@@ -137,10 +139,14 @@ namespace Wizard.Solo.View
         }
 
         /// <summary>보이는 사각형(가운데 c, 반너비·반높이)이 전장 안에 있게 가운데를 옮긴다. 전장이 더 좁은 축은 전장 가운데.</summary>
-        public static Vector2 Clamp(Vector2 c, float halfW, float halfH, float arenaW, float arenaH)
+        public static Vector2 Clamp(Vector2 c, float halfW, float halfH, float arenaW, float arenaH) => Clamp(c, halfW, halfH, arenaW, arenaH, 0f);
+
+        /// <summary>slack칸만큼 경계 밖을 허용하는 Clamp(0이면 위와 같다).</summary>
+        public static Vector2 Clamp(Vector2 c, float halfW, float halfH, float arenaW, float arenaH, float slack)
         {
-            c.x = 2f * halfW >= arenaW ? arenaW * 0.5f : Mathf.Clamp(c.x, halfW, arenaW - halfW);
-            c.y = 2f * halfH >= arenaH ? arenaH * 0.5f : Mathf.Clamp(c.y, halfH, arenaH - halfH);
+            if (slack < 0f || float.IsNaN(slack)) slack = 0f;
+            c.x = 2f * halfW >= arenaW + 2f * slack ? arenaW * 0.5f : Mathf.Clamp(c.x, halfW - slack, arenaW - halfW + slack);
+            c.y = 2f * halfH >= arenaH + 2f * slack ? arenaH * 0.5f : Mathf.Clamp(c.y, halfH - slack, arenaH - halfH + slack);
             return c;
         }
     }

@@ -53,7 +53,7 @@ namespace Wizard.Solo.Audio
 
         bool Done(int i) => !_busy[i] || (!_paused[i] && _src[i] != null && !_src[i].isPlaying);
 
-        public int Start(AudioClip clip, float volume, float pitch, bool loop)
+        public int StartVoice(AudioClip clip, float volume, float pitch, bool loop)
         {
             if (clip == null) return -1;
             int slot = -1;

@@ -8,7 +8,7 @@ namespace Wizard.Solo.Audio
     /// </summary>
     public interface ISoundOutput
     {
-        int Start(AudioClip clip, float volume, float pitch, bool loop);
+        int StartVoice(AudioClip clip, float volume, float pitch, bool loop);   // "Start"는 MonoBehaviour 메시지 이름이라 피한다
         /// <summary>fadeSeconds 동안 줄이다가 멈춘다(0 = 바로).</summary>
         void Stop(int handle, float fadeSeconds);
         void SetVolume(int handle, float volume);

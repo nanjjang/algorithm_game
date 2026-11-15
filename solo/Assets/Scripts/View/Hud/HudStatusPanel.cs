@@ -55,6 +55,15 @@ namespace Wizard.Solo.View.Hud
         readonly UiLabel[] _walletNums = new UiLabel[3];
         readonly long[] _walletLast = { long.MinValue, long.MinValue, long.MinValue };
 
+        // 점수 옆 "+n"(이번 웨이브 진행 중 몫). 웨이브 클리어로 본 점수가 오르면 숫자 쪽으로 빨려 들어가며 사라진다.
+        const float PendingGapPx = 8f, PendingW = 120f, PendingH = 24f, PendingAlpha = 0.6f;
+        const float PendingMergeSeconds = 0.38f;
+        readonly RectTransform _pendingNode;
+        readonly UiLabel _pending;
+        int _pendingShown;
+        float _pendingMergeT = -1f;
+        Vector2 _pendingFrom, _pendingTo;
+
         /// <summary>콤보 자리 "HUD"(초상 옆)의 부모.</summary>
         public readonly RectTransform ComboHudAnchor;
 
@@ -62,6 +71,10 @@ namespace Wizard.Solo.View.Hud
         public float HpRowWidthShown { get { int n = HpCellsShown; return HudLayout.HpRowWidth(n); } }
         public bool LastCellCornerVisible => _corner != null && _corner.gameObject.activeSelf;
         public bool WalletVisible => _wallet != null && _wallet.gameObject.activeSelf;
+        /// <summary>점수 옆 "+n"이 보이는가(합쳐지는 연출 중 포함)와 그 글.</summary>
+        public bool ScorePendingVisible => _pendingNode != null && _pendingNode.gameObject.activeSelf;
+        public string ScorePendingText => _pending != null ? _pending.FullText : null;
+        public bool ScorePendingMerging => _pendingMergeT >= 0f;
         public bool PortraitHitActive => _portraitHitLeft > 0f;
         public string WalletRowText(int i) => _walletRows[i].Current;
         /// <summary>과열 게이지 채움 폭(px).</summary>
@@ -155,6 +168,16 @@ namespace Wizard.Solo.View.Hud
                 full.gameObject.SetActive(false);
                 _walletRows[i] = new HudText(full);
             }
+
+            // "+n": 점수 줄(1)의 숫자 왼쪽, 작은 흐린 글. 자리는 숫자 글 폭에 맞춰 매 프레임 옮긴다.
+            float py = HudOverlayLayout.StatsRowY + HudOverlayLayout.StatsRowStep + (HudOverlayLayout.StatsRowH - PendingH) * 0.5f;
+            _pendingNode = UiKit.Node(_wallet, "ScorePendingNode", 0f, py, PendingW, PendingH);
+            _pendingNode.pivot = new Vector2(1f, 0.5f);
+            _pending = UiKit.Label(ctx, _pendingNode, "", UiFontId.F16, 0, 0, PendingW, PendingH,
+                UiTheme.WithAlpha(UiTheme.Chalk, PendingAlpha), TextAnchor.MiddleRight, false, true);
+            _pending.name = "ScorePending";
+            UiKit.Stretch(_pending.Rect);
+            _pendingNode.gameObject.SetActive(false);
         }
 
         public void OnEvent(HudLayer layer, SimWorld w, in SimEvent e)
@@ -238,8 +261,73 @@ namespace Wizard.Solo.View.Hud
             if (f.ShowWallet)
             {
                 SetStat(layer, 0, HudModel.KeyWallet, f.Purse);
+                long before = _walletLast[1];
                 SetStat(layer, 1, HudModel.KeyScore, f.Score);
                 SetStat(layer, 2, HudModel.KeyKills, f.Kills);
+                RefreshPending(layer, f, before != long.MinValue && f.Score > before, dt);
+            }
+            else HudArt.SetActive(_pendingNode, false);
+        }
+
+        /// <summary>
+        /// "+n" 갱신. 웨이브 전투 중이면 시뮬의 진행 중 몫(f.ScorePending)을 보인다. 본 점수가 오른 프레임에 보이던 몫이 있으면
+        /// 그 글이 점수 숫자 쪽으로 빨려 들어가며 작아지고 사라진다(연출 감도 최소면 바로 사라진다 — 점수 숫자 튀기는 SetStat이 한다).
+        /// </summary>
+        void RefreshPending(HudLayer layer, in HudFrame f, bool scoreRose, float dt)
+        {
+            if (_pendingNode == null) return;
+            var names = layer.Names;
+            var num = _walletNums[1];
+            float numW = num != null && num.Text != null ? num.Text.preferredWidth : 48f;
+            float right = HudOverlayLayout.StatsW - 16f;
+            float rowMid = -(HudOverlayLayout.StatsRowY + HudOverlayLayout.StatsRowStep + HudOverlayLayout.StatsRowH * 0.5f);
+            var rest = new Vector2(right - numW - PendingGapPx, rowMid);
+
+            if (scoreRose && _pendingShown > 0 && _pendingMergeT < 0f)
+            {
+                if (layer.MotionOn)
+                {
+                    _pendingMergeT = 0f;
+                    _pendingFrom = rest;
+                    float tw = _pending.Text != null ? _pending.Text.preferredWidth : 0f;
+                    _pendingTo = new Vector2(right - numW * 0.5f + tw * 0.5f, rowMid);
+                }
+                _pendingShown = 0;
+            }
+
+            if (_pendingMergeT >= 0f)
+            {
+                _pendingMergeT += Mathf.Max(dt, Time.unscaledDeltaTime);
+                float t = Mathf.Clamp01(_pendingMergeT / PendingMergeSeconds);
+                float e = t * t; // 빨려 들어가듯 끝으로 갈수록 빠르게
+                _pendingNode.anchoredPosition = Vector2.Lerp(_pendingFrom, _pendingTo, e);
+                float sc = Mathf.Lerp(1f, 0.55f, e);
+                _pendingNode.localScale = new Vector3(sc, sc, 1f);
+                _pending.Color = UiTheme.WithAlpha(UiTheme.Chalk, PendingAlpha * (1f - e));
+                HudArt.SetActive(_pendingNode, true);
+                if (t >= 1f)
+                {
+                    _pendingMergeT = -1f;
+                    _pendingNode.localScale = Vector3.one;
+                    HudArt.SetActive(_pendingNode, false);
+                    // 합쳐진 순간 점수 숫자가 한 번 더 튄다
+                    if (num != null) UiMotion.Pop(num.transform.parent, UiTheme.NumberPopScale, UiTheme.NumberPopSeconds);
+                }
+                return;
+            }
+
+            int n = f.ScorePending;
+            bool on = n > 0;
+            HudArt.SetActive(_pendingNode, on);
+            if (!on) { _pendingShown = 0; return; }
+            _pendingNode.anchoredPosition = rest;
+            _pendingNode.localScale = Vector3.one;
+            _pending.Color = UiTheme.WithAlpha(UiTheme.Chalk, PendingAlpha);
+            if (n != _pendingShown)
+            {
+                _pending.SetText(HudModel.ScorePendingText(names, n));
+                if (_pendingShown > 0 && layer.MotionOn) UiMotion.Pop(_pendingNode, 1.12f, 0.18f);
+                _pendingShown = n;
             }
         }
 

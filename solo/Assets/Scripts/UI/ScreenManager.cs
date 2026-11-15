@@ -120,6 +120,14 @@ namespace Wizard.Solo.UI
 
         // ------------------------------------------------------------------ IScreenManager
 
+        /// <summary>이미 등록된 화면의 공장을 일부러 바꾼다(테스트가 가짜 데이터를 넣은 화면으로 갈아끼울 때). 두 번 등록 경고를 내지 않는다.</summary>
+        public void Override(ScreenId id, Func<IScreen> factory)
+        {
+            if (id == ScreenId.None || factory == null) return;
+            _factories[id] = factory;
+            _cached.Remove(id);
+        }
+
         public void Register(ScreenId id, Func<IScreen> factory)
         {
             if (id == ScreenId.None || factory == null) return;

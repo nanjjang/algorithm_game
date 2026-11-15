@@ -135,7 +135,7 @@ namespace Wizard.Solo.Audio
             }
             if (clip == null || _out == null) return;
             var v = new Voice { Bus = bus, Category = SoundCategory.Ambient, Base = baseGain, Path = pick.Path, LoopKey = loopKey };
-            v.Handle = _out.Start(clip, VolumeOf(v, _now()), pick.PitchMul, true);
+            v.Handle = _out.StartVoice(clip, VolumeOf(v, _now()), pick.PitchMul, true);
             if (v.Handle < 0) return;
             _voices.Add(v);
             if (_gamePaused && IsGameBus(bus)) { _out.SetPaused(v.Handle, true); v.Paused = true; }
@@ -199,7 +199,7 @@ namespace Wizard.Solo.Audio
                 }
                 float baseGain = d.Ducked ? d.Gain / SoundMixPolicy.DbToGain(_policy.Config.DuckDb) : d.Gain;
                 var v = new Voice { Bus = bus, Category = cat, Base = baseGain, Path = c.Path };
-                v.Handle = _out.Start(clip, VolumeOf(v, now), p, false); // 반복 클립도 Play로는 한 번만(반복은 StartLoop)
+                v.Handle = _out.StartVoice(clip, VolumeOf(v, now), p, false); // 반복 클립도 Play로는 한 번만(반복은 StartLoop)
                 if (v.Handle < 0) continue;
                 _voices.Add(v);
                 if (slot >= 0 && slot < _policyHandle.Length) _policyHandle[slot] = v.Handle;
@@ -216,7 +216,7 @@ namespace Wizard.Solo.Audio
             var clip = LoadQuiet(_bank.MusicRoot + "/" + trackId);
             if (clip == null) return;
             var v = new Voice { Bus = SoundBus.Bgm, Category = SoundCategory.Ambient, Base = 1f, Path = trackId, Music = true };
-            v.Handle = _out.Start(clip, VolumeOf(v, _now()), 1f, true);
+            v.Handle = _out.StartVoice(clip, VolumeOf(v, _now()), 1f, true);
             if (v.Handle < 0) return;
             _voices.Add(v);
             _musicVoice = v;

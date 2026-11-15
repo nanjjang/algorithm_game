@@ -43,6 +43,11 @@ namespace Wizard.Solo.View.Hud
 
         public bool ShowWallet;
         public int Purse, Score, Kills;
+        /// <summary>
+        /// 이번 웨이브 진행 중 쌓인 몫(처치·스침, Score.WaveProgressScore). 판 점수(Score)는 넘긴 웨이브의 합이라(01 요약서 6.2절)
+        /// 웨이브 중에는 바뀌지 않는다 — 고장처럼 보이지 않게 옆에 "+n"으로 보인다. WaveCombat에서만 0보다 크다.
+        /// </summary>
+        public int ScorePending;
 
         public HudStateNotice StateNotice;
         public int HeatLockSecondsLeft;
@@ -73,6 +78,7 @@ namespace Wizard.Solo.View.Hud
         public const string KeyDayWave = "str.battle_hud.day_wave";
         public const string KeyWallet = "str.battle_hud.wallet";
         public const string KeyScore = "str.battle_hud.score";
+        public const string KeyScorePending = "str.battle_hud.score_pending";
         public const string KeyKills = "str.battle_hud.kills";
         public const string KeyNoticeHeatLock = "str.battle_hud.notice.heat_lock";
         public const string KeyNoticeWaveClear = "str.battle_hud.notice.wave_clear";
@@ -244,6 +250,7 @@ namespace Wizard.Solo.View.Hud
             f.ShowWallet = runElems;
             f.Purse = run.Purse;
             f.Score = run.Score;
+            f.ScorePending = ScorePending(w, db);
             int kills = 0;
             for (int i = 0; i < w.Players.Length; i++)
                 if (w.Players[i] != null && w.Players[i].Active) kills += w.Players[i].Kills;
@@ -260,6 +267,21 @@ namespace Wizard.Solo.View.Hud
 
             f.ComboInHud = ComboInHud(options);
             return f;
+        }
+
+        /// <summary>HUD "+n": 웨이브 전투 중일 때만 시뮬의 진행 중 몫(읽기 전용 규칙 함수)을 그대로 읽는다. 처치 이벤트로 추정하지 않는다.</summary>
+        public static int ScorePending(SimWorld w, IContentDb db)
+        {
+            if (w == null || w.Run.Phase != RunPhase.WaveCombat || w.Wave == null || w.Wave.Stats == null || w.Mods == null) return 0;
+            int v = w.Mods.Score.WaveProgressScore(db ?? w.Content, w.Wave.Stats);
+            return v > 0 ? v : 0;
+        }
+
+        /// <summary>"+n" 글(str.battle_hud.score_pending).</summary>
+        public static string ScorePendingText(INameTable names, int n)
+        {
+            if (names == null) return "+" + n.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            return names.Format(KeyScorePending, "n", names.Number(n));
         }
 
         /// <summary>지금 웨이브(또는 야영에서 다음에 싸울 웨이브)의 구성.</summary>

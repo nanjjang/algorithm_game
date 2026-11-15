@@ -22,7 +22,7 @@ namespace Wizard.Solo.Tests.Audio
             int _next = 1;
 
             public Rec Of(int h) => Started.Find(r => r.Handle == h);
-            public int Start(AudioClip clip, float volume, float pitch, bool loop)
+            public int StartVoice(AudioClip clip, float volume, float pitch, bool loop)
             {
                 var r = new Rec { Handle = _next++, Clip = clip.name, Volume = volume, Pitch = pitch, Loop = loop };
                 Started.Add(r);

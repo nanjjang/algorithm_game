@@ -45,6 +45,21 @@ namespace Wizard.Solo.View
             return FocusWeight;
         }
 
-        public void ClearFocus() { _focusLeft = 0f; FocusWeight = 0f; }
+        public void ClearFocus() { _focusLeft = 0f; FocusWeight = 0f; TimeScale = 1f; ZoomHold = 1f; ClampSlack = 0f; }
+
+        /// <summary>카메라가 전장 경계 밖으로 더 갈 수 있는 거리(칸). 쓰러짐 연출이 구석의 캐릭터를 가운데로 데려올 때.</summary>
+        public float ClampSlack { get; private set; }
+        public void SetClampSlack(float cells) { ClampSlack = float.IsNaN(cells) ? 0f : Mathf.Max(0f, cells); }
+
+        /// <summary>
+        /// 표시 시간 배율(0~1, 1 = 보통). 쓰러짐 슬로모션 같은 데 쓴다. 호스트가 표시 층에 넘기는 dt에만 곱한다 —
+        /// 시뮬레이션 틱은 고정 틱 누적기 그대로 흐른다(규칙·결정론과 무관). 층이 매 프레임 넣고, 판이 바뀌면(ClearFocus) 1로 돌아간다.
+        /// </summary>
+        public float TimeScale { get; private set; } = 1f;
+        public void SetTimeScale(float scale) { TimeScale = float.IsNaN(scale) ? 1f : Mathf.Clamp01(scale); }
+
+        /// <summary>붙잡아 두는 줌 배율(1 = 없음, 1보다 크면 당김). 동적 줌 목표에 곱한다(CameraDirector가 ZoomRate로 천천히 따라간다).</summary>
+        public float ZoomHold { get; private set; } = 1f;
+        public void SetZoomHold(float mul) { ZoomHold = float.IsNaN(mul) || mul <= 0f ? 1f : mul; }
     }
 }

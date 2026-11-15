@@ -125,7 +125,9 @@ namespace Wizard.Solo.Screens.Hints
             DropStale();
             DropOutOfContext();
             // 일시정지·확인 창·안내 같은 창(Modal)이 맨 위면 쪽지를 잠깐 감추고 시계도 멈춘다(창의 글을 가리지 않는다).
-            bool held = (_session != null && _session.Paused) || ModalOnTop();
+            // 판이 끝난 뒤(쓰러짐 연출·사망 글)에도 감춘다 — 쪽지가 어두워진 화면 위에 밝게 남아 연출을 가리지 않게.
+            bool ended = _session != null && _session.MainWorld != null && _session.MainWorld.Run.Phase == RunPhase.RunEnded;
+            bool held = (_session != null && _session.Paused) || ModalOnTop() || ended;
             if (_card != null && _showing != null && _card.gameObject.activeSelf == held) _card.gameObject.SetActive(!held);
             if (_showing != null)
             {

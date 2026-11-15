@@ -59,6 +59,45 @@ namespace Wizard.Solo.Tests.Settlement
             Assert.AreEqual(expected, sum);
         }
 
+        // ------------------------------------------------------------ 진행 중 몫(HUD "+n", 판 점수에 더하지 않는 표시 전용 읽기)
+
+        [Test]
+        public void Progress__KillsAndGrazesTimesWaveCoef_NoClearFastOrNoHit()
+        {
+            // 웨이브 1(S = 1): 처치 원점수 100(×2 = 200) + 스침 3 × 5 = 115. 클리어 200·빠른 처리·무피격 100은 들지 않는다.
+            var s = Stats(1, killX2: 200, ticks: 60, noHit: true, grazes: 3);
+            Assert.AreEqual(115, Calc.WaveProgressScore(Db, s));
+            // 웨이브 11(S = 2.0): 같은 재료 = 230
+            Assert.AreEqual(230, Calc.WaveProgressScore(Db, Stats(11, killX2: 200, grazes: 3)));
+            // 스침은 상한(일반 20)까지만
+            Assert.AreEqual(100, Calc.WaveProgressScore(Db, Stats(1, grazes: 99)));
+            // 보스 처치는 처치 즉시 몫: 3000 × S(10) = 3000 × 1.9 = 5700
+            Assert.AreEqual(5700, Calc.WaveProgressScore(Db, Stats(10, bossKilled: true)));
+        }
+
+        [Test]
+        public void Progress__NeverExceedsWaveScoreAndDoesNotChangeStats()
+        {
+            var s = Stats(7, killX2: 640, ticks: 3000, noHit: false, grazes: 6);
+            int before = s.KillScoreX2;
+            int progress = Calc.WaveProgressScore(Db, s);
+            int total = Calc.WaveScore(Db, s, out ScoreBreakdown b);
+            Assert.Greater(progress, 0);
+            Assert.LessOrEqual(progress, total, "클리어 때 본 점수로 합쳐질 때 줄지 않는다");
+            Assert.AreEqual(b.Kills + b.Graze, progress, 1, "처치·스침 줄의 합(내림 차이 1 이내)");
+            Assert.AreEqual(before, s.KillScoreX2);
+            Assert.AreEqual(0, Calc.WaveProgressScore(Db, Stats(1)), "아직 아무것도 없으면 0");
+            Assert.AreEqual(0, Calc.WaveProgressScore(Db, null));
+        }
+
+        [Test]
+        public void Progress__PhantomFirstWaveIsZero()
+        {
+            var s = Stats(10, killX2: 400, grazes: 30);
+            s.PhantomFirst = true;
+            Assert.AreEqual(0, Calc.WaveProgressScore(Db, s), "첫 만남 웨이브는 고정 점수(처치·스침 몫 없음)");
+        }
+
         [Test]
         public void S09_T030__SkipScoreWave2()
         {

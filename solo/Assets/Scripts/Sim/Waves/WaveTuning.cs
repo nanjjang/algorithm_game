@@ -51,6 +51,11 @@ namespace Wizard.Solo.Sim.Waves
         /// <summary>무리 출현: 한 가장자리 자리에서 뭉쳐 나오는 잡몹 수의 범위(양 끝 포함). 최대가 1 이하면 무리 출현 없음.</summary>
         public int HordePackSizeMin = 1;
         public int HordePackSizeMax = 1;
+        /// <summary>
+        /// 웨이브별 무리 크기 계단(pack_size_by_wave: [[웨이브, 최소, 최대], …], 웨이브 오름차순). 그 웨이브 이하의 마지막 점을 쓴다(계단, 직선 아님).
+        /// 첫 점보다 앞이면 첫 점. 비어 있으면 <see cref="HordePackSizeMin"/>·<see cref="HordePackSizeMax"/> 하나.
+        /// </summary>
+        public readonly List<PackSizeStep> HordePackSizeByWave = new List<PackSizeStep>();
         /// <summary>무리 한 마리가 무리 자리에서 흩어지는 최대 거리(칸). 전장 안쪽으로만 흩어진다.</summary>
         public float HordePackScatterRadius;
         /// <summary>true = 배율로 늘어난 적은 보상 없음(합계 유지, keep_total). false = 늘어난 적도 보상(full 또는 split).</summary>
@@ -106,7 +111,33 @@ namespace Wizard.Solo.Sim.Waves
             for (int i = 0; i < HordeMultiplierByWave.Count; i++) if (HordeMultiplierByWave[i].Value > m) m = HordeMultiplierByWave[i].Value;
             return m;
         }
-        public bool HordePacks => HordeEnabled && HordePackSizeMax > 1;
+        public bool HordePacks => HordeEnabled && (HordePackSizeMax > 1 || MaxPackCurve() > 1);
+
+        int MaxPackCurve()
+        {
+            int m = 1;
+            for (int i = 0; i < HordePackSizeByWave.Count; i++) if (HordePackSizeByWave[i].Max > m) m = HordePackSizeByWave[i].Max;
+            return m;
+        }
+
+        /// <summary>그 웨이브의 무리 크기 범위(양 끝 포함). 계단이 있으면 그 웨이브 이하의 마지막 점, 없으면 pack_size_min·max.</summary>
+        public void PackSizeRange(int wave, out int min, out int max)
+        {
+            min = HordePackSizeMin;
+            max = HordePackSizeMax;
+            var c = HordePackSizeByWave;
+            if (c.Count == 0) return;
+            int k = 0;
+            for (int i = 1; i < c.Count; i++) if (c[i].Wave <= wave) k = i;
+            min = c[k].Min;
+            max = c[k].Max;
+        }
+
+        /// <summary>무리 크기 계단의 한 점.</summary>
+        public struct PackSizeStep
+        {
+            public int Wave, Min, Max;
+        }
 
         public static WaveTuning From(IContentDb db) => From(db, true);
 
@@ -146,6 +177,19 @@ namespace Wizard.Solo.Sim.Waves
             t.HordePackSizeMin = System.Math.Max(1, Int(h, "pack_size_min", 1));
             t.HordePackSizeMax = System.Math.Max(t.HordePackSizeMin, Int(h, "pack_size_max", 1));
             t.HordePackScatterRadius = System.Math.Max(0f, Float(h, "pack_scatter_radius", 0f));
+            t.HordePackSizeByWave.Clear();
+            var packs = h["pack_size_by_wave"] as JArray;
+            if (packs != null)
+                for (int i = 0; i < packs.Count; i++)
+                {
+                    var pt = packs[i] as JArray;
+                    if (pt == null || pt.Count < 3 || !IsNumber(pt[0]) || !IsNumber(pt[1]) || !IsNumber(pt[2])) continue;
+                    int wave = pt[0].Value<int>();
+                    if (t.HordePackSizeByWave.Count > 0 && wave <= t.HordePackSizeByWave[t.HordePackSizeByWave.Count - 1].Wave) continue;
+                    int lo = System.Math.Max(1, pt[1].Value<int>());
+                    int hi = System.Math.Max(lo, pt[2].Value<int>());
+                    t.HordePackSizeByWave.Add(new PackSizeStep { Wave = wave, Min = lo, Max = hi });
+                }
             var mode = h["reward_mode"];
             string m = mode != null && mode.Type == JTokenType.String ? mode.Value<string>() : null;
             t.HordeKeepRewardTotal = m != RewardFull && m != RewardSplit;

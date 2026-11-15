@@ -68,7 +68,9 @@ namespace Wizard.Solo.Tests.PlayMode.Records
             stats.Feed(Ev(SimEventType.PlayerHit, 200, 0, 7, 10, 20, (int)PlayerDamageSource.Dash));
             stats.Feed(Ev(SimEventType.PlayerHit, 400, 0, 7, 10, 0, (int)PlayerDamageSource.Dash));
             var tuning = RecapTuning.From(ctx.Content);
-            _k.Screens.Register(ScreenId.Settlement, () => new SettlementScreen(stats, tuning));
+            var sm = _k.Screens as ScreenManager;
+            if (sm != null) sm.Override(ScreenId.Settlement, () => new SettlementScreen(stats, tuning));
+            else _k.Screens.Register(ScreenId.Settlement, () => new SettlementScreen(stats, tuning));
 
             var summary = new RunSummary
             {

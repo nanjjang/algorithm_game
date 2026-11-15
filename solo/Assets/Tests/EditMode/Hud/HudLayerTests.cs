@@ -178,6 +178,64 @@ namespace Wizard.Solo.Tests.Hud
             Assert.IsFalse(l.Notice.Visible);
         }
 
+        sealed class FixedProgressScore : ScoreRules
+        {
+            public int Value;
+            public override int WaveProgressScore(IContentDb db, WaveStats stats) => Value;
+        }
+
+        [Test]
+        public void Hud_ScorePending__ShownDuringCombatOnly_MergesIntoScoreOnClear()
+        {
+            // 판 점수는 넘긴 웨이브의 합(01 요약서 6.2절)이라 웨이브 중에는 그대로 — 옆의 "+n"이 시뮬의 진행 중 몫을 읽어 보인다.
+            var mods = SimModuleSet.Stubs();
+            var score = new FixedProgressScore { Value = 42 };
+            mods.Score = score;
+            var w = HudTestWorlds.World(RunPhase.WaveCombat, 3, mods);
+            w.Run.Score = 501;
+            var l = Build(w);
+            Assert.IsTrue(l.Status.ScorePendingVisible);
+            Assert.AreEqual("str.battle_hud.score_pending{n=42}", l.Status.ScorePendingText);
+            score.Value = 57;
+            l.Render(w, 1f, 0.016f);
+            Assert.AreEqual("str.battle_hud.score_pending{n=57}", l.Status.ScorePendingText, "처치마다 따라 오른다");
+
+            // 웨이브 클리어: 본 점수가 오르고 단계가 바뀐다 → "+n"이 숫자 쪽으로 빨려 들어가며 사라진다
+            w.Run.Phase = RunPhase.WaveClearing;
+            w.Run.Score = 501 + 300;
+            l.Render(w, 1f, 0.016f);
+            Assert.IsTrue(l.Status.ScorePendingMerging, "합쳐지는 연출");
+            Assert.IsTrue(l.Status.ScorePendingVisible);
+            for (int i = 0; i < 4; i++) l.Render(w, 1f, 0.25f);
+            Assert.IsFalse(l.Status.ScorePendingMerging);
+            Assert.IsFalse(l.Status.ScorePendingVisible, "클리어 뒤에는 없다");
+
+            // 야영·연습에서는 없다
+            w.Run.Phase = RunPhase.Camp;
+            l.Render(w, 1f, 0.016f);
+            Assert.IsFalse(l.Status.ScorePendingVisible);
+        }
+
+        [Test]
+        public void Hud_ScorePending__ZeroHidesAndMinimumEffectsSkipMergeMotion()
+        {
+            var mods = SimModuleSet.Stubs();
+            var score = new FixedProgressScore { Value = 0 };
+            mods.Score = score;
+            var w = HudTestWorlds.World(RunPhase.WaveCombat, 1, mods);
+            var opts = new ViewOptions { EffectsLevel = 2 };
+            var l = Build(w, opts);
+            Assert.IsFalse(l.Status.ScorePendingVisible, "쌓인 몫이 없으면 보이지 않는다");
+            score.Value = 10;
+            l.Render(w, 1f, 0.016f);
+            Assert.IsTrue(l.Status.ScorePendingVisible);
+            w.Run.Phase = RunPhase.WaveClearing;
+            w.Run.Score = 120;
+            l.Render(w, 1f, 0.016f);
+            Assert.IsFalse(l.Status.ScorePendingMerging, "연출 감도 최소: 움직임 없이 바로 사라진다");
+            Assert.IsFalse(l.Status.ScorePendingVisible);
+        }
+
         [Test]
         public void S13_Contract__PracticeHidesWaveAndWalletOnLayer()
         {

@@ -27,6 +27,8 @@ namespace Wizard.Solo.View
             layers.Add(fx);
             // 타격감 덧층(표시 전용 연출, Juice.json). 같은 입자 예산·가림 셈·번쩍 관리기를 쓴다.
             layers.Add(new JuiceLayer(fx.Shared, fx));
+            // 쓰러짐 연출(체력 0으로 판이 끝날 때, 표시 전용 — Juice.json death)
+            layers.Add(new DeathSequenceLayer());
         }
 
         static partial void AddAudio(List<IWorldViewLayer> layers)

@@ -428,7 +428,7 @@ namespace Wizard.Solo.Sim.Waves
             var def = _db.Enemy(entry.Species);
             rt.PendingHp -= EntryHp(entry, HpMul(ws.Wave), ws.EnemyHpMul);
             if (def == null) return;
-            Vector2 pos = IsPackable(ws, def, entry) ? PackSpawnPoint(w, rt, def) : PickSpawnPoint(w, def);
+            Vector2 pos = IsPackable(ws, def, entry) ? PackSpawnPoint(w, ws, rt, def) : PickSpawnPoint(w, def);
             // 떼 출현이 늘린 개체: 합계 유지면 보상(골드·점수·체력 조각 추첨) 없음 → 처치 보상 합계 = 명세 구성의 합계
             bool hordeNoReward = _tuning.HordeKeepRewardTotal && WaveHorde.IsExtra(entry);
             var spec = new EnemySpawnSpec { DefId = entry.Species, Elite = entry.Elite, Pos = pos, NoReward = hordeNoReward };
@@ -448,16 +448,18 @@ namespace Wizard.Solo.Sim.Waves
         }
 
         /// <summary>
-        /// 무리 한 마리의 자리. 무리가 없거나 다 찼거나 다른 틱이면 새 무리: 크기 = [min, max] 균등, 자리 = 보통 등장 자리(먼 두 변).
+        /// 무리 한 마리의 자리. 무리가 없거나 다 찼거나 다른 틱이면 새 무리: 크기 = 그 웨이브의 [min, max](pack_size_by_wave 계단) 균등, 자리 = 보통 등장 자리(먼 두 변).
         /// 마리마다 무리 자리에서 반경 안 균등한 점을 뽑고, 바깥쪽 성분은 안쪽으로 뒤집고 전장 안(벽·가시 띠 안쪽)으로 자른다.
         /// 난수는 등장 흐름(RngStream.Spawn) 하나만 쓴다.
         /// </summary>
-        Vector2 PackSpawnPoint(SimWorld w, WaveRuntime rt, EnemyDef def)
+        Vector2 PackSpawnPoint(SimWorld w, WaveState ws, WaveRuntime rt, EnemyDef def)
         {
             var rng = w.Rng(RngStream.Spawn);
             if (rt.PackLeft <= 0 || rt.PackTick != w.Tick)
             {
-                rt.PackLeft = rng.Range(_tuning.HordePackSizeMin, _tuning.HordePackSizeMax + 1);
+                int lo, hi;
+                _tuning.PackSizeRange(ws.Wave, out lo, out hi);
+                rt.PackLeft = rng.Range(lo, hi + 1);
                 rt.PackTick = w.Tick;
                 rt.PackAnchor = PickEdgePoint(w, rng, def, out rt.PackInward);
             }

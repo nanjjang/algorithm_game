@@ -80,12 +80,16 @@ namespace Wizard.Solo.Tests.Integration
 
         // ------------------------------------------------------------ C. 떼 출현 보상 나누기
 
+        /// <summary>떼 출현 시험 웨이브: 늘린 적이 있는 첫날 웨이브(곡선 1.35).</summary>
+        const int HordeWave = 3;
+
         [Test]
-        public void Horde_Split__Wave1KillGoldAndScoreTotalsEqualSpecComposition_MorePayouts()
+        public void Horde_Split__Wave3KillGoldAndScoreTotalsEqualSpecComposition_MorePayouts()
         {
+            // 웨이브 3에서 시작(G09 곡선에서 웨이브 1은 배율 1.0이라 늘린 적이 없다 — QA 조정, Docs/11-fun-pass.md 1절)
             using (var k = new IntegrationKit())
             {
-                k.StartRun(1, seed: 5UL);
+                k.StartRun(1, seed: 5UL, cfg => cfg.StartWave = HordeWave);
                 WavePlan plan = null;
                 Assert.IsTrue(k.AutoPlay(9000, w =>
                 {
@@ -100,15 +104,15 @@ namespace Wizard.Solo.Tests.Integration
                     if (e.OutsideBudget && !e.Elite) { extras++; continue; }
                     originals++;
                     int cost = k.Db.Enemy(e.Species).Cost;
-                    expectGold += cost * k.Db.Drops.GoldPerCost;
-                    expectScoreX2 += cost * k.Db.Scoring.KillPerCost * 2;
+                    expectGold += cost * k.Db.Drops.GoldPerCost * (e.Elite ? k.Db.Drops.EliteGoldMul : 1);
+                    expectScoreX2 += cost * k.Db.Scoring.KillPerCost * (e.Elite ? k.Db.Waves.EliteCostMul : 1) * 2;
                 }
                 Assert.Greater(extras, 0, "떼 출현(G09)이 켜져 있어야 시험이 된다");
                 int killGold = 0, payouts = 0;
                 foreach (var ev in k.Events(SimEventType.GoldGained))
                     if (ev.Pos.x >= 0f) { killGold += ev.A; payouts++; }
                 var stats = k.W.Run.WaveResults[0].Stats;
-                FunPassKit.Log("웨이브 1: 원본 " + originals + " + 늘린 " + extras + ", 처치 골드 " + killGold + " (" + payouts + "번), 점수 재료 ×2 " + stats.KillScoreX2);
+                FunPassKit.Log("웨이브 " + HordeWave + ": 원본 " + originals + " + 늘린 " + extras + ", 처치 골드 " + killGold + " (" + payouts + "번), 점수 재료 ×2 " + stats.KillScoreX2);
                 Assert.AreEqual(expectGold, killGold, "처치 골드 합 = 명세 구성의 합");
                 Assert.AreEqual(expectScoreX2, stats.KillScoreX2, "처치 점수 재료 합 = 명세 구성의 합");
                 Assert.Greater(payouts, originals, "늘린 적도 골드가 튄다(나눠서)");
@@ -122,12 +126,13 @@ namespace Wizard.Solo.Tests.Integration
             // 같은 웨이브를 같은 시간에 깼다면, 떼 출현 보정으로 빠른 처리 점수가 명세 목표(60초)보다 크다.
             using (var k = new IntegrationKit())
             {
-                k.StartRun(1, seed: 5UL);
+                k.StartRun(1, seed: 5UL, cfg => cfg.StartWave = HordeWave);
                 Assert.IsTrue(k.AutoPlay(9000, w => w.Run.Phase == RunPhase.LootPick, god: true));
                 var res = k.W.Run.WaveResults[0];
+                Assert.AreEqual(HordeWave, res.Wave);
                 var sc = k.Db.Scoring;
                 long specFast = System.Math.Max(0L, (long)sc.FastClear.TargetSeconds * 60 - res.Stats.ElapsedTicks) * sc.FastClear.PerSecond;
-                long s10 = 9 + 1;
+                long s10 = 9 + HordeWave;
                 int specFastScore = (int)(specFast * s10 / (60 * 10));
                 Assert.Greater(res.Score.Fast, specFastScore, "떼 배율만큼 목표 시간이 늘었다");
             }

@@ -22,7 +22,10 @@ namespace Wizard.Solo.Tests.Art
         readonly string _resources;
         public readonly List<string> TextureLoads = new List<string>();
         public readonly List<string> TextureUnloads = new List<string>();
-        public bool ProvideShaders;
+        /// <summary>셰이더·글꼴은 디스크 파일이 아니라 Resources로 읽는다(편집기에서는 늘 있다). 끄면 null — 대체 경로 시험용.
+        /// 기본 켜짐: 꺼져 있으면 그림 창고가 매 시험마다 "셰이더·글꼴 없음" 경고를 남겨 로그가 가짜 경고로 찬다.</summary>
+        public bool ProvideShaders = true;
+        public bool ProvideFonts = true;
 
         public DiskArtSource(string resourcesRoot = null)
         {
@@ -49,7 +52,7 @@ namespace Wizard.Solo.Tests.Art
             return t;
         }
 
-        public Font LoadFont(string resourcePath) => null;
+        public Font LoadFont(string resourcePath) => ProvideFonts ? Resources.Load<Font>(resourcePath) : null;
 
         public Shader LoadShader(string resourcePath) => ProvideShaders ? Resources.Load<Shader>(resourcePath) : null;
 

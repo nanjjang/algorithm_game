@@ -23,7 +23,9 @@ namespace Wizard.Solo.UI
         /// <summary>광장(좀비고식): 걸어 다니며 말풍선으로 이야기하고, 여기서 방을 만들거나 코드로 들어간다.</summary>
         Plaza,
         /// <summary>내 온라인 기록: 서버 프로필, 서버 지팡이 강화, 결투 순위표.</summary>
-        OnlineProfile
+        OnlineProfile,
+        /// <summary>서버 지팡이 조립(인자 Character 1~5).</summary>
+        OnlineAssembly
     }
 
     public enum ScreenLayer { Fullscreen = 0, Panel = 1, HudOverlay = 2, Modal = 3, Toast = 4 }

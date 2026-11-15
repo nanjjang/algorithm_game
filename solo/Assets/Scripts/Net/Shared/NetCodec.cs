@@ -144,6 +144,10 @@ namespace Wizard.Solo.Net
                 var off = p.OfferOf(c);
                 w.Str(off != null ? off.Candidate : null);
                 w.Str(off != null ? off.WouldPushOut : null);
+                var lo = p.LoadoutOf(c);
+                w.Bool(lo != null);
+                if (lo != null) { w.Str(lo.Core); w.StrList(lo.Links); }
+                w.Int(p.SlotsExtra != null && c - 1 < p.SlotsExtra.Length ? p.SlotsExtra[c - 1] : 0);
             }
             int n = p.Items != null ? p.Items.Count : 0;
             w.Int(n);
@@ -171,6 +175,9 @@ namespace Wizard.Solo.Net
                 for (int k = 0; k < mc; k++) muts.Add(new Wizard.Solo.Meta.MutationEntry { Id = r.Str(), Seq = k });
                 string cand = r.Str(), push = r.Str();
                 if (cand != null) p.SetOffer(c, new ServerMutationOffer { Candidate = cand, WouldPushOut = push });
+                p.LoadoutOf(c);
+                if (r.Bool()) p.Loadouts[c - 1] = new ServerLoadout { Core = r.Str(), Links = r.StrList() ?? new List<string>() };
+                p.SlotsExtra[c - 1] = r.Int();
             }
             int n = r.Int();
             for (int i = 0; i < n; i++) { string k = r.Str(); p.Items[k] = r.Int(); }

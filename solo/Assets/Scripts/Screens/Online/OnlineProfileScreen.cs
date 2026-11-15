@@ -24,6 +24,7 @@ namespace Wizard.Solo.Screens.Online
         readonly List<string> _sacrifices = new List<string>();
         readonly List<UiLabel> _wandLines = new List<UiLabel>();
         readonly List<UiButton> _enhanceButtons = new List<UiButton>();
+        readonly List<UiButton> _assemblyButtons = new List<UiButton>();
         readonly List<UiButton> _acceptButtons = new List<UiButton>();
         readonly List<UiButton> _declineButtons = new List<UiButton>();
         readonly List<UiButton> _blockButtons = new List<UiButton>();
@@ -51,7 +52,9 @@ namespace Wizard.Solo.Screens.Online
             {
                 int ch = c;
                 var panel = UiKit.Panel(Ctx, board, UiPanelKind.Recess, Pad, y, leftW, RowH).rectTransform;
-                _wandLines.Add(UiKit.Label(Ctx, panel, string.Empty, UiFontId.F12, 16f, 0f, leftW - 300f, RowH, UiTheme.Chalk, TextAnchor.MiddleLeft, wrap: true));
+                _wandLines.Add(UiKit.Label(Ctx, panel, string.Empty, UiFontId.F12, 16f, 0f, leftW - 420f, RowH, UiTheme.Chalk, TextAnchor.MiddleLeft, wrap: true));
+                _assemblyButtons.Add(UiKit.Button(Ctx, panel, T(OnlineKeys.AssemblyButton), leftW - 400f, 8f, 110f, RowH - 16f,
+                    () => OpenAssembly(ch), UiButtonStyle.Medium, Focus, null, UiFontId.F16));
                 _enhanceButtons.Add(UiKit.Button(Ctx, panel, T(OnlineKeys.ProfileEnhance), leftW - 196f, 8f, 180f, RowH - 16f, () => OnEnhance(ch), UiButtonStyle.Primary, Focus));
                 _acceptButtons.Add(UiKit.Button(Ctx, panel, T(OnlineKeys.MutationAccept), leftW - 280f, 8f, 132f, RowH - 16f, () => OnResolve(ch, true), UiButtonStyle.Primary, Focus, null, UiFontId.F16));
                 _declineButtons.Add(UiKit.Button(Ctx, panel, T(OnlineKeys.MutationDecline), leftW - 140f, 8f, 124f, RowH - 16f, () => OnResolve(ch, false), UiButtonStyle.Medium, Focus, null, UiFontId.F16));
@@ -112,6 +115,14 @@ namespace Wizard.Solo.Screens.Online
             _svc?.Dispose();
             _svc = null;
             base.OnExit();
+        }
+
+        void OpenAssembly(int ch)
+        {
+            var args = ScreenArgs.From(ScreenId.OnlineProfile).With(ScreenArgKeys.Character, ch);
+            // 조립 화면이 닫히면 서버 프로필을 다시 받아 보인다(조립은 다른 연결로 저장했다).
+            args.OnResult = _ => { _svc?.Dispose(); _svc = OnlineService.Open(Ctx != null ? Ctx.Content : null); Refresh(); };
+            Screens?.Push(ScreenId.OnlineAssembly, args);
         }
 
         void ToggleCharm() { _useCharm = !_useCharm; Refresh(); }
@@ -194,6 +205,14 @@ namespace Wizard.Solo.Screens.Online
                         + (offer.WouldPushOut != null ? "  " + F(OnlineKeys.MutationPush, "m", T(offer.WouldPushOut)) : string.Empty);
                 _wandLines[i].SetText(line);
                 _enhanceButtons[i].gameObject.SetActive(offer == null);
+                _assemblyButtons[i].Enabled = p != null;
+                var lo = p != null ? p.LoadoutOf(ch) : null;
+                if (lo != null)
+                {
+                    var parts = new List<string> { T(string.IsNullOrEmpty(lo.Core) ? Wizard.Solo.Ids.Block.MagicBolt : lo.Core) };
+                    foreach (var l in lo.Links) if (!string.IsNullOrEmpty(l)) parts.Add(T(l));
+                    if (offer == null) _wandLines[i].SetText(_wandLines[i].FullText + "\n" + string.Join(" + ", parts));
+                }
                 _acceptButtons[i].gameObject.SetActive(offer != null);
                 _declineButtons[i].gameObject.SetActive(offer != null);
                 _enhanceButtons[i].Enabled = p != null && !max && p.Gold >= bd.CostGold && hasStones;

@@ -353,6 +353,17 @@ namespace Wizard.Solo.Screens.Online
         public const string EnhanceGold = "str.online.enhance.gold";
         public const string EnhanceStones = "str.online.enhance.stones";
         public const string SacrificeLine = "str.online.sacrifice.line";
+        public const string AssemblyButton = "str.online.assembly.button";
+        public const string AssemblyTitle = "str.online.assembly.title";
+        public const string AssemblyCore = "str.online.assembly.core";
+        public const string AssemblyLink = "str.online.assembly.link";
+        public const string AssemblyChips = "str.online.assembly.chips";
+        public const string AssemblyClear = "str.online.assembly.clear";
+        public const string AssemblySave = "str.online.assembly.save";
+        public const string AssemblySaved = "str.online.assembly.saved";
+        public const string AssemblyCompile = "str.online.assembly.compile";
+        public const string AssemblyNotOwned = "str.online.assembly.not_owned";
+        public const string AssemblyBad = "str.online.assembly.bad";
         public const string SacrificeClear = "str.online.sacrifice.clear";
         public const string SacrificeBad = "str.online.sacrifice.bad";
         public const string MutationAccept = "str.online.mutation.accept";

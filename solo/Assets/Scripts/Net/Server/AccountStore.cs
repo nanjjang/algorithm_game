@@ -27,6 +27,17 @@ namespace Wizard.Solo.Net
         /// <summary>캐릭터마다 결정 대기 중인 변이 제시(없으면 null).</summary>
         public List<ServerMutationOffer> PendingOffers = new List<ServerMutationOffer>();
         public long NextAttemptSeq = 1;
+        /// <summary>캐릭터마다 서버 지팡이 조립(코어 + 연결 칸). null = 기본(코어 마력탄, 빈 칸). 끼운 블록은 창고(Items)에서 빠져 있다.</summary>
+        public List<ServerLoadout> Loadouts = new List<ServerLoadout>();
+        /// <summary>캐릭터마다 대성공으로 늘어난 연결 칸 수.</summary>
+        public int[] SlotsExtra = new int[5];
+
+        public ServerLoadout LoadoutOf(int character)
+        {
+            if (Loadouts == null) Loadouts = new List<ServerLoadout>();
+            while (Loadouts.Count < 5) Loadouts.Add(null);
+            return Loadouts[character - 1];
+        }
 
         public List<Wizard.Solo.Meta.MutationEntry> MutationsOf(int character)
         {
@@ -60,6 +71,13 @@ namespace Wizard.Solo.Net
         }
         public string CreatedAt;
         public string LastSeenAt;
+    }
+
+    /// <summary>서버 지팡이 조립 한 벌. Links 길이 = 그 지팡이의 연결 칸 수(빈 칸 = null).</summary>
+    public sealed class ServerLoadout
+    {
+        public string Core;
+        public List<string> Links = new List<string>();
     }
 
     /// <summary>서버 지팡이에 걸린 변이 제시: 받으면 변이 +기운 1, 거절하면 미리 계산해 둔 실패 결과.</summary>
@@ -174,6 +192,8 @@ namespace Wizard.Solo.Net
             if (p.WandStages == null || p.WandStages.Length != 5) p.WandStages = new int[5];
             if (p.Auras == null || p.Auras.Length != 5) p.Auras = new int[5];
             if (p.PeakStages == null || p.PeakStages.Length != 5) p.PeakStages = new int[5];
+            if (p.SlotsExtra == null || p.SlotsExtra.Length != 5) p.SlotsExtra = new int[5];
+            if (p.Loadouts == null) p.Loadouts = new List<ServerLoadout>();
         }
 
         /// <summary>순위표: 레이팅 높은 순(같으면 승수, 이름). 결투를 한 번이라도 한 사람만.</summary>
@@ -260,6 +280,13 @@ namespace Wizard.Solo.Net
             switch (band)
             {
                 case Wizard.Solo.Meta.Enhance.JudgeBand.GreatSuccess:
+                    // 대성공은 (정한 단계부터) 연결 칸을 하나 늘린다(오프라인과 같은 GreatGivesSlot, 상한 SlotExtraMax).
+                    if (Wizard.Solo.Meta.Enhance.EnhanceRules.GreatGivesSlot(cfg, stage) && p.SlotsExtra[i] < cfg.SlotExtraMax)
+                    {
+                        p.SlotsExtra[i]++;
+                        var lo = p.LoadoutOf(character);
+                        if (lo != null) lo.Links.Add(null);
+                    }
                     p.WandStages[i] = Wizard.Solo.Meta.Enhance.EnhanceRules.StageAfterGreat(cfg, stage);
                     p.Auras[i] = 0;
                     outcome = Wizard.Solo.Meta.EnhanceOutcome.GreatSuccess;
@@ -333,6 +360,75 @@ namespace Wizard.Solo.Net
             p.SetOffer(character, null);
             Save();
             return EnhanceResult.Ok;
+        }
+
+        // ------------------------------------------------------------ 서버 지팡이 조립
+
+        public enum LoadoutResult { Ok, NoAccount, BadCharacter, BadShape, NotOwned, CompileError }
+
+        /// <summary>그 캐릭터 서버 지팡이의 연결 칸 수 = 캐릭터 기본 칸 + 대성공으로 늘어난 칸.</summary>
+        public int LinkSlots(long id, int character, Wizard.Solo.Data.IContentDb db)
+        {
+            var a = Get(id);
+            var def = db != null ? db.Character(Ids.Char.Of(character)) : null;
+            int baseSlots = def != null ? def.BaseLinkSlots : 0;
+            if (a == null || character < 1 || character > 5) return baseSlots;
+            Fix(a.Profile);
+            return baseSlots + a.Profile.SlotsExtra[character - 1];
+        }
+
+        /// <summary>지금 조립(없으면 기본: 마력탄 + 빈 칸).</summary>
+        public Wizard.Solo.Sim.LoadoutSpec LoadoutSpecOf(long id, int character, Wizard.Solo.Data.IContentDb db)
+        {
+            int n = LinkSlots(id, character, db);
+            var a = Get(id);
+            var lo = a != null && character >= 1 && character <= 5 ? a.Profile.LoadoutOf(character) : null;
+            var spec = new Wizard.Solo.Sim.LoadoutSpec { Core = lo != null && !string.IsNullOrEmpty(lo.Core) ? lo.Core : Ids.Block.MagicBolt, Links = new List<string>() };
+            for (int k = 0; k < n; k++) spec.Links.Add(lo != null && k < lo.Links.Count ? lo.Links[k] : null);
+            return spec;
+        }
+
+        static void CountBlocks(Wizard.Solo.Sim.LoadoutSpec s2, Dictionary<string, int> into)
+        {
+            if (!string.IsNullOrEmpty(s2.Core) && s2.Core != Ids.Block.MagicBolt) { into.TryGetValue(s2.Core, out int c); into[s2.Core] = c + 1; }
+            foreach (var l in s2.Links) if (!string.IsNullOrEmpty(l) && l != Ids.Block.MagicBolt) { into.TryGetValue(l, out int c); into[l] = c + 1; }
+        }
+
+        /// <summary>
+        /// 조립을 바꾼다. 모양(코어는 투사체, 칸 수, 아는 블록)·주문 컴파일(오프라인과 같은 InventoryRules)·창고 수량을 본다.
+        /// 마력탄은 누구나 가진 기본 블록이라 창고 없이 끼운다. 바뀐 블록은 창고와 맞바꾼다(빼면 돌아오고, 끼우면 빠진다).
+        /// </summary>
+        public LoadoutResult SetLoadout(long id, int character, string core, IList<string> links, Wizard.Solo.Data.IContentDb db, Wizard.Solo.Sim.SimModuleSet rules)
+        {
+            var a = Get(id);
+            if (a == null) return LoadoutResult.NoAccount;
+            if (character < 1 || character > 5 || db == null) return LoadoutResult.BadCharacter;
+            var p = a.Profile;
+            Fix(p);
+            int n = LinkSlots(id, character, db);
+            var spec = new Wizard.Solo.Sim.LoadoutSpec { Core = string.IsNullOrEmpty(core) ? Ids.Block.MagicBolt : core, Links = new List<string>() };
+            for (int k = 0; k < n; k++) spec.Links.Add(links != null && k < links.Count && !string.IsNullOrEmpty(links[k]) ? links[k] : null);
+            if (Wizard.Solo.Meta.Inventory.InventoryRules.CheckShape(db, spec, n) != Wizard.Solo.Meta.ErrorCode.None) return LoadoutResult.BadShape;
+
+            var have = new Dictionary<string, int>();
+            var need = new Dictionary<string, int>();
+            CountBlocks(LoadoutSpecOf(id, character, db), have);
+            CountBlocks(spec, need);
+            foreach (var kv in need)
+            {
+                have.TryGetValue(kv.Key, out int socketed);
+                if (socketed + p.Qty(kv.Key) < kv.Value) return LoadoutResult.NotOwned;
+            }
+            var muts = MutationIds(id, character);
+            if (rules != null && Wizard.Solo.Meta.Inventory.InventoryRules.CheckCompile(rules, db, character, p.WandStages[character - 1], muts, spec, n) != Wizard.Solo.Meta.ErrorCode.None)
+                return LoadoutResult.CompileError;
+
+            foreach (var kv in have) p.Add(kv.Key, kv.Value);
+            foreach (var kv in need) p.Add(kv.Key, -kv.Value);
+            p.LoadoutOf(character);
+            p.Loadouts[character - 1] = new ServerLoadout { Core = spec.Core, Links = new List<string>(spec.Links) };
+            Save();
+            return LoadoutResult.Ok;
         }
 
         /// <summary>서버 지팡이의 변이 id들(온라인 판 출발 설정에 넣는다).</summary>

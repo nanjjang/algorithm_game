@@ -11,7 +11,7 @@ namespace Wizard.Solo.Net
     /// </summary>
     public static class OnlineMember
     {
-        public static RunConfig Build(IContentDb db, int character, int stage, string attackStyle = null)
+        public static RunConfig Build(IContentDb db, int character, int stage, string attackStyle = null, LoadoutSpec loadout = null)
         {
             if (character < 1 || character > Ids.Char.Count) character = 1;
             string charId = Ids.Char.Of(character);
@@ -28,8 +28,8 @@ namespace Wizard.Solo.Net
                 CharId = charId,
                 WandId = 0,
                 WandStage = stage < 0 ? 0 : (stage > max ? max : stage),
-                LinkSlotCount = links,
-                Loadout = spec,
+                LinkSlotCount = loadout != null ? loadout.Links.Count : links,
+                Loadout = loadout != null ? loadout.Clone() : spec,
                 UnlockedArts = arts,
                 AttackStyle = attackStyle,
             };

@@ -15,6 +15,7 @@ namespace Wizard.Solo.UI
             m.Register(ScreenId.CoopLobby, () => new Wizard.Solo.Screens.Online.CoopLobbyScreen());
             m.Register(ScreenId.Plaza, () => new Wizard.Solo.Screens.Online.PlazaScreen());
             m.Register(ScreenId.OnlineProfile, () => new Wizard.Solo.Screens.Online.OnlineProfileScreen());
+            m.Register(ScreenId.OnlineAssembly, () => new Wizard.Solo.Screens.Online.OnlineAssemblyScreen());
         }
     }
 }

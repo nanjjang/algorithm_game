@@ -45,6 +45,8 @@ namespace Wizard.Solo.Net
         public Func<long, int, int> StageLookup;
         /// <summary>(계정 id, 캐릭터) → 서버 지팡이의 변이 id들.</summary>
         public Func<long, int, List<string>> MutationLookup;
+        /// <summary>(계정 id, 캐릭터) → 서버 지팡이 조립.</summary>
+        public Func<long, int, LoadoutSpec> LoadoutLookup;
         /// <summary>판 전 마지막으로 누가 있었던 틱 수(빈 방 정리용, 방 서버가 센다).</summary>
         public int IdleTicks;
 
@@ -263,7 +265,7 @@ namespace Wizard.Solo.Net
             // 출발 설정은 서버가 다시 만든다: 캐릭터·기본 공격 유형만 손님 것, 지팡이 단계는 서버 프로필(OnlineMember).
             int ch = Ids.Char.NumberOf(member.CharId);
             int stage = p.AccountId > 0 && StageLookup != null ? StageLookup(p.AccountId, ch) : 0;
-            member = OnlineMember.Build(_content, ch, stage, member.AttackStyle);
+            member = OnlineMember.Build(_content, ch, stage, member.AttackStyle, p.AccountId > 0 && LoadoutLookup != null ? LoadoutLookup(p.AccountId, ch) : null);
             if (p.AccountId > 0 && MutationLookup != null) member.Mutations = MutationLookup(p.AccountId, ch) ?? new List<string>();
             p.Member = member;
             p.Slot = FreeSlot();

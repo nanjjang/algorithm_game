@@ -135,6 +135,7 @@ namespace Wizard.Solo.Net
         }
 
         readonly Random _dice = new Random();
+        SimModuleSet _rules;
 
         bool TryService(INetPipe pipe, byte[] data)
         {
@@ -167,6 +168,21 @@ namespace Wizard.Solo.Net
                 NetCodec.WriteProfile(m, acct != null ? acct.Profile : new ServerProfile());
                 pipe.Send(m.ToArray());
                 if (res == AccountStore.EnhanceResult.Ok) Log?.Invoke("[room-server] enhance " + acct.Id + " char " + ch + " " + before + " → " + Accounts.StageOf(acct.Id, ch) + " (" + outcome + ")");
+                return true;
+            }
+            if (kind == NetMsg.SetLoadout)
+            {
+                int ch = 0;
+                string core = null;
+                List<string> links = null;
+                try { var r = new NetReader(data); r.Byte(); ch = r.Int(); core = r.Str(); links = r.StrList(); } catch (Exception) { }
+                _authed.TryGetValue(pipe, out var acct);
+                if (_rules == null) _rules = _modules();
+                var res = acct == null ? AccountStore.LoadoutResult.NoAccount : Accounts.SetLoadout(acct.Id, ch, core, links, _content, _rules);
+                var m = new NetWriter(NetMsg.LoadoutReply);
+                m.Byte((byte)res);
+                NetCodec.WriteProfile(m, acct != null ? acct.Profile : new ServerProfile());
+                pipe.Send(m.ToArray());
                 return true;
             }
             if (kind == NetMsg.MutationResolve)
@@ -246,7 +262,7 @@ namespace Wizard.Solo.Net
                         RoomMode mode;
                         try { mode = (RoomMode)r.Byte(); } catch (Exception) { mode = RoomMode.Coop; }
                         if (mode != RoomMode.Coop && mode != RoomMode.Duel) mode = RoomMode.Coop;
-                        var h = new CoopHost(_content, _modules, SimConst.MaxPlayers, mode) { Code = NewCode(), StageLookup = Accounts.StageOf, MutationLookup = Accounts.MutationIds };
+                        var h = new CoopHost(_content, _modules, SimConst.MaxPlayers, mode) { Code = NewCode(), StageLookup = Accounts.StageOf, MutationLookup = Accounts.MutationIds, LoadoutLookup = (aid, ch) => Accounts.LoadoutSpecOf(aid, ch, _content) };
                         _rooms[h.Code] = h;
                         Log?.Invoke("[room-server] room " + h.Code + " created (" + mode + ")");
                         SendInfo(pipe, h);
@@ -271,7 +287,7 @@ namespace Wizard.Solo.Net
                 case NetMsg.Hello:
                     // 옛 손님(방 코드 없이 바로 Hello): 협동 방을 하나 만들어 준다.
                     {
-                        var h = new CoopHost(_content, _modules) { Code = NewCode(), StageLookup = Accounts.StageOf, MutationLookup = Accounts.MutationIds };
+                        var h = new CoopHost(_content, _modules) { Code = NewCode(), StageLookup = Accounts.StageOf, MutationLookup = Accounts.MutationIds, LoadoutLookup = (aid, ch) => Accounts.LoadoutSpecOf(aid, ch, _content) };
                         _rooms[h.Code] = h;
                         var replay = new ReplayPipe(pipe, first);
                         SendInfo(pipe, h);

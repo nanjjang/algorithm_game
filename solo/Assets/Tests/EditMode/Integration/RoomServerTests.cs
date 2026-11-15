@@ -442,5 +442,43 @@ namespace Wizard.Solo.Tests.Integration
                 Assert.IsNull(p.OfferOf(1));
             }
         }
+
+        [Test]
+        public void ServerLoadout_SocketFromStorage_AndRunUsesIt()
+        {
+            var st = new AccountStore(null);
+            st.Register("조립시험", new string('a', 40), out var rec);
+            var p = rec.Profile;
+            string proj = null, mod = null;
+            foreach (var b in _k.Db.Blocks)
+            {
+                if (proj == null && b.IsProjectile && b.Id != Ids.Block.MagicBolt && b.Style == null) proj = b.Id;
+                if (mod == null && !b.IsProjectile) mod = b.Id;
+            }
+            Assert.IsNotNull(proj);
+            Assert.IsNotNull(mod);
+            var rules = SimModuleSet.CreateDefault();
+            int n = st.LinkSlots(rec.Id, 1, _k.Db);
+            Assert.Greater(n, 0);
+            Assert.AreEqual(AccountStore.LoadoutResult.NotOwned, st.SetLoadout(rec.Id, 1, proj, null, _k.Db, rules), "창고에 없으면 못 끼운다");
+            p.Add(proj, 1);
+            Assert.AreEqual(AccountStore.LoadoutResult.BadShape, st.SetLoadout(rec.Id, 1, mod, null, _k.Db, rules), "코어는 투사체만");
+            Assert.AreEqual(AccountStore.LoadoutResult.Ok, st.SetLoadout(rec.Id, 1, proj, null, _k.Db, rules));
+            Assert.AreEqual(0, p.Qty(proj), "끼우면 창고에서 빠진다");
+            Assert.AreEqual(proj, st.LoadoutSpecOf(rec.Id, 1, _k.Db).Core);
+            Assert.AreEqual(AccountStore.LoadoutResult.Ok, st.SetLoadout(rec.Id, 1, Ids.Block.MagicBolt, null, _k.Db, rules), "마력탄은 창고 없이");
+            Assert.AreEqual(1, p.Qty(proj), "빼면 창고로 돌아온다");
+
+            // 방에서: 서버 조립으로 선다.
+            st.SetLoadout(rec.Id, 1, proj, null, _k.Db, rules);
+            var host = new CoopHost(_k.Db) { StageLookup = st.StageOf, LoadoutLookup = (aid, ch) => st.LoadoutSpecOf(aid, ch, _k.Db) };
+            LoopbackPipe.CreatePair(out var se, out var ce);
+            host.Accept(se, rec);
+            var c = new CoopClient(_k.Db);
+            c.Connect(ce, OnlineMember.Build(_k.Db, 1, 0));
+            host.Tick(); c.Pump();
+            Assert.IsTrue(host.StartRun(3UL));
+            Assert.AreEqual(proj, host.World.Run.Config.Loadout.Core, "판 출발 설정의 코어 = 서버 조립");
+        }
 }
 }

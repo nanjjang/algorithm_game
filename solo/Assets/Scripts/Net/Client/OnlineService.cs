@@ -66,6 +66,25 @@ namespace Wizard.Solo.Net
             return ReadReply(timeoutMs);
         }
 
+        /// <summary>서버 지팡이 조립을 바꾼다. 결과와 바뀐(또는 그대로인) 프로필.</summary>
+        public AccountStore.LoadoutResult? SetLoadout(int character, string core, IList<string> links, int timeoutMs = 4000)
+        {
+            if (!Connected) return null;
+            var m = new NetWriter(NetMsg.SetLoadout);
+            m.Int(character);
+            m.Str(core);
+            m.StrList(links != null ? new List<string>(links) : new List<string>());
+            _pipe.Send(m.ToArray());
+            var data = Wait(timeoutMs, NetMsg.LoadoutReply);
+            if (data == null) return null;
+            var r = new NetReader(data);
+            r.Byte();
+            var res = (AccountStore.LoadoutResult)r.Byte();
+            var prof = NetCodec.ReadProfile(r);
+            if (res != AccountStore.LoadoutResult.NoAccount) Profile = prof;
+            return res;
+        }
+
         /// <summary>대기 중인 변이 제시에 답한다(받기 / 거절).</summary>
         public EnhanceReply? ResolveMutation(int character, bool accept, int timeoutMs = 4000)
         {

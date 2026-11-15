@@ -13,10 +13,8 @@ namespace Wizard.Solo.Net
     {
         public CoopHost Host { get; private set; }
         public CoopClient Me { get; private set; }
-        readonly List<CoopBot> _bots = new List<CoopBot>();
         readonly IContentDb _content;
 
-        public IReadOnlyList<CoopBot> Bots => _bots;
 
         OnlineCoop(IContentDb content) { _content = content; }
 
@@ -58,34 +56,61 @@ namespace Wizard.Solo.Net
             }
         }
 
-        /// <summary>동료 봇을 하나 더한다(방장 기기 안). 가득이면 false.</summary>
+        /// <summary>동료 봇을 하나 더한다. 이 기기 방이면 서버에 바로, 원격 방이면 서버에 청한다(방장만). 봇은 서버 안에서 돈다.</summary>
         public bool AddBot(RunConfig member)
         {
-            if (Host == null || Host.Started || Host.PlayerCount >= SimConst.MaxPlayers) return false;
-            LoopbackPipe.CreatePair(out var serverEnd, out var clientEnd);
-            Host.Accept(serverEnd);
-            var c = new CoopClient(_content);
-            c.Connect(clientEnd, member);
-            _bots.Add(new CoopBot(c));
-            Pump();
+            if (Host != null)
+            {
+                bool ok = Host.AddBot(member);
+                Pump();
+                return ok;
+            }
+            if (!IsLeader || Me == null) return false;
+            Me.RequestAddBot(member);
             return true;
         }
 
         /// <summary>마지막 봇을 뺀다.</summary>
         public void RemoveBot()
         {
-            if (_bots.Count == 0 || Host == null || Host.Started) return;
-            _bots[_bots.Count - 1].Client.Disconnect();
-            _bots.RemoveAt(_bots.Count - 1);
-            Pump();
+            if (Host != null) { Host.RemoveBot(); Pump(); return; }
+            if (IsLeader) Me?.RequestRemoveBot();
+        }
+
+        /// <summary>로비의 봇 수(로비 목록 기준).</summary>
+        public int BotCount { get { int n = 0; if (Me != null) foreach (var m in Me.Lobby) if (m.IsBot) n++; return n; } }
+        /// <summary>로비의 사람·봇 수.</summary>
+        public int MemberCount => Me != null ? Me.Lobby.Count : 0;
+
+        // ------------------------------------------------------------ 이 기기 방을 다른 기기에 열기
+
+        TcpPipeListener _listener;
+        public bool OpenToNetwork => _listener != null;
+        public int NetworkPort => _listener != null ? _listener.Port : 0;
+
+        /// <summary>이 기기 방에 다른 기기가 TCP로 들어오게 연다(전용 서버 없이 방장 기기가 서버 노릇).</summary>
+        public bool OpenNetwork(int port)
+        {
+            if (Host == null) return false;
+            if (_listener != null) return true;
+            try { _listener = new TcpPipeListener(port, bindAll: true); }
+            catch (System.Exception) { _listener = null; return false; }
+            return true;
+        }
+
+        void AcceptNetwork()
+        {
+            if (_listener == null || Host == null) return;
+            TcpPipe p;
+            while ((p = _listener.Poll()) != null) Host.Accept(p);
         }
 
         /// <summary>로비 동안 프레임마다: 메시지만 주고받는다(판은 아직 없다).</summary>
         public void Pump()
         {
+            AcceptNetwork();
             Host?.Tick();
             Me?.Pump();
-            for (int i = 0; i < _bots.Count; i++) _bots[i].Client.Pump();
             Host?.Tick();
             Me?.Pump();
         }
@@ -101,7 +126,6 @@ namespace Wizard.Solo.Net
             }
             if (!Host.StartRun(seed)) return false;
             Me.Pump();
-            for (int i = 0; i < _bots.Count; i++) _bots[i].Client.Pump();
             return Me.World != null;
         }
 
@@ -121,20 +145,22 @@ namespace Wizard.Solo.Net
         public void Step()
         {
             if (Me == null) return;
+            Me.FramesSinceSnapshot++;
             Me.Flush();
-            for (int i = 0; i < _bots.Count; i++) _bots[i].Act();
+            AcceptNetwork();
             Host?.Tick();
             Me.Pump();
-            for (int i = 0; i < _bots.Count; i++) _bots[i].Client.Pump();
         }
 
         public void DrainEvents(List<SimEvent> into) => Me?.DrainEvents(into);
 
+        public float InterpAlpha => Me != null ? Me.InterpAlpha : 1f;
+
         public void Leave()
         {
-            for (int i = 0; i < _bots.Count; i++) _bots[i].Client.Disconnect();
-            _bots.Clear();
             Me?.Disconnect();
+            _listener?.Stop();
+            _listener = null;
             Host = null;
         }
     }

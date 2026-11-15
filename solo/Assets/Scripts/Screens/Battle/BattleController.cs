@@ -32,6 +32,19 @@ namespace Wizard.Solo.Screens.Battle
         IScreenManager Screens => _ctx != null ? _ctx.Screens : null;
         /// <summary>온라인 판(11-online.md): 일시정지 없음, 오프라인 프로필에 정산·저장하지 않음.</summary>
         bool Online => Session is IOnlineSession os && os.IsOnline;
+        bool _leaveAsked;
+        public const string LeaveTitleKey = "str.coop.leave_title", LeaveBodyKey = "str.coop.leave_body";
+
+        /// <summary>온라인 판에서 나가 협동 방 화면으로(결과 없이).</summary>
+        void LeaveOnline()
+        {
+            var s = Session;
+            var m = Screens;
+            s?.EndRun();
+            if (m == null) return;
+            if (m.Top != ScreenId.Battle && m.IsOpen(ScreenId.Battle)) m.PopTo(ScreenId.Battle);
+            m.Replace(ScreenId.CoopLobby, ScreenArgs.From(ScreenId.Battle));
+        }
 
         public void Enter(ScreenArgs args)
         {
@@ -74,6 +87,18 @@ namespace Wizard.Solo.Screens.Battle
             var s = Session;
             var m = Screens;
             if (s == null || m == null) return false;
+            if (Online)
+            {
+                // 온라인 판은 멈추지 않는다. Esc = "판에서 나갈까요?" 한 번(나가면 내 캐릭터는 쓰러진 것으로 친다).
+                if (m.Top != ScreenId.Battle || _leaveAsked || Flow.Ended) return false;
+                _leaveAsked = true;
+                m.Confirm(LeaveTitleKey, LeaveBodyKey, true, yes =>
+                {
+                    _leaveAsked = false;
+                    if (yes) LeaveOnline();
+                });
+                return true;
+            }
             if (m.Top != ScreenId.Battle) return false;
             if (!Flow.CanRequestPause(s.MainWorld, s.HasRun, s.Paused)) return false;
             s.Paused = true;

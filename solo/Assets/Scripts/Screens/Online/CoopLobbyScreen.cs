@@ -18,7 +18,7 @@ namespace Wizard.Solo.Screens.Online
         CoopLobbyModel _model;
         readonly List<UiLabel> _rows = new List<UiLabel>();
         UiLabel _status;
-        UiButton _create, _join, _addBot, _removeBot, _start, _leave;
+        UiButton _create, _join, _addBot, _removeBot, _open, _start, _leave;
         UInputField _address;
 
         public override ScreenId Id => ScreenId.CoopLobby;
@@ -51,10 +51,11 @@ namespace Wizard.Solo.Screens.Online
                 _rows.Add(UiKit.Label(Ctx, list, string.Empty, UiFontId.F24, 16f, 8f + RowH * i, BoardW - 2f * Pad - 32f, RowH, UiTheme.Chalk));
             y += RowH * SimConst.MaxPlayers + 32f;
 
-            float bw = (BoardW - 2f * Pad - 24f) / 3f;
-            _create = UiKit.Button(Ctx, board, T(OnlineKeys.Create), Pad, y, bw, BtnH, OnCreate, UiButtonStyle.Medium, Focus);
-            _addBot = UiKit.Button(Ctx, board, T(OnlineKeys.AddBot), Pad + bw + 12f, y, bw, BtnH, OnAddBot, UiButtonStyle.Medium, Focus);
-            _removeBot = UiKit.Button(Ctx, board, T(OnlineKeys.RemoveBot), Pad + (bw + 12f) * 2f, y, bw, BtnH, OnRemoveBot, UiButtonStyle.Medium, Focus);
+            float bw = (BoardW - 2f * Pad - 36f) / 4f;
+            _create = UiKit.Button(Ctx, board, T(OnlineKeys.Create), Pad, y, bw, BtnH, OnCreate, UiButtonStyle.Medium, Focus, null, UiFontId.F16);
+            _open = UiKit.Button(Ctx, board, T(OnlineKeys.OpenNetwork), Pad + bw + 12f, y, bw, BtnH, OnOpen, UiButtonStyle.Medium, Focus, null, UiFontId.F16);
+            _addBot = UiKit.Button(Ctx, board, T(OnlineKeys.AddBot), Pad + (bw + 12f) * 2f, y, bw, BtnH, OnAddBot, UiButtonStyle.Medium, Focus, null, UiFontId.F16);
+            _removeBot = UiKit.Button(Ctx, board, T(OnlineKeys.RemoveBot), Pad + (bw + 12f) * 3f, y, bw, BtnH, OnRemoveBot, UiButtonStyle.Medium, Focus, null, UiFontId.F16);
             y += BtnH + 12f;
             float bw2 = (BoardW - 2f * Pad - 12f) / 2f;
             _start = UiKit.Button(Ctx, board, T(OnlineKeys.Start), Pad, y, bw2, BtnH, OnStart, UiButtonStyle.Primary, Focus);
@@ -115,10 +116,12 @@ namespace Wizard.Solo.Screens.Online
             _address.interactable = !_model.HasRoom;
             _addBot.Enabled = _model.CanAddBot;
             _removeBot.Enabled = _model.CanRemoveBot;
+            _open.Enabled = _model.CanOpenNetwork;
             _start.Enabled = _model.CanStart;
             string status = string.Empty;
             if (_model.ErrorKey != null) status = T(_model.ErrorKey);
             else if (_model.WaitingForStart) status = T(OnlineKeys.Waiting);
+            else if (_model.HasRoom && _model.Room.OpenToNetwork) status = F(OnlineKeys.OpenedAt, "addr", string.Join(", ", CoopLobbyModel.LocalAddresses()), "port", _model.Room.NetworkPort);
             else if (_model.ResultWave >= 0) status = F(OnlineKeys.Result, "wave", _model.ResultWave, "score", N(_model.ResultScore));
             _status.SetText(status);
         }
@@ -137,6 +140,7 @@ namespace Wizard.Solo.Screens.Online
         }
 
         void OnCreate() { _model.CreateRoom(); Refresh(); }
+        void OnOpen() { _model.OpenNetwork(); Refresh(); }
         void OnJoin() { _model.JoinRoom(_address.text); Refresh(); }
         void OnAddBot() { _model.AddBot(); Refresh(); }
         void OnRemoveBot() { _model.RemoveBot(); Refresh(); }

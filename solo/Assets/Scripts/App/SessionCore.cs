@@ -277,7 +277,7 @@ namespace Wizard.Solo.App
                     if (World != w) break;
                 }
                 var cur = World;
-                if (_host != null) _host.Render(cur, cur != null ? _acc.Alpha : 0f, dt);
+                if (_host != null) _host.Render(cur, cur != null && _online != null ? _online.InterpAlpha : 0f, dt);
                 return;
             }
             for (int s = 0; s < steps; s++)

@@ -18,6 +18,7 @@ namespace Wizard.Solo.Net
             public int Slot = -1;
             public RunConfig Member;
             public bool Dropped;
+            public CoopBot Bot; // 서버 안 봇이면 그 봇(아니면 null)
         }
 
         readonly IContentDb _content;
@@ -27,6 +28,8 @@ namespace Wizard.Solo.Net
         readonly int _maxPlayers;
 
         public SimWorld World { get; private set; }
+        /// <summary>마지막으로 보낸 스냅숏 몸의 크기(압축 뒤, 바이트).</summary>
+        public int LastSnapshotBytes { get; private set; }
         public bool Started => World != null;
         public int PlayerCount { get { int n = 0; foreach (var p in _peers) if (p.Slot >= 0 && !p.Dropped) n++; return n; } }
 
@@ -59,6 +62,38 @@ namespace Wizard.Solo.Net
                 return PlayerCount == 0;
             }
         }
+
+        /// <summary>서버 안에 동료 봇을 하나 세운다(판 전, 자리가 남을 때). 봇은 루프백 손님이라 사람과 같은 규칙으로 들어온다.</summary>
+        public bool AddBot(RunConfig member)
+        {
+            if (Started || member == null || PlayerCount >= _maxPlayers) return false;
+            LoopbackPipe.CreatePair(out var serverEnd, out var clientEnd);
+            var peer = new Peer { Pipe = serverEnd };
+            var client = new CoopClient(_content, _modules);
+            peer.Bot = new CoopBot(client);
+            _peers.Add(peer);
+            client.Connect(clientEnd, member);
+            Pump();
+            client.Pump();
+            return true;
+        }
+
+        /// <summary>가장 나중에 넣은 봇을 뺀다(판 전).</summary>
+        public bool RemoveBot()
+        {
+            if (Started) return false;
+            for (int i = _peers.Count - 1; i >= 0; i--)
+            {
+                var p = _peers[i];
+                if (p.Bot == null || p.Dropped) continue;
+                p.Bot.Client.Disconnect();
+                Drop(p);
+                return true;
+            }
+            return false;
+        }
+
+        public int BotCount { get { int n = 0; foreach (var p in _peers) if (p.Bot != null && !p.Dropped) n++; return n; } }
 
         /// <summary>새 연결을 받는다. Hello가 오면 슬롯을 준다.</summary>
         public void Accept(INetPipe pipe)
@@ -95,6 +130,8 @@ namespace Wizard.Solo.Net
         /// <summary>한 틱: 받은 메시지 처리 → (판 중이면) Step → 이벤트·스냅숏 보내기.</summary>
         public void Tick()
         {
+            // 서버 안 봇: 받은 것 처리 → 이번 틱 입력 보내기(사람 손님과 같은 길로 들어온다).
+            foreach (var p in _peers) if (p.Bot != null && !p.Dropped) { p.Bot.Client.Pump(); p.Bot.Act(); }
             Pump();
             var w = World;
             if (w == null) return;
@@ -159,6 +196,16 @@ namespace Wizard.Solo.Net
                         ulong seed = r.ULong();
                         if (p.Slot >= 0 && p.Slot == LeaderSlot && !Started) StartRun(seed);
                     }
+                    break;
+                case NetMsg.AddBot:
+                    {
+                        RunConfig cfg = null;
+                        try { cfg = NetCodec.ReadConfig(r); } catch (Exception) { }
+                        if (p.Slot >= 0 && p.Slot == LeaderSlot && cfg != null && !string.IsNullOrEmpty(cfg.CharId)) { cfg.Party = null; AddBot(cfg); }
+                    }
+                    break;
+                case NetMsg.RemoveBot:
+                    if (p.Slot >= 0 && p.Slot == LeaderSlot) RemoveBot();
                     break;
                 case NetMsg.Command:
                     if (p.Slot < 0 || World == null) return;
@@ -250,6 +297,7 @@ namespace Wizard.Solo.Net
                 msg.Int(p.Slot);
                 msg.Str(p.Member.CharId);
                 msg.Int(p.Member.WandStage);
+                msg.Bool(p.Bot != null);
             }
             Broadcast(msg.ToArray());
         }
@@ -274,8 +322,13 @@ namespace Wizard.Solo.Net
 
         void SendSnapshot()
         {
+            // 몸은 Deflate로 줄여 보낸다(판 상태 약 5KB → 1~2KB). 마지막 크기는 LastSnapshotBytes.
+            var body = new NetWriter();
+            WorldSnapshot.Write(body, World);
+            byte[] packed = NetCodec.Deflate(body.ToArray());
             var msg = new NetWriter(NetMsg.Snapshot);
-            WorldSnapshot.Write(msg, World);
+            msg.Bytes(packed);
+            LastSnapshotBytes = packed.Length;
             Broadcast(msg.ToArray());
         }
     }

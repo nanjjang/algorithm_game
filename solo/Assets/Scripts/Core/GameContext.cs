@@ -89,6 +89,8 @@ namespace Wizard.Solo
         void DrainEvents(List<SimEvent> into);
         /// <summary>판·방에서 나간다.</summary>
         void Leave();
+        /// <summary>표시 보간 비(0~1). 세션이 Render의 alpha로 쓴다.</summary>
+        float InterpAlpha { get; }
     }
 
     /// <summary>온라인 판을 돌릴 수 있는 세션(SessionCore·GameRunner).</summary>

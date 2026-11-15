@@ -22,8 +22,9 @@ namespace Wizard.Solo.Screens.Online
         public CoopLobbyModel(GameContext ctx) { _ctx = ctx; }
 
         public bool HasRoom => Room != null && Room.Connected;
-        public bool CanAddBot => HasRoom && Room.IsLocalHost && !Room.Host.Started && Room.Host.PlayerCount < SimConst.MaxPlayers;
-        public bool CanRemoveBot => HasRoom && Room.Bots.Count > 0;
+        public bool CanAddBot => HasRoom && Room.IsLeader && Room.World == null && Room.MemberCount > 0 && Room.MemberCount < SimConst.MaxPlayers;
+        public bool CanRemoveBot => HasRoom && Room.IsLeader && Room.World == null && Room.BotCount > 0;
+        public bool CanOpenNetwork => HasRoom && Room.IsLocalHost && !Room.OpenToNetwork;
         public bool CanStart => HasRoom && Room.IsLeader && Room.World == null && !_startRequested;
         /// <summary>원격 방에서 시작을 청했고 아직 판이 안 열렸다.</summary>
         bool _startRequested;
@@ -37,7 +38,8 @@ namespace Wizard.Solo.Screens.Online
             int leader = int.MaxValue;
             foreach (var m in Members()) if (m.Slot < leader) leader = m.Slot;
             if (slot == leader) return OnlineKeys.Host;
-            return Room != null && Room.IsLocalHost ? OnlineKeys.Bot : OnlineKeys.Member;
+            foreach (var m in Members()) if (m.Slot == slot && m.IsBot) return OnlineKeys.Bot;
+            return OnlineKeys.Member;
         }
 
         /// <summary>로비 목록(슬롯 순). 방이 없으면 빈 목록.</summary>
@@ -116,10 +118,42 @@ namespace Wizard.Solo.Screens.Online
         public bool AddBot()
         {
             if (!CanAddBot) return false;
-            int n = Room.Bots.Count + 1;
+            int n = Room.BotCount + 1;
             int c = (MyCharacter - 1 + n) % Wizard.Solo.Ids.Char.Count + 1;
             var cfg = MemberConfig(c);
             return cfg != null && Room.AddBot(cfg);
+        }
+
+        /// <summary>이 기기 방을 다른 기기에 연다(포트 = DefaultPort). 열린 뒤에는 NetworkAddresses를 안내한다.</summary>
+        public bool OpenNetwork()
+        {
+            ErrorKey = null;
+            if (!CanOpenNetwork) return false;
+            if (!Room.OpenNetwork(DefaultPort)) { ErrorKey = OnlineKeys.ErrorPort; return false; }
+            return true;
+        }
+
+        /// <summary>이 기기의 내부 IPv4 주소들(같은 와이파이의 다른 기기가 칠 주소).</summary>
+        public static List<string> LocalAddresses()
+        {
+            var l = new List<string>();
+            try
+            {
+                foreach (var ni in System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces())
+                {
+                    if (ni.OperationalStatus != System.Net.NetworkInformation.OperationalStatus.Up) continue;
+                    foreach (var ua in ni.GetIPProperties().UnicastAddresses)
+                    {
+                        var a = ua.Address;
+                        if (a.AddressFamily != System.Net.Sockets.AddressFamily.InterNetwork || System.Net.IPAddress.IsLoopback(a)) continue;
+                        string t = a.ToString();
+                        if (t.StartsWith("169.254.")) continue;
+                        if (!l.Contains(t)) l.Add(t);
+                    }
+                }
+            }
+            catch (System.Exception) { }
+            return l;
         }
 
         public void RemoveBot() { if (CanRemoveBot) Room.RemoveBot(); }
@@ -205,6 +239,9 @@ namespace Wizard.Solo.Screens.Online
         public const string ErrorWand = "str.coop.error.wand";
         public const string ErrorConnect = "str.coop.error.connect";
         public const string ErrorAddress = "str.coop.error.address";
+        public const string ErrorPort = "str.coop.error.port";
+        public const string OpenNetwork = "str.coop.open_network";
+        public const string OpenedAt = "str.coop.opened_at";
         public const string ErrorRejected = "str.coop.error.rejected";
         public const string Join = "str.coop.join";
         public const string AddressHint = "str.coop.address_hint";

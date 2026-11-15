@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
 using Wizard.Solo.Sim;
 
 namespace Wizard.Solo.Net
@@ -117,6 +119,28 @@ namespace Wizard.Solo.Net
             int a = r.Int();
             int b = r.Int();
             return new RunCommand(kind, a, b, r.Str(), slot);
+        }
+
+        // ------------------------------------------------------------ 압축(스냅숏)
+
+        public static byte[] Deflate(byte[] raw)
+        {
+            using (var ms = new MemoryStream())
+            {
+                using (var z = new DeflateStream(ms, CompressionLevel.Fastest, true)) z.Write(raw, 0, raw.Length);
+                return ms.ToArray();
+            }
+        }
+
+        public static byte[] Inflate(byte[] packed)
+        {
+            using (var src = new MemoryStream(packed))
+            using (var z = new DeflateStream(src, CompressionMode.Decompress))
+            using (var dst = new MemoryStream())
+            {
+                z.CopyTo(dst);
+                return dst.ToArray();
+            }
         }
 
         // ------------------------------------------------------------ 이벤트

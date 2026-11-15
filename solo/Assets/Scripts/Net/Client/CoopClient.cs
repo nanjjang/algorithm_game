@@ -19,6 +19,7 @@ namespace Wizard.Solo.Net
             public int Slot;
             public string CharId;
             public int WandStage;
+            public bool IsBot;
         }
 
         readonly IContentDb _content;
@@ -37,6 +38,12 @@ namespace Wizard.Solo.Net
         /// <summary>마지막으로 받은 스냅숏의 서버 틱(−1 = 아직 없음).</summary>
         public int LastSnapshotTick { get; private set; } = -1;
         public int SnapshotsReceived { get; private set; }
+        /// <summary>마지막 스냅숏 뒤 흐른 60Hz 틱 수(OnlineCoop.Step이 센다).</summary>
+        public int FramesSinceSnapshot;
+        readonly SnapshotSmoother _smooth = new SnapshotSmoother();
+
+        /// <summary>표시 보간 비(0~1): 앞 스냅숏 자리(PrevPos) → 지금 스냅숏 자리(Pos)를 스냅숏 간격 동안 잇는다.</summary>
+        public float InterpAlpha => FramesSinceSnapshot >= NetProtocol.SnapshotEveryTicks ? 1f : (FramesSinceSnapshot + 1f) / NetProtocol.SnapshotEveryTicks;
 
         public CoopClient(IContentDb content, Func<SimModuleSet> modules = null)
         {
@@ -89,6 +96,23 @@ namespace Wizard.Solo.Net
             _pipe.Send(msg.ToArray());
         }
 
+        /// <summary>방장이면 서버에 봇을 청한다(member = 봇의 출발 설정).</summary>
+        public void RequestAddBot(RunConfig member)
+        {
+            if (State != CoopClientState.Lobby || _pipe == null || member == null) return;
+            var msg = new NetWriter(NetMsg.AddBot);
+            var m = NetCodec.Clone(member);
+            m.Party = null;
+            NetCodec.WriteConfig(msg, m);
+            _pipe.Send(msg.ToArray());
+        }
+
+        public void RequestRemoveBot()
+        {
+            if (State != CoopClientState.Lobby || _pipe == null) return;
+            _pipe.Send(new NetWriter(NetMsg.RemoveBot).ToArray());
+        }
+
         public void Flush()
         {
             if (_outInputs.Count == 0 || _pipe == null) return;
@@ -134,7 +158,7 @@ namespace Wizard.Solo.Net
                     {
                         Lobby.Clear();
                         int n = r.Int();
-                        for (int i = 0; i < n; i++) Lobby.Add(new LobbyMember { Slot = r.Int(), CharId = r.Str(), WandStage = r.Int() });
+                        for (int i = 0; i < n; i++) Lobby.Add(new LobbyMember { Slot = r.Int(), CharId = r.Str(), WandStage = r.Int(), IsBot = r.Bool() });
                     }
                     break;
                 case NetMsg.Start:
@@ -149,7 +173,13 @@ namespace Wizard.Solo.Net
                     break;
                 case NetMsg.Snapshot:
                     if (World == null) return;
-                    WorldSnapshot.Apply(r, World);
+                    {
+                        byte[] raw = NetCodec.Inflate(r.Bytes());
+                        _smooth.Capture(World);
+                        WorldSnapshot.Apply(new NetReader(raw), World);
+                        _smooth.Restore(World);
+                        FramesSinceSnapshot = 0;
+                    }
                     LastSnapshotTick = World.Tick;
                     SnapshotsReceived++;
                     break;

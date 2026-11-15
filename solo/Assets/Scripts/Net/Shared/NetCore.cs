@@ -78,12 +78,16 @@ namespace Wizard.Solo.Net
         Lobby = 9,
         /// <summary>클라이언트 → 서버: 판 시작 요청(방장 = 가장 낮은 슬롯만). 몸 = 씨앗(ulong).</summary>
         StartRequest = 10,
+        /// <summary>클라이언트 → 서버: 동료 봇 더하기(방장만, 판 전). 몸 = 봇의 출발 설정.</summary>
+        AddBot = 11,
+        /// <summary>클라이언트 → 서버: 마지막 봇 빼기(방장만, 판 전).</summary>
+        RemoveBot = 12,
     }
 
     public static class NetProtocol
     {
         /// <summary>메시지 꼴이 바뀌면 올린다. 다르면 Reject(Version).</summary>
-        public const int Version = 2;
+        public const int Version = 3;
         /// <summary>스냅숏을 보내는 틱 간격(60틱 / 3 = 20Hz).</summary>
         public const int SnapshotEveryTicks = 3;
     }

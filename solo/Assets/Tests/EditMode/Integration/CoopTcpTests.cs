@@ -132,5 +132,42 @@ namespace Wizard.Solo.Tests.Integration
             a.Leave();
             Assert.IsTrue(Until(200, () => _host.Finished), "모두 나가면 방이 끝난다(전용 서버가 새 방을 연다)");
         }
-    }
+    
+        [Test]
+        public void Tcp_LeaderAddsServerBot_BotPlaysOnServer()
+        {
+            var a = OnlineCoop.JoinRemote(_k.Db, "127.0.0.1", _listener.Port, Member(1));
+            _rooms.Add(a);
+            Assert.IsTrue(Until(200, () => a.Me.State == CoopClientState.Lobby));
+            Assert.IsTrue(a.AddBot(Member(2)));
+            Assert.IsTrue(Until(200, () => a.MemberCount == 2 && a.BotCount == 1), "로비에 봇이 보인다");
+            a.RemoveBot();
+            Assert.IsTrue(Until(200, () => a.MemberCount == 1), "봇 빼기");
+            a.AddBot(Member(3));
+            Assert.IsTrue(Until(200, () => a.BotCount == 1));
+            a.StartRun(4UL);
+            Assert.IsTrue(Until(300, () => a.World != null), "판 시작");
+            Assert.AreEqual(2, _host.PlayerCount);
+            Assert.IsTrue(Until(1200, () => _host.World.Run.Phase == RunPhase.WaveCombat));
+            var start = _host.World.Players[1].Pos;
+            Until(600, () => false);
+            Assert.AreNotEqual(start, _host.World.Players[1].Pos, "서버 안 봇이 움직인다");
+        }
+
+        [Test]
+        public void Snapshot_IsCompressed()
+        {
+            var a = OnlineCoop.JoinRemote(_k.Db, "127.0.0.1", _listener.Port, Member(1));
+            _rooms.Add(a);
+            Assert.IsTrue(Until(200, () => a.Me.State == CoopClientState.Lobby));
+            a.StartRun(2UL);
+            Assert.IsTrue(Until(300, () => a.World != null));
+            Until(300, () => false);
+            var raw = new NetWriter();
+            WorldSnapshot.Write(raw, _host.World);
+            TestContext.WriteLine("스냅숏 " + raw.ToArray().Length + " → " + _host.LastSnapshotBytes + " 바이트");
+            Assert.Less(_host.LastSnapshotBytes, raw.ToArray().Length / 2, "압축으로 절반 아래");
+            Assert.Greater(a.Me.InterpAlpha, 0f);
+        }
+}
 }

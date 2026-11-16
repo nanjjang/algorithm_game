@@ -52,16 +52,10 @@ namespace Wizard.Solo.Screens.Meta
 }
 ```
 
-등록은 자기 폴더의 `ScreenRegistry.<묶음>.cs`(00 문서 2.1절):
+화면은 `UI/ScreenRegistry.cs`의 `RegisterAll`에 추가한다.
 
 ```csharp
-namespace Wizard.Solo.UI
-{
-    public static partial class ScreenRegistry
-    {
-        static partial void RegisterMeta(IScreenManager m, GameContext ctx) { m.Register(ScreenId.Records, () => new Screens.Meta.RecordsScreen()); }
-    }
-}
+m.Register(ScreenId.Records, () => new Screens.Meta.RecordsScreen());
 ```
 
 `ScreenBase`가 주는 것: `Ctx`, `Root`, `Content`, `TopBar`, `BottomBar`, `TitleLabel`, `HintLabel`, `Focus`(UiFocusGroup), `Tabs`(넣으면 Q/E를 먼저 받음),
@@ -175,7 +169,7 @@ Q = PrevTab, E = NextTab. 재설정한 일시정지 키는 메뉴 길에서 잡�
 화면 사건은 그 화면이 요약서의 시점에 `PlayUi("ui.camp.depart")` 또는 `ctx.Sound.Play(열쇠, SoundBus.Ui)`로 낸다(열쇠 = event_bindings.json).
 공용 사건은 `UiSounds`(press, cursor_move, disabled_press, hover_enter, toggle_on/off, tooltip_show, screen_open/close)이고 위젯과 관리자가 이미 낸다.
 
-## 8. 공용 창 (`Dialogs/`, 등록 = `ScreenRegistry.Common.cs`)
+## 8. 공용 창 (`Dialogs/`, 등록 = `ScreenRegistry.cs`)
 
 | 화면 | 형 | 인자 |
 |---|---|---|

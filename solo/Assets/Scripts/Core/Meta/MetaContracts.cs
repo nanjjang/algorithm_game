@@ -290,24 +290,4 @@ namespace Wizard.Solo.Meta
         /// <summary>판 중 해금한 비기를 프로필에 바로 적는다(04 요약서 11.3절). character = 1~5.</summary>
         void RecordArtUnlock(int character, string artId);
     }
-
-    /// <summary>
-    /// 메타 서비스 등록 자리(SimModuleFactory와 같은 방식). 구현 작업이 자기 폴더의 `MetaFactory.&lt;이름&gt;.cs`에서
-    /// partial 메서드 하나를 구현한다. Bootstrap이 GameContext를 만든 뒤 Fill을 부른다.
-    /// </summary>
-    public static partial class MetaFactory
-    {
-        static partial void CreateEnhance(GameContext ctx, ref IEnhanceService s);
-        static partial void CreateWands(GameContext ctx, ref IWandService s);
-        static partial void CreateShop(GameContext ctx, ref IShopService s);
-        static partial void CreateSettlement(GameContext ctx, ref ISettlementService s);
-
-        public static void Fill(GameContext ctx)
-        {
-            IEnhanceService e = null; CreateEnhance(ctx, ref e); ctx.Enhance = e;
-            IWandService w = null; CreateWands(ctx, ref w); ctx.Wands = w;
-            IShopService sh = null; CreateShop(ctx, ref sh); ctx.Shop = sh;
-            ISettlementService st = null; CreateSettlement(ctx, ref st); ctx.Settlement = st;
-        }
-    }
 }

@@ -32,6 +32,9 @@ namespace Wizard.Solo.Screens.Online
             public string LabelKey;
         }
 
+        /// <summary>등불 자리(광장 땅 좌표 px, 기둥 밑동). 모닥불 둘레 길의 네 모서리.</summary>
+        static readonly Vector2[] LampSpots = { new Vector2(560f, 330f), new Vector2(1280f, 330f), new Vector2(560f, 760f), new Vector2(1280f, 760f) };
+
         public static readonly Door[] Doors =
         {
             new Door { Area = new Rect(1f, 8f, 3f, 6f), Mode = RoomMode.Coop, LabelKey = OnlineKeys.DoorCoop },
@@ -91,24 +94,30 @@ namespace Wizard.Solo.Screens.Online
             foreach (var d in Doors)
             {
                 string prop = d.Mode == RoomMode.Duel ? "facility.duel_board" : "facility.field_gate";
-                Sprite ps = OnlineUi.Online(d.Mode == RoomMode.Duel ? "plaza_gate_duel" : "plaza_gate_field");
-                if (ps == null) try { var anim = Ctx != null && Ctx.Art != null ? Ctx.Art.World(prop) : null; ps = anim != null && anim.Frames != null && anim.Frames.Length > 0 ? anim.Frames[0] : null; }
+                // 받아 온 땅에는 두 문이 이미 그려져 있다 — 그 위에 문 그림을 또 얹지 않는다.
+                Sprite ps = customGround ? null : OnlineUi.Online(d.Mode == RoomMode.Duel ? "plaza_gate_duel" : "plaza_gate_field");
+                if (ps == null && !customGround) try { var anim = Ctx != null && Ctx.Art != null ? Ctx.Art.World(prop) : null; ps = anim != null && anim.Frames != null && anim.Frames.Length > 0 ? anim.Frames[0] : null; }
                 catch (System.Exception) { ps = null; }
                 float dw = d.Area.width * Cell, dh = d.Area.height * Cell;
                 var area = UiKit.Node(_field, "Door", d.Area.x * Cell, d.Area.y * Cell, dw, dh);
                 // 들어서는 자리: 흐린 분필 원.
-                UiKit.Rect(area, 0f, dh - 24f, dw, 24f, UiTheme.WithAlpha(UiTheme.Chalk, 0.12f), false, "Mat");
+                if (!customGround) UiKit.Rect(area, 0f, dh - 24f, dw, 24f, UiTheme.WithAlpha(UiTheme.Chalk, 0.12f), false, "Mat");
                 if (ps != null)
                 {
                     float pw = ps.rect.width * 2f, ph = ps.rect.height * 2f;
                     if (pw > dw + 64f) { float k = (dw + 64f) / pw; pw *= k; ph *= k; }
                     UiKit.Image(area, ps, (dw - pw) * 0.5f, dh - ph - 8f, pw, ph, Color.white, true);
                 }
-                else UiKit.Rect(area, 0f, 0f, dw, dh, UiTheme.WithAlpha(UiTheme.WoodLight, 0.5f), false, "DoorFallback");
+                else if (!customGround) UiKit.Rect(area, 0f, 0f, dw, dh, UiTheme.WithAlpha(UiTheme.WoodLight, 0.5f), false, "DoorFallback");
                 float sw = Mathf.Max(dw + 40f, UiTextFit.WidthPx(T(d.LabelKey), 16) + 40f);
                 var sign = UiKit.NineSlice(Ctx, area, "S-2007", "facility_sign", null, (dw - sw) * 0.5f, -48f, sw, 40f, UiTheme.Paper).rectTransform;
                 UiKit.Label(Ctx, sign, T(d.LabelKey), UiFontId.F16, 0f, 0f, sw, 40f, UiTheme.Chalk, TextAnchor.MiddleCenter, outline: true);
             }
+            // 받아 온 땅(plaza_ground)에는 노점·게시판·빨랫줄이 그려져 있다. 모닥불 둘레 길에 등불(plaza_lamp)만 세운다.
+            var lamp = customGround ? OnlineUi.Online("plaza_lamp") : null;
+            if (lamp != null)
+                foreach (var lp in LampSpots)
+                    UiKit.Image(_field, lamp, lp.x - 36f, lp.y - 168f, 72f, 168f, Color.white, true).name = "plaza_lamp";
             // 위 띠(얇게): 광장 인원과 조작 안내.
             UiKit.Rect(content, 0f, 0f, UiScale.RefWidth, 34f, UiTheme.WithAlpha(UiTheme.Ink, 0.7f), false, "TopStrip");
             float lh = UiTheme.LineHeight(UiFontId.F16);
@@ -120,6 +129,7 @@ namespace Wizard.Solo.Screens.Online
 
             float by = UiScale.RefHeight - 72f;
             UiKit.Rect(content, 0f, by - 14f, UiScale.RefWidth, UiScale.RefHeight - by + 14f, UiTheme.WithAlpha(UiTheme.Ink, 0.72f), false, "BottomStrip");
+            OnlineUi.OnlineImg(content, "frame_chatbox", 16f, by - 24f, 1136f, 96f);
             _chat = BuildInput(content, 48f, by, 900f, 52f, OnlineKeys.ChatHint, 60);
             UiKit.Button(Ctx, content, T(OnlineKeys.ChatSend), 960f, by, 160f, 52f, SendChat, UiButtonStyle.Medium, Focus);
             UiKit.Button(Ctx, content, T(OnlineKeys.PlazaRooms), UiScale.RefWidth - 48f - 220f, by, 220f, 52f, GoRooms, UiButtonStyle.Primary, Focus);

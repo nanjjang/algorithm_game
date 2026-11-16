@@ -69,19 +69,18 @@ Bootstrap ──만든다──▶ GameContext(Content, Names, Art, Sound, Profi
 
 어셈블리(asmdef)는 넷: `Wizard.Solo`(Assets/Scripts), `Wizard.Solo.Editor`(Assets/Editor), `Wizard.Solo.Tests.EditMode`, `Wizard.Solo.Tests.PlayMode`.
 
-### 2.1 등록 자리 — 파일이 겹치지 않게 모듈을 끼우는 법
+### 2.1 게임을 조립하는 코드
 
-구현 클래스를 한곳에서 `new` 하면 그 파일을 여럿이 고치게 된다. 그래서 `partial` 메서드를 쓴다. 구현이 없는 partial 메서드는 컴파일 때 사라지므로 **어느 시점에도 전체가 컴파일된다**.
+| 코드 | 연결하는 것 |
+|---|---|
+| `App/AppFactory.cs`의 `Build` | 설정, 콘텐츠, 저장, 입력, 세션, 화면 관리자 |
+| `Core/Sim/Modules.cs`의 `SimModuleSet.CreateDefault` | 플레이어, 주문, 적, 보스, 웨이브 등 한 판에 필요한 시스템 |
+| `Sim/Bosses/Common/BossBrainRegistry.cs`의 `Build` | 보스 ID와 행동 클래스 |
+| `Meta/MetaFactory.cs`의 `Fill` | 강화, 지팡이, 상점, 정산 서비스 |
+| `UI/ScreenRegistry.cs`의 `RegisterAll` | 화면 ID와 실제 화면 클래스 |
+| `View/ViewRegistry.cs`의 `CreateAll` | 전장, 캐릭터, 이펙트, HUD 등 표시 층과 갱신 순서 |
 
-| 자리 (Core) | 구현 작업이 자기 폴더에 두는 파일 | 본문 |
-|---|---|---|
-| `Sim.SimModuleFactory` (`Core/Sim/Modules.cs`) | `Scripts/Sim/Player/SimModuleFactory.Player.cs` | `static partial void CreatePlayer(ref PlayerModule m) { m = new Player.PlayerSystem(); }` |
-| `Meta.MetaFactory` (`Core/Meta/MetaContracts.cs`) | `Scripts/Meta/Enhance/MetaFactory.Enhance.cs` | `static partial void CreateEnhance(GameContext ctx, ref IEnhanceService s) { s = new Enhance.EnhanceService(ctx); }` |
-| `AppFactory` (`Core/GameContext.cs`) | `Scripts/Save/AppFactory.Save.cs` 등 | `static partial void CreateProfiles(GameContext ctx, ref IProfileStore p) { p = new Save.ProfileStore(…); }` — 기반 서비스(시계, 설정, 콘텐츠, 그림, 소리, 프로필, 입력, 세션, 화면 관리자) |
-| `UI.ScreenRegistry` (`Core/UI/ScreenContracts.cs`) | `Scripts/Screens/Start/ScreenRegistry.Start.cs` | `static partial void RegisterStart(IScreenManager m, GameContext ctx) { m.Register(ScreenId.Title, () => new TitleScreen()); … }` |
-| `View.ViewRegistry` (`Core/View/ViewContracts.cs`) | `Scripts/View/Hud/ViewRegistry.Hud.cs` | `static partial void AddHud(List<IWorldViewLayer> layers) { layers.Add(new HudLayer()); }` |
-
-partial 파일의 네임스페이스는 자리의 네임스페이스(`Wizard.Solo.Sim` 등)와 같아야 한다.
+기능은 각 폴더에서 구현하고 위 목록에서 연결한다. 단위 테스트는 `SimModuleSet.Stubs()`를 만든 뒤 검사할 시스템만 끼울 수 있다.
 
 ### 2.2 이름 충돌을 피하는 규칙
 
@@ -125,7 +124,7 @@ NUnit은 테스트 클래스의 객체 하나로 그 클래스의 테스트를 �
 
 ## 4. 부팅과 주입
 
-장면은 `Assets/Scenes/Main.unity` 하나(빈 장면). `App.Bootstrap`의 `[RuntimeInitializeOnLoadMethod(AfterSceneLoad)]`가 `Bootstrap.Boot(new BootOptions { BuildVersion = Application.version })`을 부르고, `Boot`는 `AppFactory.Build(options)`(Core, 아래 1~9를 한다) 뒤 10을 한다. 서비스 구현은 각 기반 작업이 `AppFactory`의 partial 메서드로 끼운다.
+장면은 `Assets/Scenes/Main.unity` 하나(빈 장면). `App.Bootstrap`의 `[RuntimeInitializeOnLoadMethod(AfterSceneLoad)]`가 `Bootstrap.Boot(new BootOptions { BuildVersion = Application.version })`을 부르고, `Boot`는 `AppFactory.Build(options)`(`App/AppFactory.cs`, 아래 1~9를 한다) 뒤 10을 한다. `Build`에서 실제 서비스와 초기화 순서를 읽을 수 있다.
 
 **자동 부팅은 활성 장면의 이름이 `Main`일 때만 한다.** PlayMode 테스트(테스트 러너가 만든 `InitTestScene…`)에서는 자동 부팅이 돌지 않고, 테스트가 `Bootstrap.Boot(new BootOptions { DataRoot = <임시 폴더>, InputOverride = <봇> })`을 직접 부른다 → 개발자의 진짜 저장 파일(`persistentDataPath`)을 읽지도 덮어쓰지도 않고, 첫 실행 여부가 기기 상태에 흔들리지 않는다. `Boot`는 만든 `BootResult`를 돌려주고, 다시 부르면 앞서 만든 GameObject(캔버스, 실행기, EventSystem)를 먼저 걷는다. 저장 경로는 `ctx.DataRoot`(null = `Application.persistentDataPath`) 아래다.
 
@@ -133,7 +132,7 @@ NUnit은 테스트 클래스의 객체 하나로 그 클래스의 테스트를 �
 1. GameContext ctx 생성(BuildVersion, DataRoot), Clock
 2. Settings.Load()            (파일이 없었으면 기기 첫 실행)
 3. ContentDb.LoadFromResources(), NameTable.LoadFromResources()
-4. ArtLibrary(Resources/Art), SilentSoundPlayer
+4. ArtLibrary(Resources/Art), UnitySoundPlayer
 5. ProfileStore.LoadOrCreate(out created, out restored)
 6. ctx.Rules = SimModuleSet.CreateDefault();  MetaFactory.Fill(ctx)
 7. KeyboardInputSource(설정의 키 배치. options.InputOverride가 있으면 그것), GameRunner(IGameSession), 카메라, HUD 캔버스, 화면 캔버스 + EventSystem, ScreenManager
@@ -418,20 +417,20 @@ Practice: 연습·튜토리얼 방(웨이브 없음, 허수아비)
 - 위험색(빨강 `#FF3B30`, 자홍 `#FF2E88`)은 적 예고·적 탄·피격 가장자리·체력 1칸 귀퉁이·최종 격노 테에만. 플레이어 쪽·메뉴·대체 도형에 쓰지 않는다. 임계에 금색·빨강 금지.
 - 줄일 수 없는 것: 적 예고, 적 탄, 열 링, 피격 표시, 시야 화살표(`EffectsLevel`과 무관).
 - 표시용 난수는 `UnityEngine.Random`. 시뮬레이션 난수기(`SimWorld.Rng`)를 표시에서 쓰지 않는다.
-- 소리: 표시 층 하나(`AddAudio`)가 전투 이벤트 → `ISoundPlayer.Play(eventId, bus)`로 넘기고 판 중 배경음 전환(`SetMusic`: `TodChanged`, `BossIntroBegin`, 야영)도 맡는다. **화면 쪽 사건**(`ui.*`, 강화 E-묶음)은 그 화면이 요약서의 이벤트 줄 시점에 `ctx.Sound.Play(열쇠, SoundBus.Ui)`로 직접 낸다. 섞는 규칙(동시 32개, 사건별 초당 횟수, 우선순위, 누르기)은 재생기 안의 정책 클래스(F4)가 맡는다. 구현은 무음이지만 자리는 전부 잇는다.
+- 소리: 표시 층 하나(`AudioLayer`)가 전투 이벤트 → `ISoundPlayer.Play(eventId, bus)`로 넘기고 판 중 배경음 전환(`SetMusic`: `TodChanged`, `BossIntroBegin`, 야영)도 맡는다. **화면 쪽 사건**(`ui.*`, 강화 E-묶음)은 그 화면이 요약서의 이벤트 줄 시점에 `ctx.Sound.Play(열쇠, SoundBus.Ui)`로 직접 낸다. 섞는 규칙(동시 32개, 사건별 초당 횟수, 우선순위, 누르기)은 재생기 안의 정책 클래스(F4)가 맡는다. 구현은 무음이지만 자리는 전부 잇는다.
 - 입력: 표시·화면 코드는 `UnityEngine.Input.*`·`OnMouseDown`을 쓰지 않는다(활성 입력이 Input System 전용이라 예외가 난다. compile.sh `SOLO0003`). 마우스는 `Mouse.current`와 uGUI 이벤트(`IPointer…Handler`)로.
 
-| 등록 자리 | 층 | 작업 |
+| 클래스 | 층 | 작업 |
 |---|---|---|
-| `AddArena` | 타일·가장자리·소품·모닥불·출발 표식·시간대 전환·날씨·달빛 원 | G14 |
-| `AddCharacters` | 캐릭터 몸(37클립 3방향), 지팡이(단계·자세), 그림자, 잔상, 무적 깜빡임 | G14 |
-| `AddEnemies` | 적·엘리트 표식·보스 몸·체력 바·상태이상 표시·등장 예고 | G15 |
-| `AddThreats` | 예고 구역(채움·테두리 두 층), 적 탄, 남는 구역, 장애물, 별똥 | G15 |
-| `AddShots` | 내 탄, 꼬리, 플레이어 지대(불가마·사본·병풍) | G16 |
-| `AddEffects` | 적중·폭발·처치·비기 연출, 피해 숫자, 드랍, 골드, 화면 흔들림·그림 정지 요청 | G16 |
-| `AddAudio` | 이벤트 → 소리 사건 | G16 |
-| `AddHud` | 전투 HUD 전부와 캐릭터 둘레 표시(열 링, 결정, 콤보, 최근 입력, 지금 K, 시야 화살표) | G17 |
-| `AddStory` | 첫 만남·복수 연출, 대사 판, 튜토리얼 풍선 | G25 |
+| ArenaLayer | 타일·가장자리·소품·모닥불·출발 표식·시간대 전환·날씨·달빛 원 | G14 |
+| CharacterLayer | 캐릭터 몸(37클립 3방향), 지팡이(단계·자세), 그림자, 잔상, 무적 깜빡임 | G14 |
+| EnemyLayer | 적·엘리트 표식·보스 몸·체력 바·상태이상 표시·등장 예고 | G15 |
+| ThreatLayer / OffscreenMarkerLayer | 예고 구역(채움·테두리 두 층), 적 탄, 남는 구역, 장애물, 별똥 | G15 |
+| ShotLayer | 내 탄, 꼬리, 플레이어 지대(불가마·사본·병풍) | G16 |
+| EffectLayer / JuiceLayer / StyleFxLayer / DeathSequenceLayer | 적중·폭발·처치·비기 연출, 피해 숫자, 드랍, 골드, 화면 흔들림·그림 정지 요청 | G16 |
+| AudioLayer | 이벤트 → 소리 사건 | G16 |
+| HudLayer | 전투 HUD 전부와 캐릭터 둘레 표시(열 링, 결정, 콤보, 최근 입력, 지금 K, 시야 화살표) | G17 |
+| StoryLayer / TutorialLayer | 첫 만남·복수 연출, 대사 판, 튜토리얼 풍선 | G25 |
 
 ---
 
@@ -439,7 +438,7 @@ Practice: 연습·튜토리얼 방(웨이브 없음, 허수아비)
 
 `IScreen`(Build/OnEnter/OnExit/OnBack/OnMenuKey/Tick) + `IScreenManager`(Register/Push/Replace/Pop/PopTo/Close/Top/IsOpen/Confirm/ConfirmText/Toast/ShowTooltip/HideTooltip/CaptureKeys). 화면은 코드로 조립한 uGUI(기준 1920×1080 캔버스 — 8.2절, `UnityEngine.UI.Text` + TTF 동적 글꼴, 9조각은 manifest의 border로 `Sprite.Create`). 메뉴 키: 방향(방향키와 이동 키 배치 둘 다), J 결정, K 뒤로/빼기, Esc 나가기, Q/E 탭·지팡이 바꾸기, 마우스(클릭, 끌어다 놓기).
 
-| 묶음(등록 자리) | 폴더 | 화면(`ScreenId`) | 작업 |
+| 화면 묶음 | 폴더 | 화면(`ScreenId`) | 작업 |
 |---|---|---|---|
 | Common | `Scripts/UI/Dialogs/` | ConfirmDialog, Tooltip, Loading, SaveRestored | F3 |
 | Start | `Screens/Start/` | FirstRunPrompt, Title, ProfileSelect, OfflineGuide, MainMenu | G18 |
@@ -698,7 +697,7 @@ F3이 내놓는 UI 기반(화면 작업은 이것으로만 조립한다. 정확�
 구현 작업이 지킬 것:
 
 1. 자기 소유 폴더만 고친다. `Core/`와 남의 폴더는 읽기만. 계약이 모자라면 멈추고 "계약 추가 요청"으로 올린다(임시로 자기 폴더에 확장 메서드·보조 형을 두는 것은 된다).
-2. 등록은 2.1절의 partial 파일 하나로.
+2. 시스템·화면 연결은 2.1절의 해당 목록에 추가한다.
 3. 화면 글자 = 이름 표 열쇠, 수치 = Def, id = `Ids`.
 4. 벡터를 먼저 테스트로 옮기고 구현한다. `Tools/compile.sh -f <자기 폴더들>`의 끝 코드가 0이어야 끝이다(3 = 미확인은 통과가 아니다).
 5. 시뮬레이션 코드에 `MonoBehaviour`, `Time`, `Input`, `Resources`, `UnityEngine.Random`, 정적 가변 필드를 쓰지 않는다. 난수는 `w.Rng(RngStream.X)`.

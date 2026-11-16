@@ -51,8 +51,8 @@ namespace Wizard.Solo.Net
             {
                 var l = _data.Listings[i];
                 if (nowTicks - l.CreatedTicks < limit) continue;
-                var s = Get(l.SellerId);
-                if (s != null) s.Profile.Add(l.ItemId, l.Qty);
+                // 돌아온 물건은 우편함으로(docs/online.md 5.2절 까마귀 우편함). 보증금은 사라진다.
+                SendMail(l.SellerId, MailMarketExpired, 0, new Dictionary<string, int> { { l.ItemId, l.Qty } }, l.ItemId, nowTicks);
                 _data.Listings.RemoveAt(i);
                 changed = true;
             }
@@ -98,7 +98,7 @@ namespace Wizard.Solo.Net
             return MarketResult.Ok;
         }
 
-        /// <summary>산다: 산 사람 골드 → 판 사람(수수료 5%를 뺀 값 + 보증금), 물건 → 산 사람 창고.</summary>
+        /// <summary>산다: 산 사람 골드 → 판 사람의 우편함(수수료 5%를 뺀 값 + 보증금), 물건 → 산 사람 창고.</summary>
         public MarketResult Buy(long buyerId, long listingId)
         {
             var b = Get(buyerId);
@@ -110,8 +110,8 @@ namespace Wizard.Solo.Net
             if (b.Profile.Gold < l.Price) return MarketResult.NotEnoughGold;
             b.Profile.Gold -= l.Price;
             b.Profile.Add(l.ItemId, l.Qty);
-            var s = Get(l.SellerId);
-            if (s != null) s.Profile.Gold += l.Price - MarketFee(l.Price) + l.Deposit;
+            // 대금(판 값 − 수수료 + 보증금)은 판 사람의 우편함으로 간다(받기를 눌러야 골드가 된다).
+            SendMail(l.SellerId, MailMarketSold, l.Price - MarketFee(l.Price) + l.Deposit, null, l.ItemId, Clock());
             _data.Listings.RemoveAt(i);
             Save();
             return MarketResult.Ok;
@@ -149,6 +149,9 @@ namespace Wizard.Solo.Net
             var b = FindByName(toName);
             if (b == null) return FriendResult.NotFound;
             if (b.Id == fromId) return FriendResult.Self;
+            // 차단(5.3절): 내가 막은 사람에게는 신청하지 못하고, 나를 막은 사람에게는 신청이 가지 않는다(보낸 쪽에는 알리지 않는다).
+            if (IsBlocked(fromId, b.Id)) return FriendResult.NotFound;
+            if (IsBlocked(b.Id, fromId)) return FriendResult.Requested;
             Fix2(a.Profile); Fix2(b.Profile);
             if (a.Profile.Friends.Contains(b.Id)) return FriendResult.Already;
             if (a.Profile.FriendRequests.Contains(b.Id)) return AcceptFriend(fromId, b.Id); // 서로 신청 = 친구

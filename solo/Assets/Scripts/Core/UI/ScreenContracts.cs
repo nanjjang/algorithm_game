@@ -31,7 +31,9 @@ namespace Wizard.Solo.UI
         /// <summary>친구(신청·받기·목록).</summary>
         OnlineFriends,
         /// <summary>온라인 로그인·가입(이메일, Google). 로그인하면 닫히고 부른 화면으로 돌아간다.</summary>
-        OnlineLogin
+        OnlineLogin,
+        /// <summary>시즌(11-online.md 6.14절): 시즌·리그·후계 점수, 자동 매치 대기, 관전, 순위표, 우편함, 차단·신고.</summary>
+        OnlineSeason
     }
 
     public enum ScreenLayer { Fullscreen = 0, Panel = 1, HudOverlay = 2, Modal = 3, Toast = 4 }

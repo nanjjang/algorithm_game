@@ -159,6 +159,57 @@ namespace Wizard.Solo.Net
             }
         }
 
+        // ------------------------------------------------------------ 우편 · 순위표 · 시즌 정보(13판)
+
+        public static void WriteMail(NetWriter w, MailItem m)
+        {
+            w.Long(m.Id); w.Str(m.Reason); w.Long(m.Gold);
+            w.Int(m.Items != null ? m.Items.Count : 0);
+            if (m.Items != null) foreach (var kv in m.Items) { w.Str(kv.Key); w.Int(kv.Value); }
+            w.Str(m.Note); w.Long(m.CreatedTicks); w.Long(m.ExpiresTicks);
+        }
+
+        public static MailItem ReadMail(NetReader r)
+        {
+            var m = new MailItem { Id = r.Long(), Reason = r.Str(), Gold = r.Long() };
+            int n = r.Int();
+            for (int i = 0; i < n; i++) { string k = r.Str(); m.Items[k] = r.Int(); }
+            m.Note = r.Str(); m.CreatedTicks = r.Long(); m.ExpiresTicks = r.Long();
+            return m;
+        }
+
+        public static void WriteBoardRow(NetWriter w, BoardRow b)
+        {
+            w.Int(b.Rank); w.Long(b.AccountId); w.Str(b.Name); w.Long(b.Score); w.Int(b.Wave); w.Int(b.Character); w.Int(b.Stage); w.Int(b.League);
+        }
+
+        public static BoardRow ReadBoardRow(NetReader r) =>
+            new BoardRow { Rank = r.Int(), AccountId = r.Long(), Name = r.Str(), Score = r.Long(), Wave = r.Int(), Character = r.Int(), Stage = r.Int(), League = r.Int() };
+
+        public static void WriteSeasonInfo(NetWriter w, SeasonInfo s)
+        {
+            w.Int(s.SeasonId); w.Byte(s.Phase); w.Long(s.EndTicks); w.Long(s.SettleUntilTicks); w.Long(s.NowTicks);
+            w.Int(s.League); w.Bool(s.OptedUp); w.Int(s.HoldingIl);
+            for (int i = 0; i < 5; i++) w.Int(s.EquippedIl[i]);
+            for (int i = 0; i < OnlineRules.LeagueCount; i++) { w.Int(s.Rating[i]); w.Int(s.RatedGames[i]); w.Int(s.RatedWins[i]); w.Int(s.RatedLosses[i]); }
+            w.Long(s.SeasonScore); w.Int(s.SeasonRuns); w.Int(s.SeasonRanked);
+            w.Int(s.E); w.Int(s.P); w.Int(s.Total); w.Int(s.Rank); w.Int(s.Population);
+            w.Int(s.MailCount); w.Long(s.PlaySeconds); w.Byte(s.Queue); w.Int(s.QueueWaitSeconds); w.Int(s.ChatMutedSeconds);
+            w.StrList(s.Titles);
+        }
+
+        public static SeasonInfo ReadSeasonInfo(NetReader r)
+        {
+            var s = new SeasonInfo { SeasonId = r.Int(), Phase = r.Byte(), EndTicks = r.Long(), SettleUntilTicks = r.Long(), NowTicks = r.Long(), League = r.Int(), OptedUp = r.Bool(), HoldingIl = r.Int() };
+            for (int i = 0; i < 5; i++) s.EquippedIl[i] = r.Int();
+            for (int i = 0; i < OnlineRules.LeagueCount; i++) { s.Rating[i] = r.Int(); s.RatedGames[i] = r.Int(); s.RatedWins[i] = r.Int(); s.RatedLosses[i] = r.Int(); }
+            s.SeasonScore = r.Long(); s.SeasonRuns = r.Int(); s.SeasonRanked = r.Int();
+            s.E = r.Int(); s.P = r.Int(); s.Total = r.Int(); s.Rank = r.Int(); s.Population = r.Int();
+            s.MailCount = r.Int(); s.PlaySeconds = r.Long(); s.Queue = r.Byte(); s.QueueWaitSeconds = r.Int(); s.ChatMutedSeconds = r.Int();
+            s.Titles = r.StrList() ?? new List<string>();
+            return s;
+        }
+
         public static ServerProfile ReadProfile(NetReader r)
         {
             var p = new ServerProfile

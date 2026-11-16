@@ -260,6 +260,199 @@ namespace Wizard.Solo.Net
             return l;
         }
 
+        // ------------------------------------------------------------ 우편함 · 차단 · 신고 (13판)
+
+        public List<MailItem> Mail(int timeoutMs = 4000)
+        {
+            if (!Connected) return null;
+            _pipe.Send(new NetWriter(NetMsg.MailListRequest).ToArray());
+            var data = Wait(timeoutMs, NetMsg.MailList);
+            if (data == null) return null;
+            var r = new NetReader(data);
+            r.Byte();
+            int n = r.Int();
+            var l = new List<MailItem>(n);
+            for (int i = 0; i < n; i++) l.Add(NetCodec.ReadMail(r));
+            return l;
+        }
+
+        /// <summary>우편을 받는다(mailId = 0이면 전부). 받은 골드·물건이 든 프로필로 바뀐다.</summary>
+        public AccountStore.MailResult? ClaimMail(long mailId, int timeoutMs = 4000)
+        {
+            if (!Connected) return null;
+            var m = new NetWriter(NetMsg.MailClaim);
+            m.Long(mailId);
+            _pipe.Send(m.ToArray());
+            var data = Wait(timeoutMs, NetMsg.MailReply);
+            if (data == null) return null;
+            var r = new NetReader(data);
+            r.Byte();
+            var res = (AccountStore.MailResult)r.Byte();
+            var prof = NetCodec.ReadProfile(r);
+            if (res != AccountStore.MailResult.NoAccount) Profile = prof;
+            return res;
+        }
+
+        public List<FriendInfo> Blocked(int timeoutMs = 4000)
+        {
+            if (!Connected) return null;
+            _pipe.Send(new NetWriter(NetMsg.BlockListRequest).ToArray());
+            var data = Wait(timeoutMs, NetMsg.BlockList);
+            if (data == null) return null;
+            var r = new NetReader(data);
+            r.Byte();
+            int n = r.Int();
+            var l = new List<FriendInfo>(n);
+            for (int i = 0; i < n; i++) l.Add(new FriendInfo { Id = r.Long(), Name = r.Str() });
+            return l;
+        }
+
+        AccountStore.BlockResult? BlockCall(NetWriter m, int timeoutMs)
+        {
+            if (!Connected) return null;
+            _pipe.Send(m.ToArray());
+            var data = Wait(timeoutMs, NetMsg.BlockReply);
+            if (data == null) return null;
+            var r = new NetReader(data);
+            r.Byte();
+            return (AccountStore.BlockResult)r.Byte();
+        }
+
+        public AccountStore.BlockResult? Block(string name, int timeoutMs = 4000)
+        {
+            var m = new NetWriter(NetMsg.BlockAdd);
+            m.Str(name);
+            return BlockCall(m, timeoutMs);
+        }
+
+        public AccountStore.BlockResult? Unblock(long id, int timeoutMs = 4000)
+        {
+            var m = new NetWriter(NetMsg.BlockRemove);
+            m.Long(id);
+            return BlockCall(m, timeoutMs);
+        }
+
+        /// <summary>신고(사유 1 욕설 · 2 사기 · 3 현금 거래 · 4 부정 프로그램 · 5 기타). 서버가 그 사람의 최근 광장 채팅을 붙인다.</summary>
+        public AccountStore.ReportResult? Report(string name, int reason, int timeoutMs = 4000)
+        {
+            if (!Connected) return null;
+            var m = new NetWriter(NetMsg.ReportSend);
+            m.Str(name); m.Int(reason);
+            _pipe.Send(m.ToArray());
+            var data = Wait(timeoutMs, NetMsg.ReportReply);
+            if (data == null) return null;
+            var r = new NetReader(data);
+            r.Byte();
+            return (AccountStore.ReportResult)r.Byte();
+        }
+
+        // ------------------------------------------------------------ 시즌 · 순위표 · 리그 · 자동 매치 (13판)
+
+        public SeasonInfo Season(int timeoutMs = 4000)
+        {
+            if (!Connected) return null;
+            _pipe.Send(new NetWriter(NetMsg.SeasonInfoRequest).ToArray());
+            var data = Wait(timeoutMs, NetMsg.SeasonInfo);
+            if (data == null) return null;
+            var r = new NetReader(data);
+            r.Byte();
+            return NetCodec.ReadSeasonInfo(r);
+        }
+
+        /// <summary>순위표. arg = 캐릭터(BoardKind.Character) 또는 리그(RankedLeague·Heir).</summary>
+        public List<BoardRow> Board(BoardKind kind, int arg = 0, int timeoutMs = 4000)
+        {
+            if (!Connected) return null;
+            var m = new NetWriter(NetMsg.BoardRequest);
+            m.Byte((byte)kind); m.Int(arg);
+            _pipe.Send(m.ToArray());
+            var data = Wait(timeoutMs, NetMsg.BoardReply);
+            if (data == null) return null;
+            var r = new NetReader(data);
+            r.Byte(); r.Byte(); r.Int();
+            int n = r.Int();
+            var l = new List<BoardRow>(n);
+            for (int i = 0; i < n; i++) l.Add(NetCodec.ReadBoardRow(r));
+            return l;
+        }
+
+        public struct HallEntry { public int SeasonId; public string HeirName; public int Total; }
+
+        /// <summary>역대 후계자 명단(후계자 비석).</summary>
+        public List<HallEntry> Hall(int timeoutMs = 4000)
+        {
+            if (!Connected) return null;
+            _pipe.Send(new NetWriter(NetMsg.HallRequest).ToArray());
+            var data = Wait(timeoutMs, NetMsg.HallReply);
+            if (data == null) return null;
+            var r = new NetReader(data);
+            r.Byte();
+            int n = r.Int();
+            var l = new List<HallEntry>(n);
+            for (int i = 0; i < n; i++) l.Add(new HallEntry { SeasonId = r.Int(), HeirName = r.Str(), Total = r.Int() });
+            return l;
+        }
+
+        /// <summary>스스로 위 리그로 올라간다(시즌에 한 번). league = 답에 든 지금 리그.</summary>
+        public AccountStore.LeagueResult? OptUpLeague(out int league, int timeoutMs = 4000)
+        {
+            league = 0;
+            if (!Connected) return null;
+            _pipe.Send(new NetWriter(NetMsg.LeagueOptUp).ToArray());
+            var data = Wait(timeoutMs, NetMsg.LeagueReply);
+            if (data == null) return null;
+            var r = new NetReader(data);
+            r.Byte();
+            var res = (AccountStore.LeagueResult)r.Byte();
+            league = r.Int();
+            return res;
+        }
+
+        public struct QueueReply { public AccountStore.QueueCheck Check; public int WaitSeconds, League; public bool Waiting; }
+
+        QueueReply? ReadQueue(int timeoutMs)
+        {
+            var data = Wait(timeoutMs, NetMsg.QueueState);
+            if (data == null) return null;
+            var r = new NetReader(data);
+            r.Byte();
+            return new QueueReply { Check = (AccountStore.QueueCheck)r.Byte(), WaitSeconds = r.Int(), League = r.Int(), Waiting = r.Bool() };
+        }
+
+        /// <summary>자동 매치 대기열에 들어간다. Waiting이면 이 연결을 열어 둔 채 <see cref="PollMatch"/>로 상대가 잡혔는지 본다.</summary>
+        public QueueReply? QueueJoin(int timeoutMs = 4000)
+        {
+            if (!Connected) return null;
+            _pipe.Send(new NetWriter(NetMsg.QueueJoin).ToArray());
+            return ReadQueue(timeoutMs);
+        }
+
+        public QueueReply? QueueLeave(int timeoutMs = 4000)
+        {
+            if (!Connected) return null;
+            _pipe.Send(new NetWriter(NetMsg.QueueLeave).ToArray());
+            return ReadQueue(timeoutMs);
+        }
+
+        /// <summary>
+        /// 대기 중에 프레임마다 부른다(막히지 않는다). 상대가 잡혔으면 방 코드(그 코드로 결투 방에 참가한다), 아직이면 null.
+        /// stillWaiting = false면 대기열에서 빠진 것이다(연결이 끊겼거나 리그가 올랐다).
+        /// </summary>
+        public string PollMatch(out bool stillWaiting)
+        {
+            stillWaiting = Connected;
+            if (!Connected) return null;
+            while (_pipe.TryReceive(out var data))
+            {
+                if (data == null || data.Length == 0) continue;
+                var r = new NetReader(data);
+                var kind = (NetMsg)r.Byte();
+                if (kind == NetMsg.MatchFound) { stillWaiting = false; return r.Str(); }
+                if (kind == NetMsg.QueueState) { r.Byte(); r.Int(); r.Int(); stillWaiting = r.Bool(); }
+            }
+            return null;
+        }
+
         public void Dispose()
         {
             _pipe?.Close();

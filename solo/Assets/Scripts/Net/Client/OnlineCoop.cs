@@ -53,6 +53,17 @@ namespace Wizard.Solo.Net
             return o;
         }
 
+        /// <summary>방 서버의 결투 방을 관전한다(11-online.md 6.14절). 서버에 못 붙으면 null.</summary>
+        public static OnlineCoop Spectate(IContentDb content, string code)
+        {
+            var pipe = OnlineServer.ConnectAuthed(content);
+            if (pipe == null) return null;
+            var o = new OnlineCoop(content);
+            o.Me = new CoopClient(content);
+            o.Me.ConnectSpectate(pipe, RoomServer.Normalize(code));
+            return o;
+        }
+
         public string RoomCode => Me != null ? Me.RoomCode : null;
         public RoomMode Mode => Host != null ? Host.Mode : (Me != null ? Me.Mode : RoomMode.Coop);
 

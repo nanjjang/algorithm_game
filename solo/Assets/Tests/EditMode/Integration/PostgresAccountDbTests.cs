@@ -86,6 +86,54 @@ namespace Wizard.Solo.Tests.Integration
         }
 
         [Test]
+        public void OnlineState_MailBlockLeagueSeasonRunsReports_SurviveRestart()
+        {
+            long now = new DateTime(2026, 11, 16, 12, 0, 0, DateTimeKind.Utc).Ticks;
+            long aId, bId;
+            int season;
+            {
+                var s = new AccountStore(_db) { Content = TestContent.Db };
+                s.Clock = () => now;
+                s.Register("우편", new string('m', 40), out var a);
+                s.Register("상대", new string('n', 40), out var b);
+                aId = a.Id; bId = b.Id;
+                s.SendMail(aId, AccountStore.MailSystem, 55, new System.Collections.Generic.Dictionary<string, int> { { Ids.Item.Charm, 2 } }, "note", now);
+                Assert.AreEqual(AccountStore.BlockResult.Ok, s.Block(aId, "상대"));
+                Assert.AreEqual(AccountStore.ReportResult.Ok, s.Report(aId, "상대", 2, new System.Collections.Generic.List<string> { "hi" }, now));
+                Assert.IsNotNull(s.RecordRun(aId, 3, 2, 7, 777, 10, 1, now));
+                Assert.IsTrue(s.RecordRankedDuel(aId, bId, aId, 0, now));
+                s.Get(aId).Profile.WandStages[0] = 10;
+                s.Save();
+                Assert.IsNull(s.LastSaveError, s.LastSaveError);
+                season = s.Season.Id;
+            }
+            using (var db2 = new PostgresAccountDb(Cs))
+            {
+                var s = new AccountStore(db2) { Content = TestContent.Db };
+                s.Clock = () => now;
+                var x = AccountStore.X(s.Peek(aId).Profile);
+                var mail = s.MailOf(aId, now);
+                Assert.AreEqual(1, mail.Count);
+                Assert.AreEqual(55, mail[0].Gold);
+                Assert.AreEqual(2, mail[0].Items[Ids.Item.Charm]);
+                Assert.IsTrue(s.IsBlocked(aId, bId));
+                Assert.AreEqual(1, s.Reports.Count);
+                Assert.AreEqual(1, s.Runs.Count);
+                Assert.AreEqual(777, x.EverBest.Score);
+                Assert.AreEqual(1, x.League, "+10 = 맹수 리그");
+                Assert.Greater(s.RatingOf(aId, 0).Rating, 1500);
+                Assert.AreEqual(season, s.Season.Id);
+                Assert.AreEqual(AccountStore.MailResult.Ok, s.ClaimMail(aId, 0, now));
+            }
+            using (var db3 = new PostgresAccountDb(Cs))
+            {
+                var s = new AccountStore(db3);
+                Assert.AreEqual(55 + AccountStore.DuelWinGold, s.Peek(aId).Profile.Gold, "우편 55 + 결투 승리 골드");
+                Assert.AreEqual(0, AccountStore.X(s.Peek(aId).Profile).Mail.Count);
+            }
+        }
+
+        [Test]
         public void Constraints_RejectNegativeGold_AndKeepChangesForRetry()
         {
             var s = new AccountStore(_db);

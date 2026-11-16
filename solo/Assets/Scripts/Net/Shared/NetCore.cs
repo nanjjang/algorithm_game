@@ -187,6 +187,55 @@ namespace Wizard.Solo.Net
         /// <summary>클라이언트 → 방 서버(로그인 뒤): 로그아웃 — 이 로그인 표를 지운다. 몸 = 토큰. 응답 LogoutDone.</summary>
         Logout = 97,
         LogoutDone = 98,
+        // ---- 13판: 우편함·차단·신고·시즌·순위표·리그·자동 매치·관전(11-online.md 6.14절). 전부 계정 뒤의 "요청 → 답" 연결에서 쓴다.
+        /// <summary>우편 목록(→). 응답 MailList.</summary>
+        MailListRequest = 100,
+        /// <summary>우편 목록(서버 →). 몸 = n, (id, 까닭, 골드, 아이템 m × (id, 개수), 덧붙인 값, 온 시각, 기한)×n.</summary>
+        MailList = 101,
+        /// <summary>우편 받기(→). 몸 = 우편 id(long, 0 = 전부). 응답 MailReply.</summary>
+        MailClaim = 102,
+        /// <summary>우편 결과(서버 →). 몸 = AccountStore.MailResult(byte), 서버 프로필.</summary>
+        MailReply = 103,
+        /// <summary>차단 목록(→). 응답 BlockList.</summary>
+        BlockListRequest = 104,
+        /// <summary>차단 목록(서버 →). 몸 = n, (계정 id, 이름)×n.</summary>
+        BlockList = 105,
+        /// <summary>차단(→). 몸 = 이름. 응답 BlockReply.</summary>
+        BlockAdd = 106,
+        /// <summary>차단 풀기(→). 몸 = 계정 id(long). 응답 BlockReply.</summary>
+        BlockRemove = 107,
+        /// <summary>차단 결과(서버 →). 몸 = AccountStore.BlockResult(byte).</summary>
+        BlockReply = 108,
+        /// <summary>신고(→). 몸 = 이름, 사유(int 1~5). 서버가 그 사람의 최근 광장 채팅을 붙인다. 응답 ReportReply.</summary>
+        ReportSend = 109,
+        /// <summary>신고 결과(서버 →). 몸 = AccountStore.ReportResult(byte).</summary>
+        ReportReply = 110,
+        /// <summary>시즌·리그·내 점수(→). 응답 SeasonInfo.</summary>
+        SeasonInfoRequest = 111,
+        /// <summary>시즌·리그·내 점수(서버 →). 몸 = NetCodec.WriteSeasonInfo.</summary>
+        SeasonInfo = 112,
+        /// <summary>순위표(→, 손님도 된다). 몸 = BoardKind(byte), 인자(int: 캐릭터 또는 리그). 응답 BoardReply.</summary>
+        BoardRequest = 113,
+        /// <summary>순위표(서버 →). 몸 = BoardKind(byte), 인자(int), n, (순위, 계정 id, 이름, 점수, 웨이브, 캐릭터, 단계, 리그)×n.</summary>
+        BoardReply = 114,
+        /// <summary>스스로 위 리그로(→, 시즌에 한 번). 응답 LeagueReply.</summary>
+        LeagueOptUp = 115,
+        /// <summary>리그 결과(서버 →). 몸 = AccountStore.LeagueResult(byte), 리그(int).</summary>
+        LeagueReply = 116,
+        /// <summary>자동 매치 대기열에 들어간다(→). 응답 QueueState, 상대가 잡히면 MatchFound. 연결을 끊으면 대기열에서 빠진다.</summary>
+        QueueJoin = 117,
+        /// <summary>대기열 상태(서버 →). 몸 = AccountStore.QueueCheck(byte), 기다릴 초(int), 리그(int), 대기 중(bool).</summary>
+        QueueState = 118,
+        /// <summary>대기열에서 나간다(→). 응답 QueueState(대기 중 = false).</summary>
+        QueueLeave = 119,
+        /// <summary>상대가 잡혔다(서버 →). 몸 = 방 코드, 리그(int). 클라이언트는 새 연결로 JoinRoom(코드) 한다. 둘 다 들어오면 서버가 시작한다.</summary>
+        MatchFound = 120,
+        /// <summary>클라이언트 → 방 서버(첫 메시지): 그 방을 관전한다. 몸 = 코드. 응답 RoomInfo → Welcome(슬롯 −1), 이어서 Lobby 또는 Start·Snapshot.</summary>
+        SpectateRoom = 121,
+        /// <summary>역대 후계자(→, 손님도 된다). 응답 HallReply.</summary>
+        HallRequest = 122,
+        /// <summary>역대 후계자(서버 →). 몸 = n, (시즌 번호, 후계자 이름(없으면 null), 후계 점수(int))×n.</summary>
+        HallReply = 123,
     }
 
     /// <summary>계정 실패 이유. AuthFail 몸 = 이유(byte), 기다릴 초(int).</summary>
@@ -207,7 +256,7 @@ namespace Wizard.Solo.Net
     public static class NetProtocol
     {
         /// <summary>메시지 꼴이 바뀌면 올린다. 다르면 Reject(Version).</summary>
-        public const int Version = 12;
+        public const int Version = 13;
         /// <summary>스냅숏을 보내는 틱 간격(60틱 / 3 = 20Hz).</summary>
         public const int SnapshotEveryTicks = 3;
     }

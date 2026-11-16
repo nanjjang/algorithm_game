@@ -85,7 +85,7 @@ namespace Wizard.Solo.Screens.Online
         void BuildHeader(RectTransform content)
         {
             OnlineUi.HeaderBand(Ctx, content, "I-F1", "square", T(OnlineKeys.Title), out var band);
-            float px = 640f, pw = 720f;
+            float px = 600f, pw = 720f;
             var plate = UiKit.Panel(Ctx, band, UiPanelKind.Recess, px, 12f, pw, 56f).rectTransform;
             OnlineUi.Img(Ctx, plate, "I-F3", "person", 16f, 16f, 24f, 24f);
             _who = UiKit.Label(Ctx, plate, string.Empty, UiFontId.F24, 48f, 0f, 240f, 56f, UiTheme.Chalk);
@@ -93,11 +93,11 @@ namespace Wizard.Solo.Screens.Online
             _kindTagRoot = (RectTransform)_kindTag.transform.parent;
             _gold = OnlineUi.IconText(Ctx, plate, "I-C2", "gold", string.Empty, 432f, 0f, 150f, 56f, UiFontId.F24, UiTheme.Gold);
             _rating = OnlineUi.IconText(Ctx, plate, "I-L1", "league_sprout", string.Empty, 596f, 0f, 116f, 56f, UiFontId.F24, UiTheme.Chalk);
-            string[] icons = { "record", "friends", "market", "exit" };
-            string[] labels = { OnlineKeys.NavRecords, OnlineKeys.NavFriends, OnlineKeys.NavMarket, OnlineKeys.NavLogout };
-            System.Action[] acts = { OnProfile, () => OpenChild(ScreenId.OnlineFriends), () => OpenChild(ScreenId.OnlineMarket), OnLogout };
-            float bx = UiScale.RefWidth - OnlineUi.Edge - 4f * 96f - 3f * 8f;
-            for (int i = 0; i < 4; i++)
+            string[] icons = { "record", "friends", "market", "square", "exit" };
+            string[] labels = { OnlineKeys.NavRecords, OnlineKeys.NavFriends, OnlineKeys.NavMarket, OnlineKeys.NavSeason, OnlineKeys.NavLogout };
+            System.Action[] acts = { OnProfile, () => OpenChild(ScreenId.OnlineFriends), () => OpenChild(ScreenId.OnlineMarket), OpenSeason, OnLogout };
+            float bx = UiScale.RefWidth - OnlineUi.Edge - 5f * 96f - 4f * 8f;
+            for (int i = 0; i < 5; i++)
             {
                 var b = UiKit.Button(Ctx, band, null, bx + i * 104f, 4f, 96f, 72f, acts[i], UiButtonStyle.Plain, Focus);
                 var r = b.ContentRoot != null ? b.ContentRoot : b.Rect;
@@ -417,6 +417,23 @@ namespace Wizard.Solo.Screens.Online
         }
 
         void OpenChild(ScreenId id) { Screens?.Push(id, ScreenArgs.From(ScreenId.CoopLobby)); }
+
+        /// <summary>시즌 화면. 닫히며 "join:코드"(자동 매치가 잡혔다) 또는 "watch:코드"(관전)를 돌려주면 그 방으로 간다.</summary>
+        void OpenSeason()
+        {
+            var a = ScreenArgs.From(ScreenId.CoopLobby);
+            a.OnResult = r =>
+            {
+                _model.RefreshProfile();
+                if (r is string s)
+                {
+                    if (s.StartsWith("join:", System.StringComparison.Ordinal)) _model.JoinMatch(s.Substring(5));
+                    else if (s.StartsWith("watch:", System.StringComparison.Ordinal)) _model.Spectate(s.Substring(6));
+                }
+                Refresh();
+            };
+            Screens?.Push(ScreenId.OnlineSeason, a);
+        }
         void OnProfile() { OpenChild(ScreenId.OnlineProfile); }
         void OnCopy()
         {

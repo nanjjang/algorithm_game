@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Wizard.Solo.Art;
 using Wizard.Solo.Net;
 using Wizard.Solo.UI;
 using UInputField = UnityEngine.UI.InputField;

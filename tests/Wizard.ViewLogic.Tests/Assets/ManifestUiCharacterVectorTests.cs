@@ -23,10 +23,10 @@ namespace Wizard.ViewLogic.Tests.Assets
             Reg.RecordsOf(AssetPack.Character, charId).Where(r => !SheetVariants.Contains(r.Key.Variant));
 
         [Fact]
-        public void S14_TV_180__UiHas197UniqueIds()
+        public void S14_TV_180__UiHas199UniqueIds()
         {
             Assert.Equal(197, UiFiles.Select(r => r.Key.Id).Distinct().Count());
-            Assert.Equal(197, Reg.IdsOf(AssetPack.Ui).Count);
+            Assert.Equal(199, Reg.IdsOf(AssetPack.Ui).Count);
             // 코드로 만드는 7줄은 그림이 없다
             foreach (string codeOnly in new[] { "K-10", "K-37", "K-47", "K-72", "I-B4", "I-C4", "I-M8" })
             {

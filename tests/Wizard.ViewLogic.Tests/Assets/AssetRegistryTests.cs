@@ -95,9 +95,11 @@ namespace Wizard.ViewLogic.Tests.Assets
         {
             AssetRegistry reg = RepoAssets.Registry;
             var s2405 = new AssetKey(AssetPack.Ui, "S-2405", "external", null);
-            Assert.True(reg.IsMarkedMissing(s2405));
-            Assert.True(reg.IsMarkedMissing(new AssetKey(AssetPack.Ui, "S-2407", "external", null)));
-            Assert.False(reg.Contains(s2405));
+            // 그림이 들어온 뒤라 S-2405·S-2407 은 더는 빠진 것으로 표시되지 않는다
+            Assert.False(reg.IsMarkedMissing(s2405));
+            Assert.True(reg.Contains(s2405));
+            Assert.True(reg.Contains(new AssetKey(AssetPack.Ui, "S-2407", "external", null)));
+            // 빈 등록부는 무엇이든 자리표시로 풀린다
             Assert.True(new AssetRegistry().Resolve(s2405).IsPlaceholder);
             // 파일이 있는 S-0201 은 들어왔다
             Assert.True(reg.TryGet(new AssetKey(AssetPack.Ui, "S-0201", "external", null), out AssetRecord bg));

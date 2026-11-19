@@ -1,0 +1,487 @@
+{
+  "milestone": "M0",
+  "gate_task": "M0-INT",
+  "main_commit": "904e5fcd46c1408099d5aca75055ff288578bb1b",
+  "criteria": [
+    {
+      "id": "clean-clone-full",
+      "text": "깨끗한 복제본에서 tools/ci/ci.sh full 이 통과한다 (PIPELINE 8.1 M0, M0-INT 수락 1)",
+      "result": "passed",
+      "command": "git clone --no-local <저장소> <임시 폴더>/clean (main 904e5fc, unity/Library 없음) → <임시 폴더>/clean/tools/ci/ci.sh full --all",
+      "evidence": {
+        "exit_code": 0,
+        "started_at": "2026-11-11T19:59:49Z",
+        "finished_at": "2026-11-11T20:02:58Z",
+        "fast": "10 통과, 0 실패, 1 건너뜀(task-branch: 브랜치가 main 이라 볼 작업이 없다)",
+        "full": "3 통과(test-release, unity-compile, unity-editmode), 0 실패, 0 건너뜀",
+        "dotnet_tests_release": "테스트 프로젝트 17개, 693개 통과, 0 실패, 0 건너뜀",
+        "unity_editmode": "total=21 passed=21 failed=0 skipped=0",
+        "tree_after": "실행 뒤 git status 깨끗함(unity.sh 가 Unity 의 변경을 되돌림)"
+      }
+    },
+    {
+      "id": "hooks-reject",
+      "text": "훅이 걸린 상태에서 금지 API 가 든 커밋과 형식이 틀린 커밋 메시지가 거절된다 (PIPELINE 8.1 M0, M0-INT 수락 2)",
+      "result": "passed",
+      "command": "두 번째 깨끗한 복제본(브랜치 task/M0-INT)에서 tools/ci/install-hooks.sh → install-hooks.sh --check(걸려 있다) → 아래 커밋 시도",
+      "evidence": [
+        {
+          "case": "src/Wizard.Core/Angle.cs 에 float 와 new System.Random() 을 넣고 올바른 메시지로 커밋",
+          "expected": "거절",
+          "exit_code": 1,
+          "output": "pre-commit: 커밋을 거절한다(3건) — Angle.cs:69 실수형 float, new System.Random, System.Random"
+        },
+        {
+          "case": "메시지 'hook probe without format'",
+          "expected": "거절",
+          "exit_code": 1,
+          "output": "commit-msg: 첫 줄 형식, 본문 없음, Co-Authored-By 줄 없음"
+        },
+        {
+          "case": "메시지 첫 줄 'build(M0-INT) wrong subject'(콜론 없음)",
+          "expected": "거절",
+          "exit_code": 1,
+          "output": "commit-msg: 첫 줄이 '<type>(<작업 id>): <요약>' 꼴이 아니다"
+        },
+        {
+          "case": "메시지 첫 줄 'test(NOPE-01): unknown id'",
+          "expected": "거절",
+          "exit_code": 1,
+          "output": "commit-msg: 작업 id 'NOPE-01' 가 docs/dev/tasks.json 에 없다"
+        },
+        {
+          "case": "대조군: 문서 파일 하나, 올바른 메시지",
+          "expected": "받아들임",
+          "exit_code": 0,
+          "output": "commit-msg: ok"
+        }
+      ],
+      "note": "메인 저장소에는 아직 훅이 걸려 있지 않다(core.hooksPath 없음). 저장소 설정을 바꾸는 일이라 이 작업에서 걸지 않았다. user_actions 의 hooks-install 참고"
+    },
+    {
+      "id": "taskgraph-validate",
+      "text": "taskgraph validate 가 통과한다 (M0-INT 수락 3)",
+      "result": "passed",
+      "command": "dotnet <tools/Wizard.TaskGraph 빌드>/Wizard.TaskGraph.dll validate --repo <작업 트리>",
+      "evidence": {
+        "exit_code": 0,
+        "output": "스키마 통과, 작업 271개, 묶음 168개, 마일스톤 20개, 위상정렬 됨, 겹치는 쌍 38개(deps 있음), 명세 벡터 2855개 전부 배정, 미배정 0"
+      }
+    },
+    {
+      "id": "retro-check-diff",
+      "text": "M0-BT-06 이 끝난 뒤 앞선 M0 작업들의 병합 커밋에 taskgraph check-diff 를 소급해 돌린 결과 (PIPELINE 3.3 부트스트랩 4, M0-INT 수락 4)",
+      "result": "passed",
+      "command": "taskgraph check-diff <id> --base <커밋>^ --head <커밋> --repo <작업 트리>",
+      "evidence": [
+        {
+          "task": "M0-TL-02",
+          "commit": "f287a10192836faf8f136ed1444d2023456389fe",
+          "changed_files": 18,
+          "violations": 0,
+          "exit_code": 0
+        },
+        {
+          "task": "M0-TL-01",
+          "commit": "a2f585eed401c704df7d5c4df77aed7d429be953",
+          "changed_files": 4,
+          "violations": 0,
+          "exit_code": 0
+        },
+        {
+          "task": "M0-BT-01",
+          "commit": "5f68bff224ca8466e746014690065607e09ad4de",
+          "changed_files": 17,
+          "violations": 0,
+          "exit_code": 0
+        },
+        {
+          "task": "M0-BT-03",
+          "commit": "adb1825446d03559a7dad557ee2b17e26f756bb6",
+          "changed_files": 6,
+          "violations": 0,
+          "exit_code": 0
+        },
+        {
+          "task": "M0-BT-04",
+          "commit": "9ad7ab14ec1b65ad1667f4846ce076cd5ddb6841",
+          "changed_files": 498,
+          "violations": 0,
+          "exit_code": 0
+        },
+        {
+          "task": "M0-BT-06",
+          "commit": "3a73ca30a992fd68d3468be9fa33f448a64054bc",
+          "changed_files": 37,
+          "violations": 0,
+          "exit_code": 0
+        },
+        {
+          "task": "M0-TE-01",
+          "commit": "b266b2aca92afc04af28b256af87b1af12ba39be",
+          "changed_files": 63,
+          "violations": 0,
+          "exit_code": 0
+        },
+        {
+          "task": "M0-UE-01",
+          "commit": "d855a5964d375aba44ae00262923a2798a2c4613",
+          "changed_files": 44,
+          "violations": 0,
+          "exit_code": 0
+        },
+        {
+          "task": "M0-BT-02",
+          "commit": "1480a08a6dd2fd6a41c3f55e0cafb0fdb5cadb06",
+          "changed_files": 18,
+          "violations": 0,
+          "exit_code": 0
+        },
+        {
+          "task": "M0-BT-05",
+          "commit": "904e5fcd46c1408099d5aca75055ff288578bb1b",
+          "changed_files": 71,
+          "violations": 0,
+          "exit_code": 0
+        }
+      ],
+      "note": "부트스트랩 대상(M0-TL-02, M0-TL-01, M0-BT-01~04, M0-TE-01)에 더해 M0-BT-06 뒤에 들어온 M0-BT-02, M0-BT-05, M0-UE-01 도 같이 돌렸다. 어긋남 0건이라 결함 작업은 만들지 않았다"
+    },
+    {
+      "id": "retro-commit-messages",
+      "text": "앞선 M0 커밋 메시지의 형식(참고: 훅이 생기기 전에 들어온 커밋)",
+      "result": "passed",
+      "command": "ci commit-msg <git log -1 --format=%B 커밋>",
+      "evidence": {
+        "ok": [
+          "M0-TL-02 f287a10",
+          "M0-TL-01 a2f585e",
+          "M0-BT-01 5f68bff",
+          "M0-BT-03 adb1825",
+          "M0-BT-04 9ad7ab1",
+          "M0-BT-06 3a73ca3",
+          "M0-TE-01 b266b2a",
+          "M0-UE-01 d855a59",
+          "M0-BT-02 1480a08",
+          "M0-BT-05 904e5fc"
+        ]
+      },
+      "note": "560b958 chore(m0)(뼈대)와 90c553b(문서·그림 반입)는 작업 그래프 이전의 커밋이라 작업 id 가 없다. 결함으로 보지 않는다"
+    },
+    {
+      "id": "check-tasks-and-agent-config",
+      "text": "node tools/check-tasks.mjs 통과. 루트 CLAUDE.md 와 .claude/agents/ 가 원본과 같다 (M0-INT 수락 5)",
+      "result": "passed",
+      "command": "node tools/check-tasks.mjs; tools/ci/agent-config-check.sh; cmp 로 작업 트리와 메인 체크아웃의 CLAUDE.md, .claude/agents/*.md 를 docs/dev/agent-config/ 와 대조",
+      "evidence": {
+        "check_tasks_exit": 0,
+        "agent_config_check": "ok",
+        "cmp": "CLAUDE.md 같음, 에이전트 파일 17개 전부 같음, 설치본에만 있는 파일 0(작업 트리와 메인 체크아웃 둘 다)"
+      }
+    }
+  ],
+  "integration_missing": [
+    {
+      "step": "dotnet-x64",
+      "missing": "x64 dotnet 런타임(/usr/local/share/dotnet/x64/dotnet)",
+      "user_action": "dotnet-install.sh --architecture x64 --runtime dotnet --channel 10.0 --install-dir <폴더> 로 사용자 폴더에 설치하고 DOTNET_ROOT_X64=<폴더> 를 환경에 둔다(PIPELINE 4.1)",
+      "needed_from": "M1-UE-03"
+    },
+    {
+      "step": "unity-player-il2cpp",
+      "missing": "Unity 6000.3.20f1 의 mac-il2cpp 모듈",
+      "user_action": "\"/Applications/Unity Hub.app/Contents/MacOS/Unity Hub\" -- --headless install-modules --version 6000.3.20f1 -m mac-il2cpp (sudo 없이 된다)",
+      "needed_from": "M1-UE-03"
+    }
+  ],
+  "integration_note": "ci.sh gate M0 는 integration 단계까지 돈다. M0 의 완료 기준(PIPELINE 8.1)은 full 까지이고, integration 의 두 실패는 기기에 없는 것 때문이며 건너뛰지 않고 그대로 적었다(ci.passed=false). unity-player-mono(arm64, x64)와 unity-playmode 는 통과했다",
+  "user_actions": [
+    {
+      "id": "hooks-install",
+      "status": "기록 대기",
+      "action": "메인 저장소에서 /Users/dbswnstj/algorithm_project/tools/ci/install-hooks.sh 를 한 번 돌리고 install-hooks.sh --check 가 \"걸려 있다\"를 내는지 본다(core.hooksPath=tools/ci/hooks, 모든 작업 트리에 적용)"
+    }
+  ],
+  "ci": {
+    "passed": false,
+    "branch": "task/M0-INT",
+    "commit": "904e5fcd46c1408099d5aca75055ff288578bb1b",
+    "finished_at": "2026-11-11T20:07:18Z",
+    "stages": {
+      "fast": {
+        "stage": "fast",
+        "passed": true,
+        "branch": "task/M0-INT",
+        "commit": "904e5fcd46c1408099d5aca75055ff288578bb1b",
+        "force_all": true,
+        "started_at": "2026-11-11T20:03:26Z",
+        "finished_at": "2026-11-11T20:05:14Z",
+        "seconds": 108.6,
+        "passed_steps": 11,
+        "failed_steps": 0,
+        "skipped_steps": 0,
+        "steps": [
+          {
+            "name": "agent-config-check",
+            "script": "tools/ci/agent-config-check.sh",
+            "stage": "fast",
+            "passed": true,
+            "exit_code": 0,
+            "timed_out": false,
+            "skipped": false,
+            "seconds": 0.1,
+            "notes": [],
+            "log": "artifacts/ci/fast/agent-config-check.log"
+          },
+          {
+            "name": "build",
+            "script": "tools/ci/build.sh",
+            "stage": "fast",
+            "passed": true,
+            "exit_code": 0,
+            "timed_out": false,
+            "skipped": false,
+            "seconds": 6.1,
+            "notes": [],
+            "log": "artifacts/ci/fast/build.log"
+          },
+          {
+            "name": "determinism-guard",
+            "script": "tools/ci/determinism-guard.sh",
+            "stage": "fast",
+            "passed": true,
+            "exit_code": 0,
+            "timed_out": false,
+            "skipped": false,
+            "seconds": 6.1,
+            "notes": [],
+            "log": "artifacts/ci/fast/determinism-guard.log"
+          },
+          {
+            "name": "gen-check",
+            "script": "tools/ci/gen-check.sh",
+            "stage": "fast",
+            "passed": true,
+            "exit_code": 0,
+            "timed_out": false,
+            "skipped": false,
+            "seconds": 2.1,
+            "notes": [],
+            "log": "artifacts/ci/fast/gen-check.log"
+          },
+          {
+            "name": "layout-check",
+            "script": "tools/ci/layout-check.sh",
+            "stage": "fast",
+            "passed": true,
+            "exit_code": 0,
+            "timed_out": false,
+            "skipped": false,
+            "seconds": 0.1,
+            "notes": [],
+            "log": "artifacts/ci/fast/layout-check.log"
+          },
+          {
+            "name": "meta-check",
+            "script": "tools/ci/lib/meta-check.sh",
+            "stage": "fast",
+            "passed": true,
+            "exit_code": 0,
+            "timed_out": false,
+            "skipped": false,
+            "seconds": 0.7,
+            "notes": [],
+            "log": "artifacts/ci/fast/meta-check.log"
+          },
+          {
+            "name": "task-branch",
+            "script": "tools/ci/lib/task-branch.sh",
+            "stage": "fast",
+            "passed": true,
+            "exit_code": 0,
+            "timed_out": false,
+            "skipped": false,
+            "seconds": 1.1,
+            "notes": [],
+            "log": "artifacts/ci/fast/task-branch.log"
+          },
+          {
+            "name": "tasks-check",
+            "script": "tools/ci/tasks-check.sh",
+            "stage": "fast",
+            "passed": true,
+            "exit_code": 0,
+            "timed_out": false,
+            "skipped": false,
+            "seconds": 0.2,
+            "notes": [],
+            "log": "artifacts/ci/fast/tasks-check.log"
+          },
+          {
+            "name": "test-changed",
+            "script": "tools/ci/lib/test-changed.sh",
+            "stage": "fast",
+            "passed": true,
+            "exit_code": 0,
+            "timed_out": false,
+            "skipped": false,
+            "seconds": 61.3,
+            "notes": [
+              "전부: WIZARD_CI_FORCE_ALL=1(게이트 또는 --all): 바뀐 경로로 줄이지 않는다 → 테스트 프로젝트 18개"
+            ],
+            "log": "artifacts/ci/fast/test-changed.log"
+          },
+          {
+            "name": "test",
+            "script": "tools/ci/test.sh",
+            "stage": "fast",
+            "passed": true,
+            "exit_code": 0,
+            "timed_out": false,
+            "skipped": false,
+            "seconds": 29.1,
+            "notes": [],
+            "log": "artifacts/ci/fast/test.log"
+          },
+          {
+            "name": "vector-coverage",
+            "script": "tools/ci/lib/vector-coverage.sh",
+            "stage": "fast",
+            "passed": true,
+            "exit_code": 0,
+            "timed_out": false,
+            "skipped": false,
+            "seconds": 1.6,
+            "notes": [],
+            "log": "artifacts/ci/fast/vector-coverage.log"
+          }
+        ]
+      },
+      "full": {
+        "stage": "full",
+        "passed": true,
+        "branch": "task/M0-INT",
+        "commit": "904e5fcd46c1408099d5aca75055ff288578bb1b",
+        "force_all": true,
+        "started_at": "2026-11-11T20:05:14Z",
+        "finished_at": "2026-11-11T20:06:15Z",
+        "seconds": 60.6,
+        "passed_steps": 3,
+        "failed_steps": 0,
+        "skipped_steps": 0,
+        "steps": [
+          {
+            "name": "test-release",
+            "script": "tools/ci/test-release.sh",
+            "stage": "full",
+            "passed": true,
+            "exit_code": 0,
+            "timed_out": false,
+            "skipped": false,
+            "seconds": 27.1,
+            "notes": [],
+            "log": "artifacts/ci/full/test-release.log"
+          },
+          {
+            "name": "unity-compile",
+            "script": "tools/ci/lib/unity-compile.sh",
+            "stage": "full",
+            "passed": true,
+            "exit_code": 0,
+            "timed_out": false,
+            "skipped": false,
+            "seconds": 18.7,
+            "notes": [
+              "Unity 단계를 돈다: WIZARD_CI_FORCE_ALL=1(게이트 또는 --all): 바뀐 경로로 줄이지 않는다"
+            ],
+            "log": "artifacts/ci/full/unity-compile.log"
+          },
+          {
+            "name": "unity-editmode",
+            "script": "tools/ci/lib/unity-editmode.sh",
+            "stage": "full",
+            "passed": true,
+            "exit_code": 0,
+            "timed_out": false,
+            "skipped": false,
+            "seconds": 14.7,
+            "notes": [
+              "Unity 단계를 돈다: WIZARD_CI_FORCE_ALL=1(게이트 또는 --all): 바뀐 경로로 줄이지 않는다"
+            ],
+            "log": "artifacts/ci/full/unity-editmode.log"
+          }
+        ]
+      },
+      "integration": {
+        "stage": "integration",
+        "passed": false,
+        "branch": "task/M0-INT",
+        "commit": "904e5fcd46c1408099d5aca75055ff288578bb1b",
+        "force_all": true,
+        "started_at": "2026-11-11T20:06:15Z",
+        "finished_at": "2026-11-11T20:07:17Z",
+        "seconds": 62.5,
+        "passed_steps": 2,
+        "failed_steps": 2,
+        "skipped_steps": 0,
+        "steps": [
+          {
+            "name": "dotnet-x64",
+            "script": "tools/ci/lib/dotnet-x64.sh",
+            "stage": "integration",
+            "passed": false,
+            "exit_code": 1,
+            "timed_out": false,
+            "skipped": false,
+            "seconds": 0,
+            "notes": [],
+            "log": "artifacts/ci/integration/dotnet-x64.log"
+          },
+          {
+            "name": "unity-player-il2cpp",
+            "script": "tools/ci/lib/unity-player-il2cpp.sh",
+            "stage": "integration",
+            "passed": false,
+            "exit_code": 1,
+            "timed_out": false,
+            "skipped": false,
+            "seconds": 0.1,
+            "notes": [],
+            "log": "artifacts/ci/integration/unity-player-il2cpp.log"
+          },
+          {
+            "name": "unity-player-mono",
+            "script": "tools/ci/lib/unity-player-mono.sh",
+            "stage": "integration",
+            "passed": true,
+            "exit_code": 0,
+            "timed_out": false,
+            "skipped": false,
+            "seconds": 50.1,
+            "notes": [],
+            "log": "artifacts/ci/integration/unity-player-mono.log"
+          },
+          {
+            "name": "unity-playmode",
+            "script": "tools/ci/lib/unity-playmode.sh",
+            "stage": "integration",
+            "passed": true,
+            "exit_code": 0,
+            "timed_out": false,
+            "skipped": false,
+            "seconds": 12.3,
+            "notes": [],
+            "log": "artifacts/ci/integration/unity-playmode.log"
+          }
+        ]
+      }
+    }
+  },
+  "human_checks": [
+    {
+      "task": "M0-TL-02",
+      "check": "CLAUDE.md와 .claude/agents/는 에이전트의 지시문이 되는 설정이라 사용자가 직접 승인해야 한다",
+      "status": "기록 대기"
+    }
+  ]
+}

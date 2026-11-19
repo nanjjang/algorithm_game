@@ -1,0 +1,3370 @@
+{
+  "tilePx": 64,
+  "textureFilter": "nearest",
+  "sheetOrder": "row-major",
+  "paletteTargets": {
+    "day": {
+      "grass": "#2F4A3A",
+      "dirt": "#4A4034",
+      "packed": "#494237",
+      "slate": "#2C3442",
+      "paving": "#363C40",
+      "hedge": "#1E3328"
+    },
+    "dusk": {
+      "grass": "#3A2E3E",
+      "dirt": "#4A3830",
+      "packed": "#463632",
+      "slate": "#3B3346",
+      "paving": "#39323E",
+      "hedge": "#2A2233"
+    },
+    "night": {
+      "grass": "#161F3A",
+      "dirt": "#222842",
+      "packed": "#252B40",
+      "slate": "#202942",
+      "paving": "#252F44",
+      "hedge": "#0E1428"
+    }
+  },
+  "layouts": [
+    "maps/field.01.json",
+    "maps/field.02.json",
+    "maps/field.03.json",
+    "maps/field.04.json",
+    "maps/field.05.json",
+    "maps/field.06.json",
+    "maps/plaza.json",
+    "maps/arena.json"
+  ],
+  "shared": {
+    "plaza.grass": "field.tile.grass.*",
+    "plaza.alert_crow": "field.crow",
+    "arena.master_idle": "facility.master_chair"
+  },
+  "assets": {
+    "field.tile.grass.01": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.tile.grass.02": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.tile.grass.03": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.tile.grass.04": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.tile.dirt.01": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.tile.dirt.02": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.tile.dirt.03": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            384,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            384,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            384,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.tile.dirt.04": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            448,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            448,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            448,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.tile.edge.n": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            0,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            0,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            0,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.tile.edge.e": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            64,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            64,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            64,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.tile.edge.s": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            128,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            128,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            128,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.tile.edge.w": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            192,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            192,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            192,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.tile.outer.nw": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            256,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            256,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            256,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.tile.inner.nw": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            320,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            320,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            320,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.tile.outer.ne": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            384,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            384,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            384,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.tile.inner.ne": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            448,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            448,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            448,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.tile.outer.se": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            0,
+            128,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            0,
+            128,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            0,
+            128,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.tile.inner.se": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            64,
+            128,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            64,
+            128,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            64,
+            128,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.tile.outer.sw": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            128,
+            128,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            128,
+            128,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            128,
+            128,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.tile.inner.sw": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            192,
+            128,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            192,
+            128,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            192,
+            128,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.tile.mottle.01": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            256,
+            128,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            256,
+            128,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            256,
+            128,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.tile.mottle.02": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            320,
+            128,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            320,
+            128,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            320,
+            128,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.tile.mottle.03": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            384,
+            128,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            384,
+            128,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            384,
+            128,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.tile.mottle.04": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            448,
+            128,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            448,
+            128,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            448,
+            128,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "plaza.tile.packed.01": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "plaza.tile.packed.02": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "plaza.tile.packed.03": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "plaza.tile.packed.04": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "plaza.tile.paving.01": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "plaza.tile.paving.02": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "plaza.tile.paving.03": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            384,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            384,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            384,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "plaza.tile.paving.04": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            448,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            448,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            448,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "plaza.tile.paving.05": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            0,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            0,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            0,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "plaza.tile.paving.06": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            64,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            64,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            64,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "plaza.tile.edge.n": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            128,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            128,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            128,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "plaza.tile.edge.e": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            192,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            192,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            192,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "plaza.tile.edge.s": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            256,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            256,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            256,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "plaza.tile.edge.w": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            320,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            320,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            320,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "plaza.tile.outer.nw": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            384,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            384,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            384,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "plaza.tile.inner.nw": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            448,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            448,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            448,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "plaza.tile.outer.ne": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            0,
+            128,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            0,
+            128,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            0,
+            128,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "plaza.tile.inner.ne": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            64,
+            128,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            64,
+            128,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            64,
+            128,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "plaza.tile.outer.se": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            128,
+            128,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            128,
+            128,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            128,
+            128,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "plaza.tile.inner.se": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            192,
+            128,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            192,
+            128,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            192,
+            128,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "plaza.tile.outer.sw": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            256,
+            128,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            256,
+            128,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            256,
+            128,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "plaza.tile.inner.sw": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            320,
+            128,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            320,
+            128,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            320,
+            128,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "arena.tile.slate.01": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/arena.day.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/arena.dusk.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/arena.night.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "arena.tile.slate.02": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/arena.day.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/arena.dusk.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/arena.night.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "arena.tile.slate.03": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/arena.day.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/arena.dusk.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/arena.night.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "arena.tile.slate.04": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/arena.day.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/arena.dusk.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/arena.night.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes"
+    },
+    "field.prop.sign": {
+      "file": "sprites/field.prop.sign.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "collision": false,
+      "displayText": "탑 ← 3000걸음"
+    },
+    "field.prop.potion.round": {
+      "file": "sprites/field.prop.potion.round.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "collision": false
+    },
+    "field.prop.potion.triangular": {
+      "file": "sprites/field.prop.potion.triangular.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "collision": false
+    },
+    "field.prop.discarded_chair": {
+      "file": "sprites/field.prop.discarded_chair.png",
+      "frameSize": [
+        128,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        64,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "collision": false
+    },
+    "field.prop.target": {
+      "file": "sprites/field.prop.target.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "collision": false
+    },
+    "field.prop.mushroom_ring": {
+      "file": "sprites/field.prop.mushroom_ring.png",
+      "frameSize": [
+        128,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        64,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "collision": false
+    },
+    "field.prop.discarded_tongs": {
+      "file": "sprites/field.prop.discarded_tongs.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "collision": false
+    },
+    "field.prop.discarded_pot": {
+      "file": "sprites/field.prop.discarded_pot.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "collision": false
+    },
+    "field.prop.discarded_hook": {
+      "file": "sprites/field.prop.discarded_hook.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "collision": false
+    },
+    "field.prop.discarded_slate": {
+      "file": "sprites/field.prop.discarded_slate.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "collision": false
+    },
+    "field.prop.discarded_pouch": {
+      "file": "sprites/field.prop.discarded_pouch.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "collision": false
+    },
+    "field.prop.discarded_rope": {
+      "file": "sprites/field.prop.discarded_rope.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "collision": false
+    },
+    "field.wall.rocks.01": {
+      "file": "sprites/field.wall.rocks.01.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "field.wall.n.01": {
+      "file": "sprites/field.wall.n.01.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "field.wall.s.01": {
+      "file": "sprites/field.wall.s.01.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "mirrored variant"
+    },
+    "arena.wall.n.01": {
+      "file": "sprites/arena.wall.n.01.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "arena.wall.s.01": {
+      "file": "sprites/arena.wall.s.01.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "mirrored variant"
+    },
+    "field.wall.rocks.02": {
+      "file": "sprites/field.wall.rocks.02.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "field.wall.n.02": {
+      "file": "sprites/field.wall.n.02.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "field.wall.s.02": {
+      "file": "sprites/field.wall.s.02.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "mirrored variant"
+    },
+    "arena.wall.n.02": {
+      "file": "sprites/arena.wall.n.02.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "arena.wall.s.02": {
+      "file": "sprites/arena.wall.s.02.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "mirrored variant"
+    },
+    "field.wall.rocks.03": {
+      "file": "sprites/field.wall.rocks.03.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "field.wall.n.03": {
+      "file": "sprites/field.wall.n.03.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "field.wall.s.03": {
+      "file": "sprites/field.wall.s.03.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "mirrored variant"
+    },
+    "arena.wall.n.03": {
+      "file": "sprites/arena.wall.n.03.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "arena.wall.s.03": {
+      "file": "sprites/arena.wall.s.03.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "mirrored variant"
+    },
+    "field.wall.w.01": {
+      "file": "sprites/field.wall.w.01.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "mirrorFor": "e"
+    },
+    "field.wall.w.02": {
+      "file": "sprites/field.wall.w.02.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "mirrorFor": "e"
+    },
+    "field.wall.corner.sw": {
+      "file": "sprites/field.wall.corner.sw.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing corner rotated on grid"
+    },
+    "field.wall.corner.nw": {
+      "file": "sprites/field.wall.corner.nw.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing corner rotated on grid"
+    },
+    "field.wall.corner.ne": {
+      "file": "sprites/field.wall.corner.ne.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing corner rotated on grid"
+    },
+    "field.wall.corner.se": {
+      "file": "sprites/field.wall.corner.se.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing corner rotated on grid"
+    },
+    "arena.wall.w.01": {
+      "file": "sprites/arena.wall.w.01.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "hand-drawn pixel grid",
+      "mirrorFor": "e"
+    },
+    "arena.wall.w.02": {
+      "file": "sprites/arena.wall.w.02.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "hand-drawn pixel grid",
+      "mirrorFor": "e"
+    },
+    "arena.wall.corner.sw": {
+      "file": "sprites/arena.wall.corner.sw.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "direct pixel drawing corner rotated on grid"
+    },
+    "arena.wall.corner.nw": {
+      "file": "sprites/arena.wall.corner.nw.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "direct pixel drawing corner rotated on grid"
+    },
+    "arena.wall.corner.ne": {
+      "file": "sprites/arena.wall.corner.ne.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "direct pixel drawing corner rotated on grid"
+    },
+    "arena.wall.corner.se": {
+      "file": "sprites/arena.wall.corner.se.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "direct pixel drawing corner rotated on grid"
+    },
+    "field.spawn.n": {
+      "file": "sprites/field.spawn.n.png",
+      "frameSize": [
+        128,
+        64
+      ],
+      "frameCount": 5,
+      "columns": 5,
+      "origin": [
+        64,
+        62
+      ],
+      "source": "direct pixel drawing, mirrored or rotated as needed",
+      "openFrame": 0,
+      "shakeFrames": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "mirrorFor": null,
+      "fps": 8
+    },
+    "field.spawn.s": {
+      "file": "sprites/field.spawn.s.png",
+      "frameSize": [
+        128,
+        64
+      ],
+      "frameCount": 5,
+      "columns": 5,
+      "origin": [
+        64,
+        62
+      ],
+      "source": "direct pixel drawing, mirrored or rotated as needed",
+      "openFrame": 0,
+      "shakeFrames": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "mirrorFor": null,
+      "fps": 8
+    },
+    "field.spawn.w": {
+      "file": "sprites/field.spawn.w.png",
+      "frameSize": [
+        64,
+        128
+      ],
+      "frameCount": 5,
+      "columns": 5,
+      "origin": [
+        32,
+        126
+      ],
+      "source": "direct pixel drawing, mirrored or rotated as needed",
+      "openFrame": 0,
+      "shakeFrames": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "mirrorFor": "e",
+      "fps": 8
+    },
+    "field.tower": {
+      "file": "sprites/field.tower.png",
+      "frameSize": [
+        512,
+        128
+      ],
+      "frameCount": 5,
+      "columns": 5,
+      "origin": [
+        256,
+        126
+      ],
+      "source": "hand-drawn pixel grid",
+      "idleFrame": 0,
+      "laundryFrames": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "fps": 6
+    },
+    "field.tower.window": {
+      "file": "sprites/field.tower.window.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 4,
+      "columns": 4,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "poseFrames": {
+        "closed": 0,
+        "look": [
+          1,
+          2
+        ],
+        "throw": 3
+      },
+      "fps": 6
+    },
+    "field.campfire": {
+      "file": "sprites/field.campfire.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 4,
+      "columns": 4,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "fps": 8
+    },
+    "facility.campfire": {
+      "file": "sprites/facility.campfire.png",
+      "frameSize": [
+        128,
+        128
+      ],
+      "frameCount": 6,
+      "columns": 6,
+      "origin": [
+        64,
+        126
+      ],
+      "source": "hand-drawn pixel grid",
+      "fps": 8
+    },
+    "field.moon": {
+      "file": "sprites/field.moon.png",
+      "frameSize": [
+        96,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        48,
+        94
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "field.moonlight": {
+      "file": "sprites/field.moonlight.png",
+      "frameSize": [
+        256,
+        256
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        128,
+        128
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "field.weather.puddle": {
+      "file": "sprites/field.weather.puddle.png",
+      "frameSize": [
+        64,
+        32
+      ],
+      "frameCount": 3,
+      "columns": 3,
+      "origin": [
+        32,
+        16
+      ],
+      "source": "hand-drawn pixel grid",
+      "fps": 5
+    },
+    "field.weather.rain": {
+      "file": "sprites/field.weather.rain.png",
+      "frameSize": [
+        1920,
+        128
+      ],
+      "frameCount": 4,
+      "columns": 4,
+      "origin": [
+        0,
+        0
+      ],
+      "source": "direct pixel drawing marks tiled to full screen strip",
+      "fps": 9
+    },
+    "field.weather.fog": {
+      "file": "sprites/field.weather.fog.png",
+      "frameSize": [
+        512,
+        192
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        0,
+        0
+      ],
+      "source": "hand-drawn pixel grid",
+      "fps": 3
+    },
+    "field.meteor.ring": {
+      "file": "sprites/field.meteor.ring.png",
+      "frameSize": [
+        32,
+        32
+      ],
+      "frameCount": 4,
+      "columns": 4,
+      "origin": [
+        16,
+        16
+      ],
+      "source": "pixel-aligned radius overlay using direct pixel drawing gold palette",
+      "fps": 6
+    },
+    "field.meteor.fall": {
+      "file": "sprites/field.meteor.fall.png",
+      "frameSize": [
+        32,
+        32
+      ],
+      "frameCount": 6,
+      "columns": 6,
+      "origin": [
+        16,
+        16
+      ],
+      "source": "direct pixel drawing poses with geometric in-betweens",
+      "fps": 12
+    },
+    "field.meteor.sparkle": {
+      "file": "sprites/field.meteor.sparkle.png",
+      "frameSize": [
+        32,
+        32
+      ],
+      "frameCount": 4,
+      "columns": 4,
+      "origin": [
+        16,
+        16
+      ],
+      "source": "hand-drawn pixel grid",
+      "fps": 8
+    },
+    "field.crow": {
+      "file": "sprites/field.crow.png",
+      "frameSize": [
+        32,
+        32
+      ],
+      "frameCount": 4,
+      "columns": 4,
+      "origin": [
+        16,
+        16
+      ],
+      "source": "hand-drawn pixel grid",
+      "fps": 9
+    },
+    "field.crow.note": {
+      "file": "sprites/field.crow.note.png",
+      "frameSize": [
+        32,
+        32
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        16,
+        16
+      ],
+      "source": "hand-drawn pixel grid",
+      "fps": 7
+    },
+    "facility.log_seat": {
+      "file": "sprites/facility.log_seat.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 3,
+      "columns": 3,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "facility.market.mat": {
+      "file": "sprites/facility.market.mat.png",
+      "frameSize": [
+        128,
+        64
+      ],
+      "frameCount": 3,
+      "columns": 3,
+      "origin": [
+        64,
+        62
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "facility.market.crate": {
+      "file": "sprites/facility.market.crate.png",
+      "frameSize": [
+        128,
+        64
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        64,
+        62
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "facility.duel_board": {
+      "file": "sprites/facility.duel_board.png",
+      "frameSize": [
+        128,
+        128
+      ],
+      "frameCount": 3,
+      "columns": 3,
+      "origin": [
+        64,
+        126
+      ],
+      "source": "hand-drawn pixel grid",
+      "fps": 6
+    },
+    "facility.arena_path": {
+      "file": "sprites/facility.arena_path.png",
+      "frameSize": [
+        128,
+        128
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        64,
+        126
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "facility.heir_monument": {
+      "file": "sprites/facility.heir_monument.png",
+      "frameSize": [
+        96,
+        128
+      ],
+      "frameCount": 5,
+      "columns": 5,
+      "origin": [
+        48,
+        126
+      ],
+      "source": "direct pixel drawing with light phases",
+      "fps": 7
+    },
+    "facility.master_chair": {
+      "file": "sprites/facility.master_chair.png",
+      "frameSize": [
+        96,
+        96
+      ],
+      "frameCount": 12,
+      "columns": 8,
+      "origin": [
+        48,
+        94
+      ],
+      "source": "five drawn direct pixel drawing poses with held and nudged frames",
+      "poseFrames": {
+        "sleep": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "wake": [
+          4,
+          5
+        ],
+        "speak": [
+          6,
+          7
+        ],
+        "reward": [
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "fps": 6
+    },
+    "facility.training_dummy": {
+      "file": "sprites/facility.training_dummy.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 4,
+      "columns": 4,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "hand-drawn pixel grid",
+      "fps": 10
+    },
+    "npc.merchant": {
+      "file": "sprites/npc.merchant.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 4,
+      "columns": 4,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing poses with body-shift frames",
+      "poseFrames": {
+        "idle": [
+          0,
+          1
+        ],
+        "gesture": [
+          2,
+          3
+        ]
+      },
+      "fps": 6
+    },
+    "facility.merchant_cart": {
+      "file": "sprites/facility.merchant_cart.png",
+      "frameSize": [
+        128,
+        96
+      ],
+      "frameCount": 5,
+      "columns": 5,
+      "origin": [
+        64,
+        94
+      ],
+      "source": "direct pixel drawing NPC composited with cart",
+      "poseFrames": {
+        "cart": 0,
+        "idle": [
+          1,
+          2
+        ],
+        "gesture": [
+          3,
+          4
+        ]
+      },
+      "fps": 6
+    },
+    "facility.crow_mail": {
+      "file": "sprites/facility.crow_mail.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 5,
+      "columns": 5,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "direct pixel drawing base, note and crow",
+      "poseFrames": {
+        "empty": 0,
+        "letter": [
+          1,
+          2
+        ],
+        "crow": [
+          3,
+          4
+        ]
+      },
+      "fps": 6
+    },
+    "facility.field_gate": {
+      "file": "sprites/facility.field_gate.png",
+      "frameSize": [
+        192,
+        128
+      ],
+      "frameCount": 4,
+      "columns": 4,
+      "origin": [
+        96,
+        126
+      ],
+      "source": "hand-drawn pixel grid",
+      "fps": 8
+    },
+    "plaza.tower": {
+      "file": "sprites/plaza.tower.png",
+      "frameSize": [
+        640,
+        192
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        320,
+        190
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "plaza.prop.tent": {
+      "file": "sprites/plaza.prop.tent.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "plaza.prop.laundry": {
+      "file": "sprites/plaza.prop.laundry.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "plaza.prop.cauldron": {
+      "file": "sprites/plaza.prop.cauldron.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "plaza.prop.firewood": {
+      "file": "sprites/plaza.prop.firewood.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "plaza.prop.basket": {
+      "file": "sprites/plaza.prop.basket.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "plaza.prop.blanket": {
+      "file": "sprites/plaza.prop.blanket.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "plaza.prop.barrel": {
+      "file": "sprites/plaza.prop.barrel.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "plaza.prop.stakes": {
+      "file": "sprites/plaza.prop.stakes.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid"
+    },
+    "S-2405": {
+      "file": "sprites/S-2405.png",
+      "frameSize": [
+        128,
+        128
+      ],
+      "frameCount": 5,
+      "columns": 5,
+      "origin": [
+        64,
+        126
+      ],
+      "source": "direct pixel drawing portrait and cropped face poses",
+      "poseFrames": {
+        "sleep": 0,
+        "oneEye": 1,
+        "awake": 2,
+        "talk": [
+          3,
+          4
+        ]
+      },
+      "fps": 6
+    },
+    "S-2407": {
+      "file": "sprites/S-2407.png",
+      "frameSize": [
+        128,
+        128
+      ],
+      "frameCount": 3,
+      "columns": 3,
+      "origin": [
+        64,
+        126
+      ],
+      "source": "direct pixel drawing portrait and cropped face poses",
+      "poseFrames": {
+        "idle": 0,
+        "talk": [
+          1,
+          2
+        ]
+      },
+      "fps": 6
+    },
+    "arena.chalk.center": {
+      "file": "sprites/arena.chalk.center.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        32
+      ],
+      "source": "pixel-aligned overlay using direct pixel drawing chalk palette"
+    },
+    "arena.chalk.start": {
+      "file": "sprites/arena.chalk.start.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        32,
+        32
+      ],
+      "source": "pixel-aligned overlay using direct pixel drawing chalk palette"
+    },
+    "arena.pillar": {
+      "file": "sprites/arena.pillar.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "hand-drawn pixel grid",
+      "footprintTiles": [
+        1,
+        1
+      ]
+    },
+    "arena.pillar.chips": {
+      "file": "sprites/arena.pillar.chips.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 3,
+      "columns": 3,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "direct pixel drawing stones, in-between transforms",
+      "fps": 12
+    },
+    "arena.spectator.01": {
+      "file": "sprites/arena.spectator.01.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing silhouettes with mirrored and body-shift variants",
+      "fps": 3
+    },
+    "arena.spectator.02": {
+      "file": "sprites/arena.spectator.02.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing silhouettes with mirrored and body-shift variants",
+      "fps": 3
+    },
+    "arena.spectator.03": {
+      "file": "sprites/arena.spectator.03.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing silhouettes with mirrored and body-shift variants",
+      "fps": 3
+    },
+    "arena.spectator.04": {
+      "file": "sprites/arena.spectator.04.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing silhouettes with mirrored and body-shift variants",
+      "fps": 3
+    },
+    "arena.spectator.05": {
+      "file": "sprites/arena.spectator.05.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing silhouettes with mirrored and body-shift variants",
+      "fps": 3
+    },
+    "arena.spectator.06": {
+      "file": "sprites/arena.spectator.06.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing silhouettes with mirrored and body-shift variants",
+      "fps": 3
+    },
+    "ritual.master.reaction": {
+      "file": "sprites/ritual.master.reaction.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 7,
+      "columns": 7,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel poses with chair movement",
+      "poseFrames": {
+        "oneEye": [
+          0,
+          1
+        ],
+        "awake": [
+          2,
+          3,
+          4
+        ],
+        "doze": [
+          5,
+          6
+        ]
+      },
+      "fps": 7
+    },
+    "arena.master_applause": {
+      "file": "sprites/arena.master_applause.png",
+      "frameSize": [
+        96,
+        96
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        48,
+        94
+      ],
+      "source": "direct pixel drawing pose with movement in-between",
+      "fps": 7
+    },
+    "arena.overcast": {
+      "file": "sprites/arena.overcast.png",
+      "frameSize": [
+        1920,
+        1080
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        0,
+        0
+      ],
+      "source": "tint overlay"
+    },
+    "field.wall.rim.dusk": {
+      "file": "sprites/field.wall.rim.dusk.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 3,
+      "columns": 3,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "edge mask from direct pixel drawing hedge"
+    },
+    "field.wall.rim.night": {
+      "file": "sprites/field.wall.rim.night.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 3,
+      "columns": 3,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "edge mask from direct pixel drawing hedge"
+    },
+    "field.backplate": {
+      "file": "backplates/field.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "source": "hand-drawn pixel grid",
+      "gridAlignment": "scenic composition; use modular assets for exact gameplay geometry"
+    },
+    "plaza.backplate": {
+      "file": "backplates/plaza.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "source": "hand-drawn pixel grid",
+      "gridAlignment": "scenic composition; use modular assets for exact gameplay geometry"
+    },
+    "arena.backplate": {
+      "file": "backplates/arena.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "source": "hand-drawn pixel grid",
+      "gridAlignment": "scenic composition; use modular assets for exact gameplay geometry"
+    }
+  }
+}

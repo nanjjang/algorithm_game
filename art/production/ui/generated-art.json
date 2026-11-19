@@ -1,0 +1,92 @@
+[
+  {
+    "id": "S-0501",
+    "file": "screen/menu/s-0501_camp_background_1920x1080.png",
+    "generator": "OpenAI ImageGen (built-in)",
+    "prompt": "Use case: stylized-concept. ONE 16:9 full-bleed landscape pixel-art menu background for Korean wilderness wizard game. Quiet empty makeshift camp at dawn in subdued blue charcoal and olive, clutter concentrated at extreme sides: far-off slender crumbly stone wizard tower and a threadbare laundry line left, a crooked wood fence and thick scrub at right, open dark dirt clearing in middle foreground, unlit fire pit of charred logs and ring of stones at x=62%, y=72%. Flattish earth in foreground where in-game character will stand. Top edge must be dark; moderate side detail behind where menu panels will go. Clear crisp irregular SNES pixel clusters like hand-placed pixels, consistent grid, no bloom, no gradient smoothing, limited colors, no bright red/pink. No characters, UI, lettering or borders. Calm, scrappy domestic details."
+  },
+  {
+    "id": "S-1602",
+    "file": "screen/results/s-1602_expedition_dawn_1920x1080.png",
+    "generator": "OpenAI ImageGen (built-in)",
+    "prompt": "ONE landscape 16:9 pixel-art game results background. Korean wilderness low meadow, early sunrise with a fading indigo sky and narrow dull ochre light behind the low ridgeline, a small dying campfire with nearly black logs and tiny embers in far left foreground. Horizon at 41% height, no figures, UI or text. Leave right half dark/quiet for results overlay. Unsaturated muted palette dominated by ink navy, grey olive, and muddy brown; no saturated red or pink, no bloom. Clear tightly clustered hand-painted pixel art at 480x270 logical resolution, hard pixel edges, quietly somber."
+  },
+  {
+    "id": "S-2307",
+    "file": "screen/market/s-2307_market_street_1920x1080.png",
+    "generator": "OpenAI ImageGen (built-in)",
+    "prompt": "ONE landscape 16:9 overhead/top-down pixel-art game background. Nighttime patchwork market lane at a scrappy wizard training camp in Korean wilderness. Left and right edges lined by a few low wooden chests, muted blue and ochre reed mats, rope, little stools and canvas awnings, shadowed packed-earth alley diagonally from bottom center to upper middle. Keep middle wide, dark, low contrast, suitable for UI overlay. A few tarnished warm lanterns. No people, no signs with text or letters, no UI, no bright red or pink. Tight hand-placed SNES pixel clusters, mostly in deep blue-grey, dull sage, and burnt umber."
+  },
+  {
+    "id": "S-2506",
+    "file": "screen/rankings/s-2506_tower_wall_1920x1080.png",
+    "generator": "OpenAI ImageGen (built-in)",
+    "prompt": "ONE landscape 16:9 pixel-art game background, close-up view of the outside of an old training wizard's stone tower at ground level, nocturnal desaturated ink blue/slate. Horizontal bands of roughly laid asymmetrical stone blocks, occasional moss, hints of laundry rope anchors, no windows near center, no statues, no people. The wall fills the frame with quiet very low contrast at center behind a rankings interface, edges irregularly dark. Restrained 16-bit hand-clustered pixel-art technique, no antialias, no title, no lettering, no UI."
+  },
+  {
+    "id": "S-2601",
+    "file": "screen/shared/s-2601_brush_trail_1920x1080.png",
+    "generator": "OpenAI ImageGen (built-in)",
+    "prompt": "ONE landscape 16:9 pixel-art game loading background. A narrow dark dirt path through a gap in two banks of overgrown scrub at night, viewed from slightly above and facing ahead. Low open horizon, deep ink-navy and mute fern greens with some indigo moonlight on bush tips. Center stays open and low contrast for small loading character and text added later, detailed leaf silhouettes at edges. Korean wilderness lowlands, no people, no props except one far stone marker, no UI, no text, no borders. Hand-clustered 16-bit pixel art, crisp, restrained, lightly mysterious, no blooming effects."
+  },
+  {
+    "id": "S-0203",
+    "file": "screen/title/s-0203_launcher_icon_256x256.png",
+    "generator": "OpenAI ImageGen (built-in)",
+    "prompt": "Use case: stylized-concept. ONE standalone square application icon rendered as 16-bit pixel art. Exact supplied sprite is style and subject reference only. Big simple silhouette of a hood with a forward-curling faded plum wizard hood taper, two small pale magenta eyes inside near-black hollow shadow, deep dark blue mantle below. At lower right, one floating faceted elongated luminous lilac crystal, distinguishable from hood. The face is a dark empty void except for two eyes. On a full-bleed flat dark navy-black background, square corners, no container border, no frame, no gradients, no soft highlights, no text or marks, hard large pixel clusters and three-tone surfaces. Prioritize instant recognition as 32px icon and no other characters, details or objects."
+  },
+  {
+    "id": "S-0203",
+    "file": "screen/title/s-0203_launcher_icon_1024x1024.png",
+    "generator": "OpenAI ImageGen (built-in)",
+    "prompt": "Use case: stylized-concept. ONE standalone square application icon rendered as 16-bit pixel art. Exact supplied sprite is style and subject reference only. Big simple silhouette of a hood with a forward-curling faded plum wizard hood taper, two small pale magenta eyes inside near-black hollow shadow, deep dark blue mantle below. At lower right, one floating faceted elongated luminous lilac crystal, distinguishable from hood. The face is a dark empty void except for two eyes. On a full-bleed flat dark navy-black background, square corners, no container border, no frame, no gradients, no soft highlights, no text or marks, hard large pixel clusters and three-tone surfaces. Prioritize instant recognition as 32px icon and no other characters, details or objects."
+  },
+  {
+    "id": "S-0301",
+    "file": "screen/profile/s-0301_offline_card_496x240.png",
+    "generator": "OpenAI ImageGen (built-in)",
+    "prompt": "One landscape 3:2 illustrated pixel art panel, for a scrappy Korean wilderness wizard game UI. One lone small back-facing wizard apprentice wearing a curl-pointed plum hood and deep navy mantle sits on a felled log in front of a small central fire on a rocky dirt clearing at night, a single bedroll to one side, distant bush banks. Unpretentious 16-bit console craft, large crisp pixels and flat dusty navy, amber, brown clusters. No other characters, no text, UI, icon, border, or watermark."
+  },
+  {
+    "id": "S-0301",
+    "file": "screen/profile/s-0301_server_card_496x240.png",
+    "generator": "OpenAI ImageGen (built-in)",
+    "prompt": "One landscape 3:2 illustrated pixel art panel, for a scrappy Korean wilderness wizard game UI. Four small back-facing two-head-high wizard apprentices sitting around one glowing amber campfire on log seats at night, hats: a copper kettle hat with spout, a wide-open book hat like a roof, a bent yellow wizard cap with little hanging light, and a purple hood. Each different. Dark navy and dusty olive shrubs in the background, hard 16-bit pixel clusters, clear readable silhouettes. No lettering, UI, border or watermark."
+  },
+  {
+    "id": "S-0502",
+    "file": "screen/menu/s-0502_mode_expedition_368x240.png",
+    "generator": "OpenAI ImageGen (built-in)",
+    "prompt": "One 3:2 landscape illustrated pixel-art game menu card picture. Through two tall near banks of dense dark scrub and stone, a winding path opens onto a windswept green wilderness meadow, quiet slate mountains, overcast daylight, a tiny standing stone halfway down the path. Set in Korean wilderness training grounds. Hard 16-bit SNES clusters, muted sage and charcoal colors, no text, no figures, no UI, no frame."
+  },
+  {
+    "id": "S-0502",
+    "file": "screen/menu/s-0502_mode_duel_368x240.png",
+    "generator": "OpenAI ImageGen (built-in)",
+    "prompt": "One 3:2 landscape illustrated pixel-art menu card picture. Two small rival wizard apprentices, back/side profiles, left with copper kettle hat and right with dark plum hood, face each other across a long vertical white chalk dividing line on slate gray flagstones, framed by crooked standing stones. Slightly top-down view. Korean fantasy wizard training ground, hard 16-bit clusters, muted colors, only these two figures, no text, no UI, no frame."
+  },
+  {
+    "id": "S-0502",
+    "file": "screen/menu/s-0502_mode_square_368x240.png",
+    "generator": "OpenAI ImageGen (built-in)",
+    "prompt": "One 3:2 landscape illustrated pixel-art menu card picture. The big amber yellow-orange communal bonfire of a woodland wizard training camp in Korean wilderness, ring of stones, several log benches, laundry line, low rough stone tower in distance. Slightly top down, camp dirt clearing, dusky blue moonlit trees at the edges. 16-bit hard pixel clusters. No people, text, UI, frame or watermark."
+  },
+  {
+    "id": "S-2402",
+    "file": "screen/mail_wardrobe/s-2402_wardrobe_preview_560x880.png",
+    "generator": "OpenAI ImageGen (built-in)",
+    "prompt": "ONE 2:3 vertical richly detailed pixel art game backdrop. A close view of a makeshift wooden changing nook at a Korean woodland wizard training camp; warm old plank wall, hanging rope clothesline running across upper quarter, four wooden clothespins; low warm lanterns and dark blue old folded cloth at far sides; empty dark open center and bottom, space for the overlay character preview. No characters. 16-bit pixel clusters, dark, restrained umber and navy-grey, like a professional 2D pixel game, no labels, letters, or frame."
+  },
+  {
+    "id": "S-2305",
+    "file": "screen/market/s-2305_shop_banner_cart_1200x96.png",
+    "generator": "OpenAI ImageGen (built-in)",
+    "prompt": "Wide horizontal pixel-art close-up, dark antique wizard peddler's wooden pushcart, top canopy, worn folded fabric, one large wooden wheel, little tarnished lantern, scrolls and rope ties, no people. Illustration layout wide, shallow, important object central band and a lot of dark navy flat negative space at left. Match finely handcrafted pixel art from a Korean wilderness adventure game, modeled 3-tone woods and brass, subtle faded cloth, no title, typography, border, shine, bloom or UI."
+  },
+  {
+    "id": "S-2305",
+    "file": "screen/market/s-2305_shop_banner_chair_1200x96.png",
+    "generator": "OpenAI ImageGen (built-in)",
+    "prompt": "Wide horizontal pixel-art close-up of an elderly wizard's empty old rocking chair, rounded slat back and bent wooden rocker, on the right, ragged dark muted plum cloak draped over it and an amber lantern near the chair. Negative space on left, midnight navy shaded wooden tower doorway behind. Detail richly hand-clustered with 16-bit crisp pixels, Korean wilderness camp, no people, glyphs, lettering, frame, bloom, or UI."
+  }
+]

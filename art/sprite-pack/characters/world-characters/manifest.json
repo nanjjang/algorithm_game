@@ -1,0 +1,1181 @@
+{
+  "textureFilter": "nearest",
+  "sheetOrder": "row-major",
+  "shared": {
+    "plaza.alert_crow": "field.crow",
+    "arena.master_idle": "facility.master_chair"
+  },
+  "entities": {
+    "npc.master": {
+      "name": "느루",
+      "primary": "facility.master_chair",
+      "frame": 4,
+      "related": [
+        "field.tower.window",
+        "arena.master_applause",
+        "ritual.master.reaction"
+      ]
+    },
+    "npc.peddler": {
+      "name": "행상",
+      "primary": "npc.merchant",
+      "frame": 0,
+      "related": [
+        "facility.merchant_cart"
+      ]
+    },
+    "npc.crow": {
+      "name": "까마귀",
+      "primary": "field.crow",
+      "frame": 0,
+      "related": [
+        "field.crow.note",
+        "facility.crow_mail"
+      ]
+    }
+  },
+  "assets": {
+    "field.tower.window": {
+      "file": "sprites/field.tower.window.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 4,
+      "columns": 4,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "poseFrames": {
+        "closed": 0,
+        "look": [
+          1,
+          2
+        ],
+        "throw": 3
+      },
+      "fps": 6,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/field.tower.window/00.png"
+        },
+        {
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/field.tower.window/01.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/field.tower.window/02.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/field.tower.window/03.png"
+        }
+      ]
+    },
+    "field.crow": {
+      "file": "sprites/field.crow.png",
+      "frameSize": [
+        32,
+        32
+      ],
+      "frameCount": 4,
+      "columns": 4,
+      "origin": [
+        16,
+        16
+      ],
+      "source": "hand-drawn pixel grid",
+      "fps": 9,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "origin": [
+            16,
+            16
+          ],
+          "file": "frames/field.crow/00.png"
+        },
+        {
+          "rect": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "origin": [
+            16,
+            16
+          ],
+          "file": "frames/field.crow/01.png"
+        },
+        {
+          "rect": [
+            64,
+            0,
+            32,
+            32
+          ],
+          "origin": [
+            16,
+            16
+          ],
+          "file": "frames/field.crow/02.png"
+        },
+        {
+          "rect": [
+            96,
+            0,
+            32,
+            32
+          ],
+          "origin": [
+            16,
+            16
+          ],
+          "file": "frames/field.crow/03.png"
+        }
+      ]
+    },
+    "field.crow.note": {
+      "file": "sprites/field.crow.note.png",
+      "frameSize": [
+        32,
+        32
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        16,
+        16
+      ],
+      "source": "hand-drawn pixel grid",
+      "fps": 7,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "origin": [
+            16,
+            16
+          ],
+          "file": "frames/field.crow.note/00.png"
+        },
+        {
+          "rect": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "origin": [
+            16,
+            16
+          ],
+          "file": "frames/field.crow.note/01.png"
+        }
+      ]
+    },
+    "facility.master_chair": {
+      "file": "sprites/facility.master_chair.png",
+      "frameSize": [
+        96,
+        96
+      ],
+      "frameCount": 12,
+      "columns": 8,
+      "origin": [
+        48,
+        94
+      ],
+      "source": "five drawn direct pixel drawing poses with held and nudged frames",
+      "poseFrames": {
+        "sleep": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "wake": [
+          4,
+          5
+        ],
+        "speak": [
+          6,
+          7
+        ],
+        "reward": [
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "fps": 6,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "origin": [
+            48,
+            94
+          ],
+          "file": "frames/facility.master_chair/00.png"
+        },
+        {
+          "rect": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "origin": [
+            48,
+            94
+          ],
+          "file": "frames/facility.master_chair/01.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "origin": [
+            48,
+            94
+          ],
+          "file": "frames/facility.master_chair/02.png"
+        },
+        {
+          "rect": [
+            288,
+            0,
+            96,
+            96
+          ],
+          "origin": [
+            48,
+            94
+          ],
+          "file": "frames/facility.master_chair/03.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            96,
+            96
+          ],
+          "origin": [
+            48,
+            94
+          ],
+          "file": "frames/facility.master_chair/04.png"
+        },
+        {
+          "rect": [
+            480,
+            0,
+            96,
+            96
+          ],
+          "origin": [
+            48,
+            94
+          ],
+          "file": "frames/facility.master_chair/05.png"
+        },
+        {
+          "rect": [
+            576,
+            0,
+            96,
+            96
+          ],
+          "origin": [
+            48,
+            94
+          ],
+          "file": "frames/facility.master_chair/06.png"
+        },
+        {
+          "rect": [
+            672,
+            0,
+            96,
+            96
+          ],
+          "origin": [
+            48,
+            94
+          ],
+          "file": "frames/facility.master_chair/07.png"
+        },
+        {
+          "rect": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "origin": [
+            48,
+            94
+          ],
+          "file": "frames/facility.master_chair/08.png"
+        },
+        {
+          "rect": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "origin": [
+            48,
+            94
+          ],
+          "file": "frames/facility.master_chair/09.png"
+        },
+        {
+          "rect": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "origin": [
+            48,
+            94
+          ],
+          "file": "frames/facility.master_chair/10.png"
+        },
+        {
+          "rect": [
+            288,
+            96,
+            96,
+            96
+          ],
+          "origin": [
+            48,
+            94
+          ],
+          "file": "frames/facility.master_chair/11.png"
+        }
+      ]
+    },
+    "facility.training_dummy": {
+      "file": "sprites/facility.training_dummy.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 4,
+      "columns": 4,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "hand-drawn pixel grid",
+      "fps": 10,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            64,
+            96
+          ],
+          "origin": [
+            32,
+            94
+          ],
+          "file": "frames/facility.training_dummy/00.png"
+        },
+        {
+          "rect": [
+            64,
+            0,
+            64,
+            96
+          ],
+          "origin": [
+            32,
+            94
+          ],
+          "file": "frames/facility.training_dummy/01.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            64,
+            96
+          ],
+          "origin": [
+            32,
+            94
+          ],
+          "file": "frames/facility.training_dummy/02.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            64,
+            96
+          ],
+          "origin": [
+            32,
+            94
+          ],
+          "file": "frames/facility.training_dummy/03.png"
+        }
+      ]
+    },
+    "npc.merchant": {
+      "file": "sprites/npc.merchant.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 4,
+      "columns": 4,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing poses with body-shift frames",
+      "poseFrames": {
+        "idle": [
+          0,
+          1
+        ],
+        "gesture": [
+          2,
+          3
+        ]
+      },
+      "fps": 6,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/npc.merchant/00.png"
+        },
+        {
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/npc.merchant/01.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/npc.merchant/02.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/npc.merchant/03.png"
+        }
+      ]
+    },
+    "facility.merchant_cart": {
+      "file": "sprites/facility.merchant_cart.png",
+      "frameSize": [
+        128,
+        96
+      ],
+      "frameCount": 5,
+      "columns": 5,
+      "origin": [
+        64,
+        94
+      ],
+      "source": "direct pixel drawing NPC composited with cart",
+      "poseFrames": {
+        "cart": 0,
+        "idle": [
+          1,
+          2
+        ],
+        "gesture": [
+          3,
+          4
+        ]
+      },
+      "fps": 6,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "origin": [
+            64,
+            94
+          ],
+          "file": "frames/facility.merchant_cart/00.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "origin": [
+            64,
+            94
+          ],
+          "file": "frames/facility.merchant_cart/01.png"
+        },
+        {
+          "rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "origin": [
+            64,
+            94
+          ],
+          "file": "frames/facility.merchant_cart/02.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "origin": [
+            64,
+            94
+          ],
+          "file": "frames/facility.merchant_cart/03.png"
+        },
+        {
+          "rect": [
+            512,
+            0,
+            128,
+            96
+          ],
+          "origin": [
+            64,
+            94
+          ],
+          "file": "frames/facility.merchant_cart/04.png"
+        }
+      ]
+    },
+    "facility.crow_mail": {
+      "file": "sprites/facility.crow_mail.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 5,
+      "columns": 5,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "direct pixel drawing base, note and crow",
+      "poseFrames": {
+        "empty": 0,
+        "letter": [
+          1,
+          2
+        ],
+        "crow": [
+          3,
+          4
+        ]
+      },
+      "fps": 6,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            64,
+            96
+          ],
+          "origin": [
+            32,
+            94
+          ],
+          "file": "frames/facility.crow_mail/00.png"
+        },
+        {
+          "rect": [
+            64,
+            0,
+            64,
+            96
+          ],
+          "origin": [
+            32,
+            94
+          ],
+          "file": "frames/facility.crow_mail/01.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            64,
+            96
+          ],
+          "origin": [
+            32,
+            94
+          ],
+          "file": "frames/facility.crow_mail/02.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            64,
+            96
+          ],
+          "origin": [
+            32,
+            94
+          ],
+          "file": "frames/facility.crow_mail/03.png"
+        },
+        {
+          "rect": [
+            256,
+            0,
+            64,
+            96
+          ],
+          "origin": [
+            32,
+            94
+          ],
+          "file": "frames/facility.crow_mail/04.png"
+        }
+      ]
+    },
+    "arena.spectator.01": {
+      "file": "sprites/arena.spectator.01.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing silhouettes with mirrored and body-shift variants",
+      "fps": 3,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/arena.spectator.01/00.png"
+        },
+        {
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/arena.spectator.01/01.png"
+        }
+      ]
+    },
+    "arena.spectator.02": {
+      "file": "sprites/arena.spectator.02.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing silhouettes with mirrored and body-shift variants",
+      "fps": 3,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/arena.spectator.02/00.png"
+        },
+        {
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/arena.spectator.02/01.png"
+        }
+      ]
+    },
+    "arena.spectator.03": {
+      "file": "sprites/arena.spectator.03.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing silhouettes with mirrored and body-shift variants",
+      "fps": 3,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/arena.spectator.03/00.png"
+        },
+        {
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/arena.spectator.03/01.png"
+        }
+      ]
+    },
+    "arena.spectator.04": {
+      "file": "sprites/arena.spectator.04.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing silhouettes with mirrored and body-shift variants",
+      "fps": 3,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/arena.spectator.04/00.png"
+        },
+        {
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/arena.spectator.04/01.png"
+        }
+      ]
+    },
+    "arena.spectator.05": {
+      "file": "sprites/arena.spectator.05.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing silhouettes with mirrored and body-shift variants",
+      "fps": 3,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/arena.spectator.05/00.png"
+        },
+        {
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/arena.spectator.05/01.png"
+        }
+      ]
+    },
+    "arena.spectator.06": {
+      "file": "sprites/arena.spectator.06.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing silhouettes with mirrored and body-shift variants",
+      "fps": 3,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/arena.spectator.06/00.png"
+        },
+        {
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/arena.spectator.06/01.png"
+        }
+      ]
+    },
+    "ritual.master.reaction": {
+      "file": "sprites/ritual.master.reaction.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 7,
+      "columns": 7,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel poses with chair movement",
+      "poseFrames": {
+        "oneEye": [
+          0,
+          1
+        ],
+        "awake": [
+          2,
+          3,
+          4
+        ],
+        "doze": [
+          5,
+          6
+        ]
+      },
+      "fps": 7,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/ritual.master.reaction/00.png"
+        },
+        {
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/ritual.master.reaction/01.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/ritual.master.reaction/02.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/ritual.master.reaction/03.png"
+        },
+        {
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/ritual.master.reaction/04.png"
+        },
+        {
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/ritual.master.reaction/05.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            64,
+            64
+          ],
+          "origin": [
+            32,
+            62
+          ],
+          "file": "frames/ritual.master.reaction/06.png"
+        }
+      ]
+    },
+    "arena.master_applause": {
+      "file": "sprites/arena.master_applause.png",
+      "frameSize": [
+        96,
+        96
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        48,
+        94
+      ],
+      "source": "direct pixel drawing pose with movement in-between",
+      "fps": 7,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "origin": [
+            48,
+            94
+          ],
+          "file": "frames/arena.master_applause/00.png"
+        },
+        {
+          "rect": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "origin": [
+            48,
+            94
+          ],
+          "file": "frames/arena.master_applause/01.png"
+        }
+      ]
+    }
+  }
+}

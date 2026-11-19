@@ -1,0 +1,1984 @@
+{
+  "version": 1,
+  "origin": "top-left",
+  "logicalScale": 2,
+  "filter": "nearest",
+  "mipmaps": false,
+  "source": "Built-in ImageGen, nearest-neighbor grid sampling and fixed per-spec palette",
+  "entries": {
+    "enemy.slime_moss": {
+      "id": "enemy.slime_moss",
+      "logicalSize": [
+        32,
+        32
+      ],
+      "frameSize": [
+        64,
+        64
+      ],
+      "pivotPx": [
+        32,
+        58
+      ],
+      "sourceSha256": "7dd8c13130fc46b7d4b39942a0235a4cde2cbdf5681b51865782bdfb61857f6e",
+      "authoredPoses": 6,
+      "sheet": "enemy.slime_moss/sheet.png",
+      "clips": {
+        "idle": {
+          "strip": "enemy.slime_moss/idle/strip.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "enemy.slime_moss/idle/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "durationMs": null
+            }
+          ]
+        },
+        "move": {
+          "strip": "enemy.slime_moss/move/strip.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "enemy.slime_moss/move/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 120
+            },
+            {
+              "file": "enemy.slime_moss/move/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 120
+            }
+          ]
+        },
+        "hit": {
+          "strip": "enemy.slime_moss/hit/strip.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "enemy.slime_moss/hit/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 85
+            }
+          ]
+        },
+        "death": {
+          "strip": "enemy.slime_moss/death/strip.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "enemy.slime_moss/death/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                256,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 110
+            },
+            {
+              "file": "enemy.slime_moss/death/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                320,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 110
+            }
+          ]
+        }
+      },
+      "aliases": {}
+    },
+    "enemy.wolf_bramble": {
+      "id": "enemy.wolf_bramble",
+      "logicalSize": [
+        32,
+        32
+      ],
+      "frameSize": [
+        64,
+        64
+      ],
+      "pivotPx": [
+        32,
+        58
+      ],
+      "sourceSha256": "eb97ea4a857f5c92b7080cd6a8074c1ccfcb340735e705c8c2fb480bf4fc0f12",
+      "authoredPoses": 12,
+      "sheet": "enemy.wolf_bramble/sheet.png",
+      "clips": {
+        "idle": {
+          "strip": "enemy.wolf_bramble/idle/strip.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "enemy.wolf_bramble/idle/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                704,
+                0,
+                64,
+                64
+              ],
+              "durationMs": null
+            }
+          ]
+        },
+        "move": {
+          "strip": "enemy.wolf_bramble/move/strip.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "enemy.wolf_bramble/move/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 82
+            },
+            {
+              "file": "enemy.wolf_bramble/move/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 82
+            },
+            {
+              "file": "enemy.wolf_bramble/move/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 82
+            },
+            {
+              "file": "enemy.wolf_bramble/move/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 82
+            }
+          ]
+        },
+        "warn": {
+          "strip": "enemy.wolf_bramble/warn/strip.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "enemy.wolf_bramble/warn/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                256,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 500
+            }
+          ]
+        },
+        "lunge": {
+          "strip": "enemy.wolf_bramble/lunge/strip.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "enemy.wolf_bramble/lunge/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                320,
+                0,
+                64,
+                64
+              ],
+              "durationMs": null
+            }
+          ]
+        },
+        "stagger": {
+          "strip": "enemy.wolf_bramble/stagger/strip.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "enemy.wolf_bramble/stagger/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                384,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 140
+            },
+            {
+              "file": "enemy.wolf_bramble/stagger/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                448,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 140
+            }
+          ]
+        },
+        "dodge": {
+          "strip": "enemy.wolf_bramble/dodge/strip.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "enemy.wolf_bramble/dodge/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                512,
+                0,
+                64,
+                64
+              ],
+              "durationMs": null
+            }
+          ]
+        },
+        "death": {
+          "strip": "enemy.wolf_bramble/death/strip.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "enemy.wolf_bramble/death/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                576,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 110
+            },
+            {
+              "file": "enemy.wolf_bramble/death/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                640,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 110
+            }
+          ]
+        }
+      },
+      "aliases": {
+        "windup": "warn",
+        "attack": "lunge"
+      }
+    },
+    "enemy.shaman_cap": {
+      "id": "enemy.shaman_cap",
+      "logicalSize": [
+        32,
+        32
+      ],
+      "frameSize": [
+        64,
+        64
+      ],
+      "pivotPx": [
+        32,
+        58
+      ],
+      "sourceSha256": "661472bbcee8212138e14d6aa21290b7e0a1aea3f06afc644279ff4dba2ab6ef",
+      "authoredPoses": 8,
+      "sheet": "enemy.shaman_cap/sheet.png",
+      "clips": {
+        "idle": {
+          "strip": "enemy.shaman_cap/idle/strip.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "enemy.shaman_cap/idle/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "durationMs": null
+            }
+          ]
+        },
+        "move": {
+          "strip": "enemy.shaman_cap/move/strip.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "enemy.shaman_cap/move/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 130
+            },
+            {
+              "file": "enemy.shaman_cap/move/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 130
+            }
+          ]
+        },
+        "cast": {
+          "strip": "enemy.shaman_cap/cast/strip.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "enemy.shaman_cap/cast/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 200
+            },
+            {
+              "file": "enemy.shaman_cap/cast/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 200
+            }
+          ]
+        },
+        "fire": {
+          "strip": "enemy.shaman_cap/fire/strip.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "enemy.shaman_cap/fire/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                256,
+                0,
+                64,
+                64
+              ],
+              "durationMs": null
+            }
+          ]
+        },
+        "hide": {
+          "strip": "enemy.shaman_cap/hide/strip.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "enemy.shaman_cap/hide/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                320,
+                0,
+                64,
+                64
+              ],
+              "durationMs": null
+            }
+          ]
+        },
+        "death": {
+          "strip": "enemy.shaman_cap/death/strip.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "enemy.shaman_cap/death/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                384,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 110
+            },
+            {
+              "file": "enemy.shaman_cap/death/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                448,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 110
+            }
+          ]
+        }
+      },
+      "aliases": {
+        "windup": "cast",
+        "attack": "fire"
+      }
+    },
+    "boss.mirror_phantom": {
+      "id": "boss.mirror_phantom",
+      "logicalSize": [
+        32,
+        48
+      ],
+      "frameSize": [
+        64,
+        96
+      ],
+      "pivotPx": [
+        32,
+        90
+      ],
+      "sourceSha256": "197c5cef47473ec27268087ecd6917d74c8c696e3f0ce64adf8b416ed78c2dfa",
+      "authoredPoses": 8,
+      "sheet": "boss.mirror_phantom/sheet.png",
+      "clips": {
+        "idle": {
+          "strip": "boss.mirror_phantom/idle/strip.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "boss.mirror_phantom/idle/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                96
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                64,
+                96
+              ],
+              "durationMs": null
+            }
+          ]
+        },
+        "hover": {
+          "strip": "boss.mirror_phantom/hover/strip.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "boss.mirror_phantom/hover/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                96
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                64,
+                96
+              ],
+              "durationMs": 150
+            },
+            {
+              "file": "boss.mirror_phantom/hover/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                96
+              ],
+              "assetSheetRect": [
+                64,
+                0,
+                64,
+                96
+              ],
+              "durationMs": 150
+            },
+            {
+              "file": "boss.mirror_phantom/hover/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                96
+              ],
+              "assetSheetRect": [
+                128,
+                0,
+                64,
+                96
+              ],
+              "durationMs": 150
+            }
+          ]
+        },
+        "cast": {
+          "strip": "boss.mirror_phantom/cast/strip.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "boss.mirror_phantom/cast/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                96
+              ],
+              "assetSheetRect": [
+                192,
+                0,
+                64,
+                96
+              ],
+              "durationMs": null
+            }
+          ]
+        },
+        "fire": {
+          "strip": "boss.mirror_phantom/fire/strip.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "boss.mirror_phantom/fire/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                96
+              ],
+              "assetSheetRect": [
+                256,
+                0,
+                64,
+                96
+              ],
+              "durationMs": null
+            }
+          ]
+        },
+        "crack": {
+          "strip": "boss.mirror_phantom/crack/strip.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "boss.mirror_phantom/crack/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                96
+              ],
+              "assetSheetRect": [
+                320,
+                0,
+                64,
+                96
+              ],
+              "durationMs": null
+            }
+          ]
+        },
+        "death": {
+          "strip": "boss.mirror_phantom/death/strip.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "boss.mirror_phantom/death/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                96
+              ],
+              "assetSheetRect": [
+                384,
+                0,
+                64,
+                96
+              ],
+              "durationMs": 130
+            },
+            {
+              "file": "boss.mirror_phantom/death/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                96
+              ],
+              "assetSheetRect": [
+                448,
+                0,
+                64,
+                96
+              ],
+              "durationMs": 130
+            }
+          ]
+        }
+      },
+      "aliases": {
+        "move": "hover",
+        "windup": "cast",
+        "attack": "fire"
+      },
+      "notes": "8 pose selection for visual preview. The player wand is attached at runtime."
+    },
+    "enemy.bat_dusk": {
+      "id": "enemy.bat_dusk",
+      "logicalSize": [
+        32,
+        32
+      ],
+      "frameSize": [
+        64,
+        64
+      ],
+      "pivotPx": [
+        32,
+        58
+      ],
+      "sourceSha256": "fa36a389263285838892b82575add2108d2da91a420204f40a3394d2ff2cde9e",
+      "source": "source/roster-1.png",
+      "authoredPoses": 2,
+      "sheet": "enemy.bat_dusk/sheet.png",
+      "clips": {
+        "fly": {
+          "strip": "enemy.bat_dusk/fly/strip.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "enemy.bat_dusk/fly/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 160
+            },
+            {
+              "file": "enemy.bat_dusk/fly/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 140
+            }
+          ]
+        }
+      },
+      "aliases": {
+        "idle": {
+          "clip": "fly",
+          "frame": 0
+        }
+      }
+    },
+    "enemy.wisp_stray": {
+      "id": "enemy.wisp_stray",
+      "logicalSize": [
+        32,
+        32
+      ],
+      "frameSize": [
+        64,
+        64
+      ],
+      "pivotPx": [
+        32,
+        58
+      ],
+      "sourceSha256": "fa36a389263285838892b82575add2108d2da91a420204f40a3394d2ff2cde9e",
+      "source": "source/roster-1.png",
+      "authoredPoses": 2,
+      "sheet": "enemy.wisp_stray/sheet.png",
+      "clips": {
+        "hover": {
+          "strip": "enemy.wisp_stray/hover/strip.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "enemy.wisp_stray/hover/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 160
+            },
+            {
+              "file": "enemy.wisp_stray/hover/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 140
+            }
+          ]
+        }
+      },
+      "aliases": {
+        "idle": {
+          "clip": "hover",
+          "frame": 0
+        }
+      }
+    },
+    "enemy.vine_thorn": {
+      "id": "enemy.vine_thorn",
+      "logicalSize": [
+        32,
+        48
+      ],
+      "frameSize": [
+        64,
+        96
+      ],
+      "pivotPx": [
+        32,
+        90
+      ],
+      "sourceSha256": "fa36a389263285838892b82575add2108d2da91a420204f40a3394d2ff2cde9e",
+      "source": "source/roster-1.png",
+      "authoredPoses": 2,
+      "sheet": "enemy.vine_thorn/sheet.png",
+      "clips": {
+        "idle": {
+          "strip": "enemy.vine_thorn/idle/strip.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "enemy.vine_thorn/idle/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                96
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                64,
+                96
+              ],
+              "durationMs": 160
+            },
+            {
+              "file": "enemy.vine_thorn/idle/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                96
+              ],
+              "assetSheetRect": [
+                64,
+                0,
+                64,
+                96
+              ],
+              "durationMs": 140
+            }
+          ]
+        }
+      },
+      "aliases": {}
+    },
+    "enemy.boar_tusk": {
+      "id": "enemy.boar_tusk",
+      "logicalSize": [
+        48,
+        32
+      ],
+      "frameSize": [
+        96,
+        64
+      ],
+      "pivotPx": [
+        48,
+        58
+      ],
+      "sourceSha256": "fa36a389263285838892b82575add2108d2da91a420204f40a3394d2ff2cde9e",
+      "source": "source/roster-1.png",
+      "authoredPoses": 2,
+      "sheet": "enemy.boar_tusk/sheet.png",
+      "clips": {
+        "move": {
+          "strip": "enemy.boar_tusk/move/strip.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "enemy.boar_tusk/move/01.png",
+              "rect": [
+                0,
+                0,
+                96,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                96,
+                64
+              ],
+              "durationMs": 160
+            },
+            {
+              "file": "enemy.boar_tusk/move/02.png",
+              "rect": [
+                96,
+                0,
+                96,
+                64
+              ],
+              "assetSheetRect": [
+                96,
+                0,
+                96,
+                64
+              ],
+              "durationMs": 140
+            }
+          ]
+        }
+      },
+      "aliases": {
+        "idle": {
+          "clip": "move",
+          "frame": 0
+        }
+      }
+    },
+    "enemy.toad_drum": {
+      "id": "enemy.toad_drum",
+      "logicalSize": [
+        32,
+        32
+      ],
+      "frameSize": [
+        64,
+        64
+      ],
+      "pivotPx": [
+        32,
+        58
+      ],
+      "sourceSha256": "334e90b86f826a8f2ac95996748a6aa8fd986265b6d682f60d62840f35a4bca5",
+      "source": "source/roster-2.png",
+      "authoredPoses": 2,
+      "sheet": "enemy.toad_drum/sheet.png",
+      "clips": {
+        "hop": {
+          "strip": "enemy.toad_drum/hop/strip.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "enemy.toad_drum/hop/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 160
+            },
+            {
+              "file": "enemy.toad_drum/hop/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 140
+            }
+          ]
+        }
+      },
+      "aliases": {
+        "idle": {
+          "clip": "hop",
+          "frame": 0
+        }
+      }
+    },
+    "enemy.spore_seedling": {
+      "id": "enemy.spore_seedling",
+      "logicalSize": [
+        16,
+        16
+      ],
+      "frameSize": [
+        32,
+        32
+      ],
+      "pivotPx": [
+        16,
+        26
+      ],
+      "sourceSha256": "334e90b86f826a8f2ac95996748a6aa8fd986265b6d682f60d62840f35a4bca5",
+      "source": "source/roster-2.png",
+      "authoredPoses": 2,
+      "sheet": "enemy.spore_seedling/sheet.png",
+      "clips": {
+        "move": {
+          "strip": "enemy.spore_seedling/move/strip.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "enemy.spore_seedling/move/01.png",
+              "rect": [
+                0,
+                0,
+                32,
+                32
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                32,
+                32
+              ],
+              "durationMs": 160
+            },
+            {
+              "file": "enemy.spore_seedling/move/02.png",
+              "rect": [
+                32,
+                0,
+                32,
+                32
+              ],
+              "assetSheetRect": [
+                32,
+                0,
+                32,
+                32
+              ],
+              "durationMs": 140
+            }
+          ]
+        }
+      },
+      "aliases": {
+        "idle": {
+          "clip": "move",
+          "frame": 0
+        }
+      }
+    },
+    "boss.kiln_boar": {
+      "id": "boss.kiln_boar",
+      "logicalSize": [
+        96,
+        64
+      ],
+      "frameSize": [
+        192,
+        128
+      ],
+      "pivotPx": [
+        96,
+        122
+      ],
+      "sourceSha256": "334e90b86f826a8f2ac95996748a6aa8fd986265b6d682f60d62840f35a4bca5",
+      "source": "source/roster-2.png",
+      "authoredPoses": 2,
+      "sheet": "boss.kiln_boar/sheet.png",
+      "clips": {
+        "walk": {
+          "strip": "boss.kiln_boar/walk/strip.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "boss.kiln_boar/walk/01.png",
+              "rect": [
+                0,
+                0,
+                192,
+                128
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                192,
+                128
+              ],
+              "durationMs": 160
+            },
+            {
+              "file": "boss.kiln_boar/walk/02.png",
+              "rect": [
+                192,
+                0,
+                192,
+                128
+              ],
+              "assetSheetRect": [
+                192,
+                0,
+                192,
+                128
+              ],
+              "durationMs": 140
+            }
+          ]
+        }
+      },
+      "aliases": {
+        "idle": {
+          "clip": "walk",
+          "frame": 0
+        }
+      }
+    },
+    "boss.spore_queen": {
+      "id": "boss.spore_queen",
+      "logicalSize": [
+        64,
+        80
+      ],
+      "frameSize": [
+        128,
+        160
+      ],
+      "pivotPx": [
+        64,
+        154
+      ],
+      "sourceSha256": "334e90b86f826a8f2ac95996748a6aa8fd986265b6d682f60d62840f35a4bca5",
+      "source": "source/roster-2.png",
+      "authoredPoses": 2,
+      "sheet": "boss.spore_queen/sheet.png",
+      "clips": {
+        "walk": {
+          "strip": "boss.spore_queen/walk/strip.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "boss.spore_queen/walk/01.png",
+              "rect": [
+                0,
+                0,
+                128,
+                160
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                128,
+                160
+              ],
+              "durationMs": 160
+            },
+            {
+              "file": "boss.spore_queen/walk/02.png",
+              "rect": [
+                128,
+                0,
+                128,
+                160
+              ],
+              "assetSheetRect": [
+                128,
+                0,
+                128,
+                160
+              ],
+              "durationMs": 140
+            }
+          ]
+        }
+      },
+      "aliases": {
+        "idle": {
+          "clip": "walk",
+          "frame": 0
+        }
+      }
+    },
+    "enemy.golem_menhir": {
+      "id": "enemy.golem_menhir",
+      "logicalSize": [
+        48,
+        48
+      ],
+      "frameSize": [
+        96,
+        96
+      ],
+      "pivotPx": [
+        48,
+        90
+      ],
+      "sourceSha256": "4b4fd5791a4d068a230c8cedac4fe68f0f567e93191563c7a78a7dac02f5b531",
+      "source": "source/roster-3.png",
+      "authoredPoses": 2,
+      "sheet": "enemy.golem_menhir/sheet.png",
+      "clips": {
+        "move": {
+          "strip": "enemy.golem_menhir/move/strip.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "enemy.golem_menhir/move/01.png",
+              "rect": [
+                0,
+                0,
+                96,
+                96
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                96,
+                96
+              ],
+              "durationMs": 160
+            },
+            {
+              "file": "enemy.golem_menhir/move/02.png",
+              "rect": [
+                96,
+                0,
+                96,
+                96
+              ],
+              "assetSheetRect": [
+                96,
+                0,
+                96,
+                96
+              ],
+              "durationMs": 140
+            }
+          ]
+        }
+      },
+      "aliases": {
+        "idle": {
+          "clip": "move",
+          "frame": 0
+        }
+      }
+    },
+    "enemy.bug_lantern": {
+      "id": "enemy.bug_lantern",
+      "logicalSize": [
+        32,
+        32
+      ],
+      "frameSize": [
+        64,
+        64
+      ],
+      "pivotPx": [
+        32,
+        58
+      ],
+      "sourceSha256": "4b4fd5791a4d068a230c8cedac4fe68f0f567e93191563c7a78a7dac02f5b531",
+      "source": "source/roster-3.png",
+      "authoredPoses": 2,
+      "sheet": "enemy.bug_lantern/sheet.png",
+      "clips": {
+        "move": {
+          "strip": "enemy.bug_lantern/move/strip.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "enemy.bug_lantern/move/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 160
+            },
+            {
+              "file": "enemy.bug_lantern/move/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 140
+            }
+          ]
+        }
+      },
+      "aliases": {
+        "idle": {
+          "clip": "move",
+          "frame": 0
+        }
+      }
+    },
+    "enemy.hog_needle": {
+      "id": "enemy.hog_needle",
+      "logicalSize": [
+        32,
+        32
+      ],
+      "frameSize": [
+        64,
+        64
+      ],
+      "pivotPx": [
+        32,
+        58
+      ],
+      "sourceSha256": "4b4fd5791a4d068a230c8cedac4fe68f0f567e93191563c7a78a7dac02f5b531",
+      "source": "source/roster-3.png",
+      "authoredPoses": 2,
+      "sheet": "enemy.hog_needle/sheet.png",
+      "clips": {
+        "move": {
+          "strip": "enemy.hog_needle/move/strip.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "enemy.hog_needle/move/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 160
+            },
+            {
+              "file": "enemy.hog_needle/move/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 140
+            }
+          ]
+        }
+      },
+      "aliases": {
+        "idle": {
+          "clip": "move",
+          "frame": 0
+        }
+      }
+    },
+    "enemy.weasel_pot": {
+      "id": "enemy.weasel_pot",
+      "logicalSize": [
+        32,
+        32
+      ],
+      "frameSize": [
+        64,
+        64
+      ],
+      "pivotPx": [
+        32,
+        58
+      ],
+      "sourceSha256": "4b4fd5791a4d068a230c8cedac4fe68f0f567e93191563c7a78a7dac02f5b531",
+      "source": "source/roster-3.png",
+      "authoredPoses": 2,
+      "sheet": "enemy.weasel_pot/sheet.png",
+      "clips": {
+        "stand": {
+          "strip": "enemy.weasel_pot/stand/strip.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "enemy.weasel_pot/stand/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 160
+            },
+            {
+              "file": "enemy.weasel_pot/stand/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 140
+            }
+          ]
+        }
+      },
+      "aliases": {
+        "idle": {
+          "clip": "stand",
+          "frame": 0
+        }
+      }
+    },
+    "boss.storm_owl": {
+      "id": "boss.storm_owl",
+      "logicalSize": [
+        96,
+        64
+      ],
+      "frameSize": [
+        192,
+        128
+      ],
+      "pivotPx": [
+        96,
+        122
+      ],
+      "sourceSha256": "da7266d56e1bdbfc1b6c3c2e9a991c27d2ec8c04b705cb4d0592c530a6a707e3",
+      "source": "source/roster-4.png",
+      "authoredPoses": 2,
+      "sheet": "boss.storm_owl/sheet.png",
+      "clips": {
+        "fly": {
+          "strip": "boss.storm_owl/fly/strip.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "boss.storm_owl/fly/01.png",
+              "rect": [
+                0,
+                0,
+                192,
+                128
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                192,
+                128
+              ],
+              "durationMs": 160
+            },
+            {
+              "file": "boss.storm_owl/fly/02.png",
+              "rect": [
+                192,
+                0,
+                192,
+                128
+              ],
+              "assetSheetRect": [
+                192,
+                0,
+                192,
+                128
+              ],
+              "durationMs": 140
+            }
+          ]
+        }
+      },
+      "aliases": {
+        "idle": {
+          "clip": "fly",
+          "frame": 0
+        }
+      }
+    },
+    "boss.frost_goat": {
+      "id": "boss.frost_goat",
+      "logicalSize": [
+        64,
+        80
+      ],
+      "frameSize": [
+        128,
+        160
+      ],
+      "pivotPx": [
+        64,
+        154
+      ],
+      "sourceSha256": "da7266d56e1bdbfc1b6c3c2e9a991c27d2ec8c04b705cb4d0592c530a6a707e3",
+      "source": "source/roster-4.png",
+      "authoredPoses": 2,
+      "sheet": "boss.frost_goat/sheet.png",
+      "clips": {
+        "walk": {
+          "strip": "boss.frost_goat/walk/strip.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "boss.frost_goat/walk/01.png",
+              "rect": [
+                0,
+                0,
+                128,
+                160
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                128,
+                160
+              ],
+              "durationMs": 160
+            },
+            {
+              "file": "boss.frost_goat/walk/02.png",
+              "rect": [
+                128,
+                0,
+                128,
+                160
+              ],
+              "assetSheetRect": [
+                128,
+                0,
+                128,
+                160
+              ],
+              "durationMs": 140
+            }
+          ]
+        }
+      },
+      "aliases": {
+        "idle": {
+          "clip": "walk",
+          "frame": 0
+        }
+      }
+    },
+    "boss.night_serpent": {
+      "id": "boss.night_serpent",
+      "logicalSize": [
+        48,
+        48
+      ],
+      "frameSize": [
+        96,
+        96
+      ],
+      "pivotPx": [
+        48,
+        70
+      ],
+      "sourceSha256": "da7266d56e1bdbfc1b6c3c2e9a991c27d2ec8c04b705cb4d0592c530a6a707e3",
+      "source": "source/roster-4.png",
+      "authoredPoses": 2,
+      "sheet": "boss.night_serpent/sheet.png",
+      "clips": {
+        "move": {
+          "strip": "boss.night_serpent/move/strip.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "boss.night_serpent/move/01.png",
+              "rect": [
+                0,
+                0,
+                96,
+                96
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                96,
+                96
+              ],
+              "durationMs": 160
+            },
+            {
+              "file": "boss.night_serpent/move/02.png",
+              "rect": [
+                96,
+                0,
+                96,
+                96
+              ],
+              "assetSheetRect": [
+                96,
+                0,
+                96,
+                96
+              ],
+              "durationMs": 140
+            }
+          ]
+        }
+      },
+      "aliases": {
+        "idle": {
+          "clip": "move",
+          "frame": 0
+        }
+      }
+    },
+    "boss.night_serpent.segment": {
+      "id": "boss.night_serpent.segment",
+      "logicalSize": [
+        32,
+        32
+      ],
+      "frameSize": [
+        64,
+        64
+      ],
+      "pivotPx": [
+        32,
+        36
+      ],
+      "sourceSha256": "da7266d56e1bdbfc1b6c3c2e9a991c27d2ec8c04b705cb4d0592c530a6a707e3",
+      "source": "source/roster-4.png",
+      "authoredPoses": 2,
+      "sheet": "boss.night_serpent.segment/sheet.png",
+      "clips": {
+        "move": {
+          "strip": "boss.night_serpent.segment/move/strip.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "boss.night_serpent.segment/move/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 160
+            },
+            {
+              "file": "boss.night_serpent.segment/move/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 140
+            }
+          ]
+        }
+      },
+      "aliases": {
+        "idle": {
+          "clip": "move",
+          "frame": 0
+        }
+      }
+    },
+    "boss.night_serpent.tail": {
+      "id": "boss.night_serpent.tail",
+      "logicalSize": [
+        32,
+        32
+      ],
+      "frameSize": [
+        64,
+        64
+      ],
+      "pivotPx": [
+        32,
+        36
+      ],
+      "sourceSha256": "d95685127bc835f316ae41fe9faa7dd8f230e5cb0aae541b787663d0fea1a12f",
+      "source": "source/roster-5.png",
+      "authoredPoses": 2,
+      "sheet": "boss.night_serpent.tail/sheet.png",
+      "clips": {
+        "move": {
+          "strip": "boss.night_serpent.tail/move/strip.png",
+          "loop": true,
+          "frames": [
+            {
+              "file": "boss.night_serpent.tail/move/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 160
+            },
+            {
+              "file": "boss.night_serpent.tail/move/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "assetSheetRect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 140
+            }
+          ]
+        }
+      },
+      "aliases": {
+        "idle": {
+          "clip": "move",
+          "frame": 0
+        }
+      }
+    },
+    "boss.storm_owl.ground": {
+      "id": "boss.storm_owl.ground",
+      "logicalSize": [
+        48,
+        64
+      ],
+      "frameSize": [
+        96,
+        128
+      ],
+      "pivotPx": [
+        48,
+        122
+      ],
+      "sourceSha256": "d95685127bc835f316ae41fe9faa7dd8f230e5cb0aae541b787663d0fea1a12f",
+      "source": "source/roster-5.png",
+      "authoredPoses": 2,
+      "sheet": "boss.storm_owl.ground/sheet.png",
+      "clips": {
+        "land": {
+          "strip": "boss.storm_owl.ground/land/strip.png",
+          "loop": false,
+          "frames": [
+            {
+              "file": "boss.storm_owl.ground/land/01.png",
+              "rect": [
+                0,
+                0,
+                96,
+                128
+              ],
+              "assetSheetRect": [
+                0,
+                0,
+                96,
+                128
+              ],
+              "durationMs": 160
+            },
+            {
+              "file": "boss.storm_owl.ground/land/02.png",
+              "rect": [
+                96,
+                0,
+                96,
+                128
+              ],
+              "assetSheetRect": [
+                96,
+                0,
+                96,
+                128
+              ],
+              "durationMs": 140
+            }
+          ]
+        }
+      },
+      "aliases": {
+        "idle": {
+          "clip": "land",
+          "frame": 0
+        }
+      }
+    }
+  }
+}

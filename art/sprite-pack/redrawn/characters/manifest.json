@@ -1,0 +1,874 @@
+{
+  "coordinates": "top-left pixel coordinates",
+  "filter": "point",
+  "mipmaps": false,
+  "spec": [
+    "docs/world-characters.md",
+    "docs/monsters.md"
+  ],
+  "entries": {
+    "dalgu/selection": {
+      "path": "dalgu/selection.png",
+      "size": [
+        192,
+        192
+      ],
+      "source": "3ce45926"
+    },
+    "dalgu/idle_down": {
+      "path": "dalgu/idle_down.png",
+      "size": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "source": "3ce45926",
+      "includesWand": false
+    },
+    "chorong/selection": {
+      "path": "chorong/selection.png",
+      "size": [
+        192,
+        192
+      ],
+      "source": "3ce45926"
+    },
+    "chorong/idle_down": {
+      "path": "chorong/idle_down.png",
+      "size": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "source": "3ce45926",
+      "includesWand": false
+    },
+    "galpi/selection": {
+      "path": "galpi/selection.png",
+      "size": [
+        192,
+        192
+      ],
+      "source": "3ce45926"
+    },
+    "galpi/idle_down": {
+      "path": "galpi/idle_down.png",
+      "size": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "source": "3ce45926",
+      "includesWand": false
+    },
+    "seonge/selection": {
+      "path": "seonge/selection.png",
+      "size": [
+        192,
+        192
+      ],
+      "source": "3ce45926"
+    },
+    "seonge/idle_down": {
+      "path": "seonge/idle_down.png",
+      "size": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "source": "3ce45926",
+      "includesWand": false
+    },
+    "geumeum/selection": {
+      "path": "geumeum/selection.png",
+      "size": [
+        192,
+        192
+      ],
+      "source": "913c7b53",
+      "includesWand": true
+    },
+    "geumeum/idle_down": {
+      "path": "geumeum/idle_down.png",
+      "size": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "source": "art/player/dark_wizard/idle-hood-and-hem.png",
+      "includesWand": true
+    },
+    "sheets/apprentices_idle": {
+      "path": "sheets/apprentices_idle.png",
+      "size": [
+        320,
+        64
+      ],
+      "cell": [
+        64,
+        64
+      ],
+      "columns": 5,
+      "frames": [
+        {
+          "path": "dalgu/idle_down.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "chorong/idle_down.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "galpi/idle_down.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "seonge/idle_down.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "geumeum/idle_down.png",
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ]
+        }
+      ]
+    },
+    "geumeum/walk_right/01": {
+      "path": "geumeum/walk_right/01.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "a106c2e3",
+      "feet": [
+        32,
+        59
+      ],
+      "includesWand": false,
+      "previewDurationMs": 90
+    },
+    "geumeum/walk_right/02": {
+      "path": "geumeum/walk_right/02.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "a106c2e3",
+      "feet": [
+        32,
+        59
+      ],
+      "includesWand": false,
+      "previewDurationMs": 90
+    },
+    "geumeum/walk_right/03": {
+      "path": "geumeum/walk_right/03.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "a106c2e3",
+      "feet": [
+        32,
+        59
+      ],
+      "includesWand": false,
+      "previewDurationMs": 90
+    },
+    "geumeum/walk_right/04": {
+      "path": "geumeum/walk_right/04.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "a106c2e3",
+      "feet": [
+        32,
+        59
+      ],
+      "includesWand": false,
+      "previewDurationMs": 90
+    },
+    "geumeum/walk_right/05": {
+      "path": "geumeum/walk_right/05.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "a106c2e3",
+      "feet": [
+        32,
+        59
+      ],
+      "includesWand": false,
+      "previewDurationMs": 90
+    },
+    "geumeum/walk_right/06": {
+      "path": "geumeum/walk_right/06.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "a106c2e3",
+      "feet": [
+        32,
+        59
+      ],
+      "includesWand": false,
+      "previewDurationMs": 90
+    },
+    "geumeum/walk_right/sheet": {
+      "path": "geumeum/walk_right/sheet.png",
+      "size": [
+        384,
+        64
+      ],
+      "cell": [
+        64,
+        64
+      ],
+      "columns": 6,
+      "frames": [
+        {
+          "path": "geumeum/walk_right/01.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "geumeum/walk_right/02.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "geumeum/walk_right/03.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "geumeum/walk_right/04.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "geumeum/walk_right/05.png",
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "geumeum/walk_right/06.png",
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ]
+        }
+      ]
+    },
+    "enemy.slime_moss/idle": {
+      "path": "enemy.slime_moss/idle.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "31341213",
+      "feet": [
+        32,
+        59
+      ]
+    },
+    "enemy.wolf_bramble/idle": {
+      "path": "enemy.wolf_bramble/idle.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "31341213",
+      "feet": [
+        32,
+        59
+      ]
+    },
+    "enemy.golem_menhir/idle": {
+      "path": "enemy.golem_menhir/idle.png",
+      "size": [
+        96,
+        96
+      ],
+      "source": "31341213",
+      "feet": [
+        48,
+        91
+      ]
+    },
+    "enemy.shaman_cap/idle": {
+      "path": "enemy.shaman_cap/idle.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "31341213",
+      "feet": [
+        32,
+        59
+      ]
+    },
+    "enemy.bug_lantern/idle": {
+      "path": "enemy.bug_lantern/idle.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "31341213",
+      "feet": [
+        32,
+        59
+      ]
+    },
+    "enemy.hog_needle/idle": {
+      "path": "enemy.hog_needle/idle.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "31341213",
+      "feet": [
+        32,
+        59
+      ]
+    },
+    "enemy.weasel_pot/idle": {
+      "path": "enemy.weasel_pot/idle.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "9dc257f6",
+      "feet": [
+        32,
+        59
+      ]
+    },
+    "enemy.bat_dusk/idle": {
+      "path": "enemy.bat_dusk/idle.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "9dc257f6",
+      "feet": [
+        32,
+        59
+      ]
+    },
+    "enemy.wisp_stray/idle": {
+      "path": "enemy.wisp_stray/idle.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "9dc257f6",
+      "feet": [
+        32,
+        59
+      ]
+    },
+    "enemy.vine_thorn/idle": {
+      "path": "enemy.vine_thorn/idle.png",
+      "size": [
+        64,
+        96
+      ],
+      "source": "9dc257f6",
+      "feet": [
+        32,
+        91
+      ]
+    },
+    "enemy.boar_tusk/idle": {
+      "path": "enemy.boar_tusk/idle.png",
+      "size": [
+        96,
+        64
+      ],
+      "source": "9dc257f6",
+      "feet": [
+        48,
+        59
+      ]
+    },
+    "enemy.toad_drum/idle": {
+      "path": "enemy.toad_drum/idle.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "9dc257f6",
+      "feet": [
+        32,
+        59
+      ]
+    },
+    "sheets/enemies_idle": {
+      "path": "sheets/enemies_idle.png",
+      "size": [
+        576,
+        192
+      ],
+      "cell": [
+        96,
+        96
+      ],
+      "columns": 6,
+      "frames": [
+        {
+          "path": "enemy.slime_moss/idle.png",
+          "rect": [
+            16,
+            32,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "enemy.wolf_bramble/idle.png",
+          "rect": [
+            112,
+            32,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "enemy.golem_menhir/idle.png",
+          "rect": [
+            192,
+            0,
+            96,
+            96
+          ]
+        },
+        {
+          "path": "enemy.shaman_cap/idle.png",
+          "rect": [
+            304,
+            32,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "enemy.bug_lantern/idle.png",
+          "rect": [
+            400,
+            32,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "enemy.hog_needle/idle.png",
+          "rect": [
+            496,
+            32,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "enemy.weasel_pot/idle.png",
+          "rect": [
+            16,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "enemy.bat_dusk/idle.png",
+          "rect": [
+            112,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "enemy.wisp_stray/idle.png",
+          "rect": [
+            208,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "enemy.vine_thorn/idle.png",
+          "rect": [
+            304,
+            96,
+            64,
+            96
+          ]
+        },
+        {
+          "path": "enemy.boar_tusk/idle.png",
+          "rect": [
+            384,
+            128,
+            96,
+            64
+          ]
+        },
+        {
+          "path": "enemy.toad_drum/idle.png",
+          "rect": [
+            496,
+            128,
+            64,
+            64
+          ]
+        }
+      ]
+    },
+    "boss.kiln_boar/idle": {
+      "path": "boss.kiln_boar/idle.png",
+      "size": [
+        192,
+        128
+      ],
+      "source": "1131b632",
+      "feet": [
+        96,
+        123
+      ]
+    },
+    "boss.mirror_phantom/idle": {
+      "path": "boss.mirror_phantom/idle.png",
+      "size": [
+        64,
+        96
+      ],
+      "source": "1131b632",
+      "feet": [
+        32,
+        91
+      ]
+    },
+    "boss.spore_queen/idle": {
+      "path": "boss.spore_queen/idle.png",
+      "size": [
+        128,
+        160
+      ],
+      "source": "1131b632",
+      "feet": [
+        64,
+        155
+      ]
+    },
+    "boss.storm_owl/idle": {
+      "path": "boss.storm_owl/idle.png",
+      "size": [
+        192,
+        128
+      ],
+      "source": "1131b632",
+      "feet": [
+        96,
+        123
+      ]
+    },
+    "boss.frost_goat/idle": {
+      "path": "boss.frost_goat/idle.png",
+      "size": [
+        128,
+        160
+      ],
+      "source": "1131b632",
+      "feet": [
+        64,
+        155
+      ]
+    },
+    "boss.night_serpent/idle": {
+      "path": "boss.night_serpent/idle.png",
+      "size": [
+        96,
+        96
+      ],
+      "source": "1131b632",
+      "feet": [
+        48,
+        91
+      ]
+    },
+    "sheets/bosses_idle": {
+      "path": "sheets/bosses_idle.png",
+      "size": [
+        576,
+        320
+      ],
+      "cell": [
+        192,
+        160
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "path": "boss.kiln_boar/idle.png",
+          "rect": [
+            0,
+            32,
+            192,
+            128
+          ]
+        },
+        {
+          "path": "boss.mirror_phantom/idle.png",
+          "rect": [
+            256,
+            64,
+            64,
+            96
+          ]
+        },
+        {
+          "path": "boss.spore_queen/idle.png",
+          "rect": [
+            416,
+            0,
+            128,
+            160
+          ]
+        },
+        {
+          "path": "boss.storm_owl/idle.png",
+          "rect": [
+            0,
+            192,
+            192,
+            128
+          ]
+        },
+        {
+          "path": "boss.frost_goat/idle.png",
+          "rect": [
+            224,
+            160,
+            128,
+            160
+          ]
+        },
+        {
+          "path": "boss.night_serpent/idle.png",
+          "rect": [
+            432,
+            224,
+            96,
+            96
+          ]
+        }
+      ]
+    },
+    "world/facility.master_chair": {
+      "path": "world/facility.master_chair.png",
+      "size": [
+        96,
+        96
+      ],
+      "source": "789954ce",
+      "pivot": [
+        48,
+        91
+      ]
+    },
+    "world/npc.merchant_cart": {
+      "path": "world/npc.merchant_cart.png",
+      "size": [
+        128,
+        96
+      ],
+      "source": "789954ce",
+      "pivot": [
+        64,
+        91
+      ]
+    },
+    "world/field.crow": {
+      "path": "world/field.crow.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "789954ce",
+      "pivot": [
+        16,
+        27
+      ]
+    },
+    "world/practice_dummy": {
+      "path": "world/practice_dummy.png",
+      "size": [
+        64,
+        96
+      ],
+      "source": "789954ce",
+      "pivot": [
+        32,
+        91
+      ]
+    },
+    "boss.night_serpent.segment/idle": {
+      "path": "boss.night_serpent.segment/idle.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "789954ce",
+      "pivot": [
+        32,
+        59
+      ]
+    },
+    "boss.night_serpent.tail/idle": {
+      "path": "boss.night_serpent.tail/idle.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "789954ce",
+      "pivot": [
+        32,
+        59
+      ]
+    },
+    "sheets/world_characters_and_parts": {
+      "path": "sheets/world_characters_and_parts.png",
+      "size": [
+        384,
+        192
+      ],
+      "cell": [
+        128,
+        96
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "path": "world/facility.master_chair.png",
+          "rect": [
+            16,
+            0,
+            96,
+            96
+          ]
+        },
+        {
+          "path": "world/npc.merchant_cart.png",
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ]
+        },
+        {
+          "path": "world/field.crow.png",
+          "rect": [
+            304,
+            64,
+            32,
+            32
+          ]
+        },
+        {
+          "path": "world/practice_dummy.png",
+          "rect": [
+            32,
+            96,
+            64,
+            96
+          ]
+        },
+        {
+          "path": "boss.night_serpent.segment/idle.png",
+          "rect": [
+            160,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "boss.night_serpent.tail/idle.png",
+          "rect": [
+            288,
+            128,
+            64,
+            64
+          ]
+        }
+      ]
+    }
+  }
+}

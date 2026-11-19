@@ -1,0 +1,1122 @@
+{
+  "version": 1,
+  "origin": "top-left",
+  "filter": "point",
+  "mipmaps": false,
+  "spec": "docs/effects.md §20",
+  "boards": {
+    "impact": {
+      "prompt": "High quality 2D roguelike finely clustered pixel art sprite atlas, exactly FOUR columns and FIVE rows. Each row is its own animated elemental EXPLOSION RING. Column 1 compact burst from center, 2 expanding bold ring, 3 larger breaking open ring, 4 mostly gone with small edge sparks. Row 1 orange/gold flame curls (#FF8A1F), row 2 lemon yellow-white right-angle electricity (#FFF36B), row 3 teal/mint diamonds and tiny runes (#4FE3C1), row 4 pale ice blue fractured hexagonal ring (#9FDCFF), row 5 blue-violet/lavender shadow ring (#8A5CFF) with dark-purple inside. Keep interiors empty except opening flash. 4×5 perfectly spaced full circular bursts, regular square cells and air gaps, each row four complete frames, isolated real transparent background. Clear blocky edges, no antialiasing/glow/text, no red hues.",
+      "sha256": "9798a656ddad9eca8161613224adb2e7109a1ec8f6ff31070018b414b43f3e75"
+    },
+    "ritual_fx": {
+      "prompt": "High quality 2D pixel art magic upgrade success. True transparent 6-column by 2-row frame atlas (exactly 12 frames, no gutters drawn, no labels). Top row 6 phases of a vertical amber-white success pillar, narrow at start, broad solid peak, split into bright falling pixel strips, receding to a narrow streak; tall aspect silhouette within each square cell. Bottom row 6 frames of failed ritual gray dust smoke at wand tip, rapidly rising with blue charcoal/light gray small pixel clouds that unravel into a few block fragments, compact wisps. Pixel stepping and clustered flat colors, crisp discrete edges, no fade baked around perimeter, no character or wand, quiet palette.",
+      "sha256": "859478348a2fe0584bda7ac3aca09c4c8cd140b1ea2dbfccadd29972681b736e"
+    },
+    "fx_charges": {
+      "prompt": "2D finely clustered RPG pixel art upgrade charge animation asset atlas, exactly six evenly spaced columns and five rows. Each row is one element, in order fire gold/orange ember, electricity lemon white lightning, arcane turquoise diamond angular glyph, frost white blue angular snowflake, dark pale lilac crescent growing into almost full purple moon. Across six columns start as a pinhead at center, then 5 increasing build-up phases to full glowing pixel form occupying about two thirds of the cell. Every cell with one whole shape centered on real transparent alpha. No smooth gradients, grid lines, text, non-element colors, red or shadows. Distinct geometric themes, consistent centers for positioning on a separate staff tip.",
+      "sha256": "857ec154e65851b5dcb3cd2b6c377ed3e258a6eb81fdf8aaf47c3419d500898b"
+    },
+    "fx_release": {
+      "prompt": "Pixel art roguelike sprite sheet, exact 4 columns 5 rows, transparent. Each row is an expanding short compact projectile cast release, with 4 manually different animation frames small compression, star-like ignition, bold side burst, then debris. Element rows in order gold/orange burning petals, lemon zigzag arcs, mint teal diamond glyphs, sky-blue ice crystals, purple crescent shadow. Fine and crisp game sprite clusters and tiny selected white highlights, no ambient glow. Complete separate centered sprites in evenly spaced square cells. Absolutely no letters, white or black background, floor, wizard, wand, or text.",
+      "sha256": "652143d6f31845f9efd744ff852596d46d928058fecfc3141a64d247583ed6cf"
+    },
+    "fx_world": {
+      "prompt": "Fine 16-bit 2D roguelike sprite animation sheet exact 4 columns 3 rows, true transparent with clear gutters. Row 1: tiny golden falling star crystal with gold tail descends and breaks into the grounded crystal, 4 consecutive frames. Row 2: silver shards spun in a disintegrating empty circle after a mirror breaks, 4 consecutive frames. Row 3: wispy dark gray and pale gray curling vertical steam/smoke with charcoal pixel outline that rises then dissolves, 4 consecutive frames. Distinct stepping, shading clusters and colors, transparent background, no text or lines, complete sprites.",
+      "sha256": "a524a43b0ab043234f24b2052e458c3288bc4936314b87290ffc88c0b0a615b5"
+    },
+    "ritual2": {
+      "prompt": "Roguelike clean high-detail pixel effects. Exactly four columns and four rows transparent sprite atlas. Each row four isolated full circular activation stages appearing from center then unraveling, with square evenly spaced cells. First row amber gold geometric five nested ornate ritual circles with tiny triangular marks. Second row blue white ice crystal hex sigils. Third row teal magic script diamond outline sigils. Fourth row lavender crescent sigils and purple eye pupil. Crisp square pixels, thin lines and empty centers for a separate wand. Absolutely no text, letters, ground, checkerboard, background, shading gradient or bright danger red. Leave large transparent padding.",
+      "sha256": "fb05c58dd9b75996007f5c31fb68047a0c6b10cfefa1646faa5f2cde9d8fb5d7"
+    },
+    "boss_raid": {
+      "prompt": "A 4 columns x 3 rows exact isolated transparent pixel sprite sheet. Top row four increasingly powerful black and gray rising smoke curls for enraged boss, no fire. Middle row two versions of small enrage meter icon empty and full then two mirror fragments sharply reflective silver. Bottom row three compact iron armor glancing impact sparks silver-white with a few pale gold particles, fourth slot bent rebound arc silver. Square even cells and gutters, no floor shadow, gray/silver tone, alpha.",
+      "sha256": "df0d8a9a2ff2a5ea4a4777b03422668b088cc4b23f39c16698ab6f99323c402e"
+    },
+    "ice_orb": {
+      "prompt": "Exact 4x4 transparent 2D game FX atlas, each pose isolated with gutters. Top row four 3-layer rotating dark magic orbs: pale lavender outer stepped edge, navy violet inner ring, small luminous white purple center, moving crescent on inside only, no surrounding sparks. Row two four breakup frames of this orb from wobble to dispersed pixel wisps. Row three four pale blue sharp downward ice darts with a clear luminous core, four subtle spinning facet positions. Row four four compact frosty muzzle crystals expanding then dissolving. Crisp 64px pixel clusters, no floor, drop shadow, text or gradient.",
+      "sha256": "3b676d81ab7c7056fce5c0629fbdd50dd0fc66749ddb41cb6768520c7e029eb1"
+    },
+    "cast_marks": {
+      "prompt": "Exact 4x4 transparent 2D pixel game animation atlas. Row 1 four growing and breaking blue/white thin ice barrier crack geometries. Row 2 four growing and shrinking open teal compass magic circle glyphs with book-shaped abstract simple geometric center. Row 3 four lateral gold and lemon jagged white-core lightning dashes, very horizontally elongated with center and diffusing sparks, fading last. Row 4 four dark violet right-facing shadow hand with pale purple outline, materializes from fragmented dark smoke then opens distinct fingers and retracts to small palm. Matching tight clusters, true alpha and gutters, no ground, text or gradients.",
+      "sha256": "0de108f9267d3fb3b5cf60a712bae08f936eb46bc0a05eeef75f30818e218175"
+    },
+    "shield": {
+      "prompt": "Exact 4 column by 3 row true-transparent sprite atlas, fine 2D roguelike pixel art. One spell animates across every row. Top row wide low icy wall that rises from shattered blue ice chunks then stands as three connected sharp crystals, four consecutive phases. Middle row same icy wall fracturing and crumbling four stages from visible cracks to small translucent-looking hard-edged shards. Bottom row four silver-blue ring ripple thin edges growing outward and separating. No ground background or letters, no blur, no glow, no shadow, complete centered sprites with gutters, crisp square pixels.",
+      "sha256": "8e081eea41f77f04d81d04c1741f802b87e71df4f3102dc7c6e94c10724fe0e3"
+    }
+  },
+  "clips": [
+    {
+      "id": "player.explosion_fire",
+      "frameSize": [
+        256,
+        256
+      ],
+      "pivot": [
+        128,
+        128
+      ],
+      "sheet": "effects/redrawn-expansion/player/explosion_fire/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/player/explosion_fire/01.png",
+        "effects/redrawn-expansion/player/explosion_fire/02.png",
+        "effects/redrawn-expansion/player/explosion_fire/03.png",
+        "effects/redrawn-expansion/player/explosion_fire/04.png",
+        "effects/redrawn-expansion/player/explosion_fire/05.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "impact",
+      "note": "Opening flash is an integer-grid scale of the first painted burst."
+    },
+    {
+      "id": "player.explosion_lightning",
+      "frameSize": [
+        256,
+        256
+      ],
+      "pivot": [
+        128,
+        128
+      ],
+      "sheet": "effects/redrawn-expansion/player/explosion_lightning/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/player/explosion_lightning/01.png",
+        "effects/redrawn-expansion/player/explosion_lightning/02.png",
+        "effects/redrawn-expansion/player/explosion_lightning/03.png",
+        "effects/redrawn-expansion/player/explosion_lightning/04.png",
+        "effects/redrawn-expansion/player/explosion_lightning/05.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "impact",
+      "note": "Opening flash is an integer-grid scale of the first painted burst."
+    },
+    {
+      "id": "player.explosion_arcane",
+      "frameSize": [
+        256,
+        256
+      ],
+      "pivot": [
+        128,
+        128
+      ],
+      "sheet": "effects/redrawn-expansion/player/explosion_arcane/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/player/explosion_arcane/01.png",
+        "effects/redrawn-expansion/player/explosion_arcane/02.png",
+        "effects/redrawn-expansion/player/explosion_arcane/03.png",
+        "effects/redrawn-expansion/player/explosion_arcane/04.png",
+        "effects/redrawn-expansion/player/explosion_arcane/05.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "impact",
+      "note": "Opening flash is an integer-grid scale of the first painted burst."
+    },
+    {
+      "id": "player.explosion_ice",
+      "frameSize": [
+        256,
+        256
+      ],
+      "pivot": [
+        128,
+        128
+      ],
+      "sheet": "effects/redrawn-expansion/player/explosion_ice/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/player/explosion_ice/01.png",
+        "effects/redrawn-expansion/player/explosion_ice/02.png",
+        "effects/redrawn-expansion/player/explosion_ice/03.png",
+        "effects/redrawn-expansion/player/explosion_ice/04.png",
+        "effects/redrawn-expansion/player/explosion_ice/05.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "impact",
+      "note": "Opening flash is an integer-grid scale of the first painted burst."
+    },
+    {
+      "id": "player.explosion_dark",
+      "frameSize": [
+        256,
+        256
+      ],
+      "pivot": [
+        128,
+        128
+      ],
+      "sheet": "effects/redrawn-expansion/player/explosion_dark/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/player/explosion_dark/01.png",
+        "effects/redrawn-expansion/player/explosion_dark/02.png",
+        "effects/redrawn-expansion/player/explosion_dark/03.png",
+        "effects/redrawn-expansion/player/explosion_dark/04.png",
+        "effects/redrawn-expansion/player/explosion_dark/05.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "impact",
+      "note": "Opening flash is an integer-grid scale of the first painted burst."
+    },
+    {
+      "id": "ritual.success_column_fire",
+      "frameSize": [
+        192,
+        540
+      ],
+      "pivot": [
+        96,
+        270
+      ],
+      "sheet": "effects/redrawn-expansion/ritual/success_column_fire/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/ritual/success_column_fire/01.png",
+        "effects/redrawn-expansion/ritual/success_column_fire/02.png",
+        "effects/redrawn-expansion/ritual/success_column_fire/03.png",
+        "effects/redrawn-expansion/ritual/success_column_fire/04.png",
+        "effects/redrawn-expansion/ritual/success_column_fire/05.png",
+        "effects/redrawn-expansion/ritual/success_column_fire/06.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "ritual_fx"
+    },
+    {
+      "id": "ritual.failure_smoke",
+      "frameSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "sheet": "effects/redrawn-expansion/ritual/failure_smoke/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/ritual/failure_smoke/01.png",
+        "effects/redrawn-expansion/ritual/failure_smoke/02.png",
+        "effects/redrawn-expansion/ritual/failure_smoke/03.png",
+        "effects/redrawn-expansion/ritual/failure_smoke/04.png",
+        "effects/redrawn-expansion/ritual/failure_smoke/05.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "ritual_fx"
+    },
+    {
+      "id": "ritual.charge_fire",
+      "frameSize": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        48
+      ],
+      "sheet": "effects/redrawn-expansion/ritual/charge_fire/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/ritual/charge_fire/01.png",
+        "effects/redrawn-expansion/ritual/charge_fire/02.png",
+        "effects/redrawn-expansion/ritual/charge_fire/03.png",
+        "effects/redrawn-expansion/ritual/charge_fire/04.png",
+        "effects/redrawn-expansion/ritual/charge_fire/05.png",
+        "effects/redrawn-expansion/ritual/charge_fire/06.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "fx_charges"
+    },
+    {
+      "id": "ritual.charge_lightning",
+      "frameSize": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        48
+      ],
+      "sheet": "effects/redrawn-expansion/ritual/charge_lightning/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/ritual/charge_lightning/01.png",
+        "effects/redrawn-expansion/ritual/charge_lightning/02.png",
+        "effects/redrawn-expansion/ritual/charge_lightning/03.png",
+        "effects/redrawn-expansion/ritual/charge_lightning/04.png",
+        "effects/redrawn-expansion/ritual/charge_lightning/05.png",
+        "effects/redrawn-expansion/ritual/charge_lightning/06.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "fx_charges"
+    },
+    {
+      "id": "ritual.charge_arcane",
+      "frameSize": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        48
+      ],
+      "sheet": "effects/redrawn-expansion/ritual/charge_arcane/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/ritual/charge_arcane/01.png",
+        "effects/redrawn-expansion/ritual/charge_arcane/02.png",
+        "effects/redrawn-expansion/ritual/charge_arcane/03.png",
+        "effects/redrawn-expansion/ritual/charge_arcane/04.png",
+        "effects/redrawn-expansion/ritual/charge_arcane/05.png",
+        "effects/redrawn-expansion/ritual/charge_arcane/06.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "fx_charges"
+    },
+    {
+      "id": "ritual.charge_ice",
+      "frameSize": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        48
+      ],
+      "sheet": "effects/redrawn-expansion/ritual/charge_ice/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/ritual/charge_ice/01.png",
+        "effects/redrawn-expansion/ritual/charge_ice/02.png",
+        "effects/redrawn-expansion/ritual/charge_ice/03.png",
+        "effects/redrawn-expansion/ritual/charge_ice/04.png",
+        "effects/redrawn-expansion/ritual/charge_ice/05.png",
+        "effects/redrawn-expansion/ritual/charge_ice/06.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "fx_charges"
+    },
+    {
+      "id": "ritual.charge_dark",
+      "frameSize": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        48
+      ],
+      "sheet": "effects/redrawn-expansion/ritual/charge_dark/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/ritual/charge_dark/01.png",
+        "effects/redrawn-expansion/ritual/charge_dark/02.png",
+        "effects/redrawn-expansion/ritual/charge_dark/03.png",
+        "effects/redrawn-expansion/ritual/charge_dark/04.png",
+        "effects/redrawn-expansion/ritual/charge_dark/05.png",
+        "effects/redrawn-expansion/ritual/charge_dark/06.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "fx_charges"
+    },
+    {
+      "id": "special.release_fire",
+      "frameSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "sheet": "effects/redrawn-expansion/special/release_fire/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/special/release_fire/01.png",
+        "effects/redrawn-expansion/special/release_fire/02.png",
+        "effects/redrawn-expansion/special/release_fire/03.png",
+        "effects/redrawn-expansion/special/release_fire/04.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "fx_release"
+    },
+    {
+      "id": "special.release_lightning",
+      "frameSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "sheet": "effects/redrawn-expansion/special/release_lightning/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/special/release_lightning/01.png",
+        "effects/redrawn-expansion/special/release_lightning/02.png",
+        "effects/redrawn-expansion/special/release_lightning/03.png",
+        "effects/redrawn-expansion/special/release_lightning/04.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "fx_release"
+    },
+    {
+      "id": "special.release_arcane",
+      "frameSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "sheet": "effects/redrawn-expansion/special/release_arcane/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/special/release_arcane/01.png",
+        "effects/redrawn-expansion/special/release_arcane/02.png",
+        "effects/redrawn-expansion/special/release_arcane/03.png",
+        "effects/redrawn-expansion/special/release_arcane/04.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "fx_release"
+    },
+    {
+      "id": "special.release_ice",
+      "frameSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "sheet": "effects/redrawn-expansion/special/release_ice/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/special/release_ice/01.png",
+        "effects/redrawn-expansion/special/release_ice/02.png",
+        "effects/redrawn-expansion/special/release_ice/03.png",
+        "effects/redrawn-expansion/special/release_ice/04.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "fx_release"
+    },
+    {
+      "id": "special.release_dark",
+      "frameSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "sheet": "effects/redrawn-expansion/special/release_dark/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/special/release_dark/01.png",
+        "effects/redrawn-expansion/special/release_dark/02.png",
+        "effects/redrawn-expansion/special/release_dark/03.png",
+        "effects/redrawn-expansion/special/release_dark/04.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "fx_release"
+    },
+    {
+      "id": "player.world_meteor",
+      "frameSize": [
+        32,
+        64
+      ],
+      "pivot": [
+        16,
+        32
+      ],
+      "sheet": "effects/redrawn-expansion/player/world_meteor/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/player/world_meteor/01.png",
+        "effects/redrawn-expansion/player/world_meteor/02.png",
+        "effects/redrawn-expansion/player/world_meteor/03.png",
+        "effects/redrawn-expansion/player/world_meteor/04.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "fx_world"
+    },
+    {
+      "id": "enemy.mirror_debris",
+      "frameSize": [
+        16,
+        16
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "sheet": "effects/redrawn-expansion/enemy/mirror_debris/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/enemy/mirror_debris/01.png",
+        "effects/redrawn-expansion/enemy/mirror_debris/02.png",
+        "effects/redrawn-expansion/enemy/mirror_debris/03.png",
+        "effects/redrawn-expansion/enemy/mirror_debris/04.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "fx_world"
+    },
+    {
+      "id": "status.lock_steam",
+      "frameSize": [
+        32,
+        32
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "sheet": "effects/redrawn-expansion/status/lock_steam/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/status/lock_steam/01.png",
+        "effects/redrawn-expansion/status/lock_steam/02.png",
+        "effects/redrawn-expansion/status/lock_steam/03.png",
+        "effects/redrawn-expansion/status/lock_steam/04.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "fx_world"
+    },
+    {
+      "id": "ritual.circle_amber",
+      "frameSize": [
+        240,
+        240
+      ],
+      "pivot": [
+        120,
+        120
+      ],
+      "sheet": "effects/redrawn-expansion/ritual/circle_amber/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/ritual/circle_amber/01.png",
+        "effects/redrawn-expansion/ritual/circle_amber/02.png",
+        "effects/redrawn-expansion/ritual/circle_amber/03.png",
+        "effects/redrawn-expansion/ritual/circle_amber/04.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "ritual2"
+    },
+    {
+      "id": "ritual.circle_frost",
+      "frameSize": [
+        240,
+        240
+      ],
+      "pivot": [
+        120,
+        120
+      ],
+      "sheet": "effects/redrawn-expansion/ritual/circle_frost/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/ritual/circle_frost/01.png",
+        "effects/redrawn-expansion/ritual/circle_frost/02.png",
+        "effects/redrawn-expansion/ritual/circle_frost/03.png",
+        "effects/redrawn-expansion/ritual/circle_frost/04.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "ritual2"
+    },
+    {
+      "id": "ritual.circle_arcane",
+      "frameSize": [
+        240,
+        240
+      ],
+      "pivot": [
+        120,
+        120
+      ],
+      "sheet": "effects/redrawn-expansion/ritual/circle_arcane/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/ritual/circle_arcane/01.png",
+        "effects/redrawn-expansion/ritual/circle_arcane/02.png",
+        "effects/redrawn-expansion/ritual/circle_arcane/03.png",
+        "effects/redrawn-expansion/ritual/circle_arcane/04.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "ritual2"
+    },
+    {
+      "id": "ritual.circle_shadow",
+      "frameSize": [
+        240,
+        240
+      ],
+      "pivot": [
+        120,
+        120
+      ],
+      "sheet": "effects/redrawn-expansion/ritual/circle_shadow/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/ritual/circle_shadow/01.png",
+        "effects/redrawn-expansion/ritual/circle_shadow/02.png",
+        "effects/redrawn-expansion/ritual/circle_shadow/03.png",
+        "effects/redrawn-expansion/ritual/circle_shadow/04.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "ritual2"
+    },
+    {
+      "id": "enemy.rage_smoke",
+      "frameSize": [
+        32,
+        48
+      ],
+      "pivot": [
+        16,
+        24
+      ],
+      "sheet": "effects/redrawn-expansion/enemy/rage_smoke/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/enemy/rage_smoke/01.png",
+        "effects/redrawn-expansion/enemy/rage_smoke/02.png",
+        "effects/redrawn-expansion/enemy/rage_smoke/03.png",
+        "effects/redrawn-expansion/enemy/rage_smoke/04.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "boss_raid"
+    },
+    {
+      "id": "status.enrage_meter",
+      "frameSize": [
+        16,
+        16
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "sheet": "effects/redrawn-expansion/status/enrage_meter/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/status/enrage_meter/01.png",
+        "effects/redrawn-expansion/status/enrage_meter/02.png"
+      ],
+      "durationsMs": [
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "boss_raid"
+    },
+    {
+      "id": "enemy.mirror_fragments",
+      "frameSize": [
+        16,
+        16
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "sheet": "effects/redrawn-expansion/enemy/mirror_fragments/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/enemy/mirror_fragments/01.png",
+        "effects/redrawn-expansion/enemy/mirror_fragments/02.png"
+      ],
+      "durationsMs": [
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "boss_raid"
+    },
+    {
+      "id": "player.armor_bounce",
+      "frameSize": [
+        32,
+        32
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "sheet": "effects/redrawn-expansion/player/armor_bounce/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/player/armor_bounce/01.png",
+        "effects/redrawn-expansion/player/armor_bounce/02.png",
+        "effects/redrawn-expansion/player/armor_bounce/03.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "boss_raid"
+    },
+    {
+      "id": "player.shadow_orb",
+      "frameSize": [
+        40,
+        40
+      ],
+      "pivot": [
+        20,
+        20
+      ],
+      "sheet": "effects/redrawn-expansion/player/shadow_orb/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/player/shadow_orb/01.png",
+        "effects/redrawn-expansion/player/shadow_orb/02.png",
+        "effects/redrawn-expansion/player/shadow_orb/03.png",
+        "effects/redrawn-expansion/player/shadow_orb/04.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "ice_orb"
+    },
+    {
+      "id": "player.shadow_orb_expire",
+      "frameSize": [
+        40,
+        40
+      ],
+      "pivot": [
+        20,
+        20
+      ],
+      "sheet": "effects/redrawn-expansion/player/shadow_orb_expire/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/player/shadow_orb_expire/01.png",
+        "effects/redrawn-expansion/player/shadow_orb_expire/02.png",
+        "effects/redrawn-expansion/player/shadow_orb_expire/03.png",
+        "effects/redrawn-expansion/player/shadow_orb_expire/04.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "ice_orb"
+    },
+    {
+      "id": "player.ice_spike",
+      "frameSize": [
+        12,
+        28
+      ],
+      "pivot": [
+        6,
+        14
+      ],
+      "sheet": "effects/redrawn-expansion/player/ice_spike/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/player/ice_spike/01.png",
+        "effects/redrawn-expansion/player/ice_spike/02.png"
+      ],
+      "durationsMs": [
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "ice_orb"
+    },
+    {
+      "id": "player.ice_spike_muzzle",
+      "frameSize": [
+        32,
+        32
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "sheet": "effects/redrawn-expansion/player/ice_spike_muzzle/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/player/ice_spike_muzzle/01.png",
+        "effects/redrawn-expansion/player/ice_spike_muzzle/02.png",
+        "effects/redrawn-expansion/player/ice_spike_muzzle/03.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "ice_orb"
+    },
+    {
+      "id": "special.ice_screen_cracks",
+      "frameSize": [
+        192,
+        96
+      ],
+      "pivot": [
+        96,
+        48
+      ],
+      "sheet": "effects/redrawn-expansion/special/ice_screen_cracks/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/special/ice_screen_cracks/01.png",
+        "effects/redrawn-expansion/special/ice_screen_cracks/02.png"
+      ],
+      "durationsMs": [
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "cast_marks"
+    },
+    {
+      "id": "special.transcribe_glyph",
+      "frameSize": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        48
+      ],
+      "sheet": "effects/redrawn-expansion/special/transcribe_glyph/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/special/transcribe_glyph/01.png",
+        "effects/redrawn-expansion/special/transcribe_glyph/02.png",
+        "effects/redrawn-expansion/special/transcribe_glyph/03.png",
+        "effects/redrawn-expansion/special/transcribe_glyph/04.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "cast_marks"
+    },
+    {
+      "id": "special.thunder_dash_streak",
+      "frameSize": [
+        256,
+        64
+      ],
+      "pivot": [
+        128,
+        32
+      ],
+      "sheet": "effects/redrawn-expansion/special/thunder_dash_streak/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/special/thunder_dash_streak/01.png",
+        "effects/redrawn-expansion/special/thunder_dash_streak/02.png",
+        "effects/redrawn-expansion/special/thunder_dash_streak/03.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "cast_marks"
+    },
+    {
+      "id": "special.shadow_hand",
+      "frameSize": [
+        32,
+        32
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "sheet": "effects/redrawn-expansion/special/shadow_hand/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/special/shadow_hand/01.png",
+        "effects/redrawn-expansion/special/shadow_hand/02.png",
+        "effects/redrawn-expansion/special/shadow_hand/03.png",
+        "effects/redrawn-expansion/special/shadow_hand/04.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "cast_marks"
+    },
+    {
+      "id": "special.ice_wall_horizontal_rise",
+      "frameSize": [
+        192,
+        96
+      ],
+      "pivot": [
+        96,
+        48
+      ],
+      "sheet": "effects/redrawn-expansion/special/ice_wall_horizontal_rise/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/special/ice_wall_horizontal_rise/01.png",
+        "effects/redrawn-expansion/special/ice_wall_horizontal_rise/02.png",
+        "effects/redrawn-expansion/special/ice_wall_horizontal_rise/03.png",
+        "effects/redrawn-expansion/special/ice_wall_horizontal_rise/04.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "shield"
+    },
+    {
+      "id": "special.ice_wall_horizontal_break",
+      "frameSize": [
+        192,
+        96
+      ],
+      "pivot": [
+        96,
+        48
+      ],
+      "sheet": "effects/redrawn-expansion/special/ice_wall_horizontal_break/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/special/ice_wall_horizontal_break/01.png",
+        "effects/redrawn-expansion/special/ice_wall_horizontal_break/02.png",
+        "effects/redrawn-expansion/special/ice_wall_horizontal_break/03.png",
+        "effects/redrawn-expansion/special/ice_wall_horizontal_break/04.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "shield"
+    },
+    {
+      "id": "special.ice_wall_ripple",
+      "frameSize": [
+        32,
+        32
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "sheet": "effects/redrawn-expansion/special/ice_wall_ripple/sheet.png",
+      "frames": [
+        "effects/redrawn-expansion/special/ice_wall_ripple/01.png",
+        "effects/redrawn-expansion/special/ice_wall_ripple/02.png",
+        "effects/redrawn-expansion/special/ice_wall_ripple/03.png"
+      ],
+      "durationsMs": [
+        80,
+        80,
+        80
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "board": "shield"
+    }
+  ],
+  "catalog": "effects/redrawn-expansion/catalog/manifest.json"
+}

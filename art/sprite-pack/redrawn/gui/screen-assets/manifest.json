@@ -1,0 +1,7156 @@
+{
+  "basis": "docs/ui-assets.md",
+  "referenceResolution": [
+    1920,
+    1080
+  ],
+  "pointFilter": true,
+  "mipmaps": false,
+  "textureCompression": "none",
+  "coordinateSystem": "top-left",
+  "nineSliceOrder": [
+    "left",
+    "top",
+    "right",
+    "bottom"
+  ],
+  "sources": {
+    "profile-and-camp": {
+      "kind": "ImageGen",
+      "file": "exec-a0c53044-0a5a-4c8c-b3f9-26c437d8ac91.png",
+      "sha256": "abc1972d42c94200af9dd691666d5c546ff1a049c930edc4a4920ec8156cb44f",
+      "size": [
+        1575,
+        999
+      ]
+    },
+    "world-plates": {
+      "kind": "ImageGen",
+      "file": "exec-017326c4-082a-4c19-b6be-0b4a3201a9f3.png",
+      "sha256": "53f83b47b97761fd6576fba1652d5863f00739e09ebd627211426ea733030ce9",
+      "size": [
+        1672,
+        941
+      ]
+    },
+    "screen-boards": {
+      "kind": "ImageGen",
+      "file": "exec-05adfbb6-18a9-4e86-a9ed-c4f14f75303e.png",
+      "sha256": "f1275c371ecac324803fb2ba5f40b992d8ff84bcef4593737fb31c61dae66def",
+      "size": [
+        1261,
+        1247
+      ]
+    },
+    "market-and-wardrobe": {
+      "kind": "ImageGen",
+      "file": "exec-0fa11b6d-6bdf-47cd-8981-b372fee92851.png",
+      "sha256": "7c4b67002204a0b8fec6e6c1fed80fd04c3a9fd13806d2c575d603cb5fd18bf9",
+      "size": [
+        1264,
+        1244
+      ]
+    },
+    "rank-cards-and-wheels": {
+      "kind": "ImageGen",
+      "file": "exec-a8533664-bf01-4aa9-8e8d-f38ea0cf533b.png",
+      "sha256": "706c3b8e761f36c1a31d9a6365140434debd7ffe6aa1538af9786d4b720b4b81",
+      "size": [
+        1536,
+        1024
+      ]
+    },
+    "small-screen-glyphs": {
+      "kind": "ImageGen",
+      "file": "exec-cc8d4437-9feb-4b40-8e0c-bbb246adfaf6.png",
+      "sha256": "64b0cbaddb50162769e2d352d951e2c0b2cc51a93d74a42a8061aa758c358f8d",
+      "size": [
+        1261,
+        1247
+      ]
+    },
+    "title-lettering": {
+      "kind": "ImageGen",
+      "file": "exec-062babcd-0c2c-4940-8c99-d8fe1b84fa1c.png",
+      "sha256": "a90fa03a04ac328316e8bbbdd0f94b9ffa5791f2c62cb517bcdc619af22a6391",
+      "size": [
+        2172,
+        724
+      ]
+    },
+    "screen-gear": {
+      "kind": "ImageGen",
+      "file": "exec-bfd2c8f8-64cf-46ac-8078-e7f2c8579aa2.png",
+      "sha256": "e65b61e09c5f7c94a7bb88196fc40ae2112e914b4c285d51ce2a03f7be6cbd3a",
+      "size": [
+        1261,
+        1247
+      ]
+    },
+    "settings-overlays": {
+      "kind": "ImageGen",
+      "file": "exec-cf4bf8c4-f2d2-4936-9b7a-d41af314738e.png",
+      "sha256": "90563d2f1e99e66d61f98c22f73ed4090c109228b5d25a528ec11b1846cb4104",
+      "size": [
+        1774,
+        887
+      ]
+    },
+    "navigation": {
+      "kind": "ImageGen",
+      "file": "exec-c97a324a-599a-4b7c-b921-4593e1df1985.png",
+      "sha256": "d9dd45a04fe413cc177216476788f8aad4fe29dbb1574b9edf945f4e6fbbfdb3",
+      "size": [
+        1254,
+        1254
+      ]
+    },
+    "utility-a": {
+      "kind": "ImageGen",
+      "file": "exec-76b9657d-3116-4e02-baf6-654dd36d6e33.png",
+      "sha256": "3c1f96bf93a7c4c2de28826671e5a18e4b377c5e62c84e6eb39fbe07544536a8",
+      "size": [
+        1619,
+        971
+      ]
+    },
+    "utility-b": {
+      "kind": "ImageGen",
+      "file": "exec-dccbcb0b-aecf-4965-b317-25bd59bf2077.png",
+      "sha256": "013324689eb4e970adccb0c6cd5d772b2cbcaf567dad4172c1f6a572d7f8d244",
+      "size": [
+        1254,
+        1254
+      ]
+    },
+    "title-background": {
+      "kind": "ImageGen",
+      "file": "exec-b5758e6f-ab73-4246-a045-72440dc2d981.png",
+      "sha256": "01e36ee8971afa9b9d4860b43a74d0f47fff8fd44c95ffbd1f8f4c6a65105927",
+      "size": [
+        1672,
+        941
+      ]
+    },
+    "fire-and-portraits": {
+      "kind": "ImageGen",
+      "file": "exec-5191e3d8-72bd-4e37-87e7-76208fd7b806.png",
+      "sha256": "edba502e81b50d81e039c5e63e962facd230143df959a035ecdc7eaaf2b36822",
+      "size": [
+        1448,
+        1086
+      ]
+    },
+    "currency-and-elements": {
+      "kind": "ImageGen",
+      "file": "exec-54e0cee6-7cf5-4c06-9818-3483807ece8e.png",
+      "sha256": "8afbf6826c34d7882a2966b9132aa9ce96f4cbb23ad5745d6137eb3aa232c17d",
+      "size": [
+        1254,
+        1254
+      ]
+    },
+    "common-plates": {
+      "kind": "ImageGen",
+      "file": "exec-9c501fc0-7937-4cc1-8a37-39760d303340.png",
+      "sha256": "b5cd504e429609f0a5a6a3d234e9857c73d693035b8f2b7a0b6357ea29adaac0",
+      "size": [
+        1254,
+        1254
+      ]
+    },
+    "kit-slots": {
+      "kind": "ImageGen",
+      "file": "exec-8b0d7c55-a4f2-4a87-bcec-b97123944952.png",
+      "sha256": "3aff7ff67fea1045f1c00e56c6785a98879e9235995a061281612747089681e5",
+      "size": [
+        1254,
+        1254
+      ]
+    },
+    "previous-redrawn": {
+      "kind": "existing ImageGen artwork",
+      "directory": ".."
+    },
+    "states-and-rooms": {
+      "kind": "ImageGen",
+      "file": "exec-125193dc-237f-47c0-873e-2ce02ff2fc27.png",
+      "sha256": "88aca854b5b1367b20bdbfacf3ee2bac12afbabede55872f90dbfc0df1236555",
+      "size": [
+        1402,
+        1122
+      ]
+    },
+    "room-and-cosmetic": {
+      "kind": "ImageGen",
+      "file": "exec-a5e34486-dfb5-49a5-9a3c-8d41f2473261.png",
+      "sha256": "26b1c98b8d0ec1bf1786090a56a1093d7e0187fbbb3b2f959f7f269d797e6824",
+      "size": [
+        1254,
+        1254
+      ]
+    },
+    "emotes-and-cosmetic": {
+      "kind": "ImageGen",
+      "file": "exec-82c6a7f3-b8da-498a-b0ab-d473bdfab16d.png",
+      "sha256": "493d3e42b96f439181c7e9d2c5f258269255a6007ebd8286489f9ce9af3fcc84",
+      "size": [
+        1402,
+        1122
+      ]
+    },
+    "stats-and-passives": {
+      "kind": "ImageGen",
+      "file": "exec-2ee25449-11e0-417c-ba5c-77c48ad965a1.png",
+      "sha256": "c3d87cc5064767ea049666d383b9f20cdfba68a81efa7fe652cf92b5e34e19a6",
+      "size": [
+        1402,
+        1122
+      ]
+    },
+    "glyphs-and-badges": {
+      "kind": "ImageGen",
+      "file": "exec-86dcfb63-1644-46dd-876b-a5f19b5f3cf6.png",
+      "sha256": "a5ac17bdb3878ea392c1f386d92373a5478a74454cf63b988dfbaceb60db4b6b",
+      "size": [
+        1254,
+        1254
+      ]
+    },
+    "neuru-awake": {
+      "kind": "ImageGen",
+      "file": "exec-a11f5723-4e22-4fc9-a539-ce3a3ec1792f.png",
+      "sha256": "82b3ec594b7e397a1073214c22a0ff5395f5e3ce09d37ecc0450c2a9b2901e15",
+      "size": [
+        1254,
+        1254
+      ]
+    },
+    "launcher-size-specific": {
+      "kind": "ImageGen",
+      "file": "exec-5119e9ba-9047-40a7-b335-9188f2e183ac.png",
+      "sha256": "b8196aff65488d9045e8a7abe01926c889fdf0dd1f56f6f76620fbc6c4ccbd7c",
+      "size": [
+        1254,
+        1254
+      ],
+      "note": "Four separately drawn resolution variants"
+    },
+    "screen-numbers": {
+      "kind": "ImageGen",
+      "file": "exec-71020480-5cef-4400-a34e-e91f2607ecef.png",
+      "sha256": "c63acbdba164f81a9f4e5bce983eb5b0a114236943e493253d233cfb5a73261f",
+      "size": [
+        1402,
+        1122
+      ]
+    }
+  },
+  "assets": {
+    "s-0301/offline_card": {
+      "path": "s-0301/offline_card.png",
+      "size": [
+        496,
+        240
+      ],
+      "source": "profile-and-camp"
+    },
+    "s-0301/server_card": {
+      "path": "s-0301/server_card.png",
+      "size": [
+        496,
+        240
+      ],
+      "source": "profile-and-camp"
+    },
+    "s-0501/camp_background": {
+      "path": "s-0501/camp_background.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "source": "profile-and-camp"
+    },
+    "s-1602/expedition_dawn": {
+      "path": "s-1602/expedition_dawn.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "source": "profile-and-camp"
+    },
+    "s-0901/duel_floor": {
+      "path": "s-0901/duel_floor.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "source": "world-plates"
+    },
+    "s-2307/market_street": {
+      "path": "s-2307/market_street.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "source": "world-plates"
+    },
+    "s-2506/tower_wall": {
+      "path": "s-2506/tower_wall.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "source": "world-plates"
+    },
+    "s-2601/brush_trail": {
+      "path": "s-2601/brush_trail.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "source": "world-plates"
+    },
+    "s-0601/character_card_normal": {
+      "path": "s-0601/character_card_normal.png",
+      "size": [
+        336,
+        376
+      ],
+      "source": "screen-boards"
+    },
+    "s-1001/loot_front": {
+      "path": "s-1001/loot_front.png",
+      "size": [
+        240,
+        336
+      ],
+      "source": "screen-boards"
+    },
+    "s-1001/loot_back": {
+      "path": "s-1001/loot_back.png",
+      "size": [
+        240,
+        336
+      ],
+      "source": "screen-boards"
+    },
+    "s-0602/wand_pedestal": {
+      "path": "s-0602/wand_pedestal.png",
+      "size": [
+        224,
+        48
+      ],
+      "source": "screen-boards"
+    },
+    "s-0503/dirt_pedestal": {
+      "path": "s-0503/dirt_pedestal.png",
+      "size": [
+        320,
+        96
+      ],
+      "source": "screen-boards"
+    },
+    "s-1603/fallen_pedestal": {
+      "path": "s-1603/fallen_pedestal.png",
+      "size": [
+        384,
+        96
+      ],
+      "source": "screen-boards"
+    },
+    "s-2101/duel_board": {
+      "path": "s-2101/duel_board.png",
+      "size": [
+        96,
+        96
+      ],
+      "source": "screen-boards",
+      "nineSlice": [
+        32,
+        32,
+        32,
+        32
+      ]
+    },
+    "s-2401/mailbox_board": {
+      "path": "s-2401/mailbox_board.png",
+      "size": [
+        96,
+        96
+      ],
+      "source": "screen-boards",
+      "nineSlice": [
+        32,
+        32,
+        32,
+        32
+      ]
+    },
+    "s-2404/dialogue_board": {
+      "path": "s-2404/dialogue_board.png",
+      "size": [
+        96,
+        96
+      ],
+      "source": "screen-boards",
+      "nineSlice": [
+        32,
+        32,
+        32,
+        32
+      ]
+    },
+    "s-2301/trade_mat_open": {
+      "path": "s-2301/trade_mat_open.png",
+      "size": [
+        640,
+        520
+      ],
+      "source": "market-and-wardrobe"
+    },
+    "s-2302/trade_lock_open": {
+      "path": "s-2302/trade_lock_open.png",
+      "size": [
+        96,
+        96
+      ],
+      "source": "market-and-wardrobe"
+    },
+    "s-2302/trade_lock_locked": {
+      "path": "s-2302/trade_lock_locked.png",
+      "size": [
+        96,
+        96
+      ],
+      "source": "market-and-wardrobe"
+    },
+    "source/shop_cart": {
+      "path": "source/shop_cart.png",
+      "size": [
+        160,
+        128
+      ],
+      "source": "market-and-wardrobe"
+    },
+    "source/shop_chair": {
+      "path": "source/shop_chair.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "market-and-wardrobe"
+    },
+    "s-2306/catalog_card_normal": {
+      "path": "s-2306/catalog_card_normal.png",
+      "size": [
+        216,
+        280
+      ],
+      "source": "market-and-wardrobe"
+    },
+    "s-2402/wardrobe_preview": {
+      "path": "s-2402/wardrobe_preview.png",
+      "size": [
+        560,
+        880
+      ],
+      "source": "market-and-wardrobe"
+    },
+    "s-2504/heir_monument": {
+      "path": "s-2504/heir_monument.png",
+      "size": [
+        720,
+        880
+      ],
+      "source": "market-and-wardrobe"
+    },
+    "s-2304/price_history_frame": {
+      "path": "s-2304/price_history_frame.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "market-and-wardrobe",
+      "nineSlice": [
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "s-2501/league_card_sprout": {
+      "path": "s-2501/league_card_sprout.png",
+      "size": [
+        528,
+        640
+      ],
+      "source": "rank-cards-and-wheels"
+    },
+    "s-2501/league_card_beast": {
+      "path": "s-2501/league_card_beast.png",
+      "size": [
+        528,
+        640
+      ],
+      "source": "rank-cards-and-wheels"
+    },
+    "s-2501/league_card_heir": {
+      "path": "s-2501/league_card_heir.png",
+      "size": [
+        528,
+        640
+      ],
+      "source": "rank-cards-and-wheels"
+    },
+    "s-1601/return_bag_open": {
+      "path": "s-1601/return_bag_open.png",
+      "size": [
+        760,
+        120
+      ],
+      "source": "rank-cards-and-wheels"
+    },
+    "s-1601/return_bag_closed": {
+      "path": "s-1601/return_bag_closed.png",
+      "size": [
+        760,
+        120
+      ],
+      "source": "rank-cards-and-wheels"
+    },
+    "s-1701/result_banner_defeat": {
+      "path": "s-1701/result_banner_defeat.png",
+      "size": [
+        1200,
+        120
+      ],
+      "source": "rank-cards-and-wheels"
+    },
+    "s-0907/phrase_wheel": {
+      "path": "s-0907/phrase_wheel.png",
+      "size": [
+        360,
+        360
+      ],
+      "source": "rank-cards-and-wheels"
+    },
+    "s-2003/emote_wheel": {
+      "path": "s-2003/emote_wheel.png",
+      "size": [
+        360,
+        360
+      ],
+      "source": "rank-cards-and-wheels"
+    },
+    "source/wheel_wedge": {
+      "path": "source/wheel_wedge.png",
+      "size": [
+        130,
+        178
+      ],
+      "source": "rank-cards-and-wheels"
+    },
+    "s-0804/score": {
+      "path": "s-0804/score.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "small-screen-glyphs"
+    },
+    "s-0804/kills": {
+      "path": "s-0804/kills.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "small-screen-glyphs"
+    },
+    "s-0803/enrage_ember_01": {
+      "path": "s-0803/enrage_ember_01.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "small-screen-glyphs"
+    },
+    "s-0905/thorn_warning_01": {
+      "path": "s-0905/thorn_warning_01.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "small-screen-glyphs"
+    },
+    "s-0906/dropped_input": {
+      "path": "s-0906/dropped_input.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "small-screen-glyphs"
+    },
+    "s-2105/waiting_hourglass_01": {
+      "path": "s-2105/waiting_hourglass_01.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "small-screen-glyphs"
+    },
+    "s-2105/waiting_hourglass_02": {
+      "path": "s-2105/waiting_hourglass_02.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "small-screen-glyphs"
+    },
+    "s-2105/waiting_hourglass_03": {
+      "path": "s-2105/waiting_hourglass_03.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "small-screen-glyphs"
+    },
+    "s-2603/revenge_mirror_whole": {
+      "path": "s-2603/revenge_mirror_whole.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "small-screen-glyphs"
+    },
+    "s-2603/revenge_mirror_cracked": {
+      "path": "s-2603/revenge_mirror_cracked.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "small-screen-glyphs"
+    },
+    "s-2603/revenge_mirror_shattered": {
+      "path": "s-2603/revenge_mirror_shattered.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "small-screen-glyphs"
+    },
+    "s-2104/room_leader": {
+      "path": "s-2104/room_leader.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "small-screen-glyphs"
+    },
+    "s-2602/cursor_normal": {
+      "path": "s-2602/cursor_normal.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "small-screen-glyphs",
+      "hotspot": [
+        10,
+        1
+      ]
+    },
+    "s-2602/cursor_click": {
+      "path": "s-2602/cursor_click.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "small-screen-glyphs",
+      "hotspot": [
+        12,
+        1
+      ]
+    },
+    "s-2602/cursor_drag": {
+      "path": "s-2602/cursor_drag.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "small-screen-glyphs",
+      "hotspot": [
+        16,
+        15
+      ]
+    },
+    "s-2602/cursor_text": {
+      "path": "s-2602/cursor_text.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "small-screen-glyphs",
+      "hotspot": [
+        16,
+        16
+      ]
+    },
+    "s-0202/title_korean": {
+      "path": "s-0202/title_korean.png",
+      "size": [
+        960,
+        320
+      ],
+      "source": "title-lettering"
+    },
+    "source/rounded_rail": {
+      "path": "source/rounded_rail.png",
+      "size": [
+        128,
+        32
+      ],
+      "source": "screen-gear"
+    },
+    "source/rounded_fill": {
+      "path": "source/rounded_fill.png",
+      "size": [
+        128,
+        24
+      ],
+      "source": "screen-gear"
+    },
+    "source/gauge_tick": {
+      "path": "source/gauge_tick.png",
+      "size": [
+        48,
+        8
+      ],
+      "source": "screen-gear"
+    },
+    "s-0802/portrait_normal": {
+      "path": "s-0802/portrait_normal.png",
+      "size": [
+        72,
+        72
+      ],
+      "source": "screen-gear"
+    },
+    "s-0805/heat_lock": {
+      "path": "s-0805/heat_lock.png",
+      "size": [
+        64,
+        24
+      ],
+      "source": "screen-gear"
+    },
+    "s-1902/keyboard_board": {
+      "path": "s-1902/keyboard_board.png",
+      "size": [
+        1200,
+        280
+      ],
+      "source": "screen-gear"
+    },
+    "s-0401/server_features_group": {
+      "path": "s-0401/server_features_group.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "source/diamond_cursor": {
+      "path": "source/diamond_cursor.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "screen-gear"
+    },
+    "s-1101/tree_node_projectile": {
+      "path": "s-1101/tree_node_projectile.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "screen-gear"
+    },
+    "s-1101/tree_node_control": {
+      "path": "s-1101/tree_node_control.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "screen-gear"
+    },
+    "s-1101/tree_node_modifier": {
+      "path": "s-1101/tree_node_modifier.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "screen-gear"
+    },
+    "s-1101/tree_node_scope": {
+      "path": "s-1101/tree_node_scope.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "screen-gear"
+    },
+    "source/square_rail": {
+      "path": "source/square_rail.png",
+      "size": [
+        128,
+        32
+      ],
+      "source": "screen-gear"
+    },
+    "s-1103/split_2": {
+      "path": "s-1103/split_2.png",
+      "size": [
+        96,
+        24
+      ],
+      "source": "screen-gear"
+    },
+    "s-1103/split_3": {
+      "path": "s-1103/split_3.png",
+      "size": [
+        96,
+        24
+      ],
+      "source": "screen-gear"
+    },
+    "s-1104/omitted_node": {
+      "path": "s-1104/omitted_node.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "screen-gear"
+    },
+    "s-1901/options_field": {
+      "path": "s-1901/options_field.png",
+      "size": [
+        424,
+        240
+      ],
+      "source": "settings-overlays"
+    },
+    "s-1901/options_telegraph": {
+      "path": "s-1901/options_telegraph.png",
+      "size": [
+        424,
+        240
+      ],
+      "source": "settings-overlays"
+    },
+    "s-1901/options_enemy_bolt": {
+      "path": "s-1901/options_enemy_bolt.png",
+      "size": [
+        424,
+        240
+      ],
+      "source": "settings-overlays"
+    },
+    "s-1901/options_player_bolt": {
+      "path": "s-1901/options_player_bolt.png",
+      "size": [
+        424,
+        240
+      ],
+      "source": "settings-overlays"
+    },
+    "s-1901/options_hatching": {
+      "path": "s-1901/options_hatching.png",
+      "size": [
+        424,
+        240
+      ],
+      "source": "settings-overlays"
+    },
+    "s-1901/options_shake": {
+      "path": "s-1901/options_shake.png",
+      "size": [
+        424,
+        240
+      ],
+      "source": "settings-overlays"
+    },
+    "s-1901/options_flash": {
+      "path": "s-1901/options_flash.png",
+      "size": [
+        424,
+        240
+      ],
+      "source": "settings-overlays"
+    },
+    "s-0902/versus_03": {
+      "path": "s-0902/versus_03.png",
+      "size": [
+        256,
+        160
+      ],
+      "source": "settings-overlays"
+    },
+    "i-f1/expedition": {
+      "path": "i-f1/expedition.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "navigation"
+    },
+    "i-f1/duel": {
+      "path": "i-f1/duel.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "navigation"
+    },
+    "i-f1/plaza": {
+      "path": "i-f1/plaza.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "navigation"
+    },
+    "i-f1/enhance": {
+      "path": "i-f1/enhance.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "navigation"
+    },
+    "i-f1/assembly": {
+      "path": "i-f1/assembly.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "navigation"
+    },
+    "i-f1/training": {
+      "path": "i-f1/training.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "navigation"
+    },
+    "i-f1/records": {
+      "path": "i-f1/records.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "navigation"
+    },
+    "i-f1/settings": {
+      "path": "i-f1/settings.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "navigation"
+    },
+    "i-f1/wardrobe": {
+      "path": "i-f1/wardrobe.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "navigation"
+    },
+    "i-f1/shop": {
+      "path": "i-f1/shop.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "navigation"
+    },
+    "i-f1/mail": {
+      "path": "i-f1/mail.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "navigation"
+    },
+    "i-f1/rankings": {
+      "path": "i-f1/rankings.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "navigation"
+    },
+    "i-f1/season": {
+      "path": "i-f1/season.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "navigation"
+    },
+    "i-f1/friends": {
+      "path": "i-f1/friends.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "navigation"
+    },
+    "i-f1/market": {
+      "path": "i-f1/market.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "navigation"
+    },
+    "i-f1/exit": {
+      "path": "i-f1/exit.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "navigation"
+    },
+    "i-f2/search": {
+      "path": "i-f2/search.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-a"
+    },
+    "i-f2/sort": {
+      "path": "i-f2/sort.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-a"
+    },
+    "i-f2/filter": {
+      "path": "i-f2/filter.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-a"
+    },
+    "i-f2/refresh": {
+      "path": "i-f2/refresh.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-a"
+    },
+    "i-f2/back": {
+      "path": "i-f2/back.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-a"
+    },
+    "i-f2/plus": {
+      "path": "i-f2/plus.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-a"
+    },
+    "i-f2/minus": {
+      "path": "i-f2/minus.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-a"
+    },
+    "i-f2/info": {
+      "path": "i-f2/info.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-a"
+    },
+    "i-f2/warning": {
+      "path": "i-f2/warning.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-a"
+    },
+    "i-f2/question": {
+      "path": "i-f2/question.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-a"
+    },
+    "i-f2/eye": {
+      "path": "i-f2/eye.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-a"
+    },
+    "i-f2/eye_hidden": {
+      "path": "i-f2/eye_hidden.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-a"
+    },
+    "i-f2/clock": {
+      "path": "i-f2/clock.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-a"
+    },
+    "i-f2/hourglass": {
+      "path": "i-f2/hourglass.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-a"
+    },
+    "i-f2/play": {
+      "path": "i-f2/play.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-a"
+    },
+    "i-f2/pause": {
+      "path": "i-f2/pause.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-b"
+    },
+    "i-f2/spectate": {
+      "path": "i-f2/spectate.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-b"
+    },
+    "i-f2/copy": {
+      "path": "i-f2/copy.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-b"
+    },
+    "i-f2/delete": {
+      "path": "i-f2/delete.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-b"
+    },
+    "i-f2/pencil": {
+      "path": "i-f2/pencil.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-b"
+    },
+    "i-f2/pin": {
+      "path": "i-f2/pin.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-b"
+    },
+    "i-f3/whisper": {
+      "path": "i-f3/whisper.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-b"
+    },
+    "i-f3/add_friend": {
+      "path": "i-f3/add_friend.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-b"
+    },
+    "i-f3/friend": {
+      "path": "i-f3/friend.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-b"
+    },
+    "i-f3/block": {
+      "path": "i-f3/block.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-b"
+    },
+    "i-f3/report": {
+      "path": "i-f3/report.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-b"
+    },
+    "i-f3/trade": {
+      "path": "i-f3/trade.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-b"
+    },
+    "i-f3/duel": {
+      "path": "i-f3/duel.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-b"
+    },
+    "i-f3/follow": {
+      "path": "i-f3/follow.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-b"
+    },
+    "i-f3/inspect": {
+      "path": "i-f3/inspect.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-b"
+    },
+    "i-f3/invite": {
+      "path": "i-f3/invite.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-b"
+    },
+    "s-0201/title_background": {
+      "path": "s-0201/title_background.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "source": "title-background"
+    },
+    "s-0201/campfire_01": {
+      "path": "s-0201/campfire_01.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "fire-and-portraits"
+    },
+    "s-0201/campfire_02": {
+      "path": "s-0201/campfire_02.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "fire-and-portraits"
+    },
+    "s-0201/campfire_03": {
+      "path": "s-0201/campfire_03.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "fire-and-portraits"
+    },
+    "s-0201/campfire_04": {
+      "path": "s-0201/campfire_04.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "fire-and-portraits"
+    },
+    "s-2405/neuru_sleeping": {
+      "path": "s-2405/neuru_sleeping.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "fire-and-portraits"
+    },
+    "s-2405/neuru_one_eye": {
+      "path": "s-2405/neuru_one_eye.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "fire-and-portraits"
+    },
+    "s-2405/neuru_speaking_01": {
+      "path": "s-2405/neuru_speaking_01.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "fire-and-portraits"
+    },
+    "s-2405/neuru_speaking_02": {
+      "path": "s-2405/neuru_speaking_02.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "fire-and-portraits"
+    },
+    "s-2407/merchant_neutral": {
+      "path": "s-2407/merchant_neutral.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "fire-and-portraits"
+    },
+    "s-2407/merchant_speaking_01": {
+      "path": "s-2407/merchant_speaking_01.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "fire-and-portraits"
+    },
+    "s-2407/merchant_speaking_02": {
+      "path": "s-2407/merchant_speaking_02.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "fire-and-portraits"
+    },
+    "s-0801/wave_rail": {
+      "path": "s-0801/wave_rail.png",
+      "size": [
+        24,
+        12
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        8,
+        4,
+        8,
+        4
+      ],
+      "derivedFrom": "source/rounded_rail"
+    },
+    "s-0801/wave_fill": {
+      "path": "s-0801/wave_fill.png",
+      "size": [
+        24,
+        12
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        8,
+        4,
+        8,
+        4
+      ],
+      "derivedFrom": "source/rounded_fill"
+    },
+    "s-0803/boss_health_rail": {
+      "path": "s-0803/boss_health_rail.png",
+      "size": [
+        32,
+        16
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        10,
+        5,
+        10,
+        5
+      ],
+      "derivedFrom": "source/rounded_rail"
+    },
+    "s-0803/boss_health_fill": {
+      "path": "s-0803/boss_health_fill.png",
+      "size": [
+        32,
+        16
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        10,
+        5,
+        10,
+        5
+      ],
+      "derivedFrom": "source/rounded_fill"
+    },
+    "s-0903/duel_health_rail": {
+      "path": "s-0903/duel_health_rail.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "derivedFrom": "source/rounded_rail"
+    },
+    "s-0903/duel_health_fill": {
+      "path": "s-0903/duel_health_fill.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "derivedFrom": "source/rounded_fill"
+    },
+    "s-1201/odds_rail": {
+      "path": "s-1201/odds_rail.png",
+      "size": [
+        16,
+        24
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        5,
+        8,
+        5,
+        8
+      ],
+      "derivedFrom": "source/square_rail"
+    },
+    "s-1201/odds_fill": {
+      "path": "s-1201/odds_fill.png",
+      "size": [
+        16,
+        24
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        5,
+        8,
+        5,
+        8
+      ],
+      "derivedFrom": "source/rounded_fill"
+    },
+    "s-1401/timing_rail": {
+      "path": "s-1401/timing_rail.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "derivedFrom": "source/rounded_rail"
+    },
+    "s-2406/heir_score_rail": {
+      "path": "s-2406/heir_score_rail.png",
+      "size": [
+        16,
+        24
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        5,
+        8,
+        5,
+        8
+      ],
+      "derivedFrom": "source/square_rail"
+    },
+    "s-2502/item_level_rail": {
+      "path": "s-2502/item_level_rail.png",
+      "size": [
+        16,
+        32
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        5,
+        10,
+        5,
+        10
+      ],
+      "derivedFrom": "source/square_rail"
+    },
+    "s-2502/item_level_fill": {
+      "path": "s-2502/item_level_fill.png",
+      "size": [
+        16,
+        32
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        5,
+        10,
+        5,
+        10
+      ],
+      "derivedFrom": "source/rounded_fill"
+    },
+    "s-1402/just_rail": {
+      "path": "s-1402/just_rail.png",
+      "size": [
+        192,
+        24
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/square_rail"
+    },
+    "s-2105/waiting_banner": {
+      "path": "s-2105/waiting_banner.png",
+      "size": [
+        240,
+        48
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/square_rail"
+    },
+    "s-0803/boss_health_tick": {
+      "path": "s-0803/boss_health_tick.png",
+      "size": [
+        4,
+        16
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/gauge_tick"
+    },
+    "s-0903/duel_health_tick": {
+      "path": "s-0903/duel_health_tick.png",
+      "size": [
+        4,
+        32
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/gauge_tick"
+    },
+    "s-1201/odds_boundary": {
+      "path": "s-1201/odds_boundary.png",
+      "size": [
+        16,
+        24
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/gauge_tick"
+    },
+    "s-2502/item_level_tick": {
+      "path": "s-2502/item_level_tick.png",
+      "size": [
+        8,
+        48
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/gauge_tick"
+    },
+    "s-1401/timing_marker_valid": {
+      "path": "s-1401/timing_marker_valid.png",
+      "size": [
+        8,
+        16
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/gauge_tick"
+    },
+    "s-1401/timing_marker_late": {
+      "path": "s-1401/timing_marker_late.png",
+      "size": [
+        8,
+        16
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-1401/timing_marker_valid",
+      "note": "warning"
+    },
+    "s-0903/duel_health_recent": {
+      "path": "s-0903/duel_health_recent.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "derivedFrom": "s-0903/duel_health_fill",
+      "note": "disabled"
+    },
+    "s-0802/portrait_hit": {
+      "path": "s-0802/portrait_hit.png",
+      "size": [
+        72,
+        72
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-0802/portrait_normal",
+      "note": "hover"
+    },
+    "s-0803/enrage_ember_02": {
+      "path": "s-0803/enrage_ember_02.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "small-screen-glyphs",
+      "derivedFrom": "s-0803/enrage_ember_01",
+      "note": "hover"
+    },
+    "s-0905/thorn_warning_02": {
+      "path": "s-0905/thorn_warning_02.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "small-screen-glyphs",
+      "derivedFrom": "s-0905/thorn_warning_01",
+      "note": "warning"
+    },
+    "s-0601/character_card_selected": {
+      "path": "s-0601/character_card_selected.png",
+      "size": [
+        336,
+        376
+      ],
+      "source": "screen-boards",
+      "derivedFrom": "s-0601/character_card_normal",
+      "note": "selected"
+    },
+    "s-2306/catalog_card_sold_out": {
+      "path": "s-2306/catalog_card_sold_out.png",
+      "size": [
+        216,
+        280
+      ],
+      "source": "market-and-wardrobe",
+      "derivedFrom": "s-2306/catalog_card_normal",
+      "note": "disabled"
+    },
+    "s-1701/result_banner_draw": {
+      "path": "s-1701/result_banner_draw.png",
+      "size": [
+        1200,
+        120
+      ],
+      "source": "rank-cards-and-wheels",
+      "derivedFrom": "s-1701/result_banner_defeat",
+      "note": "hover"
+    },
+    "s-1701/result_banner_victory": {
+      "path": "s-1701/result_banner_victory.png",
+      "size": [
+        1200,
+        120
+      ],
+      "source": "rank-cards-and-wheels",
+      "derivedFrom": "s-1701/result_banner_defeat",
+      "note": "Neutral lavender carrier for victory accent; apply character element tint in UI"
+    },
+    "s-0302/password_eye": {
+      "path": "s-0302/password_eye.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-a",
+      "derivedFrom": "i-f2/eye"
+    },
+    "s-0302/password_eye_hidden": {
+      "path": "s-0302/password_eye_hidden.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-a",
+      "derivedFrom": "i-f2/eye_hidden"
+    },
+    "s-0302/password_dot": {
+      "path": "s-0302/password_dot.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "utility-a",
+      "derivedFrom": "i-f2/eye",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "s-0904/round_empty": {
+      "path": "s-0904/round_empty.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_fill",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "s-0904/round_player": {
+      "path": "s-0904/round_player.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_fill",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "s-0904/round_opponent": {
+      "path": "s-0904/round_opponent.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_fill",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "s-0904/round_draw": {
+      "path": "s-0904/round_draw.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_fill",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "s-1203/engraving_tick_empty": {
+      "path": "s-1203/engraving_tick_empty.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_fill",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "s-1203/engraving_tick_filled": {
+      "path": "s-1203/engraving_tick_filled.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_fill",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "s-0902/versus_01": {
+      "path": "s-0902/versus_01.png",
+      "size": [
+        256,
+        160
+      ],
+      "source": "settings-overlays",
+      "derivedFrom": "s-0902/versus_03",
+      "note": "Progressive chalk draw reveal"
+    },
+    "s-0902/versus_02": {
+      "path": "s-0902/versus_02.png",
+      "size": [
+        256,
+        160
+      ],
+      "source": "settings-overlays",
+      "derivedFrom": "s-0902/versus_03",
+      "note": "Progressive chalk draw reveal"
+    },
+    "s-1002/loot_flip_01": {
+      "path": "s-1002/loot_flip_01.png",
+      "size": [
+        240,
+        336
+      ],
+      "source": "screen-boards",
+      "derivedFrom": "s-1001/loot_back",
+      "note": "Horizontal foreshortening of card face"
+    },
+    "s-1002/loot_flip_02": {
+      "path": "s-1002/loot_flip_02.png",
+      "size": [
+        240,
+        336
+      ],
+      "source": "screen-boards",
+      "derivedFrom": "s-1001/loot_back",
+      "note": "Horizontal foreshortening of card face"
+    },
+    "s-1002/loot_flip_03": {
+      "path": "s-1002/loot_flip_03.png",
+      "size": [
+        240,
+        336
+      ],
+      "source": "screen-boards",
+      "derivedFrom": "s-1001/loot_front",
+      "note": "Horizontal foreshortening of card face"
+    },
+    "s-2102/room_note_normal": {
+      "path": "s-2102/room_note_normal.png",
+      "size": [
+        48,
+        56
+      ],
+      "source": "screen-boards",
+      "nineSlice": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "derivedFrom": "s-1001/loot_front"
+    },
+    "s-2102/room_note_full": {
+      "path": "s-2102/room_note_full.png",
+      "size": [
+        48,
+        56
+      ],
+      "source": "screen-boards",
+      "nineSlice": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "derivedFrom": "s-1001/loot_back"
+    },
+    "s-2103/ready_not_ready": {
+      "path": "s-2103/ready_not_ready.png",
+      "size": [
+        96,
+        32
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_rail",
+      "note": "normal"
+    },
+    "s-2103/ready_ready": {
+      "path": "s-2103/ready_ready.png",
+      "size": [
+        96,
+        32
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/square_rail",
+      "note": "hover"
+    },
+    "s-2105/waiting_hourglass_04": {
+      "path": "s-2105/waiting_hourglass_04.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "small-screen-glyphs",
+      "derivedFrom": "s-2105/waiting_hourglass_03",
+      "note": "hover"
+    },
+    "s-2004/typing_ellipsis_01": {
+      "path": "s-2004/typing_ellipsis_01.png",
+      "size": [
+        24,
+        16
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_fill",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "s-2004/typing_ellipsis_02": {
+      "path": "s-2004/typing_ellipsis_02.png",
+      "size": [
+        24,
+        16
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_fill",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "s-2004/typing_ellipsis_03": {
+      "path": "s-2004/typing_ellipsis_03.png",
+      "size": [
+        24,
+        16
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_fill",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "s-2001/nameplate_other": {
+      "path": "s-2001/nameplate_other.png",
+      "size": [
+        24,
+        20
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        7,
+        6,
+        7,
+        6
+      ],
+      "derivedFrom": "source/square_rail",
+      "note": "normal"
+    },
+    "s-2001/nameplate_self": {
+      "path": "s-2001/nameplate_self.png",
+      "size": [
+        24,
+        20
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        7,
+        6,
+        7,
+        6
+      ],
+      "derivedFrom": "source/square_rail",
+      "note": "hover"
+    },
+    "s-2001/nameplate_friend": {
+      "path": "s-2001/nameplate_friend.png",
+      "size": [
+        24,
+        20
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        7,
+        6,
+        7,
+        6
+      ],
+      "derivedFrom": "source/square_rail",
+      "note": "normal"
+    },
+    "s-2006/item_nameplate": {
+      "path": "s-2006/item_nameplate.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        7,
+        7,
+        7,
+        7
+      ],
+      "derivedFrom": "source/square_rail",
+      "note": "normal"
+    },
+    "s-2007/facility_sign": {
+      "path": "s-2007/facility_sign.png",
+      "size": [
+        48,
+        32
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        14,
+        10,
+        14,
+        10
+      ],
+      "derivedFrom": "source/square_rail",
+      "note": "normal"
+    },
+    "s-1903/title_row_ordinary": {
+      "path": "s-1903/title_row_ordinary.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "derivedFrom": "source/square_rail",
+      "note": "normal"
+    },
+    "s-1903/title_row_thirteen": {
+      "path": "s-1903/title_row_thirteen.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "derivedFrom": "source/square_rail",
+      "note": "warning"
+    },
+    "s-1903/title_row_heir": {
+      "path": "s-1903/title_row_heir.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "derivedFrom": "source/square_rail",
+      "note": "warning"
+    },
+    "s-2002/title_ribbon_ordinary": {
+      "path": "s-2002/title_ribbon_ordinary.png",
+      "size": [
+        32,
+        16
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        10,
+        5,
+        10,
+        5
+      ],
+      "derivedFrom": "source/square_rail",
+      "note": "normal"
+    },
+    "s-2002/title_ribbon_thirteen": {
+      "path": "s-2002/title_ribbon_thirteen.png",
+      "size": [
+        32,
+        16
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        10,
+        5,
+        10,
+        5
+      ],
+      "derivedFrom": "source/square_rail",
+      "note": "warning"
+    },
+    "s-2002/title_ribbon_heir": {
+      "path": "s-2002/title_ribbon_heir.png",
+      "size": [
+        32,
+        16
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        10,
+        5,
+        10,
+        5
+      ],
+      "derivedFrom": "source/square_rail",
+      "note": "warning"
+    },
+    "s-2002/title_ribbon_disciple": {
+      "path": "s-2002/title_ribbon_disciple.png",
+      "size": [
+        32,
+        16
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        10,
+        5,
+        10,
+        5
+      ],
+      "derivedFrom": "source/square_rail",
+      "note": "normal"
+    },
+    "s-2503/leaderboard_row_normal": {
+      "path": "s-2503/leaderboard_row_normal.png",
+      "size": [
+        48,
+        56
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "derivedFrom": "source/square_rail",
+      "note": "normal"
+    },
+    "s-2503/leaderboard_row_alternate": {
+      "path": "s-2503/leaderboard_row_alternate.png",
+      "size": [
+        48,
+        56
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "derivedFrom": "source/square_rail",
+      "note": "soft"
+    },
+    "s-2503/leaderboard_row_you": {
+      "path": "s-2503/leaderboard_row_you.png",
+      "size": [
+        48,
+        56
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "derivedFrom": "source/square_rail",
+      "note": "hover"
+    },
+    "s-2503/leaderboard_row_top_three": {
+      "path": "s-2503/leaderboard_row_top_three.png",
+      "size": [
+        48,
+        56
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "derivedFrom": "source/square_rail",
+      "note": "warning"
+    },
+    "s-2505/monument_inscription_ordinary": {
+      "path": "s-2505/monument_inscription_ordinary.png",
+      "size": [
+        48,
+        72
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "derivedFrom": "source/square_rail",
+      "note": "normal"
+    },
+    "s-2505/monument_inscription_latest": {
+      "path": "s-2505/monument_inscription_latest.png",
+      "size": [
+        48,
+        72
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "derivedFrom": "source/square_rail",
+      "note": "hover"
+    },
+    "s-2005/bubble_nearby": {
+      "path": "s-2005/bubble_nearby.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "screen-boards",
+      "nineSlice": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "derivedFrom": "s-1001/loot_front",
+      "note": "normal"
+    },
+    "s-2005/bubble_tail_nearby": {
+      "path": "s-2005/bubble_tail_nearby.png",
+      "size": [
+        12,
+        8
+      ],
+      "source": "screen-boards",
+      "derivedFrom": "s-1001/loot_front",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "s-2005/bubble_system": {
+      "path": "s-2005/bubble_system.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "screen-boards",
+      "nineSlice": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "derivedFrom": "s-1001/loot_front",
+      "note": "hover"
+    },
+    "s-2005/bubble_tail_system": {
+      "path": "s-2005/bubble_tail_system.png",
+      "size": [
+        12,
+        8
+      ],
+      "source": "screen-boards",
+      "derivedFrom": "s-1001/loot_front",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "s-2302/trade_locking_01": {
+      "path": "s-2302/trade_locking_01.png",
+      "size": [
+        96,
+        96
+      ],
+      "source": "market-and-wardrobe",
+      "derivedFrom": "s-2302/trade_lock_open",
+      "note": "normal"
+    },
+    "s-2302/trade_locking_02": {
+      "path": "s-2302/trade_locking_02.png",
+      "size": [
+        96,
+        96
+      ],
+      "source": "market-and-wardrobe",
+      "derivedFrom": "s-2302/trade_lock_locked",
+      "note": "hover"
+    },
+    "s-2302/trade_locking_03": {
+      "path": "s-2302/trade_locking_03.png",
+      "size": [
+        96,
+        96
+      ],
+      "source": "market-and-wardrobe",
+      "derivedFrom": "s-2302/trade_lock_locked",
+      "note": "Settling lock with chalk snap marks"
+    },
+    "s-2303/trade_changed_slot_01": {
+      "path": "s-2303/trade_changed_slot_01.png",
+      "size": [
+        72,
+        72
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-1104/omitted_node",
+      "note": "hover"
+    },
+    "s-2303/trade_changed_slot_02": {
+      "path": "s-2303/trade_changed_slot_02.png",
+      "size": [
+        72,
+        72
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-1104/omitted_node",
+      "note": "soft"
+    },
+    "s-2301/trade_mat_locked": {
+      "path": "s-2301/trade_mat_locked.png",
+      "size": [
+        640,
+        520
+      ],
+      "source": "market-and-wardrobe",
+      "derivedFrom": "s-2301/trade_mat_open",
+      "note": "Added two rope ties to woven mat"
+    },
+    "s-2305/shop_banner_cart": {
+      "path": "s-2305/shop_banner_cart.png",
+      "size": [
+        1200,
+        96
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/square_rail"
+    },
+    "s-2305/shop_banner_chair": {
+      "path": "s-2305/shop_banner_chair.png",
+      "size": [
+        1200,
+        96
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/square_rail"
+    },
+    "s-2406/heir_score_expedition": {
+      "path": "s-2406/heir_score_expedition.png",
+      "size": [
+        16,
+        24
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        5,
+        8,
+        5,
+        8
+      ],
+      "derivedFrom": "source/rounded_fill",
+      "note": "Apply distinct hatch/dot pattern through UI"
+    },
+    "s-2406/heir_score_pvp": {
+      "path": "s-2406/heir_score_pvp.png",
+      "size": [
+        16,
+        24
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        5,
+        8,
+        5,
+        8
+      ],
+      "derivedFrom": "source/rounded_fill",
+      "note": "Apply distinct hatch/dot pattern through UI"
+    },
+    "sheets/title-campfire": {
+      "path": "sheets/title-campfire.png",
+      "size": [
+        512,
+        128
+      ],
+      "source": "fire-and-portraits",
+      "derivedFrom": "s-0201/campfire_01",
+      "cell": [
+        128,
+        128
+      ],
+      "columns": 4,
+      "frames": [
+        {
+          "path": "s-0201/campfire_01.png",
+          "rect": [
+            0,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "path": "s-0201/campfire_02.png",
+          "rect": [
+            128,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "path": "s-0201/campfire_03.png",
+          "rect": [
+            256,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "path": "s-0201/campfire_04.png",
+          "rect": [
+            384,
+            0,
+            128,
+            128
+          ]
+        }
+      ],
+      "frameDurationMs": 125
+    },
+    "s-0501/campfire_01": {
+      "path": "s-0501/campfire_01.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "fire-and-portraits",
+      "derivedFrom": "s-0201/campfire_01"
+    },
+    "s-0501/campfire_02": {
+      "path": "s-0501/campfire_02.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "fire-and-portraits",
+      "derivedFrom": "s-0201/campfire_02"
+    },
+    "s-0501/campfire_03": {
+      "path": "s-0501/campfire_03.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "fire-and-portraits",
+      "derivedFrom": "s-0201/campfire_03"
+    },
+    "s-0501/campfire_04": {
+      "path": "s-0501/campfire_04.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "fire-and-portraits",
+      "derivedFrom": "s-0201/campfire_04"
+    },
+    "sheets/menu-campfire": {
+      "path": "sheets/menu-campfire.png",
+      "size": [
+        512,
+        128
+      ],
+      "source": "fire-and-portraits",
+      "derivedFrom": "s-0501/campfire_01",
+      "cell": [
+        128,
+        128
+      ],
+      "columns": 4,
+      "frames": [
+        {
+          "path": "s-0501/campfire_01.png",
+          "rect": [
+            0,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "path": "s-0501/campfire_02.png",
+          "rect": [
+            128,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "path": "s-0501/campfire_03.png",
+          "rect": [
+            256,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "path": "s-0501/campfire_04.png",
+          "rect": [
+            384,
+            0,
+            128,
+            128
+          ]
+        }
+      ],
+      "frameDurationMs": 125
+    },
+    "sheets/s-0803-enrage_ember": {
+      "path": "sheets/s-0803-enrage_ember.png",
+      "size": [
+        32,
+        16
+      ],
+      "source": "small-screen-glyphs",
+      "derivedFrom": "s-0803/enrage_ember_01",
+      "cell": [
+        16,
+        16
+      ],
+      "columns": 2,
+      "frames": [
+        {
+          "path": "s-0803/enrage_ember_01.png",
+          "rect": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        {
+          "path": "s-0803/enrage_ember_02.png",
+          "rect": [
+            16,
+            0,
+            16,
+            16
+          ]
+        }
+      ],
+      "frameDurationMs": 100
+    },
+    "sheets/s-0902-versus": {
+      "path": "sheets/s-0902-versus.png",
+      "size": [
+        768,
+        160
+      ],
+      "source": "settings-overlays",
+      "derivedFrom": "s-0902/versus_01",
+      "cell": [
+        256,
+        160
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "path": "s-0902/versus_01.png",
+          "rect": [
+            0,
+            0,
+            256,
+            160
+          ]
+        },
+        {
+          "path": "s-0902/versus_02.png",
+          "rect": [
+            256,
+            0,
+            256,
+            160
+          ]
+        },
+        {
+          "path": "s-0902/versus_03.png",
+          "rect": [
+            512,
+            0,
+            256,
+            160
+          ]
+        }
+      ],
+      "frameDurationMs": 100
+    },
+    "sheets/s-0905-thorn_warning": {
+      "path": "sheets/s-0905-thorn_warning.png",
+      "size": [
+        48,
+        24
+      ],
+      "source": "small-screen-glyphs",
+      "derivedFrom": "s-0905/thorn_warning_01",
+      "cell": [
+        24,
+        24
+      ],
+      "columns": 2,
+      "frames": [
+        {
+          "path": "s-0905/thorn_warning_01.png",
+          "rect": [
+            0,
+            0,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "s-0905/thorn_warning_02.png",
+          "rect": [
+            24,
+            0,
+            24,
+            24
+          ]
+        }
+      ],
+      "frameDurationMs": 100
+    },
+    "sheets/s-1002-loot_flip": {
+      "path": "sheets/s-1002-loot_flip.png",
+      "size": [
+        720,
+        336
+      ],
+      "source": "screen-boards",
+      "derivedFrom": "s-1002/loot_flip_01",
+      "cell": [
+        240,
+        336
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "path": "s-1002/loot_flip_01.png",
+          "rect": [
+            0,
+            0,
+            240,
+            336
+          ]
+        },
+        {
+          "path": "s-1002/loot_flip_02.png",
+          "rect": [
+            240,
+            0,
+            240,
+            336
+          ]
+        },
+        {
+          "path": "s-1002/loot_flip_03.png",
+          "rect": [
+            480,
+            0,
+            240,
+            336
+          ]
+        }
+      ],
+      "frameDurationMs": 100
+    },
+    "sheets/s-2004-typing_ellipsis": {
+      "path": "sheets/s-2004-typing_ellipsis.png",
+      "size": [
+        72,
+        16
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-2004/typing_ellipsis_01",
+      "cell": [
+        24,
+        16
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "path": "s-2004/typing_ellipsis_01.png",
+          "rect": [
+            0,
+            0,
+            24,
+            16
+          ]
+        },
+        {
+          "path": "s-2004/typing_ellipsis_02.png",
+          "rect": [
+            24,
+            0,
+            24,
+            16
+          ]
+        },
+        {
+          "path": "s-2004/typing_ellipsis_03.png",
+          "rect": [
+            48,
+            0,
+            24,
+            16
+          ]
+        }
+      ],
+      "frameDurationMs": 100
+    },
+    "sheets/s-2105-waiting_hourglass": {
+      "path": "sheets/s-2105-waiting_hourglass.png",
+      "size": [
+        96,
+        24
+      ],
+      "source": "small-screen-glyphs",
+      "derivedFrom": "s-2105/waiting_hourglass_01",
+      "cell": [
+        24,
+        24
+      ],
+      "columns": 4,
+      "frames": [
+        {
+          "path": "s-2105/waiting_hourglass_01.png",
+          "rect": [
+            0,
+            0,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "s-2105/waiting_hourglass_02.png",
+          "rect": [
+            24,
+            0,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "s-2105/waiting_hourglass_03.png",
+          "rect": [
+            48,
+            0,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "s-2105/waiting_hourglass_04.png",
+          "rect": [
+            72,
+            0,
+            24,
+            24
+          ]
+        }
+      ],
+      "frameDurationMs": 100
+    },
+    "sheets/s-2302-trade_locking": {
+      "path": "sheets/s-2302-trade_locking.png",
+      "size": [
+        288,
+        96
+      ],
+      "source": "market-and-wardrobe",
+      "derivedFrom": "s-2302/trade_locking_01",
+      "cell": [
+        96,
+        96
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "path": "s-2302/trade_locking_01.png",
+          "rect": [
+            0,
+            0,
+            96,
+            96
+          ]
+        },
+        {
+          "path": "s-2302/trade_locking_02.png",
+          "rect": [
+            96,
+            0,
+            96,
+            96
+          ]
+        },
+        {
+          "path": "s-2302/trade_locking_03.png",
+          "rect": [
+            192,
+            0,
+            96,
+            96
+          ]
+        }
+      ],
+      "frameDurationMs": 100
+    },
+    "sheets/s-2303-trade_changed_slot": {
+      "path": "sheets/s-2303-trade_changed_slot.png",
+      "size": [
+        144,
+        72
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-2303/trade_changed_slot_01",
+      "cell": [
+        72,
+        72
+      ],
+      "columns": 2,
+      "frames": [
+        {
+          "path": "s-2303/trade_changed_slot_01.png",
+          "rect": [
+            0,
+            0,
+            72,
+            72
+          ]
+        },
+        {
+          "path": "s-2303/trade_changed_slot_02.png",
+          "rect": [
+            72,
+            0,
+            72,
+            72
+          ]
+        }
+      ],
+      "frameDurationMs": 100
+    },
+    "sheets/s-2407-merchant": {
+      "path": "sheets/s-2407-merchant.png",
+      "size": [
+        384,
+        128
+      ],
+      "source": "fire-and-portraits",
+      "derivedFrom": "s-2407/merchant_neutral",
+      "cell": [
+        128,
+        128
+      ],
+      "columns": 3,
+      "frames": [
+        {
+          "path": "s-2407/merchant_neutral.png",
+          "rect": [
+            0,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "path": "s-2407/merchant_speaking_01.png",
+          "rect": [
+            128,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "path": "s-2407/merchant_speaking_02.png",
+          "rect": [
+            256,
+            0,
+            128,
+            128
+          ]
+        }
+      ],
+      "frameDurationMs": 100
+    },
+    "s-0203/launcher_icon_1024": {
+      "path": "s-0203/launcher_icon_1024.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "source": "launcher-size-specific"
+    },
+    "s-0203/launcher_icon_256": {
+      "path": "s-0203/launcher_icon_256.png",
+      "size": [
+        256,
+        256
+      ],
+      "source": "launcher-size-specific"
+    },
+    "s-0203/launcher_icon_64": {
+      "path": "s-0203/launcher_icon_64.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "launcher-size-specific"
+    },
+    "s-0203/launcher_icon_32": {
+      "path": "s-0203/launcher_icon_32.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "launcher-size-specific"
+    },
+    "i-e1/fire": {
+      "path": "i-e1/fire.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "currency-and-elements"
+    },
+    "i-e1/ice": {
+      "path": "i-e1/ice.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "currency-and-elements"
+    },
+    "i-e1/lightning": {
+      "path": "i-e1/lightning.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "currency-and-elements"
+    },
+    "i-e1/arcane": {
+      "path": "i-e1/arcane.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "currency-and-elements"
+    },
+    "i-e1/shadow": {
+      "path": "i-e1/shadow.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "currency-and-elements"
+    },
+    "i-e1/neutral": {
+      "path": "i-e1/neutral.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "currency-and-elements"
+    },
+    "i-c3/gold": {
+      "path": "i-c3/gold.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "currency-and-elements"
+    },
+    "i-c3/expedition": {
+      "path": "i-c3/expedition.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "currency-and-elements"
+    },
+    "i-c3/season": {
+      "path": "i-c3/season.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "currency-and-elements"
+    },
+    "i-c3/starlight": {
+      "path": "i-c3/starlight.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "currency-and-elements"
+    },
+    "i-t4/crystal": {
+      "path": "i-t4/crystal.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "currency-and-elements"
+    },
+    "i-t4/debt": {
+      "path": "i-t4/debt.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "currency-and-elements"
+    },
+    "i-l3/sprout": {
+      "path": "i-l3/sprout.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "currency-and-elements"
+    },
+    "i-l3/beast": {
+      "path": "i-l3/beast.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "currency-and-elements"
+    },
+    "i-l3/heir": {
+      "path": "i-l3/heir.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "currency-and-elements"
+    },
+    "source/laurel": {
+      "path": "source/laurel.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "currency-and-elements"
+    },
+    "i-e2/fire": {
+      "path": "i-e2/fire.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "i-e1/fire"
+    },
+    "i-e2/ice": {
+      "path": "i-e2/ice.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "i-e1/ice"
+    },
+    "i-e2/lightning": {
+      "path": "i-e2/lightning.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "i-e1/lightning"
+    },
+    "i-e2/arcane": {
+      "path": "i-e2/arcane.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "i-e1/arcane"
+    },
+    "i-e2/shadow": {
+      "path": "i-e2/shadow.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "i-e1/shadow"
+    },
+    "i-e3/neutral": {
+      "path": "i-e3/neutral.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "i-e1/neutral"
+    },
+    "i-c1/gold": {
+      "path": "i-c1/gold.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "i-c3/gold"
+    },
+    "i-c1/expedition": {
+      "path": "i-c1/expedition.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "i-c3/expedition"
+    },
+    "i-c1/season": {
+      "path": "i-c1/season.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "i-c3/season"
+    },
+    "i-c1/starlight": {
+      "path": "i-c1/starlight.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "i-c3/starlight"
+    },
+    "i-c2/gold": {
+      "path": "i-c2/gold.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "i-c3/gold"
+    },
+    "i-c2/expedition": {
+      "path": "i-c2/expedition.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "i-c3/expedition"
+    },
+    "i-c2/season": {
+      "path": "i-c2/season.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "i-c3/season"
+    },
+    "i-c2/starlight": {
+      "path": "i-c2/starlight.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "i-c3/starlight"
+    },
+    "i-l1/sprout": {
+      "path": "i-l1/sprout.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "i-l3/sprout"
+    },
+    "i-l4/sprout_24": {
+      "path": "i-l4/sprout_24.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "source/laurel"
+    },
+    "i-l1/beast": {
+      "path": "i-l1/beast.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "i-l3/beast"
+    },
+    "i-l4/beast_24": {
+      "path": "i-l4/beast_24.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "source/laurel"
+    },
+    "i-l1/heir": {
+      "path": "i-l1/heir.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "i-l3/heir"
+    },
+    "i-l4/heir_24": {
+      "path": "i-l4/heir_24.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "source/laurel"
+    },
+    "i-l5/season_24": {
+      "path": "i-l5/season_24.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "source/laurel"
+    },
+    "i-l2/sprout": {
+      "path": "i-l2/sprout.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "i-l3/sprout"
+    },
+    "i-l4/sprout_48": {
+      "path": "i-l4/sprout_48.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "source/laurel"
+    },
+    "i-l2/beast": {
+      "path": "i-l2/beast.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "i-l3/beast"
+    },
+    "i-l4/beast_48": {
+      "path": "i-l4/beast_48.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "source/laurel"
+    },
+    "i-l2/heir": {
+      "path": "i-l2/heir.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "i-l3/heir"
+    },
+    "i-l4/heir_48": {
+      "path": "i-l4/heir_48.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "source/laurel"
+    },
+    "i-l5/season_48": {
+      "path": "i-l5/season_48.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "source/laurel"
+    },
+    "i-l4/sprout_128": {
+      "path": "i-l4/sprout_128.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "source/laurel"
+    },
+    "i-l4/beast_128": {
+      "path": "i-l4/beast_128.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "source/laurel"
+    },
+    "i-l4/heir_128": {
+      "path": "i-l4/heir_128.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "source/laurel"
+    },
+    "k-04/title_band": {
+      "path": "k-04/title_band.png",
+      "size": [
+        96,
+        48
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        24,
+        16,
+        24,
+        16
+      ]
+    },
+    "k-06/footer_band": {
+      "path": "k-06/footer_band.png",
+      "size": [
+        96,
+        48
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        24,
+        16,
+        24,
+        16
+      ]
+    },
+    "k-08/tooltip": {
+      "path": "k-08/tooltip.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "k-09/tooltip_tail": {
+      "path": "k-09/tooltip_tail.png",
+      "size": [
+        12,
+        8
+      ],
+      "source": "common-plates"
+    },
+    "k-11/toast": {
+      "path": "k-11/toast.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "k-12/feather": {
+      "path": "k-12/feather.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "common-plates"
+    },
+    "k-12/clothespin": {
+      "path": "k-12/clothespin.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "common-plates"
+    },
+    "k-12/chalk": {
+      "path": "k-12/chalk.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "common-plates"
+    },
+    "k-20/normal": {
+      "path": "k-20/normal.png",
+      "size": [
+        48,
+        64
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        14,
+        14,
+        14,
+        14
+      ]
+    },
+    "k-23/normal": {
+      "path": "k-23/normal.png",
+      "size": [
+        48,
+        64
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        14,
+        14,
+        14,
+        14
+      ]
+    },
+    "k-24/normal": {
+      "path": "k-24/normal.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        14,
+        14,
+        14,
+        14
+      ]
+    },
+    "k-25/normal": {
+      "path": "k-25/normal.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        14,
+        14,
+        14,
+        14
+      ]
+    },
+    "k-26/normal": {
+      "path": "k-26/normal.png",
+      "size": [
+        48,
+        56
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        14,
+        14,
+        14,
+        14
+      ]
+    },
+    "k-27/off": {
+      "path": "k-27/off.png",
+      "size": [
+        48,
+        24
+      ],
+      "source": "common-plates"
+    },
+    "k-27/on": {
+      "path": "k-27/on.png",
+      "size": [
+        48,
+        24
+      ],
+      "source": "common-plates"
+    },
+    "k-50/normal": {
+      "path": "k-50/normal.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        7,
+        7,
+        7,
+        7
+      ]
+    },
+    "source/slot_empty": {
+      "path": "source/slot_empty.png",
+      "size": [
+        80,
+        80
+      ],
+      "source": "kit-slots"
+    },
+    "k-60/filled": {
+      "path": "k-60/filled.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "kit-slots"
+    },
+    "k-43/lock_24": {
+      "path": "k-43/lock_24.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "kit-slots"
+    },
+    "k-64/open": {
+      "path": "k-64/open.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "kit-slots"
+    },
+    "k-63/empty": {
+      "path": "k-63/empty.png",
+      "size": [
+        72,
+        72
+      ],
+      "source": "kit-slots"
+    },
+    "k-66/common": {
+      "path": "k-66/common.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "kit-slots"
+    },
+    "k-66/rare": {
+      "path": "k-66/rare.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "kit-slots"
+    },
+    "k-66/heroic": {
+      "path": "k-66/heroic.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "kit-slots"
+    },
+    "k-69/slot": {
+      "path": "k-69/slot.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "kit-slots"
+    },
+    "k-80/filled": {
+      "path": "k-80/filled.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "kit-slots"
+    },
+    "k-32/normal": {
+      "path": "k-32/normal.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "kit-slots"
+    },
+    "source/selection_corner": {
+      "path": "source/selection_corner.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "kit-slots"
+    },
+    "k-41/check_24": {
+      "path": "k-41/check_24.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "kit-slots"
+    },
+    "k-35/normal": {
+      "path": "k-35/normal.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "kit-slots"
+    },
+    "k-81/benefit": {
+      "path": "k-81/benefit.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "kit-slots"
+    },
+    "k-54/just_24": {
+      "path": "k-54/just_24.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "glyphs-and-badges"
+    },
+    "k-05/screen_title": {
+      "path": "k-05/screen_title.png",
+      "size": [
+        96,
+        80
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "derivedFrom": "k-04/title_band"
+    },
+    "k-22/normal": {
+      "path": "k-22/normal.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "derivedFrom": "k-20/normal"
+    },
+    "k-31/normal": {
+      "path": "k-31/normal.png",
+      "size": [
+        48,
+        40
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        13,
+        16,
+        13
+      ],
+      "derivedFrom": "k-08/tooltip"
+    },
+    "k-33/normal": {
+      "path": "k-33/normal.png",
+      "size": [
+        48,
+        40
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        13,
+        16,
+        13
+      ],
+      "derivedFrom": "k-08/tooltip"
+    },
+    "k-36/rail": {
+      "path": "k-36/rail.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "derivedFrom": "source/square_rail"
+    },
+    "k-36/fill": {
+      "path": "k-36/fill.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "derivedFrom": "source/rounded_fill"
+    },
+    "k-45/number_tag": {
+      "path": "k-45/number_tag.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "derivedFrom": "k-08/tooltip"
+    },
+    "k-46/chip": {
+      "path": "k-46/chip.png",
+      "size": [
+        24,
+        16
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        8,
+        5,
+        8,
+        5
+      ],
+      "derivedFrom": "k-04/title_band"
+    },
+    "k-51/normal": {
+      "path": "k-51/normal.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "derivedFrom": "k-50/normal"
+    },
+    "k-61/empty": {
+      "path": "k-61/empty.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "source/slot_empty"
+    },
+    "k-61/filled": {
+      "path": "k-61/filled.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-60/filled"
+    },
+    "k-62/empty": {
+      "path": "k-62/empty.png",
+      "size": [
+        80,
+        80
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "source/slot_empty"
+    },
+    "k-62/filled": {
+      "path": "k-62/filled.png",
+      "size": [
+        80,
+        80
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-60/filled"
+    },
+    "k-63/filled": {
+      "path": "k-63/filled.png",
+      "size": [
+        72,
+        72
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-63/empty"
+    },
+    "k-64/absent": {
+      "path": "k-64/absent.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-69/slot"
+    },
+    "k-69/card": {
+      "path": "k-69/card.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "kit-slots",
+      "nineSlice": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "derivedFrom": "k-69/slot"
+    },
+    "k-70/off": {
+      "path": "k-70/off.png",
+      "size": [
+        40,
+        40
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "source/slot_empty"
+    },
+    "k-80/empty": {
+      "path": "k-80/empty.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "source/slot_empty"
+    },
+    "k-80/oldest": {
+      "path": "k-80/oldest.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-69/slot"
+    },
+    "s-2403/cosmetic_slot_normal": {
+      "path": "s-2403/cosmetic_slot_normal.png",
+      "size": [
+        96,
+        96
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "source/slot_empty"
+    },
+    "s-1108/library_slot_normal": {
+      "path": "s-1108/library_slot_normal.png",
+      "size": [
+        96,
+        112
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-60/filled"
+    },
+    "s-1303/unlock_candidate": {
+      "path": "s-1303/unlock_candidate.png",
+      "size": [
+        320,
+        320
+      ],
+      "source": "screen-boards",
+      "derivedFrom": "s-1001/loot_front"
+    },
+    "k-20/hover": {
+      "path": "k-20/hover.png",
+      "size": [
+        48,
+        64
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        21,
+        16,
+        21
+      ],
+      "derivedFrom": "k-20/normal",
+      "note": "hover"
+    },
+    "k-20/pressed": {
+      "path": "k-20/pressed.png",
+      "size": [
+        48,
+        64
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        21,
+        16,
+        21
+      ],
+      "derivedFrom": "k-20/normal",
+      "note": "pressed"
+    },
+    "k-20/disabled": {
+      "path": "k-20/disabled.png",
+      "size": [
+        48,
+        64
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        21,
+        16,
+        21
+      ],
+      "derivedFrom": "k-20/normal",
+      "note": "disabled"
+    },
+    "k-22/hover": {
+      "path": "k-22/hover.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "derivedFrom": "k-22/normal",
+      "note": "hover"
+    },
+    "k-22/pressed": {
+      "path": "k-22/pressed.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "derivedFrom": "k-22/normal",
+      "note": "pressed"
+    },
+    "k-22/disabled": {
+      "path": "k-22/disabled.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "derivedFrom": "k-22/normal",
+      "note": "disabled"
+    },
+    "k-23/hover": {
+      "path": "k-23/hover.png",
+      "size": [
+        48,
+        64
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        21,
+        16,
+        21
+      ],
+      "derivedFrom": "k-23/normal",
+      "note": "hover"
+    },
+    "k-23/pressed": {
+      "path": "k-23/pressed.png",
+      "size": [
+        48,
+        64
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        21,
+        16,
+        21
+      ],
+      "derivedFrom": "k-23/normal",
+      "note": "pressed"
+    },
+    "k-23/disabled": {
+      "path": "k-23/disabled.png",
+      "size": [
+        48,
+        64
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        21,
+        16,
+        21
+      ],
+      "derivedFrom": "k-23/normal",
+      "note": "disabled"
+    },
+    "k-24/hover": {
+      "path": "k-24/hover.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "derivedFrom": "k-24/normal",
+      "note": "hover"
+    },
+    "k-24/pressed": {
+      "path": "k-24/pressed.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "derivedFrom": "k-24/normal",
+      "note": "pressed"
+    },
+    "k-24/disabled": {
+      "path": "k-24/disabled.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "derivedFrom": "k-24/normal",
+      "note": "disabled"
+    },
+    "k-25/hover": {
+      "path": "k-25/hover.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "derivedFrom": "k-25/normal",
+      "note": "hover"
+    },
+    "k-25/selected": {
+      "path": "k-25/selected.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "derivedFrom": "k-25/normal",
+      "note": "selected"
+    },
+    "k-25/disabled": {
+      "path": "k-25/disabled.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "derivedFrom": "k-25/normal",
+      "note": "disabled"
+    },
+    "k-26/hover": {
+      "path": "k-26/hover.png",
+      "size": [
+        48,
+        56
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        18,
+        16,
+        18
+      ],
+      "derivedFrom": "k-26/normal",
+      "note": "hover"
+    },
+    "k-26/selected": {
+      "path": "k-26/selected.png",
+      "size": [
+        48,
+        56
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        18,
+        16,
+        18
+      ],
+      "derivedFrom": "k-26/normal",
+      "note": "selected"
+    },
+    "k-31/hover": {
+      "path": "k-31/hover.png",
+      "size": [
+        48,
+        40
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        13,
+        16,
+        13
+      ],
+      "derivedFrom": "k-31/normal",
+      "note": "hover"
+    },
+    "k-31/selected": {
+      "path": "k-31/selected.png",
+      "size": [
+        48,
+        40
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        13,
+        16,
+        13
+      ],
+      "derivedFrom": "k-31/normal",
+      "note": "selected"
+    },
+    "k-32/hover": {
+      "path": "k-32/hover.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-32/normal",
+      "note": "hover"
+    },
+    "k-32/disabled": {
+      "path": "k-32/disabled.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-32/normal",
+      "note": "disabled"
+    },
+    "k-33/hover": {
+      "path": "k-33/hover.png",
+      "size": [
+        48,
+        40
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        13,
+        16,
+        13
+      ],
+      "derivedFrom": "k-33/normal",
+      "note": "hover"
+    },
+    "k-33/warning": {
+      "path": "k-33/warning.png",
+      "size": [
+        48,
+        40
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        13,
+        16,
+        13
+      ],
+      "derivedFrom": "k-33/normal",
+      "note": "warning"
+    },
+    "k-33/disabled": {
+      "path": "k-33/disabled.png",
+      "size": [
+        48,
+        40
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        13,
+        16,
+        13
+      ],
+      "derivedFrom": "k-33/normal",
+      "note": "disabled"
+    },
+    "k-35/hover": {
+      "path": "k-35/hover.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-35/normal",
+      "note": "hover"
+    },
+    "k-35/pressed": {
+      "path": "k-35/pressed.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-35/normal",
+      "note": "pressed"
+    },
+    "k-50/pressed": {
+      "path": "k-50/pressed.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "derivedFrom": "k-50/normal",
+      "note": "pressed"
+    },
+    "k-51/pressed": {
+      "path": "k-51/pressed.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "derivedFrom": "k-51/normal",
+      "note": "pressed"
+    },
+    "k-27/disabled": {
+      "path": "k-27/disabled.png",
+      "size": [
+        48,
+        24
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-27/off",
+      "note": "disabled"
+    },
+    "k-38/normal": {
+      "path": "k-38/normal.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-32/normal",
+      "note": "normal"
+    },
+    "k-38/hover": {
+      "path": "k-38/hover.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-38/normal",
+      "note": "hover"
+    },
+    "k-38/disabled": {
+      "path": "k-38/disabled.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-38/normal",
+      "note": "disabled"
+    },
+    "k-60/blocked": {
+      "path": "k-60/blocked.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-60/filled",
+      "note": "warning"
+    },
+    "k-62/locked": {
+      "path": "k-62/locked.png",
+      "size": [
+        80,
+        80
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-62/empty"
+    },
+    "s-2403/cosmetic_slot_equipped": {
+      "path": "s-2403/cosmetic_slot_equipped.png",
+      "size": [
+        96,
+        96
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "s-2403/cosmetic_slot_normal"
+    },
+    "s-1108/library_slot_empty": {
+      "path": "s-1108/library_slot_empty.png",
+      "size": [
+        96,
+        112
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "s-1108/library_slot_normal",
+      "note": "disabled"
+    },
+    "k-67/common": {
+      "path": "k-67/common.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-66/common"
+    },
+    "k-68/common": {
+      "path": "k-68/common.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "kit-slots",
+      "nineSlice": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "derivedFrom": "k-66/common"
+    },
+    "k-67/rare": {
+      "path": "k-67/rare.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-66/rare"
+    },
+    "k-68/rare": {
+      "path": "k-68/rare.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "kit-slots",
+      "nineSlice": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "derivedFrom": "k-66/rare"
+    },
+    "k-67/heroic": {
+      "path": "k-67/heroic.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-66/heroic"
+    },
+    "k-68/heroic": {
+      "path": "k-68/heroic.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "kit-slots",
+      "nineSlice": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "derivedFrom": "k-66/heroic"
+    },
+    "k-41/check_16": {
+      "path": "k-41/check_16.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-41/check_24"
+    },
+    "k-43/lock_16": {
+      "path": "k-43/lock_16.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-43/lock_24"
+    },
+    "k-81/cost": {
+      "path": "k-81/cost.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-81/benefit"
+    },
+    "k-40/corner_16_01": {
+      "path": "k-40/corner_16_01.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "source/selection_corner"
+    },
+    "k-40/corner_16_02": {
+      "path": "k-40/corner_16_02.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "source/selection_corner"
+    },
+    "k-40/corner_24_01": {
+      "path": "k-40/corner_24_01.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "source/selection_corner"
+    },
+    "k-40/corner_24_02": {
+      "path": "k-40/corner_24_02.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "source/selection_corner"
+    },
+    "k-40/corner_32_01": {
+      "path": "k-40/corner_32_01.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "source/selection_corner"
+    },
+    "k-40/corner_32_02": {
+      "path": "k-40/corner_32_02.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "source/selection_corner"
+    },
+    "k-44/campfire_01": {
+      "path": "k-44/campfire_01.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "fire-and-portraits",
+      "derivedFrom": "s-0201/campfire_01",
+      "note": "normal"
+    },
+    "k-44/campfire_02": {
+      "path": "k-44/campfire_02.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "fire-and-portraits",
+      "derivedFrom": "s-0201/campfire_02",
+      "note": "normal"
+    },
+    "k-44/campfire_03": {
+      "path": "k-44/campfire_03.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "fire-and-portraits",
+      "derivedFrom": "s-0201/campfire_03",
+      "note": "normal"
+    },
+    "k-44/campfire_04": {
+      "path": "k-44/campfire_04.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "fire-and-portraits",
+      "derivedFrom": "s-0201/campfire_04",
+      "note": "normal"
+    },
+    "k-44/campfire_05": {
+      "path": "k-44/campfire_05.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "fire-and-portraits",
+      "derivedFrom": "s-0201/campfire_01",
+      "note": "hover"
+    },
+    "k-44/campfire_06": {
+      "path": "k-44/campfire_06.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "fire-and-portraits",
+      "derivedFrom": "s-0201/campfire_02",
+      "note": "hover"
+    },
+    "k-71/warning_16": {
+      "path": "k-71/warning_16.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "utility-a",
+      "derivedFrom": "i-f2/warning"
+    },
+    "k-71/warning_24": {
+      "path": "k-71/warning_24.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "utility-a",
+      "derivedFrom": "i-f2/warning"
+    },
+    "k-30/rail": {
+      "path": "k-30/rail.png",
+      "size": [
+        16,
+        8
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        5,
+        2,
+        5,
+        2
+      ],
+      "derivedFrom": "source/rounded_rail",
+      "note": "normal"
+    },
+    "k-30/fill": {
+      "path": "k-30/fill.png",
+      "size": [
+        16,
+        8
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        5,
+        2,
+        5,
+        2
+      ],
+      "derivedFrom": "source/rounded_fill",
+      "note": "normal"
+    },
+    "k-30/thumb": {
+      "path": "k-30/thumb.png",
+      "size": [
+        16,
+        24
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-50/normal",
+      "note": "normal"
+    },
+    "k-30/thumb_hover": {
+      "path": "k-30/thumb_hover.png",
+      "size": [
+        16,
+        24
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-50/normal",
+      "note": "hover"
+    },
+    "k-30/thumb_pressed": {
+      "path": "k-30/thumb_pressed.png",
+      "size": [
+        16,
+        24
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-50/normal",
+      "note": "pressed"
+    },
+    "k-34/rail": {
+      "path": "k-34/rail.png",
+      "size": [
+        8,
+        16
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        2,
+        5,
+        2,
+        5
+      ],
+      "derivedFrom": "source/square_rail",
+      "note": "normal"
+    },
+    "k-34/thumb": {
+      "path": "k-34/thumb.png",
+      "size": [
+        8,
+        24
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-50/normal",
+      "note": "normal"
+    },
+    "k-34/thumb_hover": {
+      "path": "k-34/thumb_hover.png",
+      "size": [
+        8,
+        24
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-50/normal",
+      "note": "hover"
+    },
+    "k-34/thumb_pressed": {
+      "path": "k-34/thumb_pressed.png",
+      "size": [
+        8,
+        24
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-50/normal",
+      "note": "pressed"
+    },
+    "k-70/on_01": {
+      "path": "k-70/on_01.png",
+      "size": [
+        40,
+        40
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_rail",
+      "note": "normal"
+    },
+    "k-70/on_02": {
+      "path": "k-70/on_02.png",
+      "size": [
+        40,
+        40
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_rail",
+      "note": "hover"
+    },
+    "i-s4/rail": {
+      "path": "i-s4/rail.png",
+      "size": [
+        16,
+        8
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        5,
+        2,
+        5,
+        2
+      ],
+      "derivedFrom": "source/rounded_rail",
+      "note": "normal"
+    },
+    "i-s4/fill": {
+      "path": "i-s4/fill.png",
+      "size": [
+        16,
+        8
+      ],
+      "source": "screen-gear",
+      "nineSlice": [
+        5,
+        2,
+        5,
+        2
+      ],
+      "derivedFrom": "source/rounded_fill",
+      "note": "normal"
+    },
+    "k-28/empty": {
+      "path": "k-28/empty.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-08/tooltip",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "k-28/checked": {
+      "path": "k-28/checked.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-08/tooltip",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "k-28/disabled": {
+      "path": "k-28/disabled.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-08/tooltip",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "k-29/empty": {
+      "path": "k-29/empty.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-08/tooltip",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "k-29/checked": {
+      "path": "k-29/checked.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-08/tooltip",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "k-29/disabled": {
+      "path": "k-29/disabled.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-08/tooltip",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "i-t3/difficulty_empty": {
+      "path": "i-t3/difficulty_empty.png",
+      "size": [
+        8,
+        8
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_fill",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "i-t3/difficulty_filled": {
+      "path": "i-t3/difficulty_filled.png",
+      "size": [
+        8,
+        8
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_fill",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "k-42/news_dot_01": {
+      "path": "k-42/news_dot_01.png",
+      "size": [
+        12,
+        12
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_fill",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "k-42/news_dot_02": {
+      "path": "k-42/news_dot_02.png",
+      "size": [
+        12,
+        12
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_fill",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "k-73/same_element": {
+      "path": "k-73/same_element.png",
+      "size": [
+        8,
+        8
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_fill",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "i-b3/round_24": {
+      "path": "i-b3/round_24.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-1101/tree_node_projectile"
+    },
+    "i-b3/round_48": {
+      "path": "i-b3/round_48.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-1101/tree_node_projectile"
+    },
+    "i-b3/hexagon_24": {
+      "path": "i-b3/hexagon_24.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-1101/tree_node_control"
+    },
+    "i-b3/hexagon_48": {
+      "path": "i-b3/hexagon_48.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-1101/tree_node_control"
+    },
+    "i-b3/clipped_square_24": {
+      "path": "i-b3/clipped_square_24.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-1101/tree_node_modifier"
+    },
+    "i-b3/clipped_square_48": {
+      "path": "i-b3/clipped_square_48.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-1101/tree_node_modifier"
+    },
+    "i-e4/weakness": {
+      "path": "i-e4/weakness.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "derivedFrom": "k-08/tooltip",
+      "note": "normal"
+    },
+    "i-e4/resistance": {
+      "path": "i-e4/resistance.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "common-plates",
+      "nineSlice": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "derivedFrom": "k-08/tooltip",
+      "note": "pressed"
+    },
+    "i-g1/0_to_3": {
+      "path": "i-g1/0_to_3.png",
+      "size": [
+        80,
+        80
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-66/common"
+    },
+    "i-g1/4_to_6": {
+      "path": "i-g1/4_to_6.png",
+      "size": [
+        80,
+        80
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-0802/portrait_normal"
+    },
+    "i-g1/7_to_9": {
+      "path": "i-g1/7_to_9.png",
+      "size": [
+        80,
+        80
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-0802/portrait_hit"
+    },
+    "i-g1/10_to_12": {
+      "path": "i-g1/10_to_12.png",
+      "size": [
+        80,
+        80
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-66/rare"
+    },
+    "i-g1/13": {
+      "path": "i-g1/13.png",
+      "size": [
+        80,
+        80
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-66/heroic"
+    },
+    "i-g2/trace": {
+      "path": "i-g2/trace.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "small-screen-glyphs",
+      "derivedFrom": "s-2603/revenge_mirror_cracked"
+    },
+    "i-m2/stone_basic": {
+      "path": "i-m2/stone_basic.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "previous-redrawn",
+      "derivedFrom": "../i-m1/stone_basic.png"
+    },
+    "i-m2/stone_cut": {
+      "path": "i-m2/stone_cut.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "previous-redrawn",
+      "derivedFrom": "../i-m1/stone_cut.png"
+    },
+    "i-m2/stone_clear": {
+      "path": "i-m2/stone_clear.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "previous-redrawn",
+      "derivedFrom": "../i-m1/stone_clear.png"
+    },
+    "i-m3/ward_24": {
+      "path": "i-m3/ward_24.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "previous-redrawn",
+      "derivedFrom": "../i-m3/ward.png"
+    },
+    "i-m5/cloth_24": {
+      "path": "i-m5/cloth_24.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "previous-redrawn",
+      "derivedFrom": "../i-m5/cloth.png"
+    },
+    "s-1106/execution_number": {
+      "path": "s-1106/execution_number.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-45/number_tag"
+    },
+    "s-1301/trie_node_candidate": {
+      "path": "s-1301/trie_node_candidate.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-66/rare"
+    },
+    "s-1301/trie_node_current_01": {
+      "path": "s-1301/trie_node_current_01.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-66/heroic"
+    },
+    "s-1301/trie_node_current_02": {
+      "path": "s-1301/trie_node_current_02.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-64/open"
+    },
+    "s-1301/trie_node_unlocked": {
+      "path": "s-1301/trie_node_unlocked.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-60/filled"
+    },
+    "s-1301/trie_node_locked": {
+      "path": "s-1301/trie_node_locked.png",
+      "size": [
+        64,
+        64
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "source/slot_empty"
+    },
+    "s-1301/trie_dot_off": {
+      "path": "s-1301/trie_dot_off.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_fill",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "s-1301/trie_dot_on": {
+      "path": "s-1301/trie_dot_on.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_fill",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "s-2502/item_level_you": {
+      "path": "s-2502/item_level_you.png",
+      "size": [
+        24,
+        32
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-04/title_band"
+    },
+    "s-1402/just_window": {
+      "path": "s-1402/just_window.png",
+      "size": [
+        192,
+        24
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_fill",
+      "note": "Width of visible timing window is controlled by UI"
+    },
+    "s-1402/just_marker": {
+      "path": "s-1402/just_marker.png",
+      "size": [
+        192,
+        24
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-1401/timing_marker_valid"
+    },
+    "s-0907/phrase_highlight": {
+      "path": "s-0907/phrase_highlight.png",
+      "size": [
+        360,
+        360
+      ],
+      "source": "rank-cards-and-wheels",
+      "derivedFrom": "source/wheel_wedge"
+    },
+    "s-2003/emote_highlight": {
+      "path": "s-2003/emote_highlight.png",
+      "size": [
+        360,
+        360
+      ],
+      "source": "rank-cards-and-wheels",
+      "derivedFrom": "source/wheel_wedge"
+    },
+    "sheets/k-44-campfire": {
+      "path": "sheets/k-44-campfire.png",
+      "size": [
+        192,
+        32
+      ],
+      "source": "fire-and-portraits",
+      "derivedFrom": "k-44/campfire_01",
+      "cell": [
+        32,
+        32
+      ],
+      "columns": 6,
+      "frames": [
+        {
+          "path": "k-44/campfire_01.png",
+          "rect": [
+            0,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "path": "k-44/campfire_02.png",
+          "rect": [
+            32,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "path": "k-44/campfire_03.png",
+          "rect": [
+            64,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "path": "k-44/campfire_04.png",
+          "rect": [
+            96,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "path": "k-44/campfire_05.png",
+          "rect": [
+            128,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "path": "k-44/campfire_06.png",
+          "rect": [
+            160,
+            0,
+            32,
+            32
+          ]
+        }
+      ],
+      "frameDurationMs": 100
+    },
+    "sheets/s-1301-trie_node_current": {
+      "path": "sheets/s-1301-trie_node_current.png",
+      "size": [
+        128,
+        64
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "s-1301/trie_node_current_01",
+      "cell": [
+        64,
+        64
+      ],
+      "columns": 2,
+      "frames": [
+        {
+          "path": "s-1301/trie_node_current_01.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "s-1301/trie_node_current_02.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ]
+        }
+      ],
+      "frameDurationMs": 100
+    },
+    "i-f4/online": {
+      "path": "i-f4/online.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "states-and-rooms"
+    },
+    "i-f4/offline": {
+      "path": "i-f4/offline.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "states-and-rooms"
+    },
+    "i-f4/expedition": {
+      "path": "i-f4/expedition.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "states-and-rooms"
+    },
+    "i-f4/duel": {
+      "path": "i-f4/duel.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "states-and-rooms"
+    },
+    "i-f4/trade": {
+      "path": "i-f4/trade.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "states-and-rooms"
+    },
+    "i-f4/away": {
+      "path": "i-f4/away.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "states-and-rooms"
+    },
+    "i-f4/queued": {
+      "path": "i-f4/queued.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "states-and-rooms"
+    },
+    "i-f4/spectating": {
+      "path": "i-f4/spectating.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "states-and-rooms"
+    },
+    "i-f5/maintenance": {
+      "path": "i-f5/maintenance.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "states-and-rooms"
+    },
+    "i-f6/wired": {
+      "path": "i-f6/wired.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "states-and-rooms"
+    },
+    "i-f6/wireless": {
+      "path": "i-f6/wireless.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "states-and-rooms"
+    },
+    "i-f6/good": {
+      "path": "i-f6/good.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "states-and-rooms"
+    },
+    "i-f6/tight": {
+      "path": "i-f6/tight.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "states-and-rooms"
+    },
+    "i-f6/over": {
+      "path": "i-f6/over.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "states-and-rooms"
+    },
+    "i-f7/unread": {
+      "path": "i-f7/unread.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "states-and-rooms"
+    },
+    "i-f7/read": {
+      "path": "i-f7/read.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "states-and-rooms"
+    },
+    "i-f7/attachment": {
+      "path": "i-f7/attachment.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "states-and-rooms"
+    },
+    "i-f7/claimed": {
+      "path": "i-f7/claimed.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "states-and-rooms"
+    },
+    "i-f8/nearby": {
+      "path": "i-f8/nearby.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "states-and-rooms"
+    },
+    "i-f8/system": {
+      "path": "i-f8/system.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "states-and-rooms"
+    },
+    "i-f9/password": {
+      "path": "i-f9/password.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "room-and-cosmetic"
+    },
+    "i-f9/spectator": {
+      "path": "i-f9/spectator.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "room-and-cosmetic"
+    },
+    "i-f9/equal_gear": {
+      "path": "i-f9/equal_gear.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "room-and-cosmetic"
+    },
+    "i-f9/wild_intrusion": {
+      "path": "i-f9/wild_intrusion.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "room-and-cosmetic"
+    },
+    "i-f9/thorns_off": {
+      "path": "i-f9/thorns_off.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "room-and-cosmetic"
+    },
+    "i-f9/rounds": {
+      "path": "i-f9/rounds.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "room-and-cosmetic"
+    },
+    "i-f9/round_time": {
+      "path": "i-f9/round_time.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "room-and-cosmetic"
+    },
+    "i-f9/health_multiplier": {
+      "path": "i-f9/health_multiplier.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "room-and-cosmetic"
+    },
+    "i-f9/enhancement_cap": {
+      "path": "i-f9/enhancement_cap.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "room-and-cosmetic"
+    },
+    "i-f9/il_cap": {
+      "path": "i-f9/il_cap.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "room-and-cosmetic"
+    },
+    "i-f9/mutations": {
+      "path": "i-f9/mutations.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "room-and-cosmetic"
+    },
+    "i-f9/heroic_cap": {
+      "path": "i-f9/heroic_cap.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "room-and-cosmetic"
+    },
+    "i-f9/floor_color": {
+      "path": "i-f9/floor_color.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "room-and-cosmetic"
+    },
+    "i-m7/head": {
+      "path": "i-m7/head.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "room-and-cosmetic"
+    },
+    "i-m7/cape": {
+      "path": "i-m7/cape.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "room-and-cosmetic"
+    },
+    "i-m7/footsteps": {
+      "path": "i-m7/footsteps.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "room-and-cosmetic"
+    },
+    "i-m7/sitting": {
+      "path": "i-m7/sitting.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "room-and-cosmetic"
+    },
+    "i-m7/wand": {
+      "path": "i-m7/wand.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "room-and-cosmetic"
+    },
+    "i-m7/projectile_trail": {
+      "path": "i-m7/projectile_trail.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "room-and-cosmetic"
+    },
+    "i-m7/kill_effect": {
+      "path": "i-m7/kill_effect.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "room-and-cosmetic"
+    },
+    "i-f10/wave": {
+      "path": "i-f10/wave.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "emotes-and-cosmetic"
+    },
+    "i-f10/clap": {
+      "path": "i-f10/clap.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "emotes-and-cosmetic"
+    },
+    "i-f10/taunt": {
+      "path": "i-f10/taunt.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "emotes-and-cosmetic"
+    },
+    "i-f10/bow": {
+      "path": "i-f10/bow.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "emotes-and-cosmetic"
+    },
+    "i-f10/sit": {
+      "path": "i-f10/sit.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "emotes-and-cosmetic"
+    },
+    "i-f10/dance": {
+      "path": "i-f10/dance.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "emotes-and-cosmetic"
+    },
+    "i-f10/raise_wand": {
+      "path": "i-f10/raise_wand.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "emotes-and-cosmetic"
+    },
+    "i-f10/despair": {
+      "path": "i-f10/despair.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "emotes-and-cosmetic"
+    },
+    "i-m7/ritual": {
+      "path": "i-m7/ritual.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "emotes-and-cosmetic"
+    },
+    "i-m7/emote": {
+      "path": "i-m7/emote.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "emotes-and-cosmetic"
+    },
+    "i-m7/border": {
+      "path": "i-m7/border.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "emotes-and-cosmetic"
+    },
+    "i-m7/badge": {
+      "path": "i-m7/badge.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "emotes-and-cosmetic"
+    },
+    "i-m7/title": {
+      "path": "i-m7/title.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "emotes-and-cosmetic"
+    },
+    "i-m9/expand_library": {
+      "path": "i-m9/expand_library.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "emotes-and-cosmetic"
+    },
+    "i-m9/rename": {
+      "path": "i-m9/rename.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "emotes-and-cosmetic"
+    },
+    "i-f11/display": {
+      "path": "i-f11/display.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "emotes-and-cosmetic"
+    },
+    "i-f11/sound": {
+      "path": "i-f11/sound.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "emotes-and-cosmetic"
+    },
+    "i-f11/controls": {
+      "path": "i-f11/controls.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "emotes-and-cosmetic"
+    },
+    "i-f11/combat_view": {
+      "path": "i-f11/combat_view.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "emotes-and-cosmetic"
+    },
+    "i-f11/account": {
+      "path": "i-f11/account.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "emotes-and-cosmetic"
+    },
+    "i-s1/health": {
+      "path": "i-s1/health.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "stats-and-passives",
+      "note": "Recolored generated red clusters to amber per menu palette"
+    },
+    "i-s1/movement_speed": {
+      "path": "i-s1/movement_speed.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "stats-and-passives"
+    },
+    "i-s1/stance_speed": {
+      "path": "i-s1/stance_speed.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "stats-and-passives"
+    },
+    "i-s1/crystal_limit": {
+      "path": "i-s1/crystal_limit.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "stats-and-passives"
+    },
+    "i-s1/combos_per_crystal": {
+      "path": "i-s1/combos_per_crystal.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "stats-and-passives"
+    },
+    "i-s1/cooling": {
+      "path": "i-s1/cooling.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "stats-and-passives"
+    },
+    "i-s1/threshold": {
+      "path": "i-s1/threshold.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "stats-and-passives"
+    },
+    "i-s1/heat_lock": {
+      "path": "i-s1/heat_lock.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "stats-and-passives"
+    },
+    "i-s1/graze": {
+      "path": "i-s1/graze.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "stats-and-passives"
+    },
+    "i-s1/link_slot": {
+      "path": "i-s1/link_slot.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "stats-and-passives"
+    },
+    "i-s1/crystal_loss": {
+      "path": "i-s1/crystal_loss.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "stats-and-passives"
+    },
+    "i-s2/boil_over": {
+      "path": "i-s2/boil_over.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "stats-and-passives",
+      "note": "Recolored generated red clusters to amber per menu palette"
+    },
+    "i-s2/lightning_rod": {
+      "path": "i-s2/lightning_rod.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "stats-and-passives"
+    },
+    "i-s2/underline": {
+      "path": "i-s2/underline.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "stats-and-passives"
+    },
+    "i-s2/thin_ice": {
+      "path": "i-s2/thin_ice.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "stats-and-passives"
+    },
+    "i-s2/shadow_pact": {
+      "path": "i-s2/shadow_pact.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "stats-and-passives"
+    },
+    "i-s3/heat_at_80": {
+      "path": "i-s3/heat_at_80.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "stats-and-passives"
+    },
+    "i-s3/three_mutations": {
+      "path": "i-s3/three_mutations.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "stats-and-passives"
+    },
+    "i-s3/depth_decay": {
+      "path": "i-s3/depth_decay.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "stats-and-passives"
+    },
+    "i-s3/keep_crystal": {
+      "path": "i-s3/keep_crystal.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "stats-and-passives"
+    },
+    "k-53/forward_24": {
+      "path": "k-53/forward_24.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "glyphs-and-badges",
+      "note": "Converted teal generated marks to chalk"
+    },
+    "k-53/back_24": {
+      "path": "k-53/back_24.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "glyphs-and-badges",
+      "note": "Converted teal generated marks to chalk"
+    },
+    "k-53/side_24": {
+      "path": "k-53/side_24.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "glyphs-and-badges",
+      "note": "Converted teal generated marks to chalk"
+    },
+    "k-53/opposite_24": {
+      "path": "k-53/opposite_24.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "glyphs-and-badges",
+      "note": "Converted teal generated marks to chalk"
+    },
+    "k-54/keystroke_24": {
+      "path": "k-54/keystroke_24.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "glyphs-and-badges"
+    },
+    "s-1204/enhance_goal": {
+      "path": "s-1204/enhance_goal.png",
+      "size": [
+        16,
+        24
+      ],
+      "source": "glyphs-and-badges"
+    },
+    "i-l7/heir": {
+      "path": "i-l7/heir.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "glyphs-and-badges"
+    },
+    "i-l7/disciple": {
+      "path": "i-l7/disciple.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "glyphs-and-badges"
+    },
+    "i-l8/first": {
+      "path": "i-l8/first.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "glyphs-and-badges"
+    },
+    "i-l8/second": {
+      "path": "i-l8/second.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "glyphs-and-badges"
+    },
+    "i-l8/third": {
+      "path": "i-l8/third.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "glyphs-and-badges"
+    },
+    "i-f12/offline": {
+      "path": "i-f12/offline.png",
+      "size": [
+        160,
+        40
+      ],
+      "source": "glyphs-and-badges"
+    },
+    "i-f12/server": {
+      "path": "i-f12/server.png",
+      "size": [
+        160,
+        40
+      ],
+      "source": "glyphs-and-badges"
+    },
+    "s-1403/infinity": {
+      "path": "s-1403/infinity.png",
+      "size": [
+        24,
+        16
+      ],
+      "source": "glyphs-and-badges"
+    },
+    "k-53/forward_16": {
+      "path": "k-53/forward_16.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "glyphs-and-badges",
+      "derivedFrom": "k-53/forward_24"
+    },
+    "k-53/back_16": {
+      "path": "k-53/back_16.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "glyphs-and-badges",
+      "derivedFrom": "k-53/back_24"
+    },
+    "k-53/side_16": {
+      "path": "k-53/side_16.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "glyphs-and-badges",
+      "derivedFrom": "k-53/side_24"
+    },
+    "k-53/opposite_16": {
+      "path": "k-53/opposite_16.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "glyphs-and-badges",
+      "derivedFrom": "k-53/opposite_24"
+    },
+    "k-54/keystroke_16": {
+      "path": "k-54/keystroke_16.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "glyphs-and-badges",
+      "derivedFrom": "k-54/keystroke_24"
+    },
+    "k-54/just_16": {
+      "path": "k-54/just_16.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "glyphs-and-badges",
+      "derivedFrom": "k-54/just_24"
+    },
+    "i-f5/connected": {
+      "path": "i-f5/connected.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "states-and-rooms",
+      "derivedFrom": "i-f4/online"
+    },
+    "i-f5/disconnected": {
+      "path": "i-f5/disconnected.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "states-and-rooms",
+      "derivedFrom": "i-f4/offline"
+    },
+    "i-f8/plaza": {
+      "path": "i-f8/plaza.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "navigation",
+      "derivedFrom": "i-f1/plaza"
+    },
+    "i-f8/trade": {
+      "path": "i-f8/trade.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "utility-b",
+      "derivedFrom": "i-f3/trade"
+    },
+    "i-f8/whisper": {
+      "path": "i-f8/whisper.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "utility-b",
+      "derivedFrom": "i-f3/whisper"
+    },
+    "i-f8/friends": {
+      "path": "i-f8/friends.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "navigation",
+      "derivedFrom": "i-f1/friends"
+    },
+    "i-f8/duel_room": {
+      "path": "i-f8/duel_room.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "navigation",
+      "derivedFrom": "i-f1/duel"
+    },
+    "i-f11/social": {
+      "path": "i-f11/social.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "states-and-rooms",
+      "derivedFrom": "i-f8/nearby"
+    },
+    "i-s5/item_level": {
+      "path": "i-s5/item_level.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "room-and-cosmetic",
+      "derivedFrom": "i-f9/il_cap"
+    },
+    "i-s3/on_credit": {
+      "path": "i-s3/on_credit.png",
+      "size": [
+        48,
+        48
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "i-t4/debt"
+    },
+    "s-1107/heat": {
+      "path": "s-1107/heat.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "stats-and-passives",
+      "derivedFrom": "i-s1/threshold"
+    },
+    "s-1107/threshold": {
+      "path": "s-1107/threshold.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "stats-and-passives",
+      "derivedFrom": "i-s3/heat_at_80"
+    },
+    "s-1107/dps": {
+      "path": "s-1107/dps.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "stats-and-passives",
+      "derivedFrom": "i-s1/combos_per_crystal"
+    },
+    "s-1202/odds_base": {
+      "path": "s-1202/odds_base.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "room-and-cosmetic",
+      "derivedFrom": "i-s5/item_level"
+    },
+    "s-1202/odds_sacrifice": {
+      "path": "s-1202/odds_sacrifice.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "previous-redrawn",
+      "derivedFrom": "i-m2/stone_cut"
+    },
+    "s-1202/odds_same_element": {
+      "path": "s-1202/odds_same_element.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "currency-and-elements",
+      "derivedFrom": "i-e1/arcane"
+    },
+    "s-1202/odds_momentum": {
+      "path": "s-1202/odds_momentum.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "small-screen-glyphs",
+      "derivedFrom": "s-0804/score"
+    },
+    "i-f13/record": {
+      "path": "i-f13/record.png",
+      "size": [
+        96,
+        32
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-04/title_band"
+    },
+    "i-f13/pending": {
+      "path": "i-f13/pending.png",
+      "size": [
+        96,
+        32
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-04/title_band"
+    },
+    "i-f13/verified": {
+      "path": "i-f13/verified.png",
+      "size": [
+        96,
+        32
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-04/title_band"
+    },
+    "i-f13/closing": {
+      "path": "i-f13/closing.png",
+      "size": [
+        96,
+        32
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-04/title_band"
+    },
+    "i-l6/promotion_01": {
+      "path": "i-l6/promotion_01.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-81/benefit"
+    },
+    "i-l6/promotion_02": {
+      "path": "i-l6/promotion_02.png",
+      "size": [
+        32,
+        32
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-81/benefit"
+    },
+    "i-l9/up": {
+      "path": "i-l9/up.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-81/benefit"
+    },
+    "i-l9/down": {
+      "path": "i-l9/down.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "kit-slots",
+      "derivedFrom": "k-81/benefit"
+    },
+    "i-l9/same": {
+      "path": "i-l9/same.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_fill",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "k-07/horizontal": {
+      "path": "k-07/horizontal.png",
+      "size": [
+        16,
+        4
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-06/footer_band",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "k-07/vertical": {
+      "path": "k-07/vertical.png",
+      "size": [
+        4,
+        16
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-06/footer_band",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "k-55/connected": {
+      "path": "k-55/connected.png",
+      "size": [
+        8,
+        16
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_fill",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "k-55/gap": {
+      "path": "k-55/gap.png",
+      "size": [
+        8,
+        16
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_fill",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "k-65/normal": {
+      "path": "k-65/normal.png",
+      "size": [
+        16,
+        8
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_fill",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "k-65/flow_01": {
+      "path": "k-65/flow_01.png",
+      "size": [
+        16,
+        8
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_fill",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "k-65/flow_02": {
+      "path": "k-65/flow_02.png",
+      "size": [
+        16,
+        8
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "source/rounded_fill",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "s-1102/scope_line": {
+      "path": "s-1102/scope_line.png",
+      "size": [
+        8,
+        16
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-1103/split_2",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "s-1102/scope_head": {
+      "path": "s-1102/scope_head.png",
+      "size": [
+        8,
+        8
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-1103/split_2",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "s-1102/scope_tail": {
+      "path": "s-1102/scope_tail.png",
+      "size": [
+        8,
+        8
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-1103/split_2",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "s-1105/tree_link_line": {
+      "path": "s-1105/tree_link_line.png",
+      "size": [
+        4,
+        16
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-1103/split_2",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "s-1105/tree_link_corner": {
+      "path": "s-1105/tree_link_corner.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-1103/split_2",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "s-1302/trie_line_on": {
+      "path": "s-1302/trie_line_on.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-1103/split_2",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "s-1302/trie_line_off": {
+      "path": "s-1302/trie_line_off.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-1103/split_2",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "s-1302/trie_corner_on": {
+      "path": "s-1302/trie_corner_on.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-1103/split_2",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "s-1302/trie_corner_off": {
+      "path": "s-1302/trie_corner_off.png",
+      "size": [
+        16,
+        16
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "s-1103/split_2",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "k-52/mouse_left": {
+      "path": "k-52/mouse_left.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-50/normal",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "k-52/mouse_right": {
+      "path": "k-52/mouse_right.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-50/normal",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "k-52/mouse_wheel": {
+      "path": "k-52/mouse_wheel.png",
+      "size": [
+        24,
+        24
+      ],
+      "source": "common-plates",
+      "derivedFrom": "k-50/normal",
+      "note": "Grid-aligned geometry using ImageGen kit palette"
+    },
+    "sheets/k-65-circuit-flow": {
+      "path": "sheets/k-65-circuit-flow.png",
+      "size": [
+        32,
+        8
+      ],
+      "source": "screen-gear",
+      "derivedFrom": "k-65/flow_01",
+      "cell": [
+        16,
+        8
+      ],
+      "columns": 2,
+      "frames": [
+        {
+          "path": "k-65/flow_01.png",
+          "rect": [
+            0,
+            0,
+            16,
+            8
+          ]
+        },
+        {
+          "path": "k-65/flow_02.png",
+          "rect": [
+            16,
+            0,
+            16,
+            8
+          ]
+        }
+      ],
+      "frameDurationMs": 100
+    },
+    "s-2405/neuru_both_eyes": {
+      "path": "s-2405/neuru_both_eyes.png",
+      "size": [
+        128,
+        128
+      ],
+      "source": "neuru-awake"
+    },
+    "sheets/s-2405-neuru": {
+      "path": "sheets/s-2405-neuru.png",
+      "size": [
+        640,
+        128
+      ],
+      "source": "fire-and-portraits",
+      "derivedFrom": "s-2405/neuru_sleeping",
+      "cell": [
+        128,
+        128
+      ],
+      "columns": 5,
+      "frames": [
+        {
+          "path": "s-2405/neuru_sleeping.png",
+          "rect": [
+            0,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "path": "s-2405/neuru_one_eye.png",
+          "rect": [
+            128,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "path": "s-2405/neuru_both_eyes.png",
+          "rect": [
+            256,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "path": "s-2405/neuru_speaking_01.png",
+          "rect": [
+            384,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "path": "s-2405/neuru_speaking_02.png",
+          "rect": [
+            512,
+            0,
+            128,
+            128
+          ]
+        }
+      ],
+      "frameDurationMs": 100
+    },
+    "f-n1/numbers": {
+      "path": "f-n1/numbers.png",
+      "size": [
+        180,
+        16
+      ],
+      "source": "screen-numbers",
+      "glyphCell": [
+        10,
+        16
+      ],
+      "glyphs": [
+        {
+          "character": "0",
+          "rect": [
+            0,
+            0,
+            10,
+            16
+          ]
+        },
+        {
+          "character": "1",
+          "rect": [
+            10,
+            0,
+            10,
+            16
+          ]
+        },
+        {
+          "character": "2",
+          "rect": [
+            20,
+            0,
+            10,
+            16
+          ]
+        },
+        {
+          "character": "3",
+          "rect": [
+            30,
+            0,
+            10,
+            16
+          ]
+        },
+        {
+          "character": "4",
+          "rect": [
+            40,
+            0,
+            10,
+            16
+          ]
+        },
+        {
+          "character": "5",
+          "rect": [
+            50,
+            0,
+            10,
+            16
+          ]
+        },
+        {
+          "character": "6",
+          "rect": [
+            60,
+            0,
+            10,
+            16
+          ]
+        },
+        {
+          "character": "7",
+          "rect": [
+            70,
+            0,
+            10,
+            16
+          ]
+        },
+        {
+          "character": "8",
+          "rect": [
+            80,
+            0,
+            10,
+            16
+          ]
+        },
+        {
+          "character": "9",
+          "rect": [
+            90,
+            0,
+            10,
+            16
+          ]
+        },
+        {
+          "character": ",",
+          "rect": [
+            100,
+            0,
+            10,
+            16
+          ]
+        },
+        {
+          "character": ".",
+          "rect": [
+            110,
+            0,
+            10,
+            16
+          ]
+        },
+        {
+          "character": ":",
+          "rect": [
+            120,
+            0,
+            10,
+            16
+          ]
+        },
+        {
+          "character": "%",
+          "rect": [
+            130,
+            0,
+            10,
+            16
+          ]
+        },
+        {
+          "character": "+",
+          "rect": [
+            140,
+            0,
+            10,
+            16
+          ]
+        },
+        {
+          "character": "−",
+          "rect": [
+            150,
+            0,
+            10,
+            16
+          ]
+        },
+        {
+          "character": "×",
+          "rect": [
+            160,
+            0,
+            10,
+            16
+          ]
+        },
+        {
+          "character": "/",
+          "rect": [
+            170,
+            0,
+            10,
+            16
+          ]
+        }
+      ]
+    },
+    "f-n2/numbers": {
+      "path": "f-n2/numbers.png",
+      "size": [
+        360,
+        32
+      ],
+      "source": "screen-numbers",
+      "glyphCell": [
+        20,
+        32
+      ],
+      "glyphs": [
+        {
+          "character": "0",
+          "rect": [
+            0,
+            0,
+            20,
+            32
+          ]
+        },
+        {
+          "character": "1",
+          "rect": [
+            20,
+            0,
+            20,
+            32
+          ]
+        },
+        {
+          "character": "2",
+          "rect": [
+            40,
+            0,
+            20,
+            32
+          ]
+        },
+        {
+          "character": "3",
+          "rect": [
+            60,
+            0,
+            20,
+            32
+          ]
+        },
+        {
+          "character": "4",
+          "rect": [
+            80,
+            0,
+            20,
+            32
+          ]
+        },
+        {
+          "character": "5",
+          "rect": [
+            100,
+            0,
+            20,
+            32
+          ]
+        },
+        {
+          "character": "6",
+          "rect": [
+            120,
+            0,
+            20,
+            32
+          ]
+        },
+        {
+          "character": "7",
+          "rect": [
+            140,
+            0,
+            20,
+            32
+          ]
+        },
+        {
+          "character": "8",
+          "rect": [
+            160,
+            0,
+            20,
+            32
+          ]
+        },
+        {
+          "character": "9",
+          "rect": [
+            180,
+            0,
+            20,
+            32
+          ]
+        },
+        {
+          "character": ",",
+          "rect": [
+            200,
+            0,
+            20,
+            32
+          ]
+        },
+        {
+          "character": ".",
+          "rect": [
+            220,
+            0,
+            20,
+            32
+          ]
+        },
+        {
+          "character": ":",
+          "rect": [
+            240,
+            0,
+            20,
+            32
+          ]
+        },
+        {
+          "character": "%",
+          "rect": [
+            260,
+            0,
+            20,
+            32
+          ]
+        },
+        {
+          "character": "+",
+          "rect": [
+            280,
+            0,
+            20,
+            32
+          ]
+        },
+        {
+          "character": "−",
+          "rect": [
+            300,
+            0,
+            20,
+            32
+          ]
+        },
+        {
+          "character": "×",
+          "rect": [
+            320,
+            0,
+            20,
+            32
+          ]
+        },
+        {
+          "character": "/",
+          "rect": [
+            340,
+            0,
+            20,
+            32
+          ]
+        }
+      ]
+    },
+    "f-n3/numbers": {
+      "path": "f-n3/numbers.png",
+      "size": [
+        880,
+        128
+      ],
+      "source": "screen-numbers",
+      "glyphCell": [
+        80,
+        128
+      ],
+      "glyphs": [
+        {
+          "character": "0",
+          "rect": [
+            0,
+            0,
+            80,
+            128
+          ]
+        },
+        {
+          "character": "1",
+          "rect": [
+            80,
+            0,
+            80,
+            128
+          ]
+        },
+        {
+          "character": "2",
+          "rect": [
+            160,
+            0,
+            80,
+            128
+          ]
+        },
+        {
+          "character": "3",
+          "rect": [
+            240,
+            0,
+            80,
+            128
+          ]
+        },
+        {
+          "character": "4",
+          "rect": [
+            320,
+            0,
+            80,
+            128
+          ]
+        },
+        {
+          "character": "5",
+          "rect": [
+            400,
+            0,
+            80,
+            128
+          ]
+        },
+        {
+          "character": "6",
+          "rect": [
+            480,
+            0,
+            80,
+            128
+          ]
+        },
+        {
+          "character": "7",
+          "rect": [
+            560,
+            0,
+            80,
+            128
+          ]
+        },
+        {
+          "character": "8",
+          "rect": [
+            640,
+            0,
+            80,
+            128
+          ]
+        },
+        {
+          "character": "9",
+          "rect": [
+            720,
+            0,
+            80,
+            128
+          ]
+        },
+        {
+          "character": "%",
+          "rect": [
+            800,
+            0,
+            80,
+            128
+          ]
+        }
+      ]
+    },
+    "f-n4/probability_cap": {
+      "path": "f-n4/probability_cap.png",
+      "size": [
+        64,
+        32
+      ],
+      "source": "screen-numbers"
+    }
+  }
+}

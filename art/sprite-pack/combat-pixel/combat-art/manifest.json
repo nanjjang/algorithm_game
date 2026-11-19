@@ -1,0 +1,3985 @@
+{
+  "basis": [
+    "docs/effects.md",
+    "docs/spec/14-content-ids-assets.md",
+    "docs/wands/"
+  ],
+  "sampling": "point",
+  "logical_scale": 2,
+  "mipmaps": false,
+  "texture_compression": false,
+  "coordinates": "top-left physical pixels",
+  "source_type": "built-in ImageGen",
+  "sources": {
+    "wands": "source/wands.png",
+    "projectile": "source/projectile.png",
+    "impact": "source/impact.png",
+    "wand_milestones": "source/wand_milestones.png",
+    "boomerang": "source/boomerang.png",
+    "common": "source/common-effects.png",
+    "wand_upgrades_dalgu": "source/wand-upgrades-dalgu.png",
+    "wand_upgrades_chorong": "source/wand-upgrades-chorong.png",
+    "wand_upgrades_galpi": "source/wand-upgrades-galpi.png",
+    "wand_upgrades_seonge": "source/wand-upgrades-seonge.png",
+    "wand_upgrades_geumeum": "source/wand-upgrades-geumeum.png"
+  },
+  "wands": {
+    "wand.1": {
+      "family": "dalgu",
+      "stage": 0,
+      "file": "wands/wand.1/+00/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "logical_size": [
+        16,
+        32
+      ],
+      "grip": [
+        16,
+        48
+      ],
+      "facing": "down_hold",
+      "rect": [
+        0,
+        0,
+        32,
+        64
+      ],
+      "source_rect_ltrb": [
+        176,
+        73,
+        363,
+        670
+      ]
+    },
+    "wand.2": {
+      "family": "chorong",
+      "stage": 0,
+      "file": "wands/wand.2/+00/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "logical_size": [
+        16,
+        32
+      ],
+      "grip": [
+        16,
+        48
+      ],
+      "facing": "down_hold",
+      "rect": [
+        32,
+        0,
+        32,
+        64
+      ],
+      "source_rect_ltrb": [
+        577,
+        73,
+        770,
+        670
+      ]
+    },
+    "wand.3": {
+      "family": "galpi",
+      "stage": 0,
+      "file": "wands/wand.3/+00/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "logical_size": [
+        16,
+        32
+      ],
+      "grip": [
+        16,
+        48
+      ],
+      "facing": "down_hold",
+      "rect": [
+        64,
+        0,
+        32,
+        64
+      ],
+      "source_rect_ltrb": [
+        1020,
+        89,
+        1153,
+        670
+      ]
+    },
+    "wand.4": {
+      "family": "seonge",
+      "stage": 0,
+      "file": "wands/wand.4/+00/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "logical_size": [
+        16,
+        32
+      ],
+      "grip": [
+        16,
+        48
+      ],
+      "facing": "down_hold",
+      "rect": [
+        96,
+        0,
+        32,
+        64
+      ],
+      "source_rect_ltrb": [
+        1416,
+        73,
+        1606,
+        670
+      ]
+    },
+    "wand.5": {
+      "family": "geumeum",
+      "stage": 0,
+      "file": "wands/wand.5/+00/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "logical_size": [
+        16,
+        32
+      ],
+      "grip": [
+        16,
+        48
+      ],
+      "facing": "down_hold",
+      "rect": [
+        128,
+        0,
+        32,
+        64
+      ],
+      "source_rect_ltrb": [
+        1857,
+        73,
+        2038,
+        670
+      ]
+    }
+  },
+  "spells": {
+    "block.magic_bolt": {
+      "element": "arcane",
+      "projectile": {
+        "sheet": "fx/block.magic_bolt/projectile/sheet.png",
+        "size": [
+          24,
+          16
+        ],
+        "logical_size": [
+          12,
+          8
+        ],
+        "pivot": [
+          12,
+          8
+        ],
+        "frames": [
+          {
+            "file": "fx/block.magic_bolt/projectile/00.png",
+            "phase": "trail-straight",
+            "ms": 60,
+            "rect": [
+              0,
+              0,
+              24,
+              16
+            ],
+            "source_rect_ltrb": [
+              44,
+              77,
+              248,
+              247
+            ]
+          },
+          {
+            "file": "fx/block.magic_bolt/projectile/01.png",
+            "phase": "trail-up",
+            "ms": 60,
+            "rect": [
+              24,
+              0,
+              24,
+              16
+            ],
+            "source_rect_ltrb": [
+              326,
+              75,
+              522,
+              245
+            ]
+          },
+          {
+            "file": "fx/block.magic_bolt/projectile/02.png",
+            "phase": "trail-long",
+            "ms": 60,
+            "rect": [
+              48,
+              0,
+              24,
+              16
+            ],
+            "source_rect_ltrb": [
+              580,
+              77,
+              820,
+              247
+            ]
+          },
+          {
+            "file": "fx/block.magic_bolt/projectile/03.png",
+            "phase": "trail-down",
+            "ms": 60,
+            "rect": [
+              72,
+              0,
+              24,
+              16
+            ],
+            "source_rect_ltrb": [
+              889,
+              77,
+              1099,
+              246
+            ]
+          }
+        ],
+        "loop": true,
+        "behavior": "right-body",
+        "forward": "right"
+      },
+      "impact": {
+        "sheet": "fx/block.magic_bolt/impact/sheet.png",
+        "size": [
+          32,
+          32
+        ],
+        "logical_size": [
+          16,
+          16
+        ],
+        "pivot": [
+          16,
+          16
+        ],
+        "frames": [
+          {
+            "file": "fx/block.magic_bolt/impact/00.png",
+            "phase": "contact",
+            "ms": 40,
+            "rect": [
+              0,
+              0,
+              32,
+              32
+            ],
+            "source_rect_ltrb": [
+              82,
+              121,
+              258,
+              293
+            ]
+          },
+          {
+            "file": "fx/block.magic_bolt/impact/01.png",
+            "phase": "spread",
+            "ms": 50,
+            "rect": [
+              32,
+              0,
+              32,
+              32
+            ],
+            "source_rect_ltrb": [
+              396,
+              101,
+              577,
+              294
+            ]
+          },
+          {
+            "file": "fx/block.magic_bolt/impact/02.png",
+            "phase": "fade",
+            "ms": 65,
+            "rect": [
+              64,
+              0,
+              32,
+              32
+            ],
+            "source_rect_ltrb": [
+              725,
+              112,
+              887,
+              282
+            ]
+          }
+        ],
+        "loop": false
+      }
+    },
+    "block.fireball": {
+      "element": "fire",
+      "projectile": {
+        "sheet": "fx/block.fireball/projectile/sheet.png",
+        "size": [
+          32,
+          24
+        ],
+        "logical_size": [
+          16,
+          12
+        ],
+        "pivot": [
+          16,
+          12
+        ],
+        "frames": [
+          {
+            "file": "fx/block.fireball/projectile/00.png",
+            "phase": "flame-high",
+            "ms": 70,
+            "rect": [
+              0,
+              0,
+              32,
+              24
+            ],
+            "source_rect_ltrb": [
+              45,
+              353,
+              238,
+              518
+            ]
+          },
+          {
+            "file": "fx/block.fireball/projectile/01.png",
+            "phase": "flame-middle",
+            "ms": 70,
+            "rect": [
+              32,
+              0,
+              32,
+              24
+            ],
+            "source_rect_ltrb": [
+              311,
+              364,
+              518,
+              518
+            ]
+          },
+          {
+            "file": "fx/block.fireball/projectile/02.png",
+            "phase": "flame-low",
+            "ms": 70,
+            "rect": [
+              64,
+              0,
+              32,
+              24
+            ],
+            "source_rect_ltrb": [
+              596,
+              364,
+              798,
+              518
+            ]
+          },
+          {
+            "file": "fx/block.fireball/projectile/03.png",
+            "phase": "flame-recoil",
+            "ms": 70,
+            "rect": [
+              96,
+              0,
+              32,
+              24
+            ],
+            "source_rect_ltrb": [
+              867,
+              364,
+              1078,
+              518
+            ]
+          }
+        ],
+        "loop": true,
+        "behavior": "right-body",
+        "forward": "right"
+      },
+      "impact": {
+        "sheet": "fx/block.fireball/impact/sheet.png",
+        "size": [
+          32,
+          32
+        ],
+        "logical_size": [
+          16,
+          16
+        ],
+        "pivot": [
+          16,
+          16
+        ],
+        "frames": [
+          {
+            "file": "fx/block.fireball/impact/00.png",
+            "phase": "contact",
+            "ms": 40,
+            "rect": [
+              0,
+              0,
+              32,
+              32
+            ],
+            "source_rect_ltrb": [
+              82,
+              409,
+              262,
+              591
+            ]
+          },
+          {
+            "file": "fx/block.fireball/impact/01.png",
+            "phase": "spread",
+            "ms": 50,
+            "rect": [
+              32,
+              0,
+              32,
+              32
+            ],
+            "source_rect_ltrb": [
+              398,
+              404,
+              582,
+              591
+            ]
+          },
+          {
+            "file": "fx/block.fireball/impact/02.png",
+            "phase": "fade",
+            "ms": 65,
+            "rect": [
+              64,
+              0,
+              32,
+              32
+            ],
+            "source_rect_ltrb": [
+              723,
+              404,
+              895,
+              584
+            ]
+          }
+        ],
+        "loop": false
+      }
+    },
+    "block.chain_lightning": {
+      "element": "lightning",
+      "projectile": {
+        "sheet": "fx/block.chain_lightning/projectile/sheet.png",
+        "size": [
+          64,
+          16
+        ],
+        "logical_size": [
+          32,
+          8
+        ],
+        "pivot": [
+          32,
+          8
+        ],
+        "frames": [
+          {
+            "file": "fx/block.chain_lightning/projectile/00.png",
+            "phase": "high-kink",
+            "ms": 30,
+            "rect": [
+              0,
+              0,
+              64,
+              16
+            ],
+            "source_rect_ltrb": [
+              32,
+              638,
+              257,
+              759
+            ]
+          },
+          {
+            "file": "fx/block.chain_lightning/projectile/01.png",
+            "phase": "forward-fork",
+            "ms": 30,
+            "rect": [
+              64,
+              0,
+              64,
+              16
+            ],
+            "source_rect_ltrb": [
+              308,
+              670,
+              540,
+              750
+            ]
+          },
+          {
+            "file": "fx/block.chain_lightning/projectile/02.png",
+            "phase": "low-kink",
+            "ms": 30,
+            "rect": [
+              128,
+              0,
+              64,
+              16
+            ],
+            "source_rect_ltrb": [
+              589,
+              670,
+              809,
+              776
+            ]
+          },
+          {
+            "file": "fx/block.chain_lightning/projectile/03.png",
+            "phase": "recover",
+            "ms": 30,
+            "rect": [
+              192,
+              0,
+              64,
+              16
+            ],
+            "source_rect_ltrb": [
+              867,
+              664,
+              1091,
+              761
+            ]
+          }
+        ],
+        "loop": false,
+        "behavior": "instant-chain",
+        "forward": "right"
+      },
+      "impact": {
+        "sheet": "fx/block.chain_lightning/impact/sheet.png",
+        "size": [
+          32,
+          32
+        ],
+        "logical_size": [
+          16,
+          16
+        ],
+        "pivot": [
+          16,
+          16
+        ],
+        "frames": [
+          {
+            "file": "fx/block.chain_lightning/impact/00.png",
+            "phase": "contact",
+            "ms": 40,
+            "rect": [
+              0,
+              0,
+              32,
+              32
+            ],
+            "source_rect_ltrb": [
+              73,
+              708,
+              271,
+              908
+            ]
+          },
+          {
+            "file": "fx/block.chain_lightning/impact/01.png",
+            "phase": "spread",
+            "ms": 50,
+            "rect": [
+              32,
+              0,
+              32,
+              32
+            ],
+            "source_rect_ltrb": [
+              392,
+              701,
+              581,
+              905
+            ]
+          },
+          {
+            "file": "fx/block.chain_lightning/impact/02.png",
+            "phase": "fade",
+            "ms": 65,
+            "rect": [
+              64,
+              0,
+              32,
+              32
+            ],
+            "source_rect_ltrb": [
+              720,
+              712,
+              891,
+              897
+            ]
+          }
+        ],
+        "loop": false
+      }
+    },
+    "block.ice_spike": {
+      "element": "ice",
+      "projectile": {
+        "sheet": "fx/block.ice_spike/projectile/sheet.png",
+        "size": [
+          28,
+          12
+        ],
+        "logical_size": [
+          14,
+          6
+        ],
+        "pivot": [
+          24,
+          6
+        ],
+        "frames": [
+          {
+            "file": "fx/block.ice_spike/projectile/00.png",
+            "phase": "face-light",
+            "ms": 45,
+            "rect": [
+              0,
+              0,
+              28,
+              12
+            ],
+            "source_rect_ltrb": [
+              30,
+              921,
+              256,
+              1032
+            ]
+          },
+          {
+            "file": "fx/block.ice_spike/projectile/01.png",
+            "phase": "reverse-facet",
+            "ms": 45,
+            "rect": [
+              28,
+              0,
+              28,
+              12
+            ],
+            "source_rect_ltrb": [
+              588,
+              921,
+              815,
+              1032
+            ]
+          }
+        ],
+        "loop": true,
+        "behavior": "forward-tip",
+        "forward": "right",
+        "doc_orientation_size": [
+          12,
+          28
+        ]
+      },
+      "impact": {
+        "sheet": "fx/block.ice_spike/impact/sheet.png",
+        "size": [
+          32,
+          32
+        ],
+        "logical_size": [
+          16,
+          16
+        ],
+        "pivot": [
+          16,
+          16
+        ],
+        "frames": [
+          {
+            "file": "fx/block.ice_spike/impact/00.png",
+            "phase": "contact",
+            "ms": 40,
+            "rect": [
+              0,
+              0,
+              32,
+              32
+            ],
+            "source_rect_ltrb": [
+              64,
+              1011,
+              277,
+              1227
+            ]
+          },
+          {
+            "file": "fx/block.ice_spike/impact/01.png",
+            "phase": "spread",
+            "ms": 50,
+            "rect": [
+              32,
+              0,
+              32,
+              32
+            ],
+            "source_rect_ltrb": [
+              379,
+              1011,
+              589,
+              1221
+            ]
+          },
+          {
+            "file": "fx/block.ice_spike/impact/02.png",
+            "phase": "fade",
+            "ms": 65,
+            "rect": [
+              64,
+              0,
+              32,
+              32
+            ],
+            "source_rect_ltrb": [
+              713,
+              1019,
+              902,
+              1209
+            ]
+          }
+        ],
+        "loop": false
+      }
+    },
+    "block.shadow_orb": {
+      "element": "dark",
+      "projectile": {
+        "sheet": "fx/block.shadow_orb/projectile/sheet.png",
+        "size": [
+          40,
+          40
+        ],
+        "logical_size": [
+          20,
+          20
+        ],
+        "pivot": [
+          20,
+          20
+        ],
+        "frames": [
+          {
+            "file": "fx/block.shadow_orb/projectile/00.png",
+            "phase": "crescent-top",
+            "ms": 500,
+            "rect": [
+              0,
+              0,
+              40,
+              40
+            ],
+            "source_rect_ltrb": [
+              44,
+              1165,
+              238,
+              1359
+            ]
+          },
+          {
+            "file": "fx/block.shadow_orb/projectile/01.png",
+            "phase": "crescent-right",
+            "ms": 500,
+            "rect": [
+              40,
+              0,
+              40,
+              40
+            ],
+            "source_rect_ltrb": [
+              322,
+              1164,
+              515,
+              1358
+            ]
+          },
+          {
+            "file": "fx/block.shadow_orb/projectile/02.png",
+            "phase": "crescent-bottom",
+            "ms": 500,
+            "rect": [
+              80,
+              0,
+              40,
+              40
+            ],
+            "source_rect_ltrb": [
+              604,
+              1165,
+              797,
+              1359
+            ]
+          },
+          {
+            "file": "fx/block.shadow_orb/projectile/03.png",
+            "phase": "crescent-left",
+            "ms": 500,
+            "rect": [
+              120,
+              0,
+              40,
+              40
+            ],
+            "source_rect_ltrb": [
+              883,
+              1164,
+              1077,
+              1358
+            ]
+          }
+        ],
+        "loop": true,
+        "behavior": "centered",
+        "forward": null
+      },
+      "impact": {
+        "sheet": "fx/block.shadow_orb/impact/sheet.png",
+        "size": [
+          32,
+          32
+        ],
+        "logical_size": [
+          16,
+          16
+        ],
+        "pivot": [
+          16,
+          16
+        ],
+        "frames": [
+          {
+            "file": "fx/block.shadow_orb/impact/00.png",
+            "phase": "contact",
+            "ms": 40,
+            "rect": [
+              0,
+              0,
+              32,
+              32
+            ],
+            "source_rect_ltrb": [
+              72,
+              1338,
+              271,
+              1529
+            ]
+          },
+          {
+            "file": "fx/block.shadow_orb/impact/01.png",
+            "phase": "spread",
+            "ms": 50,
+            "rect": [
+              32,
+              0,
+              32,
+              32
+            ],
+            "source_rect_ltrb": [
+              382,
+              1336,
+              582,
+              1531
+            ]
+          },
+          {
+            "file": "fx/block.shadow_orb/impact/02.png",
+            "phase": "fade",
+            "ms": 65,
+            "rect": [
+              64,
+              0,
+              32,
+              32
+            ],
+            "source_rect_ltrb": [
+              714,
+              1341,
+              894,
+              1521
+            ]
+          }
+        ],
+        "loop": false
+      }
+    },
+    "block.boomerang": {
+      "element": "arcane",
+      "projectile": {
+        "sheet": "fx/block.boomerang/projectile/sheet.png",
+        "size": [
+          32,
+          32
+        ],
+        "logical_size": [
+          16,
+          16
+        ],
+        "pivot": [
+          16,
+          16
+        ],
+        "frames": [
+          {
+            "file": "fx/block.boomerang/projectile/00.png",
+            "phase": "right",
+            "ms": 80,
+            "rect": [
+              0,
+              0,
+              32,
+              32
+            ],
+            "source_rect_ltrb": [
+              150,
+              133,
+              317,
+              336
+            ]
+          },
+          {
+            "file": "fx/block.boomerang/projectile/01.png",
+            "phase": "edge-on",
+            "ms": 80,
+            "rect": [
+              32,
+              0,
+              32,
+              32
+            ],
+            "source_rect_ltrb": [
+              577,
+              117,
+              749,
+              340
+            ]
+          },
+          {
+            "file": "fx/block.boomerang/projectile/02.png",
+            "phase": "left",
+            "ms": 80,
+            "rect": [
+              64,
+              0,
+              32,
+              32
+            ],
+            "source_rect_ltrb": [
+              1005,
+              133,
+              1165,
+              332
+            ]
+          },
+          {
+            "file": "fx/block.boomerang/projectile/03.png",
+            "phase": "return-edge",
+            "ms": 80,
+            "rect": [
+              96,
+              0,
+              32,
+              32
+            ],
+            "source_rect_ltrb": [
+              1430,
+              157,
+              1676,
+              304
+            ]
+          }
+        ],
+        "loop": true,
+        "behavior": "rotating",
+        "forward": null
+      },
+      "impact": {
+        "sheet": "fx/block.boomerang/impact/sheet.png",
+        "size": [
+          32,
+          32
+        ],
+        "logical_size": [
+          16,
+          16
+        ],
+        "pivot": [
+          16,
+          16
+        ],
+        "frames": [
+          {
+            "file": "fx/block.boomerang/impact/00.png",
+            "phase": "contact",
+            "ms": 40,
+            "rect": [
+              0,
+              0,
+              32,
+              32
+            ],
+            "source_rect_ltrb": [
+              138,
+              583,
+              306,
+              747
+            ]
+          },
+          {
+            "file": "fx/block.boomerang/impact/01.png",
+            "phase": "spread",
+            "ms": 60,
+            "rect": [
+              32,
+              0,
+              32,
+              32
+            ],
+            "source_rect_ltrb": [
+              547,
+              549,
+              781,
+              773
+            ]
+          },
+          {
+            "file": "fx/block.boomerang/impact/02.png",
+            "phase": "break",
+            "ms": 70,
+            "rect": [
+              64,
+              0,
+              32,
+              32
+            ],
+            "source_rect_ltrb": [
+              1016,
+              576,
+              1195,
+              744
+            ]
+          },
+          {
+            "file": "fx/block.boomerang/impact/03.png",
+            "phase": "fade",
+            "ms": 80,
+            "rect": [
+              96,
+              0,
+              32,
+              32
+            ],
+            "source_rect_ltrb": [
+              1478,
+              597,
+              1632,
+              720
+            ]
+          }
+        ],
+        "loop": false
+      }
+    }
+  },
+  "starter_wand_sheet": "wands/starter_hand.png",
+  "wand_milestone_sheet": "wands/milestones_hand.png",
+  "wand_milestones": {
+    "wand.1": {
+      "+07": {
+        "file": "wands/wand.1/+07/hand_down_hold.png",
+        "stage": 7,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "rect": [
+          0,
+          64,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          183,
+          24,
+          326,
+          343
+        ],
+        "source": "source/wand_milestones.png"
+      },
+      "+13": {
+        "file": "wands/wand.1/+13/hand_down_hold.png",
+        "stage": 13,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "rect": [
+          0,
+          128,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          168,
+          378,
+          339,
+          714
+        ],
+        "source": "source/wand_milestones.png"
+      },
+      "+00": {
+        "family": "dalgu",
+        "stage": 0,
+        "file": "wands/wand.1/+00/hand_down_hold.png",
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "grip": [
+          16,
+          48
+        ],
+        "facing": "down_hold",
+        "rect": [
+          0,
+          0,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          176,
+          73,
+          363,
+          670
+        ],
+        "source": "source/wands.png"
+      }
+    },
+    "wand.2": {
+      "+07": {
+        "file": "wands/wand.2/+07/hand_down_hold.png",
+        "stage": 7,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "rect": [
+          32,
+          64,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          586,
+          10,
+          768,
+          343
+        ],
+        "source": "source/wand_milestones.png"
+      },
+      "+13": {
+        "file": "wands/wand.2/+13/hand_down_hold.png",
+        "stage": 13,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "rect": [
+          32,
+          128,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          573,
+          368,
+          782,
+          714
+        ],
+        "source": "source/wand_milestones.png"
+      },
+      "+00": {
+        "family": "chorong",
+        "stage": 0,
+        "file": "wands/wand.2/+00/hand_down_hold.png",
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "grip": [
+          16,
+          48
+        ],
+        "facing": "down_hold",
+        "rect": [
+          32,
+          0,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          577,
+          73,
+          770,
+          670
+        ],
+        "source": "source/wands.png"
+      }
+    },
+    "wand.3": {
+      "+07": {
+        "file": "wands/wand.3/+07/hand_down_hold.png",
+        "stage": 7,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "rect": [
+          64,
+          64,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          1040,
+          10,
+          1167,
+          343
+        ],
+        "source": "source/wand_milestones.png"
+      },
+      "+13": {
+        "file": "wands/wand.3/+13/hand_down_hold.png",
+        "stage": 13,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "rect": [
+          64,
+          128,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          975,
+          367,
+          1197,
+          714
+        ],
+        "source": "source/wand_milestones.png"
+      },
+      "+00": {
+        "family": "galpi",
+        "stage": 0,
+        "file": "wands/wand.3/+00/hand_down_hold.png",
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "grip": [
+          16,
+          48
+        ],
+        "facing": "down_hold",
+        "rect": [
+          64,
+          0,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          1020,
+          89,
+          1153,
+          670
+        ],
+        "source": "source/wands.png"
+      }
+    },
+    "wand.4": {
+      "+07": {
+        "file": "wands/wand.4/+07/hand_down_hold.png",
+        "stage": 7,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "rect": [
+          96,
+          64,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          1445,
+          10,
+          1585,
+          343
+        ],
+        "source": "source/wand_milestones.png"
+      },
+      "+13": {
+        "file": "wands/wand.4/+13/hand_down_hold.png",
+        "stage": 13,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "rect": [
+          96,
+          128,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          1457,
+          368,
+          1570,
+          715
+        ],
+        "source": "source/wand_milestones.png"
+      },
+      "+00": {
+        "family": "seonge",
+        "stage": 0,
+        "file": "wands/wand.4/+00/hand_down_hold.png",
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "grip": [
+          16,
+          48
+        ],
+        "facing": "down_hold",
+        "rect": [
+          96,
+          0,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          1416,
+          73,
+          1606,
+          670
+        ],
+        "source": "source/wands.png"
+      }
+    },
+    "wand.5": {
+      "+07": {
+        "file": "wands/wand.5/+07/hand_down_hold.png",
+        "stage": 7,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "rect": [
+          128,
+          64,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          1857,
+          10,
+          2008,
+          343
+        ],
+        "source": "source/wand_milestones.png"
+      },
+      "+13": {
+        "file": "wands/wand.5/+13/hand_down_hold.png",
+        "stage": 13,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "rect": [
+          128,
+          128,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          1857,
+          373,
+          2009,
+          714
+        ],
+        "source": "source/wand_milestones.png"
+      },
+      "+00": {
+        "family": "geumeum",
+        "stage": 0,
+        "file": "wands/wand.5/+00/hand_down_hold.png",
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "grip": [
+          16,
+          48
+        ],
+        "facing": "down_hold",
+        "rect": [
+          128,
+          0,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          1857,
+          73,
+          2038,
+          670
+        ],
+        "source": "source/wands.png"
+      }
+    }
+  },
+  "wand_milestone_stage_order": [
+    0,
+    7,
+    13
+  ],
+  "notes": [
+    "The held-wand atlas uses rows for the five wands and columns for stages +0 through +13.",
+    "Large tips and ring details are condensed to fit the 32×64 combat canvas.",
+    "The final lightning rod's bolt is included in its held composite.",
+    "Grip (16,48) is the shared pivot for the upright held pose. Other orientations are not included."
+  ],
+  "common_fx": {
+    "death_smoke": {
+      "sheet": "fx/death_smoke/clip/sheet.png",
+      "size": [
+        48,
+        48
+      ],
+      "logical_size": [
+        24,
+        24
+      ],
+      "pivot": [
+        24,
+        24
+      ],
+      "frames": [
+        {
+          "file": "fx/death_smoke/clip/00.png",
+          "phase": "start",
+          "ms": 55,
+          "rect": [
+            0,
+            0,
+            48,
+            48
+          ],
+          "source_rect_ltrb": [
+            104,
+            232,
+            274,
+            344
+          ]
+        },
+        {
+          "file": "fx/death_smoke/clip/01.png",
+          "phase": "full",
+          "ms": 75,
+          "rect": [
+            48,
+            0,
+            48,
+            48
+          ],
+          "source_rect_ltrb": [
+            421,
+            156,
+            677,
+            345
+          ]
+        },
+        {
+          "file": "fx/death_smoke/clip/02.png",
+          "phase": "scatter",
+          "ms": 85,
+          "rect": [
+            96,
+            0,
+            48,
+            48
+          ],
+          "source_rect_ltrb": [
+            771,
+            133,
+            1047,
+            345
+          ]
+        },
+        {
+          "file": "fx/death_smoke/clip/03.png",
+          "phase": "fade",
+          "ms": 95,
+          "rect": [
+            144,
+            0,
+            48,
+            48
+          ],
+          "source_rect_ltrb": [
+            1181,
+            182,
+            1346,
+            328
+          ]
+        }
+      ],
+      "loop": false
+    },
+    "overheat_steam": {
+      "sheet": "fx/overheat_steam/clip/sheet.png",
+      "size": [
+        32,
+        32
+      ],
+      "logical_size": [
+        16,
+        16
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "frames": [
+        {
+          "file": "fx/overheat_steam/clip/00.png",
+          "phase": "start",
+          "ms": 55,
+          "rect": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "source_rect_ltrb": [
+            124,
+            577,
+            256,
+            680
+          ]
+        },
+        {
+          "file": "fx/overheat_steam/clip/01.png",
+          "phase": "full",
+          "ms": 75,
+          "rect": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "source_rect_ltrb": [
+            481,
+            510,
+            634,
+            680
+          ]
+        },
+        {
+          "file": "fx/overheat_steam/clip/02.png",
+          "phase": "scatter",
+          "ms": 85,
+          "rect": [
+            64,
+            0,
+            32,
+            32
+          ],
+          "source_rect_ltrb": [
+            838,
+            480,
+            972,
+            655
+          ]
+        },
+        {
+          "file": "fx/overheat_steam/clip/03.png",
+          "phase": "fade",
+          "ms": 95,
+          "rect": [
+            96,
+            0,
+            32,
+            32
+          ],
+          "source_rect_ltrb": [
+            1226,
+            480,
+            1306,
+            612
+          ]
+        }
+      ],
+      "loop": false
+    },
+    "skid_dust": {
+      "sheet": "fx/skid_dust/clip/sheet.png",
+      "size": [
+        32,
+        32
+      ],
+      "logical_size": [
+        16,
+        16
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "frames": [
+        {
+          "file": "fx/skid_dust/clip/00.png",
+          "phase": "start",
+          "ms": 55,
+          "rect": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "source_rect_ltrb": [
+            116,
+            935,
+            272,
+            995
+          ]
+        },
+        {
+          "file": "fx/skid_dust/clip/01.png",
+          "phase": "full",
+          "ms": 75,
+          "rect": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "source_rect_ltrb": [
+            401,
+            859,
+            694,
+            996
+          ]
+        },
+        {
+          "file": "fx/skid_dust/clip/02.png",
+          "phase": "scatter",
+          "ms": 85,
+          "rect": [
+            64,
+            0,
+            32,
+            32
+          ],
+          "source_rect_ltrb": [
+            782,
+            878,
+            1035,
+            994
+          ]
+        },
+        {
+          "file": "fx/skid_dust/clip/03.png",
+          "phase": "fade",
+          "ms": 95,
+          "rect": [
+            96,
+            0,
+            32,
+            32
+          ],
+          "source_rect_ltrb": [
+            1216,
+            939,
+            1328,
+            985
+          ]
+        }
+      ],
+      "loop": false
+    }
+  },
+  "wand_stages": {
+    "wand.1": {
+      "+07": {
+        "file": "wands/wand.1/+07/hand_down_hold.png",
+        "stage": 7,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "rect": [
+          224,
+          0,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          183,
+          24,
+          326,
+          343
+        ],
+        "source": "source/wand_milestones.png"
+      },
+      "+13": {
+        "file": "wands/wand.1/+13/hand_down_hold.png",
+        "stage": 13,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "rect": [
+          416,
+          0,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          168,
+          378,
+          339,
+          714
+        ],
+        "source": "source/wand_milestones.png"
+      },
+      "+00": {
+        "family": "dalgu",
+        "stage": 0,
+        "file": "wands/wand.1/+00/hand_down_hold.png",
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "grip": [
+          16,
+          48
+        ],
+        "facing": "down_hold",
+        "rect": [
+          0,
+          0,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          176,
+          73,
+          363,
+          670
+        ],
+        "source": "source/wands.png"
+      },
+      "+01": {
+        "file": "wands/wand.1/+01/hand_down_hold.png",
+        "stage": 1,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          153,
+          32,
+          255,
+          328
+        ],
+        "source": "source/wand-upgrades-dalgu.png",
+        "rect": [
+          32,
+          0,
+          32,
+          64
+        ]
+      },
+      "+02": {
+        "file": "wands/wand.1/+02/hand_down_hold.png",
+        "stage": 2,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          500,
+          54,
+          602,
+          328
+        ],
+        "source": "source/wand-upgrades-dalgu.png",
+        "rect": [
+          64,
+          0,
+          32,
+          64
+        ]
+      },
+      "+03": {
+        "file": "wands/wand.1/+03/hand_down_hold.png",
+        "stage": 3,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          850,
+          40,
+          968,
+          328
+        ],
+        "source": "source/wand-upgrades-dalgu.png",
+        "rect": [
+          96,
+          0,
+          32,
+          64
+        ]
+      },
+      "+04": {
+        "file": "wands/wand.1/+04/hand_down_hold.png",
+        "stage": 4,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          1216,
+          47,
+          1315,
+          328
+        ],
+        "source": "source/wand-upgrades-dalgu.png",
+        "rect": [
+          128,
+          0,
+          32,
+          64
+        ]
+      },
+      "+05": {
+        "file": "wands/wand.1/+05/hand_down_hold.png",
+        "stage": 5,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          119,
+          403,
+          266,
+          689
+        ],
+        "source": "source/wand-upgrades-dalgu.png",
+        "rect": [
+          160,
+          0,
+          32,
+          64
+        ]
+      },
+      "+06": {
+        "file": "wands/wand.1/+06/hand_down_hold.png",
+        "stage": 6,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          470,
+          387,
+          621,
+          688
+        ],
+        "source": "source/wand-upgrades-dalgu.png",
+        "rect": [
+          192,
+          0,
+          32,
+          64
+        ]
+      },
+      "+08": {
+        "file": "wands/wand.1/+08/hand_down_hold.png",
+        "stage": 8,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          847,
+          387,
+          965,
+          688
+        ],
+        "source": "source/wand-upgrades-dalgu.png",
+        "rect": [
+          256,
+          0,
+          32,
+          64
+        ]
+      },
+      "+09": {
+        "file": "wands/wand.1/+09/hand_down_hold.png",
+        "stage": 9,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          1183,
+          387,
+          1345,
+          689
+        ],
+        "source": "source/wand-upgrades-dalgu.png",
+        "rect": [
+          288,
+          0,
+          32,
+          64
+        ]
+      },
+      "+10": {
+        "file": "wands/wand.1/+10/hand_down_hold.png",
+        "stage": 10,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          109,
+          760,
+          261,
+          1051
+        ],
+        "source": "source/wand-upgrades-dalgu.png",
+        "rect": [
+          320,
+          0,
+          32,
+          64
+        ]
+      },
+      "+11": {
+        "file": "wands/wand.1/+11/hand_down_hold.png",
+        "stage": 11,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          464,
+          750,
+          624,
+          1051
+        ],
+        "source": "source/wand-upgrades-dalgu.png",
+        "rect": [
+          352,
+          0,
+          32,
+          64
+        ]
+      },
+      "+12": {
+        "file": "wands/wand.1/+12/hand_down_hold.png",
+        "stage": 12,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          788,
+          742,
+          1006,
+          1052
+        ],
+        "source": "source/wand-upgrades-dalgu.png",
+        "rect": [
+          384,
+          0,
+          32,
+          64
+        ]
+      }
+    },
+    "wand.2": {
+      "+07": {
+        "file": "wands/wand.2/+07/hand_down_hold.png",
+        "stage": 7,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "rect": [
+          224,
+          64,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          586,
+          10,
+          768,
+          343
+        ],
+        "source": "source/wand_milestones.png"
+      },
+      "+13": {
+        "file": "wands/wand.2/+13/hand_down_hold.png",
+        "stage": 13,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "rect": [
+          416,
+          64,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          573,
+          368,
+          782,
+          714
+        ],
+        "source": "source/wand_milestones.png"
+      },
+      "+00": {
+        "family": "chorong",
+        "stage": 0,
+        "file": "wands/wand.2/+00/hand_down_hold.png",
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "grip": [
+          16,
+          48
+        ],
+        "facing": "down_hold",
+        "rect": [
+          0,
+          64,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          577,
+          73,
+          770,
+          670
+        ],
+        "source": "source/wands.png"
+      },
+      "+01": {
+        "file": "wands/wand.2/+01/hand_down_hold.png",
+        "stage": 1,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          140,
+          70,
+          251,
+          324
+        ],
+        "source": "source/wand-upgrades-chorong.png",
+        "rect": [
+          32,
+          64,
+          32,
+          64
+        ]
+      },
+      "+02": {
+        "file": "wands/wand.2/+02/hand_down_hold.png",
+        "stage": 2,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          500,
+          70,
+          632,
+          324
+        ],
+        "source": "source/wand-upgrades-chorong.png",
+        "rect": [
+          64,
+          64,
+          32,
+          64
+        ]
+      },
+      "+03": {
+        "file": "wands/wand.2/+03/hand_down_hold.png",
+        "stage": 3,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          863,
+          18,
+          995,
+          324
+        ],
+        "source": "source/wand-upgrades-chorong.png",
+        "rect": [
+          96,
+          64,
+          32,
+          64
+        ]
+      },
+      "+04": {
+        "file": "wands/wand.2/+04/hand_down_hold.png",
+        "stage": 4,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          1211,
+          62,
+          1339,
+          324
+        ],
+        "source": "source/wand-upgrades-chorong.png",
+        "rect": [
+          128,
+          64,
+          32,
+          64
+        ]
+      },
+      "+05": {
+        "file": "wands/wand.2/+05/hand_down_hold.png",
+        "stage": 5,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          130,
+          385,
+          255,
+          686
+        ],
+        "source": "source/wand-upgrades-chorong.png",
+        "rect": [
+          160,
+          64,
+          32,
+          64
+        ]
+      },
+      "+06": {
+        "file": "wands/wand.2/+06/hand_down_hold.png",
+        "stage": 6,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          416,
+          412,
+          658,
+          685
+        ],
+        "source": "source/wand-upgrades-chorong.png",
+        "rect": [
+          192,
+          64,
+          32,
+          64
+        ]
+      },
+      "+08": {
+        "file": "wands/wand.2/+08/hand_down_hold.png",
+        "stage": 8,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          799,
+          381,
+          1012,
+          685
+        ],
+        "source": "source/wand-upgrades-chorong.png",
+        "rect": [
+          256,
+          64,
+          32,
+          64
+        ]
+      },
+      "+09": {
+        "file": "wands/wand.2/+09/hand_down_hold.png",
+        "stage": 9,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          1156,
+          384,
+          1380,
+          693
+        ],
+        "source": "source/wand-upgrades-chorong.png",
+        "rect": [
+          288,
+          64,
+          32,
+          64
+        ]
+      },
+      "+10": {
+        "file": "wands/wand.2/+10/hand_down_hold.png",
+        "stage": 10,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          83,
+          734,
+          279,
+          1052
+        ],
+        "source": "source/wand-upgrades-chorong.png",
+        "rect": [
+          320,
+          64,
+          32,
+          64
+        ]
+      },
+      "+11": {
+        "file": "wands/wand.2/+11/hand_down_hold.png",
+        "stage": 11,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          434,
+          749,
+          649,
+          1052
+        ],
+        "source": "source/wand-upgrades-chorong.png",
+        "rect": [
+          352,
+          64,
+          32,
+          64
+        ]
+      },
+      "+12": {
+        "file": "wands/wand.2/+12/hand_down_hold.png",
+        "stage": 12,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          807,
+          759,
+          1002,
+          1052
+        ],
+        "source": "source/wand-upgrades-chorong.png",
+        "rect": [
+          384,
+          64,
+          32,
+          64
+        ]
+      }
+    },
+    "wand.3": {
+      "+07": {
+        "file": "wands/wand.3/+07/hand_down_hold.png",
+        "stage": 7,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "rect": [
+          224,
+          128,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          1040,
+          10,
+          1167,
+          343
+        ],
+        "source": "source/wand_milestones.png"
+      },
+      "+13": {
+        "file": "wands/wand.3/+13/hand_down_hold.png",
+        "stage": 13,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "rect": [
+          416,
+          128,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          975,
+          367,
+          1197,
+          714
+        ],
+        "source": "source/wand_milestones.png"
+      },
+      "+00": {
+        "family": "galpi",
+        "stage": 0,
+        "file": "wands/wand.3/+00/hand_down_hold.png",
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "grip": [
+          16,
+          48
+        ],
+        "facing": "down_hold",
+        "rect": [
+          0,
+          128,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          1020,
+          89,
+          1153,
+          670
+        ],
+        "source": "source/wands.png"
+      },
+      "+01": {
+        "file": "wands/wand.3/+01/hand_down_hold.png",
+        "stage": 1,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          183,
+          54,
+          248,
+          335
+        ],
+        "source": "source/wand-upgrades-galpi.png",
+        "rect": [
+          32,
+          128,
+          32,
+          64
+        ]
+      },
+      "+02": {
+        "file": "wands/wand.3/+02/hand_down_hold.png",
+        "stage": 2,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          533,
+          54,
+          600,
+          335
+        ],
+        "source": "source/wand-upgrades-galpi.png",
+        "rect": [
+          64,
+          128,
+          32,
+          64
+        ]
+      },
+      "+03": {
+        "file": "wands/wand.3/+03/hand_down_hold.png",
+        "stage": 3,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          869,
+          54,
+          937,
+          335
+        ],
+        "source": "source/wand-upgrades-galpi.png",
+        "rect": [
+          96,
+          128,
+          32,
+          64
+        ]
+      },
+      "+04": {
+        "file": "wands/wand.3/+04/hand_down_hold.png",
+        "stage": 4,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          1204,
+          54,
+          1303,
+          335
+        ],
+        "source": "source/wand-upgrades-galpi.png",
+        "rect": [
+          128,
+          128,
+          32,
+          64
+        ]
+      },
+      "+05": {
+        "file": "wands/wand.3/+05/hand_down_hold.png",
+        "stage": 5,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          162,
+          398,
+          268,
+          691
+        ],
+        "source": "source/wand-upgrades-galpi.png",
+        "rect": [
+          160,
+          128,
+          32,
+          64
+        ]
+      },
+      "+06": {
+        "file": "wands/wand.3/+06/hand_down_hold.png",
+        "stage": 6,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          492,
+          399,
+          618,
+          692
+        ],
+        "source": "source/wand-upgrades-galpi.png",
+        "rect": [
+          192,
+          128,
+          32,
+          64
+        ]
+      },
+      "+08": {
+        "file": "wands/wand.3/+08/hand_down_hold.png",
+        "stage": 8,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          779,
+          398,
+          1007,
+          690
+        ],
+        "source": "source/wand-upgrades-galpi.png",
+        "rect": [
+          256,
+          128,
+          32,
+          64
+        ]
+      },
+      "+09": {
+        "file": "wands/wand.3/+09/hand_down_hold.png",
+        "stage": 9,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          1191,
+          398,
+          1334,
+          691
+        ],
+        "source": "source/wand-upgrades-galpi.png",
+        "rect": [
+          288,
+          128,
+          32,
+          64
+        ]
+      },
+      "+10": {
+        "file": "wands/wand.3/+10/hand_down_hold.png",
+        "stage": 10,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          97,
+          747,
+          287,
+          1045
+        ],
+        "source": "source/wand-upgrades-galpi.png",
+        "rect": [
+          320,
+          128,
+          32,
+          64
+        ]
+      },
+      "+11": {
+        "file": "wands/wand.3/+11/hand_down_hold.png",
+        "stage": 11,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          449,
+          747,
+          642,
+          1046
+        ],
+        "source": "source/wand-upgrades-galpi.png",
+        "rect": [
+          352,
+          128,
+          32,
+          64
+        ]
+      },
+      "+12": {
+        "file": "wands/wand.3/+12/hand_down_hold.png",
+        "stage": 12,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          832,
+          747,
+          990,
+          1047
+        ],
+        "source": "source/wand-upgrades-galpi.png",
+        "rect": [
+          384,
+          128,
+          32,
+          64
+        ]
+      }
+    },
+    "wand.4": {
+      "+07": {
+        "file": "wands/wand.4/+07/hand_down_hold.png",
+        "stage": 7,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "rect": [
+          224,
+          192,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          1445,
+          10,
+          1585,
+          343
+        ],
+        "source": "source/wand_milestones.png"
+      },
+      "+13": {
+        "file": "wands/wand.4/+13/hand_down_hold.png",
+        "stage": 13,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "rect": [
+          416,
+          192,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          1457,
+          368,
+          1570,
+          715
+        ],
+        "source": "source/wand_milestones.png"
+      },
+      "+00": {
+        "family": "seonge",
+        "stage": 0,
+        "file": "wands/wand.4/+00/hand_down_hold.png",
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "grip": [
+          16,
+          48
+        ],
+        "facing": "down_hold",
+        "rect": [
+          0,
+          192,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          1416,
+          73,
+          1606,
+          670
+        ],
+        "source": "source/wands.png"
+      },
+      "+01": {
+        "file": "wands/wand.4/+01/hand_down_hold.png",
+        "stage": 1,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          164,
+          75,
+          217,
+          308
+        ],
+        "source": "source/wand-upgrades-seonge.png",
+        "rect": [
+          32,
+          192,
+          32,
+          64
+        ]
+      },
+      "+02": {
+        "file": "wands/wand.4/+02/hand_down_hold.png",
+        "stage": 2,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          522,
+          46,
+          580,
+          308
+        ],
+        "source": "source/wand-upgrades-seonge.png",
+        "rect": [
+          64,
+          192,
+          32,
+          64
+        ]
+      },
+      "+03": {
+        "file": "wands/wand.4/+03/hand_down_hold.png",
+        "stage": 3,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          885,
+          46,
+          964,
+          308
+        ],
+        "source": "source/wand-upgrades-seonge.png",
+        "rect": [
+          96,
+          192,
+          32,
+          64
+        ]
+      },
+      "+04": {
+        "file": "wands/wand.4/+04/hand_down_hold.png",
+        "stage": 4,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          1213,
+          66,
+          1323,
+          308
+        ],
+        "source": "source/wand-upgrades-seonge.png",
+        "rect": [
+          128,
+          192,
+          32,
+          64
+        ]
+      },
+      "+05": {
+        "file": "wands/wand.4/+05/hand_down_hold.png",
+        "stage": 5,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          139,
+          406,
+          224,
+          669
+        ],
+        "source": "source/wand-upgrades-seonge.png",
+        "rect": [
+          160,
+          192,
+          32,
+          64
+        ]
+      },
+      "+06": {
+        "file": "wands/wand.4/+06/hand_down_hold.png",
+        "stage": 6,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          488,
+          398,
+          600,
+          669
+        ],
+        "source": "source/wand-upgrades-seonge.png",
+        "rect": [
+          192,
+          192,
+          32,
+          64
+        ]
+      },
+      "+08": {
+        "file": "wands/wand.4/+08/hand_down_hold.png",
+        "stage": 8,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          829,
+          379,
+          983,
+          669
+        ],
+        "source": "source/wand-upgrades-seonge.png",
+        "rect": [
+          256,
+          192,
+          32,
+          64
+        ]
+      },
+      "+09": {
+        "file": "wands/wand.4/+09/hand_down_hold.png",
+        "stage": 9,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          1175,
+          371,
+          1360,
+          669
+        ],
+        "source": "source/wand-upgrades-seonge.png",
+        "rect": [
+          288,
+          192,
+          32,
+          64
+        ]
+      },
+      "+10": {
+        "file": "wands/wand.4/+10/hand_down_hold.png",
+        "stage": 10,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          107,
+          735,
+          256,
+          1032
+        ],
+        "source": "source/wand-upgrades-seonge.png",
+        "rect": [
+          320,
+          192,
+          32,
+          64
+        ]
+      },
+      "+11": {
+        "file": "wands/wand.4/+11/hand_down_hold.png",
+        "stage": 11,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          467,
+          739,
+          621,
+          1050
+        ],
+        "source": "source/wand-upgrades-seonge.png",
+        "rect": [
+          352,
+          192,
+          32,
+          64
+        ]
+      },
+      "+12": {
+        "file": "wands/wand.4/+12/hand_down_hold.png",
+        "stage": 12,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          829,
+          716,
+          982,
+          1051
+        ],
+        "source": "source/wand-upgrades-seonge.png",
+        "rect": [
+          384,
+          192,
+          32,
+          64
+        ]
+      }
+    },
+    "wand.5": {
+      "+07": {
+        "file": "wands/wand.5/+07/hand_down_hold.png",
+        "stage": 7,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "rect": [
+          224,
+          256,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          1857,
+          10,
+          2008,
+          343
+        ],
+        "source": "source/wand_milestones.png"
+      },
+      "+13": {
+        "file": "wands/wand.5/+13/hand_down_hold.png",
+        "stage": 13,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "rect": [
+          416,
+          256,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          1857,
+          373,
+          2009,
+          714
+        ],
+        "source": "source/wand_milestones.png"
+      },
+      "+00": {
+        "family": "geumeum",
+        "stage": 0,
+        "file": "wands/wand.5/+00/hand_down_hold.png",
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "grip": [
+          16,
+          48
+        ],
+        "facing": "down_hold",
+        "rect": [
+          0,
+          256,
+          32,
+          64
+        ],
+        "source_rect_ltrb": [
+          1857,
+          73,
+          2038,
+          670
+        ],
+        "source": "source/wands.png"
+      },
+      "+01": {
+        "file": "wands/wand.5/+01/hand_down_hold.png",
+        "stage": 1,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          136,
+          35,
+          220,
+          312
+        ],
+        "source": "source/wand-upgrades-geumeum.png",
+        "rect": [
+          32,
+          256,
+          32,
+          64
+        ]
+      },
+      "+02": {
+        "file": "wands/wand.5/+02/hand_down_hold.png",
+        "stage": 2,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          482,
+          35,
+          607,
+          312
+        ],
+        "source": "source/wand-upgrades-geumeum.png",
+        "rect": [
+          64,
+          256,
+          32,
+          64
+        ]
+      },
+      "+03": {
+        "file": "wands/wand.5/+03/hand_down_hold.png",
+        "stage": 3,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          847,
+          87,
+          963,
+          309
+        ],
+        "source": "source/wand-upgrades-geumeum.png",
+        "rect": [
+          96,
+          256,
+          32,
+          64
+        ]
+      },
+      "+04": {
+        "file": "wands/wand.5/+04/hand_down_hold.png",
+        "stage": 4,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          1186,
+          44,
+          1339,
+          307
+        ],
+        "source": "source/wand-upgrades-geumeum.png",
+        "rect": [
+          128,
+          256,
+          32,
+          64
+        ]
+      },
+      "+05": {
+        "file": "wands/wand.5/+05/hand_down_hold.png",
+        "stage": 5,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          113,
+          389,
+          257,
+          681
+        ],
+        "source": "source/wand-upgrades-geumeum.png",
+        "rect": [
+          160,
+          256,
+          32,
+          64
+        ]
+      },
+      "+06": {
+        "file": "wands/wand.5/+06/hand_down_hold.png",
+        "stage": 6,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          475,
+          386,
+          612,
+          681
+        ],
+        "source": "source/wand-upgrades-geumeum.png",
+        "rect": [
+          192,
+          256,
+          32,
+          64
+        ]
+      },
+      "+08": {
+        "file": "wands/wand.5/+08/hand_down_hold.png",
+        "stage": 8,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          829,
+          393,
+          971,
+          683
+        ],
+        "source": "source/wand-upgrades-geumeum.png",
+        "rect": [
+          256,
+          256,
+          32,
+          64
+        ]
+      },
+      "+09": {
+        "file": "wands/wand.5/+09/hand_down_hold.png",
+        "stage": 9,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          1174,
+          388,
+          1356,
+          682
+        ],
+        "source": "source/wand-upgrades-geumeum.png",
+        "rect": [
+          288,
+          256,
+          32,
+          64
+        ]
+      },
+      "+10": {
+        "file": "wands/wand.5/+10/hand_down_hold.png",
+        "stage": 10,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          107,
+          768,
+          264,
+          1056
+        ],
+        "source": "source/wand-upgrades-geumeum.png",
+        "rect": [
+          320,
+          256,
+          32,
+          64
+        ]
+      },
+      "+11": {
+        "file": "wands/wand.5/+11/hand_down_hold.png",
+        "stage": 11,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          467,
+          758,
+          618,
+          1056
+        ],
+        "source": "source/wand-upgrades-geumeum.png",
+        "rect": [
+          352,
+          256,
+          32,
+          64
+        ]
+      },
+      "+12": {
+        "file": "wands/wand.5/+12/hand_down_hold.png",
+        "stage": 12,
+        "size": [
+          32,
+          64
+        ],
+        "logical_size": [
+          16,
+          32
+        ],
+        "facing": "down_hold",
+        "grip": [
+          16,
+          48
+        ],
+        "source_rect_ltrb": [
+          823,
+          751,
+          986,
+          1057
+        ],
+        "source": "source/wand-upgrades-geumeum.png",
+        "rect": [
+          384,
+          256,
+          32,
+          64
+        ]
+      }
+    }
+  },
+  "wand_upgrade_sheet": "wands/upgrades_hand.png"
+}

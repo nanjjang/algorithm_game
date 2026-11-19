@@ -1,0 +1,544 @@
+{
+  "coordinates": "top-left pixel coordinates",
+  "filter": "point",
+  "mipmaps": false,
+  "footBaseline": [
+    32,
+    59
+  ],
+  "alpha": "binary pixel art transparency",
+  "characters": {
+    "dalgu": {
+      "sheet": "dalgu/walk_right/sheet.png",
+      "canvas": [
+        64,
+        64
+      ],
+      "columns": 6,
+      "direction": "right",
+      "mirrorForLeft": true,
+      "fps": 10,
+      "loop": true,
+      "includesWand": false,
+      "source": {
+        "generatedImageId": "c30eded7-f7c6-4ebc-b5f5-d9c6b28adef1",
+        "sourceFileSha256": "04114fc62415266d4fae1ca05feade76d326c0387c76efd9351881f7017214b1"
+      },
+      "frames": [
+        {
+          "path": "dalgu/walk_right/01.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            14,
+            6,
+            50,
+            60
+          ]
+        },
+        {
+          "path": "dalgu/walk_right/02.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            14,
+            6,
+            50,
+            60
+          ]
+        },
+        {
+          "path": "dalgu/walk_right/03.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            14,
+            6,
+            50,
+            60
+          ]
+        },
+        {
+          "path": "dalgu/walk_right/04.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            14,
+            6,
+            50,
+            60
+          ]
+        },
+        {
+          "path": "dalgu/walk_right/05.png",
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            14,
+            6,
+            50,
+            60
+          ]
+        },
+        {
+          "path": "dalgu/walk_right/06.png",
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            14,
+            6,
+            50,
+            60
+          ]
+        }
+      ]
+    },
+    "chorong": {
+      "sheet": "chorong/walk_right/sheet.png",
+      "canvas": [
+        64,
+        64
+      ],
+      "columns": 6,
+      "direction": "right",
+      "mirrorForLeft": true,
+      "fps": 10,
+      "loop": true,
+      "includesWand": false,
+      "source": {
+        "generatedImageId": "315daa19-7021-40af-b4ed-b49d143c758e",
+        "sourceFileSha256": "5808bff4820f2a987549ccb541d64b9eb6012a2d75a824b0a49959fae79c250f"
+      },
+      "frames": [
+        {
+          "path": "chorong/walk_right/01.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            12,
+            4,
+            52,
+            60
+          ]
+        },
+        {
+          "path": "chorong/walk_right/02.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            12,
+            4,
+            53,
+            60
+          ]
+        },
+        {
+          "path": "chorong/walk_right/03.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            13,
+            4,
+            53,
+            60
+          ]
+        },
+        {
+          "path": "chorong/walk_right/04.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            12,
+            4,
+            53,
+            60
+          ]
+        },
+        {
+          "path": "chorong/walk_right/05.png",
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            13,
+            4,
+            53,
+            60
+          ]
+        },
+        {
+          "path": "chorong/walk_right/06.png",
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            12,
+            4,
+            53,
+            60
+          ]
+        }
+      ]
+    },
+    "galpi": {
+      "sheet": "galpi/walk_right/sheet.png",
+      "canvas": [
+        64,
+        64
+      ],
+      "columns": 6,
+      "direction": "right",
+      "mirrorForLeft": true,
+      "fps": 10,
+      "loop": true,
+      "includesWand": false,
+      "source": {
+        "generatedImageId": "f3e234f4-dd3f-42bd-9f15-46aedd03bd61",
+        "sourceFileSha256": "5a442fbd578bf401a4731d4ecf3061d2d15d47f312931b8d2e9d8461fe25dd40"
+      },
+      "frames": [
+        {
+          "path": "galpi/walk_right/01.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            13,
+            10,
+            51,
+            60
+          ]
+        },
+        {
+          "path": "galpi/walk_right/02.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            13,
+            9,
+            51,
+            60
+          ]
+        },
+        {
+          "path": "galpi/walk_right/03.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            13,
+            9,
+            51,
+            60
+          ]
+        },
+        {
+          "path": "galpi/walk_right/04.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            13,
+            9,
+            51,
+            60
+          ]
+        },
+        {
+          "path": "galpi/walk_right/05.png",
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            13,
+            9,
+            51,
+            60
+          ]
+        },
+        {
+          "path": "galpi/walk_right/06.png",
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            13,
+            9,
+            51,
+            60
+          ]
+        }
+      ]
+    },
+    "seonge": {
+      "sheet": "seonge/walk_right/sheet.png",
+      "canvas": [
+        64,
+        64
+      ],
+      "columns": 6,
+      "direction": "right",
+      "mirrorForLeft": true,
+      "fps": 10,
+      "loop": true,
+      "includesWand": false,
+      "source": {
+        "generatedImageId": "00aa43d8-a25e-434b-a212-9e3549b5437d",
+        "sourceFileSha256": "8854f3a7ad7cb44a34394398a216b9350bc0f20ffb3e3fb107d5243e243fe9d0"
+      },
+      "frames": [
+        {
+          "path": "seonge/walk_right/01.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            15,
+            3,
+            49,
+            60
+          ]
+        },
+        {
+          "path": "seonge/walk_right/02.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            15,
+            3,
+            49,
+            60
+          ]
+        },
+        {
+          "path": "seonge/walk_right/03.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            15,
+            3,
+            48,
+            60
+          ]
+        },
+        {
+          "path": "seonge/walk_right/04.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            15,
+            3,
+            49,
+            60
+          ]
+        },
+        {
+          "path": "seonge/walk_right/05.png",
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            15,
+            3,
+            48,
+            60
+          ]
+        },
+        {
+          "path": "seonge/walk_right/06.png",
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ],
+          "feet": [
+            32,
+            59
+          ],
+          "opaqueBounds": [
+            15,
+            3,
+            47,
+            60
+          ]
+        }
+      ]
+    }
+  }
+}

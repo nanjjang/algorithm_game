@@ -1,0 +1,10887 @@
+{
+  "player": {
+    "hit_fire": {
+      "path": "player/hit_fire_32x32_f3.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "hit_large_fire": {
+      "path": "player/hit_large_fire_64x64_f4.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "weakness_fire": {
+      "path": "player/weakness_fire_64x64_f4.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "explosion_fire": {
+      "path": "player/explosion_fire_256x256_f5.png",
+      "size": [
+        256,
+        256
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          256,
+          256
+        ],
+        [
+          256,
+          0,
+          256,
+          256
+        ],
+        [
+          512,
+          0,
+          256,
+          256
+        ],
+        [
+          768,
+          0,
+          256,
+          256
+        ],
+        [
+          1024,
+          0,
+          256,
+          256
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "ImageGen",
+      "redrawnClip": "player.explosion_fire"
+    },
+    "resist_fire": {
+      "path": "player/resist_fire_32x16_f3.png",
+      "size": [
+        32,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          16
+        ],
+        [
+          32,
+          0,
+          32,
+          16
+        ],
+        [
+          64,
+          0,
+          32,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "crystal_fire": {
+      "path": "player/crystal_fire_24x24_f2.png",
+      "size": [
+        24,
+        24
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          24,
+          24
+        ],
+        [
+          24,
+          0,
+          24,
+          24
+        ]
+      ],
+      "fps": 5,
+      "loop": true,
+      "source": "existing production artwork"
+    },
+    "trace_fire": {
+      "path": "player/trace_fire_64x32_f2.png",
+      "size": [
+        64,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          32
+        ],
+        [
+          64,
+          0,
+          64,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "hit_lightning": {
+      "path": "player/hit_lightning_32x32_f3.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "hit_large_lightning": {
+      "path": "player/hit_large_lightning_64x64_f4.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "weakness_lightning": {
+      "path": "player/weakness_lightning_64x64_f4.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "explosion_lightning": {
+      "path": "player/explosion_lightning_256x256_f5.png",
+      "size": [
+        256,
+        256
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          256,
+          256
+        ],
+        [
+          256,
+          0,
+          256,
+          256
+        ],
+        [
+          512,
+          0,
+          256,
+          256
+        ],
+        [
+          768,
+          0,
+          256,
+          256
+        ],
+        [
+          1024,
+          0,
+          256,
+          256
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "ImageGen",
+      "redrawnClip": "player.explosion_lightning"
+    },
+    "resist_lightning": {
+      "path": "player/resist_lightning_32x16_f3.png",
+      "size": [
+        32,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          16
+        ],
+        [
+          32,
+          0,
+          32,
+          16
+        ],
+        [
+          64,
+          0,
+          32,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "crystal_lightning": {
+      "path": "player/crystal_lightning_24x24_f2.png",
+      "size": [
+        24,
+        24
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          24,
+          24
+        ],
+        [
+          24,
+          0,
+          24,
+          24
+        ]
+      ],
+      "fps": 5,
+      "loop": true,
+      "source": "existing production artwork"
+    },
+    "trace_lightning": {
+      "path": "player/trace_lightning_64x32_f2.png",
+      "size": [
+        64,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          32
+        ],
+        [
+          64,
+          0,
+          64,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "hit_arcane": {
+      "path": "player/hit_arcane_32x32_f3.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "hit_large_arcane": {
+      "path": "player/hit_large_arcane_64x64_f4.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "weakness_arcane": {
+      "path": "player/weakness_arcane_64x64_f4.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "explosion_arcane": {
+      "path": "player/explosion_arcane_256x256_f5.png",
+      "size": [
+        256,
+        256
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          256,
+          256
+        ],
+        [
+          256,
+          0,
+          256,
+          256
+        ],
+        [
+          512,
+          0,
+          256,
+          256
+        ],
+        [
+          768,
+          0,
+          256,
+          256
+        ],
+        [
+          1024,
+          0,
+          256,
+          256
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "ImageGen",
+      "redrawnClip": "player.explosion_arcane"
+    },
+    "resist_arcane": {
+      "path": "player/resist_arcane_32x16_f3.png",
+      "size": [
+        32,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          16
+        ],
+        [
+          32,
+          0,
+          32,
+          16
+        ],
+        [
+          64,
+          0,
+          32,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "crystal_arcane": {
+      "path": "player/crystal_arcane_24x24_f2.png",
+      "size": [
+        24,
+        24
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          24,
+          24
+        ],
+        [
+          24,
+          0,
+          24,
+          24
+        ]
+      ],
+      "fps": 5,
+      "loop": true,
+      "source": "existing production artwork"
+    },
+    "trace_arcane": {
+      "path": "player/trace_arcane_64x32_f2.png",
+      "size": [
+        64,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          32
+        ],
+        [
+          64,
+          0,
+          64,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "hit_ice": {
+      "path": "player/hit_ice_32x32_f3.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "hit_large_ice": {
+      "path": "player/hit_large_ice_64x64_f4.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "weakness_ice": {
+      "path": "player/weakness_ice_64x64_f4.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "explosion_ice": {
+      "path": "player/explosion_ice_256x256_f5.png",
+      "size": [
+        256,
+        256
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          256,
+          256
+        ],
+        [
+          256,
+          0,
+          256,
+          256
+        ],
+        [
+          512,
+          0,
+          256,
+          256
+        ],
+        [
+          768,
+          0,
+          256,
+          256
+        ],
+        [
+          1024,
+          0,
+          256,
+          256
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "ImageGen",
+      "redrawnClip": "player.explosion_ice"
+    },
+    "resist_ice": {
+      "path": "player/resist_ice_32x16_f3.png",
+      "size": [
+        32,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          16
+        ],
+        [
+          32,
+          0,
+          32,
+          16
+        ],
+        [
+          64,
+          0,
+          32,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "crystal_ice": {
+      "path": "player/crystal_ice_24x24_f2.png",
+      "size": [
+        24,
+        24
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          24,
+          24
+        ],
+        [
+          24,
+          0,
+          24,
+          24
+        ]
+      ],
+      "fps": 5,
+      "loop": true,
+      "source": "existing production artwork"
+    },
+    "trace_ice": {
+      "path": "player/trace_ice_64x32_f2.png",
+      "size": [
+        64,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          32
+        ],
+        [
+          64,
+          0,
+          64,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "hit_dark": {
+      "path": "player/hit_dark_32x32_f3.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "hit_large_dark": {
+      "path": "player/hit_large_dark_64x64_f4.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "weakness_dark": {
+      "path": "player/weakness_dark_64x64_f4.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "explosion_dark": {
+      "path": "player/explosion_dark_256x256_f5.png",
+      "size": [
+        256,
+        256
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          256,
+          256
+        ],
+        [
+          256,
+          0,
+          256,
+          256
+        ],
+        [
+          512,
+          0,
+          256,
+          256
+        ],
+        [
+          768,
+          0,
+          256,
+          256
+        ],
+        [
+          1024,
+          0,
+          256,
+          256
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "ImageGen",
+      "redrawnClip": "player.explosion_dark"
+    },
+    "resist_dark": {
+      "path": "player/resist_dark_32x16_f3.png",
+      "size": [
+        32,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          16
+        ],
+        [
+          32,
+          0,
+          32,
+          16
+        ],
+        [
+          64,
+          0,
+          32,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "crystal_dark": {
+      "path": "player/crystal_dark_24x24_f2.png",
+      "size": [
+        24,
+        24
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          24,
+          24
+        ],
+        [
+          24,
+          0,
+          24,
+          24
+        ]
+      ],
+      "fps": 5,
+      "loop": true,
+      "source": "existing production artwork"
+    },
+    "trace_dark": {
+      "path": "player/trace_dark_64x32_f2.png",
+      "size": [
+        64,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          32
+        ],
+        [
+          64,
+          0,
+          64,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "mana_bolt": {
+      "path": "player/mana_bolt_16x16_f2.png",
+      "size": [
+        16,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          16,
+          0,
+          16,
+          16
+        ]
+      ],
+      "fps": 10,
+      "loop": true,
+      "source": "existing production artwork"
+    },
+    "fireball": {
+      "path": "player/fireball_32x24_f4.png",
+      "size": [
+        32,
+        24
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          24
+        ],
+        [
+          32,
+          0,
+          32,
+          24
+        ],
+        [
+          64,
+          0,
+          32,
+          24
+        ],
+        [
+          96,
+          0,
+          32,
+          24
+        ]
+      ],
+      "fps": 14,
+      "loop": true,
+      "source": "existing production artwork"
+    },
+    "chain_lightning": {
+      "path": "player/chain_lightning_64x16_f2.png",
+      "size": [
+        64,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          16
+        ],
+        [
+          64,
+          0,
+          64,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "piercing": {
+      "path": "player/piercing_24x12_f2.png",
+      "size": [
+        24,
+        12
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          24,
+          12
+        ],
+        [
+          24,
+          0,
+          24,
+          12
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "ice_lance": {
+      "path": "player/ice_lance_12x28_f2.png",
+      "size": [
+        12,
+        28
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          12,
+          28
+        ],
+        [
+          12,
+          0,
+          12,
+          28
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "ice_muzzle": {
+      "path": "player/ice_muzzle_32x32_f3.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "ice_tail": {
+      "path": "player/ice_tail_8x24_f2.png",
+      "size": [
+        8,
+        24
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          8,
+          24
+        ],
+        [
+          8,
+          0,
+          8,
+          24
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "shadow_orb": {
+      "path": "player/shadow_orb_40x40_f4.png",
+      "size": [
+        40,
+        40
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          40,
+          40
+        ],
+        [
+          40,
+          0,
+          40,
+          40
+        ],
+        [
+          80,
+          0,
+          40,
+          40
+        ],
+        [
+          120,
+          0,
+          40,
+          40
+        ]
+      ],
+      "fps": 8,
+      "loop": true,
+      "source": "ImageGen",
+      "redrawnClip": "player.shadow_orb"
+    },
+    "shadow_orb_cast": {
+      "path": "player/shadow_orb_cast_48x48_f4.png",
+      "size": [
+        48,
+        48
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          48,
+          48
+        ],
+        [
+          48,
+          0,
+          48,
+          48
+        ],
+        [
+          96,
+          0,
+          48,
+          48
+        ],
+        [
+          144,
+          0,
+          48,
+          48
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "shadow_orb_ripple": {
+      "path": "player/shadow_orb_ripple_32x32_f3.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "shadow_orb_fade": {
+      "path": "player/shadow_orb_fade_40x40_f4.png",
+      "size": [
+        40,
+        40
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          40,
+          40
+        ],
+        [
+          40,
+          0,
+          40,
+          40
+        ],
+        [
+          80,
+          0,
+          40,
+          40
+        ],
+        [
+          120,
+          0,
+          40,
+          40
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "shadow_small": {
+      "path": "player/shadow_small_16x16_f2.png",
+      "size": [
+        16,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          16,
+          0,
+          16,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "critical_muzzle": {
+      "path": "player/critical_muzzle_32x32_f3.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "critical_hit": {
+      "path": "player/critical_hit_32x32_f3.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "critical_chevron": {
+      "path": "player/critical_chevron_6x8_f1.png",
+      "size": [
+        6,
+        8
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          6,
+          8
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "graze_strike": {
+      "path": "player/graze_strike_32x128_f2.png",
+      "size": [
+        32,
+        128
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          128
+        ],
+        [
+          32,
+          0,
+          32,
+          128
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "heat_lock_steam": {
+      "path": "player/heat_lock_steam_32x32_f4.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ],
+        [
+          96,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "heat_lock_x": {
+      "path": "player/heat_lock_x_24x24_f2.png",
+      "size": [
+        24,
+        24
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          24,
+          24
+        ],
+        [
+          24,
+          0,
+          24,
+          24
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "overflow_warning": {
+      "path": "player/overflow_warning_16x16_f1.png",
+      "size": [
+        16,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          16,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "overflow_steam_arc": {
+      "path": "player/overflow_steam_arc_320x320_f5.png",
+      "size": [
+        320,
+        320
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          320,
+          320
+        ],
+        [
+          320,
+          0,
+          320,
+          320
+        ],
+        [
+          640,
+          0,
+          320,
+          320
+        ],
+        [
+          960,
+          0,
+          320,
+          320
+        ],
+        [
+          1280,
+          0,
+          320,
+          320
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    }
+  },
+  "special": {
+    "release_fire": {
+      "path": "special/release_fire_64x64_f4.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "ImageGen",
+      "redrawnClip": "special.release_fire"
+    },
+    "muzzle_storm_fire": {
+      "path": "special/muzzle_storm_fire_96x64_f4.png",
+      "size": [
+        96,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          64
+        ],
+        [
+          96,
+          0,
+          96,
+          64
+        ],
+        [
+          192,
+          0,
+          96,
+          64
+        ],
+        [
+          288,
+          0,
+          96,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "fan_fire": {
+      "path": "special/fan_fire_192x128_f4.png",
+      "size": [
+        192,
+        128
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          128
+        ],
+        [
+          192,
+          0,
+          192,
+          128
+        ],
+        [
+          384,
+          0,
+          192,
+          128
+        ],
+        [
+          576,
+          0,
+          192,
+          128
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "wing_fire": {
+      "path": "special/wing_fire_96x64_f4.png",
+      "size": [
+        96,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          64
+        ],
+        [
+          96,
+          0,
+          96,
+          64
+        ],
+        [
+          192,
+          0,
+          96,
+          64
+        ],
+        [
+          288,
+          0,
+          96,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "octagram_fire": {
+      "path": "special/octagram_fire_128x128_f4.png",
+      "size": [
+        128,
+        128
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          128,
+          128
+        ],
+        [
+          128,
+          0,
+          128,
+          128
+        ],
+        [
+          256,
+          0,
+          128,
+          128
+        ],
+        [
+          384,
+          0,
+          128,
+          128
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "bloom_fire": {
+      "path": "special/bloom_fire_192x192_f6.png",
+      "size": [
+        192,
+        192
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "spear_shaft_fire": {
+      "path": "special/spear_shaft_fire_64x32_f3.png",
+      "size": [
+        64,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          32
+        ],
+        [
+          64,
+          0,
+          64,
+          32
+        ],
+        [
+          128,
+          0,
+          64,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "spear_tip_fire": {
+      "path": "special/spear_tip_fire_64x32_f3.png",
+      "size": [
+        64,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          32
+        ],
+        [
+          64,
+          0,
+          64,
+          32
+        ],
+        [
+          128,
+          0,
+          64,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "thunderlance_shaft_fire": {
+      "path": "special/thunderlance_shaft_fire_64x48_f4.png",
+      "size": [
+        64,
+        48
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          48
+        ],
+        [
+          64,
+          0,
+          64,
+          48
+        ],
+        [
+          128,
+          0,
+          64,
+          48
+        ],
+        [
+          192,
+          0,
+          64,
+          48
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "thunderlance_tip_fire": {
+      "path": "special/thunderlance_tip_fire_64x48_f4.png",
+      "size": [
+        64,
+        48
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          48
+        ],
+        [
+          64,
+          0,
+          64,
+          48
+        ],
+        [
+          128,
+          0,
+          64,
+          48
+        ],
+        [
+          192,
+          0,
+          64,
+          48
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "petal_fire": {
+      "path": "special/petal_fire_32x48_f3.png",
+      "size": [
+        32,
+        48
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          48
+        ],
+        [
+          32,
+          0,
+          32,
+          48
+        ],
+        [
+          64,
+          0,
+          32,
+          48
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "release_lightning": {
+      "path": "special/release_lightning_64x64_f4.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "ImageGen",
+      "redrawnClip": "special.release_lightning"
+    },
+    "muzzle_storm_lightning": {
+      "path": "special/muzzle_storm_lightning_96x64_f4.png",
+      "size": [
+        96,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          64
+        ],
+        [
+          96,
+          0,
+          96,
+          64
+        ],
+        [
+          192,
+          0,
+          96,
+          64
+        ],
+        [
+          288,
+          0,
+          96,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "fan_lightning": {
+      "path": "special/fan_lightning_192x128_f4.png",
+      "size": [
+        192,
+        128
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          128
+        ],
+        [
+          192,
+          0,
+          192,
+          128
+        ],
+        [
+          384,
+          0,
+          192,
+          128
+        ],
+        [
+          576,
+          0,
+          192,
+          128
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "wing_lightning": {
+      "path": "special/wing_lightning_96x64_f4.png",
+      "size": [
+        96,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          64
+        ],
+        [
+          96,
+          0,
+          96,
+          64
+        ],
+        [
+          192,
+          0,
+          96,
+          64
+        ],
+        [
+          288,
+          0,
+          96,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "octagram_lightning": {
+      "path": "special/octagram_lightning_128x128_f4.png",
+      "size": [
+        128,
+        128
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          128,
+          128
+        ],
+        [
+          128,
+          0,
+          128,
+          128
+        ],
+        [
+          256,
+          0,
+          128,
+          128
+        ],
+        [
+          384,
+          0,
+          128,
+          128
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "bloom_lightning": {
+      "path": "special/bloom_lightning_192x192_f6.png",
+      "size": [
+        192,
+        192
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "spear_shaft_lightning": {
+      "path": "special/spear_shaft_lightning_64x32_f3.png",
+      "size": [
+        64,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          32
+        ],
+        [
+          64,
+          0,
+          64,
+          32
+        ],
+        [
+          128,
+          0,
+          64,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "spear_tip_lightning": {
+      "path": "special/spear_tip_lightning_64x32_f3.png",
+      "size": [
+        64,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          32
+        ],
+        [
+          64,
+          0,
+          64,
+          32
+        ],
+        [
+          128,
+          0,
+          64,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "thunderlance_shaft_lightning": {
+      "path": "special/thunderlance_shaft_lightning_64x48_f4.png",
+      "size": [
+        64,
+        48
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          48
+        ],
+        [
+          64,
+          0,
+          64,
+          48
+        ],
+        [
+          128,
+          0,
+          64,
+          48
+        ],
+        [
+          192,
+          0,
+          64,
+          48
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "thunderlance_tip_lightning": {
+      "path": "special/thunderlance_tip_lightning_64x48_f4.png",
+      "size": [
+        64,
+        48
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          48
+        ],
+        [
+          64,
+          0,
+          64,
+          48
+        ],
+        [
+          128,
+          0,
+          64,
+          48
+        ],
+        [
+          192,
+          0,
+          64,
+          48
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "petal_lightning": {
+      "path": "special/petal_lightning_32x48_f3.png",
+      "size": [
+        32,
+        48
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          48
+        ],
+        [
+          32,
+          0,
+          32,
+          48
+        ],
+        [
+          64,
+          0,
+          32,
+          48
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "release_arcane": {
+      "path": "special/release_arcane_64x64_f4.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "ImageGen",
+      "redrawnClip": "special.release_arcane"
+    },
+    "muzzle_storm_arcane": {
+      "path": "special/muzzle_storm_arcane_96x64_f4.png",
+      "size": [
+        96,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          64
+        ],
+        [
+          96,
+          0,
+          96,
+          64
+        ],
+        [
+          192,
+          0,
+          96,
+          64
+        ],
+        [
+          288,
+          0,
+          96,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "fan_arcane": {
+      "path": "special/fan_arcane_192x128_f4.png",
+      "size": [
+        192,
+        128
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          128
+        ],
+        [
+          192,
+          0,
+          192,
+          128
+        ],
+        [
+          384,
+          0,
+          192,
+          128
+        ],
+        [
+          576,
+          0,
+          192,
+          128
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "wing_arcane": {
+      "path": "special/wing_arcane_96x64_f4.png",
+      "size": [
+        96,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          64
+        ],
+        [
+          96,
+          0,
+          96,
+          64
+        ],
+        [
+          192,
+          0,
+          96,
+          64
+        ],
+        [
+          288,
+          0,
+          96,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "octagram_arcane": {
+      "path": "special/octagram_arcane_128x128_f4.png",
+      "size": [
+        128,
+        128
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          128,
+          128
+        ],
+        [
+          128,
+          0,
+          128,
+          128
+        ],
+        [
+          256,
+          0,
+          128,
+          128
+        ],
+        [
+          384,
+          0,
+          128,
+          128
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "bloom_arcane": {
+      "path": "special/bloom_arcane_192x192_f6.png",
+      "size": [
+        192,
+        192
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "spear_shaft_arcane": {
+      "path": "special/spear_shaft_arcane_64x32_f3.png",
+      "size": [
+        64,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          32
+        ],
+        [
+          64,
+          0,
+          64,
+          32
+        ],
+        [
+          128,
+          0,
+          64,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "spear_tip_arcane": {
+      "path": "special/spear_tip_arcane_64x32_f3.png",
+      "size": [
+        64,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          32
+        ],
+        [
+          64,
+          0,
+          64,
+          32
+        ],
+        [
+          128,
+          0,
+          64,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "thunderlance_shaft_arcane": {
+      "path": "special/thunderlance_shaft_arcane_64x48_f4.png",
+      "size": [
+        64,
+        48
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          48
+        ],
+        [
+          64,
+          0,
+          64,
+          48
+        ],
+        [
+          128,
+          0,
+          64,
+          48
+        ],
+        [
+          192,
+          0,
+          64,
+          48
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "thunderlance_tip_arcane": {
+      "path": "special/thunderlance_tip_arcane_64x48_f4.png",
+      "size": [
+        64,
+        48
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          48
+        ],
+        [
+          64,
+          0,
+          64,
+          48
+        ],
+        [
+          128,
+          0,
+          64,
+          48
+        ],
+        [
+          192,
+          0,
+          64,
+          48
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "petal_arcane": {
+      "path": "special/petal_arcane_32x48_f3.png",
+      "size": [
+        32,
+        48
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          48
+        ],
+        [
+          32,
+          0,
+          32,
+          48
+        ],
+        [
+          64,
+          0,
+          32,
+          48
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "release_ice": {
+      "path": "special/release_ice_64x64_f4.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "ImageGen",
+      "redrawnClip": "special.release_ice"
+    },
+    "muzzle_storm_ice": {
+      "path": "special/muzzle_storm_ice_96x64_f4.png",
+      "size": [
+        96,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          64
+        ],
+        [
+          96,
+          0,
+          96,
+          64
+        ],
+        [
+          192,
+          0,
+          96,
+          64
+        ],
+        [
+          288,
+          0,
+          96,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "fan_ice": {
+      "path": "special/fan_ice_192x128_f4.png",
+      "size": [
+        192,
+        128
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          128
+        ],
+        [
+          192,
+          0,
+          192,
+          128
+        ],
+        [
+          384,
+          0,
+          192,
+          128
+        ],
+        [
+          576,
+          0,
+          192,
+          128
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "wing_ice": {
+      "path": "special/wing_ice_96x64_f4.png",
+      "size": [
+        96,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          64
+        ],
+        [
+          96,
+          0,
+          96,
+          64
+        ],
+        [
+          192,
+          0,
+          96,
+          64
+        ],
+        [
+          288,
+          0,
+          96,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "octagram_ice": {
+      "path": "special/octagram_ice_128x128_f4.png",
+      "size": [
+        128,
+        128
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          128,
+          128
+        ],
+        [
+          128,
+          0,
+          128,
+          128
+        ],
+        [
+          256,
+          0,
+          128,
+          128
+        ],
+        [
+          384,
+          0,
+          128,
+          128
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "bloom_ice": {
+      "path": "special/bloom_ice_192x192_f6.png",
+      "size": [
+        192,
+        192
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "spear_shaft_ice": {
+      "path": "special/spear_shaft_ice_64x32_f3.png",
+      "size": [
+        64,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          32
+        ],
+        [
+          64,
+          0,
+          64,
+          32
+        ],
+        [
+          128,
+          0,
+          64,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "spear_tip_ice": {
+      "path": "special/spear_tip_ice_64x32_f3.png",
+      "size": [
+        64,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          32
+        ],
+        [
+          64,
+          0,
+          64,
+          32
+        ],
+        [
+          128,
+          0,
+          64,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "thunderlance_shaft_ice": {
+      "path": "special/thunderlance_shaft_ice_64x48_f4.png",
+      "size": [
+        64,
+        48
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          48
+        ],
+        [
+          64,
+          0,
+          64,
+          48
+        ],
+        [
+          128,
+          0,
+          64,
+          48
+        ],
+        [
+          192,
+          0,
+          64,
+          48
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "thunderlance_tip_ice": {
+      "path": "special/thunderlance_tip_ice_64x48_f4.png",
+      "size": [
+        64,
+        48
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          48
+        ],
+        [
+          64,
+          0,
+          64,
+          48
+        ],
+        [
+          128,
+          0,
+          64,
+          48
+        ],
+        [
+          192,
+          0,
+          64,
+          48
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "petal_ice": {
+      "path": "special/petal_ice_32x48_f3.png",
+      "size": [
+        32,
+        48
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          48
+        ],
+        [
+          32,
+          0,
+          32,
+          48
+        ],
+        [
+          64,
+          0,
+          32,
+          48
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "release_dark": {
+      "path": "special/release_dark_64x64_f4.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "ImageGen",
+      "redrawnClip": "special.release_dark"
+    },
+    "muzzle_storm_dark": {
+      "path": "special/muzzle_storm_dark_96x64_f4.png",
+      "size": [
+        96,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          64
+        ],
+        [
+          96,
+          0,
+          96,
+          64
+        ],
+        [
+          192,
+          0,
+          96,
+          64
+        ],
+        [
+          288,
+          0,
+          96,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "fan_dark": {
+      "path": "special/fan_dark_192x128_f4.png",
+      "size": [
+        192,
+        128
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          128
+        ],
+        [
+          192,
+          0,
+          192,
+          128
+        ],
+        [
+          384,
+          0,
+          192,
+          128
+        ],
+        [
+          576,
+          0,
+          192,
+          128
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "wing_dark": {
+      "path": "special/wing_dark_96x64_f4.png",
+      "size": [
+        96,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          64
+        ],
+        [
+          96,
+          0,
+          96,
+          64
+        ],
+        [
+          192,
+          0,
+          96,
+          64
+        ],
+        [
+          288,
+          0,
+          96,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "octagram_dark": {
+      "path": "special/octagram_dark_128x128_f4.png",
+      "size": [
+        128,
+        128
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          128,
+          128
+        ],
+        [
+          128,
+          0,
+          128,
+          128
+        ],
+        [
+          256,
+          0,
+          128,
+          128
+        ],
+        [
+          384,
+          0,
+          128,
+          128
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "bloom_dark": {
+      "path": "special/bloom_dark_192x192_f6.png",
+      "size": [
+        192,
+        192
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "spear_shaft_dark": {
+      "path": "special/spear_shaft_dark_64x32_f3.png",
+      "size": [
+        64,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          32
+        ],
+        [
+          64,
+          0,
+          64,
+          32
+        ],
+        [
+          128,
+          0,
+          64,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "spear_tip_dark": {
+      "path": "special/spear_tip_dark_64x32_f3.png",
+      "size": [
+        64,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          32
+        ],
+        [
+          64,
+          0,
+          64,
+          32
+        ],
+        [
+          128,
+          0,
+          64,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "thunderlance_shaft_dark": {
+      "path": "special/thunderlance_shaft_dark_64x48_f4.png",
+      "size": [
+        64,
+        48
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          48
+        ],
+        [
+          64,
+          0,
+          64,
+          48
+        ],
+        [
+          128,
+          0,
+          64,
+          48
+        ],
+        [
+          192,
+          0,
+          64,
+          48
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "thunderlance_tip_dark": {
+      "path": "special/thunderlance_tip_dark_64x48_f4.png",
+      "size": [
+        64,
+        48
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          48
+        ],
+        [
+          64,
+          0,
+          64,
+          48
+        ],
+        [
+          128,
+          0,
+          64,
+          48
+        ],
+        [
+          192,
+          0,
+          64,
+          48
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "petal_dark": {
+      "path": "special/petal_dark_32x48_f3.png",
+      "size": [
+        32,
+        48
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          48
+        ],
+        [
+          32,
+          0,
+          32,
+          48
+        ],
+        [
+          64,
+          0,
+          32,
+          48
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "cast_seal_01": {
+      "path": "special/cast_seal_01_96x96_f4.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "cast_seal_02": {
+      "path": "special/cast_seal_02_96x96_f4.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "cast_seal_03": {
+      "path": "special/cast_seal_03_96x96_f4.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "cast_seal_04": {
+      "path": "special/cast_seal_04_96x96_f4.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "cast_seal_05": {
+      "path": "special/cast_seal_05_96x96_f4.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "cast_seal_06": {
+      "path": "special/cast_seal_06_96x96_f4.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "cast_seal_07": {
+      "path": "special/cast_seal_07_96x96_f4.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "cast_seal_08": {
+      "path": "special/cast_seal_08_96x96_f4.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "cast_seal_09": {
+      "path": "special/cast_seal_09_96x96_f4.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "cast_seal_10": {
+      "path": "special/cast_seal_10_96x96_f4.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "cast_seal_11": {
+      "path": "special/cast_seal_11_96x96_f4.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "cast_seal_12": {
+      "path": "special/cast_seal_12_96x96_f4.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "cast_seal_13": {
+      "path": "special/cast_seal_13_96x96_f4.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "cast_seal_14": {
+      "path": "special/cast_seal_14_96x96_f4.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "cast_seal_15": {
+      "path": "special/cast_seal_15_96x96_f4.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "dodge_dust": {
+      "path": "special/dodge_dust_32x32_f4.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ],
+        [
+          96,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "purge_steam": {
+      "path": "special/purge_steam_32x32_f4.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ],
+        [
+          96,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "break_armor": {
+      "path": "special/break_armor_48x48_f4.png",
+      "size": [
+        48,
+        48
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          48,
+          48
+        ],
+        [
+          48,
+          0,
+          48,
+          48
+        ],
+        [
+          96,
+          0,
+          48,
+          48
+        ],
+        [
+          144,
+          0,
+          48,
+          48
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "just_star": {
+      "path": "special/just_star_48x48_f2.png",
+      "size": [
+        48,
+        48
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          48,
+          48
+        ],
+        [
+          48,
+          0,
+          48,
+          48
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "kiln_border": {
+      "path": "special/kiln_border_320x320_f4.png",
+      "size": [
+        320,
+        320
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          320,
+          320
+        ],
+        [
+          320,
+          0,
+          320,
+          320
+        ],
+        [
+          640,
+          0,
+          320,
+          320
+        ],
+        [
+          960,
+          0,
+          320,
+          320
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "kiln_ember": {
+      "path": "special/kiln_ember_8x8_f2.png",
+      "size": [
+        8,
+        8
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          8,
+          8
+        ],
+        [
+          8,
+          0,
+          8,
+          8
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "lightning_dash": {
+      "path": "special/lightning_dash_256x64_f3.png",
+      "size": [
+        256,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          256,
+          64
+        ],
+        [
+          256,
+          0,
+          256,
+          64
+        ],
+        [
+          512,
+          0,
+          256,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "arcane_copy": {
+      "path": "special/arcane_copy_96x96_f4.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "scattered_pages": {
+      "path": "special/scattered_pages_16x16_f3.png",
+      "size": [
+        16,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          16,
+          0,
+          16,
+          16
+        ],
+        [
+          32,
+          0,
+          16,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "ice_screen_horizontal": {
+      "path": "special/ice_screen_horizontal_192x96_f10.png",
+      "size": [
+        192,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          96
+        ],
+        [
+          192,
+          0,
+          192,
+          96
+        ],
+        [
+          384,
+          0,
+          192,
+          96
+        ],
+        [
+          576,
+          0,
+          192,
+          96
+        ],
+        [
+          768,
+          0,
+          192,
+          96
+        ],
+        [
+          960,
+          0,
+          192,
+          96
+        ],
+        [
+          1152,
+          0,
+          192,
+          96
+        ],
+        [
+          1344,
+          0,
+          192,
+          96
+        ],
+        [
+          1536,
+          0,
+          192,
+          96
+        ],
+        [
+          1728,
+          0,
+          192,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "ice_screen_vertical": {
+      "path": "special/ice_screen_vertical_192x96_f10.png",
+      "size": [
+        192,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          96
+        ],
+        [
+          192,
+          0,
+          192,
+          96
+        ],
+        [
+          384,
+          0,
+          192,
+          96
+        ],
+        [
+          576,
+          0,
+          192,
+          96
+        ],
+        [
+          768,
+          0,
+          192,
+          96
+        ],
+        [
+          960,
+          0,
+          192,
+          96
+        ],
+        [
+          1152,
+          0,
+          192,
+          96
+        ],
+        [
+          1344,
+          0,
+          192,
+          96
+        ],
+        [
+          1536,
+          0,
+          192,
+          96
+        ],
+        [
+          1728,
+          0,
+          192,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "ice_screen_ripple": {
+      "path": "special/ice_screen_ripple_32x32_f3.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "ice_screen_shard": {
+      "path": "special/ice_screen_shard_16x16_f3.png",
+      "size": [
+        16,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          16,
+          0,
+          16,
+          16
+        ],
+        [
+          32,
+          0,
+          16,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "shadow_pool": {
+      "path": "special/shadow_pool_128x128_f4.png",
+      "size": [
+        128,
+        128
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          128,
+          128
+        ],
+        [
+          128,
+          0,
+          128,
+          128
+        ],
+        [
+          256,
+          0,
+          128,
+          128
+        ],
+        [
+          384,
+          0,
+          128,
+          128
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "shadow_hand": {
+      "path": "special/shadow_hand_32x32_f4.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ],
+        [
+          96,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "ImageGen",
+      "redrawnClip": "special.shadow_hand"
+    },
+    "shadow_fist": {
+      "path": "special/shadow_fist_64x64_f3.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "shadow_arm": {
+      "path": "special/shadow_arm_32x16_f2.png",
+      "size": [
+        32,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          16
+        ],
+        [
+          32,
+          0,
+          32,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "technique_name_ribbon": {
+      "path": "special/technique_name_ribbon_192x32_f2.png",
+      "size": [
+        192,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          32
+        ],
+        [
+          192,
+          0,
+          192,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "technique_name_ribbon_large": {
+      "path": "special/technique_name_ribbon_large_320x48_f2.png",
+      "size": [
+        320,
+        48
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          320,
+          48
+        ],
+        [
+          320,
+          0,
+          320,
+          48
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    }
+  },
+  "ritual": {
+    "seal_fire": {
+      "path": "ritual/seal_fire_240x240_f1.png",
+      "size": [
+        240,
+        240
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          240,
+          240
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "outer_glyph_fire": {
+      "path": "ritual/outer_glyph_fire_480x480_f4.png",
+      "size": [
+        480,
+        480
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          480,
+          480
+        ],
+        [
+          480,
+          0,
+          480,
+          480
+        ],
+        [
+          960,
+          0,
+          480,
+          480
+        ],
+        [
+          1440,
+          0,
+          480,
+          480
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "charge_fire": {
+      "path": "ritual/charge_fire_96x96_f6.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ],
+        [
+          384,
+          0,
+          96,
+          96
+        ],
+        [
+          480,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "ImageGen",
+      "redrawnClip": "ritual.charge_fire"
+    },
+    "success_column_fire": {
+      "path": "ritual/success_column_fire_192x540_f6.png",
+      "size": [
+        192,
+        540
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          540
+        ],
+        [
+          192,
+          0,
+          192,
+          540
+        ],
+        [
+          384,
+          0,
+          192,
+          540
+        ],
+        [
+          576,
+          0,
+          192,
+          540
+        ],
+        [
+          768,
+          0,
+          192,
+          540
+        ],
+        [
+          960,
+          0,
+          192,
+          540
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "ImageGen",
+      "redrawnClip": "ritual.success_column_fire"
+    },
+    "max_column_fire": {
+      "path": "ritual/max_column_fire_192x540_f8.png",
+      "size": [
+        192,
+        540
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          540
+        ],
+        [
+          192,
+          0,
+          192,
+          540
+        ],
+        [
+          384,
+          0,
+          192,
+          540
+        ],
+        [
+          576,
+          0,
+          192,
+          540
+        ],
+        [
+          768,
+          0,
+          192,
+          540
+        ],
+        [
+          960,
+          0,
+          192,
+          540
+        ],
+        [
+          1152,
+          0,
+          192,
+          540
+        ],
+        [
+          1344,
+          0,
+          192,
+          540
+        ]
+      ],
+      "fps": 12,
+      "loop": true,
+      "source": "existing production artwork"
+    },
+    "success_mote_fire": {
+      "path": "ritual/success_mote_fire_16x16_f3.png",
+      "size": [
+        16,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          16,
+          0,
+          16,
+          16
+        ],
+        [
+          32,
+          0,
+          16,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "break_pieces_fire": {
+      "path": "ritual/break_pieces_fire_64x64_f18.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ],
+        [
+          256,
+          0,
+          64,
+          64
+        ],
+        [
+          320,
+          0,
+          64,
+          64
+        ],
+        [
+          384,
+          0,
+          64,
+          64
+        ],
+        [
+          448,
+          0,
+          64,
+          64
+        ],
+        [
+          512,
+          0,
+          64,
+          64
+        ],
+        [
+          576,
+          0,
+          64,
+          64
+        ],
+        [
+          640,
+          0,
+          64,
+          64
+        ],
+        [
+          704,
+          0,
+          64,
+          64
+        ],
+        [
+          768,
+          0,
+          64,
+          64
+        ],
+        [
+          832,
+          0,
+          64,
+          64
+        ],
+        [
+          896,
+          0,
+          64,
+          64
+        ],
+        [
+          960,
+          0,
+          64,
+          64
+        ],
+        [
+          1024,
+          0,
+          64,
+          64
+        ],
+        [
+          1088,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "extinguish_fire": {
+      "path": "ritual/extinguish_fire_96x96_f5.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ],
+        [
+          384,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "ward_ribbon_fire": {
+      "path": "ritual/ward_ribbon_fire_128x128_f6.png",
+      "size": [
+        128,
+        128
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          128,
+          128
+        ],
+        [
+          128,
+          0,
+          128,
+          128
+        ],
+        [
+          256,
+          0,
+          128,
+          128
+        ],
+        [
+          384,
+          0,
+          128,
+          128
+        ],
+        [
+          512,
+          0,
+          128,
+          128
+        ],
+        [
+          640,
+          0,
+          128,
+          128
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "stage_hold_fire": {
+      "path": "ritual/stage_hold_fire_128x96_f4.png",
+      "size": [
+        128,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          128,
+          96
+        ],
+        [
+          128,
+          0,
+          128,
+          96
+        ],
+        [
+          256,
+          0,
+          128,
+          96
+        ],
+        [
+          384,
+          0,
+          128,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "seal_lightning": {
+      "path": "ritual/seal_lightning_240x240_f1.png",
+      "size": [
+        240,
+        240
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          240,
+          240
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "outer_glyph_lightning": {
+      "path": "ritual/outer_glyph_lightning_480x480_f4.png",
+      "size": [
+        480,
+        480
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          480,
+          480
+        ],
+        [
+          480,
+          0,
+          480,
+          480
+        ],
+        [
+          960,
+          0,
+          480,
+          480
+        ],
+        [
+          1440,
+          0,
+          480,
+          480
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "charge_lightning": {
+      "path": "ritual/charge_lightning_96x96_f6.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ],
+        [
+          384,
+          0,
+          96,
+          96
+        ],
+        [
+          480,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "ImageGen",
+      "redrawnClip": "ritual.charge_lightning"
+    },
+    "success_column_lightning": {
+      "path": "ritual/success_column_lightning_192x540_f6.png",
+      "size": [
+        192,
+        540
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          540
+        ],
+        [
+          192,
+          0,
+          192,
+          540
+        ],
+        [
+          384,
+          0,
+          192,
+          540
+        ],
+        [
+          576,
+          0,
+          192,
+          540
+        ],
+        [
+          768,
+          0,
+          192,
+          540
+        ],
+        [
+          960,
+          0,
+          192,
+          540
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "max_column_lightning": {
+      "path": "ritual/max_column_lightning_192x540_f8.png",
+      "size": [
+        192,
+        540
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          540
+        ],
+        [
+          192,
+          0,
+          192,
+          540
+        ],
+        [
+          384,
+          0,
+          192,
+          540
+        ],
+        [
+          576,
+          0,
+          192,
+          540
+        ],
+        [
+          768,
+          0,
+          192,
+          540
+        ],
+        [
+          960,
+          0,
+          192,
+          540
+        ],
+        [
+          1152,
+          0,
+          192,
+          540
+        ],
+        [
+          1344,
+          0,
+          192,
+          540
+        ]
+      ],
+      "fps": 12,
+      "loop": true,
+      "source": "existing production artwork"
+    },
+    "success_mote_lightning": {
+      "path": "ritual/success_mote_lightning_16x16_f3.png",
+      "size": [
+        16,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          16,
+          0,
+          16,
+          16
+        ],
+        [
+          32,
+          0,
+          16,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "break_pieces_lightning": {
+      "path": "ritual/break_pieces_lightning_64x64_f18.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ],
+        [
+          256,
+          0,
+          64,
+          64
+        ],
+        [
+          320,
+          0,
+          64,
+          64
+        ],
+        [
+          384,
+          0,
+          64,
+          64
+        ],
+        [
+          448,
+          0,
+          64,
+          64
+        ],
+        [
+          512,
+          0,
+          64,
+          64
+        ],
+        [
+          576,
+          0,
+          64,
+          64
+        ],
+        [
+          640,
+          0,
+          64,
+          64
+        ],
+        [
+          704,
+          0,
+          64,
+          64
+        ],
+        [
+          768,
+          0,
+          64,
+          64
+        ],
+        [
+          832,
+          0,
+          64,
+          64
+        ],
+        [
+          896,
+          0,
+          64,
+          64
+        ],
+        [
+          960,
+          0,
+          64,
+          64
+        ],
+        [
+          1024,
+          0,
+          64,
+          64
+        ],
+        [
+          1088,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "extinguish_lightning": {
+      "path": "ritual/extinguish_lightning_96x96_f5.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ],
+        [
+          384,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "ward_ribbon_lightning": {
+      "path": "ritual/ward_ribbon_lightning_128x128_f6.png",
+      "size": [
+        128,
+        128
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          128,
+          128
+        ],
+        [
+          128,
+          0,
+          128,
+          128
+        ],
+        [
+          256,
+          0,
+          128,
+          128
+        ],
+        [
+          384,
+          0,
+          128,
+          128
+        ],
+        [
+          512,
+          0,
+          128,
+          128
+        ],
+        [
+          640,
+          0,
+          128,
+          128
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "stage_hold_lightning": {
+      "path": "ritual/stage_hold_lightning_128x96_f4.png",
+      "size": [
+        128,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          128,
+          96
+        ],
+        [
+          128,
+          0,
+          128,
+          96
+        ],
+        [
+          256,
+          0,
+          128,
+          96
+        ],
+        [
+          384,
+          0,
+          128,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "seal_arcane": {
+      "path": "ritual/seal_arcane_240x240_f1.png",
+      "size": [
+        240,
+        240
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          240,
+          240
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "outer_glyph_arcane": {
+      "path": "ritual/outer_glyph_arcane_480x480_f4.png",
+      "size": [
+        480,
+        480
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          480,
+          480
+        ],
+        [
+          480,
+          0,
+          480,
+          480
+        ],
+        [
+          960,
+          0,
+          480,
+          480
+        ],
+        [
+          1440,
+          0,
+          480,
+          480
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "charge_arcane": {
+      "path": "ritual/charge_arcane_96x96_f6.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ],
+        [
+          384,
+          0,
+          96,
+          96
+        ],
+        [
+          480,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "ImageGen",
+      "redrawnClip": "ritual.charge_arcane"
+    },
+    "success_column_arcane": {
+      "path": "ritual/success_column_arcane_192x540_f6.png",
+      "size": [
+        192,
+        540
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          540
+        ],
+        [
+          192,
+          0,
+          192,
+          540
+        ],
+        [
+          384,
+          0,
+          192,
+          540
+        ],
+        [
+          576,
+          0,
+          192,
+          540
+        ],
+        [
+          768,
+          0,
+          192,
+          540
+        ],
+        [
+          960,
+          0,
+          192,
+          540
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "max_column_arcane": {
+      "path": "ritual/max_column_arcane_192x540_f8.png",
+      "size": [
+        192,
+        540
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          540
+        ],
+        [
+          192,
+          0,
+          192,
+          540
+        ],
+        [
+          384,
+          0,
+          192,
+          540
+        ],
+        [
+          576,
+          0,
+          192,
+          540
+        ],
+        [
+          768,
+          0,
+          192,
+          540
+        ],
+        [
+          960,
+          0,
+          192,
+          540
+        ],
+        [
+          1152,
+          0,
+          192,
+          540
+        ],
+        [
+          1344,
+          0,
+          192,
+          540
+        ]
+      ],
+      "fps": 12,
+      "loop": true,
+      "source": "existing production artwork"
+    },
+    "success_mote_arcane": {
+      "path": "ritual/success_mote_arcane_16x16_f3.png",
+      "size": [
+        16,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          16,
+          0,
+          16,
+          16
+        ],
+        [
+          32,
+          0,
+          16,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "break_pieces_arcane": {
+      "path": "ritual/break_pieces_arcane_64x64_f18.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ],
+        [
+          256,
+          0,
+          64,
+          64
+        ],
+        [
+          320,
+          0,
+          64,
+          64
+        ],
+        [
+          384,
+          0,
+          64,
+          64
+        ],
+        [
+          448,
+          0,
+          64,
+          64
+        ],
+        [
+          512,
+          0,
+          64,
+          64
+        ],
+        [
+          576,
+          0,
+          64,
+          64
+        ],
+        [
+          640,
+          0,
+          64,
+          64
+        ],
+        [
+          704,
+          0,
+          64,
+          64
+        ],
+        [
+          768,
+          0,
+          64,
+          64
+        ],
+        [
+          832,
+          0,
+          64,
+          64
+        ],
+        [
+          896,
+          0,
+          64,
+          64
+        ],
+        [
+          960,
+          0,
+          64,
+          64
+        ],
+        [
+          1024,
+          0,
+          64,
+          64
+        ],
+        [
+          1088,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "extinguish_arcane": {
+      "path": "ritual/extinguish_arcane_96x96_f5.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ],
+        [
+          384,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "ward_ribbon_arcane": {
+      "path": "ritual/ward_ribbon_arcane_128x128_f6.png",
+      "size": [
+        128,
+        128
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          128,
+          128
+        ],
+        [
+          128,
+          0,
+          128,
+          128
+        ],
+        [
+          256,
+          0,
+          128,
+          128
+        ],
+        [
+          384,
+          0,
+          128,
+          128
+        ],
+        [
+          512,
+          0,
+          128,
+          128
+        ],
+        [
+          640,
+          0,
+          128,
+          128
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "stage_hold_arcane": {
+      "path": "ritual/stage_hold_arcane_128x96_f4.png",
+      "size": [
+        128,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          128,
+          96
+        ],
+        [
+          128,
+          0,
+          128,
+          96
+        ],
+        [
+          256,
+          0,
+          128,
+          96
+        ],
+        [
+          384,
+          0,
+          128,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "seal_ice": {
+      "path": "ritual/seal_ice_240x240_f1.png",
+      "size": [
+        240,
+        240
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          240,
+          240
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "outer_glyph_ice": {
+      "path": "ritual/outer_glyph_ice_480x480_f4.png",
+      "size": [
+        480,
+        480
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          480,
+          480
+        ],
+        [
+          480,
+          0,
+          480,
+          480
+        ],
+        [
+          960,
+          0,
+          480,
+          480
+        ],
+        [
+          1440,
+          0,
+          480,
+          480
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "charge_ice": {
+      "path": "ritual/charge_ice_96x96_f6.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ],
+        [
+          384,
+          0,
+          96,
+          96
+        ],
+        [
+          480,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "ImageGen",
+      "redrawnClip": "ritual.charge_ice"
+    },
+    "success_column_ice": {
+      "path": "ritual/success_column_ice_192x540_f6.png",
+      "size": [
+        192,
+        540
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          540
+        ],
+        [
+          192,
+          0,
+          192,
+          540
+        ],
+        [
+          384,
+          0,
+          192,
+          540
+        ],
+        [
+          576,
+          0,
+          192,
+          540
+        ],
+        [
+          768,
+          0,
+          192,
+          540
+        ],
+        [
+          960,
+          0,
+          192,
+          540
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "max_column_ice": {
+      "path": "ritual/max_column_ice_192x540_f8.png",
+      "size": [
+        192,
+        540
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          540
+        ],
+        [
+          192,
+          0,
+          192,
+          540
+        ],
+        [
+          384,
+          0,
+          192,
+          540
+        ],
+        [
+          576,
+          0,
+          192,
+          540
+        ],
+        [
+          768,
+          0,
+          192,
+          540
+        ],
+        [
+          960,
+          0,
+          192,
+          540
+        ],
+        [
+          1152,
+          0,
+          192,
+          540
+        ],
+        [
+          1344,
+          0,
+          192,
+          540
+        ]
+      ],
+      "fps": 12,
+      "loop": true,
+      "source": "existing production artwork"
+    },
+    "success_mote_ice": {
+      "path": "ritual/success_mote_ice_16x16_f3.png",
+      "size": [
+        16,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          16,
+          0,
+          16,
+          16
+        ],
+        [
+          32,
+          0,
+          16,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "break_pieces_ice": {
+      "path": "ritual/break_pieces_ice_64x64_f18.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ],
+        [
+          256,
+          0,
+          64,
+          64
+        ],
+        [
+          320,
+          0,
+          64,
+          64
+        ],
+        [
+          384,
+          0,
+          64,
+          64
+        ],
+        [
+          448,
+          0,
+          64,
+          64
+        ],
+        [
+          512,
+          0,
+          64,
+          64
+        ],
+        [
+          576,
+          0,
+          64,
+          64
+        ],
+        [
+          640,
+          0,
+          64,
+          64
+        ],
+        [
+          704,
+          0,
+          64,
+          64
+        ],
+        [
+          768,
+          0,
+          64,
+          64
+        ],
+        [
+          832,
+          0,
+          64,
+          64
+        ],
+        [
+          896,
+          0,
+          64,
+          64
+        ],
+        [
+          960,
+          0,
+          64,
+          64
+        ],
+        [
+          1024,
+          0,
+          64,
+          64
+        ],
+        [
+          1088,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "extinguish_ice": {
+      "path": "ritual/extinguish_ice_96x96_f5.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ],
+        [
+          384,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "ward_ribbon_ice": {
+      "path": "ritual/ward_ribbon_ice_128x128_f6.png",
+      "size": [
+        128,
+        128
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          128,
+          128
+        ],
+        [
+          128,
+          0,
+          128,
+          128
+        ],
+        [
+          256,
+          0,
+          128,
+          128
+        ],
+        [
+          384,
+          0,
+          128,
+          128
+        ],
+        [
+          512,
+          0,
+          128,
+          128
+        ],
+        [
+          640,
+          0,
+          128,
+          128
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "stage_hold_ice": {
+      "path": "ritual/stage_hold_ice_128x96_f4.png",
+      "size": [
+        128,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          128,
+          96
+        ],
+        [
+          128,
+          0,
+          128,
+          96
+        ],
+        [
+          256,
+          0,
+          128,
+          96
+        ],
+        [
+          384,
+          0,
+          128,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "seal_dark": {
+      "path": "ritual/seal_dark_240x240_f1.png",
+      "size": [
+        240,
+        240
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          240,
+          240
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "outer_glyph_dark": {
+      "path": "ritual/outer_glyph_dark_480x480_f4.png",
+      "size": [
+        480,
+        480
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          480,
+          480
+        ],
+        [
+          480,
+          0,
+          480,
+          480
+        ],
+        [
+          960,
+          0,
+          480,
+          480
+        ],
+        [
+          1440,
+          0,
+          480,
+          480
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "charge_dark": {
+      "path": "ritual/charge_dark_96x96_f6.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ],
+        [
+          384,
+          0,
+          96,
+          96
+        ],
+        [
+          480,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "ImageGen",
+      "redrawnClip": "ritual.charge_dark"
+    },
+    "success_column_dark": {
+      "path": "ritual/success_column_dark_192x540_f6.png",
+      "size": [
+        192,
+        540
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          540
+        ],
+        [
+          192,
+          0,
+          192,
+          540
+        ],
+        [
+          384,
+          0,
+          192,
+          540
+        ],
+        [
+          576,
+          0,
+          192,
+          540
+        ],
+        [
+          768,
+          0,
+          192,
+          540
+        ],
+        [
+          960,
+          0,
+          192,
+          540
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "max_column_dark": {
+      "path": "ritual/max_column_dark_192x540_f8.png",
+      "size": [
+        192,
+        540
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          540
+        ],
+        [
+          192,
+          0,
+          192,
+          540
+        ],
+        [
+          384,
+          0,
+          192,
+          540
+        ],
+        [
+          576,
+          0,
+          192,
+          540
+        ],
+        [
+          768,
+          0,
+          192,
+          540
+        ],
+        [
+          960,
+          0,
+          192,
+          540
+        ],
+        [
+          1152,
+          0,
+          192,
+          540
+        ],
+        [
+          1344,
+          0,
+          192,
+          540
+        ]
+      ],
+      "fps": 12,
+      "loop": true,
+      "source": "existing production artwork"
+    },
+    "success_mote_dark": {
+      "path": "ritual/success_mote_dark_16x16_f3.png",
+      "size": [
+        16,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          16,
+          0,
+          16,
+          16
+        ],
+        [
+          32,
+          0,
+          16,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "break_pieces_dark": {
+      "path": "ritual/break_pieces_dark_64x64_f18.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ],
+        [
+          256,
+          0,
+          64,
+          64
+        ],
+        [
+          320,
+          0,
+          64,
+          64
+        ],
+        [
+          384,
+          0,
+          64,
+          64
+        ],
+        [
+          448,
+          0,
+          64,
+          64
+        ],
+        [
+          512,
+          0,
+          64,
+          64
+        ],
+        [
+          576,
+          0,
+          64,
+          64
+        ],
+        [
+          640,
+          0,
+          64,
+          64
+        ],
+        [
+          704,
+          0,
+          64,
+          64
+        ],
+        [
+          768,
+          0,
+          64,
+          64
+        ],
+        [
+          832,
+          0,
+          64,
+          64
+        ],
+        [
+          896,
+          0,
+          64,
+          64
+        ],
+        [
+          960,
+          0,
+          64,
+          64
+        ],
+        [
+          1024,
+          0,
+          64,
+          64
+        ],
+        [
+          1088,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "extinguish_dark": {
+      "path": "ritual/extinguish_dark_96x96_f5.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ],
+        [
+          384,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "ward_ribbon_dark": {
+      "path": "ritual/ward_ribbon_dark_128x128_f6.png",
+      "size": [
+        128,
+        128
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          128,
+          128
+        ],
+        [
+          128,
+          0,
+          128,
+          128
+        ],
+        [
+          256,
+          0,
+          128,
+          128
+        ],
+        [
+          384,
+          0,
+          128,
+          128
+        ],
+        [
+          512,
+          0,
+          128,
+          128
+        ],
+        [
+          640,
+          0,
+          128,
+          128
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "stage_hold_dark": {
+      "path": "ritual/stage_hold_dark_128x96_f4.png",
+      "size": [
+        128,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          128,
+          96
+        ],
+        [
+          128,
+          0,
+          128,
+          96
+        ],
+        [
+          256,
+          0,
+          128,
+          96
+        ],
+        [
+          384,
+          0,
+          128,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "seal_base": {
+      "path": "ritual/seal_base_240x240_f1.png",
+      "size": [
+        240,
+        240
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          240,
+          240
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "gold_burst": {
+      "path": "ritual/gold_burst_256x256_f8.png",
+      "size": [
+        256,
+        256
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          256,
+          256
+        ],
+        [
+          256,
+          0,
+          256,
+          256
+        ],
+        [
+          512,
+          0,
+          256,
+          256
+        ],
+        [
+          768,
+          0,
+          256,
+          256
+        ],
+        [
+          1024,
+          0,
+          256,
+          256
+        ],
+        [
+          1280,
+          0,
+          256,
+          256
+        ],
+        [
+          1536,
+          0,
+          256,
+          256
+        ],
+        [
+          1792,
+          0,
+          256,
+          256
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "gold_aureole": {
+      "path": "ritual/gold_aureole_256x256_f8.png",
+      "size": [
+        256,
+        256
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          256,
+          256
+        ],
+        [
+          256,
+          0,
+          256,
+          256
+        ],
+        [
+          512,
+          0,
+          256,
+          256
+        ],
+        [
+          768,
+          0,
+          256,
+          256
+        ],
+        [
+          1024,
+          0,
+          256,
+          256
+        ],
+        [
+          1280,
+          0,
+          256,
+          256
+        ],
+        [
+          1536,
+          0,
+          256,
+          256
+        ],
+        [
+          1792,
+          0,
+          256,
+          256
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "failure_dust": {
+      "path": "ritual/failure_dust_48x48_f4.png",
+      "size": [
+        48,
+        48
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          48,
+          48
+        ],
+        [
+          48,
+          0,
+          48,
+          48
+        ],
+        [
+          96,
+          0,
+          48,
+          48
+        ],
+        [
+          144,
+          0,
+          48,
+          48
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "failure_smoke": {
+      "path": "ritual/failure_smoke_64x64_f5.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ],
+        [
+          256,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "ImageGen",
+      "redrawnClip": "ritual.failure_smoke"
+    },
+    "artisan_ember": {
+      "path": "ritual/artisan_ember_32x32_f6.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ],
+        [
+          96,
+          0,
+          32,
+          32
+        ],
+        [
+          128,
+          0,
+          32,
+          32
+        ],
+        [
+          160,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "ward_burn": {
+      "path": "ritual/ward_burn_64x96_f6.png",
+      "size": [
+        64,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          96
+        ],
+        [
+          64,
+          0,
+          64,
+          96
+        ],
+        [
+          128,
+          0,
+          64,
+          96
+        ],
+        [
+          192,
+          0,
+          64,
+          96
+        ],
+        [
+          256,
+          0,
+          64,
+          96
+        ],
+        [
+          320,
+          0,
+          64,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "slot_open": {
+      "path": "ritual/slot_open_64x64_f6.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ],
+        [
+          256,
+          0,
+          64,
+          64
+        ],
+        [
+          320,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "mutation_vine": {
+      "path": "ritual/mutation_vine_192x256_f24.png",
+      "size": [
+        192,
+        256
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          256
+        ],
+        [
+          192,
+          0,
+          192,
+          256
+        ],
+        [
+          384,
+          0,
+          192,
+          256
+        ],
+        [
+          576,
+          0,
+          192,
+          256
+        ],
+        [
+          768,
+          0,
+          192,
+          256
+        ],
+        [
+          960,
+          0,
+          192,
+          256
+        ],
+        [
+          1152,
+          0,
+          192,
+          256
+        ],
+        [
+          1344,
+          0,
+          192,
+          256
+        ],
+        [
+          1536,
+          0,
+          192,
+          256
+        ],
+        [
+          1728,
+          0,
+          192,
+          256
+        ],
+        [
+          0,
+          256,
+          192,
+          256
+        ],
+        [
+          192,
+          256,
+          192,
+          256
+        ],
+        [
+          384,
+          256,
+          192,
+          256
+        ],
+        [
+          576,
+          256,
+          192,
+          256
+        ],
+        [
+          768,
+          256,
+          192,
+          256
+        ],
+        [
+          960,
+          256,
+          192,
+          256
+        ],
+        [
+          1152,
+          256,
+          192,
+          256
+        ],
+        [
+          1344,
+          256,
+          192,
+          256
+        ],
+        [
+          1536,
+          256,
+          192,
+          256
+        ],
+        [
+          1728,
+          256,
+          192,
+          256
+        ],
+        [
+          0,
+          512,
+          192,
+          256
+        ],
+        [
+          192,
+          512,
+          192,
+          256
+        ],
+        [
+          384,
+          512,
+          192,
+          256
+        ],
+        [
+          576,
+          512,
+          192,
+          256
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "trace_fragment": {
+      "path": "ritual/trace_fragment_16x16_f3.png",
+      "size": [
+        16,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          16,
+          0,
+          16,
+          16
+        ],
+        [
+          32,
+          0,
+          16,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "screen_crack": {
+      "path": "ritual/screen_crack_1920x1080_f3.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          1920,
+          1080
+        ],
+        [
+          0,
+          1080,
+          1920,
+          1080
+        ],
+        [
+          0,
+          2160,
+          1920,
+          1080
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "max_sky_band": {
+      "path": "ritual/max_sky_band_1920x240_f4.png",
+      "size": [
+        1920,
+        240
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          1920,
+          240
+        ],
+        [
+          0,
+          240,
+          1920,
+          240
+        ],
+        [
+          0,
+          480,
+          1920,
+          240
+        ],
+        [
+          0,
+          720,
+          1920,
+          240
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "offering_slot": {
+      "path": "ritual/offering_slot_56x56_f2.png",
+      "size": [
+        56,
+        56
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          56,
+          56
+        ],
+        [
+          56,
+          0,
+          56,
+          56
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "ward_slot": {
+      "path": "ritual/ward_slot_48x80_f2.png",
+      "size": [
+        48,
+        80
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          48,
+          80
+        ],
+        [
+          48,
+          0,
+          48,
+          80
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "artisan_slot": {
+      "path": "ritual/artisan_slot_24x24_f2.png",
+      "size": [
+        24,
+        24
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          24,
+          24
+        ],
+        [
+          24,
+          0,
+          24,
+          24
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "ward_attached": {
+      "path": "ritual/ward_attached_48x80_f1.png",
+      "size": [
+        48,
+        80
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          48,
+          80
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "mutation_card": {
+      "path": "ritual/mutation_card_480x272_f1.png",
+      "size": [
+        480,
+        272
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          480,
+          272
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "result_card": {
+      "path": "ritual/result_card_560x320_f2.png",
+      "size": [
+        560,
+        320
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          560,
+          320
+        ],
+        [
+          560,
+          0,
+          560,
+          320
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "title_ribbon_normal": {
+      "path": "ritual/title_ribbon_normal_720x96_f4.png",
+      "size": [
+        720,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          720,
+          96
+        ],
+        [
+          720,
+          0,
+          720,
+          96
+        ],
+        [
+          0,
+          96,
+          720,
+          96
+        ],
+        [
+          720,
+          96,
+          720,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "title_ribbon_gold": {
+      "path": "ritual/title_ribbon_gold_720x96_f4.png",
+      "size": [
+        720,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          720,
+          96
+        ],
+        [
+          720,
+          0,
+          720,
+          96
+        ],
+        [
+          0,
+          96,
+          720,
+          96
+        ],
+        [
+          720,
+          96,
+          720,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "plaza_notice_normal": {
+      "path": "ritual/plaza_notice_normal_960x80_f3.png",
+      "size": [
+        960,
+        80
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          960,
+          80
+        ],
+        [
+          960,
+          0,
+          960,
+          80
+        ],
+        [
+          0,
+          80,
+          960,
+          80
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "plaza_notice_gold": {
+      "path": "ritual/plaza_notice_gold_960x80_f3.png",
+      "size": [
+        960,
+        80
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          960,
+          80
+        ],
+        [
+          960,
+          0,
+          960,
+          80
+        ],
+        [
+          0,
+          80,
+          960,
+          80
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "news_line_normal": {
+      "path": "ritual/news_line_normal_960x40_f1.png",
+      "size": [
+        960,
+        40
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          960,
+          40
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "news_line_gold": {
+      "path": "ritual/news_line_gold_960x40_f1.png",
+      "size": [
+        960,
+        40
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          960,
+          40
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "stage_digits_tint": {
+      "path": "ritual/stage_digits_tint_48x64_f11.png",
+      "size": [
+        48,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          48,
+          64
+        ],
+        [
+          48,
+          0,
+          48,
+          64
+        ],
+        [
+          96,
+          0,
+          48,
+          64
+        ],
+        [
+          144,
+          0,
+          48,
+          64
+        ],
+        [
+          192,
+          0,
+          48,
+          64
+        ],
+        [
+          240,
+          0,
+          48,
+          64
+        ],
+        [
+          288,
+          0,
+          48,
+          64
+        ],
+        [
+          336,
+          0,
+          48,
+          64
+        ],
+        [
+          384,
+          0,
+          48,
+          64
+        ],
+        [
+          432,
+          0,
+          48,
+          64
+        ],
+        [
+          480,
+          0,
+          48,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "stage_digits_gold": {
+      "path": "ritual/stage_digits_gold_48x64_f11.png",
+      "size": [
+        48,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          48,
+          64
+        ],
+        [
+          48,
+          0,
+          48,
+          64
+        ],
+        [
+          96,
+          0,
+          48,
+          64
+        ],
+        [
+          144,
+          0,
+          48,
+          64
+        ],
+        [
+          192,
+          0,
+          48,
+          64
+        ],
+        [
+          240,
+          0,
+          48,
+          64
+        ],
+        [
+          288,
+          0,
+          48,
+          64
+        ],
+        [
+          336,
+          0,
+          48,
+          64
+        ],
+        [
+          384,
+          0,
+          48,
+          64
+        ],
+        [
+          432,
+          0,
+          48,
+          64
+        ],
+        [
+          480,
+          0,
+          48,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "stage_digits_muted": {
+      "path": "ritual/stage_digits_muted_48x64_f11.png",
+      "size": [
+        48,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          48,
+          64
+        ],
+        [
+          48,
+          0,
+          48,
+          64
+        ],
+        [
+          96,
+          0,
+          48,
+          64
+        ],
+        [
+          144,
+          0,
+          48,
+          64
+        ],
+        [
+          192,
+          0,
+          48,
+          64
+        ],
+        [
+          240,
+          0,
+          48,
+          64
+        ],
+        [
+          288,
+          0,
+          48,
+          64
+        ],
+        [
+          336,
+          0,
+          48,
+          64
+        ],
+        [
+          384,
+          0,
+          48,
+          64
+        ],
+        [
+          432,
+          0,
+          48,
+          64
+        ],
+        [
+          480,
+          0,
+          48,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    }
+  },
+  "enemy": {
+    "round_small": {
+      "path": "enemy/round_small_16x16_f2.png",
+      "size": [
+        16,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          16,
+          0,
+          16,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "round_large": {
+      "path": "enemy/round_large_24x24_f2.png",
+      "size": [
+        24,
+        24
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          24,
+          24
+        ],
+        [
+          24,
+          0,
+          24,
+          24
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "pine_needle": {
+      "path": "enemy/pine_needle_24x8_f1.png",
+      "size": [
+        24,
+        8
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          24,
+          8
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "feather": {
+      "path": "enemy/feather_24x12_f2.png",
+      "size": [
+        24,
+        12
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          24,
+          12
+        ],
+        [
+          24,
+          0,
+          24,
+          12
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "ice_shard": {
+      "path": "enemy/ice_shard_16x16_f1.png",
+      "size": [
+        16,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          16,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "shadow_needle": {
+      "path": "enemy/shadow_needle_24x12_f2.png",
+      "size": [
+        24,
+        12
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          24,
+          12
+        ],
+        [
+          24,
+          0,
+          24,
+          12
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "vine_seed": {
+      "path": "enemy/vine_seed_16x16_f2.png",
+      "size": [
+        16,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          16,
+          0,
+          16,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "seed_shadow": {
+      "path": "enemy/seed_shadow_16x8_f1.png",
+      "size": [
+        16,
+        8
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          16,
+          8
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "thorn_ground": {
+      "path": "enemy/thorn_ground_96x96_f2.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "ember_lane": {
+      "path": "enemy/ember_lane_64x64_f3.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "spore_cloud": {
+      "path": "enemy/spore_cloud_128x128_f4.png",
+      "size": [
+        128,
+        128
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          128,
+          128
+        ],
+        [
+          128,
+          0,
+          128,
+          128
+        ],
+        [
+          256,
+          0,
+          128,
+          128
+        ],
+        [
+          384,
+          0,
+          128,
+          128
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "frost_field": {
+      "path": "enemy/frost_field_160x160_f2.png",
+      "size": [
+        160,
+        160
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          160,
+          160
+        ],
+        [
+          160,
+          0,
+          160,
+          160
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "ice_pillar": {
+      "path": "enemy/ice_pillar_64x96_f6.png",
+      "size": [
+        64,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          96
+        ],
+        [
+          64,
+          0,
+          64,
+          96
+        ],
+        [
+          128,
+          0,
+          64,
+          96
+        ],
+        [
+          192,
+          0,
+          64,
+          96
+        ],
+        [
+          256,
+          0,
+          64,
+          96
+        ],
+        [
+          320,
+          0,
+          64,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "rock": {
+      "path": "enemy/rock_64x64_f5.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ],
+        [
+          256,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "soil_crack": {
+      "path": "enemy/soil_crack_64x32_f2.png",
+      "size": [
+        64,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          32
+        ],
+        [
+          64,
+          0,
+          64,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "stain": {
+      "path": "enemy/stain_64x64_f1.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "lightning_strike": {
+      "path": "enemy/lightning_strike_64x128_f3.png",
+      "size": [
+        64,
+        128
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          128
+        ],
+        [
+          64,
+          0,
+          64,
+          128
+        ],
+        [
+          128,
+          0,
+          64,
+          128
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "soil_particle": {
+      "path": "enemy/soil_particle_8x8_f1.png",
+      "size": [
+        8,
+        8
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          8,
+          8
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "explosion": {
+      "path": "enemy/explosion_128x128_f5.png",
+      "size": [
+        128,
+        128
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          128,
+          128
+        ],
+        [
+          128,
+          0,
+          128,
+          128
+        ],
+        [
+          256,
+          0,
+          128,
+          128
+        ],
+        [
+          384,
+          0,
+          128,
+          128
+        ],
+        [
+          512,
+          0,
+          128,
+          128
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "death_smoke": {
+      "path": "enemy/death_smoke_48x48_f4.png",
+      "size": [
+        48,
+        48
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          48,
+          48
+        ],
+        [
+          48,
+          0,
+          48,
+          48
+        ],
+        [
+          96,
+          0,
+          48,
+          48
+        ],
+        [
+          144,
+          0,
+          48,
+          48
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "elite_column": {
+      "path": "enemy/elite_column_32x128_f3.png",
+      "size": [
+        32,
+        128
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          128
+        ],
+        [
+          32,
+          0,
+          32,
+          128
+        ],
+        [
+          64,
+          0,
+          32,
+          128
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "toad_buff": {
+      "path": "enemy/toad_buff_64x32_f3.png",
+      "size": [
+        64,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          32
+        ],
+        [
+          64,
+          0,
+          64,
+          32
+        ],
+        [
+          128,
+          0,
+          64,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "stun_star": {
+      "path": "enemy/stun_star_32x16_f3.png",
+      "size": [
+        32,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          16
+        ],
+        [
+          32,
+          0,
+          32,
+          16
+        ],
+        [
+          64,
+          0,
+          32,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "rage_smoke": {
+      "path": "enemy/rage_smoke_32x48_f4.png",
+      "size": [
+        32,
+        48
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          48
+        ],
+        [
+          32,
+          0,
+          32,
+          48
+        ],
+        [
+          64,
+          0,
+          32,
+          48
+        ],
+        [
+          96,
+          0,
+          32,
+          48
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "ImageGen",
+      "redrawnClip": "enemy.rage_smoke"
+    },
+    "mirror_shards": {
+      "path": "enemy/mirror_shards_16x16_f2.png",
+      "size": [
+        16,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          16,
+          0,
+          16,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "impact_circle": {
+      "path": "enemy/impact_circle_128x128_f3.png",
+      "size": [
+        128,
+        128
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          128,
+          128
+        ],
+        [
+          128,
+          0,
+          128,
+          128
+        ],
+        [
+          256,
+          0,
+          128,
+          128
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "impact_fan": {
+      "path": "enemy/impact_fan_128x128_f3.png",
+      "size": [
+        128,
+        128
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          128,
+          128
+        ],
+        [
+          128,
+          0,
+          128,
+          128
+        ],
+        [
+          256,
+          0,
+          128,
+          128
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "impact_lane": {
+      "path": "enemy/impact_lane_128x64_f3.png",
+      "size": [
+        128,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          128,
+          64
+        ],
+        [
+          128,
+          0,
+          128,
+          64
+        ],
+        [
+          256,
+          0,
+          128,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "rage_slot": {
+      "path": "enemy/rage_slot_16x16_f2.png",
+      "size": [
+        16,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          16,
+          0,
+          16,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "final_rage_ribbon": {
+      "path": "enemy/final_rage_ribbon_480x64_f3.png",
+      "size": [
+        480,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          480,
+          64
+        ],
+        [
+          480,
+          0,
+          480,
+          64
+        ],
+        [
+          960,
+          0,
+          480,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "mirror_silver_particle": {
+      "path": "enemy/mirror_silver_particle_8x8_f2.png",
+      "size": [
+        8,
+        8
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          8,
+          8
+        ],
+        [
+          8,
+          0,
+          8,
+          8
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    }
+  },
+  "loot": {
+    "coin": {
+      "path": "loot/coin_16x16_f4.png",
+      "size": [
+        16,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          16,
+          0,
+          16,
+          16
+        ],
+        [
+          32,
+          0,
+          16,
+          16
+        ],
+        [
+          48,
+          0,
+          16,
+          16
+        ]
+      ],
+      "fps": 7,
+      "loop": true,
+      "source": "existing production artwork"
+    },
+    "block_common": {
+      "path": "loot/block_common_24x24_f2.png",
+      "size": [
+        24,
+        24
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          24,
+          24
+        ],
+        [
+          24,
+          0,
+          24,
+          24
+        ]
+      ],
+      "fps": 7,
+      "loop": true,
+      "source": "existing production artwork"
+    },
+    "block_rare": {
+      "path": "loot/block_rare_24x24_f2.png",
+      "size": [
+        24,
+        24
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          24,
+          24
+        ],
+        [
+          24,
+          0,
+          24,
+          24
+        ]
+      ],
+      "fps": 7,
+      "loop": true,
+      "source": "existing production artwork"
+    },
+    "block_heroic": {
+      "path": "loot/block_heroic_24x24_f2.png",
+      "size": [
+        24,
+        24
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          24,
+          24
+        ],
+        [
+          24,
+          0,
+          24,
+          24
+        ]
+      ],
+      "fps": 7,
+      "loop": true,
+      "source": "existing production artwork"
+    },
+    "material_pack": {
+      "path": "loot/material_pack_24x24_f2.png",
+      "size": [
+        24,
+        24
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          24,
+          24
+        ],
+        [
+          24,
+          0,
+          24,
+          24
+        ]
+      ],
+      "fps": 7,
+      "loop": true,
+      "source": "existing production artwork"
+    },
+    "crow_pack": {
+      "path": "loot/crow_pack_64x64_f4.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 7,
+      "loop": true,
+      "source": "existing production artwork"
+    },
+    "season_drop": {
+      "path": "loot/season_drop_32x32_f4.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ],
+        [
+          96,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 7,
+      "loop": true,
+      "source": "existing production artwork"
+    },
+    "health_shard": {
+      "path": "loot/health_shard_16x16_f2.png",
+      "size": [
+        16,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          16,
+          0,
+          16,
+          16
+        ]
+      ],
+      "fps": 7,
+      "loop": true,
+      "source": "existing production artwork"
+    },
+    "exit_marker": {
+      "path": "loot/exit_marker_64x64_f2.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 7,
+      "loop": true,
+      "source": "existing production artwork"
+    },
+    "drop_column": {
+      "path": "loot/drop_column_16x64_f3.png",
+      "size": [
+        16,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          16,
+          64
+        ],
+        [
+          16,
+          0,
+          16,
+          64
+        ],
+        [
+          32,
+          0,
+          16,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "campfire": {
+      "path": "loot/campfire_64x64_f4.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 8,
+      "loop": true,
+      "source": "existing production artwork"
+    }
+  },
+  "wand": {
+    "trail_fire": {
+      "path": "wand/trail_fire_32x16_f4.png",
+      "size": [
+        32,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          16
+        ],
+        [
+          32,
+          0,
+          32,
+          16
+        ],
+        [
+          64,
+          0,
+          32,
+          16
+        ],
+        [
+          96,
+          0,
+          32,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "muzzle_fire": {
+      "path": "wand/muzzle_fire_32x32_f3.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "footprint_fire": {
+      "path": "wand/footprint_fire_32x16_f4.png",
+      "size": [
+        32,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          16
+        ],
+        [
+          32,
+          0,
+          32,
+          16
+        ],
+        [
+          64,
+          0,
+          32,
+          16
+        ],
+        [
+          96,
+          0,
+          32,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "trail_lightning": {
+      "path": "wand/trail_lightning_32x16_f4.png",
+      "size": [
+        32,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          16
+        ],
+        [
+          32,
+          0,
+          32,
+          16
+        ],
+        [
+          64,
+          0,
+          32,
+          16
+        ],
+        [
+          96,
+          0,
+          32,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "muzzle_lightning": {
+      "path": "wand/muzzle_lightning_32x32_f3.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "footprint_lightning": {
+      "path": "wand/footprint_lightning_32x16_f4.png",
+      "size": [
+        32,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          16
+        ],
+        [
+          32,
+          0,
+          32,
+          16
+        ],
+        [
+          64,
+          0,
+          32,
+          16
+        ],
+        [
+          96,
+          0,
+          32,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "trail_arcane": {
+      "path": "wand/trail_arcane_32x16_f4.png",
+      "size": [
+        32,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          16
+        ],
+        [
+          32,
+          0,
+          32,
+          16
+        ],
+        [
+          64,
+          0,
+          32,
+          16
+        ],
+        [
+          96,
+          0,
+          32,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "muzzle_arcane": {
+      "path": "wand/muzzle_arcane_32x32_f3.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "footprint_arcane": {
+      "path": "wand/footprint_arcane_32x16_f4.png",
+      "size": [
+        32,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          16
+        ],
+        [
+          32,
+          0,
+          32,
+          16
+        ],
+        [
+          64,
+          0,
+          32,
+          16
+        ],
+        [
+          96,
+          0,
+          32,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "trail_ice": {
+      "path": "wand/trail_ice_32x16_f4.png",
+      "size": [
+        32,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          16
+        ],
+        [
+          32,
+          0,
+          32,
+          16
+        ],
+        [
+          64,
+          0,
+          32,
+          16
+        ],
+        [
+          96,
+          0,
+          32,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "muzzle_ice": {
+      "path": "wand/muzzle_ice_32x32_f3.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "footprint_ice": {
+      "path": "wand/footprint_ice_32x16_f4.png",
+      "size": [
+        32,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          16
+        ],
+        [
+          32,
+          0,
+          32,
+          16
+        ],
+        [
+          64,
+          0,
+          32,
+          16
+        ],
+        [
+          96,
+          0,
+          32,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "trail_dark": {
+      "path": "wand/trail_dark_32x16_f4.png",
+      "size": [
+        32,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          16
+        ],
+        [
+          32,
+          0,
+          32,
+          16
+        ],
+        [
+          64,
+          0,
+          32,
+          16
+        ],
+        [
+          96,
+          0,
+          32,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "muzzle_dark": {
+      "path": "wand/muzzle_dark_32x32_f3.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "footprint_dark": {
+      "path": "wand/footprint_dark_32x16_f4.png",
+      "size": [
+        32,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          16
+        ],
+        [
+          32,
+          0,
+          32,
+          16
+        ],
+        [
+          64,
+          0,
+          32,
+          16
+        ],
+        [
+          96,
+          0,
+          32,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    }
+  },
+  "status": {
+    "combo_digits": {
+      "path": "status/combo_digits_24x32_f10.png",
+      "size": [
+        24,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          24,
+          32
+        ],
+        [
+          24,
+          0,
+          24,
+          32
+        ],
+        [
+          48,
+          0,
+          24,
+          32
+        ],
+        [
+          72,
+          0,
+          24,
+          32
+        ],
+        [
+          96,
+          0,
+          24,
+          32
+        ],
+        [
+          120,
+          0,
+          24,
+          32
+        ],
+        [
+          144,
+          0,
+          24,
+          32
+        ],
+        [
+          168,
+          0,
+          24,
+          32
+        ],
+        [
+          192,
+          0,
+          24,
+          32
+        ],
+        [
+          216,
+          0,
+          24,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "damage_glyphs": {
+      "path": "status/damage_glyphs_16x24_f13.png",
+      "size": [
+        16,
+        24
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          16,
+          24
+        ],
+        [
+          16,
+          0,
+          16,
+          24
+        ],
+        [
+          32,
+          0,
+          16,
+          24
+        ],
+        [
+          48,
+          0,
+          16,
+          24
+        ],
+        [
+          64,
+          0,
+          16,
+          24
+        ],
+        [
+          80,
+          0,
+          16,
+          24
+        ],
+        [
+          96,
+          0,
+          16,
+          24
+        ],
+        [
+          112,
+          0,
+          16,
+          24
+        ],
+        [
+          128,
+          0,
+          16,
+          24
+        ],
+        [
+          144,
+          0,
+          16,
+          24
+        ],
+        [
+          160,
+          0,
+          16,
+          24
+        ],
+        [
+          176,
+          0,
+          16,
+          24
+        ],
+        [
+          192,
+          0,
+          16,
+          24
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "critical_ring_chevrons": {
+      "path": "status/critical_ring_chevrons_8x8_f2.png",
+      "size": [
+        8,
+        8
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          8,
+          8
+        ],
+        [
+          8,
+          0,
+          8,
+          8
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "health_full": {
+      "path": "status/health_full_32x32_f1.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "health_empty": {
+      "path": "status/health_empty_32x32_f1.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "health_break": {
+      "path": "status/health_break_32x32_f4.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ],
+        [
+          96,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "slow_ankle_ring_double": {
+      "path": "status/slow_ankle_ring_double_32x8_f2.png",
+      "size": [
+        32,
+        8
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          8
+        ],
+        [
+          32,
+          0,
+          32,
+          8
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "crystal_empty": {
+      "path": "status/crystal_empty_24x24_f1.png",
+      "size": [
+        24,
+        24
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          24,
+          24
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "crystal_debt": {
+      "path": "status/crystal_debt_24x24_f1.png",
+      "size": [
+        24,
+        24
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          24,
+          24
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "crystal_cracked": {
+      "path": "status/crystal_cracked_24x24_f1.png",
+      "size": [
+        24,
+        24
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          24,
+          24
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "crystal_break": {
+      "path": "status/crystal_break_32x32_f4.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ],
+        [
+          96,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "crystal_particle": {
+      "path": "status/crystal_particle_16x16_f3.png",
+      "size": [
+        16,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          16,
+          0,
+          16,
+          16
+        ],
+        [
+          32,
+          0,
+          16,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "armor_bounce": {
+      "path": "status/armor_bounce_32x32_f3.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "frost_mark": {
+      "path": "status/frost_mark_16x8_f1.png",
+      "size": [
+        16,
+        8
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          16,
+          8
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "frozen_shell_64": {
+      "path": "status/frozen_shell_64_64x64_f1.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "frozen_shell_96": {
+      "path": "status/frozen_shell_96_96x96_f1.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "frozen_shatter": {
+      "path": "status/frozen_shatter_96x96_f4.png",
+      "size": [
+        96,
+        96
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          96,
+          96
+        ],
+        [
+          96,
+          0,
+          96,
+          96
+        ],
+        [
+          192,
+          0,
+          96,
+          96
+        ],
+        [
+          288,
+          0,
+          96,
+          96
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "static_outline": {
+      "path": "status/static_outline_64x64_f2.png",
+      "size": [
+        64,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "slow_ankle_ring": {
+      "path": "status/slow_ankle_ring_32x8_f2.png",
+      "size": [
+        32,
+        8
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          8
+        ],
+        [
+          32,
+          0,
+          32,
+          8
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "corrosion": {
+      "path": "status/corrosion_32x32_f2.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "frost_shield": {
+      "path": "status/frost_shield_192x32_f3.png",
+      "size": [
+        192,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          192,
+          32
+        ],
+        [
+          192,
+          0,
+          192,
+          32
+        ],
+        [
+          384,
+          0,
+          192,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "meteor_fall": {
+      "path": "status/meteor_fall_32x64_f3.png",
+      "size": [
+        32,
+        64
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          64
+        ],
+        [
+          32,
+          0,
+          32,
+          64
+        ],
+        [
+          64,
+          0,
+          32,
+          64
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "meteor_ground": {
+      "path": "status/meteor_ground_32x32_f4.png",
+      "size": [
+        32,
+        32
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ],
+        [
+          96,
+          0,
+          32,
+          32
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "frost_particle": {
+      "path": "status/frost_particle_4x4_f2.png",
+      "size": [
+        4,
+        4
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          4,
+          4
+        ],
+        [
+          4,
+          0,
+          4,
+          4
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    },
+    "corrosion_tail": {
+      "path": "status/corrosion_tail_8x16_f2.png",
+      "size": [
+        8,
+        16
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          8,
+          16
+        ],
+        [
+          8,
+          0,
+          8,
+          16
+        ]
+      ],
+      "fps": 12,
+      "loop": false,
+      "source": "existing production artwork"
+    }
+  },
+  "notes": {
+    "colorSources": [
+      "docs/DECISIONS.md §2.2",
+      "docs/effects.md §0.1"
+    ],
+    "origin": "top-left",
+    "filter": "point",
+    "mipmaps": false
+  }
+}

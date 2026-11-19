@@ -1,0 +1,658 @@
+{
+  "coordinates": "top-left pixel coordinates",
+  "filter": "point",
+  "mipmaps": false,
+  "spec": "docs/effects.md",
+  "entries": {
+    "fire/impact/01": {
+      "path": "fire/impact/01.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "source": "e5049a60",
+      "previewDurationMs": 80
+    },
+    "fire/impact/02": {
+      "path": "fire/impact/02.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "source": "e5049a60",
+      "previewDurationMs": 80
+    },
+    "fire/impact/03": {
+      "path": "fire/impact/03.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "source": "e5049a60",
+      "previewDurationMs": 80
+    },
+    "fire/impact/04": {
+      "path": "fire/impact/04.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "source": "e5049a60",
+      "previewDurationMs": 80
+    },
+    "fire/impact/sheet": {
+      "path": "fire/impact/sheet.png",
+      "size": [
+        256,
+        64
+      ],
+      "cell": [
+        64,
+        64
+      ],
+      "columns": 4,
+      "frames": [
+        {
+          "path": "fire/impact/01.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "fire/impact/02.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "fire/impact/03.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "fire/impact/04.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ]
+        }
+      ]
+    },
+    "lightning/impact/01": {
+      "path": "lightning/impact/01.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "source": "e5049a60",
+      "previewDurationMs": 80
+    },
+    "lightning/impact/02": {
+      "path": "lightning/impact/02.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "source": "e5049a60",
+      "previewDurationMs": 80
+    },
+    "lightning/impact/03": {
+      "path": "lightning/impact/03.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "source": "e5049a60",
+      "previewDurationMs": 80
+    },
+    "lightning/impact/04": {
+      "path": "lightning/impact/04.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "source": "e5049a60",
+      "previewDurationMs": 80
+    },
+    "lightning/impact/sheet": {
+      "path": "lightning/impact/sheet.png",
+      "size": [
+        256,
+        64
+      ],
+      "cell": [
+        64,
+        64
+      ],
+      "columns": 4,
+      "frames": [
+        {
+          "path": "lightning/impact/01.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "lightning/impact/02.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "lightning/impact/03.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "lightning/impact/04.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ]
+        }
+      ]
+    },
+    "arcane/impact/01": {
+      "path": "arcane/impact/01.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "source": "e5049a60",
+      "previewDurationMs": 80
+    },
+    "arcane/impact/02": {
+      "path": "arcane/impact/02.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "source": "e5049a60",
+      "previewDurationMs": 80
+    },
+    "arcane/impact/03": {
+      "path": "arcane/impact/03.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "source": "e5049a60",
+      "previewDurationMs": 80
+    },
+    "arcane/impact/04": {
+      "path": "arcane/impact/04.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "source": "e5049a60",
+      "previewDurationMs": 80
+    },
+    "arcane/impact/sheet": {
+      "path": "arcane/impact/sheet.png",
+      "size": [
+        256,
+        64
+      ],
+      "cell": [
+        64,
+        64
+      ],
+      "columns": 4,
+      "frames": [
+        {
+          "path": "arcane/impact/01.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "arcane/impact/02.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "arcane/impact/03.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "arcane/impact/04.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ]
+        }
+      ]
+    },
+    "ice/impact/01": {
+      "path": "ice/impact/01.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "source": "e5049a60",
+      "previewDurationMs": 80
+    },
+    "ice/impact/02": {
+      "path": "ice/impact/02.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "source": "e5049a60",
+      "previewDurationMs": 80
+    },
+    "ice/impact/03": {
+      "path": "ice/impact/03.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "source": "e5049a60",
+      "previewDurationMs": 80
+    },
+    "ice/impact/04": {
+      "path": "ice/impact/04.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "source": "e5049a60",
+      "previewDurationMs": 80
+    },
+    "ice/impact/sheet": {
+      "path": "ice/impact/sheet.png",
+      "size": [
+        256,
+        64
+      ],
+      "cell": [
+        64,
+        64
+      ],
+      "columns": 4,
+      "frames": [
+        {
+          "path": "ice/impact/01.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "ice/impact/02.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "ice/impact/03.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "ice/impact/04.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ]
+        }
+      ]
+    },
+    "dark/impact/01": {
+      "path": "dark/impact/01.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "source": "e5049a60",
+      "previewDurationMs": 80
+    },
+    "dark/impact/02": {
+      "path": "dark/impact/02.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "source": "e5049a60",
+      "previewDurationMs": 80
+    },
+    "dark/impact/03": {
+      "path": "dark/impact/03.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "source": "e5049a60",
+      "previewDurationMs": 80
+    },
+    "dark/impact/04": {
+      "path": "dark/impact/04.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "source": "e5049a60",
+      "previewDurationMs": 80
+    },
+    "dark/impact/sheet": {
+      "path": "dark/impact/sheet.png",
+      "size": [
+        256,
+        64
+      ],
+      "cell": [
+        64,
+        64
+      ],
+      "columns": 4,
+      "frames": [
+        {
+          "path": "dark/impact/01.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "dark/impact/02.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "dark/impact/03.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "path": "dark/impact/04.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ]
+        }
+      ]
+    },
+    "projectiles/mana_bolt": {
+      "path": "projectiles/mana_bolt.png",
+      "size": [
+        16,
+        16
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "source": "ef7f9f69"
+    },
+    "projectiles/fireball": {
+      "path": "projectiles/fireball.png",
+      "size": [
+        32,
+        24
+      ],
+      "pivot": [
+        16,
+        12
+      ],
+      "source": "ef7f9f69"
+    },
+    "projectiles/chain_lightning": {
+      "path": "projectiles/chain_lightning.png",
+      "size": [
+        64,
+        16
+      ],
+      "pivot": [
+        32,
+        8
+      ],
+      "source": "ef7f9f69"
+    },
+    "projectiles/boomerang": {
+      "path": "projectiles/boomerang.png",
+      "size": [
+        24,
+        24
+      ],
+      "pivot": [
+        12,
+        12
+      ],
+      "source": "ef7f9f69"
+    },
+    "projectiles/ice_lance": {
+      "path": "projectiles/ice_lance.png",
+      "size": [
+        12,
+        28
+      ],
+      "pivot": [
+        6,
+        14
+      ],
+      "source": "ef7f9f69"
+    },
+    "projectiles/shadow_orb": {
+      "path": "projectiles/shadow_orb.png",
+      "size": [
+        40,
+        40
+      ],
+      "pivot": [
+        20,
+        20
+      ],
+      "source": "ef7f9f69"
+    },
+    "projectiles/sheet": {
+      "path": "projectiles/sheet.png",
+      "size": [
+        384,
+        40
+      ],
+      "cell": [
+        64,
+        40
+      ],
+      "columns": 6,
+      "frames": [
+        {
+          "path": "projectiles/mana_bolt.png",
+          "rect": [
+            24,
+            24,
+            16,
+            16
+          ]
+        },
+        {
+          "path": "projectiles/fireball.png",
+          "rect": [
+            80,
+            16,
+            32,
+            24
+          ]
+        },
+        {
+          "path": "projectiles/chain_lightning.png",
+          "rect": [
+            128,
+            24,
+            64,
+            16
+          ]
+        },
+        {
+          "path": "projectiles/boomerang.png",
+          "rect": [
+            212,
+            16,
+            24,
+            24
+          ]
+        },
+        {
+          "path": "projectiles/ice_lance.png",
+          "rect": [
+            282,
+            12,
+            12,
+            28
+          ]
+        },
+        {
+          "path": "projectiles/shadow_orb.png",
+          "rect": [
+            332,
+            0,
+            40,
+            40
+          ]
+        }
+      ]
+    }
+  }
+}

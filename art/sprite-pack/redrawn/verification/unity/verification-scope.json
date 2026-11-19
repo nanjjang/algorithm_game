@@ -1,0 +1,17 @@
+{
+  "scope": "Isolated copy of the Unity project. Actual Sprite imports, Play Mode animation, wand attachment, uGUI mesh and camera render.",
+  "bundledCaptures": [
+    "arena-night-01.png",
+    "cast-death-02.png",
+    "cast-death-03.png",
+    "effects-02.png",
+    "field.01-day-01.png",
+    "gui-01.png",
+    "plaza-day-01.png",
+    "walk-attack-03.png"
+  ],
+  "validatedSourceTextures": 704,
+  "sourceTexturesChangedSinceStaging": [],
+  "projectScene": "Assets/RedrawnValidation/Validation.unity (temporary verification scene)",
+  "editorNote": "Unity Search startup indexing logged ArgumentOutOfRangeException. Import and Play Mode reports still completed with no verification failures."
+}

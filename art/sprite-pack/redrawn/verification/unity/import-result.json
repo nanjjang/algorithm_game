@@ -1,0 +1,9 @@
+{
+    "textures": 704,
+    "slices": 1917,
+    "clips": 238,
+    "ui": 303,
+    "handAnchors": 60,
+    "mapLayouts": 14,
+    "settings": "Point filter, mipmaps off, compression off, PPU 64"
+}

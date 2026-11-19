@@ -1,0 +1,5448 @@
+{
+  "filter": "point",
+  "mipmaps": false,
+  "coordinates": "top-left",
+  "grip": [
+    16,
+    48
+  ],
+  "leftFacing": "mirror right sprite and horizontal grip",
+  "poseSource": "Each held angle is generated from its newly authored down-facing stage raster with the project nearest-neighbor grip transform.",
+  "content": {
+    "dalgu": {
+      "sheets": {
+        "hand": "complete/dalgu/hand.png",
+        "inspection": "complete/dalgu/inspection.png",
+        "icon": "complete/dalgu/icon.png"
+      },
+      "stages": [
+        {
+          "stage": 0,
+          "inspection": {
+            "path": "dalgu/+00/inspection.png",
+            "rect": [
+              0,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "dalgu/+00/icon.png",
+            "rect": [
+              0,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "dalgu/+00/hand_down_hold.png",
+              "rect": [
+                0,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/dalgu/+00/down_aim.png",
+              "rect": [
+                0,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/dalgu/+00/right_hold.png",
+              "rect": [
+                0,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/dalgu/+00/right_aim.png",
+              "rect": [
+                0,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/dalgu/+00/up_hold.png",
+              "rect": [
+                0,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/dalgu/+00/up_aim.png",
+              "rect": [
+                0,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 1,
+          "inspection": {
+            "path": "remaining/dalgu/+01/inspection.png",
+            "rect": [
+              192,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/dalgu/+01/icon.png",
+            "rect": [
+              64,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/dalgu/+01/hand_down_hold.png",
+              "rect": [
+                32,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/dalgu/+01/down_aim.png",
+              "rect": [
+                32,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/dalgu/+01/right_hold.png",
+              "rect": [
+                32,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/dalgu/+01/right_aim.png",
+              "rect": [
+                32,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/dalgu/+01/up_hold.png",
+              "rect": [
+                32,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/dalgu/+01/up_aim.png",
+              "rect": [
+                32,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 2,
+          "inspection": {
+            "path": "remaining/dalgu/+02/inspection.png",
+            "rect": [
+              384,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/dalgu/+02/icon.png",
+            "rect": [
+              128,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/dalgu/+02/hand_down_hold.png",
+              "rect": [
+                64,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/dalgu/+02/down_aim.png",
+              "rect": [
+                64,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/dalgu/+02/right_hold.png",
+              "rect": [
+                64,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/dalgu/+02/right_aim.png",
+              "rect": [
+                64,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/dalgu/+02/up_hold.png",
+              "rect": [
+                64,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/dalgu/+02/up_aim.png",
+              "rect": [
+                64,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 3,
+          "inspection": {
+            "path": "remaining/dalgu/+03/inspection.png",
+            "rect": [
+              576,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/dalgu/+03/icon.png",
+            "rect": [
+              192,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/dalgu/+03/hand_down_hold.png",
+              "rect": [
+                96,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/dalgu/+03/down_aim.png",
+              "rect": [
+                96,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/dalgu/+03/right_hold.png",
+              "rect": [
+                96,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/dalgu/+03/right_aim.png",
+              "rect": [
+                96,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/dalgu/+03/up_hold.png",
+              "rect": [
+                96,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/dalgu/+03/up_aim.png",
+              "rect": [
+                96,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 4,
+          "inspection": {
+            "path": "dalgu/+04/inspection.png",
+            "rect": [
+              768,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "dalgu/+04/icon.png",
+            "rect": [
+              256,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "dalgu/+04/hand_down_hold.png",
+              "rect": [
+                128,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/dalgu/+04/down_aim.png",
+              "rect": [
+                128,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/dalgu/+04/right_hold.png",
+              "rect": [
+                128,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/dalgu/+04/right_aim.png",
+              "rect": [
+                128,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/dalgu/+04/up_hold.png",
+              "rect": [
+                128,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/dalgu/+04/up_aim.png",
+              "rect": [
+                128,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 5,
+          "inspection": {
+            "path": "remaining/dalgu/+05/inspection.png",
+            "rect": [
+              960,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/dalgu/+05/icon.png",
+            "rect": [
+              320,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/dalgu/+05/hand_down_hold.png",
+              "rect": [
+                160,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/dalgu/+05/down_aim.png",
+              "rect": [
+                160,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/dalgu/+05/right_hold.png",
+              "rect": [
+                160,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/dalgu/+05/right_aim.png",
+              "rect": [
+                160,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/dalgu/+05/up_hold.png",
+              "rect": [
+                160,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/dalgu/+05/up_aim.png",
+              "rect": [
+                160,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 6,
+          "inspection": {
+            "path": "remaining/dalgu/+06/inspection.png",
+            "rect": [
+              1152,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/dalgu/+06/icon.png",
+            "rect": [
+              384,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/dalgu/+06/hand_down_hold.png",
+              "rect": [
+                192,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/dalgu/+06/down_aim.png",
+              "rect": [
+                192,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/dalgu/+06/right_hold.png",
+              "rect": [
+                192,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/dalgu/+06/right_aim.png",
+              "rect": [
+                192,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/dalgu/+06/up_hold.png",
+              "rect": [
+                192,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/dalgu/+06/up_aim.png",
+              "rect": [
+                192,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 7,
+          "inspection": {
+            "path": "dalgu/+07/inspection.png",
+            "rect": [
+              0,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "dalgu/+07/icon.png",
+            "rect": [
+              448,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "dalgu/+07/hand_down_hold.png",
+              "rect": [
+                224,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/dalgu/+07/down_aim.png",
+              "rect": [
+                224,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/dalgu/+07/right_hold.png",
+              "rect": [
+                224,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/dalgu/+07/right_aim.png",
+              "rect": [
+                224,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/dalgu/+07/up_hold.png",
+              "rect": [
+                224,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/dalgu/+07/up_aim.png",
+              "rect": [
+                224,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 8,
+          "inspection": {
+            "path": "remaining/dalgu/+08/inspection.png",
+            "rect": [
+              192,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/dalgu/+08/icon.png",
+            "rect": [
+              512,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/dalgu/+08/hand_down_hold.png",
+              "rect": [
+                256,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/dalgu/+08/down_aim.png",
+              "rect": [
+                256,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/dalgu/+08/right_hold.png",
+              "rect": [
+                256,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/dalgu/+08/right_aim.png",
+              "rect": [
+                256,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/dalgu/+08/up_hold.png",
+              "rect": [
+                256,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/dalgu/+08/up_aim.png",
+              "rect": [
+                256,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 9,
+          "inspection": {
+            "path": "remaining/dalgu/+09/inspection.png",
+            "rect": [
+              384,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/dalgu/+09/icon.png",
+            "rect": [
+              576,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/dalgu/+09/hand_down_hold.png",
+              "rect": [
+                288,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/dalgu/+09/down_aim.png",
+              "rect": [
+                288,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/dalgu/+09/right_hold.png",
+              "rect": [
+                288,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/dalgu/+09/right_aim.png",
+              "rect": [
+                288,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/dalgu/+09/up_hold.png",
+              "rect": [
+                288,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/dalgu/+09/up_aim.png",
+              "rect": [
+                288,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 10,
+          "inspection": {
+            "path": "dalgu/+10/inspection.png",
+            "rect": [
+              576,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "dalgu/+10/icon.png",
+            "rect": [
+              640,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "dalgu/+10/hand_down_hold.png",
+              "rect": [
+                320,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/dalgu/+10/down_aim.png",
+              "rect": [
+                320,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/dalgu/+10/right_hold.png",
+              "rect": [
+                320,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/dalgu/+10/right_aim.png",
+              "rect": [
+                320,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/dalgu/+10/up_hold.png",
+              "rect": [
+                320,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/dalgu/+10/up_aim.png",
+              "rect": [
+                320,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 11,
+          "inspection": {
+            "path": "remaining/dalgu/+11/inspection.png",
+            "rect": [
+              768,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/dalgu/+11/icon.png",
+            "rect": [
+              704,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/dalgu/+11/hand_down_hold.png",
+              "rect": [
+                352,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/dalgu/+11/down_aim.png",
+              "rect": [
+                352,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/dalgu/+11/right_hold.png",
+              "rect": [
+                352,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/dalgu/+11/right_aim.png",
+              "rect": [
+                352,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/dalgu/+11/up_hold.png",
+              "rect": [
+                352,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/dalgu/+11/up_aim.png",
+              "rect": [
+                352,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 12,
+          "inspection": {
+            "path": "remaining/dalgu/+12/inspection.png",
+            "rect": [
+              960,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/dalgu/+12/icon.png",
+            "rect": [
+              768,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/dalgu/+12/hand_down_hold.png",
+              "rect": [
+                384,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/dalgu/+12/down_aim.png",
+              "rect": [
+                384,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/dalgu/+12/right_hold.png",
+              "rect": [
+                384,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/dalgu/+12/right_aim.png",
+              "rect": [
+                384,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/dalgu/+12/up_hold.png",
+              "rect": [
+                384,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/dalgu/+12/up_aim.png",
+              "rect": [
+                384,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 13,
+          "inspection": {
+            "path": "dalgu/+13/inspection.png",
+            "rect": [
+              1152,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "dalgu/+13/icon.png",
+            "rect": [
+              832,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "dalgu/+13/hand_down_hold.png",
+              "rect": [
+                416,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/dalgu/+13/down_aim.png",
+              "rect": [
+                416,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/dalgu/+13/right_hold.png",
+              "rect": [
+                416,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/dalgu/+13/right_aim.png",
+              "rect": [
+                416,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/dalgu/+13/up_hold.png",
+              "rect": [
+                416,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/dalgu/+13/up_aim.png",
+              "rect": [
+                416,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "chorong": {
+      "sheets": {
+        "hand": "complete/chorong/hand.png",
+        "inspection": "complete/chorong/inspection.png",
+        "icon": "complete/chorong/icon.png"
+      },
+      "stages": [
+        {
+          "stage": 0,
+          "inspection": {
+            "path": "chorong/+00/inspection.png",
+            "rect": [
+              0,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "chorong/+00/icon.png",
+            "rect": [
+              0,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "chorong/+00/hand_down_hold.png",
+              "rect": [
+                0,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/chorong/+00/down_aim.png",
+              "rect": [
+                0,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/chorong/+00/right_hold.png",
+              "rect": [
+                0,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/chorong/+00/right_aim.png",
+              "rect": [
+                0,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/chorong/+00/up_hold.png",
+              "rect": [
+                0,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/chorong/+00/up_aim.png",
+              "rect": [
+                0,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 1,
+          "inspection": {
+            "path": "remaining/chorong/+01/inspection.png",
+            "rect": [
+              192,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/chorong/+01/icon.png",
+            "rect": [
+              64,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/chorong/+01/hand_down_hold.png",
+              "rect": [
+                32,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/chorong/+01/down_aim.png",
+              "rect": [
+                32,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/chorong/+01/right_hold.png",
+              "rect": [
+                32,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/chorong/+01/right_aim.png",
+              "rect": [
+                32,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/chorong/+01/up_hold.png",
+              "rect": [
+                32,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/chorong/+01/up_aim.png",
+              "rect": [
+                32,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 2,
+          "inspection": {
+            "path": "remaining/chorong/+02/inspection.png",
+            "rect": [
+              384,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/chorong/+02/icon.png",
+            "rect": [
+              128,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/chorong/+02/hand_down_hold.png",
+              "rect": [
+                64,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/chorong/+02/down_aim.png",
+              "rect": [
+                64,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/chorong/+02/right_hold.png",
+              "rect": [
+                64,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/chorong/+02/right_aim.png",
+              "rect": [
+                64,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/chorong/+02/up_hold.png",
+              "rect": [
+                64,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/chorong/+02/up_aim.png",
+              "rect": [
+                64,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 3,
+          "inspection": {
+            "path": "remaining/chorong/+03/inspection.png",
+            "rect": [
+              576,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/chorong/+03/icon.png",
+            "rect": [
+              192,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/chorong/+03/hand_down_hold.png",
+              "rect": [
+                96,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/chorong/+03/down_aim.png",
+              "rect": [
+                96,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/chorong/+03/right_hold.png",
+              "rect": [
+                96,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/chorong/+03/right_aim.png",
+              "rect": [
+                96,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/chorong/+03/up_hold.png",
+              "rect": [
+                96,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/chorong/+03/up_aim.png",
+              "rect": [
+                96,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 4,
+          "inspection": {
+            "path": "chorong/+04/inspection.png",
+            "rect": [
+              768,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "chorong/+04/icon.png",
+            "rect": [
+              256,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "chorong/+04/hand_down_hold.png",
+              "rect": [
+                128,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/chorong/+04/down_aim.png",
+              "rect": [
+                128,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/chorong/+04/right_hold.png",
+              "rect": [
+                128,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/chorong/+04/right_aim.png",
+              "rect": [
+                128,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/chorong/+04/up_hold.png",
+              "rect": [
+                128,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/chorong/+04/up_aim.png",
+              "rect": [
+                128,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 5,
+          "inspection": {
+            "path": "remaining/chorong/+05/inspection.png",
+            "rect": [
+              960,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/chorong/+05/icon.png",
+            "rect": [
+              320,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/chorong/+05/hand_down_hold.png",
+              "rect": [
+                160,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/chorong/+05/down_aim.png",
+              "rect": [
+                160,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/chorong/+05/right_hold.png",
+              "rect": [
+                160,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/chorong/+05/right_aim.png",
+              "rect": [
+                160,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/chorong/+05/up_hold.png",
+              "rect": [
+                160,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/chorong/+05/up_aim.png",
+              "rect": [
+                160,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 6,
+          "inspection": {
+            "path": "remaining/chorong/+06/inspection.png",
+            "rect": [
+              1152,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/chorong/+06/icon.png",
+            "rect": [
+              384,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/chorong/+06/hand_down_hold.png",
+              "rect": [
+                192,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/chorong/+06/down_aim.png",
+              "rect": [
+                192,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/chorong/+06/right_hold.png",
+              "rect": [
+                192,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/chorong/+06/right_aim.png",
+              "rect": [
+                192,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/chorong/+06/up_hold.png",
+              "rect": [
+                192,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/chorong/+06/up_aim.png",
+              "rect": [
+                192,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 7,
+          "inspection": {
+            "path": "chorong/+07/inspection.png",
+            "rect": [
+              0,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "chorong/+07/icon.png",
+            "rect": [
+              448,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "chorong/+07/hand_down_hold.png",
+              "rect": [
+                224,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/chorong/+07/down_aim.png",
+              "rect": [
+                224,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/chorong/+07/right_hold.png",
+              "rect": [
+                224,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/chorong/+07/right_aim.png",
+              "rect": [
+                224,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/chorong/+07/up_hold.png",
+              "rect": [
+                224,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/chorong/+07/up_aim.png",
+              "rect": [
+                224,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 8,
+          "inspection": {
+            "path": "remaining/chorong/+08/inspection.png",
+            "rect": [
+              192,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/chorong/+08/icon.png",
+            "rect": [
+              512,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/chorong/+08/hand_down_hold.png",
+              "rect": [
+                256,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/chorong/+08/down_aim.png",
+              "rect": [
+                256,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/chorong/+08/right_hold.png",
+              "rect": [
+                256,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/chorong/+08/right_aim.png",
+              "rect": [
+                256,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/chorong/+08/up_hold.png",
+              "rect": [
+                256,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/chorong/+08/up_aim.png",
+              "rect": [
+                256,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 9,
+          "inspection": {
+            "path": "remaining/chorong/+09/inspection.png",
+            "rect": [
+              384,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/chorong/+09/icon.png",
+            "rect": [
+              576,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/chorong/+09/hand_down_hold.png",
+              "rect": [
+                288,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/chorong/+09/down_aim.png",
+              "rect": [
+                288,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/chorong/+09/right_hold.png",
+              "rect": [
+                288,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/chorong/+09/right_aim.png",
+              "rect": [
+                288,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/chorong/+09/up_hold.png",
+              "rect": [
+                288,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/chorong/+09/up_aim.png",
+              "rect": [
+                288,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 10,
+          "inspection": {
+            "path": "chorong/+10/inspection.png",
+            "rect": [
+              576,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "chorong/+10/icon.png",
+            "rect": [
+              640,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "chorong/+10/hand_down_hold.png",
+              "rect": [
+                320,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/chorong/+10/down_aim.png",
+              "rect": [
+                320,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/chorong/+10/right_hold.png",
+              "rect": [
+                320,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/chorong/+10/right_aim.png",
+              "rect": [
+                320,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/chorong/+10/up_hold.png",
+              "rect": [
+                320,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/chorong/+10/up_aim.png",
+              "rect": [
+                320,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 11,
+          "inspection": {
+            "path": "remaining/chorong/+11/inspection.png",
+            "rect": [
+              768,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/chorong/+11/icon.png",
+            "rect": [
+              704,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/chorong/+11/hand_down_hold.png",
+              "rect": [
+                352,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/chorong/+11/down_aim.png",
+              "rect": [
+                352,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/chorong/+11/right_hold.png",
+              "rect": [
+                352,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/chorong/+11/right_aim.png",
+              "rect": [
+                352,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/chorong/+11/up_hold.png",
+              "rect": [
+                352,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/chorong/+11/up_aim.png",
+              "rect": [
+                352,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 12,
+          "inspection": {
+            "path": "remaining/chorong/+12/inspection.png",
+            "rect": [
+              960,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/chorong/+12/icon.png",
+            "rect": [
+              768,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/chorong/+12/hand_down_hold.png",
+              "rect": [
+                384,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/chorong/+12/down_aim.png",
+              "rect": [
+                384,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/chorong/+12/right_hold.png",
+              "rect": [
+                384,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/chorong/+12/right_aim.png",
+              "rect": [
+                384,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/chorong/+12/up_hold.png",
+              "rect": [
+                384,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/chorong/+12/up_aim.png",
+              "rect": [
+                384,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 13,
+          "inspection": {
+            "path": "chorong/+13/inspection.png",
+            "rect": [
+              1152,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "chorong/+13/icon.png",
+            "rect": [
+              832,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "chorong/+13/hand_down_hold.png",
+              "rect": [
+                416,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/chorong/+13/down_aim.png",
+              "rect": [
+                416,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/chorong/+13/right_hold.png",
+              "rect": [
+                416,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/chorong/+13/right_aim.png",
+              "rect": [
+                416,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/chorong/+13/up_hold.png",
+              "rect": [
+                416,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/chorong/+13/up_aim.png",
+              "rect": [
+                416,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "galpi": {
+      "sheets": {
+        "hand": "complete/galpi/hand.png",
+        "inspection": "complete/galpi/inspection.png",
+        "icon": "complete/galpi/icon.png"
+      },
+      "stages": [
+        {
+          "stage": 0,
+          "inspection": {
+            "path": "galpi/+00/inspection.png",
+            "rect": [
+              0,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "galpi/+00/icon.png",
+            "rect": [
+              0,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "galpi/+00/hand_down_hold.png",
+              "rect": [
+                0,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/galpi/+00/down_aim.png",
+              "rect": [
+                0,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/galpi/+00/right_hold.png",
+              "rect": [
+                0,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/galpi/+00/right_aim.png",
+              "rect": [
+                0,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/galpi/+00/up_hold.png",
+              "rect": [
+                0,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/galpi/+00/up_aim.png",
+              "rect": [
+                0,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 1,
+          "inspection": {
+            "path": "remaining/galpi/+01/inspection.png",
+            "rect": [
+              192,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/galpi/+01/icon.png",
+            "rect": [
+              64,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/galpi/+01/hand_down_hold.png",
+              "rect": [
+                32,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/galpi/+01/down_aim.png",
+              "rect": [
+                32,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/galpi/+01/right_hold.png",
+              "rect": [
+                32,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/galpi/+01/right_aim.png",
+              "rect": [
+                32,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/galpi/+01/up_hold.png",
+              "rect": [
+                32,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/galpi/+01/up_aim.png",
+              "rect": [
+                32,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 2,
+          "inspection": {
+            "path": "remaining/galpi/+02/inspection.png",
+            "rect": [
+              384,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/galpi/+02/icon.png",
+            "rect": [
+              128,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/galpi/+02/hand_down_hold.png",
+              "rect": [
+                64,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/galpi/+02/down_aim.png",
+              "rect": [
+                64,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/galpi/+02/right_hold.png",
+              "rect": [
+                64,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/galpi/+02/right_aim.png",
+              "rect": [
+                64,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/galpi/+02/up_hold.png",
+              "rect": [
+                64,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/galpi/+02/up_aim.png",
+              "rect": [
+                64,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 3,
+          "inspection": {
+            "path": "remaining/galpi/+03/inspection.png",
+            "rect": [
+              576,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/galpi/+03/icon.png",
+            "rect": [
+              192,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/galpi/+03/hand_down_hold.png",
+              "rect": [
+                96,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/galpi/+03/down_aim.png",
+              "rect": [
+                96,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/galpi/+03/right_hold.png",
+              "rect": [
+                96,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/galpi/+03/right_aim.png",
+              "rect": [
+                96,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/galpi/+03/up_hold.png",
+              "rect": [
+                96,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/galpi/+03/up_aim.png",
+              "rect": [
+                96,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 4,
+          "inspection": {
+            "path": "galpi/+04/inspection.png",
+            "rect": [
+              768,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "galpi/+04/icon.png",
+            "rect": [
+              256,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "galpi/+04/hand_down_hold.png",
+              "rect": [
+                128,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/galpi/+04/down_aim.png",
+              "rect": [
+                128,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/galpi/+04/right_hold.png",
+              "rect": [
+                128,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/galpi/+04/right_aim.png",
+              "rect": [
+                128,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/galpi/+04/up_hold.png",
+              "rect": [
+                128,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/galpi/+04/up_aim.png",
+              "rect": [
+                128,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 5,
+          "inspection": {
+            "path": "remaining/galpi/+05/inspection.png",
+            "rect": [
+              960,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/galpi/+05/icon.png",
+            "rect": [
+              320,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/galpi/+05/hand_down_hold.png",
+              "rect": [
+                160,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/galpi/+05/down_aim.png",
+              "rect": [
+                160,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/galpi/+05/right_hold.png",
+              "rect": [
+                160,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/galpi/+05/right_aim.png",
+              "rect": [
+                160,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/galpi/+05/up_hold.png",
+              "rect": [
+                160,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/galpi/+05/up_aim.png",
+              "rect": [
+                160,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 6,
+          "inspection": {
+            "path": "remaining/galpi/+06/inspection.png",
+            "rect": [
+              1152,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/galpi/+06/icon.png",
+            "rect": [
+              384,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/galpi/+06/hand_down_hold.png",
+              "rect": [
+                192,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/galpi/+06/down_aim.png",
+              "rect": [
+                192,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/galpi/+06/right_hold.png",
+              "rect": [
+                192,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/galpi/+06/right_aim.png",
+              "rect": [
+                192,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/galpi/+06/up_hold.png",
+              "rect": [
+                192,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/galpi/+06/up_aim.png",
+              "rect": [
+                192,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 7,
+          "inspection": {
+            "path": "galpi/+07/inspection.png",
+            "rect": [
+              0,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "galpi/+07/icon.png",
+            "rect": [
+              448,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "galpi/+07/hand_down_hold.png",
+              "rect": [
+                224,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/galpi/+07/down_aim.png",
+              "rect": [
+                224,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/galpi/+07/right_hold.png",
+              "rect": [
+                224,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/galpi/+07/right_aim.png",
+              "rect": [
+                224,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/galpi/+07/up_hold.png",
+              "rect": [
+                224,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/galpi/+07/up_aim.png",
+              "rect": [
+                224,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 8,
+          "inspection": {
+            "path": "remaining/galpi/+08/inspection.png",
+            "rect": [
+              192,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/galpi/+08/icon.png",
+            "rect": [
+              512,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/galpi/+08/hand_down_hold.png",
+              "rect": [
+                256,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/galpi/+08/down_aim.png",
+              "rect": [
+                256,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/galpi/+08/right_hold.png",
+              "rect": [
+                256,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/galpi/+08/right_aim.png",
+              "rect": [
+                256,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/galpi/+08/up_hold.png",
+              "rect": [
+                256,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/galpi/+08/up_aim.png",
+              "rect": [
+                256,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 9,
+          "inspection": {
+            "path": "remaining/galpi/+09/inspection.png",
+            "rect": [
+              384,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/galpi/+09/icon.png",
+            "rect": [
+              576,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/galpi/+09/hand_down_hold.png",
+              "rect": [
+                288,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/galpi/+09/down_aim.png",
+              "rect": [
+                288,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/galpi/+09/right_hold.png",
+              "rect": [
+                288,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/galpi/+09/right_aim.png",
+              "rect": [
+                288,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/galpi/+09/up_hold.png",
+              "rect": [
+                288,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/galpi/+09/up_aim.png",
+              "rect": [
+                288,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 10,
+          "inspection": {
+            "path": "galpi/+10/inspection.png",
+            "rect": [
+              576,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "galpi/+10/icon.png",
+            "rect": [
+              640,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "galpi/+10/hand_down_hold.png",
+              "rect": [
+                320,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/galpi/+10/down_aim.png",
+              "rect": [
+                320,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/galpi/+10/right_hold.png",
+              "rect": [
+                320,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/galpi/+10/right_aim.png",
+              "rect": [
+                320,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/galpi/+10/up_hold.png",
+              "rect": [
+                320,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/galpi/+10/up_aim.png",
+              "rect": [
+                320,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 11,
+          "inspection": {
+            "path": "remaining/galpi/+11/inspection.png",
+            "rect": [
+              768,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/galpi/+11/icon.png",
+            "rect": [
+              704,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/galpi/+11/hand_down_hold.png",
+              "rect": [
+                352,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/galpi/+11/down_aim.png",
+              "rect": [
+                352,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/galpi/+11/right_hold.png",
+              "rect": [
+                352,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/galpi/+11/right_aim.png",
+              "rect": [
+                352,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/galpi/+11/up_hold.png",
+              "rect": [
+                352,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/galpi/+11/up_aim.png",
+              "rect": [
+                352,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 12,
+          "inspection": {
+            "path": "remaining/galpi/+12/inspection.png",
+            "rect": [
+              960,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/galpi/+12/icon.png",
+            "rect": [
+              768,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/galpi/+12/hand_down_hold.png",
+              "rect": [
+                384,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/galpi/+12/down_aim.png",
+              "rect": [
+                384,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/galpi/+12/right_hold.png",
+              "rect": [
+                384,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/galpi/+12/right_aim.png",
+              "rect": [
+                384,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/galpi/+12/up_hold.png",
+              "rect": [
+                384,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/galpi/+12/up_aim.png",
+              "rect": [
+                384,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 13,
+          "inspection": {
+            "path": "galpi/+13/inspection.png",
+            "rect": [
+              1152,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "galpi/+13/icon.png",
+            "rect": [
+              832,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "galpi/+13/hand_down_hold.png",
+              "rect": [
+                416,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/galpi/+13/down_aim.png",
+              "rect": [
+                416,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/galpi/+13/right_hold.png",
+              "rect": [
+                416,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/galpi/+13/right_aim.png",
+              "rect": [
+                416,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/galpi/+13/up_hold.png",
+              "rect": [
+                416,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/galpi/+13/up_aim.png",
+              "rect": [
+                416,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "seonge": {
+      "sheets": {
+        "hand": "complete/seonge/hand.png",
+        "inspection": "complete/seonge/inspection.png",
+        "icon": "complete/seonge/icon.png"
+      },
+      "stages": [
+        {
+          "stage": 0,
+          "inspection": {
+            "path": "seonge/+00/inspection.png",
+            "rect": [
+              0,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "seonge/+00/icon.png",
+            "rect": [
+              0,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "seonge/+00/hand_down_hold.png",
+              "rect": [
+                0,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/seonge/+00/down_aim.png",
+              "rect": [
+                0,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/seonge/+00/right_hold.png",
+              "rect": [
+                0,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/seonge/+00/right_aim.png",
+              "rect": [
+                0,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/seonge/+00/up_hold.png",
+              "rect": [
+                0,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/seonge/+00/up_aim.png",
+              "rect": [
+                0,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 1,
+          "inspection": {
+            "path": "remaining/seonge/+01/inspection.png",
+            "rect": [
+              192,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/seonge/+01/icon.png",
+            "rect": [
+              64,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/seonge/+01/hand_down_hold.png",
+              "rect": [
+                32,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/seonge/+01/down_aim.png",
+              "rect": [
+                32,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/seonge/+01/right_hold.png",
+              "rect": [
+                32,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/seonge/+01/right_aim.png",
+              "rect": [
+                32,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/seonge/+01/up_hold.png",
+              "rect": [
+                32,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/seonge/+01/up_aim.png",
+              "rect": [
+                32,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 2,
+          "inspection": {
+            "path": "remaining/seonge/+02/inspection.png",
+            "rect": [
+              384,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/seonge/+02/icon.png",
+            "rect": [
+              128,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/seonge/+02/hand_down_hold.png",
+              "rect": [
+                64,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/seonge/+02/down_aim.png",
+              "rect": [
+                64,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/seonge/+02/right_hold.png",
+              "rect": [
+                64,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/seonge/+02/right_aim.png",
+              "rect": [
+                64,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/seonge/+02/up_hold.png",
+              "rect": [
+                64,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/seonge/+02/up_aim.png",
+              "rect": [
+                64,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 3,
+          "inspection": {
+            "path": "remaining/seonge/+03/inspection.png",
+            "rect": [
+              576,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/seonge/+03/icon.png",
+            "rect": [
+              192,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/seonge/+03/hand_down_hold.png",
+              "rect": [
+                96,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/seonge/+03/down_aim.png",
+              "rect": [
+                96,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/seonge/+03/right_hold.png",
+              "rect": [
+                96,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/seonge/+03/right_aim.png",
+              "rect": [
+                96,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/seonge/+03/up_hold.png",
+              "rect": [
+                96,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/seonge/+03/up_aim.png",
+              "rect": [
+                96,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 4,
+          "inspection": {
+            "path": "seonge/+04/inspection.png",
+            "rect": [
+              768,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "seonge/+04/icon.png",
+            "rect": [
+              256,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "seonge/+04/hand_down_hold.png",
+              "rect": [
+                128,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/seonge/+04/down_aim.png",
+              "rect": [
+                128,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/seonge/+04/right_hold.png",
+              "rect": [
+                128,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/seonge/+04/right_aim.png",
+              "rect": [
+                128,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/seonge/+04/up_hold.png",
+              "rect": [
+                128,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/seonge/+04/up_aim.png",
+              "rect": [
+                128,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 5,
+          "inspection": {
+            "path": "remaining/seonge/+05/inspection.png",
+            "rect": [
+              960,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/seonge/+05/icon.png",
+            "rect": [
+              320,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/seonge/+05/hand_down_hold.png",
+              "rect": [
+                160,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/seonge/+05/down_aim.png",
+              "rect": [
+                160,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/seonge/+05/right_hold.png",
+              "rect": [
+                160,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/seonge/+05/right_aim.png",
+              "rect": [
+                160,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/seonge/+05/up_hold.png",
+              "rect": [
+                160,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/seonge/+05/up_aim.png",
+              "rect": [
+                160,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 6,
+          "inspection": {
+            "path": "remaining/seonge/+06/inspection.png",
+            "rect": [
+              1152,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/seonge/+06/icon.png",
+            "rect": [
+              384,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/seonge/+06/hand_down_hold.png",
+              "rect": [
+                192,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/seonge/+06/down_aim.png",
+              "rect": [
+                192,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/seonge/+06/right_hold.png",
+              "rect": [
+                192,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/seonge/+06/right_aim.png",
+              "rect": [
+                192,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/seonge/+06/up_hold.png",
+              "rect": [
+                192,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/seonge/+06/up_aim.png",
+              "rect": [
+                192,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 7,
+          "inspection": {
+            "path": "seonge/+07/inspection.png",
+            "rect": [
+              0,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "seonge/+07/icon.png",
+            "rect": [
+              448,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "seonge/+07/hand_down_hold.png",
+              "rect": [
+                224,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/seonge/+07/down_aim.png",
+              "rect": [
+                224,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/seonge/+07/right_hold.png",
+              "rect": [
+                224,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/seonge/+07/right_aim.png",
+              "rect": [
+                224,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/seonge/+07/up_hold.png",
+              "rect": [
+                224,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/seonge/+07/up_aim.png",
+              "rect": [
+                224,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 8,
+          "inspection": {
+            "path": "remaining/seonge/+08/inspection.png",
+            "rect": [
+              192,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/seonge/+08/icon.png",
+            "rect": [
+              512,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/seonge/+08/hand_down_hold.png",
+              "rect": [
+                256,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/seonge/+08/down_aim.png",
+              "rect": [
+                256,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/seonge/+08/right_hold.png",
+              "rect": [
+                256,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/seonge/+08/right_aim.png",
+              "rect": [
+                256,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/seonge/+08/up_hold.png",
+              "rect": [
+                256,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/seonge/+08/up_aim.png",
+              "rect": [
+                256,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 9,
+          "inspection": {
+            "path": "remaining/seonge/+09/inspection.png",
+            "rect": [
+              384,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/seonge/+09/icon.png",
+            "rect": [
+              576,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/seonge/+09/hand_down_hold.png",
+              "rect": [
+                288,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/seonge/+09/down_aim.png",
+              "rect": [
+                288,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/seonge/+09/right_hold.png",
+              "rect": [
+                288,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/seonge/+09/right_aim.png",
+              "rect": [
+                288,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/seonge/+09/up_hold.png",
+              "rect": [
+                288,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/seonge/+09/up_aim.png",
+              "rect": [
+                288,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 10,
+          "inspection": {
+            "path": "seonge/+10/inspection.png",
+            "rect": [
+              576,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "seonge/+10/icon.png",
+            "rect": [
+              640,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "seonge/+10/hand_down_hold.png",
+              "rect": [
+                320,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/seonge/+10/down_aim.png",
+              "rect": [
+                320,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/seonge/+10/right_hold.png",
+              "rect": [
+                320,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/seonge/+10/right_aim.png",
+              "rect": [
+                320,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/seonge/+10/up_hold.png",
+              "rect": [
+                320,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/seonge/+10/up_aim.png",
+              "rect": [
+                320,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 11,
+          "inspection": {
+            "path": "remaining/seonge/+11/inspection.png",
+            "rect": [
+              768,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/seonge/+11/icon.png",
+            "rect": [
+              704,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/seonge/+11/hand_down_hold.png",
+              "rect": [
+                352,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/seonge/+11/down_aim.png",
+              "rect": [
+                352,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/seonge/+11/right_hold.png",
+              "rect": [
+                352,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/seonge/+11/right_aim.png",
+              "rect": [
+                352,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/seonge/+11/up_hold.png",
+              "rect": [
+                352,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/seonge/+11/up_aim.png",
+              "rect": [
+                352,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 12,
+          "inspection": {
+            "path": "remaining/seonge/+12/inspection.png",
+            "rect": [
+              960,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/seonge/+12/icon.png",
+            "rect": [
+              768,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/seonge/+12/hand_down_hold.png",
+              "rect": [
+                384,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/seonge/+12/down_aim.png",
+              "rect": [
+                384,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/seonge/+12/right_hold.png",
+              "rect": [
+                384,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/seonge/+12/right_aim.png",
+              "rect": [
+                384,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/seonge/+12/up_hold.png",
+              "rect": [
+                384,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/seonge/+12/up_aim.png",
+              "rect": [
+                384,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 13,
+          "inspection": {
+            "path": "seonge/+13/inspection.png",
+            "rect": [
+              1152,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "seonge/+13/icon.png",
+            "rect": [
+              832,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "seonge/+13/hand_down_hold.png",
+              "rect": [
+                416,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/seonge/+13/down_aim.png",
+              "rect": [
+                416,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/seonge/+13/right_hold.png",
+              "rect": [
+                416,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/seonge/+13/right_aim.png",
+              "rect": [
+                416,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/seonge/+13/up_hold.png",
+              "rect": [
+                416,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/seonge/+13/up_aim.png",
+              "rect": [
+                416,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "geumeum": {
+      "sheets": {
+        "hand": "complete/geumeum/hand.png",
+        "inspection": "complete/geumeum/inspection.png",
+        "icon": "complete/geumeum/icon.png"
+      },
+      "stages": [
+        {
+          "stage": 0,
+          "inspection": {
+            "path": "geumeum/+00/inspection.png",
+            "rect": [
+              0,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "geumeum/+00/icon.png",
+            "rect": [
+              0,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "geumeum/+00/hand_down_hold.png",
+              "rect": [
+                0,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/geumeum/+00/down_aim.png",
+              "rect": [
+                0,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/geumeum/+00/right_hold.png",
+              "rect": [
+                0,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/geumeum/+00/right_aim.png",
+              "rect": [
+                0,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/geumeum/+00/up_hold.png",
+              "rect": [
+                0,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/geumeum/+00/up_aim.png",
+              "rect": [
+                0,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 1,
+          "inspection": {
+            "path": "remaining/geumeum/+01/inspection.png",
+            "rect": [
+              192,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/geumeum/+01/icon.png",
+            "rect": [
+              64,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/geumeum/+01/hand_down_hold.png",
+              "rect": [
+                32,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/geumeum/+01/down_aim.png",
+              "rect": [
+                32,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/geumeum/+01/right_hold.png",
+              "rect": [
+                32,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/geumeum/+01/right_aim.png",
+              "rect": [
+                32,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/geumeum/+01/up_hold.png",
+              "rect": [
+                32,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/geumeum/+01/up_aim.png",
+              "rect": [
+                32,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 2,
+          "inspection": {
+            "path": "remaining/geumeum/+02/inspection.png",
+            "rect": [
+              384,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/geumeum/+02/icon.png",
+            "rect": [
+              128,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/geumeum/+02/hand_down_hold.png",
+              "rect": [
+                64,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/geumeum/+02/down_aim.png",
+              "rect": [
+                64,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/geumeum/+02/right_hold.png",
+              "rect": [
+                64,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/geumeum/+02/right_aim.png",
+              "rect": [
+                64,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/geumeum/+02/up_hold.png",
+              "rect": [
+                64,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/geumeum/+02/up_aim.png",
+              "rect": [
+                64,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 3,
+          "inspection": {
+            "path": "remaining/geumeum/+03/inspection.png",
+            "rect": [
+              576,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/geumeum/+03/icon.png",
+            "rect": [
+              192,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/geumeum/+03/hand_down_hold.png",
+              "rect": [
+                96,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/geumeum/+03/down_aim.png",
+              "rect": [
+                96,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/geumeum/+03/right_hold.png",
+              "rect": [
+                96,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/geumeum/+03/right_aim.png",
+              "rect": [
+                96,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/geumeum/+03/up_hold.png",
+              "rect": [
+                96,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/geumeum/+03/up_aim.png",
+              "rect": [
+                96,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 4,
+          "inspection": {
+            "path": "geumeum/+04/inspection.png",
+            "rect": [
+              768,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "geumeum/+04/icon.png",
+            "rect": [
+              256,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "geumeum/+04/hand_down_hold.png",
+              "rect": [
+                128,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/geumeum/+04/down_aim.png",
+              "rect": [
+                128,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/geumeum/+04/right_hold.png",
+              "rect": [
+                128,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/geumeum/+04/right_aim.png",
+              "rect": [
+                128,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/geumeum/+04/up_hold.png",
+              "rect": [
+                128,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/geumeum/+04/up_aim.png",
+              "rect": [
+                128,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 5,
+          "inspection": {
+            "path": "remaining/geumeum/+05/inspection.png",
+            "rect": [
+              960,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/geumeum/+05/icon.png",
+            "rect": [
+              320,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/geumeum/+05/hand_down_hold.png",
+              "rect": [
+                160,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/geumeum/+05/down_aim.png",
+              "rect": [
+                160,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/geumeum/+05/right_hold.png",
+              "rect": [
+                160,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/geumeum/+05/right_aim.png",
+              "rect": [
+                160,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/geumeum/+05/up_hold.png",
+              "rect": [
+                160,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/geumeum/+05/up_aim.png",
+              "rect": [
+                160,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 6,
+          "inspection": {
+            "path": "remaining/geumeum/+06/inspection.png",
+            "rect": [
+              1152,
+              0,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/geumeum/+06/icon.png",
+            "rect": [
+              384,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/geumeum/+06/hand_down_hold.png",
+              "rect": [
+                192,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/geumeum/+06/down_aim.png",
+              "rect": [
+                192,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/geumeum/+06/right_hold.png",
+              "rect": [
+                192,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/geumeum/+06/right_aim.png",
+              "rect": [
+                192,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/geumeum/+06/up_hold.png",
+              "rect": [
+                192,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/geumeum/+06/up_aim.png",
+              "rect": [
+                192,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 7,
+          "inspection": {
+            "path": "geumeum/+07/inspection.png",
+            "rect": [
+              0,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "geumeum/+07/icon.png",
+            "rect": [
+              448,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "geumeum/+07/hand_down_hold.png",
+              "rect": [
+                224,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/geumeum/+07/down_aim.png",
+              "rect": [
+                224,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/geumeum/+07/right_hold.png",
+              "rect": [
+                224,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/geumeum/+07/right_aim.png",
+              "rect": [
+                224,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/geumeum/+07/up_hold.png",
+              "rect": [
+                224,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/geumeum/+07/up_aim.png",
+              "rect": [
+                224,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 8,
+          "inspection": {
+            "path": "remaining/geumeum/+08/inspection.png",
+            "rect": [
+              192,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/geumeum/+08/icon.png",
+            "rect": [
+              512,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/geumeum/+08/hand_down_hold.png",
+              "rect": [
+                256,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/geumeum/+08/down_aim.png",
+              "rect": [
+                256,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/geumeum/+08/right_hold.png",
+              "rect": [
+                256,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/geumeum/+08/right_aim.png",
+              "rect": [
+                256,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/geumeum/+08/up_hold.png",
+              "rect": [
+                256,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/geumeum/+08/up_aim.png",
+              "rect": [
+                256,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 9,
+          "inspection": {
+            "path": "remaining/geumeum/+09/inspection.png",
+            "rect": [
+              384,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/geumeum/+09/icon.png",
+            "rect": [
+              576,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/geumeum/+09/hand_down_hold.png",
+              "rect": [
+                288,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/geumeum/+09/down_aim.png",
+              "rect": [
+                288,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/geumeum/+09/right_hold.png",
+              "rect": [
+                288,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/geumeum/+09/right_aim.png",
+              "rect": [
+                288,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/geumeum/+09/up_hold.png",
+              "rect": [
+                288,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/geumeum/+09/up_aim.png",
+              "rect": [
+                288,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 10,
+          "inspection": {
+            "path": "geumeum/+10/inspection.png",
+            "rect": [
+              576,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "geumeum/+10/icon.png",
+            "rect": [
+              640,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "geumeum/+10/hand_down_hold.png",
+              "rect": [
+                320,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/geumeum/+10/down_aim.png",
+              "rect": [
+                320,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/geumeum/+10/right_hold.png",
+              "rect": [
+                320,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/geumeum/+10/right_aim.png",
+              "rect": [
+                320,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/geumeum/+10/up_hold.png",
+              "rect": [
+                320,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/geumeum/+10/up_aim.png",
+              "rect": [
+                320,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 11,
+          "inspection": {
+            "path": "remaining/geumeum/+11/inspection.png",
+            "rect": [
+              768,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/geumeum/+11/icon.png",
+            "rect": [
+              704,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/geumeum/+11/hand_down_hold.png",
+              "rect": [
+                352,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/geumeum/+11/down_aim.png",
+              "rect": [
+                352,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/geumeum/+11/right_hold.png",
+              "rect": [
+                352,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/geumeum/+11/right_aim.png",
+              "rect": [
+                352,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/geumeum/+11/up_hold.png",
+              "rect": [
+                352,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/geumeum/+11/up_aim.png",
+              "rect": [
+                352,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 12,
+          "inspection": {
+            "path": "remaining/geumeum/+12/inspection.png",
+            "rect": [
+              960,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "remaining/geumeum/+12/icon.png",
+            "rect": [
+              768,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "remaining/geumeum/+12/hand_down_hold.png",
+              "rect": [
+                384,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/geumeum/+12/down_aim.png",
+              "rect": [
+                384,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/geumeum/+12/right_hold.png",
+              "rect": [
+                384,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/geumeum/+12/right_aim.png",
+              "rect": [
+                384,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/geumeum/+12/up_hold.png",
+              "rect": [
+                384,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/geumeum/+12/up_aim.png",
+              "rect": [
+                384,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        },
+        {
+          "stage": 13,
+          "inspection": {
+            "path": "geumeum/+13/inspection.png",
+            "rect": [
+              1152,
+              192,
+              192,
+              192
+            ]
+          },
+          "icon": {
+            "path": "geumeum/+13/icon.png",
+            "rect": [
+              832,
+              0,
+              64,
+              64
+            ]
+          },
+          "hand": {
+            "down_hold": {
+              "path": "geumeum/+13/hand_down_hold.png",
+              "rect": [
+                416,
+                0,
+                32,
+                64
+              ]
+            },
+            "down_aim": {
+              "path": "complete/geumeum/+13/down_aim.png",
+              "rect": [
+                416,
+                64,
+                32,
+                64
+              ]
+            },
+            "right_hold": {
+              "path": "complete/geumeum/+13/right_hold.png",
+              "rect": [
+                416,
+                128,
+                32,
+                64
+              ]
+            },
+            "right_aim": {
+              "path": "complete/geumeum/+13/right_aim.png",
+              "rect": [
+                416,
+                192,
+                32,
+                64
+              ]
+            },
+            "up_hold": {
+              "path": "complete/geumeum/+13/up_hold.png",
+              "rect": [
+                416,
+                256,
+                32,
+                64
+              ]
+            },
+            "up_aim": {
+              "path": "complete/geumeum/+13/up_aim.png",
+              "rect": [
+                416,
+                320,
+                32,
+                64
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

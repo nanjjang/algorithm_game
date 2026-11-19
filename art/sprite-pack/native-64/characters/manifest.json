@@ -1,0 +1,2294 @@
+{
+  "cell": [
+    64,
+    64
+  ],
+  "origin": "top-left",
+  "sampling": "nearest",
+  "nativeGrid": true,
+  "entries": {
+    "geumeum": {
+      "name": "그믐",
+      "pivot": [
+        30,
+        60
+      ],
+      "sheet": "geumeum/sheet.png",
+      "palette": [
+        "1B0D1B",
+        "421536",
+        "561F4C",
+        "7A336A",
+        "B25A9B",
+        "222641",
+        "3E4675",
+        "6271AE",
+        "CA8F44",
+        "F8C062",
+        "704456",
+        "A47384",
+        "E2ACFA",
+        "F9D6FF"
+      ],
+      "clips": {
+        "idle": {
+          "strip": "geumeum/idle/sheet.png",
+          "frames": [
+            {
+              "file": "geumeum/idle/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 320,
+              "handPx": [
+                50,
+                46
+              ]
+            },
+            {
+              "file": "geumeum/idle/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 220,
+              "handPx": [
+                50,
+                47
+              ]
+            },
+            {
+              "file": "geumeum/idle/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 100,
+              "handPx": [
+                50,
+                46
+              ]
+            },
+            {
+              "file": "geumeum/idle/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 240,
+              "handPx": [
+                50,
+                46
+              ]
+            }
+          ],
+          "loop": true
+        },
+        "walk": {
+          "strip": "geumeum/walk/sheet.png",
+          "frames": [
+            {
+              "file": "geumeum/walk/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 95,
+              "handPx": [
+                50,
+                46
+              ]
+            },
+            {
+              "file": "geumeum/walk/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 95,
+              "handPx": [
+                50,
+                45
+              ]
+            },
+            {
+              "file": "geumeum/walk/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 95,
+              "handPx": [
+                50,
+                46
+              ]
+            },
+            {
+              "file": "geumeum/walk/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 95,
+              "handPx": [
+                50,
+                45
+              ]
+            }
+          ],
+          "loop": true
+        },
+        "cast": {
+          "strip": "geumeum/cast/sheet.png",
+          "frames": [
+            {
+              "file": "geumeum/cast/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 120,
+              "handPx": [
+                50,
+                46
+              ]
+            },
+            {
+              "file": "geumeum/cast/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                55,
+                39
+              ]
+            },
+            {
+              "file": "geumeum/cast/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 90,
+              "handPx": [
+                58,
+                42
+              ]
+            },
+            {
+              "file": "geumeum/cast/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 180,
+              "handPx": [
+                53,
+                47
+              ]
+            }
+          ],
+          "loop": false
+        },
+        "upgrade_success": {
+          "strip": "geumeum/upgrade_success/sheet.png",
+          "frames": [
+            {
+              "file": "geumeum/upgrade_success/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 160,
+              "handPx": [
+                50,
+                46
+              ]
+            },
+            {
+              "file": "geumeum/upgrade_success/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 100,
+              "handPx": [
+                55,
+                37
+              ]
+            },
+            {
+              "file": "geumeum/upgrade_success/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 170,
+              "handPx": [
+                58,
+                38
+              ]
+            },
+            {
+              "file": "geumeum/upgrade_success/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 180,
+              "handPx": [
+                53,
+                46
+              ]
+            }
+          ],
+          "loop": false
+        },
+        "upgrade_failure": {
+          "strip": "geumeum/upgrade_failure/sheet.png",
+          "frames": [
+            {
+              "file": "geumeum/upgrade_failure/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 150,
+              "handPx": [
+                50,
+                46
+              ]
+            },
+            {
+              "file": "geumeum/upgrade_failure/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                50,
+                47
+              ]
+            },
+            {
+              "file": "geumeum/upgrade_failure/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 160,
+              "handPx": [
+                50,
+                48
+              ]
+            },
+            {
+              "file": "geumeum/upgrade_failure/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 230,
+              "handPx": [
+                53,
+                48
+              ]
+            }
+          ],
+          "loop": false
+        }
+      }
+    },
+    "dalgu": {
+      "name": "달구",
+      "pivot": [
+        30,
+        60
+      ],
+      "sheet": "dalgu/sheet.png",
+      "palette": [
+        "2A1A20",
+        "7A4322",
+        "B5692F",
+        "E39A4E",
+        "FFD79A",
+        "16655F",
+        "1F8C82",
+        "4FC2B0",
+        "F2CFA0",
+        "5A3A2A",
+        "E8E4DA",
+        "F4F4F4",
+        "C48259",
+        "966254",
+        "3E2625"
+      ],
+      "clips": {
+        "idle": {
+          "strip": "dalgu/idle/sheet.png",
+          "frames": [
+            {
+              "file": "dalgu/idle/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 320,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "dalgu/idle/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 220,
+              "handPx": [
+                46,
+                47
+              ]
+            },
+            {
+              "file": "dalgu/idle/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 100,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "dalgu/idle/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 240,
+              "handPx": [
+                46,
+                46
+              ]
+            }
+          ],
+          "loop": true
+        },
+        "walk": {
+          "strip": "dalgu/walk/sheet.png",
+          "frames": [
+            {
+              "file": "dalgu/walk/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 95,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "dalgu/walk/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 95,
+              "handPx": [
+                46,
+                45
+              ]
+            },
+            {
+              "file": "dalgu/walk/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 95,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "dalgu/walk/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 95,
+              "handPx": [
+                46,
+                45
+              ]
+            }
+          ],
+          "loop": true
+        },
+        "cast": {
+          "strip": "dalgu/cast/sheet.png",
+          "frames": [
+            {
+              "file": "dalgu/cast/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 120,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "dalgu/cast/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                55,
+                39
+              ]
+            },
+            {
+              "file": "dalgu/cast/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 90,
+              "handPx": [
+                58,
+                42
+              ]
+            },
+            {
+              "file": "dalgu/cast/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 180,
+              "handPx": [
+                53,
+                47
+              ]
+            }
+          ],
+          "loop": false
+        },
+        "upgrade_success": {
+          "strip": "dalgu/upgrade_success/sheet.png",
+          "frames": [
+            {
+              "file": "dalgu/upgrade_success/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 160,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "dalgu/upgrade_success/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 100,
+              "handPx": [
+                55,
+                37
+              ]
+            },
+            {
+              "file": "dalgu/upgrade_success/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 170,
+              "handPx": [
+                58,
+                38
+              ]
+            },
+            {
+              "file": "dalgu/upgrade_success/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 180,
+              "handPx": [
+                53,
+                46
+              ]
+            }
+          ],
+          "loop": false
+        },
+        "upgrade_failure": {
+          "strip": "dalgu/upgrade_failure/sheet.png",
+          "frames": [
+            {
+              "file": "dalgu/upgrade_failure/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 150,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "dalgu/upgrade_failure/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                46,
+                47
+              ]
+            },
+            {
+              "file": "dalgu/upgrade_failure/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 160,
+              "handPx": [
+                46,
+                48
+              ]
+            },
+            {
+              "file": "dalgu/upgrade_failure/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 230,
+              "handPx": [
+                53,
+                48
+              ]
+            }
+          ],
+          "loop": false
+        }
+      }
+    },
+    "chorong": {
+      "name": "초롱",
+      "pivot": [
+        30,
+        60
+      ],
+      "sheet": "chorong/sheet.png",
+      "palette": [
+        "1C1830",
+        "3A2A6A",
+        "5A45A0",
+        "8068C8",
+        "8A6A14",
+        "C89A22",
+        "EBC04A",
+        "6FE0C0",
+        "F0CFA8",
+        "FFF36B",
+        "FFFFFF",
+        "4A3A2A",
+        "B17E72",
+        "553C55"
+      ],
+      "clips": {
+        "idle": {
+          "strip": "chorong/idle/sheet.png",
+          "frames": [
+            {
+              "file": "chorong/idle/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 320,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "chorong/idle/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 220,
+              "handPx": [
+                46,
+                47
+              ]
+            },
+            {
+              "file": "chorong/idle/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 100,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "chorong/idle/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 240,
+              "handPx": [
+                46,
+                46
+              ]
+            }
+          ],
+          "loop": true
+        },
+        "walk": {
+          "strip": "chorong/walk/sheet.png",
+          "frames": [
+            {
+              "file": "chorong/walk/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 95,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "chorong/walk/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 95,
+              "handPx": [
+                46,
+                45
+              ]
+            },
+            {
+              "file": "chorong/walk/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 95,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "chorong/walk/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 95,
+              "handPx": [
+                46,
+                45
+              ]
+            }
+          ],
+          "loop": true
+        },
+        "cast": {
+          "strip": "chorong/cast/sheet.png",
+          "frames": [
+            {
+              "file": "chorong/cast/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 120,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "chorong/cast/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                55,
+                39
+              ]
+            },
+            {
+              "file": "chorong/cast/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 90,
+              "handPx": [
+                58,
+                42
+              ]
+            },
+            {
+              "file": "chorong/cast/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 180,
+              "handPx": [
+                53,
+                47
+              ]
+            }
+          ],
+          "loop": false
+        },
+        "upgrade_success": {
+          "strip": "chorong/upgrade_success/sheet.png",
+          "frames": [
+            {
+              "file": "chorong/upgrade_success/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 160,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "chorong/upgrade_success/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 100,
+              "handPx": [
+                55,
+                37
+              ]
+            },
+            {
+              "file": "chorong/upgrade_success/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 170,
+              "handPx": [
+                58,
+                38
+              ]
+            },
+            {
+              "file": "chorong/upgrade_success/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 180,
+              "handPx": [
+                53,
+                46
+              ]
+            }
+          ],
+          "loop": false
+        },
+        "upgrade_failure": {
+          "strip": "chorong/upgrade_failure/sheet.png",
+          "frames": [
+            {
+              "file": "chorong/upgrade_failure/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 150,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "chorong/upgrade_failure/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                46,
+                47
+              ]
+            },
+            {
+              "file": "chorong/upgrade_failure/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 160,
+              "handPx": [
+                46,
+                48
+              ]
+            },
+            {
+              "file": "chorong/upgrade_failure/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 230,
+              "handPx": [
+                53,
+                48
+              ]
+            }
+          ],
+          "loop": false
+        }
+      }
+    },
+    "galpi": {
+      "name": "갈피",
+      "pivot": [
+        30,
+        60
+      ],
+      "sheet": "galpi/sheet.png",
+      "palette": [
+        "1A2030",
+        "5A3A2E",
+        "8A5A3E",
+        "B88A5A",
+        "EDE3C8",
+        "3A4658",
+        "55657C",
+        "7C8EA6",
+        "F2D2AC",
+        "4FE3C1",
+        "D6FFF3",
+        "C8A24A",
+        "C69A73",
+        "483232",
+        "BCA98D"
+      ],
+      "clips": {
+        "idle": {
+          "strip": "galpi/idle/sheet.png",
+          "frames": [
+            {
+              "file": "galpi/idle/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 320,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "galpi/idle/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 220,
+              "handPx": [
+                46,
+                47
+              ]
+            },
+            {
+              "file": "galpi/idle/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 100,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "galpi/idle/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 240,
+              "handPx": [
+                46,
+                46
+              ]
+            }
+          ],
+          "loop": true
+        },
+        "walk": {
+          "strip": "galpi/walk/sheet.png",
+          "frames": [
+            {
+              "file": "galpi/walk/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 95,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "galpi/walk/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 95,
+              "handPx": [
+                46,
+                45
+              ]
+            },
+            {
+              "file": "galpi/walk/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 95,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "galpi/walk/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 95,
+              "handPx": [
+                46,
+                45
+              ]
+            }
+          ],
+          "loop": true
+        },
+        "cast": {
+          "strip": "galpi/cast/sheet.png",
+          "frames": [
+            {
+              "file": "galpi/cast/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 120,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "galpi/cast/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                55,
+                39
+              ]
+            },
+            {
+              "file": "galpi/cast/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 90,
+              "handPx": [
+                58,
+                42
+              ]
+            },
+            {
+              "file": "galpi/cast/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 180,
+              "handPx": [
+                53,
+                47
+              ]
+            }
+          ],
+          "loop": false
+        },
+        "upgrade_success": {
+          "strip": "galpi/upgrade_success/sheet.png",
+          "frames": [
+            {
+              "file": "galpi/upgrade_success/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 160,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "galpi/upgrade_success/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 100,
+              "handPx": [
+                55,
+                37
+              ]
+            },
+            {
+              "file": "galpi/upgrade_success/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 170,
+              "handPx": [
+                58,
+                38
+              ]
+            },
+            {
+              "file": "galpi/upgrade_success/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 180,
+              "handPx": [
+                53,
+                46
+              ]
+            }
+          ],
+          "loop": false
+        },
+        "upgrade_failure": {
+          "strip": "galpi/upgrade_failure/sheet.png",
+          "frames": [
+            {
+              "file": "galpi/upgrade_failure/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 150,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "galpi/upgrade_failure/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                46,
+                47
+              ]
+            },
+            {
+              "file": "galpi/upgrade_failure/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 160,
+              "handPx": [
+                46,
+                48
+              ]
+            },
+            {
+              "file": "galpi/upgrade_failure/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 230,
+              "handPx": [
+                53,
+                48
+              ]
+            }
+          ],
+          "loop": false
+        }
+      }
+    },
+    "seonge": {
+      "name": "성에",
+      "pivot": [
+        30,
+        60
+      ],
+      "sheet": "seonge/sheet.png",
+      "palette": [
+        "1E2238",
+        "B9A8E8",
+        "E4DAFF",
+        "C9B88A",
+        "F3E7C0",
+        "FFF8E2",
+        "2E55B8",
+        "4F7CE0",
+        "9FDCFF",
+        "F4FBFF",
+        "F4D6B4",
+        "7A5A3A",
+        "6478A4",
+        "BD8C87",
+        "39334F"
+      ],
+      "clips": {
+        "idle": {
+          "strip": "seonge/idle/sheet.png",
+          "frames": [
+            {
+              "file": "seonge/idle/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 320,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "seonge/idle/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 220,
+              "handPx": [
+                46,
+                47
+              ]
+            },
+            {
+              "file": "seonge/idle/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 100,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "seonge/idle/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "durationMs": 240,
+              "handPx": [
+                46,
+                46
+              ]
+            }
+          ],
+          "loop": true
+        },
+        "walk": {
+          "strip": "seonge/walk/sheet.png",
+          "frames": [
+            {
+              "file": "seonge/walk/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 95,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "seonge/walk/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 95,
+              "handPx": [
+                46,
+                45
+              ]
+            },
+            {
+              "file": "seonge/walk/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 95,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "seonge/walk/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                64,
+                64,
+                64
+              ],
+              "durationMs": 95,
+              "handPx": [
+                46,
+                45
+              ]
+            }
+          ],
+          "loop": true
+        },
+        "cast": {
+          "strip": "seonge/cast/sheet.png",
+          "frames": [
+            {
+              "file": "seonge/cast/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 120,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "seonge/cast/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                55,
+                39
+              ]
+            },
+            {
+              "file": "seonge/cast/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 90,
+              "handPx": [
+                58,
+                42
+              ]
+            },
+            {
+              "file": "seonge/cast/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                128,
+                64,
+                64
+              ],
+              "durationMs": 180,
+              "handPx": [
+                53,
+                47
+              ]
+            }
+          ],
+          "loop": false
+        },
+        "upgrade_success": {
+          "strip": "seonge/upgrade_success/sheet.png",
+          "frames": [
+            {
+              "file": "seonge/upgrade_success/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 160,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "seonge/upgrade_success/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 100,
+              "handPx": [
+                55,
+                37
+              ]
+            },
+            {
+              "file": "seonge/upgrade_success/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 170,
+              "handPx": [
+                58,
+                38
+              ]
+            },
+            {
+              "file": "seonge/upgrade_success/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                192,
+                64,
+                64
+              ],
+              "durationMs": 180,
+              "handPx": [
+                53,
+                46
+              ]
+            }
+          ],
+          "loop": false
+        },
+        "upgrade_failure": {
+          "strip": "seonge/upgrade_failure/sheet.png",
+          "frames": [
+            {
+              "file": "seonge/upgrade_failure/01.png",
+              "rect": [
+                0,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                0,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 150,
+              "handPx": [
+                46,
+                46
+              ]
+            },
+            {
+              "file": "seonge/upgrade_failure/02.png",
+              "rect": [
+                64,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                64,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 140,
+              "handPx": [
+                46,
+                47
+              ]
+            },
+            {
+              "file": "seonge/upgrade_failure/03.png",
+              "rect": [
+                128,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                128,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 160,
+              "handPx": [
+                46,
+                48
+              ]
+            },
+            {
+              "file": "seonge/upgrade_failure/04.png",
+              "rect": [
+                192,
+                0,
+                64,
+                64
+              ],
+              "sheetRect": [
+                192,
+                256,
+                64,
+                64
+              ],
+              "durationMs": 230,
+              "handPx": [
+                53,
+                48
+              ]
+            }
+          ],
+          "loop": false
+        }
+      }
+    }
+  }
+}

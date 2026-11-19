@@ -1,0 +1,1332 @@
+{
+  "coordinate_origin": "top-left",
+  "source_pixel_scale": 2,
+  "filter": "point",
+  "atlases": {
+    "hud": {
+      "sheet": "hud.png",
+      "size": [
+        256,
+        192
+      ],
+      "entries": {
+        "heart_full": {
+          "rect": [
+            16,
+            16,
+            32,
+            32
+          ],
+          "file": "individual/hud/heart_full.png",
+          "logical_size": [
+            16,
+            16
+          ]
+        },
+        "heart_empty": {
+          "rect": [
+            80,
+            16,
+            32,
+            32
+          ],
+          "file": "individual/hud/heart_empty.png",
+          "logical_size": [
+            16,
+            16
+          ]
+        },
+        "crystal_full": {
+          "rect": [
+            148,
+            20,
+            24,
+            24
+          ],
+          "file": "individual/hud/crystal_full.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "crystal_empty": {
+          "rect": [
+            212,
+            20,
+            24,
+            24
+          ],
+          "file": "individual/hud/crystal_empty.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "coin": {
+          "rect": [
+            20,
+            84,
+            24,
+            24
+          ],
+          "file": "individual/hud/coin.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "circuit_idle": {
+          "rect": [
+            76,
+            76,
+            40,
+            40
+          ],
+          "file": "individual/hud/circuit_idle.png",
+          "logical_size": [
+            20,
+            20
+          ]
+        },
+        "circuit_active": {
+          "rect": [
+            140,
+            76,
+            40,
+            40
+          ],
+          "file": "individual/hud/circuit_active.png",
+          "logical_size": [
+            20,
+            20
+          ]
+        },
+        "keycap": {
+          "rect": [
+            208,
+            80,
+            32,
+            32
+          ],
+          "file": "individual/hud/keycap.png",
+          "logical_size": [
+            16,
+            16
+          ]
+        },
+        "pause": {
+          "rect": [
+            16,
+            144,
+            32,
+            32
+          ],
+          "file": "individual/hud/pause.png",
+          "logical_size": [
+            16,
+            16
+          ]
+        },
+        "portrait_ring": {
+          "rect": [
+            64,
+            128,
+            64,
+            64
+          ],
+          "file": "individual/hud/portrait_ring.png",
+          "logical_size": [
+            32,
+            32
+          ]
+        },
+        "air_mark": {
+          "rect": [
+            148,
+            148,
+            24,
+            24
+          ],
+          "file": "individual/hud/air_mark.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "spark": {
+          "rect": [
+            216,
+            152,
+            16,
+            16
+          ],
+          "file": "individual/hud/spark.png",
+          "logical_size": [
+            8,
+            8
+          ]
+        }
+      }
+    },
+    "menu": {
+      "sheet": "menu.png",
+      "size": [
+        432,
+        240
+      ],
+      "entries": {
+        "button_idle": {
+          "rect": [
+            0,
+            16,
+            144,
+            48
+          ],
+          "file": "individual/menu/button_idle.png",
+          "logical_size": [
+            72,
+            24
+          ]
+        },
+        "button_selected": {
+          "rect": [
+            144,
+            16,
+            144,
+            48
+          ],
+          "file": "individual/menu/button_selected.png",
+          "logical_size": [
+            72,
+            24
+          ]
+        },
+        "button_pressed": {
+          "rect": [
+            288,
+            16,
+            144,
+            48
+          ],
+          "file": "individual/menu/button_pressed.png",
+          "logical_size": [
+            72,
+            24
+          ]
+        },
+        "panel": {
+          "rect": [
+            8,
+            80,
+            128,
+            80
+          ],
+          "file": "individual/menu/panel.png",
+          "logical_size": [
+            64,
+            40
+          ]
+        },
+        "inventory_idle": {
+          "rect": [
+            192,
+            96,
+            48,
+            48
+          ],
+          "file": "individual/menu/inventory_idle.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "toggle_off": {
+          "rect": [
+            328,
+            104,
+            64,
+            32
+          ],
+          "file": "individual/menu/toggle_off.png",
+          "logical_size": [
+            32,
+            16
+          ]
+        },
+        "toggle_on": {
+          "rect": [
+            40,
+            184,
+            64,
+            32
+          ],
+          "file": "individual/menu/toggle_on.png",
+          "logical_size": [
+            32,
+            16
+          ]
+        },
+        "inventory_active": {
+          "rect": [
+            192,
+            176,
+            48,
+            48
+          ],
+          "file": "individual/menu/inventory_active.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "back": {
+          "rect": [
+            344,
+            184,
+            32,
+            32
+          ],
+          "file": "individual/menu/back.png",
+          "logical_size": [
+            16,
+            16
+          ]
+        }
+      }
+    },
+    "spell_blocks_24": {
+      "sheet": "spell_blocks_24.png",
+      "size": [
+        96,
+        96
+      ],
+      "entries": {
+        "magic_bolt": {
+          "rect": [
+            0,
+            0,
+            24,
+            24
+          ],
+          "file": "individual/spell_blocks_24/magic_bolt.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "fireball": {
+          "rect": [
+            24,
+            0,
+            24,
+            24
+          ],
+          "file": "individual/spell_blocks_24/fireball.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "chain_lightning": {
+          "rect": [
+            48,
+            0,
+            24,
+            24
+          ],
+          "file": "individual/spell_blocks_24/chain_lightning.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "boomerang": {
+          "rect": [
+            72,
+            0,
+            24,
+            24
+          ],
+          "file": "individual/spell_blocks_24/boomerang.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "ice_spike": {
+          "rect": [
+            0,
+            24,
+            24,
+            24
+          ],
+          "file": "individual/spell_blocks_24/ice_spike.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "shadow_orb": {
+          "rect": [
+            24,
+            24,
+            24,
+            24
+          ],
+          "file": "individual/spell_blocks_24/shadow_orb.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "split_two": {
+          "rect": [
+            48,
+            24,
+            24,
+            24
+          ],
+          "file": "individual/spell_blocks_24/split_two.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "split_three": {
+          "rect": [
+            72,
+            24,
+            24,
+            24
+          ],
+          "file": "individual/spell_blocks_24/split_three.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "on_hit": {
+          "rect": [
+            0,
+            48,
+            24,
+            24
+          ],
+          "file": "individual/spell_blocks_24/on_hit.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "ricochet": {
+          "rect": [
+            24,
+            48,
+            24,
+            24
+          ],
+          "file": "individual/spell_blocks_24/ricochet.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "size_double": {
+          "rect": [
+            48,
+            48,
+            24,
+            24
+          ],
+          "file": "individual/spell_blocks_24/size_double.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "pierce": {
+          "rect": [
+            72,
+            48,
+            24,
+            24
+          ],
+          "file": "individual/spell_blocks_24/pierce.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "frost": {
+          "rect": [
+            0,
+            72,
+            24,
+            24
+          ],
+          "file": "individual/spell_blocks_24/frost.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "homing": {
+          "rect": [
+            24,
+            72,
+            24,
+            24
+          ],
+          "file": "individual/spell_blocks_24/homing.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "heat_triple": {
+          "rect": [
+            48,
+            72,
+            24,
+            24
+          ],
+          "file": "individual/spell_blocks_24/heat_triple.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "corrode": {
+          "rect": [
+            72,
+            72,
+            24,
+            24
+          ],
+          "file": "individual/spell_blocks_24/corrode.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        }
+      }
+    },
+    "spell_blocks_48": {
+      "sheet": "spell_blocks_48.png",
+      "size": [
+        192,
+        192
+      ],
+      "entries": {
+        "magic_bolt": {
+          "rect": [
+            0,
+            0,
+            48,
+            48
+          ],
+          "file": "individual/spell_blocks_48/magic_bolt.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "fireball": {
+          "rect": [
+            48,
+            0,
+            48,
+            48
+          ],
+          "file": "individual/spell_blocks_48/fireball.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "chain_lightning": {
+          "rect": [
+            96,
+            0,
+            48,
+            48
+          ],
+          "file": "individual/spell_blocks_48/chain_lightning.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "boomerang": {
+          "rect": [
+            144,
+            0,
+            48,
+            48
+          ],
+          "file": "individual/spell_blocks_48/boomerang.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "ice_spike": {
+          "rect": [
+            0,
+            48,
+            48,
+            48
+          ],
+          "file": "individual/spell_blocks_48/ice_spike.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "shadow_orb": {
+          "rect": [
+            48,
+            48,
+            48,
+            48
+          ],
+          "file": "individual/spell_blocks_48/shadow_orb.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "split_two": {
+          "rect": [
+            96,
+            48,
+            48,
+            48
+          ],
+          "file": "individual/spell_blocks_48/split_two.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "split_three": {
+          "rect": [
+            144,
+            48,
+            48,
+            48
+          ],
+          "file": "individual/spell_blocks_48/split_three.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "on_hit": {
+          "rect": [
+            0,
+            96,
+            48,
+            48
+          ],
+          "file": "individual/spell_blocks_48/on_hit.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "ricochet": {
+          "rect": [
+            48,
+            96,
+            48,
+            48
+          ],
+          "file": "individual/spell_blocks_48/ricochet.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "size_double": {
+          "rect": [
+            96,
+            96,
+            48,
+            48
+          ],
+          "file": "individual/spell_blocks_48/size_double.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "pierce": {
+          "rect": [
+            144,
+            96,
+            48,
+            48
+          ],
+          "file": "individual/spell_blocks_48/pierce.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "frost": {
+          "rect": [
+            0,
+            144,
+            48,
+            48
+          ],
+          "file": "individual/spell_blocks_48/frost.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "homing": {
+          "rect": [
+            48,
+            144,
+            48,
+            48
+          ],
+          "file": "individual/spell_blocks_48/homing.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "heat_triple": {
+          "rect": [
+            96,
+            144,
+            48,
+            48
+          ],
+          "file": "individual/spell_blocks_48/heat_triple.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "corrode": {
+          "rect": [
+            144,
+            144,
+            48,
+            48
+          ],
+          "file": "individual/spell_blocks_48/corrode.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        }
+      }
+    },
+    "bars": {
+      "sheet": "bars.png",
+      "size": [
+        64,
+        32
+      ],
+      "entries": {
+        "wave_base": {
+          "rect": [
+            4,
+            2,
+            24,
+            12
+          ],
+          "file": "individual/bars/wave_base.png",
+          "logical_size": [
+            12,
+            6
+          ]
+        },
+        "wave_fill": {
+          "rect": [
+            36,
+            2,
+            24,
+            12
+          ],
+          "file": "individual/bars/wave_fill.png",
+          "logical_size": [
+            12,
+            6
+          ]
+        },
+        "boss_base": {
+          "rect": [
+            0,
+            16,
+            32,
+            16
+          ],
+          "file": "individual/bars/boss_base.png",
+          "logical_size": [
+            16,
+            8
+          ]
+        },
+        "boss_fill": {
+          "rect": [
+            32,
+            16,
+            32,
+            16
+          ],
+          "file": "individual/bars/boss_fill.png",
+          "logical_size": [
+            16,
+            8
+          ]
+        }
+      }
+    },
+    "circuit_state": {
+      "sheet": "circuit_state.png",
+      "size": [
+        80,
+        40
+      ],
+      "entries": {
+        "circuit_idle": {
+          "rect": [
+            0,
+            0,
+            40,
+            40
+          ],
+          "file": "individual/hud/circuit_idle.png",
+          "logical_size": [
+            20,
+            20
+          ]
+        },
+        "circuit_active": {
+          "rect": [
+            40,
+            0,
+            40,
+            40
+          ],
+          "file": "individual/hud/circuit_active.png",
+          "logical_size": [
+            20,
+            20
+          ]
+        }
+      }
+    },
+    "heart_state": {
+      "sheet": "heart_state.png",
+      "size": [
+        64,
+        32
+      ],
+      "entries": {
+        "heart_empty": {
+          "rect": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "file": "individual/hud/heart_empty.png",
+          "logical_size": [
+            16,
+            16
+          ]
+        },
+        "heart_full": {
+          "rect": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "file": "individual/hud/heart_full.png",
+          "logical_size": [
+            16,
+            16
+          ]
+        }
+      }
+    },
+    "crystal_state": {
+      "sheet": "crystal_state.png",
+      "size": [
+        48,
+        24
+      ],
+      "entries": {
+        "crystal_empty": {
+          "rect": [
+            0,
+            0,
+            24,
+            24
+          ],
+          "file": "individual/hud/crystal_empty.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "crystal_full": {
+          "rect": [
+            24,
+            0,
+            24,
+            24
+          ],
+          "file": "individual/hud/crystal_full.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        }
+      }
+    },
+    "techniques_24": {
+      "sheet": "techniques_24.png",
+      "size": [
+        96,
+        96
+      ],
+      "entries": {
+        "mana_burst": {
+          "rect": [
+            0,
+            0,
+            24,
+            24
+          ],
+          "file": "individual/techniques_24/mana_burst.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "recoil_shot": {
+          "rect": [
+            24,
+            0,
+            24,
+            24
+          ],
+          "file": "individual/techniques_24/recoil_shot.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "fan_deploy": {
+          "rect": [
+            48,
+            0,
+            24,
+            24
+          ],
+          "file": "individual/techniques_24/fan_deploy.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "wing_shot": {
+          "rect": [
+            72,
+            0,
+            24,
+            24
+          ],
+          "file": "individual/techniques_24/wing_shot.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "afterimage_step": {
+          "rect": [
+            0,
+            24,
+            24,
+            24
+          ],
+          "file": "individual/techniques_24/afterimage_step.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "piercing_spear": {
+          "rect": [
+            24,
+            24,
+            24,
+            24
+          ],
+          "file": "individual/techniques_24/piercing_spear.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "heat_burst": {
+          "rect": [
+            48,
+            24,
+            24,
+            24
+          ],
+          "file": "individual/techniques_24/heat_burst.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "eightway": {
+          "rect": [
+            72,
+            24,
+            24,
+            24
+          ],
+          "file": "individual/techniques_24/eightway.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "thunder_spear": {
+          "rect": [
+            0,
+            48,
+            24,
+            24
+          ],
+          "file": "individual/techniques_24/thunder_spear.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "full_bloom": {
+          "rect": [
+            24,
+            48,
+            24,
+            24
+          ],
+          "file": "individual/techniques_24/full_bloom.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "kiln": {
+          "rect": [
+            48,
+            48,
+            24,
+            24
+          ],
+          "file": "individual/techniques_24/kiln.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "thunder_dash": {
+          "rect": [
+            72,
+            48,
+            24,
+            24
+          ],
+          "file": "individual/techniques_24/thunder_dash.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "copy_runes": {
+          "rect": [
+            0,
+            72,
+            24,
+            24
+          ],
+          "file": "individual/techniques_24/copy_runes.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "ice_screen": {
+          "rect": [
+            24,
+            72,
+            24,
+            24
+          ],
+          "file": "individual/techniques_24/ice_screen.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "shadow_hand": {
+          "rect": [
+            48,
+            72,
+            24,
+            24
+          ],
+          "file": "individual/techniques_24/shadow_hand.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        },
+        "lock": {
+          "rect": [
+            72,
+            72,
+            24,
+            24
+          ],
+          "file": "individual/techniques_24/lock.png",
+          "logical_size": [
+            12,
+            12
+          ]
+        }
+      }
+    },
+    "techniques_48": {
+      "sheet": "techniques_48.png",
+      "size": [
+        192,
+        192
+      ],
+      "entries": {
+        "mana_burst": {
+          "rect": [
+            0,
+            0,
+            48,
+            48
+          ],
+          "file": "individual/techniques_48/mana_burst.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "recoil_shot": {
+          "rect": [
+            48,
+            0,
+            48,
+            48
+          ],
+          "file": "individual/techniques_48/recoil_shot.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "fan_deploy": {
+          "rect": [
+            96,
+            0,
+            48,
+            48
+          ],
+          "file": "individual/techniques_48/fan_deploy.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "wing_shot": {
+          "rect": [
+            144,
+            0,
+            48,
+            48
+          ],
+          "file": "individual/techniques_48/wing_shot.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "afterimage_step": {
+          "rect": [
+            0,
+            48,
+            48,
+            48
+          ],
+          "file": "individual/techniques_48/afterimage_step.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "piercing_spear": {
+          "rect": [
+            48,
+            48,
+            48,
+            48
+          ],
+          "file": "individual/techniques_48/piercing_spear.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "heat_burst": {
+          "rect": [
+            96,
+            48,
+            48,
+            48
+          ],
+          "file": "individual/techniques_48/heat_burst.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "eightway": {
+          "rect": [
+            144,
+            48,
+            48,
+            48
+          ],
+          "file": "individual/techniques_48/eightway.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "thunder_spear": {
+          "rect": [
+            0,
+            96,
+            48,
+            48
+          ],
+          "file": "individual/techniques_48/thunder_spear.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "full_bloom": {
+          "rect": [
+            48,
+            96,
+            48,
+            48
+          ],
+          "file": "individual/techniques_48/full_bloom.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "kiln": {
+          "rect": [
+            96,
+            96,
+            48,
+            48
+          ],
+          "file": "individual/techniques_48/kiln.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "thunder_dash": {
+          "rect": [
+            144,
+            96,
+            48,
+            48
+          ],
+          "file": "individual/techniques_48/thunder_dash.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "copy_runes": {
+          "rect": [
+            0,
+            144,
+            48,
+            48
+          ],
+          "file": "individual/techniques_48/copy_runes.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "ice_screen": {
+          "rect": [
+            48,
+            144,
+            48,
+            48
+          ],
+          "file": "individual/techniques_48/ice_screen.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "shadow_hand": {
+          "rect": [
+            96,
+            144,
+            48,
+            48
+          ],
+          "file": "individual/techniques_48/shadow_hand.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        },
+        "lock": {
+          "rect": [
+            144,
+            144,
+            48,
+            48
+          ],
+          "file": "individual/techniques_48/lock.png",
+          "logical_size": [
+            24,
+            24
+          ]
+        }
+      }
+    }
+  }
+}

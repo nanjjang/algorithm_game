@@ -1,0 +1,4129 @@
+{
+  "tilePx": 64,
+  "textureFilter": "nearest",
+  "sheetOrder": "row-major",
+  "paletteTargets": {
+    "day": {
+      "grass": "#2F4A3A",
+      "dirt": "#4A4034",
+      "packed": "#494237",
+      "slate": "#2C3442",
+      "paving": "#363C40",
+      "hedge": "#1E3328"
+    },
+    "dusk": {
+      "grass": "#3A2E3E",
+      "dirt": "#4A3830",
+      "packed": "#463632",
+      "slate": "#3B3346",
+      "paving": "#39323E",
+      "hedge": "#2A2233"
+    },
+    "night": {
+      "grass": "#161F3A",
+      "dirt": "#222842",
+      "packed": "#252B40",
+      "slate": "#202942",
+      "paving": "#252F44",
+      "hedge": "#0E1428"
+    }
+  },
+  "layouts": [
+    "maps/field.01.json",
+    "maps/field.02.json",
+    "maps/field.03.json",
+    "maps/field.04.json",
+    "maps/field.05.json",
+    "maps/field.06.json",
+    "maps/plaza.json",
+    "maps/arena.json"
+  ],
+  "shared": {
+    "plaza.grass": "field.tile.grass.*",
+    "plaza.alert_crow": "field.crow",
+    "arena.master_idle": "facility.master_chair"
+  },
+  "assets": {
+    "field.tile.grass.01": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.grass.01/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.grass.01/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.grass.01/night.png"
+        }
+      },
+      "source": "ImageGen tiles, luminance normalized to the three design palettes",
+      "provenance": "redrawn",
+      "board": "tiles"
+    },
+    "field.tile.grass.02": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.grass.02/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.grass.02/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.grass.02/night.png"
+        }
+      },
+      "source": "ImageGen tiles, luminance normalized to the three design palettes",
+      "provenance": "redrawn",
+      "board": "tiles"
+    },
+    "field.tile.grass.03": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.grass.03/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.grass.03/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.grass.03/night.png"
+        }
+      },
+      "source": "ImageGen tiles, luminance normalized to the three design palettes",
+      "provenance": "redrawn",
+      "board": "tiles"
+    },
+    "field.tile.grass.04": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.grass.04/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.grass.04/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.grass.04/night.png"
+        }
+      },
+      "source": "ImageGen tiles, luminance normalized to the three design palettes",
+      "provenance": "redrawn",
+      "board": "tiles"
+    },
+    "field.tile.dirt.01": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.dirt.01/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.dirt.01/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.dirt.01/night.png"
+        }
+      },
+      "source": "ImageGen tiles, luminance normalized to the three design palettes",
+      "provenance": "redrawn",
+      "board": "tiles"
+    },
+    "field.tile.dirt.02": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.dirt.02/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.dirt.02/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.dirt.02/night.png"
+        }
+      },
+      "source": "ImageGen tiles, luminance normalized to the three design palettes",
+      "provenance": "redrawn",
+      "board": "tiles"
+    },
+    "field.tile.dirt.03": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            384,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.dirt.03/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            384,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.dirt.03/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            384,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.dirt.03/night.png"
+        }
+      },
+      "source": "ImageGen tiles, luminance normalized to the three design palettes",
+      "provenance": "redrawn",
+      "board": "tiles"
+    },
+    "field.tile.dirt.04": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            448,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.dirt.04/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            448,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.dirt.04/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            448,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.dirt.04/night.png"
+        }
+      },
+      "source": "ImageGen tiles, luminance normalized to the three design palettes",
+      "provenance": "redrawn",
+      "board": "tiles"
+    },
+    "field.tile.edge.n": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            0,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.edge.n/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            0,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.edge.n/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            0,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.edge.n/night.png"
+        }
+      },
+      "source": "ImageGen texture over existing design-aligned edge mask",
+      "provenance": "redrawn",
+      "board": "world_edges"
+    },
+    "field.tile.edge.e": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            64,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.edge.e/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            64,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.edge.e/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            64,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.edge.e/night.png"
+        }
+      },
+      "source": "ImageGen texture over existing design-aligned edge mask",
+      "provenance": "redrawn",
+      "board": "world_edges"
+    },
+    "field.tile.edge.s": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            128,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.edge.s/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            128,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.edge.s/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            128,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.edge.s/night.png"
+        }
+      },
+      "source": "ImageGen texture over existing design-aligned edge mask",
+      "provenance": "redrawn",
+      "board": "world_edges"
+    },
+    "field.tile.edge.w": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            192,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.edge.w/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            192,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.edge.w/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            192,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.edge.w/night.png"
+        }
+      },
+      "source": "ImageGen texture over existing design-aligned edge mask",
+      "provenance": "redrawn",
+      "board": "world_edges"
+    },
+    "field.tile.outer.nw": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            256,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.outer.nw/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            256,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.outer.nw/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            256,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.outer.nw/night.png"
+        }
+      },
+      "source": "ImageGen texture over existing design-aligned edge mask",
+      "provenance": "redrawn",
+      "board": "world_edges"
+    },
+    "field.tile.inner.nw": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            320,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.inner.nw/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            320,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.inner.nw/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            320,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.inner.nw/night.png"
+        }
+      },
+      "source": "ImageGen texture over existing design-aligned edge mask",
+      "provenance": "redrawn",
+      "board": "world_edges"
+    },
+    "field.tile.outer.ne": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            384,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.outer.ne/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            384,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.outer.ne/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            384,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.outer.ne/night.png"
+        }
+      },
+      "source": "ImageGen texture over existing design-aligned edge mask",
+      "provenance": "redrawn",
+      "board": "world_edges"
+    },
+    "field.tile.inner.ne": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            448,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.inner.ne/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            448,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.inner.ne/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            448,
+            64,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.inner.ne/night.png"
+        }
+      },
+      "source": "ImageGen texture over existing design-aligned edge mask",
+      "provenance": "redrawn",
+      "board": "world_edges"
+    },
+    "field.tile.outer.se": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            0,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.outer.se/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            0,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.outer.se/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            0,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.outer.se/night.png"
+        }
+      },
+      "source": "ImageGen texture over existing design-aligned edge mask",
+      "provenance": "redrawn",
+      "board": "world_edges"
+    },
+    "field.tile.inner.se": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            64,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.inner.se/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            64,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.inner.se/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            64,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.inner.se/night.png"
+        }
+      },
+      "source": "ImageGen texture over existing design-aligned edge mask",
+      "provenance": "redrawn",
+      "board": "world_edges"
+    },
+    "field.tile.outer.sw": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            128,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.outer.sw/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            128,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.outer.sw/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            128,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.outer.sw/night.png"
+        }
+      },
+      "source": "ImageGen texture over existing design-aligned edge mask",
+      "provenance": "redrawn",
+      "board": "world_edges"
+    },
+    "field.tile.inner.sw": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            192,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.inner.sw/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            192,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.inner.sw/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            192,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.inner.sw/night.png"
+        }
+      },
+      "source": "ImageGen texture over existing design-aligned edge mask",
+      "provenance": "redrawn",
+      "board": "world_edges"
+    },
+    "field.tile.mottle.01": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            256,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.mottle.01/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            256,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.mottle.01/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            256,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.mottle.01/night.png"
+        }
+      },
+      "source": "ImageGen texture over existing design-aligned edge mask",
+      "provenance": "redrawn",
+      "board": "world_edges"
+    },
+    "field.tile.mottle.02": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            320,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.mottle.02/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            320,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.mottle.02/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            320,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.mottle.02/night.png"
+        }
+      },
+      "source": "ImageGen texture over existing design-aligned edge mask",
+      "provenance": "redrawn",
+      "board": "world_edges"
+    },
+    "field.tile.mottle.03": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            384,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.mottle.03/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            384,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.mottle.03/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            384,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.mottle.03/night.png"
+        }
+      },
+      "source": "ImageGen texture over existing design-aligned edge mask",
+      "provenance": "redrawn",
+      "board": "world_edges"
+    },
+    "field.tile.mottle.04": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/field.day.png",
+          "rect": [
+            448,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.mottle.04/day.png"
+        },
+        "dusk": {
+          "file": "tiles/field.dusk.png",
+          "rect": [
+            448,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.mottle.04/dusk.png"
+        },
+        "night": {
+          "file": "tiles/field.night.png",
+          "rect": [
+            448,
+            128,
+            64,
+            64
+          ],
+          "frame": "frames/field.tile.mottle.04/night.png"
+        }
+      },
+      "source": "ImageGen texture over existing design-aligned edge mask",
+      "provenance": "redrawn",
+      "board": "world_edges"
+    },
+    "plaza.tile.packed.01": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/plaza.tile.packed.01/day.png"
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/plaza.tile.packed.01/dusk.png"
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/plaza.tile.packed.01/night.png"
+        }
+      },
+      "source": "ImageGen tiles, luminance normalized to the three design palettes",
+      "provenance": "redrawn",
+      "board": "tiles"
+    },
+    "plaza.tile.packed.02": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/plaza.tile.packed.02/day.png"
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/plaza.tile.packed.02/dusk.png"
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/plaza.tile.packed.02/night.png"
+        }
+      },
+      "source": "ImageGen tiles, luminance normalized to the three design palettes",
+      "provenance": "redrawn",
+      "board": "tiles"
+    },
+    "plaza.tile.packed.03": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/plaza.tile.packed.03/day.png"
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/plaza.tile.packed.03/dusk.png"
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/plaza.tile.packed.03/night.png"
+        }
+      },
+      "source": "ImageGen tiles, luminance normalized to the three design palettes",
+      "provenance": "redrawn",
+      "board": "tiles"
+    },
+    "plaza.tile.packed.04": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/plaza.tile.packed.04/day.png"
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/plaza.tile.packed.04/dusk.png"
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/plaza.tile.packed.04/night.png"
+        }
+      },
+      "source": "ImageGen tiles, luminance normalized to the three design palettes",
+      "provenance": "redrawn",
+      "board": "tiles"
+    },
+    "plaza.tile.paving.01": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes",
+      "provenance": "existing production artwork"
+    },
+    "plaza.tile.paving.02": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes",
+      "provenance": "existing production artwork"
+    },
+    "plaza.tile.paving.03": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            384,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            384,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            384,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes",
+      "provenance": "existing production artwork"
+    },
+    "plaza.tile.paving.04": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            448,
+            0,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            448,
+            0,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            448,
+            0,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes",
+      "provenance": "existing production artwork"
+    },
+    "plaza.tile.paving.05": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            0,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            0,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            0,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes",
+      "provenance": "existing production artwork"
+    },
+    "plaza.tile.paving.06": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            64,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            64,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            64,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes",
+      "provenance": "existing production artwork"
+    },
+    "plaza.tile.edge.n": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            128,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            128,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            128,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes",
+      "provenance": "existing production artwork"
+    },
+    "plaza.tile.edge.e": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            192,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            192,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            192,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes",
+      "provenance": "existing production artwork"
+    },
+    "plaza.tile.edge.s": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            256,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            256,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            256,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes",
+      "provenance": "existing production artwork"
+    },
+    "plaza.tile.edge.w": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            320,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            320,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            320,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes",
+      "provenance": "existing production artwork"
+    },
+    "plaza.tile.outer.nw": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            384,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            384,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            384,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes",
+      "provenance": "existing production artwork"
+    },
+    "plaza.tile.inner.nw": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            448,
+            64,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            448,
+            64,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            448,
+            64,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes",
+      "provenance": "existing production artwork"
+    },
+    "plaza.tile.outer.ne": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            0,
+            128,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            0,
+            128,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            0,
+            128,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes",
+      "provenance": "existing production artwork"
+    },
+    "plaza.tile.inner.ne": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            64,
+            128,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            64,
+            128,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            64,
+            128,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes",
+      "provenance": "existing production artwork"
+    },
+    "plaza.tile.outer.se": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            128,
+            128,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            128,
+            128,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            128,
+            128,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes",
+      "provenance": "existing production artwork"
+    },
+    "plaza.tile.inner.se": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            192,
+            128,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            192,
+            128,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            192,
+            128,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes",
+      "provenance": "existing production artwork"
+    },
+    "plaza.tile.outer.sw": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            256,
+            128,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            256,
+            128,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            256,
+            128,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes",
+      "provenance": "existing production artwork"
+    },
+    "plaza.tile.inner.sw": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/plaza.day.png",
+          "rect": [
+            320,
+            128,
+            64,
+            64
+          ]
+        },
+        "dusk": {
+          "file": "tiles/plaza.dusk.png",
+          "rect": [
+            320,
+            128,
+            64,
+            64
+          ]
+        },
+        "night": {
+          "file": "tiles/plaza.night.png",
+          "rect": [
+            320,
+            128,
+            64,
+            64
+          ]
+        }
+      },
+      "source": "direct pixel drawing terrain normalized to shared palettes",
+      "provenance": "existing production artwork"
+    },
+    "arena.tile.slate.01": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/arena.day.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/arena.tile.slate.01/day.png"
+        },
+        "dusk": {
+          "file": "tiles/arena.dusk.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/arena.tile.slate.01/dusk.png"
+        },
+        "night": {
+          "file": "tiles/arena.night.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/arena.tile.slate.01/night.png"
+        }
+      },
+      "source": "ImageGen tiles, luminance normalized to the three design palettes",
+      "provenance": "redrawn",
+      "board": "tiles"
+    },
+    "arena.tile.slate.02": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/arena.day.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/arena.tile.slate.02/day.png"
+        },
+        "dusk": {
+          "file": "tiles/arena.dusk.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/arena.tile.slate.02/dusk.png"
+        },
+        "night": {
+          "file": "tiles/arena.night.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/arena.tile.slate.02/night.png"
+        }
+      },
+      "source": "ImageGen tiles, luminance normalized to the three design palettes",
+      "provenance": "redrawn",
+      "board": "tiles"
+    },
+    "arena.tile.slate.03": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/arena.day.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/arena.tile.slate.03/day.png"
+        },
+        "dusk": {
+          "file": "tiles/arena.dusk.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/arena.tile.slate.03/dusk.png"
+        },
+        "night": {
+          "file": "tiles/arena.night.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/arena.tile.slate.03/night.png"
+        }
+      },
+      "source": "ImageGen tiles, luminance normalized to the three design palettes",
+      "provenance": "redrawn",
+      "board": "tiles"
+    },
+    "arena.tile.slate.04": {
+      "size": [
+        64,
+        64
+      ],
+      "variants": {
+        "day": {
+          "file": "tiles/arena.day.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/arena.tile.slate.04/day.png"
+        },
+        "dusk": {
+          "file": "tiles/arena.dusk.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/arena.tile.slate.04/dusk.png"
+        },
+        "night": {
+          "file": "tiles/arena.night.png",
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "frame": "frames/arena.tile.slate.04/night.png"
+        }
+      },
+      "source": "ImageGen tiles, luminance normalized to the three design palettes",
+      "provenance": "redrawn",
+      "board": "tiles"
+    },
+    "field.prop.sign": {
+      "file": "sprites/field.prop.sign.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "ImageGen",
+      "collision": false,
+      "displayText": "탑 ← 3000걸음",
+      "provenance": "redrawn",
+      "board": "props",
+      "frames": [
+        "frames/field.prop.sign/01.png"
+      ]
+    },
+    "field.prop.potion.round": {
+      "file": "sprites/field.prop.potion.round.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "ImageGen",
+      "collision": false,
+      "provenance": "redrawn",
+      "board": "props",
+      "frames": [
+        "frames/field.prop.potion.round/01.png"
+      ]
+    },
+    "field.prop.potion.triangular": {
+      "file": "sprites/field.prop.potion.triangular.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "ImageGen",
+      "collision": false,
+      "provenance": "redrawn",
+      "board": "props",
+      "frames": [
+        "frames/field.prop.potion.triangular/01.png"
+      ]
+    },
+    "field.prop.discarded_chair": {
+      "file": "sprites/field.prop.discarded_chair.png",
+      "frameSize": [
+        128,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        64,
+        62
+      ],
+      "source": "ImageGen",
+      "collision": false,
+      "provenance": "redrawn",
+      "board": "props",
+      "frames": [
+        "frames/field.prop.discarded_chair/01.png"
+      ]
+    },
+    "field.prop.target": {
+      "file": "sprites/field.prop.target.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "ImageGen",
+      "collision": false,
+      "provenance": "redrawn",
+      "board": "props",
+      "frames": [
+        "frames/field.prop.target/01.png"
+      ]
+    },
+    "field.prop.mushroom_ring": {
+      "file": "sprites/field.prop.mushroom_ring.png",
+      "frameSize": [
+        128,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        64,
+        62
+      ],
+      "source": "ImageGen",
+      "collision": false,
+      "provenance": "redrawn",
+      "board": "props",
+      "frames": [
+        "frames/field.prop.mushroom_ring/01.png"
+      ]
+    },
+    "field.prop.discarded_tongs": {
+      "file": "sprites/field.prop.discarded_tongs.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "collision": false,
+      "provenance": "existing production artwork"
+    },
+    "field.prop.discarded_pot": {
+      "file": "sprites/field.prop.discarded_pot.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "ImageGen",
+      "collision": false,
+      "provenance": "redrawn",
+      "board": "props",
+      "frames": [
+        "frames/field.prop.discarded_pot/01.png"
+      ]
+    },
+    "field.prop.discarded_hook": {
+      "file": "sprites/field.prop.discarded_hook.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "collision": false,
+      "provenance": "existing production artwork"
+    },
+    "field.prop.discarded_slate": {
+      "file": "sprites/field.prop.discarded_slate.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "ImageGen",
+      "collision": false,
+      "provenance": "redrawn",
+      "board": "props",
+      "frames": [
+        "frames/field.prop.discarded_slate/01.png"
+      ]
+    },
+    "field.prop.discarded_pouch": {
+      "file": "sprites/field.prop.discarded_pouch.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "collision": false,
+      "provenance": "existing production artwork"
+    },
+    "field.prop.discarded_rope": {
+      "file": "sprites/field.prop.discarded_rope.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "ImageGen",
+      "collision": false,
+      "provenance": "redrawn",
+      "board": "props",
+      "frames": [
+        "frames/field.prop.discarded_rope/01.png"
+      ]
+    },
+    "field.wall.rocks.01": {
+      "file": "sprites/field.wall.rocks.01.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "ImageGen",
+      "provenance": "redrawn",
+      "board": "world_hedges",
+      "frames": [
+        "frames/field.wall.rocks.01/01.png"
+      ]
+    },
+    "field.wall.n.01": {
+      "file": "sprites/field.wall.n.01.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "ImageGen",
+      "provenance": "redrawn",
+      "board": "world_hedges",
+      "frames": [
+        "frames/field.wall.n.01/01.png"
+      ]
+    },
+    "field.wall.s.01": {
+      "file": "sprites/field.wall.s.01.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "ImageGen",
+      "provenance": "redrawn; vertical mirror of north",
+      "board": "world_hedges",
+      "frames": [
+        "frames/field.wall.s.01/01.png"
+      ]
+    },
+    "arena.wall.n.01": {
+      "file": "sprites/arena.wall.n.01.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "ImageGen",
+      "provenance": "redrawn",
+      "board": "world_duel_wall",
+      "frames": [
+        "frames/arena.wall.n.01/01.png"
+      ]
+    },
+    "arena.wall.s.01": {
+      "file": "sprites/arena.wall.s.01.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "ImageGen",
+      "provenance": "redrawn; vertical mirror of north",
+      "board": "world_duel_wall",
+      "frames": [
+        "frames/arena.wall.s.01/01.png"
+      ]
+    },
+    "field.wall.rocks.02": {
+      "file": "sprites/field.wall.rocks.02.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "ImageGen",
+      "provenance": "redrawn",
+      "board": "world_hedges",
+      "frames": [
+        "frames/field.wall.rocks.02/01.png"
+      ]
+    },
+    "field.wall.n.02": {
+      "file": "sprites/field.wall.n.02.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "ImageGen",
+      "provenance": "redrawn",
+      "board": "world_hedges",
+      "frames": [
+        "frames/field.wall.n.02/01.png"
+      ]
+    },
+    "field.wall.s.02": {
+      "file": "sprites/field.wall.s.02.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "ImageGen",
+      "provenance": "redrawn; vertical mirror of north",
+      "board": "world_hedges",
+      "frames": [
+        "frames/field.wall.s.02/01.png"
+      ]
+    },
+    "arena.wall.n.02": {
+      "file": "sprites/arena.wall.n.02.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "ImageGen",
+      "provenance": "redrawn",
+      "board": "world_duel_wall",
+      "frames": [
+        "frames/arena.wall.n.02/01.png"
+      ]
+    },
+    "arena.wall.s.02": {
+      "file": "sprites/arena.wall.s.02.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "ImageGen",
+      "provenance": "redrawn; vertical mirror of north",
+      "board": "world_duel_wall",
+      "frames": [
+        "frames/arena.wall.s.02/01.png"
+      ]
+    },
+    "field.wall.rocks.03": {
+      "file": "sprites/field.wall.rocks.03.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "provenance": "existing production artwork"
+    },
+    "field.wall.n.03": {
+      "file": "sprites/field.wall.n.03.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "ImageGen",
+      "provenance": "redrawn",
+      "board": "world_hedges",
+      "frames": [
+        "frames/field.wall.n.03/01.png"
+      ]
+    },
+    "field.wall.s.03": {
+      "file": "sprites/field.wall.s.03.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "ImageGen",
+      "provenance": "redrawn; vertical mirror of north",
+      "board": "world_hedges",
+      "frames": [
+        "frames/field.wall.s.03/01.png"
+      ]
+    },
+    "arena.wall.n.03": {
+      "file": "sprites/arena.wall.n.03.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "ImageGen",
+      "provenance": "redrawn",
+      "board": "world_duel_wall",
+      "frames": [
+        "frames/arena.wall.n.03/01.png"
+      ]
+    },
+    "arena.wall.s.03": {
+      "file": "sprites/arena.wall.s.03.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "ImageGen",
+      "provenance": "redrawn; vertical mirror of north",
+      "board": "world_duel_wall",
+      "frames": [
+        "frames/arena.wall.s.03/01.png"
+      ]
+    },
+    "field.wall.w.01": {
+      "file": "sprites/field.wall.w.01.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "ImageGen",
+      "mirrorFor": "e",
+      "provenance": "redrawn",
+      "board": "world_hedges",
+      "frames": [
+        "frames/field.wall.w.01/01.png"
+      ]
+    },
+    "field.wall.w.02": {
+      "file": "sprites/field.wall.w.02.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "ImageGen",
+      "mirrorFor": "e",
+      "provenance": "redrawn",
+      "board": "world_hedges",
+      "frames": [
+        "frames/field.wall.w.02/01.png"
+      ]
+    },
+    "field.wall.corner.sw": {
+      "file": "sprites/field.wall.corner.sw.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "ImageGen",
+      "provenance": "redrawn",
+      "board": "world_hedges",
+      "frames": [
+        "frames/field.wall.corner.sw/01.png"
+      ]
+    },
+    "field.wall.corner.nw": {
+      "file": "sprites/field.wall.corner.nw.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "ImageGen",
+      "provenance": "redrawn",
+      "board": "world_hedges",
+      "frames": [
+        "frames/field.wall.corner.nw/01.png"
+      ]
+    },
+    "field.wall.corner.ne": {
+      "file": "sprites/field.wall.corner.ne.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "ImageGen",
+      "provenance": "redrawn",
+      "board": "world_hedges",
+      "frames": [
+        "frames/field.wall.corner.ne/01.png"
+      ]
+    },
+    "field.wall.corner.se": {
+      "file": "sprites/field.wall.corner.se.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "ImageGen",
+      "provenance": "redrawn",
+      "board": "world_hedges",
+      "frames": [
+        "frames/field.wall.corner.se/01.png"
+      ]
+    },
+    "arena.wall.w.01": {
+      "file": "sprites/arena.wall.w.01.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "ImageGen",
+      "mirrorFor": "e",
+      "provenance": "redrawn",
+      "board": "world_duel_wall",
+      "frames": [
+        "frames/arena.wall.w.01/01.png"
+      ]
+    },
+    "arena.wall.w.02": {
+      "file": "sprites/arena.wall.w.02.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "ImageGen",
+      "mirrorFor": "e",
+      "provenance": "redrawn",
+      "board": "world_duel_wall",
+      "frames": [
+        "frames/arena.wall.w.02/01.png"
+      ]
+    },
+    "arena.wall.corner.sw": {
+      "file": "sprites/arena.wall.corner.sw.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "ImageGen",
+      "provenance": "redrawn",
+      "board": "world_duel_wall",
+      "frames": [
+        "frames/arena.wall.corner.sw/01.png"
+      ]
+    },
+    "arena.wall.corner.nw": {
+      "file": "sprites/arena.wall.corner.nw.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "ImageGen",
+      "provenance": "redrawn",
+      "board": "world_duel_wall",
+      "frames": [
+        "frames/arena.wall.corner.nw/01.png"
+      ]
+    },
+    "arena.wall.corner.ne": {
+      "file": "sprites/arena.wall.corner.ne.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "ImageGen",
+      "provenance": "redrawn",
+      "board": "world_duel_wall",
+      "frames": [
+        "frames/arena.wall.corner.ne/01.png"
+      ]
+    },
+    "arena.wall.corner.se": {
+      "file": "sprites/arena.wall.corner.se.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "ImageGen",
+      "provenance": "redrawn",
+      "board": "world_duel_wall",
+      "frames": [
+        "frames/arena.wall.corner.se/01.png"
+      ]
+    },
+    "field.spawn.n": {
+      "file": "sprites/field.spawn.n.png",
+      "frameSize": [
+        128,
+        64
+      ],
+      "frameCount": 5,
+      "columns": 5,
+      "origin": [
+        64,
+        62
+      ],
+      "source": "direct pixel drawing, mirrored or rotated as needed",
+      "openFrame": 0,
+      "shakeFrames": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "mirrorFor": null,
+      "fps": 8,
+      "provenance": "existing production artwork"
+    },
+    "field.spawn.s": {
+      "file": "sprites/field.spawn.s.png",
+      "frameSize": [
+        128,
+        64
+      ],
+      "frameCount": 5,
+      "columns": 5,
+      "origin": [
+        64,
+        62
+      ],
+      "source": "direct pixel drawing, mirrored or rotated as needed",
+      "openFrame": 0,
+      "shakeFrames": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "mirrorFor": null,
+      "fps": 8,
+      "provenance": "existing production artwork"
+    },
+    "field.spawn.w": {
+      "file": "sprites/field.spawn.w.png",
+      "frameSize": [
+        64,
+        128
+      ],
+      "frameCount": 5,
+      "columns": 5,
+      "origin": [
+        32,
+        126
+      ],
+      "source": "direct pixel drawing, mirrored or rotated as needed",
+      "openFrame": 0,
+      "shakeFrames": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "mirrorFor": "e",
+      "fps": 8,
+      "provenance": "existing production artwork"
+    },
+    "field.tower": {
+      "file": "sprites/field.tower.png",
+      "frameSize": [
+        512,
+        128
+      ],
+      "frameCount": 5,
+      "columns": 5,
+      "origin": [
+        256,
+        126
+      ],
+      "source": "hand-drawn pixel grid",
+      "idleFrame": 0,
+      "laundryFrames": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "fps": 6,
+      "provenance": "existing production artwork"
+    },
+    "field.tower.window": {
+      "file": "sprites/field.tower.window.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 4,
+      "columns": 4,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "poseFrames": {
+        "closed": 0,
+        "look": [
+          1,
+          2
+        ],
+        "throw": 3
+      },
+      "fps": 6,
+      "provenance": "existing production artwork"
+    },
+    "field.campfire": {
+      "file": "sprites/field.campfire.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 4,
+      "columns": 4,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "ImageGen",
+      "fps": 8,
+      "provenance": "redrawn",
+      "board": "weather",
+      "frames": [
+        "frames/field.campfire/01.png",
+        "frames/field.campfire/02.png",
+        "frames/field.campfire/03.png",
+        "frames/field.campfire/04.png"
+      ]
+    },
+    "facility.campfire": {
+      "file": "sprites/facility.campfire.png",
+      "frameSize": [
+        128,
+        128
+      ],
+      "frameCount": 6,
+      "columns": 6,
+      "origin": [
+        64,
+        126
+      ],
+      "source": "hand-drawn pixel grid",
+      "fps": 8,
+      "provenance": "existing production artwork"
+    },
+    "field.moon": {
+      "file": "sprites/field.moon.png",
+      "frameSize": [
+        96,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        48,
+        94
+      ],
+      "source": "hand-drawn pixel grid",
+      "provenance": "existing production artwork"
+    },
+    "field.moonlight": {
+      "file": "sprites/field.moonlight.png",
+      "frameSize": [
+        256,
+        256
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        128,
+        128
+      ],
+      "source": "hand-drawn pixel grid",
+      "provenance": "existing production artwork"
+    },
+    "field.weather.puddle": {
+      "file": "sprites/field.weather.puddle.png",
+      "frameSize": [
+        64,
+        32
+      ],
+      "frameCount": 3,
+      "columns": 3,
+      "origin": [
+        32,
+        16
+      ],
+      "source": "ImageGen",
+      "fps": 5,
+      "provenance": "redrawn",
+      "board": "weather",
+      "frames": [
+        "frames/field.weather.puddle/01.png",
+        "frames/field.weather.puddle/02.png",
+        "frames/field.weather.puddle/03.png"
+      ]
+    },
+    "field.weather.rain": {
+      "file": "sprites/field.weather.rain.png",
+      "frameSize": [
+        1920,
+        128
+      ],
+      "frameCount": 4,
+      "columns": 4,
+      "origin": [
+        0,
+        0
+      ],
+      "source": "direct pixel drawing marks tiled to full screen strip",
+      "fps": 9,
+      "provenance": "existing production artwork"
+    },
+    "field.weather.fog": {
+      "file": "sprites/field.weather.fog.png",
+      "frameSize": [
+        512,
+        192
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        0,
+        0
+      ],
+      "source": "hand-drawn pixel grid",
+      "fps": 3,
+      "provenance": "existing production artwork"
+    },
+    "field.meteor.ring": {
+      "file": "sprites/field.meteor.ring.png",
+      "frameSize": [
+        32,
+        32
+      ],
+      "frameCount": 4,
+      "columns": 4,
+      "origin": [
+        16,
+        16
+      ],
+      "source": "pixel-aligned radius overlay using direct pixel drawing gold palette",
+      "fps": 6,
+      "provenance": "existing production artwork"
+    },
+    "field.meteor.fall": {
+      "file": "sprites/field.meteor.fall.png",
+      "frameSize": [
+        32,
+        32
+      ],
+      "frameCount": 6,
+      "columns": 6,
+      "origin": [
+        16,
+        16
+      ],
+      "source": "direct pixel drawing poses with geometric in-betweens",
+      "fps": 12,
+      "provenance": "existing production artwork"
+    },
+    "field.meteor.sparkle": {
+      "file": "sprites/field.meteor.sparkle.png",
+      "frameSize": [
+        32,
+        32
+      ],
+      "frameCount": 4,
+      "columns": 4,
+      "origin": [
+        16,
+        16
+      ],
+      "source": "hand-drawn pixel grid",
+      "fps": 8,
+      "provenance": "existing production artwork"
+    },
+    "field.crow": {
+      "file": "sprites/field.crow.png",
+      "frameSize": [
+        32,
+        32
+      ],
+      "frameCount": 4,
+      "columns": 4,
+      "origin": [
+        16,
+        16
+      ],
+      "source": "ImageGen",
+      "fps": 9,
+      "provenance": "redrawn",
+      "board": "world_npcs",
+      "frames": [
+        "frames/field.crow/01.png",
+        "frames/field.crow/02.png",
+        "frames/field.crow/03.png",
+        "frames/field.crow/04.png"
+      ]
+    },
+    "field.crow.note": {
+      "file": "sprites/field.crow.note.png",
+      "frameSize": [
+        32,
+        32
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        16,
+        16
+      ],
+      "source": "hand-drawn pixel grid",
+      "fps": 7,
+      "provenance": "existing production artwork"
+    },
+    "facility.log_seat": {
+      "file": "sprites/facility.log_seat.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 3,
+      "columns": 3,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "provenance": "existing production artwork"
+    },
+    "facility.market.mat": {
+      "file": "sprites/facility.market.mat.png",
+      "frameSize": [
+        128,
+        64
+      ],
+      "frameCount": 3,
+      "columns": 3,
+      "origin": [
+        64,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "provenance": "existing production artwork"
+    },
+    "facility.market.crate": {
+      "file": "sprites/facility.market.crate.png",
+      "frameSize": [
+        128,
+        64
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        64,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "provenance": "existing production artwork"
+    },
+    "facility.duel_board": {
+      "file": "sprites/facility.duel_board.png",
+      "frameSize": [
+        128,
+        128
+      ],
+      "frameCount": 3,
+      "columns": 3,
+      "origin": [
+        64,
+        126
+      ],
+      "source": "hand-drawn pixel grid",
+      "fps": 6,
+      "provenance": "existing production artwork"
+    },
+    "facility.arena_path": {
+      "file": "sprites/facility.arena_path.png",
+      "frameSize": [
+        128,
+        128
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        64,
+        126
+      ],
+      "source": "hand-drawn pixel grid",
+      "provenance": "existing production artwork"
+    },
+    "facility.heir_monument": {
+      "file": "sprites/facility.heir_monument.png",
+      "frameSize": [
+        96,
+        128
+      ],
+      "frameCount": 5,
+      "columns": 5,
+      "origin": [
+        48,
+        126
+      ],
+      "source": "direct pixel drawing with light phases",
+      "fps": 7,
+      "provenance": "existing production artwork"
+    },
+    "facility.master_chair": {
+      "file": "sprites/facility.master_chair.png",
+      "frameSize": [
+        96,
+        96
+      ],
+      "frameCount": 12,
+      "columns": 8,
+      "origin": [
+        48,
+        94
+      ],
+      "source": "five drawn direct pixel drawing poses with held and nudged frames",
+      "poseFrames": {
+        "sleep": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "wake": [
+          4,
+          5
+        ],
+        "speak": [
+          6,
+          7
+        ],
+        "reward": [
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "fps": 6,
+      "provenance": "existing production artwork"
+    },
+    "facility.training_dummy": {
+      "file": "sprites/facility.training_dummy.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 4,
+      "columns": 4,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "hand-drawn pixel grid",
+      "fps": 10,
+      "provenance": "existing production artwork"
+    },
+    "npc.merchant": {
+      "file": "sprites/npc.merchant.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 4,
+      "columns": 4,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing poses with body-shift frames",
+      "poseFrames": {
+        "idle": [
+          0,
+          1
+        ],
+        "gesture": [
+          2,
+          3
+        ]
+      },
+      "fps": 6,
+      "provenance": "existing production artwork"
+    },
+    "facility.merchant_cart": {
+      "file": "sprites/facility.merchant_cart.png",
+      "frameSize": [
+        128,
+        96
+      ],
+      "frameCount": 5,
+      "columns": 5,
+      "origin": [
+        64,
+        94
+      ],
+      "source": "direct pixel drawing NPC composited with cart",
+      "poseFrames": {
+        "cart": 0,
+        "idle": [
+          1,
+          2
+        ],
+        "gesture": [
+          3,
+          4
+        ]
+      },
+      "fps": 6,
+      "provenance": "existing production artwork"
+    },
+    "facility.crow_mail": {
+      "file": "sprites/facility.crow_mail.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 5,
+      "columns": 5,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "direct pixel drawing base, note and crow",
+      "poseFrames": {
+        "empty": 0,
+        "letter": [
+          1,
+          2
+        ],
+        "crow": [
+          3,
+          4
+        ]
+      },
+      "fps": 6,
+      "provenance": "existing production artwork"
+    },
+    "facility.field_gate": {
+      "file": "sprites/facility.field_gate.png",
+      "frameSize": [
+        192,
+        128
+      ],
+      "frameCount": 4,
+      "columns": 4,
+      "origin": [
+        96,
+        126
+      ],
+      "source": "hand-drawn pixel grid",
+      "fps": 8,
+      "provenance": "existing production artwork"
+    },
+    "plaza.tower": {
+      "file": "sprites/plaza.tower.png",
+      "frameSize": [
+        640,
+        192
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        320,
+        190
+      ],
+      "source": "hand-drawn pixel grid",
+      "provenance": "existing production artwork"
+    },
+    "plaza.prop.tent": {
+      "file": "sprites/plaza.prop.tent.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "provenance": "existing production artwork"
+    },
+    "plaza.prop.laundry": {
+      "file": "sprites/plaza.prop.laundry.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "provenance": "existing production artwork"
+    },
+    "plaza.prop.cauldron": {
+      "file": "sprites/plaza.prop.cauldron.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "provenance": "existing production artwork"
+    },
+    "plaza.prop.firewood": {
+      "file": "sprites/plaza.prop.firewood.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "provenance": "existing production artwork"
+    },
+    "plaza.prop.basket": {
+      "file": "sprites/plaza.prop.basket.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "provenance": "existing production artwork"
+    },
+    "plaza.prop.blanket": {
+      "file": "sprites/plaza.prop.blanket.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "ImageGen",
+      "provenance": "redrawn",
+      "board": "props",
+      "frames": [
+        "frames/plaza.prop.blanket/01.png"
+      ],
+      "collision": false
+    },
+    "plaza.prop.barrel": {
+      "file": "sprites/plaza.prop.barrel.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "provenance": "existing production artwork"
+    },
+    "plaza.prop.stakes": {
+      "file": "sprites/plaza.prop.stakes.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "hand-drawn pixel grid",
+      "provenance": "existing production artwork"
+    },
+    "S-2405": {
+      "file": "sprites/S-2405.png",
+      "frameSize": [
+        128,
+        128
+      ],
+      "frameCount": 5,
+      "columns": 5,
+      "origin": [
+        64,
+        126
+      ],
+      "source": "direct pixel drawing portrait and cropped face poses",
+      "poseFrames": {
+        "sleep": 0,
+        "oneEye": 1,
+        "awake": 2,
+        "talk": [
+          3,
+          4
+        ]
+      },
+      "fps": 6,
+      "provenance": "existing production artwork"
+    },
+    "S-2407": {
+      "file": "sprites/S-2407.png",
+      "frameSize": [
+        128,
+        128
+      ],
+      "frameCount": 3,
+      "columns": 3,
+      "origin": [
+        64,
+        126
+      ],
+      "source": "direct pixel drawing portrait and cropped face poses",
+      "poseFrames": {
+        "idle": 0,
+        "talk": [
+          1,
+          2
+        ]
+      },
+      "fps": 6,
+      "provenance": "existing production artwork"
+    },
+    "arena.chalk.center": {
+      "file": "sprites/arena.chalk.center.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        32
+      ],
+      "source": "pixel-aligned overlay using direct pixel drawing chalk palette",
+      "provenance": "existing production artwork"
+    },
+    "arena.chalk.start": {
+      "file": "sprites/arena.chalk.start.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        32,
+        32
+      ],
+      "source": "pixel-aligned overlay using direct pixel drawing chalk palette",
+      "provenance": "existing production artwork"
+    },
+    "arena.pillar": {
+      "file": "sprites/arena.pillar.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "ImageGen",
+      "footprintTiles": [
+        1,
+        1
+      ],
+      "provenance": "redrawn",
+      "board": "world_facilities",
+      "frames": [
+        "frames/arena.pillar/01.png"
+      ]
+    },
+    "arena.pillar.chips": {
+      "file": "sprites/arena.pillar.chips.png",
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 3,
+      "columns": 3,
+      "origin": [
+        32,
+        94
+      ],
+      "source": "direct pixel drawing stones, in-between transforms",
+      "fps": 12,
+      "provenance": "existing production artwork"
+    },
+    "arena.spectator.01": {
+      "file": "sprites/arena.spectator.01.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing silhouettes with mirrored and body-shift variants",
+      "fps": 3,
+      "provenance": "existing production artwork"
+    },
+    "arena.spectator.02": {
+      "file": "sprites/arena.spectator.02.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing silhouettes with mirrored and body-shift variants",
+      "fps": 3,
+      "provenance": "existing production artwork"
+    },
+    "arena.spectator.03": {
+      "file": "sprites/arena.spectator.03.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing silhouettes with mirrored and body-shift variants",
+      "fps": 3,
+      "provenance": "existing production artwork"
+    },
+    "arena.spectator.04": {
+      "file": "sprites/arena.spectator.04.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing silhouettes with mirrored and body-shift variants",
+      "fps": 3,
+      "provenance": "existing production artwork"
+    },
+    "arena.spectator.05": {
+      "file": "sprites/arena.spectator.05.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing silhouettes with mirrored and body-shift variants",
+      "fps": 3,
+      "provenance": "existing production artwork"
+    },
+    "arena.spectator.06": {
+      "file": "sprites/arena.spectator.06.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel drawing silhouettes with mirrored and body-shift variants",
+      "fps": 3,
+      "provenance": "existing production artwork"
+    },
+    "ritual.master.reaction": {
+      "file": "sprites/ritual.master.reaction.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 7,
+      "columns": 7,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "direct pixel poses with chair movement",
+      "poseFrames": {
+        "oneEye": [
+          0,
+          1
+        ],
+        "awake": [
+          2,
+          3,
+          4
+        ],
+        "doze": [
+          5,
+          6
+        ]
+      },
+      "fps": 7,
+      "provenance": "existing production artwork"
+    },
+    "arena.master_applause": {
+      "file": "sprites/arena.master_applause.png",
+      "frameSize": [
+        96,
+        96
+      ],
+      "frameCount": 2,
+      "columns": 2,
+      "origin": [
+        48,
+        94
+      ],
+      "source": "direct pixel drawing pose with movement in-between",
+      "fps": 7,
+      "provenance": "existing production artwork"
+    },
+    "arena.overcast": {
+      "file": "sprites/arena.overcast.png",
+      "frameSize": [
+        1920,
+        1080
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "origin": [
+        0,
+        0
+      ],
+      "source": "tint overlay",
+      "provenance": "existing production artwork"
+    },
+    "field.wall.rim.dusk": {
+      "file": "sprites/field.wall.rim.dusk.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 3,
+      "columns": 3,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "edge mask from direct pixel drawing hedge",
+      "provenance": "existing production artwork"
+    },
+    "field.wall.rim.night": {
+      "file": "sprites/field.wall.rim.night.png",
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 3,
+      "columns": 3,
+      "origin": [
+        32,
+        62
+      ],
+      "source": "edge mask from direct pixel drawing hedge",
+      "provenance": "existing production artwork"
+    },
+    "field.backplate": {
+      "file": "backplates/field.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "source": "ImageGen",
+      "board": "field",
+      "gridAlignment": "scenic composition; use modular layouts for exact gameplay geometry"
+    },
+    "plaza.backplate": {
+      "file": "backplates/plaza.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "source": "ImageGen",
+      "board": "plaza",
+      "gridAlignment": "scenic composition; use modular layouts for exact gameplay geometry"
+    },
+    "arena.backplate": {
+      "file": "backplates/arena.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "source": "ImageGen",
+      "board": "arena",
+      "gridAlignment": "scenic composition; use modular layouts for exact gameplay geometry"
+    },
+    "ritual.workbench": {
+      "file": "backplates/ritual.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "source": "ImageGen",
+      "board": "ritual",
+      "gridAlignment": "scenic composition; use modular layouts for exact gameplay geometry"
+    },
+    "title.background_alternate": {
+      "file": "backplates/title.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "source": "ImageGen",
+      "board": "title",
+      "gridAlignment": "scenic composition; use modular layouts for exact gameplay geometry"
+    },
+    "title.background": {
+      "file": "backplates/title-spec.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "source": "ImageGen",
+      "board": "title-spec",
+      "gridAlignment": "scenic composition; use modular layouts for exact gameplay geometry"
+    },
+    "field.decor.rock": {
+      "file": "sprites/field.decor.rock.png",
+      "origin": [
+        32,
+        62
+      ],
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "source": "ImageGen",
+      "board": "props",
+      "frames": [
+        "frames/field.decor.rock/01.png"
+      ],
+      "provenance": "redrawn",
+      "collision": false
+    },
+    "field.prop.discarded_boot": {
+      "file": "sprites/field.prop.discarded_boot.png",
+      "origin": [
+        32,
+        62
+      ],
+      "frameSize": [
+        64,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "source": "ImageGen",
+      "board": "props",
+      "frames": [
+        "frames/field.prop.discarded_boot/01.png"
+      ],
+      "provenance": "redrawn",
+      "collision": false
+    },
+    "plaza.market.stall.orange": {
+      "file": "sprites/plaza.market.stall.orange.png",
+      "origin": [
+        64,
+        62
+      ],
+      "frameSize": [
+        128,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "source": "ImageGen",
+      "board": "world_facilities",
+      "frames": [
+        "frames/plaza.market.stall.orange/01.png"
+      ],
+      "provenance": "redrawn"
+    },
+    "plaza.market.stall.plum": {
+      "file": "sprites/plaza.market.stall.plum.png",
+      "origin": [
+        64,
+        62
+      ],
+      "frameSize": [
+        128,
+        64
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "source": "ImageGen",
+      "board": "world_facilities",
+      "frames": [
+        "frames/plaza.market.stall.plum/01.png"
+      ],
+      "provenance": "redrawn"
+    },
+    "plaza.mailbox.base": {
+      "file": "sprites/plaza.mailbox.base.png",
+      "origin": [
+        32,
+        94
+      ],
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "source": "ImageGen",
+      "board": "world_facilities",
+      "frames": [
+        "frames/plaza.mailbox.base/01.png"
+      ],
+      "provenance": "redrawn"
+    },
+    "plaza.duel_notice.base": {
+      "file": "sprites/plaza.duel_notice.base.png",
+      "origin": [
+        64,
+        126
+      ],
+      "frameSize": [
+        128,
+        128
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "source": "ImageGen",
+      "board": "world_facilities",
+      "frames": [
+        "frames/plaza.duel_notice.base/01.png"
+      ],
+      "provenance": "redrawn"
+    },
+    "plaza.arena_gate.base": {
+      "file": "sprites/plaza.arena_gate.base.png",
+      "origin": [
+        64,
+        126
+      ],
+      "frameSize": [
+        128,
+        128
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "source": "ImageGen",
+      "board": "world_facilities",
+      "frames": [
+        "frames/plaza.arena_gate.base/01.png"
+      ],
+      "provenance": "redrawn"
+    },
+    "plaza.field_gate.base": {
+      "file": "sprites/plaza.field_gate.base.png",
+      "origin": [
+        96,
+        126
+      ],
+      "frameSize": [
+        192,
+        128
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "source": "ImageGen",
+      "board": "world_facilities",
+      "frames": [
+        "frames/plaza.field_gate.base/01.png"
+      ],
+      "provenance": "redrawn"
+    },
+    "plaza.heir_stele.base": {
+      "file": "sprites/plaza.heir_stele.base.png",
+      "origin": [
+        48,
+        126
+      ],
+      "frameSize": [
+        96,
+        128
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "source": "ImageGen",
+      "board": "world_facilities",
+      "frames": [
+        "frames/plaza.heir_stele.base/01.png"
+      ],
+      "provenance": "redrawn"
+    },
+    "plaza.neuru.chair_base": {
+      "file": "sprites/plaza.neuru.chair_base.png",
+      "origin": [
+        48,
+        94
+      ],
+      "frameSize": [
+        96,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "source": "ImageGen",
+      "board": "world_npcs",
+      "frames": [
+        "frames/plaza.neuru.chair_base/01.png"
+      ],
+      "provenance": "redrawn"
+    },
+    "plaza.merchant.base": {
+      "file": "sprites/plaza.merchant.base.png",
+      "origin": [
+        64,
+        94
+      ],
+      "frameSize": [
+        128,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "source": "ImageGen",
+      "board": "world_npcs",
+      "frames": [
+        "frames/plaza.merchant.base/01.png"
+      ],
+      "provenance": "redrawn"
+    },
+    "plaza.training_dummy.base": {
+      "file": "sprites/plaza.training_dummy.base.png",
+      "origin": [
+        32,
+        94
+      ],
+      "frameSize": [
+        64,
+        96
+      ],
+      "frameCount": 1,
+      "columns": 1,
+      "source": "ImageGen",
+      "board": "world_npcs",
+      "frames": [
+        "frames/plaza.training_dummy.base/01.png"
+      ],
+      "provenance": "redrawn"
+    }
+  },
+  "designSpec": "docs/world-characters.md §2, §10.2–10.4",
+  "boards": {
+    "field": {
+      "prompt": "High fidelity 16-bit stepped pixel art game environment, strict orthogonal top-down 24 by 14 gameplay courtyard map with quiet low-contrast uninterrupted center, olive-muted grass #2F4A3A and a large subtly irregular compact dirt center #4A4034, surrounding dark thorn hedge #1E3328 plus chunky rounded stones and three entry gaps per side, upper edge low stone base of eccentric wizard tower and short laundry line. Flat edge prop broken sign and tiny mushrooms only near the perimeter. Entire scene top-down game playfield, fill wide 16:9, no typography, characters, white margin or UI. Focus on beautiful restrained pixel clusters and character/projectile readability, crisp squares, flat colors. Use muted daylight palette.",
+      "sha256": "83d0e5ccb76751993c59734cc94eef2afc10336f3355a0674fba1a861bbbb43b"
+    },
+    "plaza": {
+      "prompt": "High fidelity pixel art orthographic top-down mage village game map, wide 16:9. First Camp: oversized warm amber communal campfire with three logs at central clearing, dark moss #2F4A3A and tamped earth plus slate path. On west side cozy awning vendor stalls and a merchant cart, standing stones and a notice board on east side, wizard tower foundation, rocking chair and crow mailbox along upper side, unobstructed paths to duel gate and hedged battlefield gate. Quiet character-readable central ground, twilight warmth only close to fire. Crisp fine 16-bit square pixel clusters, colored dark contours, no characters, no lettering, no interface, no border. A top-down map with complete walkable scene, no perspective horizon.",
+      "sha256": "0c455be7e89a3b2d4e59f0469f3654b938628de4c14257b379933c8c8a14171e"
+    },
+    "arena": {
+      "prompt": "High fidelity 16-bit top-down pixel art empty duel courtyard game map, wide 16:9, entire stone ring, perfectly readable clean movement space, muted cool slate #2C3442 flat laid paving, chalk line exactly centered vertically, left/right matching chalk starting circles, four evenly balanced standing-stone pillars in two mirrored pairs at (38%,25%), (62%,25%), (38%,75%), (62%,75%). Ancient stone perimeter with little moss highlights, standing stones around the outside, overcast neutral daylight, optional tiny spectators as distant edge silhouettes only, no bright center lighting, no text or UI. Carefully clustered crisp square pixel details in cool colors and dark purple outline, straight orthographic top-down game view.",
+      "sha256": "2578e41ba3d24ff3cbc694e53da19276272e2c93a344dd92a2b006218bf8373e"
+    },
+    "ritual": {
+      "prompt": "Beautiful detailed 16-bit pixel art top-down alchemy workspace background, 16:9 with clear area in central 60% for a separate magic circle sprite and wand. Muted charcoal blue violet cellar and dark old wooden table centered, copper and glass potion bottles tucked at margins, neatly arranged parchment, open spellbook and candles on the sides, fabric and wooden edge ornament, old mage world, tiny amber highlights only at the margins, crisp hand-drawn stepped pixel clusters and low contrast center. No words, interface, people, wands or permanent magic effects; this is the unobtrusive backdrop, full bleed.",
+      "sha256": "aa6e0e0ea54c1d47657c732e8417943f222f5161d2a0eb7509279d2b309efa57"
+    },
+    "title": {
+      "prompt": "Wide 16:9 title-screen illustration for cute Korean top-down 2D wizard roguelike, finely clustered pixel art. Five tiny apprentices with huge expressive silhouettes travel across an autumn-moss clearing towards a whimsical weathered wizard tower under violet-blue early night and moon. In the lower right is the attached exact black-faced dark wizard (tiny lavender eyes, crooked plum hood, blue cape, tiny gold clasp). Other four very small distant companions have copper kettle cap, book cap, purple lantern nightcap and silver crystal crown. Soft warm windows, restrained background contrast, no text, clear negative space in upper-left for separately composed logo. Natural limited color clusters and crisp stepped details, no airbrush.",
+      "sha256": "a146a595aebb6c834a49be3906593a7b226de89c0a019706d6687e34ce572d5f"
+    },
+    "tiles": {
+      "prompt": "Pixel-art terrain texture atlas, exactly 4 columns by 4 rows, every tile is full bleed square edge-to-edge, no separator, border, labels, perspective or margins. Row 1: four subtle low-contrast moss-grass flat ground variants base RGB hex #2F4A3A. Row 2: four subtle tamped bare earth #4A4034 variants with sparse tiny pebbles. Row 3: four slightly differing aged flat dark blue-grey slate paving tiles #2C3442, with one or two planar cut stone seams. Row 4: four plaza floor variants with coarse dark earth #494237 and little gravel. For each row edge pixels at least 8% of tile width should be common low-contrast solid base so variants tile seamlessly, most ground very quiet so 64px game units read well over it. Crisp native 64px fine-grain clusters, no grass blades projecting into neighbor cells, no objects, no large contrasted chunks, no gradient. True flat top-down 2D roguelike game.",
+      "sha256": "20fcda985dbd23103e8c133eabbf1a84e88e72c4d24f819513ed3922eda37851"
+    },
+    "props": {
+      "prompt": "High quality 16-bit pixel art top-down roguelike sprite atlas exactly 4 columns and 3 rows on actual transparent background. Full isolated sprites centered, leave air gaps. Row one 4 sprites: broken wooden direction sign without text, teal broken potion bottle, violet broken potion bottle, empty weathered rocking chair. Row two: half-buried straw target, ring of muted beige and lavender mushrooms, dark slate rock pile, a tiny unlit brass kettle. Row three: folded blue laundry cloth, loose old parchment scraps, wooden practice ring, abandoned dark brown boot. Natural shading in grouped fine pixel clusters, dark colored contours, visual scale to fit each prop in a 64x64 terrain cell. No cast shadows, painted background, glow, or labels.",
+      "sha256": "f3bbc4c15d4c906c13ca8e66ffbec5b3a2e2c63011d62bae0aadf976789fc412"
+    },
+    "weather": {
+      "prompt": "2D roguelike fine pixel art, actual transparent game sprite board exact 4 columns × 2 rows. Row 1 four separate looping frames of a small amber campfire on a neat circular base of 5 charcoal stones and one angled dark log, consistent stones and changing orange/yellow flame silhouette. Row 2 four frames of a blue-white puddle ripple after raindrop impact, sparse broken ellipse opening outward and dissolving, viewed top-down. Exactly one centered whole sprite per square cell, generous air gaps, visible stepped clusters and dark purple outlines for solid campfire, no real bloom, no ground, no text.",
+      "sha256": "ccb88903217dbdf21781b54c6182fa68af25b503a5d3e1c5ccfbd408dbf946df"
+    },
+    "world_facilities": {
+      "prompt": "Highly detailed production game pixel sprites, exact four columns by two rows, genuine transparency with space between shapes, orthographic top-down 3/4 viewing angle matching classic 16-bit top-down roguelikes. Row 1 left to right: a tiny warm orange-and-cream canvas market stall with counter; a dark plum canvas market stall with counter; a crow's mailbox with wooden post and hinged roof; stone duel notice board with clipped parchment. Row 2: two standing slate gate stones joined by a threshold, a green thorn bush gate made of a dense thorn arch open in the middle, a single cracked deep slate standing stone pillar, a jade-black rectangular heir's memorial stele decorated with a gold square. Unique crisp small color clusters and richly structured silhouettes. No shadows, words, labels, checkerboard or floor. All props are completely isolated.",
+      "sha256": "5921697ec92d382e6b5dd52d8c21d00a6e111072d5d8e0d2f1e9a5c8e29d0ce1"
+    },
+    "world_edges": {
+      "prompt": "High-detail low-contrast pixel terrain texture tiles, exact 4×4 edge-to-edge square grid no gutters. Top down. Each cell uses ONLY muted desaturated moss RGB #2F4A3A, compact bare earth #4A4034 and their subtle clusters. Each tile depicts boundaries. Row 1 orthogonal grass/dirt half cells, grass on N E S W respectively. Row 2 outward convex quarter corners of grass against soil, NW NE SE SW. Row 3 concave inward corners of grass, NW NE SE SW. Row 4 four small soil stains in grass. Grass side and dirt side are flat tileable from near edges, native 64px each. Small pixel steps, no shadows, objects, labels, grid lines, bright hues, characters or scenery. Must be perfectly square board.",
+      "sha256": "f69df7735c3799af0fd0b125ffb736b317a68c20c1f117ae322738a1b7ea3376"
+    },
+    "world_hedges": {
+      "prompt": "2D roguelike pixel art exact 4×3 transparent atlas. Twelve separate orthographic top-down low thick dark green thorn hedge barrier sprites. Row 1 four side-to-side straight pieces of dense thorny dark pine-green shrubs, viewed slightly from above, moss flecks with muted warm highlights. Row 2 two top-to-bottom straight vertical pieces then two stacked bluish stone chunks. Row 3 four L corner pieces in order NW NE SE SW in game map layout. Rich small pixel clusters like reference backdrop at edges. Thick substantial walls, minimal ground shadows, no soil, no characters, no labels or framing. Separate and generously space sprites in twelve square cells, true alpha.",
+      "sha256": "d4e87ecc43f3fc8cac7ac5550d108c1f462fd9ca4fc3d2028f92ebcee6fe2ff8"
+    },
+    "world_duel_wall": {
+      "prompt": "High quality pixel-art 4×3 transparent sprite sheet, exact twelve entirely separate sprites. Orthogonal top-down 3/4. The pieces form a standing stone perimeter around a dueling arena. Row 1 four horizontal low old slate standing-stone wall variants with subtle moss and cracks. Row 2 two vertical wall variants and two rounded rocks with fine stone details. Row 3 four joining L-corner wall pieces, NW NE SE SW. Tones like reference perimeter, dark soft blue-gray shading with steps, low contrast except edge. Isolated whole objects, generous padding each cell, no texts, shadows, checkerboard or soil, true transparent.",
+      "sha256": "33e6ac433040b0e915f3ca5658344805495eab531c2edcfe931a4a76bb8c6ece"
+    },
+    "world_npcs": {
+      "prompt": "Fine pixel art true-transparent 4 column by 3 row game sprite sheet, distinct complete 12 props in even square cells and clear gutters. Match reference rich fine clusters and muted purple contour. Row one: reddish bearded grandfather mage in a rocking chair, same grandfather opens one eye, same grandfather points ahead, same grandfather offers tiny gold gift. Row two: funny fat small crow in four flapping poses, first wings above, spread level, halfway down, far down. Row three: mushroom-haired traveling merchant next to stall-cart, merchant gestures with hand raised, wooden straw dummy upright and same dummy leaning back slightly. No labels, no floor, no shadows, clear alpha, chibi detail.",
+      "sha256": "bf427ee5d51dfc1280befe345977e1ddb4465d39fd2baded45bd59221ec50785"
+    }
+  }
+}

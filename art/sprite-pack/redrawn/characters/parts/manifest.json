@@ -1,0 +1,516 @@
+{
+  "spec": "docs/world-characters.md §10.1",
+  "origin": "top-left",
+  "filter": "point",
+  "mipmaps": false,
+  "entries": {
+    "dalgu/steam_normal": {
+      "size": [
+        16,
+        16
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "frames": [
+        "characters/parts/dalgu/steam_normal/01.png",
+        "characters/parts/dalgu/steam_normal/02.png",
+        "characters/parts/dalgu/steam_normal/03.png",
+        "characters/parts/dalgu/steam_normal/04.png"
+      ],
+      "sheet": "characters/parts/dalgu/steam_normal/sheet.png",
+      "source": "ImageGen",
+      "board": "parts-dalgu"
+    },
+    "dalgu/steam_critical": {
+      "size": [
+        16,
+        16
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "frames": [
+        "characters/parts/dalgu/steam_critical/01.png",
+        "characters/parts/dalgu/steam_critical/02.png",
+        "characters/parts/dalgu/steam_critical/03.png",
+        "characters/parts/dalgu/steam_critical/04.png"
+      ],
+      "sheet": "characters/parts/dalgu/steam_critical/sheet.png",
+      "source": "ImageGen",
+      "board": "parts-dalgu"
+    },
+    "dalgu/steam_lock": {
+      "size": [
+        16,
+        16
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "frames": [
+        "characters/parts/dalgu/steam_lock/01.png",
+        "characters/parts/dalgu/steam_lock/02.png",
+        "characters/parts/dalgu/steam_lock/03.png",
+        "characters/parts/dalgu/steam_lock/04.png"
+      ],
+      "sheet": "characters/parts/dalgu/steam_lock/sheet.png",
+      "source": "ImageGen",
+      "board": "parts-dalgu"
+    },
+    "dalgu/kettle_lid": {
+      "size": [
+        24,
+        16
+      ],
+      "pivot": [
+        12,
+        8
+      ],
+      "frames": [
+        "characters/parts/dalgu/kettle_lid/01.png",
+        "characters/parts/dalgu/kettle_lid/02.png",
+        "characters/parts/dalgu/kettle_lid/03.png",
+        "characters/parts/dalgu/kettle_lid/04.png"
+      ],
+      "sheet": "characters/parts/dalgu/kettle_lid/sheet.png",
+      "source": "ImageGen",
+      "board": "parts-dalgu"
+    },
+    "chorong/lantern_dim": {
+      "size": [
+        16,
+        16
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "frames": [
+        "characters/parts/chorong/lantern_dim/01.png",
+        "characters/parts/chorong/lantern_dim/02.png",
+        "characters/parts/chorong/lantern_dim/03.png"
+      ],
+      "sheet": "characters/parts/chorong/lantern_dim/sheet.png",
+      "source": "ImageGen",
+      "board": "parts-chorong"
+    },
+    "chorong/lantern_bright": {
+      "size": [
+        16,
+        16
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "frames": [
+        "characters/parts/chorong/lantern_bright/01.png",
+        "characters/parts/chorong/lantern_bright/02.png",
+        "characters/parts/chorong/lantern_bright/03.png"
+      ],
+      "sheet": "characters/parts/chorong/lantern_bright/sheet.png",
+      "source": "ImageGen",
+      "board": "parts-chorong"
+    },
+    "chorong/lantern_flash": {
+      "size": [
+        16,
+        16
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "frames": [
+        "characters/parts/chorong/lantern_flash/01.png",
+        "characters/parts/chorong/lantern_flash/02.png",
+        "characters/parts/chorong/lantern_flash/03.png"
+      ],
+      "sheet": "characters/parts/chorong/lantern_flash/sheet.png",
+      "source": "ImageGen",
+      "board": "parts-chorong"
+    },
+    "galpi/bookmark_down": {
+      "size": [
+        16,
+        24
+      ],
+      "pivot": [
+        8,
+        12
+      ],
+      "frames": [
+        "characters/parts/galpi/bookmark_down/01.png",
+        "characters/parts/galpi/bookmark_down/02.png",
+        "characters/parts/galpi/bookmark_down/03.png",
+        "characters/parts/galpi/bookmark_down/04.png"
+      ],
+      "sheet": "characters/parts/galpi/bookmark_down/sheet.png",
+      "source": "ImageGen",
+      "board": "parts-galpi"
+    },
+    "galpi/bookmark_right": {
+      "size": [
+        16,
+        24
+      ],
+      "pivot": [
+        8,
+        12
+      ],
+      "frames": [
+        "characters/parts/galpi/bookmark_right/01.png",
+        "characters/parts/galpi/bookmark_right/02.png",
+        "characters/parts/galpi/bookmark_right/03.png",
+        "characters/parts/galpi/bookmark_right/04.png"
+      ],
+      "sheet": "characters/parts/galpi/bookmark_right/sheet.png",
+      "source": "ImageGen",
+      "board": "parts-galpi"
+    },
+    "galpi/bookmark_up": {
+      "size": [
+        16,
+        24
+      ],
+      "pivot": [
+        8,
+        12
+      ],
+      "frames": [
+        "characters/parts/galpi/bookmark_up/01.png",
+        "characters/parts/galpi/bookmark_up/02.png",
+        "characters/parts/galpi/bookmark_up/03.png",
+        "characters/parts/galpi/bookmark_up/04.png"
+      ],
+      "sheet": "characters/parts/galpi/bookmark_up/sheet.png",
+      "source": "ImageGen",
+      "board": "parts-galpi"
+    },
+    "galpi/rune_fragments": {
+      "size": [
+        8,
+        8
+      ],
+      "pivot": [
+        4,
+        4
+      ],
+      "frames": [
+        "characters/parts/galpi/rune_fragments/01.png",
+        "characters/parts/galpi/rune_fragments/02.png",
+        "characters/parts/galpi/rune_fragments/03.png",
+        "characters/parts/galpi/rune_fragments/04.png"
+      ],
+      "sheet": "characters/parts/galpi/rune_fragments/sheet.png",
+      "source": "ImageGen",
+      "board": "parts-galpi"
+    },
+    "seonge/crown_small": {
+      "size": [
+        8,
+        12
+      ],
+      "pivot": [
+        4,
+        6
+      ],
+      "frames": [
+        "characters/parts/seonge/crown_small/01.png",
+        "characters/parts/seonge/crown_small/02.png",
+        "characters/parts/seonge/crown_small/03.png",
+        "characters/parts/seonge/crown_small/04.png",
+        "characters/parts/seonge/crown_small/05.png"
+      ],
+      "sheet": "characters/parts/seonge/crown_small/sheet.png",
+      "source": "ImageGen",
+      "board": "parts-seonge"
+    },
+    "seonge/crown_medium": {
+      "size": [
+        8,
+        12
+      ],
+      "pivot": [
+        4,
+        6
+      ],
+      "frames": [
+        "characters/parts/seonge/crown_medium/01.png",
+        "characters/parts/seonge/crown_medium/02.png",
+        "characters/parts/seonge/crown_medium/03.png",
+        "characters/parts/seonge/crown_medium/04.png",
+        "characters/parts/seonge/crown_medium/05.png"
+      ],
+      "sheet": "characters/parts/seonge/crown_medium/sheet.png",
+      "source": "ImageGen",
+      "board": "parts-seonge"
+    },
+    "seonge/crown_large": {
+      "size": [
+        8,
+        12
+      ],
+      "pivot": [
+        4,
+        6
+      ],
+      "frames": [
+        "characters/parts/seonge/crown_large/01.png",
+        "characters/parts/seonge/crown_large/02.png",
+        "characters/parts/seonge/crown_large/03.png",
+        "characters/parts/seonge/crown_large/04.png",
+        "characters/parts/seonge/crown_large/05.png"
+      ],
+      "sheet": "characters/parts/seonge/crown_large/sheet.png",
+      "source": "ImageGen",
+      "board": "parts-seonge"
+    },
+    "geumeum/eyes_down": {
+      "size": [
+        16,
+        8
+      ],
+      "pivot": [
+        8,
+        4
+      ],
+      "frames": [
+        "characters/parts/geumeum/eyes_down/01.png",
+        "characters/parts/geumeum/eyes_down/02.png",
+        "characters/parts/geumeum/eyes_down/03.png",
+        "characters/parts/geumeum/eyes_down/04.png",
+        "characters/parts/geumeum/eyes_down/05.png"
+      ],
+      "sheet": "characters/parts/geumeum/eyes_down/sheet.png",
+      "source": "ImageGen",
+      "board": "parts-geumeum"
+    },
+    "geumeum/eyes_right": {
+      "size": [
+        16,
+        8
+      ],
+      "pivot": [
+        8,
+        4
+      ],
+      "frames": [
+        "characters/parts/geumeum/eyes_right/01.png",
+        "characters/parts/geumeum/eyes_right/02.png",
+        "characters/parts/geumeum/eyes_right/03.png",
+        "characters/parts/geumeum/eyes_right/04.png",
+        "characters/parts/geumeum/eyes_right/05.png"
+      ],
+      "sheet": "characters/parts/geumeum/eyes_right/sheet.png",
+      "source": "ImageGen",
+      "board": "parts-geumeum"
+    },
+    "dalgu/portrait": {
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "frames": [
+        "characters/parts/dalgu/portrait/01.png",
+        "characters/parts/dalgu/portrait/02.png",
+        "characters/parts/dalgu/portrait/03.png",
+        "characters/parts/dalgu/portrait/04.png"
+      ],
+      "sheet": "characters/parts/dalgu/portrait/sheet.png",
+      "source": "ImageGen",
+      "board": "parts-portraits"
+    },
+    "dalgu/silhouette": {
+      "size": [
+        32,
+        32
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "frames": [
+        "characters/parts/dalgu/silhouette/01.png"
+      ],
+      "sheet": "characters/parts/dalgu/silhouette/sheet.png",
+      "source": "silhouette extracted from existing idle",
+      "board": "existing idle alpha"
+    },
+    "chorong/portrait": {
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "frames": [
+        "characters/parts/chorong/portrait/01.png",
+        "characters/parts/chorong/portrait/02.png",
+        "characters/parts/chorong/portrait/03.png",
+        "characters/parts/chorong/portrait/04.png"
+      ],
+      "sheet": "characters/parts/chorong/portrait/sheet.png",
+      "source": "ImageGen",
+      "board": "parts-portraits"
+    },
+    "chorong/silhouette": {
+      "size": [
+        32,
+        32
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "frames": [
+        "characters/parts/chorong/silhouette/01.png"
+      ],
+      "sheet": "characters/parts/chorong/silhouette/sheet.png",
+      "source": "silhouette extracted from existing idle",
+      "board": "existing idle alpha"
+    },
+    "galpi/portrait": {
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "frames": [
+        "characters/parts/galpi/portrait/01.png",
+        "characters/parts/galpi/portrait/02.png",
+        "characters/parts/galpi/portrait/03.png",
+        "characters/parts/galpi/portrait/04.png"
+      ],
+      "sheet": "characters/parts/galpi/portrait/sheet.png",
+      "source": "ImageGen",
+      "board": "parts-portraits"
+    },
+    "galpi/silhouette": {
+      "size": [
+        32,
+        32
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "frames": [
+        "characters/parts/galpi/silhouette/01.png"
+      ],
+      "sheet": "characters/parts/galpi/silhouette/sheet.png",
+      "source": "silhouette extracted from existing idle",
+      "board": "existing idle alpha"
+    },
+    "seonge/portrait": {
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "frames": [
+        "characters/parts/seonge/portrait/01.png",
+        "characters/parts/seonge/portrait/02.png",
+        "characters/parts/seonge/portrait/03.png",
+        "characters/parts/seonge/portrait/04.png"
+      ],
+      "sheet": "characters/parts/seonge/portrait/sheet.png",
+      "source": "ImageGen",
+      "board": "parts-portraits"
+    },
+    "seonge/silhouette": {
+      "size": [
+        32,
+        32
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "frames": [
+        "characters/parts/seonge/silhouette/01.png"
+      ],
+      "sheet": "characters/parts/seonge/silhouette/sheet.png",
+      "source": "silhouette extracted from existing idle",
+      "board": "existing idle alpha"
+    },
+    "geumeum/portrait": {
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "frames": [
+        "characters/parts/geumeum/portrait/01.png",
+        "characters/parts/geumeum/portrait/02.png",
+        "characters/parts/geumeum/portrait/03.png",
+        "characters/parts/geumeum/portrait/04.png"
+      ],
+      "sheet": "characters/parts/geumeum/portrait/sheet.png",
+      "source": "ImageGen",
+      "board": "parts-portraits"
+    },
+    "geumeum/silhouette": {
+      "size": [
+        32,
+        32
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "frames": [
+        "characters/parts/geumeum/silhouette/01.png"
+      ],
+      "sheet": "characters/parts/geumeum/silhouette/sheet.png",
+      "source": "silhouette extracted from existing idle",
+      "board": "existing idle alpha"
+    }
+  },
+  "boards": {
+    "parts-dalgu": {
+      "prompt": "2D roguelike pixel art game asset. A 4×4 true transparent sprite atlas with exactly 16 independent isolated small pixel attachments matching attached kettle-hat apprentice. The first 3 rows are four-phase upward steam plume: row1 tiny grey-white steam wisps, row2 larger warm off-white steam puffs, row3 heavier amber-gray scald steam wisps. Row4 four poses of a small copper kettle lid from flat to tilted and lifted and returned, identical knob. Whole objects centered with generous gutters. Transparent alpha, not checkerboard. Exact regular grid of separate whole sprites, fine crisp square pixels, natural motif shading and no backgrounds, no shadows, no labels.",
+      "sha256": "31a6de59f4c6fd559db5c28da370d87238be0b25cdd44811482ede254fa77ee6"
+    },
+    "parts-chorong": {
+      "prompt": "2D roguelike pixel art game asset. A 3×3 true transparent sprite atlas with 9 small isolated drawn glowing amber lantern cores for the exact attached character, no whole lantern body or character. Row1 low dim small warm amber core two subtle flicker frames and one centered stronger pose; row2 brighter gold/white yellow cores three flicker phases; row3 three frames of a tiny pale lemon flare: spark, bright cross, receding. Fine tiny 16px sharp cluster shapes, not realistic glow, same center and color theme. Transparent alpha, not checkerboard. Exact regular grid of separate whole sprites, fine crisp square pixels, natural motif shading and no backgrounds, no shadows, no labels.",
+      "sha256": "a1a9c768b3b394636de822c52e5b1aaf5688a9d821100c2a751ea9bf99464b7e"
+    },
+    "parts-galpi": {
+      "prompt": "2D roguelike pixel art game asset. A 4×4 true transparent sprite atlas, 16 isolated pixel decorations for attached book wizard. Row1 muted sage silk thin bookmark ribbon sways four phases as seen from front. Row2 same ribbon seen side-right sways four phases. Row3 same ribbon sways four phases from back. Row4 four separate tiny pale mint magic writing fragments breaking apart, no readable text. Cloth sash tiny angular highlights, plenty of clear space between parts. Transparent alpha, not checkerboard. Exact regular grid of separate whole sprites, fine crisp square pixels, natural motif shading and no backgrounds, no shadows, no labels.",
+      "sha256": "1e2dafc8625cc644d17debd57c3722fb817af8ee6a5ccbbf5749f6a655cdd61e"
+    },
+    "parts-seonge": {
+      "prompt": "2D roguelike pixel art game asset. A 5×3 true transparent sprite atlas, exactly five light ice crystal facets along columns across each row, clipped diamonds and slender points, navy outlines and icy white highlights. Row1 5 compact small ice crystal tips. Row2 5 medium facets. Row3 5 large faceted crystals. All isolated and same ornamental palette as exact attached character crown, finely handcrafted hard pixel clusters, no crowns or characters, no glow. Transparent alpha, not checkerboard. Exact regular grid of separate whole sprites, fine crisp square pixels, natural motif shading and no backgrounds, no shadows, no labels.",
+      "sha256": "66d8f9d8a0aa9d0474f6f57c9e31d89b33ce96d8f9ef6e60a06dc928f900c10e"
+    },
+    "parts-geumeum": {
+      "prompt": "2D roguelike pixel art game asset. A 5×2 exact sprite atlas of the exact attached shadow mage's glowing two lavender eye shapes, each cell an isolated matching pair of tiny eyes in horizontal line. Transparent canvas, no character, background or other marks. Row1 front: two tiny square violet eyes, two brighter slightly raised squares, both closed flat strips, two two-pixel crescents, two one-pixel dots. Row2 strict side direction profile compressed spacing with same five states, 10 whole isolated paired sets. Eye edges crisp true pixel, no haze. Transparent alpha, not checkerboard. Exact regular grid of separate whole sprites, fine crisp square pixels, natural motif shading and no backgrounds, no shadows, no labels.",
+      "sha256": "213f7dc5e5142808f38bbfce90b524f220c7d7d655a92847904245bd629d028d"
+    },
+    "parts-portraits": {
+      "prompt": "2D roguelike pixel art game asset. Create separate pixel art character portraits in one exact 4-column 5-row grid, no text, transparent alpha. Each row a different apprentice from the 5 attached reference sprite characters, same order as image left to right. Row 1 copper kettle hat teal hair, row 2 purple nightcap with lantern golden coat, row 3 book hat and sage bookmark navy cape, row 4 silver hair with floating ice crown, row 5 plum hood with tiny gold stitch and two lavender eyes. Columns are four face expressions neutral, pleased, startled, weary. Hooded face stays pitch-dark with only expressive eyes. Entire shoulders and head visible with clear space. Detailed small square color clusters, reference costume, no shadows or scene. Transparent alpha, not checkerboard. Exact regular grid of separate whole sprites, fine crisp square pixels, natural motif shading and no backgrounds, no shadows, no labels.",
+      "sha256": "7e777d241cefc9553bdf92ea4e3d8fa4e30cb3c877d4ba1d6da72c06f87f965d"
+    }
+  },
+  "layerNote": "Centred part PNG pivots. Attach to the visible head/shoulder point of the selected character frame."
+}

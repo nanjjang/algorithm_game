@@ -1,0 +1,3712 @@
+{
+  "coordinate_origin": "top-left",
+  "imagegen": true,
+  "filter": "point",
+  "mipmaps": false,
+  "spec": "docs/wands/",
+  "scope": "Intermediate stages +1/+2/+3/+5/+6/+8/+9/+11/+12. One front held pose per stage. Inspection and head icon exported from the same generated raster.",
+  "sources": {
+    "corrections": "source/corrections.png",
+    "dalgu": "source/dalgu.png",
+    "chorong": "source/chorong.png",
+    "galpi": "source/galpi.png",
+    "seonge": "source/seonge.png",
+    "geumeum": "source/geumeum.png"
+  },
+  "danger_color_policy": "Opaque rendered sprites exclude HSV hue 330–360° and 0–15° at saturation and value of 70% or above. Affected hue shifted to 23°.",
+  "entries": {
+    "dalgu/+01/inspection": {
+      "path": "dalgu/+01/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 1,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        192,
+        37,
+        268,
+        362
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          0,
+          0,
+          192,
+          192
+        ]
+      }
+    },
+    "dalgu/+01/icon": {
+      "path": "dalgu/+01/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 1,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        192,
+        37,
+        268,
+        362
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          0,
+          0,
+          64,
+          64
+        ]
+      }
+    },
+    "dalgu/+01/hand_down_hold": {
+      "path": "dalgu/+01/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 1,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        192,
+        37,
+        268,
+        362
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          0,
+          0,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "dalgu/+02/inspection": {
+      "path": "dalgu/+02/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 2,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        593,
+        37,
+        687,
+        362
+      ],
+      "danger_hue_pixels_adjusted": 3,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          192,
+          0,
+          192,
+          192
+        ]
+      }
+    },
+    "dalgu/+02/icon": {
+      "path": "dalgu/+02/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 2,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        593,
+        37,
+        687,
+        362
+      ],
+      "danger_hue_pixels_adjusted": 1,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          64,
+          0,
+          64,
+          64
+        ]
+      }
+    },
+    "dalgu/+02/hand_down_hold": {
+      "path": "dalgu/+02/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 2,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        593,
+        37,
+        687,
+        362
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          32,
+          0,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "dalgu/+03/inspection": {
+      "path": "dalgu/+03/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 3,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        978,
+        32,
+        1108,
+        363
+      ],
+      "danger_hue_pixels_adjusted": 142,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          384,
+          0,
+          192,
+          192
+        ]
+      }
+    },
+    "dalgu/+03/icon": {
+      "path": "dalgu/+03/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 3,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        978,
+        32,
+        1108,
+        363
+      ],
+      "danger_hue_pixels_adjusted": 51,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          128,
+          0,
+          64,
+          64
+        ]
+      }
+    },
+    "dalgu/+03/hand_down_hold": {
+      "path": "dalgu/+03/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 3,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        978,
+        32,
+        1108,
+        363
+      ],
+      "danger_hue_pixels_adjusted": 3,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          64,
+          0,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "dalgu/+05/inspection": {
+      "path": "dalgu/+05/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 5,
+      "family": "dalgu",
+      "source": "source/corrections.png",
+      "source_rect_ltrb": [
+        216,
+        72,
+        412,
+        513
+      ],
+      "danger_hue_pixels_adjusted": 63,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          576,
+          0,
+          192,
+          192
+        ]
+      }
+    },
+    "dalgu/+05/icon": {
+      "path": "dalgu/+05/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 5,
+      "family": "dalgu",
+      "source": "source/corrections.png",
+      "source_rect_ltrb": [
+        216,
+        72,
+        412,
+        513
+      ],
+      "danger_hue_pixels_adjusted": 18,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          192,
+          0,
+          64,
+          64
+        ]
+      }
+    },
+    "dalgu/+05/hand_down_hold": {
+      "path": "dalgu/+05/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 5,
+      "family": "dalgu",
+      "source": "source/corrections.png",
+      "source_rect_ltrb": [
+        216,
+        72,
+        412,
+        513
+      ],
+      "danger_hue_pixels_adjusted": 5,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          96,
+          0,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "dalgu/+06/inspection": {
+      "path": "dalgu/+06/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 6,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        537,
+        442,
+        720,
+        781
+      ],
+      "danger_hue_pixels_adjusted": 113,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          768,
+          0,
+          192,
+          192
+        ]
+      }
+    },
+    "dalgu/+06/icon": {
+      "path": "dalgu/+06/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 6,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        537,
+        442,
+        720,
+        781
+      ],
+      "danger_hue_pixels_adjusted": 26,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          256,
+          0,
+          64,
+          64
+        ]
+      }
+    },
+    "dalgu/+06/hand_down_hold": {
+      "path": "dalgu/+06/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 6,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        537,
+        442,
+        720,
+        781
+      ],
+      "danger_hue_pixels_adjusted": 4,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          128,
+          0,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "dalgu/+08/inspection": {
+      "path": "dalgu/+08/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 8,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        949,
+        445,
+        1097,
+        780
+      ],
+      "danger_hue_pixels_adjusted": 51,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          960,
+          0,
+          192,
+          192
+        ]
+      }
+    },
+    "dalgu/+08/icon": {
+      "path": "dalgu/+08/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 8,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        949,
+        445,
+        1097,
+        780
+      ],
+      "danger_hue_pixels_adjusted": 12,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          320,
+          0,
+          64,
+          64
+        ]
+      }
+    },
+    "dalgu/+08/hand_down_hold": {
+      "path": "dalgu/+08/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 8,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        949,
+        445,
+        1097,
+        780
+      ],
+      "danger_hue_pixels_adjusted": 4,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          160,
+          0,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "dalgu/+09/inspection": {
+      "path": "dalgu/+09/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 9,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        132,
+        848,
+        333,
+        1218
+      ],
+      "danger_hue_pixels_adjusted": 74,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          1152,
+          0,
+          192,
+          192
+        ]
+      }
+    },
+    "dalgu/+09/icon": {
+      "path": "dalgu/+09/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 9,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        132,
+        848,
+        333,
+        1218
+      ],
+      "danger_hue_pixels_adjusted": 13,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          384,
+          0,
+          64,
+          64
+        ]
+      }
+    },
+    "dalgu/+09/hand_down_hold": {
+      "path": "dalgu/+09/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 9,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        132,
+        848,
+        333,
+        1218
+      ],
+      "danger_hue_pixels_adjusted": 11,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          192,
+          0,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "dalgu/+11/inspection": {
+      "path": "dalgu/+11/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 11,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        538,
+        835,
+        700,
+        1218
+      ],
+      "danger_hue_pixels_adjusted": 84,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          1344,
+          0,
+          192,
+          192
+        ]
+      }
+    },
+    "dalgu/+11/icon": {
+      "path": "dalgu/+11/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 11,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        538,
+        835,
+        700,
+        1218
+      ],
+      "danger_hue_pixels_adjusted": 25,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          448,
+          0,
+          64,
+          64
+        ]
+      }
+    },
+    "dalgu/+11/hand_down_hold": {
+      "path": "dalgu/+11/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 11,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        538,
+        835,
+        700,
+        1218
+      ],
+      "danger_hue_pixels_adjusted": 3,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          224,
+          0,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "dalgu/+12/inspection": {
+      "path": "dalgu/+12/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 12,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        929,
+        842,
+        1113,
+        1218
+      ],
+      "danger_hue_pixels_adjusted": 88,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          1536,
+          0,
+          192,
+          192
+        ]
+      }
+    },
+    "dalgu/+12/icon": {
+      "path": "dalgu/+12/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 12,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        929,
+        842,
+        1113,
+        1218
+      ],
+      "danger_hue_pixels_adjusted": 23,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          512,
+          0,
+          64,
+          64
+        ]
+      }
+    },
+    "dalgu/+12/hand_down_hold": {
+      "path": "dalgu/+12/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 12,
+      "family": "dalgu",
+      "source": "source/dalgu.png",
+      "source_rect_ltrb": [
+        929,
+        842,
+        1113,
+        1218
+      ],
+      "danger_hue_pixels_adjusted": 7,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          256,
+          0,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "chorong/+01/inspection": {
+      "path": "chorong/+01/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 1,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        173,
+        58,
+        260,
+        369
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          0,
+          192,
+          192,
+          192
+        ]
+      }
+    },
+    "chorong/+01/icon": {
+      "path": "chorong/+01/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 1,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        173,
+        58,
+        260,
+        369
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          0,
+          64,
+          64,
+          64
+        ]
+      }
+    },
+    "chorong/+01/hand_down_hold": {
+      "path": "chorong/+01/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 1,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        173,
+        58,
+        260,
+        369
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          0,
+          64,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "chorong/+02/inspection": {
+      "path": "chorong/+02/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 2,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        569,
+        58,
+        671,
+        369
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          192,
+          192,
+          192,
+          192
+        ]
+      }
+    },
+    "chorong/+02/icon": {
+      "path": "chorong/+02/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 2,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        569,
+        58,
+        671,
+        369
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          64,
+          64,
+          64,
+          64
+        ]
+      }
+    },
+    "chorong/+02/hand_down_hold": {
+      "path": "chorong/+02/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 2,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        569,
+        58,
+        671,
+        369
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          32,
+          64,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "chorong/+03/inspection": {
+      "path": "chorong/+03/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 3,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        974,
+        19,
+        1076,
+        369
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          384,
+          192,
+          192,
+          192
+        ]
+      }
+    },
+    "chorong/+03/icon": {
+      "path": "chorong/+03/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 3,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        974,
+        19,
+        1076,
+        369
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          128,
+          64,
+          64,
+          64
+        ]
+      }
+    },
+    "chorong/+03/hand_down_hold": {
+      "path": "chorong/+03/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 3,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        974,
+        19,
+        1076,
+        369
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          64,
+          64,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "chorong/+05/inspection": {
+      "path": "chorong/+05/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 5,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        163,
+        443,
+        250,
+        778
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          576,
+          192,
+          192,
+          192
+        ]
+      }
+    },
+    "chorong/+05/icon": {
+      "path": "chorong/+05/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 5,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        163,
+        443,
+        250,
+        778
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          192,
+          64,
+          64,
+          64
+        ]
+      }
+    },
+    "chorong/+05/hand_down_hold": {
+      "path": "chorong/+05/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 5,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        163,
+        443,
+        250,
+        778
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          96,
+          64,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "chorong/+06/inspection": {
+      "path": "chorong/+06/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 6,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        563,
+        445,
+        704,
+        778
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          768,
+          192,
+          192,
+          192
+        ]
+      }
+    },
+    "chorong/+06/icon": {
+      "path": "chorong/+06/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 6,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        563,
+        445,
+        704,
+        778
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          256,
+          64,
+          64,
+          64
+        ]
+      }
+    },
+    "chorong/+06/hand_down_hold": {
+      "path": "chorong/+06/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 6,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        563,
+        445,
+        704,
+        778
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          128,
+          64,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "chorong/+08/inspection": {
+      "path": "chorong/+08/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 8,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        934,
+        443,
+        1135,
+        778
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          960,
+          192,
+          192,
+          192
+        ]
+      }
+    },
+    "chorong/+08/icon": {
+      "path": "chorong/+08/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 8,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        934,
+        443,
+        1135,
+        778
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          320,
+          64,
+          64,
+          64
+        ]
+      }
+    },
+    "chorong/+08/hand_down_hold": {
+      "path": "chorong/+08/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 8,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        934,
+        443,
+        1135,
+        778
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          160,
+          64,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "chorong/+09/inspection": {
+      "path": "chorong/+09/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 9,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        124,
+        854,
+        325,
+        1217
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          1152,
+          192,
+          192,
+          192
+        ]
+      }
+    },
+    "chorong/+09/icon": {
+      "path": "chorong/+09/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 9,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        124,
+        854,
+        325,
+        1217
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          384,
+          64,
+          64,
+          64
+        ]
+      }
+    },
+    "chorong/+09/hand_down_hold": {
+      "path": "chorong/+09/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 9,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        124,
+        854,
+        325,
+        1217
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          192,
+          64,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "chorong/+11/inspection": {
+      "path": "chorong/+11/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 11,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        540,
+        850,
+        712,
+        1203
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          1344,
+          192,
+          192,
+          192
+        ]
+      }
+    },
+    "chorong/+11/icon": {
+      "path": "chorong/+11/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 11,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        540,
+        850,
+        712,
+        1203
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          448,
+          64,
+          64,
+          64
+        ]
+      }
+    },
+    "chorong/+11/hand_down_hold": {
+      "path": "chorong/+11/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 11,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        540,
+        850,
+        712,
+        1203
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          224,
+          64,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "chorong/+12/inspection": {
+      "path": "chorong/+12/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 12,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        943,
+        865,
+        1129,
+        1206
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          1536,
+          192,
+          192,
+          192
+        ]
+      }
+    },
+    "chorong/+12/icon": {
+      "path": "chorong/+12/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 12,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        943,
+        865,
+        1129,
+        1206
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          512,
+          64,
+          64,
+          64
+        ]
+      }
+    },
+    "chorong/+12/hand_down_hold": {
+      "path": "chorong/+12/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 12,
+      "family": "chorong",
+      "source": "source/chorong.png",
+      "source_rect_ltrb": [
+        943,
+        865,
+        1129,
+        1206
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          256,
+          64,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "galpi/+01/inspection": {
+      "path": "galpi/+01/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 1,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        210,
+        55,
+        271,
+        374
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          0,
+          384,
+          192,
+          192
+        ]
+      }
+    },
+    "galpi/+01/icon": {
+      "path": "galpi/+01/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 1,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        210,
+        55,
+        271,
+        374
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          0,
+          128,
+          64,
+          64
+        ]
+      }
+    },
+    "galpi/+01/hand_down_hold": {
+      "path": "galpi/+01/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 1,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        210,
+        55,
+        271,
+        374
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          0,
+          128,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "galpi/+02/inspection": {
+      "path": "galpi/+02/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 2,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        602,
+        55,
+        674,
+        373
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          192,
+          384,
+          192,
+          192
+        ]
+      }
+    },
+    "galpi/+02/icon": {
+      "path": "galpi/+02/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 2,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        602,
+        55,
+        674,
+        373
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          64,
+          128,
+          64,
+          64
+        ]
+      }
+    },
+    "galpi/+02/hand_down_hold": {
+      "path": "galpi/+02/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 2,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        602,
+        55,
+        674,
+        373
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          32,
+          128,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "galpi/+03/inspection": {
+      "path": "galpi/+03/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 3,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        994,
+        55,
+        1096,
+        373
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          384,
+          384,
+          192,
+          192
+        ]
+      }
+    },
+    "galpi/+03/icon": {
+      "path": "galpi/+03/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 3,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        994,
+        55,
+        1096,
+        373
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          128,
+          128,
+          64,
+          64
+        ]
+      }
+    },
+    "galpi/+03/hand_down_hold": {
+      "path": "galpi/+03/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 3,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        994,
+        55,
+        1096,
+        373
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          64,
+          128,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "galpi/+05/inspection": {
+      "path": "galpi/+05/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 5,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        210,
+        473,
+        296,
+        791
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          576,
+          384,
+          192,
+          192
+        ]
+      }
+    },
+    "galpi/+05/icon": {
+      "path": "galpi/+05/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 5,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        210,
+        473,
+        296,
+        791
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          192,
+          128,
+          64,
+          64
+        ]
+      }
+    },
+    "galpi/+05/hand_down_hold": {
+      "path": "galpi/+05/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 5,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        210,
+        473,
+        296,
+        791
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          96,
+          128,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "galpi/+06/inspection": {
+      "path": "galpi/+06/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 6,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        580,
+        473,
+        695,
+        791
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          768,
+          384,
+          192,
+          192
+        ]
+      }
+    },
+    "galpi/+06/icon": {
+      "path": "galpi/+06/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 6,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        580,
+        473,
+        695,
+        791
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          256,
+          128,
+          64,
+          64
+        ]
+      }
+    },
+    "galpi/+06/hand_down_hold": {
+      "path": "galpi/+06/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 6,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        580,
+        473,
+        695,
+        791
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          128,
+          128,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "galpi/+08/inspection": {
+      "path": "galpi/+08/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 8,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        994,
+        457,
+        1105,
+        791
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          960,
+          384,
+          192,
+          192
+        ]
+      }
+    },
+    "galpi/+08/icon": {
+      "path": "galpi/+08/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 8,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        994,
+        457,
+        1105,
+        791
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          320,
+          128,
+          64,
+          64
+        ]
+      }
+    },
+    "galpi/+08/hand_down_hold": {
+      "path": "galpi/+08/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 8,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        994,
+        457,
+        1105,
+        791
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          160,
+          128,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "galpi/+09/inspection": {
+      "path": "galpi/+09/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 9,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        210,
+        891,
+        313,
+        1210
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          1152,
+          384,
+          192,
+          192
+        ]
+      }
+    },
+    "galpi/+09/icon": {
+      "path": "galpi/+09/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 9,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        210,
+        891,
+        313,
+        1210
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          384,
+          128,
+          64,
+          64
+        ]
+      }
+    },
+    "galpi/+09/hand_down_hold": {
+      "path": "galpi/+09/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 9,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        210,
+        891,
+        313,
+        1210
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          192,
+          128,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "galpi/+11/inspection": {
+      "path": "galpi/+11/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 11,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        552,
+        892,
+        721,
+        1210
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          1344,
+          384,
+          192,
+          192
+        ]
+      }
+    },
+    "galpi/+11/icon": {
+      "path": "galpi/+11/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 11,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        552,
+        892,
+        721,
+        1210
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          448,
+          128,
+          64,
+          64
+        ]
+      }
+    },
+    "galpi/+11/hand_down_hold": {
+      "path": "galpi/+11/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 11,
+      "family": "galpi",
+      "source": "source/galpi.png",
+      "source_rect_ltrb": [
+        552,
+        892,
+        721,
+        1210
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          224,
+          128,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "galpi/+12/inspection": {
+      "path": "galpi/+12/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 12,
+      "family": "galpi",
+      "source": "source/corrections.png",
+      "source_rect_ltrb": [
+        847,
+        108,
+        1037,
+        516
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          1536,
+          384,
+          192,
+          192
+        ]
+      }
+    },
+    "galpi/+12/icon": {
+      "path": "galpi/+12/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 12,
+      "family": "galpi",
+      "source": "source/corrections.png",
+      "source_rect_ltrb": [
+        847,
+        108,
+        1037,
+        516
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          512,
+          128,
+          64,
+          64
+        ]
+      }
+    },
+    "galpi/+12/hand_down_hold": {
+      "path": "galpi/+12/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 12,
+      "family": "galpi",
+      "source": "source/corrections.png",
+      "source_rect_ltrb": [
+        847,
+        108,
+        1037,
+        516
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          256,
+          128,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "seonge/+01/inspection": {
+      "path": "seonge/+01/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 1,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        187,
+        35,
+        246,
+        357
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          0,
+          576,
+          192,
+          192
+        ]
+      }
+    },
+    "seonge/+01/icon": {
+      "path": "seonge/+01/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 1,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        187,
+        35,
+        246,
+        357
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          0,
+          192,
+          64,
+          64
+        ]
+      }
+    },
+    "seonge/+01/hand_down_hold": {
+      "path": "seonge/+01/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 1,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        187,
+        35,
+        246,
+        357
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          0,
+          192,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "seonge/+02/inspection": {
+      "path": "seonge/+02/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 2,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        589,
+        37,
+        669,
+        357
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          192,
+          576,
+          192,
+          192
+        ]
+      }
+    },
+    "seonge/+02/icon": {
+      "path": "seonge/+02/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 2,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        589,
+        37,
+        669,
+        357
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          64,
+          192,
+          64,
+          64
+        ]
+      }
+    },
+    "seonge/+02/hand_down_hold": {
+      "path": "seonge/+02/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 2,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        589,
+        37,
+        669,
+        357
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          32,
+          192,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "seonge/+03/inspection": {
+      "path": "seonge/+03/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 3,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        987,
+        35,
+        1088,
+        355
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          384,
+          576,
+          192,
+          192
+        ]
+      }
+    },
+    "seonge/+03/icon": {
+      "path": "seonge/+03/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 3,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        987,
+        35,
+        1088,
+        355
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          128,
+          192,
+          64,
+          64
+        ]
+      }
+    },
+    "seonge/+03/hand_down_hold": {
+      "path": "seonge/+03/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 3,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        987,
+        35,
+        1088,
+        355
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          64,
+          192,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "seonge/+05/inspection": {
+      "path": "seonge/+05/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 5,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        163,
+        443,
+        269,
+        764
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          576,
+          576,
+          192,
+          192
+        ]
+      }
+    },
+    "seonge/+05/icon": {
+      "path": "seonge/+05/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 5,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        163,
+        443,
+        269,
+        764
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          192,
+          192,
+          64,
+          64
+        ]
+      }
+    },
+    "seonge/+05/hand_down_hold": {
+      "path": "seonge/+05/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 5,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        163,
+        443,
+        269,
+        764
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          96,
+          192,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "seonge/+06/inspection": {
+      "path": "seonge/+06/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 6,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        571,
+        442,
+        681,
+        762
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          768,
+          576,
+          192,
+          192
+        ]
+      }
+    },
+    "seonge/+06/icon": {
+      "path": "seonge/+06/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 6,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        571,
+        442,
+        681,
+        762
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          256,
+          192,
+          64,
+          64
+        ]
+      }
+    },
+    "seonge/+06/hand_down_hold": {
+      "path": "seonge/+06/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 6,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        571,
+        442,
+        681,
+        762
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          128,
+          192,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "seonge/+08/inspection": {
+      "path": "seonge/+08/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 8,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        955,
+        434,
+        1119,
+        762
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          960,
+          576,
+          192,
+          192
+        ]
+      }
+    },
+    "seonge/+08/icon": {
+      "path": "seonge/+08/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 8,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        955,
+        434,
+        1119,
+        762
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          320,
+          192,
+          64,
+          64
+        ]
+      }
+    },
+    "seonge/+08/hand_down_hold": {
+      "path": "seonge/+08/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 8,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        955,
+        434,
+        1119,
+        762
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          160,
+          192,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "seonge/+09/inspection": {
+      "path": "seonge/+09/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 9,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        131,
+        840,
+        294,
+        1198
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          1152,
+          576,
+          192,
+          192
+        ]
+      }
+    },
+    "seonge/+09/icon": {
+      "path": "seonge/+09/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 9,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        131,
+        840,
+        294,
+        1198
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          384,
+          192,
+          64,
+          64
+        ]
+      }
+    },
+    "seonge/+09/hand_down_hold": {
+      "path": "seonge/+09/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 9,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        131,
+        840,
+        294,
+        1198
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          192,
+          192,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "seonge/+11/inspection": {
+      "path": "seonge/+11/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 11,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        548,
+        832,
+        707,
+        1198
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          1344,
+          576,
+          192,
+          192
+        ]
+      }
+    },
+    "seonge/+11/icon": {
+      "path": "seonge/+11/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 11,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        548,
+        832,
+        707,
+        1198
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          448,
+          192,
+          64,
+          64
+        ]
+      }
+    },
+    "seonge/+11/hand_down_hold": {
+      "path": "seonge/+11/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 11,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        548,
+        832,
+        707,
+        1198
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          224,
+          192,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "seonge/+12/inspection": {
+      "path": "seonge/+12/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 12,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        949,
+        820,
+        1121,
+        1198
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          1536,
+          576,
+          192,
+          192
+        ]
+      }
+    },
+    "seonge/+12/icon": {
+      "path": "seonge/+12/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 12,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        949,
+        820,
+        1121,
+        1198
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          512,
+          192,
+          64,
+          64
+        ]
+      }
+    },
+    "seonge/+12/hand_down_hold": {
+      "path": "seonge/+12/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 12,
+      "family": "seonge",
+      "source": "source/seonge.png",
+      "source_rect_ltrb": [
+        949,
+        820,
+        1121,
+        1198
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          256,
+          192,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "geumeum/+01/inspection": {
+      "path": "geumeum/+01/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 1,
+      "family": "geumeum",
+      "source": "source/geumeum.png",
+      "source_rect_ltrb": [
+        190,
+        75,
+        250,
+        356
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          0,
+          768,
+          192,
+          192
+        ]
+      }
+    },
+    "geumeum/+01/icon": {
+      "path": "geumeum/+01/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 1,
+      "family": "geumeum",
+      "source": "source/geumeum.png",
+      "source_rect_ltrb": [
+        190,
+        75,
+        250,
+        356
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          0,
+          256,
+          64,
+          64
+        ]
+      }
+    },
+    "geumeum/+01/hand_down_hold": {
+      "path": "geumeum/+01/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 1,
+      "family": "geumeum",
+      "source": "source/geumeum.png",
+      "source_rect_ltrb": [
+        190,
+        75,
+        250,
+        356
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          0,
+          256,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "geumeum/+02/inspection": {
+      "path": "geumeum/+02/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 2,
+      "family": "geumeum",
+      "source": "source/geumeum.png",
+      "source_rect_ltrb": [
+        582,
+        56,
+        672,
+        356
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          192,
+          768,
+          192,
+          192
+        ]
+      }
+    },
+    "geumeum/+02/icon": {
+      "path": "geumeum/+02/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 2,
+      "family": "geumeum",
+      "source": "source/geumeum.png",
+      "source_rect_ltrb": [
+        582,
+        56,
+        672,
+        356
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          64,
+          256,
+          64,
+          64
+        ]
+      }
+    },
+    "geumeum/+02/hand_down_hold": {
+      "path": "geumeum/+02/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 2,
+      "family": "geumeum",
+      "source": "source/geumeum.png",
+      "source_rect_ltrb": [
+        582,
+        56,
+        672,
+        356
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          32,
+          256,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "geumeum/+03/inspection": {
+      "path": "geumeum/+03/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 3,
+      "family": "geumeum",
+      "source": "source/geumeum.png",
+      "source_rect_ltrb": [
+        997,
+        70,
+        1091,
+        356
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          384,
+          768,
+          192,
+          192
+        ]
+      }
+    },
+    "geumeum/+03/icon": {
+      "path": "geumeum/+03/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 3,
+      "family": "geumeum",
+      "source": "source/geumeum.png",
+      "source_rect_ltrb": [
+        997,
+        70,
+        1091,
+        356
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          128,
+          256,
+          64,
+          64
+        ]
+      }
+    },
+    "geumeum/+03/hand_down_hold": {
+      "path": "geumeum/+03/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 3,
+      "family": "geumeum",
+      "source": "source/geumeum.png",
+      "source_rect_ltrb": [
+        997,
+        70,
+        1091,
+        356
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          64,
+          256,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "geumeum/+05/inspection": {
+      "path": "geumeum/+05/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 5,
+      "family": "geumeum",
+      "source": "source/corrections.png",
+      "source_rect_ltrb": [
+        254,
+        754,
+        374,
+        1138
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          576,
+          768,
+          192,
+          192
+        ]
+      }
+    },
+    "geumeum/+05/icon": {
+      "path": "geumeum/+05/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 5,
+      "family": "geumeum",
+      "source": "source/corrections.png",
+      "source_rect_ltrb": [
+        254,
+        754,
+        374,
+        1138
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          192,
+          256,
+          64,
+          64
+        ]
+      }
+    },
+    "geumeum/+05/hand_down_hold": {
+      "path": "geumeum/+05/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 5,
+      "family": "geumeum",
+      "source": "source/corrections.png",
+      "source_rect_ltrb": [
+        254,
+        754,
+        374,
+        1138
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          96,
+          256,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "geumeum/+06/inspection": {
+      "path": "geumeum/+06/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 6,
+      "family": "geumeum",
+      "source": "source/geumeum.png",
+      "source_rect_ltrb": [
+        573,
+        467,
+        680,
+        775
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          768,
+          768,
+          192,
+          192
+        ]
+      }
+    },
+    "geumeum/+06/icon": {
+      "path": "geumeum/+06/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 6,
+      "family": "geumeum",
+      "source": "source/geumeum.png",
+      "source_rect_ltrb": [
+        573,
+        467,
+        680,
+        775
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          256,
+          256,
+          64,
+          64
+        ]
+      }
+    },
+    "geumeum/+06/hand_down_hold": {
+      "path": "geumeum/+06/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 6,
+      "family": "geumeum",
+      "source": "source/geumeum.png",
+      "source_rect_ltrb": [
+        573,
+        467,
+        680,
+        775
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          128,
+          256,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "geumeum/+08/inspection": {
+      "path": "geumeum/+08/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 8,
+      "family": "geumeum",
+      "source": "source/geumeum.png",
+      "source_rect_ltrb": [
+        988,
+        463,
+        1102,
+        790
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          960,
+          768,
+          192,
+          192
+        ]
+      }
+    },
+    "geumeum/+08/icon": {
+      "path": "geumeum/+08/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 8,
+      "family": "geumeum",
+      "source": "source/geumeum.png",
+      "source_rect_ltrb": [
+        988,
+        463,
+        1102,
+        790
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          320,
+          256,
+          64,
+          64
+        ]
+      }
+    },
+    "geumeum/+08/hand_down_hold": {
+      "path": "geumeum/+08/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 8,
+      "family": "geumeum",
+      "source": "source/geumeum.png",
+      "source_rect_ltrb": [
+        988,
+        463,
+        1102,
+        790
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          160,
+          256,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "geumeum/+09/inspection": {
+      "path": "geumeum/+09/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 9,
+      "family": "geumeum",
+      "source": "source/geumeum.png",
+      "source_rect_ltrb": [
+        160,
+        889,
+        274,
+        1209
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          1152,
+          768,
+          192,
+          192
+        ]
+      }
+    },
+    "geumeum/+09/icon": {
+      "path": "geumeum/+09/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 9,
+      "family": "geumeum",
+      "source": "source/geumeum.png",
+      "source_rect_ltrb": [
+        160,
+        889,
+        274,
+        1209
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          384,
+          256,
+          64,
+          64
+        ]
+      }
+    },
+    "geumeum/+09/hand_down_hold": {
+      "path": "geumeum/+09/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 9,
+      "family": "geumeum",
+      "source": "source/geumeum.png",
+      "source_rect_ltrb": [
+        160,
+        889,
+        274,
+        1209
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          192,
+          256,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "geumeum/+11/inspection": {
+      "path": "geumeum/+11/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 11,
+      "family": "geumeum",
+      "source": "source/corrections.png",
+      "source_rect_ltrb": [
+        874,
+        742,
+        1007,
+        1138
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          1344,
+          768,
+          192,
+          192
+        ]
+      }
+    },
+    "geumeum/+11/icon": {
+      "path": "geumeum/+11/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 11,
+      "family": "geumeum",
+      "source": "source/corrections.png",
+      "source_rect_ltrb": [
+        874,
+        742,
+        1007,
+        1138
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          448,
+          256,
+          64,
+          64
+        ]
+      }
+    },
+    "geumeum/+11/hand_down_hold": {
+      "path": "geumeum/+11/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 11,
+      "family": "geumeum",
+      "source": "source/corrections.png",
+      "source_rect_ltrb": [
+        874,
+        742,
+        1007,
+        1138
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          224,
+          256,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    },
+    "geumeum/+12/inspection": {
+      "path": "geumeum/+12/inspection.png",
+      "size": [
+        192,
+        192
+      ],
+      "stage": 12,
+      "family": "geumeum",
+      "source": "source/geumeum.png",
+      "source_rect_ltrb": [
+        983,
+        877,
+        1108,
+        1208
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/inspection.png",
+        "rect": [
+          1536,
+          768,
+          192,
+          192
+        ]
+      }
+    },
+    "geumeum/+12/icon": {
+      "path": "geumeum/+12/icon.png",
+      "size": [
+        64,
+        64
+      ],
+      "stage": 12,
+      "family": "geumeum",
+      "source": "source/geumeum.png",
+      "source_rect_ltrb": [
+        983,
+        877,
+        1108,
+        1208
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/icon.png",
+        "rect": [
+          512,
+          256,
+          64,
+          64
+        ]
+      }
+    },
+    "geumeum/+12/hand_down_hold": {
+      "path": "geumeum/+12/hand_down_hold.png",
+      "size": [
+        32,
+        64
+      ],
+      "stage": 12,
+      "family": "geumeum",
+      "source": "source/geumeum.png",
+      "source_rect_ltrb": [
+        983,
+        877,
+        1108,
+        1208
+      ],
+      "danger_hue_pixels_adjusted": 0,
+      "atlas": {
+        "path": "sheets/hand_down_hold.png",
+        "rect": [
+          256,
+          256,
+          32,
+          64
+        ]
+      },
+      "grip": [
+        16,
+        48
+      ]
+    }
+  },
+  "visual_notes": {
+    "seonge/+09": "The orbit reads as a broken translucent ring rather than a regular dotted ellipse."
+  }
+}

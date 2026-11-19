@@ -1,0 +1,5956 @@
+{
+  "version": 1,
+  "origin": "top-left",
+  "filter": "point",
+  "mipmaps": false,
+  "spec": "docs/world-characters.md §10.1",
+  "mirror": {
+    "left": "right"
+  },
+  "clips": [
+    {
+      "id": "geumeum.walk_right",
+      "character": "geumeum",
+      "action": "walk",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/geumeum/walk_right/sheet.png",
+      "frames": [
+        "characters/geumeum/walk_right/01.png",
+        "characters/geumeum/walk_right/02.png",
+        "characters/geumeum/walk_right/03.png",
+        "characters/geumeum/walk_right/04.png",
+        "characters/geumeum/walk_right/05.png",
+        "characters/geumeum/walk_right/06.png"
+      ],
+      "durationsMs": [
+        90,
+        75,
+        85,
+        90,
+        75,
+        85
+      ],
+      "loop": true,
+      "source": "existing redrawn walk"
+    },
+    {
+      "id": "geumeum.walk_down",
+      "character": "geumeum",
+      "action": "walk",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/walk_down/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/walk_down/01.png",
+        "characters/directional/geumeum/walk_down/02.png",
+        "characters/directional/geumeum/walk_down/03.png",
+        "characters/directional/geumeum/walk_down/04.png",
+        "characters/directional/geumeum/walk_down/05.png",
+        "characters/directional/geumeum/walk_down/06.png"
+      ],
+      "durationsMs": [
+        90,
+        75,
+        85,
+        90,
+        75,
+        85
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.walk_up",
+      "character": "geumeum",
+      "action": "walk",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/walk_up/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/walk_up/01.png",
+        "characters/directional/geumeum/walk_up/02.png",
+        "characters/directional/geumeum/walk_up/03.png",
+        "characters/directional/geumeum/walk_up/04.png",
+        "characters/directional/geumeum/walk_up/05.png",
+        "characters/directional/geumeum/walk_up/06.png"
+      ],
+      "durationsMs": [
+        90,
+        75,
+        85,
+        90,
+        75,
+        85
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.cast_down",
+      "character": "geumeum",
+      "action": "cast",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/cast_down/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/cast_down/01.png",
+        "characters/directional/geumeum/cast_down/02.png",
+        "characters/directional/geumeum/cast_down/03.png",
+        "characters/directional/geumeum/cast_down/04.png"
+      ],
+      "durationsMs": [
+        95,
+        80,
+        100,
+        100
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "grip": [
+        [
+          40,
+          47
+        ],
+        [
+          51,
+          38
+        ],
+        [
+          52,
+          35
+        ],
+        [
+          51,
+          45
+        ]
+      ],
+      "wandLayer": "in-front"
+    },
+    {
+      "id": "geumeum.cast_right",
+      "character": "geumeum",
+      "action": "cast",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/cast_right/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/cast_right/01.png",
+        "characters/directional/geumeum/cast_right/02.png",
+        "characters/directional/geumeum/cast_right/03.png",
+        "characters/directional/geumeum/cast_right/04.png"
+      ],
+      "durationsMs": [
+        95,
+        80,
+        100,
+        100
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "grip": [
+        [
+          44,
+          46
+        ],
+        [
+          50,
+          35
+        ],
+        [
+          54,
+          37
+        ],
+        [
+          49,
+          45
+        ]
+      ],
+      "wandLayer": "in-front"
+    },
+    {
+      "id": "geumeum.cast_up",
+      "character": "geumeum",
+      "action": "cast",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/cast_up/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/cast_up/01.png",
+        "characters/directional/geumeum/cast_up/02.png",
+        "characters/directional/geumeum/cast_up/03.png",
+        "characters/directional/geumeum/cast_up/04.png"
+      ],
+      "durationsMs": [
+        95,
+        80,
+        100,
+        100
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "grip": [
+        [
+          43,
+          47
+        ],
+        [
+          51,
+          35
+        ],
+        [
+          52,
+          35
+        ],
+        [
+          46,
+          44
+        ]
+      ],
+      "wandLayer": "behind"
+    },
+    {
+      "id": "geumeum.signature_down",
+      "character": "geumeum",
+      "action": "signature",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/signature_down/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/signature_down/01.png",
+        "characters/directional/geumeum/signature_down/02.png",
+        "characters/directional/geumeum/signature_down/03.png",
+        "characters/directional/geumeum/signature_down/04.png",
+        "characters/directional/geumeum/signature_down/05.png",
+        "characters/directional/geumeum/signature_down/06.png"
+      ],
+      "durationsMs": [
+        95,
+        85,
+        70,
+        70,
+        100,
+        125
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.signature_right",
+      "character": "geumeum",
+      "action": "signature",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/signature_right/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/signature_right/01.png",
+        "characters/directional/geumeum/signature_right/02.png",
+        "characters/directional/geumeum/signature_right/03.png",
+        "characters/directional/geumeum/signature_right/04.png",
+        "characters/directional/geumeum/signature_right/05.png",
+        "characters/directional/geumeum/signature_right/06.png"
+      ],
+      "durationsMs": [
+        95,
+        85,
+        70,
+        70,
+        100,
+        125
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.signature_up",
+      "character": "geumeum",
+      "action": "signature",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/signature_up/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/signature_up/01.png",
+        "characters/directional/geumeum/signature_up/02.png",
+        "characters/directional/geumeum/signature_up/03.png",
+        "characters/directional/geumeum/signature_up/04.png",
+        "characters/directional/geumeum/signature_up/05.png",
+        "characters/directional/geumeum/signature_up/06.png"
+      ],
+      "durationsMs": [
+        95,
+        85,
+        70,
+        70,
+        100,
+        125
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.fire_down",
+      "character": "geumeum",
+      "action": "fire",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/fire_down/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/fire_down/01.png",
+        "characters/directional/geumeum/fire_down/02.png",
+        "characters/directional/geumeum/fire_down/03.png"
+      ],
+      "durationsMs": [
+        55,
+        55,
+        85
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.hit_down",
+      "character": "geumeum",
+      "action": "hit",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/hit_down/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/hit_down/01.png",
+        "characters/directional/geumeum/hit_down/02.png"
+      ],
+      "durationsMs": [
+        65,
+        90
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.fire_right",
+      "character": "geumeum",
+      "action": "fire",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/fire_right/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/fire_right/01.png",
+        "characters/directional/geumeum/fire_right/02.png",
+        "characters/directional/geumeum/fire_right/03.png"
+      ],
+      "durationsMs": [
+        55,
+        55,
+        85
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.hit_right",
+      "character": "geumeum",
+      "action": "hit",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/hit_right/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/hit_right/01.png",
+        "characters/directional/geumeum/hit_right/02.png"
+      ],
+      "durationsMs": [
+        65,
+        90
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.fire_up",
+      "character": "geumeum",
+      "action": "fire",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/fire_up/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/fire_up/01.png",
+        "characters/directional/geumeum/fire_up/02.png",
+        "characters/directional/geumeum/fire_up/03.png"
+      ],
+      "durationsMs": [
+        55,
+        55,
+        85
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.hit_up",
+      "character": "geumeum",
+      "action": "hit",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/hit_up/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/hit_up/01.png",
+        "characters/directional/geumeum/hit_up/02.png"
+      ],
+      "durationsMs": [
+        65,
+        90
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.idle_down",
+      "character": "geumeum",
+      "action": "idle",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/idle_down/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/idle_down/01.png",
+        "characters/directional/geumeum/idle_down/02.png",
+        "characters/directional/geumeum/idle_down/03.png",
+        "characters/directional/geumeum/idle_down/04.png"
+      ],
+      "durationsMs": [
+        160,
+        140,
+        150,
+        140
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.idle_right",
+      "character": "geumeum",
+      "action": "idle",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/idle_right/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/idle_right/01.png",
+        "characters/directional/geumeum/idle_right/02.png",
+        "characters/directional/geumeum/idle_right/03.png",
+        "characters/directional/geumeum/idle_right/04.png"
+      ],
+      "durationsMs": [
+        160,
+        140,
+        150,
+        140
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.idle_up",
+      "character": "geumeum",
+      "action": "idle",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/idle_up/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/idle_up/01.png",
+        "characters/directional/geumeum/idle_up/02.png",
+        "characters/directional/geumeum/idle_up/03.png",
+        "characters/directional/geumeum/idle_up/04.png"
+      ],
+      "durationsMs": [
+        160,
+        140,
+        150,
+        140
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.stance_walk_down",
+      "character": "geumeum",
+      "action": "stance_walk",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/stance_walk_down/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/stance_walk_down/01.png",
+        "characters/directional/geumeum/stance_walk_down/02.png",
+        "characters/directional/geumeum/stance_walk_down/03.png",
+        "characters/directional/geumeum/stance_walk_down/04.png"
+      ],
+      "durationsMs": [
+        110,
+        100,
+        110,
+        100
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.stance_walk_right",
+      "character": "geumeum",
+      "action": "stance_walk",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/stance_walk_right/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/stance_walk_right/01.png",
+        "characters/directional/geumeum/stance_walk_right/02.png",
+        "characters/directional/geumeum/stance_walk_right/03.png",
+        "characters/directional/geumeum/stance_walk_right/04.png"
+      ],
+      "durationsMs": [
+        110,
+        100,
+        110,
+        100
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.stance_walk_up",
+      "character": "geumeum",
+      "action": "stance_walk",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/stance_walk_up/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/stance_walk_up/01.png",
+        "characters/directional/geumeum/stance_walk_up/02.png",
+        "characters/directional/geumeum/stance_walk_up/03.png",
+        "characters/directional/geumeum/stance_walk_up/04.png"
+      ],
+      "durationsMs": [
+        110,
+        100,
+        110,
+        100
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.death_down",
+      "character": "geumeum",
+      "action": "death",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/death_down/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/death_down/01.png",
+        "characters/directional/geumeum/death_down/02.png",
+        "characters/directional/geumeum/death_down/03.png",
+        "characters/directional/geumeum/death_down/04.png",
+        "characters/directional/geumeum/death_down/05.png",
+        "characters/directional/geumeum/death_down/06.png"
+      ],
+      "durationsMs": [
+        90,
+        110,
+        110,
+        120,
+        170,
+        400
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "transparentFrames": [
+        5
+      ],
+      "note": "Last frame contains no body; the held wand is an independent sprite."
+    },
+    {
+      "id": "geumeum.sit_down",
+      "character": "geumeum",
+      "action": "sit",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/sit_down/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/sit_down/01.png",
+        "characters/directional/geumeum/sit_down/02.png"
+      ],
+      "durationsMs": [
+        200,
+        210
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.upgrade_success_down",
+      "character": "geumeum",
+      "action": "upgrade_success",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/upgrade_success_down/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/upgrade_success_down/01.png",
+        "characters/directional/geumeum/upgrade_success_down/02.png",
+        "characters/directional/geumeum/upgrade_success_down/03.png",
+        "characters/directional/geumeum/upgrade_success_down/04.png"
+      ],
+      "durationsMs": [
+        105,
+        85,
+        110,
+        160
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.upgrade_fail_down",
+      "character": "geumeum",
+      "action": "upgrade_fail",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/upgrade_fail_down/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/upgrade_fail_down/01.png",
+        "characters/directional/geumeum/upgrade_fail_down/02.png",
+        "characters/directional/geumeum/upgrade_fail_down/03.png",
+        "characters/directional/geumeum/upgrade_fail_down/04.png"
+      ],
+      "durationsMs": [
+        100,
+        115,
+        120,
+        160
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.upgrade_charge_down",
+      "character": "geumeum",
+      "action": "upgrade_charge",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/upgrade_charge_down/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/upgrade_charge_down/01.png",
+        "characters/directional/geumeum/upgrade_charge_down/02.png"
+      ],
+      "durationsMs": [
+        130,
+        160
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.duel_win_down",
+      "character": "geumeum",
+      "action": "duel_win",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/duel_win_down/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/duel_win_down/01.png",
+        "characters/directional/geumeum/duel_win_down/02.png",
+        "characters/directional/geumeum/duel_win_down/03.png",
+        "characters/directional/geumeum/duel_win_down/04.png"
+      ],
+      "durationsMs": [
+        100,
+        110,
+        100,
+        200
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.wave_down",
+      "character": "geumeum",
+      "action": "wave",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/wave_down/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/wave_down/01.png",
+        "characters/directional/geumeum/wave_down/02.png",
+        "characters/directional/geumeum/wave_down/03.png",
+        "characters/directional/geumeum/wave_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.clap_down",
+      "character": "geumeum",
+      "action": "clap",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/clap_down/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/clap_down/01.png",
+        "characters/directional/geumeum/clap_down/02.png",
+        "characters/directional/geumeum/clap_down/03.png",
+        "characters/directional/geumeum/clap_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.taunt_down",
+      "character": "geumeum",
+      "action": "taunt",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/taunt_down/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/taunt_down/01.png",
+        "characters/directional/geumeum/taunt_down/02.png",
+        "characters/directional/geumeum/taunt_down/03.png",
+        "characters/directional/geumeum/taunt_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.bow_down",
+      "character": "geumeum",
+      "action": "bow",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/bow_down/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/bow_down/01.png",
+        "characters/directional/geumeum/bow_down/02.png",
+        "characters/directional/geumeum/bow_down/03.png",
+        "characters/directional/geumeum/bow_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.sit_down_down",
+      "character": "geumeum",
+      "action": "sit_down",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/sit_down_down/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/sit_down_down/01.png",
+        "characters/directional/geumeum/sit_down_down/02.png",
+        "characters/directional/geumeum/sit_down_down/03.png",
+        "characters/directional/geumeum/sit_down_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.dance_down",
+      "character": "geumeum",
+      "action": "dance",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/dance_down/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/dance_down/01.png",
+        "characters/directional/geumeum/dance_down/02.png",
+        "characters/directional/geumeum/dance_down/03.png",
+        "characters/directional/geumeum/dance_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.lift_wand_down",
+      "character": "geumeum",
+      "action": "lift_wand",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/lift_wand_down/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/lift_wand_down/01.png",
+        "characters/directional/geumeum/lift_wand_down/02.png",
+        "characters/directional/geumeum/lift_wand_down/03.png",
+        "characters/directional/geumeum/lift_wand_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "geumeum.frustrated_down",
+      "character": "geumeum",
+      "action": "frustrated",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/geumeum/frustrated_down/sheet.png",
+      "frames": [
+        "characters/directional/geumeum/frustrated_down/01.png",
+        "characters/directional/geumeum/frustrated_down/02.png",
+        "characters/directional/geumeum/frustrated_down/03.png",
+        "characters/directional/geumeum/frustrated_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.walk_right",
+      "character": "dalgu",
+      "action": "walk",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/motion/dalgu/walk_right/sheet.png",
+      "frames": [
+        "characters/motion/dalgu/walk_right/01.png",
+        "characters/motion/dalgu/walk_right/02.png",
+        "characters/motion/dalgu/walk_right/03.png",
+        "characters/motion/dalgu/walk_right/04.png",
+        "characters/motion/dalgu/walk_right/05.png",
+        "characters/motion/dalgu/walk_right/06.png"
+      ],
+      "durationsMs": [
+        90,
+        75,
+        85,
+        90,
+        75,
+        85
+      ],
+      "loop": true,
+      "source": "existing redrawn walk"
+    },
+    {
+      "id": "dalgu.walk_down",
+      "character": "dalgu",
+      "action": "walk",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/walk_down/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/walk_down/01.png",
+        "characters/directional/dalgu/walk_down/02.png",
+        "characters/directional/dalgu/walk_down/03.png",
+        "characters/directional/dalgu/walk_down/04.png",
+        "characters/directional/dalgu/walk_down/05.png",
+        "characters/directional/dalgu/walk_down/06.png"
+      ],
+      "durationsMs": [
+        90,
+        75,
+        85,
+        90,
+        75,
+        85
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.walk_up",
+      "character": "dalgu",
+      "action": "walk",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/walk_up/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/walk_up/01.png",
+        "characters/directional/dalgu/walk_up/02.png",
+        "characters/directional/dalgu/walk_up/03.png",
+        "characters/directional/dalgu/walk_up/04.png",
+        "characters/directional/dalgu/walk_up/05.png",
+        "characters/directional/dalgu/walk_up/06.png"
+      ],
+      "durationsMs": [
+        90,
+        75,
+        85,
+        90,
+        75,
+        85
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.cast_down",
+      "character": "dalgu",
+      "action": "cast",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/cast_down/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/cast_down/01.png",
+        "characters/directional/dalgu/cast_down/02.png",
+        "characters/directional/dalgu/cast_down/03.png",
+        "characters/directional/dalgu/cast_down/04.png"
+      ],
+      "durationsMs": [
+        95,
+        80,
+        100,
+        100
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "grip": [
+        [
+          27,
+          45
+        ],
+        [
+          21,
+          37
+        ],
+        [
+          22,
+          39
+        ],
+        [
+          20,
+          46
+        ]
+      ],
+      "wandLayer": "in-front"
+    },
+    {
+      "id": "dalgu.cast_right",
+      "character": "dalgu",
+      "action": "cast",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/cast_right/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/cast_right/01.png",
+        "characters/directional/dalgu/cast_right/02.png",
+        "characters/directional/dalgu/cast_right/03.png",
+        "characters/directional/dalgu/cast_right/04.png"
+      ],
+      "durationsMs": [
+        95,
+        80,
+        100,
+        100
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "grip": [
+        [
+          39,
+          44
+        ],
+        [
+          29,
+          35
+        ],
+        [
+          46,
+          37
+        ],
+        [
+          41,
+          46
+        ]
+      ],
+      "wandLayer": "in-front"
+    },
+    {
+      "id": "dalgu.cast_up",
+      "character": "dalgu",
+      "action": "cast",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/cast_up/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/cast_up/01.png",
+        "characters/directional/dalgu/cast_up/02.png",
+        "characters/directional/dalgu/cast_up/03.png",
+        "characters/directional/dalgu/cast_up/04.png"
+      ],
+      "durationsMs": [
+        95,
+        80,
+        100,
+        100
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "grip": [
+        [
+          37,
+          46
+        ],
+        [
+          45,
+          38
+        ],
+        [
+          50,
+          38
+        ],
+        [
+          44,
+          46
+        ]
+      ],
+      "wandLayer": "behind"
+    },
+    {
+      "id": "dalgu.signature_down",
+      "character": "dalgu",
+      "action": "signature",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/signature_down/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/signature_down/01.png",
+        "characters/directional/dalgu/signature_down/02.png",
+        "characters/directional/dalgu/signature_down/03.png",
+        "characters/directional/dalgu/signature_down/04.png",
+        "characters/directional/dalgu/signature_down/05.png",
+        "characters/directional/dalgu/signature_down/06.png"
+      ],
+      "durationsMs": [
+        95,
+        85,
+        70,
+        70,
+        100,
+        125
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.signature_right",
+      "character": "dalgu",
+      "action": "signature",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/signature_right/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/signature_right/01.png",
+        "characters/directional/dalgu/signature_right/02.png",
+        "characters/directional/dalgu/signature_right/03.png",
+        "characters/directional/dalgu/signature_right/04.png",
+        "characters/directional/dalgu/signature_right/05.png",
+        "characters/directional/dalgu/signature_right/06.png"
+      ],
+      "durationsMs": [
+        95,
+        85,
+        70,
+        70,
+        100,
+        125
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.signature_up",
+      "character": "dalgu",
+      "action": "signature",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/signature_up/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/signature_up/01.png",
+        "characters/directional/dalgu/signature_up/02.png",
+        "characters/directional/dalgu/signature_up/03.png",
+        "characters/directional/dalgu/signature_up/04.png",
+        "characters/directional/dalgu/signature_up/05.png",
+        "characters/directional/dalgu/signature_up/06.png"
+      ],
+      "durationsMs": [
+        95,
+        85,
+        70,
+        70,
+        100,
+        125
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.fire_down",
+      "character": "dalgu",
+      "action": "fire",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/fire_down/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/fire_down/01.png",
+        "characters/directional/dalgu/fire_down/02.png",
+        "characters/directional/dalgu/fire_down/03.png"
+      ],
+      "durationsMs": [
+        55,
+        55,
+        85
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.hit_down",
+      "character": "dalgu",
+      "action": "hit",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/hit_down/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/hit_down/01.png",
+        "characters/directional/dalgu/hit_down/02.png"
+      ],
+      "durationsMs": [
+        65,
+        90
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.fire_right",
+      "character": "dalgu",
+      "action": "fire",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/fire_right/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/fire_right/01.png",
+        "characters/directional/dalgu/fire_right/02.png",
+        "characters/directional/dalgu/fire_right/03.png"
+      ],
+      "durationsMs": [
+        55,
+        55,
+        85
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.hit_right",
+      "character": "dalgu",
+      "action": "hit",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/hit_right/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/hit_right/01.png",
+        "characters/directional/dalgu/hit_right/02.png"
+      ],
+      "durationsMs": [
+        65,
+        90
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.fire_up",
+      "character": "dalgu",
+      "action": "fire",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/fire_up/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/fire_up/01.png",
+        "characters/directional/dalgu/fire_up/02.png",
+        "characters/directional/dalgu/fire_up/03.png"
+      ],
+      "durationsMs": [
+        55,
+        55,
+        85
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.hit_up",
+      "character": "dalgu",
+      "action": "hit",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/hit_up/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/hit_up/01.png",
+        "characters/directional/dalgu/hit_up/02.png"
+      ],
+      "durationsMs": [
+        65,
+        90
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.idle_down",
+      "character": "dalgu",
+      "action": "idle",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/idle_down/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/idle_down/01.png",
+        "characters/directional/dalgu/idle_down/02.png",
+        "characters/directional/dalgu/idle_down/03.png",
+        "characters/directional/dalgu/idle_down/04.png"
+      ],
+      "durationsMs": [
+        160,
+        140,
+        150,
+        140
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.idle_right",
+      "character": "dalgu",
+      "action": "idle",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/idle_right/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/idle_right/01.png",
+        "characters/directional/dalgu/idle_right/02.png",
+        "characters/directional/dalgu/idle_right/03.png",
+        "characters/directional/dalgu/idle_right/04.png"
+      ],
+      "durationsMs": [
+        160,
+        140,
+        150,
+        140
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.idle_up",
+      "character": "dalgu",
+      "action": "idle",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/idle_up/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/idle_up/01.png",
+        "characters/directional/dalgu/idle_up/02.png",
+        "characters/directional/dalgu/idle_up/03.png",
+        "characters/directional/dalgu/idle_up/04.png"
+      ],
+      "durationsMs": [
+        160,
+        140,
+        150,
+        140
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.stance_walk_down",
+      "character": "dalgu",
+      "action": "stance_walk",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/stance_walk_down/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/stance_walk_down/01.png",
+        "characters/directional/dalgu/stance_walk_down/02.png",
+        "characters/directional/dalgu/stance_walk_down/03.png",
+        "characters/directional/dalgu/stance_walk_down/04.png"
+      ],
+      "durationsMs": [
+        110,
+        100,
+        110,
+        100
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.stance_walk_right",
+      "character": "dalgu",
+      "action": "stance_walk",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/stance_walk_right/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/stance_walk_right/01.png",
+        "characters/directional/dalgu/stance_walk_right/02.png",
+        "characters/directional/dalgu/stance_walk_right/03.png",
+        "characters/directional/dalgu/stance_walk_right/04.png"
+      ],
+      "durationsMs": [
+        110,
+        100,
+        110,
+        100
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.stance_walk_up",
+      "character": "dalgu",
+      "action": "stance_walk",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/stance_walk_up/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/stance_walk_up/01.png",
+        "characters/directional/dalgu/stance_walk_up/02.png",
+        "characters/directional/dalgu/stance_walk_up/03.png",
+        "characters/directional/dalgu/stance_walk_up/04.png"
+      ],
+      "durationsMs": [
+        110,
+        100,
+        110,
+        100
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.death_down",
+      "character": "dalgu",
+      "action": "death",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/death_down/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/death_down/01.png",
+        "characters/directional/dalgu/death_down/02.png",
+        "characters/directional/dalgu/death_down/03.png",
+        "characters/directional/dalgu/death_down/04.png",
+        "characters/directional/dalgu/death_down/05.png",
+        "characters/directional/dalgu/death_down/06.png"
+      ],
+      "durationsMs": [
+        90,
+        110,
+        110,
+        120,
+        170,
+        400
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "transparentFrames": [
+        5
+      ],
+      "note": "Last frame contains no body; the held wand is an independent sprite."
+    },
+    {
+      "id": "dalgu.sit_down",
+      "character": "dalgu",
+      "action": "sit",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/sit_down/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/sit_down/01.png",
+        "characters/directional/dalgu/sit_down/02.png"
+      ],
+      "durationsMs": [
+        200,
+        210
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.upgrade_success_down",
+      "character": "dalgu",
+      "action": "upgrade_success",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/upgrade_success_down/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/upgrade_success_down/01.png",
+        "characters/directional/dalgu/upgrade_success_down/02.png",
+        "characters/directional/dalgu/upgrade_success_down/03.png",
+        "characters/directional/dalgu/upgrade_success_down/04.png"
+      ],
+      "durationsMs": [
+        105,
+        85,
+        110,
+        160
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.upgrade_fail_down",
+      "character": "dalgu",
+      "action": "upgrade_fail",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/upgrade_fail_down/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/upgrade_fail_down/01.png",
+        "characters/directional/dalgu/upgrade_fail_down/02.png",
+        "characters/directional/dalgu/upgrade_fail_down/03.png",
+        "characters/directional/dalgu/upgrade_fail_down/04.png"
+      ],
+      "durationsMs": [
+        100,
+        115,
+        120,
+        160
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.upgrade_charge_down",
+      "character": "dalgu",
+      "action": "upgrade_charge",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/upgrade_charge_down/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/upgrade_charge_down/01.png",
+        "characters/directional/dalgu/upgrade_charge_down/02.png"
+      ],
+      "durationsMs": [
+        130,
+        160
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.duel_win_down",
+      "character": "dalgu",
+      "action": "duel_win",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/duel_win_down/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/duel_win_down/01.png",
+        "characters/directional/dalgu/duel_win_down/02.png",
+        "characters/directional/dalgu/duel_win_down/03.png",
+        "characters/directional/dalgu/duel_win_down/04.png"
+      ],
+      "durationsMs": [
+        100,
+        110,
+        100,
+        200
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.wave_down",
+      "character": "dalgu",
+      "action": "wave",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/wave_down/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/wave_down/01.png",
+        "characters/directional/dalgu/wave_down/02.png",
+        "characters/directional/dalgu/wave_down/03.png",
+        "characters/directional/dalgu/wave_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.clap_down",
+      "character": "dalgu",
+      "action": "clap",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/clap_down/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/clap_down/01.png",
+        "characters/directional/dalgu/clap_down/02.png",
+        "characters/directional/dalgu/clap_down/03.png",
+        "characters/directional/dalgu/clap_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.taunt_down",
+      "character": "dalgu",
+      "action": "taunt",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/taunt_down/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/taunt_down/01.png",
+        "characters/directional/dalgu/taunt_down/02.png",
+        "characters/directional/dalgu/taunt_down/03.png",
+        "characters/directional/dalgu/taunt_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.bow_down",
+      "character": "dalgu",
+      "action": "bow",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/bow_down/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/bow_down/01.png",
+        "characters/directional/dalgu/bow_down/02.png",
+        "characters/directional/dalgu/bow_down/03.png",
+        "characters/directional/dalgu/bow_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.sit_down_down",
+      "character": "dalgu",
+      "action": "sit_down",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/sit_down_down/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/sit_down_down/01.png",
+        "characters/directional/dalgu/sit_down_down/02.png",
+        "characters/directional/dalgu/sit_down_down/03.png",
+        "characters/directional/dalgu/sit_down_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.dance_down",
+      "character": "dalgu",
+      "action": "dance",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/dance_down/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/dance_down/01.png",
+        "characters/directional/dalgu/dance_down/02.png",
+        "characters/directional/dalgu/dance_down/03.png",
+        "characters/directional/dalgu/dance_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.lift_wand_down",
+      "character": "dalgu",
+      "action": "lift_wand",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/lift_wand_down/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/lift_wand_down/01.png",
+        "characters/directional/dalgu/lift_wand_down/02.png",
+        "characters/directional/dalgu/lift_wand_down/03.png",
+        "characters/directional/dalgu/lift_wand_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "dalgu.frustrated_down",
+      "character": "dalgu",
+      "action": "frustrated",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/dalgu/frustrated_down/sheet.png",
+      "frames": [
+        "characters/directional/dalgu/frustrated_down/01.png",
+        "characters/directional/dalgu/frustrated_down/02.png",
+        "characters/directional/dalgu/frustrated_down/03.png",
+        "characters/directional/dalgu/frustrated_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.walk_right",
+      "character": "chorong",
+      "action": "walk",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/motion/chorong/walk_right/sheet.png",
+      "frames": [
+        "characters/motion/chorong/walk_right/01.png",
+        "characters/motion/chorong/walk_right/02.png",
+        "characters/motion/chorong/walk_right/03.png",
+        "characters/motion/chorong/walk_right/04.png",
+        "characters/motion/chorong/walk_right/05.png",
+        "characters/motion/chorong/walk_right/06.png"
+      ],
+      "durationsMs": [
+        90,
+        75,
+        85,
+        90,
+        75,
+        85
+      ],
+      "loop": true,
+      "source": "existing redrawn walk"
+    },
+    {
+      "id": "chorong.walk_down",
+      "character": "chorong",
+      "action": "walk",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/walk_down/sheet.png",
+      "frames": [
+        "characters/directional/chorong/walk_down/01.png",
+        "characters/directional/chorong/walk_down/02.png",
+        "characters/directional/chorong/walk_down/03.png",
+        "characters/directional/chorong/walk_down/04.png",
+        "characters/directional/chorong/walk_down/05.png",
+        "characters/directional/chorong/walk_down/06.png"
+      ],
+      "durationsMs": [
+        90,
+        75,
+        85,
+        90,
+        75,
+        85
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.walk_up",
+      "character": "chorong",
+      "action": "walk",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/walk_up/sheet.png",
+      "frames": [
+        "characters/directional/chorong/walk_up/01.png",
+        "characters/directional/chorong/walk_up/02.png",
+        "characters/directional/chorong/walk_up/03.png",
+        "characters/directional/chorong/walk_up/04.png",
+        "characters/directional/chorong/walk_up/05.png",
+        "characters/directional/chorong/walk_up/06.png"
+      ],
+      "durationsMs": [
+        90,
+        75,
+        85,
+        90,
+        75,
+        85
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.cast_down",
+      "character": "chorong",
+      "action": "cast",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/cast_down/sheet.png",
+      "frames": [
+        "characters/directional/chorong/cast_down/01.png",
+        "characters/directional/chorong/cast_down/02.png",
+        "characters/directional/chorong/cast_down/03.png",
+        "characters/directional/chorong/cast_down/04.png"
+      ],
+      "durationsMs": [
+        95,
+        80,
+        100,
+        100
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "grip": [
+        [
+          27,
+          46
+        ],
+        [
+          24,
+          40
+        ],
+        [
+          48,
+          37
+        ],
+        [
+          22,
+          43
+        ]
+      ],
+      "wandLayer": "in-front"
+    },
+    {
+      "id": "chorong.cast_right",
+      "character": "chorong",
+      "action": "cast",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/cast_right/sheet.png",
+      "frames": [
+        "characters/directional/chorong/cast_right/01.png",
+        "characters/directional/chorong/cast_right/02.png",
+        "characters/directional/chorong/cast_right/03.png",
+        "characters/directional/chorong/cast_right/04.png"
+      ],
+      "durationsMs": [
+        95,
+        80,
+        100,
+        100
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "grip": [
+        [
+          40,
+          43
+        ],
+        [
+          27,
+          37
+        ],
+        [
+          53,
+          35
+        ],
+        [
+          40,
+          44
+        ]
+      ],
+      "wandLayer": "in-front"
+    },
+    {
+      "id": "chorong.cast_up",
+      "character": "chorong",
+      "action": "cast",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/cast_up/sheet.png",
+      "frames": [
+        "characters/directional/chorong/cast_up/01.png",
+        "characters/directional/chorong/cast_up/02.png",
+        "characters/directional/chorong/cast_up/03.png",
+        "characters/directional/chorong/cast_up/04.png"
+      ],
+      "durationsMs": [
+        95,
+        80,
+        100,
+        100
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "grip": [
+        [
+          41,
+          43
+        ],
+        [
+          25,
+          37
+        ],
+        [
+          51,
+          35
+        ],
+        [
+          45,
+          44
+        ]
+      ],
+      "wandLayer": "behind"
+    },
+    {
+      "id": "chorong.signature_down",
+      "character": "chorong",
+      "action": "signature",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/signature_down/sheet.png",
+      "frames": [
+        "characters/directional/chorong/signature_down/01.png",
+        "characters/directional/chorong/signature_down/02.png",
+        "characters/directional/chorong/signature_down/03.png",
+        "characters/directional/chorong/signature_down/04.png",
+        "characters/directional/chorong/signature_down/05.png",
+        "characters/directional/chorong/signature_down/06.png"
+      ],
+      "durationsMs": [
+        95,
+        85,
+        70,
+        70,
+        100,
+        125
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.signature_right",
+      "character": "chorong",
+      "action": "signature",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/signature_right/sheet.png",
+      "frames": [
+        "characters/directional/chorong/signature_right/01.png",
+        "characters/directional/chorong/signature_right/02.png",
+        "characters/directional/chorong/signature_right/03.png",
+        "characters/directional/chorong/signature_right/04.png",
+        "characters/directional/chorong/signature_right/05.png",
+        "characters/directional/chorong/signature_right/06.png"
+      ],
+      "durationsMs": [
+        95,
+        85,
+        70,
+        70,
+        100,
+        125
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.signature_up",
+      "character": "chorong",
+      "action": "signature",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/signature_up/sheet.png",
+      "frames": [
+        "characters/directional/chorong/signature_up/01.png",
+        "characters/directional/chorong/signature_up/02.png",
+        "characters/directional/chorong/signature_up/03.png",
+        "characters/directional/chorong/signature_up/04.png",
+        "characters/directional/chorong/signature_up/05.png",
+        "characters/directional/chorong/signature_up/06.png"
+      ],
+      "durationsMs": [
+        95,
+        85,
+        70,
+        70,
+        100,
+        125
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.fire_down",
+      "character": "chorong",
+      "action": "fire",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/fire_down/sheet.png",
+      "frames": [
+        "characters/directional/chorong/fire_down/01.png",
+        "characters/directional/chorong/fire_down/02.png",
+        "characters/directional/chorong/fire_down/03.png"
+      ],
+      "durationsMs": [
+        55,
+        55,
+        85
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.hit_down",
+      "character": "chorong",
+      "action": "hit",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/hit_down/sheet.png",
+      "frames": [
+        "characters/directional/chorong/hit_down/01.png",
+        "characters/directional/chorong/hit_down/02.png"
+      ],
+      "durationsMs": [
+        65,
+        90
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.fire_right",
+      "character": "chorong",
+      "action": "fire",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/fire_right/sheet.png",
+      "frames": [
+        "characters/directional/chorong/fire_right/01.png",
+        "characters/directional/chorong/fire_right/02.png",
+        "characters/directional/chorong/fire_right/03.png"
+      ],
+      "durationsMs": [
+        55,
+        55,
+        85
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.hit_right",
+      "character": "chorong",
+      "action": "hit",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/hit_right/sheet.png",
+      "frames": [
+        "characters/directional/chorong/hit_right/01.png",
+        "characters/directional/chorong/hit_right/02.png"
+      ],
+      "durationsMs": [
+        65,
+        90
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.fire_up",
+      "character": "chorong",
+      "action": "fire",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/fire_up/sheet.png",
+      "frames": [
+        "characters/directional/chorong/fire_up/01.png",
+        "characters/directional/chorong/fire_up/02.png",
+        "characters/directional/chorong/fire_up/03.png"
+      ],
+      "durationsMs": [
+        55,
+        55,
+        85
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.hit_up",
+      "character": "chorong",
+      "action": "hit",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/hit_up/sheet.png",
+      "frames": [
+        "characters/directional/chorong/hit_up/01.png",
+        "characters/directional/chorong/hit_up/02.png"
+      ],
+      "durationsMs": [
+        65,
+        90
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.idle_down",
+      "character": "chorong",
+      "action": "idle",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/idle_down/sheet.png",
+      "frames": [
+        "characters/directional/chorong/idle_down/01.png",
+        "characters/directional/chorong/idle_down/02.png",
+        "characters/directional/chorong/idle_down/03.png",
+        "characters/directional/chorong/idle_down/04.png"
+      ],
+      "durationsMs": [
+        160,
+        140,
+        150,
+        140
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.idle_right",
+      "character": "chorong",
+      "action": "idle",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/idle_right/sheet.png",
+      "frames": [
+        "characters/directional/chorong/idle_right/01.png",
+        "characters/directional/chorong/idle_right/02.png",
+        "characters/directional/chorong/idle_right/03.png",
+        "characters/directional/chorong/idle_right/04.png"
+      ],
+      "durationsMs": [
+        160,
+        140,
+        150,
+        140
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.idle_up",
+      "character": "chorong",
+      "action": "idle",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/idle_up/sheet.png",
+      "frames": [
+        "characters/directional/chorong/idle_up/01.png",
+        "characters/directional/chorong/idle_up/02.png",
+        "characters/directional/chorong/idle_up/03.png",
+        "characters/directional/chorong/idle_up/04.png"
+      ],
+      "durationsMs": [
+        160,
+        140,
+        150,
+        140
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.stance_walk_down",
+      "character": "chorong",
+      "action": "stance_walk",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/stance_walk_down/sheet.png",
+      "frames": [
+        "characters/directional/chorong/stance_walk_down/01.png",
+        "characters/directional/chorong/stance_walk_down/02.png",
+        "characters/directional/chorong/stance_walk_down/03.png",
+        "characters/directional/chorong/stance_walk_down/04.png"
+      ],
+      "durationsMs": [
+        110,
+        100,
+        110,
+        100
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.stance_walk_right",
+      "character": "chorong",
+      "action": "stance_walk",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/stance_walk_right/sheet.png",
+      "frames": [
+        "characters/directional/chorong/stance_walk_right/01.png",
+        "characters/directional/chorong/stance_walk_right/02.png",
+        "characters/directional/chorong/stance_walk_right/03.png",
+        "characters/directional/chorong/stance_walk_right/04.png"
+      ],
+      "durationsMs": [
+        110,
+        100,
+        110,
+        100
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.stance_walk_up",
+      "character": "chorong",
+      "action": "stance_walk",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/stance_walk_up/sheet.png",
+      "frames": [
+        "characters/directional/chorong/stance_walk_up/01.png",
+        "characters/directional/chorong/stance_walk_up/02.png",
+        "characters/directional/chorong/stance_walk_up/03.png",
+        "characters/directional/chorong/stance_walk_up/04.png"
+      ],
+      "durationsMs": [
+        110,
+        100,
+        110,
+        100
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.death_down",
+      "character": "chorong",
+      "action": "death",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/death_down/sheet.png",
+      "frames": [
+        "characters/directional/chorong/death_down/01.png",
+        "characters/directional/chorong/death_down/02.png",
+        "characters/directional/chorong/death_down/03.png",
+        "characters/directional/chorong/death_down/04.png",
+        "characters/directional/chorong/death_down/05.png",
+        "characters/directional/chorong/death_down/06.png"
+      ],
+      "durationsMs": [
+        90,
+        110,
+        110,
+        120,
+        170,
+        400
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "transparentFrames": [
+        5
+      ],
+      "note": "Last frame contains no body; the held wand is an independent sprite."
+    },
+    {
+      "id": "chorong.sit_down",
+      "character": "chorong",
+      "action": "sit",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/sit_down/sheet.png",
+      "frames": [
+        "characters/directional/chorong/sit_down/01.png",
+        "characters/directional/chorong/sit_down/02.png"
+      ],
+      "durationsMs": [
+        200,
+        210
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.upgrade_success_down",
+      "character": "chorong",
+      "action": "upgrade_success",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/upgrade_success_down/sheet.png",
+      "frames": [
+        "characters/directional/chorong/upgrade_success_down/01.png",
+        "characters/directional/chorong/upgrade_success_down/02.png",
+        "characters/directional/chorong/upgrade_success_down/03.png",
+        "characters/directional/chorong/upgrade_success_down/04.png"
+      ],
+      "durationsMs": [
+        105,
+        85,
+        110,
+        160
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.upgrade_fail_down",
+      "character": "chorong",
+      "action": "upgrade_fail",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/upgrade_fail_down/sheet.png",
+      "frames": [
+        "characters/directional/chorong/upgrade_fail_down/01.png",
+        "characters/directional/chorong/upgrade_fail_down/02.png",
+        "characters/directional/chorong/upgrade_fail_down/03.png",
+        "characters/directional/chorong/upgrade_fail_down/04.png"
+      ],
+      "durationsMs": [
+        100,
+        115,
+        120,
+        160
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.upgrade_charge_down",
+      "character": "chorong",
+      "action": "upgrade_charge",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/upgrade_charge_down/sheet.png",
+      "frames": [
+        "characters/directional/chorong/upgrade_charge_down/01.png",
+        "characters/directional/chorong/upgrade_charge_down/02.png"
+      ],
+      "durationsMs": [
+        130,
+        160
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.duel_win_down",
+      "character": "chorong",
+      "action": "duel_win",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/duel_win_down/sheet.png",
+      "frames": [
+        "characters/directional/chorong/duel_win_down/01.png",
+        "characters/directional/chorong/duel_win_down/02.png",
+        "characters/directional/chorong/duel_win_down/03.png",
+        "characters/directional/chorong/duel_win_down/04.png"
+      ],
+      "durationsMs": [
+        100,
+        110,
+        100,
+        200
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.wave_down",
+      "character": "chorong",
+      "action": "wave",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/wave_down/sheet.png",
+      "frames": [
+        "characters/directional/chorong/wave_down/01.png",
+        "characters/directional/chorong/wave_down/02.png",
+        "characters/directional/chorong/wave_down/03.png",
+        "characters/directional/chorong/wave_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.clap_down",
+      "character": "chorong",
+      "action": "clap",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/clap_down/sheet.png",
+      "frames": [
+        "characters/directional/chorong/clap_down/01.png",
+        "characters/directional/chorong/clap_down/02.png",
+        "characters/directional/chorong/clap_down/03.png",
+        "characters/directional/chorong/clap_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.taunt_down",
+      "character": "chorong",
+      "action": "taunt",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/taunt_down/sheet.png",
+      "frames": [
+        "characters/directional/chorong/taunt_down/01.png",
+        "characters/directional/chorong/taunt_down/02.png",
+        "characters/directional/chorong/taunt_down/03.png",
+        "characters/directional/chorong/taunt_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.bow_down",
+      "character": "chorong",
+      "action": "bow",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/bow_down/sheet.png",
+      "frames": [
+        "characters/directional/chorong/bow_down/01.png",
+        "characters/directional/chorong/bow_down/02.png",
+        "characters/directional/chorong/bow_down/03.png",
+        "characters/directional/chorong/bow_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.sit_down_down",
+      "character": "chorong",
+      "action": "sit_down",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/sit_down_down/sheet.png",
+      "frames": [
+        "characters/directional/chorong/sit_down_down/01.png",
+        "characters/directional/chorong/sit_down_down/02.png",
+        "characters/directional/chorong/sit_down_down/03.png",
+        "characters/directional/chorong/sit_down_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.dance_down",
+      "character": "chorong",
+      "action": "dance",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/dance_down/sheet.png",
+      "frames": [
+        "characters/directional/chorong/dance_down/01.png",
+        "characters/directional/chorong/dance_down/02.png",
+        "characters/directional/chorong/dance_down/03.png",
+        "characters/directional/chorong/dance_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.lift_wand_down",
+      "character": "chorong",
+      "action": "lift_wand",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/lift_wand_down/sheet.png",
+      "frames": [
+        "characters/directional/chorong/lift_wand_down/01.png",
+        "characters/directional/chorong/lift_wand_down/02.png",
+        "characters/directional/chorong/lift_wand_down/03.png",
+        "characters/directional/chorong/lift_wand_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "chorong.frustrated_down",
+      "character": "chorong",
+      "action": "frustrated",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/chorong/frustrated_down/sheet.png",
+      "frames": [
+        "characters/directional/chorong/frustrated_down/01.png",
+        "characters/directional/chorong/frustrated_down/02.png",
+        "characters/directional/chorong/frustrated_down/03.png",
+        "characters/directional/chorong/frustrated_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.walk_right",
+      "character": "galpi",
+      "action": "walk",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/motion/galpi/walk_right/sheet.png",
+      "frames": [
+        "characters/motion/galpi/walk_right/01.png",
+        "characters/motion/galpi/walk_right/02.png",
+        "characters/motion/galpi/walk_right/03.png",
+        "characters/motion/galpi/walk_right/04.png",
+        "characters/motion/galpi/walk_right/05.png",
+        "characters/motion/galpi/walk_right/06.png"
+      ],
+      "durationsMs": [
+        90,
+        75,
+        85,
+        90,
+        75,
+        85
+      ],
+      "loop": true,
+      "source": "existing redrawn walk"
+    },
+    {
+      "id": "galpi.walk_down",
+      "character": "galpi",
+      "action": "walk",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/walk_down/sheet.png",
+      "frames": [
+        "characters/directional/galpi/walk_down/01.png",
+        "characters/directional/galpi/walk_down/02.png",
+        "characters/directional/galpi/walk_down/03.png",
+        "characters/directional/galpi/walk_down/04.png",
+        "characters/directional/galpi/walk_down/05.png",
+        "characters/directional/galpi/walk_down/06.png"
+      ],
+      "durationsMs": [
+        90,
+        75,
+        85,
+        90,
+        75,
+        85
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.walk_up",
+      "character": "galpi",
+      "action": "walk",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/walk_up/sheet.png",
+      "frames": [
+        "characters/directional/galpi/walk_up/01.png",
+        "characters/directional/galpi/walk_up/02.png",
+        "characters/directional/galpi/walk_up/03.png",
+        "characters/directional/galpi/walk_up/04.png",
+        "characters/directional/galpi/walk_up/05.png",
+        "characters/directional/galpi/walk_up/06.png"
+      ],
+      "durationsMs": [
+        90,
+        75,
+        85,
+        90,
+        75,
+        85
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.cast_down",
+      "character": "galpi",
+      "action": "cast",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/cast_down/sheet.png",
+      "frames": [
+        "characters/directional/galpi/cast_down/01.png",
+        "characters/directional/galpi/cast_down/02.png",
+        "characters/directional/galpi/cast_down/03.png",
+        "characters/directional/galpi/cast_down/04.png"
+      ],
+      "durationsMs": [
+        95,
+        80,
+        100,
+        100
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "grip": [
+        [
+          26,
+          46
+        ],
+        [
+          24,
+          39
+        ],
+        [
+          22,
+          39
+        ],
+        [
+          21,
+          45
+        ]
+      ],
+      "wandLayer": "in-front"
+    },
+    {
+      "id": "galpi.cast_right",
+      "character": "galpi",
+      "action": "cast",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/cast_right/sheet.png",
+      "frames": [
+        "characters/directional/galpi/cast_right/01.png",
+        "characters/directional/galpi/cast_right/02.png",
+        "characters/directional/galpi/cast_right/03.png",
+        "characters/directional/galpi/cast_right/04.png"
+      ],
+      "durationsMs": [
+        95,
+        80,
+        100,
+        100
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "grip": [
+        [
+          39,
+          46
+        ],
+        [
+          27,
+          39
+        ],
+        [
+          47,
+          36
+        ],
+        [
+          41,
+          45
+        ]
+      ],
+      "wandLayer": "in-front"
+    },
+    {
+      "id": "galpi.cast_up",
+      "character": "galpi",
+      "action": "cast",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/cast_up/sheet.png",
+      "frames": [
+        "characters/directional/galpi/cast_up/01.png",
+        "characters/directional/galpi/cast_up/02.png",
+        "characters/directional/galpi/cast_up/03.png",
+        "characters/directional/galpi/cast_up/04.png"
+      ],
+      "durationsMs": [
+        95,
+        80,
+        100,
+        100
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "grip": [
+        [
+          41,
+          44
+        ],
+        [
+          43,
+          37
+        ],
+        [
+          47,
+          37
+        ],
+        [
+          43,
+          46
+        ]
+      ],
+      "wandLayer": "behind"
+    },
+    {
+      "id": "galpi.signature_down",
+      "character": "galpi",
+      "action": "signature",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/signature_down/sheet.png",
+      "frames": [
+        "characters/directional/galpi/signature_down/01.png",
+        "characters/directional/galpi/signature_down/02.png",
+        "characters/directional/galpi/signature_down/03.png",
+        "characters/directional/galpi/signature_down/04.png",
+        "characters/directional/galpi/signature_down/05.png",
+        "characters/directional/galpi/signature_down/06.png"
+      ],
+      "durationsMs": [
+        95,
+        85,
+        70,
+        70,
+        100,
+        125
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.signature_right",
+      "character": "galpi",
+      "action": "signature",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/signature_right/sheet.png",
+      "frames": [
+        "characters/directional/galpi/signature_right/01.png",
+        "characters/directional/galpi/signature_right/02.png",
+        "characters/directional/galpi/signature_right/03.png",
+        "characters/directional/galpi/signature_right/04.png",
+        "characters/directional/galpi/signature_right/05.png",
+        "characters/directional/galpi/signature_right/06.png"
+      ],
+      "durationsMs": [
+        95,
+        85,
+        70,
+        70,
+        100,
+        125
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.signature_up",
+      "character": "galpi",
+      "action": "signature",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/signature_up/sheet.png",
+      "frames": [
+        "characters/directional/galpi/signature_up/01.png",
+        "characters/directional/galpi/signature_up/02.png",
+        "characters/directional/galpi/signature_up/03.png",
+        "characters/directional/galpi/signature_up/04.png",
+        "characters/directional/galpi/signature_up/05.png",
+        "characters/directional/galpi/signature_up/06.png"
+      ],
+      "durationsMs": [
+        95,
+        85,
+        70,
+        70,
+        100,
+        125
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.fire_down",
+      "character": "galpi",
+      "action": "fire",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/fire_down/sheet.png",
+      "frames": [
+        "characters/directional/galpi/fire_down/01.png",
+        "characters/directional/galpi/fire_down/02.png",
+        "characters/directional/galpi/fire_down/03.png"
+      ],
+      "durationsMs": [
+        55,
+        55,
+        85
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.hit_down",
+      "character": "galpi",
+      "action": "hit",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/hit_down/sheet.png",
+      "frames": [
+        "characters/directional/galpi/hit_down/01.png",
+        "characters/directional/galpi/hit_down/02.png"
+      ],
+      "durationsMs": [
+        65,
+        90
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.fire_right",
+      "character": "galpi",
+      "action": "fire",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/fire_right/sheet.png",
+      "frames": [
+        "characters/directional/galpi/fire_right/01.png",
+        "characters/directional/galpi/fire_right/02.png",
+        "characters/directional/galpi/fire_right/03.png"
+      ],
+      "durationsMs": [
+        55,
+        55,
+        85
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.hit_right",
+      "character": "galpi",
+      "action": "hit",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/hit_right/sheet.png",
+      "frames": [
+        "characters/directional/galpi/hit_right/01.png",
+        "characters/directional/galpi/hit_right/02.png"
+      ],
+      "durationsMs": [
+        65,
+        90
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.fire_up",
+      "character": "galpi",
+      "action": "fire",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/fire_up/sheet.png",
+      "frames": [
+        "characters/directional/galpi/fire_up/01.png",
+        "characters/directional/galpi/fire_up/02.png",
+        "characters/directional/galpi/fire_up/03.png"
+      ],
+      "durationsMs": [
+        55,
+        55,
+        85
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.hit_up",
+      "character": "galpi",
+      "action": "hit",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/hit_up/sheet.png",
+      "frames": [
+        "characters/directional/galpi/hit_up/01.png",
+        "characters/directional/galpi/hit_up/02.png"
+      ],
+      "durationsMs": [
+        65,
+        90
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.idle_down",
+      "character": "galpi",
+      "action": "idle",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/idle_down/sheet.png",
+      "frames": [
+        "characters/directional/galpi/idle_down/01.png",
+        "characters/directional/galpi/idle_down/02.png",
+        "characters/directional/galpi/idle_down/03.png",
+        "characters/directional/galpi/idle_down/04.png"
+      ],
+      "durationsMs": [
+        160,
+        140,
+        150,
+        140
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.idle_right",
+      "character": "galpi",
+      "action": "idle",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/idle_right/sheet.png",
+      "frames": [
+        "characters/directional/galpi/idle_right/01.png",
+        "characters/directional/galpi/idle_right/02.png",
+        "characters/directional/galpi/idle_right/03.png",
+        "characters/directional/galpi/idle_right/04.png"
+      ],
+      "durationsMs": [
+        160,
+        140,
+        150,
+        140
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.idle_up",
+      "character": "galpi",
+      "action": "idle",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/idle_up/sheet.png",
+      "frames": [
+        "characters/directional/galpi/idle_up/01.png",
+        "characters/directional/galpi/idle_up/02.png",
+        "characters/directional/galpi/idle_up/03.png",
+        "characters/directional/galpi/idle_up/04.png"
+      ],
+      "durationsMs": [
+        160,
+        140,
+        150,
+        140
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.stance_walk_down",
+      "character": "galpi",
+      "action": "stance_walk",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/stance_walk_down/sheet.png",
+      "frames": [
+        "characters/directional/galpi/stance_walk_down/01.png",
+        "characters/directional/galpi/stance_walk_down/02.png",
+        "characters/directional/galpi/stance_walk_down/03.png",
+        "characters/directional/galpi/stance_walk_down/04.png"
+      ],
+      "durationsMs": [
+        110,
+        100,
+        110,
+        100
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.stance_walk_right",
+      "character": "galpi",
+      "action": "stance_walk",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/stance_walk_right/sheet.png",
+      "frames": [
+        "characters/directional/galpi/stance_walk_right/01.png",
+        "characters/directional/galpi/stance_walk_right/02.png",
+        "characters/directional/galpi/stance_walk_right/03.png",
+        "characters/directional/galpi/stance_walk_right/04.png"
+      ],
+      "durationsMs": [
+        110,
+        100,
+        110,
+        100
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.stance_walk_up",
+      "character": "galpi",
+      "action": "stance_walk",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/stance_walk_up/sheet.png",
+      "frames": [
+        "characters/directional/galpi/stance_walk_up/01.png",
+        "characters/directional/galpi/stance_walk_up/02.png",
+        "characters/directional/galpi/stance_walk_up/03.png",
+        "characters/directional/galpi/stance_walk_up/04.png"
+      ],
+      "durationsMs": [
+        110,
+        100,
+        110,
+        100
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.death_down",
+      "character": "galpi",
+      "action": "death",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/death_down/sheet.png",
+      "frames": [
+        "characters/directional/galpi/death_down/01.png",
+        "characters/directional/galpi/death_down/02.png",
+        "characters/directional/galpi/death_down/03.png",
+        "characters/directional/galpi/death_down/04.png",
+        "characters/directional/galpi/death_down/05.png",
+        "characters/directional/galpi/death_down/06.png"
+      ],
+      "durationsMs": [
+        90,
+        110,
+        110,
+        120,
+        170,
+        400
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "transparentFrames": [
+        5
+      ],
+      "note": "Last frame contains no body; the held wand is an independent sprite."
+    },
+    {
+      "id": "galpi.sit_down",
+      "character": "galpi",
+      "action": "sit",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/sit_down/sheet.png",
+      "frames": [
+        "characters/directional/galpi/sit_down/01.png",
+        "characters/directional/galpi/sit_down/02.png"
+      ],
+      "durationsMs": [
+        200,
+        210
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.upgrade_success_down",
+      "character": "galpi",
+      "action": "upgrade_success",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/upgrade_success_down/sheet.png",
+      "frames": [
+        "characters/directional/galpi/upgrade_success_down/01.png",
+        "characters/directional/galpi/upgrade_success_down/02.png",
+        "characters/directional/galpi/upgrade_success_down/03.png",
+        "characters/directional/galpi/upgrade_success_down/04.png"
+      ],
+      "durationsMs": [
+        105,
+        85,
+        110,
+        160
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.upgrade_fail_down",
+      "character": "galpi",
+      "action": "upgrade_fail",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/upgrade_fail_down/sheet.png",
+      "frames": [
+        "characters/directional/galpi/upgrade_fail_down/01.png",
+        "characters/directional/galpi/upgrade_fail_down/02.png",
+        "characters/directional/galpi/upgrade_fail_down/03.png",
+        "characters/directional/galpi/upgrade_fail_down/04.png"
+      ],
+      "durationsMs": [
+        100,
+        115,
+        120,
+        160
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.upgrade_charge_down",
+      "character": "galpi",
+      "action": "upgrade_charge",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/upgrade_charge_down/sheet.png",
+      "frames": [
+        "characters/directional/galpi/upgrade_charge_down/01.png",
+        "characters/directional/galpi/upgrade_charge_down/02.png"
+      ],
+      "durationsMs": [
+        130,
+        160
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.duel_win_down",
+      "character": "galpi",
+      "action": "duel_win",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/duel_win_down/sheet.png",
+      "frames": [
+        "characters/directional/galpi/duel_win_down/01.png",
+        "characters/directional/galpi/duel_win_down/02.png",
+        "characters/directional/galpi/duel_win_down/03.png",
+        "characters/directional/galpi/duel_win_down/04.png"
+      ],
+      "durationsMs": [
+        100,
+        110,
+        100,
+        200
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.wave_down",
+      "character": "galpi",
+      "action": "wave",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/wave_down/sheet.png",
+      "frames": [
+        "characters/directional/galpi/wave_down/01.png",
+        "characters/directional/galpi/wave_down/02.png",
+        "characters/directional/galpi/wave_down/03.png",
+        "characters/directional/galpi/wave_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.clap_down",
+      "character": "galpi",
+      "action": "clap",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/clap_down/sheet.png",
+      "frames": [
+        "characters/directional/galpi/clap_down/01.png",
+        "characters/directional/galpi/clap_down/02.png",
+        "characters/directional/galpi/clap_down/03.png",
+        "characters/directional/galpi/clap_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.taunt_down",
+      "character": "galpi",
+      "action": "taunt",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/taunt_down/sheet.png",
+      "frames": [
+        "characters/directional/galpi/taunt_down/01.png",
+        "characters/directional/galpi/taunt_down/02.png",
+        "characters/directional/galpi/taunt_down/03.png",
+        "characters/directional/galpi/taunt_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.bow_down",
+      "character": "galpi",
+      "action": "bow",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/bow_down/sheet.png",
+      "frames": [
+        "characters/directional/galpi/bow_down/01.png",
+        "characters/directional/galpi/bow_down/02.png",
+        "characters/directional/galpi/bow_down/03.png",
+        "characters/directional/galpi/bow_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.sit_down_down",
+      "character": "galpi",
+      "action": "sit_down",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/sit_down_down/sheet.png",
+      "frames": [
+        "characters/directional/galpi/sit_down_down/01.png",
+        "characters/directional/galpi/sit_down_down/02.png",
+        "characters/directional/galpi/sit_down_down/03.png",
+        "characters/directional/galpi/sit_down_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.dance_down",
+      "character": "galpi",
+      "action": "dance",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/dance_down/sheet.png",
+      "frames": [
+        "characters/directional/galpi/dance_down/01.png",
+        "characters/directional/galpi/dance_down/02.png",
+        "characters/directional/galpi/dance_down/03.png",
+        "characters/directional/galpi/dance_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.lift_wand_down",
+      "character": "galpi",
+      "action": "lift_wand",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/lift_wand_down/sheet.png",
+      "frames": [
+        "characters/directional/galpi/lift_wand_down/01.png",
+        "characters/directional/galpi/lift_wand_down/02.png",
+        "characters/directional/galpi/lift_wand_down/03.png",
+        "characters/directional/galpi/lift_wand_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "galpi.frustrated_down",
+      "character": "galpi",
+      "action": "frustrated",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/galpi/frustrated_down/sheet.png",
+      "frames": [
+        "characters/directional/galpi/frustrated_down/01.png",
+        "characters/directional/galpi/frustrated_down/02.png",
+        "characters/directional/galpi/frustrated_down/03.png",
+        "characters/directional/galpi/frustrated_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.walk_right",
+      "character": "seonge",
+      "action": "walk",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/motion/seonge/walk_right/sheet.png",
+      "frames": [
+        "characters/motion/seonge/walk_right/01.png",
+        "characters/motion/seonge/walk_right/02.png",
+        "characters/motion/seonge/walk_right/03.png",
+        "characters/motion/seonge/walk_right/04.png",
+        "characters/motion/seonge/walk_right/05.png",
+        "characters/motion/seonge/walk_right/06.png"
+      ],
+      "durationsMs": [
+        90,
+        75,
+        85,
+        90,
+        75,
+        85
+      ],
+      "loop": true,
+      "source": "existing redrawn walk"
+    },
+    {
+      "id": "seonge.walk_down",
+      "character": "seonge",
+      "action": "walk",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/walk_down/sheet.png",
+      "frames": [
+        "characters/directional/seonge/walk_down/01.png",
+        "characters/directional/seonge/walk_down/02.png",
+        "characters/directional/seonge/walk_down/03.png",
+        "characters/directional/seonge/walk_down/04.png",
+        "characters/directional/seonge/walk_down/05.png",
+        "characters/directional/seonge/walk_down/06.png"
+      ],
+      "durationsMs": [
+        90,
+        75,
+        85,
+        90,
+        75,
+        85
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.walk_up",
+      "character": "seonge",
+      "action": "walk",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/walk_up/sheet.png",
+      "frames": [
+        "characters/directional/seonge/walk_up/01.png",
+        "characters/directional/seonge/walk_up/02.png",
+        "characters/directional/seonge/walk_up/03.png",
+        "characters/directional/seonge/walk_up/04.png",
+        "characters/directional/seonge/walk_up/05.png",
+        "characters/directional/seonge/walk_up/06.png"
+      ],
+      "durationsMs": [
+        90,
+        75,
+        85,
+        90,
+        75,
+        85
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.cast_down",
+      "character": "seonge",
+      "action": "cast",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/cast_down/sheet.png",
+      "frames": [
+        "characters/directional/seonge/cast_down/01.png",
+        "characters/directional/seonge/cast_down/02.png",
+        "characters/directional/seonge/cast_down/03.png",
+        "characters/directional/seonge/cast_down/04.png"
+      ],
+      "durationsMs": [
+        95,
+        80,
+        100,
+        100
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "grip": [
+        [
+          31,
+          43
+        ],
+        [
+          18,
+          35
+        ],
+        [
+          17,
+          34
+        ],
+        [
+          19,
+          42
+        ]
+      ],
+      "wandLayer": "in-front"
+    },
+    {
+      "id": "seonge.cast_right",
+      "character": "seonge",
+      "action": "cast",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/cast_right/sheet.png",
+      "frames": [
+        "characters/directional/seonge/cast_right/01.png",
+        "characters/directional/seonge/cast_right/02.png",
+        "characters/directional/seonge/cast_right/03.png",
+        "characters/directional/seonge/cast_right/04.png"
+      ],
+      "durationsMs": [
+        95,
+        80,
+        100,
+        100
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "grip": [
+        [
+          41,
+          43
+        ],
+        [
+          32,
+          33
+        ],
+        [
+          50,
+          34
+        ],
+        [
+          41,
+          43
+        ]
+      ],
+      "wandLayer": "in-front"
+    },
+    {
+      "id": "seonge.cast_up",
+      "character": "seonge",
+      "action": "cast",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/cast_up/sheet.png",
+      "frames": [
+        "characters/directional/seonge/cast_up/01.png",
+        "characters/directional/seonge/cast_up/02.png",
+        "characters/directional/seonge/cast_up/03.png",
+        "characters/directional/seonge/cast_up/04.png"
+      ],
+      "durationsMs": [
+        95,
+        80,
+        100,
+        100
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "grip": [
+        [
+          44,
+          37
+        ],
+        [
+          48,
+          35
+        ],
+        [
+          52,
+          34
+        ],
+        [
+          45,
+          43
+        ]
+      ],
+      "wandLayer": "behind"
+    },
+    {
+      "id": "seonge.signature_down",
+      "character": "seonge",
+      "action": "signature",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/signature_down/sheet.png",
+      "frames": [
+        "characters/directional/seonge/signature_down/01.png",
+        "characters/directional/seonge/signature_down/02.png",
+        "characters/directional/seonge/signature_down/03.png",
+        "characters/directional/seonge/signature_down/04.png",
+        "characters/directional/seonge/signature_down/05.png",
+        "characters/directional/seonge/signature_down/06.png"
+      ],
+      "durationsMs": [
+        95,
+        85,
+        70,
+        70,
+        100,
+        125
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.signature_right",
+      "character": "seonge",
+      "action": "signature",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/signature_right/sheet.png",
+      "frames": [
+        "characters/directional/seonge/signature_right/01.png",
+        "characters/directional/seonge/signature_right/02.png",
+        "characters/directional/seonge/signature_right/03.png",
+        "characters/directional/seonge/signature_right/04.png",
+        "characters/directional/seonge/signature_right/05.png",
+        "characters/directional/seonge/signature_right/06.png"
+      ],
+      "durationsMs": [
+        95,
+        85,
+        70,
+        70,
+        100,
+        125
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.signature_up",
+      "character": "seonge",
+      "action": "signature",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/signature_up/sheet.png",
+      "frames": [
+        "characters/directional/seonge/signature_up/01.png",
+        "characters/directional/seonge/signature_up/02.png",
+        "characters/directional/seonge/signature_up/03.png",
+        "characters/directional/seonge/signature_up/04.png",
+        "characters/directional/seonge/signature_up/05.png",
+        "characters/directional/seonge/signature_up/06.png"
+      ],
+      "durationsMs": [
+        95,
+        85,
+        70,
+        70,
+        100,
+        125
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.fire_down",
+      "character": "seonge",
+      "action": "fire",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/fire_down/sheet.png",
+      "frames": [
+        "characters/directional/seonge/fire_down/01.png",
+        "characters/directional/seonge/fire_down/02.png",
+        "characters/directional/seonge/fire_down/03.png"
+      ],
+      "durationsMs": [
+        55,
+        55,
+        85
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.hit_down",
+      "character": "seonge",
+      "action": "hit",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/hit_down/sheet.png",
+      "frames": [
+        "characters/directional/seonge/hit_down/01.png",
+        "characters/directional/seonge/hit_down/02.png"
+      ],
+      "durationsMs": [
+        65,
+        90
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.fire_right",
+      "character": "seonge",
+      "action": "fire",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/fire_right/sheet.png",
+      "frames": [
+        "characters/directional/seonge/fire_right/01.png",
+        "characters/directional/seonge/fire_right/02.png",
+        "characters/directional/seonge/fire_right/03.png"
+      ],
+      "durationsMs": [
+        55,
+        55,
+        85
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.hit_right",
+      "character": "seonge",
+      "action": "hit",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/hit_right/sheet.png",
+      "frames": [
+        "characters/directional/seonge/hit_right/01.png",
+        "characters/directional/seonge/hit_right/02.png"
+      ],
+      "durationsMs": [
+        65,
+        90
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.fire_up",
+      "character": "seonge",
+      "action": "fire",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/fire_up/sheet.png",
+      "frames": [
+        "characters/directional/seonge/fire_up/01.png",
+        "characters/directional/seonge/fire_up/02.png",
+        "characters/directional/seonge/fire_up/03.png"
+      ],
+      "durationsMs": [
+        55,
+        55,
+        85
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.hit_up",
+      "character": "seonge",
+      "action": "hit",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/hit_up/sheet.png",
+      "frames": [
+        "characters/directional/seonge/hit_up/01.png",
+        "characters/directional/seonge/hit_up/02.png"
+      ],
+      "durationsMs": [
+        65,
+        90
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.idle_down",
+      "character": "seonge",
+      "action": "idle",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/idle_down/sheet.png",
+      "frames": [
+        "characters/directional/seonge/idle_down/01.png",
+        "characters/directional/seonge/idle_down/02.png",
+        "characters/directional/seonge/idle_down/03.png",
+        "characters/directional/seonge/idle_down/04.png"
+      ],
+      "durationsMs": [
+        160,
+        140,
+        150,
+        140
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.idle_right",
+      "character": "seonge",
+      "action": "idle",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/idle_right/sheet.png",
+      "frames": [
+        "characters/directional/seonge/idle_right/01.png",
+        "characters/directional/seonge/idle_right/02.png",
+        "characters/directional/seonge/idle_right/03.png",
+        "characters/directional/seonge/idle_right/04.png"
+      ],
+      "durationsMs": [
+        160,
+        140,
+        150,
+        140
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.idle_up",
+      "character": "seonge",
+      "action": "idle",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/idle_up/sheet.png",
+      "frames": [
+        "characters/directional/seonge/idle_up/01.png",
+        "characters/directional/seonge/idle_up/02.png",
+        "characters/directional/seonge/idle_up/03.png",
+        "characters/directional/seonge/idle_up/04.png"
+      ],
+      "durationsMs": [
+        160,
+        140,
+        150,
+        140
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.stance_walk_down",
+      "character": "seonge",
+      "action": "stance_walk",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/stance_walk_down/sheet.png",
+      "frames": [
+        "characters/directional/seonge/stance_walk_down/01.png",
+        "characters/directional/seonge/stance_walk_down/02.png",
+        "characters/directional/seonge/stance_walk_down/03.png",
+        "characters/directional/seonge/stance_walk_down/04.png"
+      ],
+      "durationsMs": [
+        110,
+        100,
+        110,
+        100
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.stance_walk_right",
+      "character": "seonge",
+      "action": "stance_walk",
+      "facing": "right",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/stance_walk_right/sheet.png",
+      "frames": [
+        "characters/directional/seonge/stance_walk_right/01.png",
+        "characters/directional/seonge/stance_walk_right/02.png",
+        "characters/directional/seonge/stance_walk_right/03.png",
+        "characters/directional/seonge/stance_walk_right/04.png"
+      ],
+      "durationsMs": [
+        110,
+        100,
+        110,
+        100
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.stance_walk_up",
+      "character": "seonge",
+      "action": "stance_walk",
+      "facing": "up",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/stance_walk_up/sheet.png",
+      "frames": [
+        "characters/directional/seonge/stance_walk_up/01.png",
+        "characters/directional/seonge/stance_walk_up/02.png",
+        "characters/directional/seonge/stance_walk_up/03.png",
+        "characters/directional/seonge/stance_walk_up/04.png"
+      ],
+      "durationsMs": [
+        110,
+        100,
+        110,
+        100
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.death_down",
+      "character": "seonge",
+      "action": "death",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/death_down/sheet.png",
+      "frames": [
+        "characters/directional/seonge/death_down/01.png",
+        "characters/directional/seonge/death_down/02.png",
+        "characters/directional/seonge/death_down/03.png",
+        "characters/directional/seonge/death_down/04.png",
+        "characters/directional/seonge/death_down/05.png",
+        "characters/directional/seonge/death_down/06.png"
+      ],
+      "durationsMs": [
+        90,
+        110,
+        110,
+        120,
+        170,
+        400
+      ],
+      "loop": false,
+      "source": "ImageGen",
+      "transparentFrames": [
+        5
+      ],
+      "note": "Last frame contains no body; the held wand is an independent sprite."
+    },
+    {
+      "id": "seonge.sit_down",
+      "character": "seonge",
+      "action": "sit",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/sit_down/sheet.png",
+      "frames": [
+        "characters/directional/seonge/sit_down/01.png",
+        "characters/directional/seonge/sit_down/02.png"
+      ],
+      "durationsMs": [
+        200,
+        210
+      ],
+      "loop": true,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.upgrade_success_down",
+      "character": "seonge",
+      "action": "upgrade_success",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/upgrade_success_down/sheet.png",
+      "frames": [
+        "characters/directional/seonge/upgrade_success_down/01.png",
+        "characters/directional/seonge/upgrade_success_down/02.png",
+        "characters/directional/seonge/upgrade_success_down/03.png",
+        "characters/directional/seonge/upgrade_success_down/04.png"
+      ],
+      "durationsMs": [
+        105,
+        85,
+        110,
+        160
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.upgrade_fail_down",
+      "character": "seonge",
+      "action": "upgrade_fail",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/upgrade_fail_down/sheet.png",
+      "frames": [
+        "characters/directional/seonge/upgrade_fail_down/01.png",
+        "characters/directional/seonge/upgrade_fail_down/02.png",
+        "characters/directional/seonge/upgrade_fail_down/03.png",
+        "characters/directional/seonge/upgrade_fail_down/04.png"
+      ],
+      "durationsMs": [
+        100,
+        115,
+        120,
+        160
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.upgrade_charge_down",
+      "character": "seonge",
+      "action": "upgrade_charge",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/upgrade_charge_down/sheet.png",
+      "frames": [
+        "characters/directional/seonge/upgrade_charge_down/01.png",
+        "characters/directional/seonge/upgrade_charge_down/02.png"
+      ],
+      "durationsMs": [
+        130,
+        160
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.duel_win_down",
+      "character": "seonge",
+      "action": "duel_win",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/duel_win_down/sheet.png",
+      "frames": [
+        "characters/directional/seonge/duel_win_down/01.png",
+        "characters/directional/seonge/duel_win_down/02.png",
+        "characters/directional/seonge/duel_win_down/03.png",
+        "characters/directional/seonge/duel_win_down/04.png"
+      ],
+      "durationsMs": [
+        100,
+        110,
+        100,
+        200
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.wave_down",
+      "character": "seonge",
+      "action": "wave",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/wave_down/sheet.png",
+      "frames": [
+        "characters/directional/seonge/wave_down/01.png",
+        "characters/directional/seonge/wave_down/02.png",
+        "characters/directional/seonge/wave_down/03.png",
+        "characters/directional/seonge/wave_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.clap_down",
+      "character": "seonge",
+      "action": "clap",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/clap_down/sheet.png",
+      "frames": [
+        "characters/directional/seonge/clap_down/01.png",
+        "characters/directional/seonge/clap_down/02.png",
+        "characters/directional/seonge/clap_down/03.png",
+        "characters/directional/seonge/clap_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.taunt_down",
+      "character": "seonge",
+      "action": "taunt",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/taunt_down/sheet.png",
+      "frames": [
+        "characters/directional/seonge/taunt_down/01.png",
+        "characters/directional/seonge/taunt_down/02.png",
+        "characters/directional/seonge/taunt_down/03.png",
+        "characters/directional/seonge/taunt_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.bow_down",
+      "character": "seonge",
+      "action": "bow",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/bow_down/sheet.png",
+      "frames": [
+        "characters/directional/seonge/bow_down/01.png",
+        "characters/directional/seonge/bow_down/02.png",
+        "characters/directional/seonge/bow_down/03.png",
+        "characters/directional/seonge/bow_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.sit_down_down",
+      "character": "seonge",
+      "action": "sit_down",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/sit_down_down/sheet.png",
+      "frames": [
+        "characters/directional/seonge/sit_down_down/01.png",
+        "characters/directional/seonge/sit_down_down/02.png",
+        "characters/directional/seonge/sit_down_down/03.png",
+        "characters/directional/seonge/sit_down_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.dance_down",
+      "character": "seonge",
+      "action": "dance",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/dance_down/sheet.png",
+      "frames": [
+        "characters/directional/seonge/dance_down/01.png",
+        "characters/directional/seonge/dance_down/02.png",
+        "characters/directional/seonge/dance_down/03.png",
+        "characters/directional/seonge/dance_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.lift_wand_down",
+      "character": "seonge",
+      "action": "lift_wand",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/lift_wand_down/sheet.png",
+      "frames": [
+        "characters/directional/seonge/lift_wand_down/01.png",
+        "characters/directional/seonge/lift_wand_down/02.png",
+        "characters/directional/seonge/lift_wand_down/03.png",
+        "characters/directional/seonge/lift_wand_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    },
+    {
+      "id": "seonge.frustrated_down",
+      "character": "seonge",
+      "action": "frustrated",
+      "facing": "down",
+      "frameSize": [
+        64,
+        64
+      ],
+      "feet": [
+        32,
+        59
+      ],
+      "sheet": "characters/directional/seonge/frustrated_down/sheet.png",
+      "frames": [
+        "characters/directional/seonge/frustrated_down/01.png",
+        "characters/directional/seonge/frustrated_down/02.png",
+        "characters/directional/seonge/frustrated_down/03.png",
+        "characters/directional/seonge/frustrated_down/04.png"
+      ],
+      "durationsMs": [
+        125,
+        120,
+        125,
+        150
+      ],
+      "loop": false,
+      "source": "ImageGen"
+    }
+  ],
+  "palettes": {
+    "geumeum": [
+      [
+        146,
+        110,
+        159
+      ],
+      [
+        137,
+        84,
+        131
+      ],
+      [
+        127,
+        62,
+        109
+      ],
+      [
+        66,
+        62,
+        103
+      ],
+      [
+        121,
+        53,
+        102
+      ],
+      [
+        121,
+        48,
+        97
+      ],
+      [
+        112,
+        48,
+        94
+      ],
+      [
+        72,
+        46,
+        80
+      ],
+      [
+        92,
+        35,
+        76
+      ],
+      [
+        83,
+        33,
+        71
+      ],
+      [
+        58,
+        33,
+        63
+      ],
+      [
+        46,
+        22,
+        45
+      ],
+      [
+        32,
+        18,
+        34
+      ],
+      [
+        28,
+        14,
+        29
+      ],
+      [
+        27,
+        12,
+        29
+      ],
+      [
+        23,
+        11,
+        25
+      ]
+    ],
+    "dalgu": [
+      [
+        248,
+        207,
+        181
+      ],
+      [
+        222,
+        167,
+        136
+      ],
+      [
+        217,
+        127,
+        99
+      ],
+      [
+        126,
+        126,
+        118
+      ],
+      [
+        207,
+        111,
+        89
+      ],
+      [
+        196,
+        103,
+        84
+      ],
+      [
+        153,
+        92,
+        82
+      ],
+      [
+        59,
+        99,
+        109
+      ],
+      [
+        140,
+        70,
+        68
+      ],
+      [
+        72,
+        67,
+        75
+      ],
+      [
+        75,
+        39,
+        46
+      ],
+      [
+        43,
+        27,
+        39
+      ],
+      [
+        34,
+        27,
+        40
+      ],
+      [
+        32,
+        18,
+        31
+      ],
+      [
+        32,
+        14,
+        27
+      ],
+      [
+        23,
+        12,
+        25
+      ]
+    ],
+    "chorong": [
+      [
+        222,
+        213,
+        188
+      ],
+      [
+        227,
+        179,
+        136
+      ],
+      [
+        221,
+        160,
+        84
+      ],
+      [
+        185,
+        153,
+        176
+      ],
+      [
+        167,
+        120,
+        110
+      ],
+      [
+        130,
+        70,
+        140
+      ],
+      [
+        116,
+        70,
+        127
+      ],
+      [
+        106,
+        62,
+        123
+      ],
+      [
+        94,
+        52,
+        101
+      ],
+      [
+        83,
+        52,
+        93
+      ],
+      [
+        81,
+        45,
+        88
+      ],
+      [
+        64,
+        34,
+        65
+      ],
+      [
+        48,
+        24,
+        48
+      ],
+      [
+        43,
+        19,
+        42
+      ],
+      [
+        39,
+        13,
+        38
+      ],
+      [
+        26,
+        9,
+        27
+      ]
+    ],
+    "galpi": [
+      [
+        247,
+        223,
+        200
+      ],
+      [
+        242,
+        200,
+        171
+      ],
+      [
+        212,
+        173,
+        145
+      ],
+      [
+        170,
+        132,
+        123
+      ],
+      [
+        141,
+        93,
+        98
+      ],
+      [
+        128,
+        76,
+        84
+      ],
+      [
+        106,
+        103,
+        144
+      ],
+      [
+        90,
+        83,
+        118
+      ],
+      [
+        109,
+        65,
+        75
+      ],
+      [
+        77,
+        60,
+        86
+      ],
+      [
+        70,
+        44,
+        62
+      ],
+      [
+        55,
+        31,
+        49
+      ],
+      [
+        44,
+        27,
+        45
+      ],
+      [
+        41,
+        22,
+        40
+      ],
+      [
+        38,
+        18,
+        37
+      ],
+      [
+        30,
+        14,
+        32
+      ]
+    ],
+    "seonge": [
+      [
+        250,
+        234,
+        218
+      ],
+      [
+        246,
+        225,
+        214
+      ],
+      [
+        236,
+        215,
+        235
+      ],
+      [
+        230,
+        213,
+        238
+      ],
+      [
+        231,
+        208,
+        233
+      ],
+      [
+        240,
+        196,
+        189
+      ],
+      [
+        210,
+        191,
+        216
+      ],
+      [
+        190,
+        173,
+        204
+      ],
+      [
+        176,
+        149,
+        181
+      ],
+      [
+        137,
+        134,
+        185
+      ],
+      [
+        110,
+        96,
+        143
+      ],
+      [
+        85,
+        77,
+        132
+      ],
+      [
+        61,
+        41,
+        70
+      ],
+      [
+        44,
+        27,
+        52
+      ],
+      [
+        39,
+        18,
+        45
+      ],
+      [
+        28,
+        11,
+        35
+      ]
+    ]
+  },
+  "boards": {
+    "geumeum/walk": {
+      "sha256": "a0747ffbe09b05425d3be2bdfeb290350d3320b03a2bb24bca0e32e5bcdcafb4",
+      "prompt": "Create exact 6-column, 2-row true transparent chibi pixel art walk cycle. First reference is the ONLY character identity: floppy dark plum hood angled screen-left from front, dark empty face, two violet square eyes, gold stitch, navy cape and browns boots. Second reference is ONLY the walk leg timing template. Copy its successive different leg placements but replace all costume details with first reference. IMPORTANT both rows are two clearly different footsteps, alternate boots! Column 1 screen-left boot pushed ahead and right one behind; 2 both boots touching the ground hip width; 3 screen-right boot raised just behind passing the planted left; 4 screen-right boot pushed ahead and screen-left boot behind; 5 both boots touching the ground hip width; 6 screen-left boot raised behind as it passes the planted right. Row one exact front view, row two exact rear (zero face or eyes). Follow frame changes visibly and slightly exaggerate opposing boots; no wand. Same hood details, shape, head-body proportion, colors, clean square pixel art as first reference. True alpha, twelve whole separated centered poses, no shadow or labels, no seams."
+    },
+    "geumeum/cast": {
+      "sha256": "be7742e884c61a778e8f9152bbfaa0e5598d4bb86b9843bc04d2fd20b858f597",
+      "prompt": "Production pixel art for a 2D roguelike. Image reference depicts the exact geumeum apprentice to animate; copy its character design and shading clusters faithfully. Dark plum floppy pointed hood with tiny gold stitch, wide black faceless opening and exactly two small lavender square eyes, sweeping blue cape with bright blue stepped hem, gold clasp, brown boots. Render an animation sprite sheet, exactly FOUR evenly spaced columns and THREE rows, square cells, no text. Row 1 view faces the camera/down. Row 2 character faces strictly to screen RIGHT, in visibly side/three-quarter profile. Row 3 is a back view facing away/up, with zero facial features. Each of the three rows is a separate 4-phase generic wand-casting body motion, with EMPTY hands and no wand or VFX since the engine adds them. Col 1: anticipatory crouch with casting arm drawn in. Col 2: arm lifts, body winds and twists, feet firmly planted. Col 3: sharp thrust/snap forward in the facing direction; exaggerate the arm pose and cape response, preserve character. Col 4: settle from recoil as arm lowers. Clear discrete one-pixel steps, limited palette and crisp clusters, chibi proportions and careful cloth shading, same camera, scale and foot baseline across the row, standalone full body, generous air gap around each pose. Actual transparent background, zero floor shadows, no glow or gradients, no grid lines."
+    },
+    "geumeum/signature": {
+      "sha256": "5d62f14f5071a02790d748a7b789ada8133814538a6fdb72dbbf908c3f37b80c",
+      "prompt": "High-quality game-ready 2D pixel art animation from the attachment, which is the exact apprentice design. Preserve colored outline, costume and its motifs, palette, and head-to-body proportions. Exact 6-column by 3-row sheet, three directions in order front facing viewer, side facing right, rear facing away. Signature Shadow Hand: brace with both boots, lean forward while reaching with one empty hand, then extend it and tug hard back toward the chest with sweep of hood and cape, then recover. 6 individually drawn phases each direction: brace, reach start, max reach, pull start, hard pull back, settle. No hand effect, wand, or props. Crisp native pixel clusters, restrained shading and a consistent baseline and scale, each frame square cell with even spacing, complete disconnected silhouettes and generous transparent air between all sprites. Real transparent alpha, no checkerboard, grid, shadows, text, framing or glow."
+    },
+    "geumeum/recoil": {
+      "sha256": "3e97bd7fba9fee7aefbf11e70ef55d0463447fb7c8b2e955563372a480968cb1",
+      "prompt": "Use the attached exact chibi apprentice character, preserve every costume detail, colors and proportions. Production pixel sprite sheet, six columns by three rows, 18 independent centered square cells with wide gutters. Each row first three cells show a standard wand-firing BODY recoil at distinct phases: C1 neutral anticipatory arm forward, C2 abrupt jolt backward with garment movement, C3 settle and arm lowers. Each row cells C4 and C5 show being HIT by an enemy: C4 sudden brief recoil tucking arms and squinting, C5 remains upright and recovers. C6 neutral idle silhouette with feet apart. Row 1 front facing player/down, row 2 clearly side view facing right, row 3 exact rear facing away with no face visible. ALL poses bare hands without any held items, preserve motifs attached to costume. No impact symbols, particles, backgrounds, shadows, grid or letters. Genuine alpha and crisp small square color clusters, no touching art, identical baseline and scale."
+    },
+    "geumeum/body": {
+      "sha256": "756111be194e87f8126fc7b87ac5d4997d51b1d75a50ac36cca17039ac57f0ea",
+      "prompt": "Use the attached exact game character as sole visual design. Make a 4 column × 6 row pixel art sprite board on true transparent alpha, 24 full separate poses. Rows 1–3 are a four-frame low-amplitude breathing idle, in order FRONT toward player, RIGHT side profile, BACK facing away and no eyes. Rows 4–6 are a four-frame crouched aiming walk without wand, same three directions in same order. Alternating legs and feet, arms extend in front as if holding a wand that will be added separately. Keep original cute proportions, unique garment, face and original colors. Pixel clusters at fine 64px detail, exact same scale, floor baseline and visual motifs across frames. No shadows, effects, props, labels, grid, checkerboard, or background. Wide transparent gaps between each complete pose."
+    },
+    "geumeum/social": {
+      "sha256": "e488169002d51207e5440920052683f1a0721e63ed4941179fe2557bf4b6e866",
+      "prompt": "Use the attached exact game character design. Make a 6 column by 4 row real transparent pixel art board with complete poses and wide clear gutters. All FRONT / downward view. Row 1 six frames of player fainting: stagger, slump, knees buckle, head drops, tiny flattened cape on ground, final column completely empty because the separately drawn wand will remain. Row 2 six isolated slots: left first 2 are sitting calmly by fire with subtle breathing, next 4 are a cheerful crafting success reaction lifting arms then looking proud. Row 3 six slots: first four disappointed crafting failure with arms and head sinking then recovering; last two an intent charging face with lowered stance. Row 4 six slots: first four a joyful little victory hop finishing with both arms up; last two a sad defeat expression with eyes cast down. Preserve unique design and detailed high quality small clear pixel clusters and strong chibi silhouette. Empty hands; no objects, shadows, fire, labels, background, effects, or grid."
+    },
+    "geumeum/emotes": {
+      "sha256": "cb52b755dbba63428bc6f5bfaf75e2adb1449a1b80e25403a1ff3f7073d138b2",
+      "prompt": "Draw the exact attached chibi pixel character as game emote sprite atlas 4 columns × 8 rows, genuine alpha, each cell square, whole silhouette and thick air gutters, no crop. Each row 4 frames of a separate emote. Row 1 wave friendly hand back and forth; row 2 clap hands twice; row 3 taunt with chin raised then point; row 4 bow with hood dipping then straighten; row 5 bend knees to sit; row 6 dance shuffle weight right and left; row 7 raise one curled empty hand triumphantly above shoulders (engine adds wand); row 8 frustrated stomp and droop. Front/three-quarter camera toward viewer across all frames. Same proportions, identifying costume and hair and character palette. Fine sharp pixel clusters, no sparkles, objects, extra characters, wand, labels, motion lines, background, shadow or text."
+    },
+    "dalgu/walk": {
+      "sha256": "5715b2a8d8c60a803f05e5ffa29e67c883375392997e244ebd28bca0ed135d7d",
+      "prompt": "Animate dalgu from its existing selection sprite. Six frames of front/down walking and six frames of back/up walking in a 6×2 sprite sheet with no held wand, crisp pixel clusters and independent poses."
+    },
+    "dalgu/cast": {
+      "sha256": "36344843133dfae40d0cec60739e3d30340b7aac2999821f7142495508c03a2c",
+      "prompt": "Production pixel art for a 2D roguelike. Image reference depicts the exact dalgu apprentice to animate; copy its character design and shading clusters faithfully. Reddish copper comb feathers, pale face, warm orange and cream layers; retain exactly the reference motifs and shape. Render an animation sprite sheet, exactly FOUR evenly spaced columns and THREE rows, square cells, no text. Row 1 view faces the camera/down. Row 2 character faces strictly to screen RIGHT, in visibly side/three-quarter profile. Row 3 is a back view facing away/up, with zero facial features. Each of the three rows is a separate 4-phase generic wand-casting body motion, with EMPTY hands and no wand or VFX since the engine adds them. Col 1: anticipatory crouch with casting arm drawn in. Col 2: arm lifts, body winds and twists, feet firmly planted. Col 3: sharp thrust/snap forward in the facing direction; exaggerate the arm pose and cape response, preserve character. Col 4: settle from recoil as arm lowers. Clear discrete one-pixel steps, limited palette and crisp clusters, chibi proportions and careful cloth shading, same camera, scale and foot baseline across the row, standalone full body, generous air gap around each pose. Actual transparent background, zero floor shadows, no glow or gradients, no grid lines."
+    },
+    "dalgu/signature": {
+      "sha256": "524d5c390b39b061f9247b10b2be876f3dcfe78d55b06d84d657146caae57a87",
+      "prompt": "High-quality game-ready 2D pixel art animation from the attachment, which is the exact apprentice design. Preserve colored outline, costume and its motifs, palette, and head-to-body proportions. Exact 6-column by 3-row sheet, three directions in order front facing viewer, side facing right, rear facing away. Signature Kiln spell: pull one foot back, raise both hands close to shoulders, squat forcefully, press arms down to the ground in a broad stance, hold briefly and rise. Six individually drawn phases each direction. No spell effect, wand, or props. Crisp native pixel clusters, restrained shading and a consistent baseline and scale, each frame square cell with even spacing, complete disconnected silhouettes and generous transparent air between all sprites. Real transparent alpha, no checkerboard, grid, shadows, text, framing or glow."
+    },
+    "dalgu/recoil": {
+      "sha256": "b336c447fbe54c10b4cff8fbe4b56a6357adefdabd4507f19167f4bb9fcc7e1b",
+      "prompt": "Use the attached exact chibi apprentice character, preserve every costume detail, colors and proportions. Production pixel sprite sheet, six columns by three rows, 18 independent centered square cells with wide gutters. Each row first three cells show a standard wand-firing BODY recoil at distinct phases: C1 neutral anticipatory arm forward, C2 abrupt jolt backward with garment movement, C3 settle and arm lowers. Each row cells C4 and C5 show being HIT by an enemy: C4 sudden brief recoil tucking arms and squinting, C5 remains upright and recovers. C6 neutral idle silhouette with feet apart. Row 1 front facing player/down, row 2 clearly side view facing right, row 3 exact rear facing away with no face visible. ALL poses bare hands without any held items, preserve motifs attached to costume. No impact symbols, particles, backgrounds, shadows, grid or letters. Genuine alpha and crisp small square color clusters, no touching art, identical baseline and scale."
+    },
+    "dalgu/body": {
+      "sha256": "1be30f01ed7e8f1a0dae56e5d658200fd7a728ffdee4ea93f334e70802cf8729",
+      "prompt": "Use the attached exact game character as sole visual design. Make a 4 column × 6 row pixel art sprite board on true transparent alpha, 24 full separate poses. Rows 1–3 are a four-frame low-amplitude breathing idle, in order FRONT toward player, RIGHT side profile, BACK facing away and no eyes. Rows 4–6 are a four-frame crouched aiming walk without wand, same three directions in same order. Alternating legs and feet, arms extend in front as if holding a wand that will be added separately. Keep original cute proportions, unique garment, face and original colors. Pixel clusters at fine 64px detail, exact same scale, floor baseline and visual motifs across frames. No shadows, effects, props, labels, grid, checkerboard, or background. Wide transparent gaps between each complete pose."
+    },
+    "dalgu/social": {
+      "sha256": "159a1d8f881e97f56009ca5d1cea0492fdad0d9d94db1b527b5339d9ee70a67b",
+      "prompt": "Use the attached exact game character design. Make a 6 column by 4 row real transparent pixel art board with complete poses and wide clear gutters. All FRONT / downward view. Row 1 six frames of player fainting: stagger, slump, knees buckle, head drops, tiny flattened cape on ground, final column completely empty because the separately drawn wand will remain. Row 2 six isolated slots: left first 2 are sitting calmly by fire with subtle breathing, next 4 are a cheerful crafting success reaction lifting arms then looking proud. Row 3 six slots: first four disappointed crafting failure with arms and head sinking then recovering; last two an intent charging face with lowered stance. Row 4 six slots: first four a joyful little victory hop finishing with both arms up; last two a sad defeat expression with eyes cast down. Preserve unique design and detailed high quality small clear pixel clusters and strong chibi silhouette. Empty hands; no objects, shadows, fire, labels, background, effects, or grid."
+    },
+    "dalgu/emotes": {
+      "sha256": "7ce4e2e558361a27d2524cd10939c0a2a412d2b12ebd72fde3aaf869d3e6586f",
+      "prompt": "Draw the exact attached chibi pixel character as game emote sprite atlas 4 columns × 8 rows, genuine alpha, each cell square, whole silhouette and thick air gutters, no crop. Each row 4 frames of a separate emote. Row 1 wave friendly hand back and forth; row 2 clap hands twice; row 3 taunt with chin raised then point; row 4 bow with hood dipping then straighten; row 5 bend knees to sit; row 6 dance shuffle weight right and left; row 7 raise one curled empty hand triumphantly above shoulders (engine adds wand); row 8 frustrated stomp and droop. Front/three-quarter camera toward viewer across all frames. Same proportions, identifying costume and hair and character palette. Fine sharp pixel clusters, no sparkles, objects, extra characters, wand, labels, motion lines, background, shadow or text."
+    },
+    "chorong/walk": {
+      "sha256": "cb5ee04ff38a91ae2df131c70bd960c48293af8b4fc0a8642d1f20967fc86b75",
+      "prompt": "High-quality game-ready 2D pixel art animation from the attachment, which is the exact apprentice design. Preserve colored outline, costume and its motifs, palette, and head-to-body proportions. Exact 6×2 pixel sprite board for apprentice with purple floppy nightcap and its one tiny gold dangling lamp, dark violet hair and warm muted golden night coat with pale mint hem, matching reference. Row 1 walks toward viewer/front, row 2 walks away/rear. Make left contact, both feet, passing, right contact, both feet, passing for each six-column row. Visible alternating shoes, restrained up/down movement. Keep the same lighting from the reference. No staff. Use fully transparent RGBA with alpha outside each outline, no shadow, white or gray field, checkerboard, labels or background. Draw twelve full isolated sprites with clean gaps, native 64px detail and colored outline. Crisp native pixel clusters, restrained shading and a consistent baseline and scale, each frame square cell with even spacing, complete disconnected silhouettes and generous transparent air between all sprites. Real transparent alpha, no checkerboard, grid, shadows, text, framing or glow."
+    },
+    "chorong/cast": {
+      "sha256": "0c72e51a8c44593bf5ea4b5e1dbcf6175458a15c6d0b5cfbfef2ce7bcb82fedb",
+      "prompt": "Production pixel art for a 2D roguelike. Image reference depicts the exact chorong apprentice to animate; copy its character design and shading clusters faithfully. Purple sleeping nightcap with a tiny gold lantern hanging from its tip, dark violet hair, golden coat with pale mint cuffs and hem, violet boots. Render an animation sprite sheet, exactly FOUR evenly spaced columns and THREE rows, square cells, no text. Row 1 view faces the camera/down. Row 2 character faces strictly to screen RIGHT, in visibly side/three-quarter profile. Row 3 is a back view facing away/up, with zero facial features. Each of the three rows is a separate 4-phase generic wand-casting body motion, with EMPTY hands and no wand or VFX since the engine adds them. Col 1: anticipatory crouch with casting arm drawn in. Col 2: arm lifts, body winds and twists, feet firmly planted. Col 3: sharp thrust/snap forward in the facing direction; exaggerate the arm pose and cape response, preserve character. Col 4: settle from recoil as arm lowers. Clear discrete one-pixel steps, limited palette and crisp clusters, chibi proportions and careful cloth shading, same camera, scale and foot baseline across the row, standalone full body, generous air gap around each pose. Actual transparent background, zero floor shadows, no glow or gradients, no grid lines."
+    },
+    "chorong/signature": {
+      "sha256": "039fb9cdfcad5661ac73e8b11c1ca46b2dbc86125f5b8152aa8e492705d86b00",
+      "prompt": "High-quality game-ready 2D pixel art animation from the attachment, which is the exact apprentice design. Preserve colored outline, costume and its motifs, palette, and head-to-body proportions. Exact 6-column by 3-row sheet, three directions in order front facing viewer, side facing right, rear facing away. Signature Thunder Dash: eyes closed and determined, low body leaning, quick lead foot and arm forward, full stretch with cap lantern whipping back, skid and settle. Six individually drawn phases each direction, clearly read as preparation, takeoff, zip, extension, skid, settle. No effect, wand, or props. Crisp native pixel clusters, restrained shading and a consistent baseline and scale, each frame square cell with even spacing, complete disconnected silhouettes and generous transparent air between all sprites. Real transparent alpha, no checkerboard, grid, shadows, text, framing or glow."
+    },
+    "chorong/recoil": {
+      "sha256": "365ab191fc4de2800fbd1d1db5979ef6546134847af24d5284b9154e4f6cef69",
+      "prompt": "Use the attached exact chibi apprentice character, preserve every costume detail, colors and proportions. Production pixel sprite sheet, six columns by three rows, 18 independent centered square cells with wide gutters. Each row first three cells show a standard wand-firing BODY recoil at distinct phases: C1 neutral anticipatory arm forward, C2 abrupt jolt backward with garment movement, C3 settle and arm lowers. Each row cells C4 and C5 show being HIT by an enemy: C4 sudden brief recoil tucking arms and squinting, C5 remains upright and recovers. C6 neutral idle silhouette with feet apart. Row 1 front facing player/down, row 2 clearly side view facing right, row 3 exact rear facing away with no face visible. ALL poses bare hands without any held items, preserve motifs attached to costume. No impact symbols, particles, backgrounds, shadows, grid or letters. Genuine alpha and crisp small square color clusters, no touching art, identical baseline and scale."
+    },
+    "chorong/body": {
+      "sha256": "b8dfef1257fc08eb2491ee0eb4986823191aaa86d3bd504a841a266c1d089bc3",
+      "prompt": "Use the attached exact game character as sole visual design. Make a 4 column × 6 row pixel art sprite board on true transparent alpha, 24 full separate poses. Rows 1–3 are a four-frame low-amplitude breathing idle, in order FRONT toward player, RIGHT side profile, BACK facing away and no eyes. Rows 4–6 are a four-frame crouched aiming walk without wand, same three directions in same order. Alternating legs and feet, arms extend in front as if holding a wand that will be added separately. Keep original cute proportions, unique garment, face and original colors. Pixel clusters at fine 64px detail, exact same scale, floor baseline and visual motifs across frames. No shadows, effects, props, labels, grid, checkerboard, or background. Wide transparent gaps between each complete pose."
+    },
+    "chorong/social": {
+      "sha256": "c7e167dff1909459474d78c7f8d3d70598ec2eb896b6bcef118befaa15edac01",
+      "prompt": "Use the attached exact game character design. Make a 6 column by 4 row real transparent pixel art board with complete poses and wide clear gutters. All FRONT / downward view. Row 1 six frames of player fainting: stagger, slump, knees buckle, head drops, tiny flattened cape on ground, final column completely empty because the separately drawn wand will remain. Row 2 six isolated slots: left first 2 are sitting calmly by fire with subtle breathing, next 4 are a cheerful crafting success reaction lifting arms then looking proud. Row 3 six slots: first four disappointed crafting failure with arms and head sinking then recovering; last two an intent charging face with lowered stance. Row 4 six slots: first four a joyful little victory hop finishing with both arms up; last two a sad defeat expression with eyes cast down. Preserve unique design and detailed high quality small clear pixel clusters and strong chibi silhouette. Empty hands; no objects, shadows, fire, labels, background, effects, or grid."
+    },
+    "chorong/emotes": {
+      "sha256": "84c657c5f6924ba76cd28d200b3f54743fdced4044122af706b3bf10c3c5ae11",
+      "prompt": "Draw the exact attached chibi pixel character as game emote sprite atlas 4 columns × 8 rows, genuine alpha, each cell square, whole silhouette and thick air gutters, no crop. Each row 4 frames of a separate emote. Row 1 wave friendly hand back and forth; row 2 clap hands twice; row 3 taunt with chin raised then point; row 4 bow with hood dipping then straighten; row 5 bend knees to sit; row 6 dance shuffle weight right and left; row 7 raise one curled empty hand triumphantly above shoulders (engine adds wand); row 8 frustrated stomp and droop. Front/three-quarter camera toward viewer across all frames. Same proportions, identifying costume and hair and character palette. Fine sharp pixel clusters, no sparkles, objects, extra characters, wand, labels, motion lines, background, shadow or text."
+    },
+    "galpi/walk": {
+      "sha256": "817e914d8a9b6bbf756e3718fc2c7fcaa69c0bc7a49329f204b55baca5c27d7b",
+      "prompt": "Animate galpi from its existing selection sprite. Six frames of front/down walking and six frames of back/up walking in a 6×2 sprite sheet with no held wand, crisp pixel clusters and independent poses."
+    },
+    "galpi/cast": {
+      "sha256": "b0976ea04ab463081109b55b5d31a92a7db10c409463a734d21570472de6ef21",
+      "prompt": "Production pixel art for a 2D roguelike. Image reference depicts the exact galpi apprentice to animate; copy its character design and shading clusters faithfully. Oversized open leather book as the hat, parchment edges and sage bookmark, dark blue cape and small parchment scroll. Render an animation sprite sheet, exactly FOUR evenly spaced columns and THREE rows, square cells, no text. Row 1 view faces the camera/down. Row 2 character faces strictly to screen RIGHT, in visibly side/three-quarter profile. Row 3 is a back view facing away/up, with zero facial features. Each of the three rows is a separate 4-phase generic wand-casting body motion, with EMPTY hands and no wand or VFX since the engine adds them. Col 1: anticipatory crouch with casting arm drawn in. Col 2: arm lifts, body winds and twists, feet firmly planted. Col 3: sharp thrust/snap forward in the facing direction; exaggerate the arm pose and cape response, preserve character. Col 4: settle from recoil as arm lowers. Clear discrete one-pixel steps, limited palette and crisp clusters, chibi proportions and careful cloth shading, same camera, scale and foot baseline across the row, standalone full body, generous air gap around each pose. Actual transparent background, zero floor shadows, no glow or gradients, no grid lines."
+    },
+    "galpi/signature": {
+      "sha256": "d9b5d7cabbd4052687865cfabf04fd1edaa757010386f2a68232704795fbfadb",
+      "prompt": "High-quality game-ready 2D pixel art animation from the attachment, which is the exact apprentice design. Preserve colored outline, costume and its motifs, palette, and head-to-body proportions. Exact 6-column by 3-row sheet, three directions in order front facing viewer, side facing right, rear facing away. Signature Transcribe spell: gather power over open palm, bring fingers to chest, extend palm as if placing a duplicate at one's side, maintain pose, recoil, settle. Six individually drawn phases in each direction. No VFX, duplicate, wand, or props beyond costume details. Crisp native pixel clusters, restrained shading and a consistent baseline and scale, each frame square cell with even spacing, complete disconnected silhouettes and generous transparent air between all sprites. Real transparent alpha, no checkerboard, grid, shadows, text, framing or glow."
+    },
+    "galpi/recoil": {
+      "sha256": "4d7d8993b6ed22a1f6b53715ce10d2727825ed92658f7f159d19eda787588d06",
+      "prompt": "Use the attached exact chibi apprentice character, preserve every costume detail, colors and proportions. Production pixel sprite sheet, six columns by three rows, 18 independent centered square cells with wide gutters. Each row first three cells show a standard wand-firing BODY recoil at distinct phases: C1 neutral anticipatory arm forward, C2 abrupt jolt backward with garment movement, C3 settle and arm lowers. Each row cells C4 and C5 show being HIT by an enemy: C4 sudden brief recoil tucking arms and squinting, C5 remains upright and recovers. C6 neutral idle silhouette with feet apart. Row 1 front facing player/down, row 2 clearly side view facing right, row 3 exact rear facing away with no face visible. ALL poses bare hands without any held items, preserve motifs attached to costume. No impact symbols, particles, backgrounds, shadows, grid or letters. Genuine alpha and crisp small square color clusters, no touching art, identical baseline and scale."
+    },
+    "galpi/body": {
+      "sha256": "085d75719524bdaa7e408b47c5190e911ade8acf2e37dc9993fb9aee8c291cca",
+      "prompt": "Use the attached exact game character as sole visual design. Make a 4 column × 6 row pixel art sprite board on true transparent alpha, 24 full separate poses. Rows 1–3 are a four-frame low-amplitude breathing idle, in order FRONT toward player, RIGHT side profile, BACK facing away and no eyes. Rows 4–6 are a four-frame crouched aiming walk without wand, same three directions in same order. Alternating legs and feet, arms extend in front as if holding a wand that will be added separately. Keep original cute proportions, unique garment, face and original colors. Pixel clusters at fine 64px detail, exact same scale, floor baseline and visual motifs across frames. No shadows, effects, props, labels, grid, checkerboard, or background. Wide transparent gaps between each complete pose."
+    },
+    "galpi/social": {
+      "sha256": "bc471737c777ec8c2098ae1eb8563f6b2c0c1aadbe0f5417cbb947dc5853920a",
+      "prompt": "Use the attached exact game character design. Make a 6 column by 4 row real transparent pixel art board with complete poses and wide clear gutters. All FRONT / downward view. Row 1 six frames of player fainting: stagger, slump, knees buckle, head drops, tiny flattened cape on ground, final column completely empty because the separately drawn wand will remain. Row 2 six isolated slots: left first 2 are sitting calmly by fire with subtle breathing, next 4 are a cheerful crafting success reaction lifting arms then looking proud. Row 3 six slots: first four disappointed crafting failure with arms and head sinking then recovering; last two an intent charging face with lowered stance. Row 4 six slots: first four a joyful little victory hop finishing with both arms up; last two a sad defeat expression with eyes cast down. Preserve unique design and detailed high quality small clear pixel clusters and strong chibi silhouette. Empty hands; no objects, shadows, fire, labels, background, effects, or grid."
+    },
+    "galpi/emotes": {
+      "sha256": "f4555470d31497020b5f2514d8e106b8e9ef52a15c25ab8840ab98aef83e1237",
+      "prompt": "Draw the exact attached chibi pixel character as game emote sprite atlas 4 columns × 8 rows, genuine alpha, each cell square, whole silhouette and thick air gutters, no crop. Each row 4 frames of a separate emote. Row 1 wave friendly hand back and forth; row 2 clap hands twice; row 3 taunt with chin raised then point; row 4 bow with hood dipping then straighten; row 5 bend knees to sit; row 6 dance shuffle weight right and left; row 7 raise one curled empty hand triumphantly above shoulders (engine adds wand); row 8 frustrated stomp and droop. Front/three-quarter camera toward viewer across all frames. Same proportions, identifying costume and hair and character palette. Fine sharp pixel clusters, no sparkles, objects, extra characters, wand, labels, motion lines, background, shadow or text."
+    },
+    "seonge/walk": {
+      "sha256": "1a7279cea3480d3c0470dd30c2a3887609bc225e4d7bdfbe63c444ef2eef327b",
+      "prompt": "Animate seonge from its existing selection sprite. Six frames of front/down walking and six frames of back/up walking in a 6×2 sprite sheet with no held wand, crisp pixel clusters and independent poses."
+    },
+    "seonge/cast": {
+      "sha256": "6b11d0a47f16eaabae9e607af71b8533b38838f2d143d1af81b8ae635815a71a",
+      "prompt": "Production pixel art for a 2D roguelike. Image reference depicts the exact seonge apprentice to animate; copy its character design and shading clusters faithfully. Preserve the exact colors, shape, garment motifs and expressions from the attachment. Render an animation sprite sheet, exactly FOUR evenly spaced columns and THREE rows, square cells, no text. Row 1 view faces the camera/down. Row 2 character faces strictly to screen RIGHT, in visibly side/three-quarter profile. Row 3 is a back view facing away/up, with zero facial features. Each of the three rows is a separate 4-phase generic wand-casting body motion, with EMPTY hands and no wand or VFX since the engine adds them. Col 1: anticipatory crouch with casting arm drawn in. Col 2: arm lifts, body winds and twists, feet firmly planted. Col 3: sharp thrust/snap forward in the facing direction; exaggerate the arm pose and cape response, preserve character. Col 4: settle from recoil as arm lowers. Clear discrete one-pixel steps, limited palette and crisp clusters, chibi proportions and careful cloth shading, same camera, scale and foot baseline across the row, standalone full body, generous air gap around each pose. Actual transparent background, zero floor shadows, no glow or gradients, no grid lines."
+    },
+    "seonge/signature": {
+      "sha256": "eb8e85c7ff84e1ca6aa5baf3c0f651241c45729f4645769435ee920686be8f09",
+      "prompt": "High-quality game-ready 2D pixel art animation from the attachment, which is the exact apprentice design. Preserve colored outline, costume and its motifs, palette, and head-to-body proportions. Exact 6-column by 3-row sheet, three directions in order front facing viewer, side facing right, rear facing away. Signature Ice Screen: arms down, gather low, rise sharply sweeping both hands upward, hold high as cape flares, recoil, settle. Six individually drawn phases each direction. No ice effect, wand, or props. Crisp native pixel clusters, restrained shading and a consistent baseline and scale, each frame square cell with even spacing, complete disconnected silhouettes and generous transparent air between all sprites. Real transparent alpha, no checkerboard, grid, shadows, text, framing or glow."
+    },
+    "seonge/recoil": {
+      "sha256": "49c6c2a2f9df2204d5da6f9557bf076af1106aa52611c7bd7fc8e7a317ecfd00",
+      "prompt": "Use the attached exact chibi apprentice character, preserve every costume detail, colors and proportions. Production pixel sprite sheet, six columns by three rows, 18 independent centered square cells with wide gutters. Each row first three cells show a standard wand-firing BODY recoil at distinct phases: C1 neutral anticipatory arm forward, C2 abrupt jolt backward with garment movement, C3 settle and arm lowers. Each row cells C4 and C5 show being HIT by an enemy: C4 sudden brief recoil tucking arms and squinting, C5 remains upright and recovers. C6 neutral idle silhouette with feet apart. Row 1 front facing player/down, row 2 clearly side view facing right, row 3 exact rear facing away with no face visible. ALL poses bare hands without any held items, preserve motifs attached to costume. No impact symbols, particles, backgrounds, shadows, grid or letters. Genuine alpha and crisp small square color clusters, no touching art, identical baseline and scale."
+    },
+    "seonge/body": {
+      "sha256": "46e5993100faee2078fcf7cd695e15edf669802039bd2c32822d56851886f92b",
+      "prompt": "Use the attached exact game character as sole visual design. Make a 4 column × 6 row pixel art sprite board on true transparent alpha, 24 full separate poses. Rows 1–3 are a four-frame low-amplitude breathing idle, in order FRONT toward player, RIGHT side profile, BACK facing away and no eyes. Rows 4–6 are a four-frame crouched aiming walk without wand, same three directions in same order. Alternating legs and feet, arms extend in front as if holding a wand that will be added separately. Keep original cute proportions, unique garment, face and original colors. Pixel clusters at fine 64px detail, exact same scale, floor baseline and visual motifs across frames. No shadows, effects, props, labels, grid, checkerboard, or background. Wide transparent gaps between each complete pose."
+    },
+    "seonge/social": {
+      "sha256": "b9b9dff283d08da26823d66ca22fcdc18d27b1fef43a639bd9b2dc8027ff6891",
+      "prompt": "Use the attached exact game character design. Make a 6 column by 4 row real transparent pixel art board with complete poses and wide clear gutters. All FRONT / downward view. Row 1 six frames of player fainting: stagger, slump, knees buckle, head drops, tiny flattened cape on ground, final column completely empty because the separately drawn wand will remain. Row 2 six isolated slots: left first 2 are sitting calmly by fire with subtle breathing, next 4 are a cheerful crafting success reaction lifting arms then looking proud. Row 3 six slots: first four disappointed crafting failure with arms and head sinking then recovering; last two an intent charging face with lowered stance. Row 4 six slots: first four a joyful little victory hop finishing with both arms up; last two a sad defeat expression with eyes cast down. Preserve unique design and detailed high quality small clear pixel clusters and strong chibi silhouette. Empty hands; no objects, shadows, fire, labels, background, effects, or grid."
+    },
+    "seonge/emotes": {
+      "sha256": "6c6b064424f959c9e271c125283a0ccdf4a00b1ae6046dfd0fb17092dca950ef",
+      "prompt": "Draw the exact attached chibi pixel character as game emote sprite atlas 4 columns × 8 rows, genuine alpha, each cell square, whole silhouette and thick air gutters, no crop. Each row 4 frames of a separate emote. Row 1 wave friendly hand back and forth; row 2 clap hands twice; row 3 taunt with chin raised then point; row 4 bow with hood dipping then straighten; row 5 bend knees to sit; row 6 dance shuffle weight right and left; row 7 raise one curled empty hand triumphantly above shoulders (engine adds wand); row 8 frustrated stomp and droop. Front/three-quarter camera toward viewer across all frames. Same proportions, identifying costume and hair and character palette. Fine sharp pixel clusters, no sparkles, objects, extra characters, wand, labels, motion lines, background, shadow or text."
+    }
+  }
+}

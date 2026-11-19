@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wizard.invalid/data/schema/asset_aliases.schema.json",
+  "title": "그림 별칭 (data/presentation/asset_aliases.json, 팩에 들지 않는다)",
+  "description": "콘텐츠 id 와 그림 열쇠가 다른 곳(PIPELINE 6.3, spec 14 3.1·5.2~5.6절). 읽는 쪽: Wizard.ViewLogic.Assets.AssetAliases. 별칭이 가리키는 그림이 매니페스트에 있는지는 AssetManifestLoader 가 본다.",
+  "type": "object",
+  "required": ["element", "character_folder", "wand_folder", "wand_detached", "block_projectile_fx", "ui_icons", "character_sheets", "ui_external_size", "wand_up_split"],
+  "additionalProperties": false,
+  "properties": {
+    "_note": { "$ref": "_common.schema.json#/$defs/note" },
+    "element": {
+      "description": "매니페스트의 속성 키 → 정식 키(spec 14 3.1절 ElementAlias)",
+      "type": "object",
+      "additionalProperties": { "enum": ["neutral", "fire", "lightning", "arcane", "ice", "dark"] }
+    },
+    "character_folder": {
+      "description": "MAN-pl 폴더 열쇠 → char.N (spec 14 5.3절)",
+      "type": "object",
+      "propertyNames": { "pattern": "^[a-z][a-z0-9_]*$" },
+      "additionalProperties": { "type": "string", "pattern": "^char\\.[1-9][0-9]*$" }
+    },
+    "wand_folder": {
+      "description": "MAN-wd 폴더 열쇠 → wand.N (spec 14 5.4절)",
+      "type": "object",
+      "propertyNames": { "pattern": "^[a-z][a-z0-9_]*$" },
+      "additionalProperties": { "type": "string", "pattern": "^wand\\.[1-9][0-9]*$" }
+    },
+    "wand_detached": {
+      "description": "MAN-wd detachedEffects 열쇠 → 지팡이와 레지스트리 변형",
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["wand", "variant"],
+        "additionalProperties": false,
+        "properties": {
+          "wand": { "type": "string", "pattern": "^wand\\.[1-9][0-9]*$" },
+          "variant": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+        }
+      }
+    },
+    "block_projectile_fx": {
+      "description": "block.<k> → 탄 그림 Fx 열쇠 \"<묶음>/<열쇠>\" (spec 14 5.6절 C-02)",
+      "type": "object",
+      "properties": { "_note": { "$ref": "_common.schema.json#/$defs/note" } },
+      "patternProperties": {
+        "^block\\.[a-z0-9_]+$": { "type": "string", "pattern": "^[a-z]+/[a-z0-9_]+$" }
+      },
+      "additionalProperties": false
+    },
+    "ui_icons": {
+      "description": "콘텐츠 id → UI 아이콘 변형 규칙(spec 14 5.2절 대응표). 앞의 규칙이 먼저 맞는다",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["content_prefix", "icons"],
+        "additionalProperties": false,
+        "properties": {
+          "content_prefix": { "type": "string", "pattern": "^[a-z][a-z0-9_]*\\.$" },
+          "icons": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^[A-Z]-[A-Z0-9]+$" } },
+          "variant_prefix": { "type": "string", "pattern": "^([a-z][a-z0-9_]*_)?$" },
+          "key_overrides": { "type": "object", "additionalProperties": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" } }
+        }
+      }
+    },
+    "character_sheets": {
+      "description": "MAN-pl 이 규격을 적지 않은 캐릭터 그림(초상·큰 그림·실루엣)의 칸 크기와 프레임 수(spec 14 4.6절 표) [임시]",
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["cell", "frames"],
+        "additionalProperties": false,
+        "properties": {
+          "cell": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "integer", "minimum": 1 } },
+          "frames": { "type": "integer", "minimum": 1 }
+        }
+      }
+    },
+    "ui_external_size": {
+      "description": "MAN-ui external 그림의 크기 [폭, 높이] (spec 14 TV-183) [임시]",
+      "type": "object",
+      "additionalProperties": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "integer", "minimum": 1 } }
+    },
+    "wand_up_split": {
+      "description": "위 방향 겹침 예외: 지팡이 칸을 split_y 줄에서 나누고 x 로 offset_x 만큼 옮긴다(spec 14 4.6절) [임시]",
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["split_y", "offset_x"],
+        "additionalProperties": false,
+        "properties": {
+          "split_y": { "type": "integer", "minimum": 1 },
+          "offset_x": { "type": "integer" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wizard.invalid/data/schema/elites.schema.json",
+  "title": "엘리트 (data/sim/elites.json → 팩 절 18 elites)",
+  "description": "spec 05 7절, spec 14 3.7, CONTRACTS 2.2 EliteDef. 엘리트에만 있는 것(고유 능력, 매개변수, 능력이 쓰는 공격)만 적는다. 수는 원문 단위의 십진으로 적고 DataBuild 가 정수로 바꾼다(tools/Wizard.DataBuild/Convert/ElitesConverter.cs). 스키마는 꼴과 범위만 본다. 능력과 매개변수·공격의 짝은 변환기가, 바탕 종(enemies.json)과의 첨자·종류는 변환기의 교차 검사가, 회피 검산(R1~R4)은 databuild check 의 검증기가 본다.",
+  "type": "object",
+  "required": ["elites"],
+  "additionalProperties": false,
+  "properties": {
+    "_note": { "$ref": "_common.schema.json#/$defs/note" },
+    "elites": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/elite" }
+    }
+  },
+  "$defs": {
+    "elite": {
+      "type": "object",
+      "required": ["id", "ability", "attacks", "params"],
+      "additionalProperties": false,
+      "properties": {
+        "_note": { "$ref": "_common.schema.json#/$defs/note" },
+        "id": { "description": "엘리트 id(elite.<바탕 키>, spec 14 3.7) → BaseType", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^elite\\." },
+        "ability": {
+          "description": "고유 능력 → EliteDef.EliteAbility(spec 05 7.2 표의 줄 순서)",
+          "enum": ["split", "howl", "shards", "wide_spread", "big_blast", "triple_aim", "earth_bands", "summon", "twin_ring", "bloom", "bounce", "big_drum"]
+        },
+        "attacks": {
+          "description": "고유 능력이 쓰는 공격 → Attacks",
+          "type": "array",
+          "maxItems": 16,
+          "items": { "$ref": "#/$defs/eliteAttack" }
+        },
+        "params": { "$ref": "#/$defs/params" }
+      }
+    },
+    "eliteAttack": {
+      "type": "object",
+      "required": ["attack"],
+      "additionalProperties": false,
+      "properties": {
+        "_note": { "$ref": "_common.schema.json#/$defs/note" },
+        "replaces": {
+          "description": "이 공격이 대신하는 바탕 종 공격의 첨자 → ReplacesIndex. 적지 않거나 null 이면 −1",
+          "anyOf": [{ "type": "integer", "minimum": 0 }, { "type": "null" }]
+        },
+        "follows": {
+          "description": "이 공격이 판정 틱에 이어 나오는 바탕 종 공격의 첨자 → FollowsIndex. 적지 않거나 null 이면 −1",
+          "anyOf": [{ "type": "integer", "minimum": 0 }, { "type": "null" }]
+        },
+        "attack": { "description": "공격 한 줄(spec 05 2.3. 꼴은 적과 같다) → Attack", "$ref": "enemies.schema.json#/$defs/attack" }
+      }
+    },
+    "params": {
+      "description": "고유 능력의 매개변수 → Params(EliteDef.AbilityParams). 그 능력이 쓰는 칸만 적는다(변환기가 본다). 적지 않은 칸은 0",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "_note": { "$ref": "_common.schema.json#/$defs/note" },
+        "split_count": { "description": "split: 갈라지는 수 → SplitCount", "type": "integer", "minimum": 1 },
+        "split_radius": { "description": "split: 갈라진 것을 놓는 반지름(칸) → SplitRadius Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "split_start_angle_degrees": { "description": "split: 첫 자리의 각(도) → SplitStartAngleCenti(× 100)", "$ref": "_common.schema.json#/$defs/degrees", "minimum": 0, "maximum": 360 },
+        "howl_seconds": { "description": "howl: 울부짖음(초) → HowlTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "howl_radius": { "description": "howl: 따라 돌진할 늑대의 반경(칸) → HowlRadius Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "howl_step_seconds": { "description": "howl: 차례 돌진 간격(초) → HowlStepTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "chain_count": { "description": "howl: 자신이 잇는 돌진 수 → ChainCount", "type": "integer", "minimum": 1 },
+        "chain_gap_seconds": { "description": "howl: 잇는 돌진 사이(초) → ChainGapTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "armor_half_angle_degrees": { "description": "shards: 철갑 반각(도) → ArmorHalfAngleCenti(× 100)", "$ref": "_common.schema.json#/$defs/degrees", "minimum": 0, "maximum": 180 },
+        "sympathetic_damage": { "description": "big_blast: 유폭이 적에게 주는 피해(H(w) 곱하기 전) → SympatheticDamage Raw(× 2^32)", "type": "number", "minimum": 0 },
+        "aim_count": { "description": "triple_aim: 조준선 수 → AimCount", "type": "integer", "minimum": 1 },
+        "aim_step_seconds": { "description": "triple_aim: 조준선 시작 간격(초) → AimStepTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "band_count": { "description": "earth_bands: 흙 띠 수 → BandCount", "type": "integer", "minimum": 1 },
+        "band_start_angle_degrees": { "description": "earth_bands: 첫 띠의 방향(도) → BandStartAngleCenti(× 100)", "$ref": "_common.schema.json#/$defs/degrees", "minimum": 0, "maximum": 360 },
+        "summon_count": { "description": "summon: 한 번에 부르는 수 → SummonCount", "type": "integer", "minimum": 1 },
+        "summon_radius": { "description": "summon: 부른 것을 놓는 반지름(칸) → SummonRadius Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "summon_hp_ratios": {
+          "description": "summon: 부르는 체력 비율 문턱(내림차순, 0.6 = 60%) → SummonHpPermille(× 1000)",
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 16,
+          "items": { "$ref": "_common.schema.json#/$defs/ratio", "exclusiveMinimum": 0, "exclusiveMaximum": 1 }
+        },
+        "ring_repeat": { "description": "twin_ring: 고리를 쏘는 횟수 → RingRepeat", "type": "integer", "minimum": 1 },
+        "ring_repeat_step_seconds": { "description": "twin_ring: 고리 사이 간격(초) → RingRepeatStepTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "ring_repeat_angle_degrees": { "description": "twin_ring: 다음 고리가 어긋나는 각(도) → RingRepeatAngleCenti(× 100)", "$ref": "_common.schema.json#/$defs/degrees", "minimum": 0, "maximum": 360 },
+        "seed_count": { "description": "bloom: 한 번에 던지는 씨앗 수 → SeedCount", "type": "integer", "minimum": 1 },
+        "seed_lead_distance": { "description": "bloom: 둘째 씨앗의 이동 방향 앞 거리(칸) → SeedLeadDistance Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "seed_wall_inset": { "description": "bloom: 전장 밖이면 벽 안으로 자르는 거리(칸) → SeedWallInset Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "bounce_count": { "description": "bounce: 전장 벽에서 튕기는 횟수 → BounceCount", "type": "integer", "minimum": 1 },
+        "bounce_stop_seconds": { "description": "bounce: 튕기기 전 멈춤(초) → BounceStopTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "croak_radius": { "description": "big_drum: 울음 반경(칸) → CroakRadius Raw", "$ref": "_common.schema.json#/$defs/cells", "minimum": 0 },
+        "croak_break_damage": { "description": "big_drum: 울음 끊기 누적 피해(H(w) 곱하기 전) → CroakBreakDamage Raw(× 2^32)", "type": "number", "minimum": 0 },
+        "croak_break_only": { "description": "big_drum: 끊기 피해로만 울음이 취소된다(빙결·기절로는 안 됨) → CroakBreakOnly", "type": "boolean" }
+      }
+    }
+  }
+}

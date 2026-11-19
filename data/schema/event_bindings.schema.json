@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wizard.invalid/data/schema/event_bindings.schema.json",
+  "title": "표시 이벤트 바인딩 (data/presentation/event_bindings.json, 팩에 들지 않는다)",
+  "description": "CONTRACTS 13절, ARCHITECTURE 9절. 표시 이벤트 열쇠(SimEventDocs.BindingKey 또는 UiEventKeys) → 그림(fx)·소리(sfx)·흔들림·그림 정지·확정 전용. Wizard.ViewLogic 의 EventBindingTable 이 읽는다. 열쇠가 두 줄에 나오지 않는 것, fx·sfx 가 카탈로그 안에 있는 것, 빠짐 검사는 EventBindingTable 과 tests/Wizard.ViewLogic.Tests/Presentation/Bindings 가 본다.",
+  "type": "object",
+  "required": ["graze_chain", "sfx_catalog", "fx_catalog", "bindings"],
+  "additionalProperties": false,
+  "properties": {
+    "_note": { "$ref": "_common.schema.json#/$defs/note" },
+    "graze_chain": {
+      "description": "연속 스침 음높이(spec 01 17.2 chainIndex, CONTRACTS 0.3 T-50). 표시 계층이 Confirmed 인 graze.awarded 의 틱 간격으로 센다",
+      "type": "object",
+      "required": ["window_seconds", "max_step"],
+      "additionalProperties": false,
+      "properties": {
+        "window_seconds": {
+          "description": "같은 슬롯의 앞 스침과 이 시간(초) 안이면 한 단 올린다 → 틱(× 60)",
+          "$ref": "_common.schema.json#/$defs/seconds",
+          "exclusiveMinimum": 0
+        },
+        "max_step": {
+          "description": "음높이 단의 위 끝(0부터 이 값까지)",
+          "$ref": "_common.schema.json#/$defs/nonNegativeInteger"
+        }
+      }
+    },
+    "sfx_catalog": {
+      "description": "effects.md 19절의 사건 번호(E-01 → sfx_e01, T-09a → sfx_t09a)",
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/sfxId" }
+    },
+    "fx_catalog": {
+      "description": "effects.md 20절의 표 줄마다 붙인 식별자. src = '<절>#<표의 몸통 줄 번호>'(머리 두 줄 뒤 1부터)",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["fx", "src"],
+        "additionalProperties": false,
+        "properties": {
+          "fx": { "$ref": "#/$defs/fxId" },
+          "src": { "type": "string", "pattern": "^20\\.[1-9]#[1-9][0-9]*$" }
+        }
+      }
+    },
+    "bindings": {
+      "description": "한 줄 = 한 사건. CONTRACTS 13절의 줄 꼴",
+      "type": "array",
+      "items": { "$ref": "#/$defs/binding" }
+    }
+  },
+  "$defs": {
+    "eventKey": {
+      "description": "구역.snake_case(마디는 점으로 잇는다)",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*(\\.[a-z0-9_]+)+$",
+      "maxLength": 96
+    },
+    "sfxId": { "type": "string", "pattern": "^sfx_[ecthn][0-9]{2}[a-c]?$" },
+    "fxId": { "type": "string", "pattern": "^(fx|ui)_[a-z0-9_]+$", "maxLength": 64 },
+    "binding": {
+      "type": "object",
+      "required": ["event", "fx", "sfx", "shake", "hitstop_ms", "confirmed_only"],
+      "additionalProperties": false,
+      "properties": {
+        "event": { "$ref": "#/$defs/eventKey" },
+        "fx": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/fxId" } },
+        "sfx": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/sfxId" } },
+        "shake": {
+          "description": "흔들림 크기(spec 13 14.3절 ShakeSize, effects.md 0.2절). 세기와 줄이기는 표시 계층이 집행한다",
+          "enum": ["none", "small", "medium", "large", "xlarge"]
+        },
+        "hitstop_ms": {
+          "description": "맞은 대상과 맞힌 것의 그림만 멈추는 길이(ms). 게임 시간은 멈추지 않는다(spec 13 14.4절)",
+          "$ref": "_common.schema.json#/$defs/nonNegativeInteger"
+        },
+        "confirmed_only": {
+          "description": "참이면 그림도 Confirmed 단계에서만 낸다(소리·흔들림·그림 정지는 늘 Confirmed 에서만. CONTRACTS 6.4)",
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

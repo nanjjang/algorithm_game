@@ -1,0 +1,647 @@
+{
+  "_note": "spec 05 2.5 표(원형 4종 [확정: G 11], 신규 8종 [제안])와 4.1~4.12절의 공격 표, spec 14 3.6(id·약점·저항·꼬리표·첫 등장), 졸개 갓버섯 새싹은 spec 06 5절(spore_queen.summon_sprouts)·spec 05 10.5. 몸 반지름은 spec 05 U-04, 재사용 대기는 U-05 [임시]. 공격 첨자: 이끼 슬라임 0 접촉 / 덤불 늑대 0 돌진 / 선돌지기 0 내려찍기, 1 휩쓸기, 2 접촉 / 갓버섯 술사 0 3갈래 탄, 1 접촉 / 꽈리 벌레 0 점화, 1 접촉 / 솔침 고슴도치 0 저격, 1 접촉 / 화분 족제비 0 솟구침, 1 접촉 / 해거름 박쥐 0 접촉 / 도깨비불 0 고리 탄, 1 접촉 / 가시덩굴 0 씨앗, 1 접촉 / 엄니 멧돼지 0 돌진, 1 접촉 / 북두꺼비 0 혀, 1 접촉 / 갓버섯 새싹 0 접촉. 접촉은 늘 피해 1, 같은 적에게서 1.5초에 1회(spec 05 1.1 P3, 3.6). 접촉이 없는 것은 늑대뿐이다(족제비는 땅속일 때만 없다. 3.6). 엘리트는 elites.json(EliteDef)",
+  "enemies": [
+    {
+      "id": "enemy.slime_moss",
+      "_note": "spec 05 4.1. 예고 없음(속도 3.0 < V, R2)",
+      "role": "swarm",
+      "base_hp": 20,
+      "move_speed": 3.0,
+      "attack_damage": 1,
+      "contact_damage": 1,
+      "cost": 1,
+      "first_wave": 1,
+      "times": ["tod.day", "tod.dusk", "tod.night"],
+      "weak": "element.fire",
+      "resist": "element.ice",
+      "tags": [],
+      "knockback_immune": false,
+      "species_cap": null,
+      "body_radius": 0.35,
+      "attacks": [
+        {
+          "key": "contact",
+          "_note": "slime_moss.contact. 쿨다운 90틱(spec 05 4.1)",
+          "kind": "contact",
+          "damage": 1,
+          "damage_source": "contact",
+          "cooldown_seconds": 1.5
+        }
+      ]
+    },
+    {
+      "id": "enemy.wolf_bramble",
+      "_note": "spec 05 4.2. R2 예외(1.2절 보충 6): 몸 접촉이 없고 늘 예고 돌진을 한다. 해질녘 가중치 ×2 는 웨이브 데이터(M 4.1). ② 반동 사격의 0.8초 경직은 비기 쪽 값이다(spec 03)",
+      "role": "evasive_charger",
+      "base_hp": 45,
+      "move_speed": 4.5,
+      "attack_damage": 1,
+      "contact_damage": 0,
+      "cost": 3,
+      "first_wave": 3,
+      "times": ["tod.day", "tod.dusk", "tod.night"],
+      "weak": "element.lightning",
+      "resist": "element.dark",
+      "tags": [],
+      "knockback_immune": false,
+      "species_cap": null,
+      "body_radius": 0.40,
+      "attacks": [
+        {
+          "key": "dash",
+          "_note": "wolf_bramble.dash. 직선 돌진 6칸, 띠 폭 1.0, 예고 0.5초(30틱), 시작 순간 방향 고정, 돌진 속도 18(6 ÷ 18초 = 20틱), 경직 1.5초(90틱), 발동 거리 3.5~5.5. 재사용 대기 0(빈틈이 대신함, U-05)",
+          "kind": "dash",
+          "shape": "band",
+          "width": 1.0,
+          "length": 6,
+          "trigger_min": 3.5,
+          "trigger_max": 5.5,
+          "telegraph_seconds": 0.5,
+          "lock": "at_start",
+          "anchor": "self",
+          "active_ticks": 20,
+          "dash_speed": 18,
+          "recovery_seconds": 1.5,
+          "damage": 1,
+          "damage_source": "telegraph",
+          "grazeable": true,
+          "is_dash": true,
+          "cooldown_seconds": 0
+        }
+      ],
+      "ai": {
+        "_note": "wolf_bramble.dodge: 대시 1.5칸, 재사용 1.5초(90틱), 0.25초(15틱) 안에 맞을 탄이면 회피(spec 05 4.2). 대시 시간 6틱(0.1초, 15칸/초) [임시: U-28]",
+        "dodge_distance": 1.5,
+        "dodge_cooldown_seconds": 1.5,
+        "dodge_window_seconds": 0.25,
+        "dodge_dash_seconds": 0.1
+      }
+    },
+    {
+      "id": "enemy.golem_menhir",
+      "_note": "spec 05 4.3. 중량, 넉백 면역, 종 상한 3(spec 05 2.5)",
+      "role": "armored_heavy",
+      "base_hp": 300,
+      "move_speed": 1.8,
+      "attack_damage": 2,
+      "contact_damage": 1,
+      "cost": 6,
+      "first_wave": 5,
+      "times": ["tod.day", "tod.dusk", "tod.night"],
+      "weak": "element.arcane",
+      "resist": "element.lightning",
+      "tags": ["tag.heavy"],
+      "knockback_immune": true,
+      "species_cap": 3,
+      "body_radius": 0.60,
+      "attacks": [
+        {
+          "key": "slam",
+          "_note": "golem_menhir.slam. 원 반경 2.5, 중심 = 예고 시작 순간의 플레이어 위치, 사거리 8, 예고 1.1초(66틱, C-01), 빈틈 1.2초(72틱). 공격 간 최소 간격 1.0초 [임시: U-05]",
+          "kind": "zone",
+          "shape": "circle",
+          "radius": 2.5,
+          "range": 8,
+          "telegraph_seconds": 1.1,
+          "lock": "at_start",
+          "anchor": "player_pos_at_start",
+          "recovery_seconds": 1.2,
+          "damage": 2,
+          "damage_source": "telegraph",
+          "cooldown_seconds": 1.0
+        },
+        {
+          "key": "sweep",
+          "_note": "golem_menhir.sweep. 부채꼴 근접 3.0, 110도, 꼭짓점 = 자기 위치, 방향 = 시작 순간 플레이어 쪽 고정, 예고 0.8초(48틱), 빈틈 0.8초(48틱). 사거리 3.0 = 휩쓸기를 고르는 거리(4.3 (나), U-31)",
+          "kind": "zone",
+          "shape": "fan",
+          "radius": 3.0,
+          "fan_degrees": 110,
+          "range": 3.0,
+          "telegraph_seconds": 0.8,
+          "lock": "at_start",
+          "anchor": "self",
+          "recovery_seconds": 0.8,
+          "damage": 2,
+          "damage_source": "telegraph",
+          "cooldown_seconds": 1.0
+        },
+        {
+          "key": "contact",
+          "_note": "golem_menhir 접촉. 피해 1, 90틱(spec 05 4.3 표, M 4.2)",
+          "kind": "contact",
+          "damage": 1,
+          "damage_source": "contact",
+          "cooldown_seconds": 1.5
+        }
+      ],
+      "ai": {
+        "_note": "철갑: 정면 120도(±60°)로 받는 임계가 아닌 피해를 절반(spec 05 4.3, 3.7). 빈틈 동안 무효, ⑥ ⑨ 무시는 두뇌·비기 쪽 규칙",
+        "armor_half_angle_degrees": 60,
+        "armor_damage_ratio": 0.5
+      }
+    },
+    {
+      "id": "enemy.shaman_cap",
+      "_note": "spec 05 4.4. 접촉 피해 1(spec 05 2.2 contact_damage '4.2 표대로 항상 1', 3.6: 접촉이 없는 것은 늑대와 땅속 족제비뿐)",
+      "role": "ranged_cover",
+      "base_hp": 40,
+      "move_speed": 2.5,
+      "attack_damage": 1,
+      "contact_damage": 1,
+      "cost": 4,
+      "first_wave": 3,
+      "times": ["tod.day", "tod.dusk", "tod.night"],
+      "weak": "element.ice",
+      "resist": "element.dark",
+      "tags": [],
+      "knockback_immune": false,
+      "species_cap": null,
+      "body_radius": 0.30,
+      "attacks": [
+        {
+          "key": "triple",
+          "_note": "shaman_cap.triple. 3갈래 탄 속도 6.5, 시전 0.4초(24틱), 빈틈 0.6초(36틱), 탄 판정 반지름 0.12. 퍼짐 20도·사거리 9 [임시: U-34]. 시전 간격 2.0초(120틱) [임시: U-05]. 시전은 예고 구역이 아니다(U-12)",
+          "kind": "spread",
+          "range": 9,
+          "cast_seconds": 0.4,
+          "lock": "at_start",
+          "anchor": "self",
+          "recovery_seconds": 0.6,
+          "damage": 1,
+          "damage_source": "projectile",
+          "proj": {
+            "speed": 6.5,
+            "count": 3,
+            "spread_degrees": 20,
+            "range": 9,
+            "hit_radius": 0.12
+          },
+          "grazeable": true,
+          "cooldown_seconds": 2.0
+        },
+        {
+          "key": "contact",
+          "_note": "shaman_cap 접촉. 피해 1, 같은 적에게서 1.5초에 1회(spec 05 1.1 P3, 3.6)",
+          "kind": "contact",
+          "damage": 1,
+          "damage_source": "contact",
+          "cooldown_seconds": 1.5
+        }
+      ],
+      "ai": {
+        "_note": "엄폐: 체력 절반 이하면 선돌지기(없으면 가시덩굴) + normalize(엄폐물 − 플레이어) × 1.5 로(spec 05 4.4). 거리 유지 5~8칸, 엄폐물이 없으면 7칸 이상 [임시: U-36]",
+        "cover_hp_ratio": 0.5,
+        "cover_offset": 1.5,
+        "keep_distance_min": 5,
+        "keep_distance_max": 8,
+        "kite_distance_min": 7
+      }
+    },
+    {
+      "id": "enemy.bug_lantern",
+      "_note": "spec 05 4.5. 접촉 피해 1(C-14: R2 표가 예고 없이 부딪치는 적으로 검산했다, 버프 3.7 < V)",
+      "role": "suicide",
+      "base_hp": 18,
+      "move_speed": 3.6,
+      "attack_damage": 1,
+      "contact_damage": 1,
+      "cost": 2,
+      "first_wave": 2,
+      "times": ["tod.day", "tod.dusk", "tod.night"],
+      "weak": "element.ice",
+      "resist": "element.fire",
+      "tags": [],
+      "knockback_immune": false,
+      "species_cap": null,
+      "body_radius": 0.28,
+      "attacks": [
+        {
+          "key": "ignite",
+          "_note": "bug_lantern.ignite. 1.2칸 안이면 멈추고 점화, 자기 중심 원 반경 1.8, 예고 0.9초(54틱, M 8.1), 피해 1, 터지면 자신도 죽는다. 점화 폭발은 적에게 피해가 없다 [임시: U-37]. 빙결되면 취소, 풀리면 처음부터(X8)",
+          "kind": "self_destruct",
+          "shape": "circle",
+          "radius": 1.8,
+          "range": 1.2,
+          "telegraph_seconds": 0.9,
+          "lock": "at_start",
+          "anchor": "self",
+          "damage": 1,
+          "damage_source": "telegraph",
+          "cooldown_seconds": 0
+        },
+        {
+          "key": "contact",
+          "_note": "bug_lantern 접촉. 피해 1, 90틱",
+          "kind": "contact",
+          "damage": 1,
+          "damage_source": "contact",
+          "cooldown_seconds": 1.5
+        }
+      ],
+      "ai": {
+        "_note": "bug_lantern.sympathetic: 점화 전에 죽으면 0.4초(24틱) 뒤 점화와 같은 반경으로 터지며 적에게 20 × H(w) 무속성, 플레이어 피해 0(spec 05 4.5). 점화 중 사망도 유폭 [임시: U-38]",
+        "sympathetic_damage": 20,
+        "sympathetic_delay_seconds": 0.4
+      }
+    },
+    {
+      "id": "enemy.hog_needle",
+      "_note": "spec 05 4.6. 종 상한 4(spec 05 2.5)",
+      "role": "sniper",
+      "base_hp": 35,
+      "move_speed": 2.2,
+      "attack_damage": 1,
+      "contact_damage": 1,
+      "cost": 4,
+      "first_wave": 4,
+      "times": ["tod.day", "tod.dusk"],
+      "weak": "element.dark",
+      "resist": "element.ice",
+      "tags": [],
+      "knockback_immune": false,
+      "species_cap": 4,
+      "body_radius": 0.33,
+      "attacks": [
+        {
+          "key": "snipe",
+          "_note": "hog_needle.snipe. 조준선 폭 0.4, 전장 끝까지, 1.0초(60틱): 처음 0.6초(36틱) 플레이어 추적, 마지막 0.4초(24틱) 고정(R4). 가시 탄 속도 16, 벽에 박히면 사라진다(사거리 제한 없음), 판정 반지름 0.12 [임시: U-43]. 빈틈 1.4초(84틱). 거리 7~10칸에서 쏜다. 조준 간격 1.0초(60틱) [임시: U-05]",
+          "kind": "aimed_shot",
+          "shape": "aim_line",
+          "width": 0.4,
+          "length": null,
+          "trigger_min": 7,
+          "trigger_max": 10,
+          "telegraph_seconds": 1.0,
+          "lock": "last_n_ticks",
+          "lock_seconds": 0.4,
+          "anchor": "self",
+          "recovery_seconds": 1.4,
+          "damage": 1,
+          "damage_source": "projectile",
+          "proj": {
+            "speed": 16,
+            "count": 1,
+            "spread_degrees": 0,
+            "range": null,
+            "hit_radius": 0.12
+          },
+          "grazeable": true,
+          "cooldown_seconds": 1.0
+        },
+        {
+          "key": "contact",
+          "_note": "hog_needle 접촉. 피해 1, 90틱",
+          "kind": "contact",
+          "damage": 1,
+          "damage_source": "contact",
+          "cooldown_seconds": 1.5
+        }
+      ],
+      "ai": {
+        "_note": "거리 유지: 7칸보다 가까우면 뒷걸음, 10칸보다 멀면 접근, 그 사이는 정지(옆걸음 없음 [임시: U-41])",
+        "keep_distance_min": 7,
+        "keep_distance_max": 10
+      }
+    },
+    {
+      "id": "enemy.weasel_pot",
+      "_note": "spec 05 4.7. 이동 속도 3.5 는 땅속 속도, 지상에서는 움직이지 않는다 [임시: U-47, C-18]. 바탕 꼬리표는 땅속(둔덕으로 나온다 [임시: U-25]). 지상에 솟으면 꼬리표 없음(상태 기계가 덮어쓴다, TV-TAG-02). 접촉 피해는 지상일 때만 1 [임시: U-48]",
+      "role": "ambush",
+      "base_hp": 55,
+      "move_speed": 3.5,
+      "attack_damage": 1,
+      "contact_damage": 1,
+      "cost": 3,
+      "first_wave": 6,
+      "times": ["tod.day", "tod.dusk", "tod.night"],
+      "weak": "element.lightning",
+      "resist": "element.fire",
+      "tags": ["tag.burrowed"],
+      "knockback_immune": false,
+      "species_cap": null,
+      "body_radius": 0.25,
+      "attacks": [
+        {
+          "key": "erupt",
+          "_note": "weasel_pot.erupt. 플레이어 2칸 안이면 그 순간의 플레이어 위치에 솟구침, 원 반경 1.2, 예고 0.7초(42틱), 피해 1. 땅속 4초가 지나면 자기 위치에(ai)",
+          "kind": "zone",
+          "shape": "circle",
+          "radius": 1.2,
+          "range": 2,
+          "telegraph_seconds": 0.7,
+          "lock": "at_start",
+          "anchor": "player_pos_at_start",
+          "damage": 1,
+          "damage_source": "telegraph",
+          "cooldown_seconds": 0
+        },
+        {
+          "key": "contact",
+          "_note": "weasel_pot 지상 접촉. 피해 1, 90틱 [임시: U-48]",
+          "kind": "contact",
+          "damage": 1,
+          "damage_source": "contact",
+          "cooldown_seconds": 1.5
+        }
+      ],
+      "ai": {
+        "_note": "솟은 뒤 지상 1.6초(96틱, 빈틈이 아니다 [임시: U-51]), 파고들기 0.5초(30틱), 한 번에 땅속 최대 4초(240틱), 요청이 3초(180틱) 더 막히면 목표를 자기 위치로 [임시: U-50]",
+        "surface_seconds": 1.6,
+        "dig_seconds": 0.5,
+        "burrow_max_seconds": 4,
+        "burrow_retarget_seconds": 3
+      }
+    },
+    {
+      "id": "enemy.bat_dusk",
+      "_note": "spec 05 4.8. 예고 없음(속도 3.6 < V, R2. 버프 3.7). 6~8마리가 한 묶음(spec 07 2.2 spawn_pack). 시간대 가중치(해질녘 ×0.5, 밤 ×2)는 tod.json",
+      "role": "night_swarm",
+      "base_hp": 12,
+      "move_speed": 3.6,
+      "attack_damage": 1,
+      "contact_damage": 1,
+      "cost": 1,
+      "first_wave": 7,
+      "times": ["tod.dusk", "tod.night"],
+      "weak": "element.fire",
+      "resist": "element.dark",
+      "tags": ["tag.flying"],
+      "knockback_immune": false,
+      "species_cap": null,
+      "body_radius": 0.25,
+      "spawn_pack": [6, 8],
+      "attacks": [
+        {
+          "key": "contact",
+          "_note": "bat_dusk 접촉. 예고 없음, 피해 1, 90틱",
+          "kind": "contact",
+          "damage": 1,
+          "damage_source": "contact",
+          "cooldown_seconds": 1.5
+        }
+      ],
+      "ai": {
+        "_note": "좌우로 물결치며 난다: 진폭 1칸, 주기 1.2초(72틱). 실제 이동량은 이동 속도로 자르고 위상은 난수 0~71틱 [임시: U-52, C-07]",
+        "wave_amplitude": 1,
+        "wave_period_seconds": 1.2
+      }
+    },
+    {
+      "id": "enemy.wisp_stray",
+      "_note": "spec 05 4.9. 종 상한 4(변덕 '긴 밤' 6 은 modifiers.json)",
+      "role": "ring_barrage",
+      "base_hp": 35,
+      "move_speed": 2.0,
+      "attack_damage": 1,
+      "contact_damage": 1,
+      "cost": 4,
+      "first_wave": 8,
+      "times": ["tod.night"],
+      "weak": "element.arcane",
+      "resist": "element.lightning",
+      "tags": ["tag.flying"],
+      "knockback_immune": false,
+      "species_cap": 4,
+      "body_radius": 0.25,
+      "attacks": [
+        {
+          "key": "ring",
+          "_note": "wisp_stray.ring. 8방향 고리 탄, 시전 0.6초(36틱, 예고 구역이 아니다 U-12), 탄 속도 4.5, 사거리 9, 판정 반지름 0.12(소), 피해 1(탄), 빈틈 1.0초(60틱). 3칸 지점 탄 사이 2.36칸(R3). 첫 탄이 플레이어 쪽 [임시: U-57]. 시전 간격 2.5초(150틱) [임시: U-05]",
+          "kind": "ring_shot",
+          "cast_seconds": 0.6,
+          "lock": "at_start",
+          "anchor": "self",
+          "recovery_seconds": 1.0,
+          "damage": 1,
+          "damage_source": "projectile",
+          "proj": {
+            "speed": 4.5,
+            "count": 8,
+            "spread_degrees": 45,
+            "range": 9,
+            "hit_radius": 0.12
+          },
+          "grazeable": true,
+          "cooldown_seconds": 2.5
+        },
+        {
+          "key": "contact",
+          "_note": "wisp_stray 접촉. 피해 1, 90틱",
+          "kind": "contact",
+          "damage": 1,
+          "damage_source": "contact",
+          "cooldown_seconds": 1.5
+        }
+      ],
+      "ai": {
+        "_note": "wisp_stray.blink: 5초(300틱)마다 플레이어에게서 5~7칸 떨어진 빈자리로, 사라지기 0.3초(18틱)·나타나기 0.3초(18틱), 나타난 뒤 0.5초(30틱) 시전 금지(spec 05 4.9). 후보 16개, 없으면 반지름 6 고정으로 다시, 벽에서 1칸 이상 [임시: U-56]. 평소 거리 5~7칸 [임시: U-53]",
+        "keep_distance_min": 5,
+        "keep_distance_max": 7,
+        "blink_period_seconds": 5,
+        "vanish_seconds": 0.3,
+        "appear_seconds": 0.3,
+        "no_cast_after_appear_seconds": 0.5,
+        "blink_distance_min": 5,
+        "blink_distance_max": 7,
+        "blink_retry_distance": 6,
+        "blink_candidates": 16,
+        "blink_wall_margin": 1
+      }
+    },
+    {
+      "id": "enemy.vine_thorn",
+      "_note": "spec 05 4.10. 움직이지 않는다(속도 0). 뿌리, 넉백 면역, 종 상한 4",
+      "role": "zone_denial",
+      "base_hp": 70,
+      "move_speed": 0,
+      "attack_damage": 1,
+      "contact_damage": 1,
+      "cost": 4,
+      "first_wave": 11,
+      "times": ["tod.day", "tod.dusk"],
+      "weak": "element.fire",
+      "resist": "element.arcane",
+      "tags": ["tag.rooted"],
+      "knockback_immune": true,
+      "species_cap": 4,
+      "body_radius": 0.35,
+      "attacks": [
+        {
+          "key": "seed",
+          "_note": "vine_thorn.seed. 플레이어 위치로 포물선(설치 벽을 넘는다, X5), 원 반경 1.5, 예고 1.0초(60틱 = 씨앗 비행 시간 [임시: U-58]), 피해 1. 시전 간격 3.5초(210틱, 허가 틱 기준 [임시: U-59]). 떨어진 자리에 가시밭(반경 1.5, 4초 = 240틱, 전장 동시 3개, 접촉 규칙 1.5초에 1회)",
+          "kind": "lob",
+          "shape": "circle",
+          "radius": 1.5,
+          "telegraph_seconds": 1.0,
+          "lock": "at_start",
+          "anchor": "player_pos_at_start",
+          "damage": 1,
+          "damage_source": "telegraph",
+          "lob": true,
+          "cooldown_seconds": 3.5,
+          "leaves_hazard": {
+            "kind": "thorn_field",
+            "radius": 1.5,
+            "duration_seconds": 4,
+            "max_count": 3,
+            "contact_cooldown_seconds": 1.5
+          }
+        },
+        {
+          "key": "contact",
+          "_note": "vine_thorn 접촉. 피해 1, 90틱",
+          "kind": "contact",
+          "damage": 1,
+          "damage_source": "contact",
+          "cooldown_seconds": 1.5
+        }
+      ],
+      "ai": {
+        "_note": "등장: 벽에서 2칸 이상 떨어진 곳에 나오기 전 1.0초(60틱) 흙 금(피해 주고받지 않음), 플레이어와 3칸 이상 [임시: U-60]",
+        "emerge_seconds": 1.0,
+        "spawn_wall_margin": 2,
+        "spawn_player_margin": 3
+      }
+    },
+    {
+      "id": "enemy.boar_tusk",
+      "_note": "spec 05 4.11. 중량, 넉백 면역, 종 상한 3",
+      "role": "long_charger",
+      "base_hp": 160,
+      "move_speed": 2.4,
+      "attack_damage": 2,
+      "contact_damage": 1,
+      "cost": 5,
+      "first_wave": 13,
+      "times": ["tod.day", "tod.dusk"],
+      "weak": "element.ice",
+      "resist": "element.arcane",
+      "tags": ["tag.heavy"],
+      "knockback_immune": true,
+      "species_cap": 3,
+      "body_radius": 0.55,
+      "attacks": [
+        {
+          "key": "charge",
+          "_note": "boar_tusk.charge. 플레이어와 직선이 열리면 준비. 띠 폭 1.6, 벽에 닿을 때까지(길이 없음, 시작 틱 레이캐스트), 예고 0.9초(54틱), 시작 순간 방향 고정, 돌진 속도 16, 피해 2. 전장 벽에 부딪히면 기절 2.0초(120틱) = 빈틈. 돌진 간격 3.0초(180틱) [임시: U-05]",
+          "kind": "dash",
+          "shape": "band",
+          "width": 1.6,
+          "length": null,
+          "telegraph_seconds": 0.9,
+          "lock": "at_start",
+          "anchor": "self",
+          "active_ticks": 0,
+          "dash_speed": 16,
+          "recovery_seconds": 2.0,
+          "damage": 2,
+          "damage_source": "telegraph",
+          "grazeable": true,
+          "is_dash": true,
+          "cooldown_seconds": 3.0
+        },
+        {
+          "key": "contact",
+          "_note": "boar_tusk 접촉. 피해 1, 90틱",
+          "kind": "contact",
+          "damage": 1,
+          "damage_source": "contact",
+          "cooldown_seconds": 1.5
+        }
+      ],
+      "ai": {
+        "_note": "기절 중 받는 피해 × 1.5. 돌진 경로의 다른 적은 10 × H(w) 무속성(적마다 1회 [임시: U-62]), 꽈리 벌레는 그 자리에서 유폭",
+        "stun_damage_ratio": 1.5,
+        "path_damage": 10
+      }
+    },
+    {
+      "id": "enemy.toad_drum",
+      "_note": "spec 05 4.12. 종 상한 2",
+      "role": "support",
+      "base_hp": 90,
+      "move_speed": 2.0,
+      "attack_damage": 1,
+      "contact_damage": 1,
+      "cost": 5,
+      "first_wave": 15,
+      "times": ["tod.day", "tod.dusk", "tod.night"],
+      "weak": "element.dark",
+      "resist": "element.ice",
+      "tags": [],
+      "knockback_immune": false,
+      "species_cap": 2,
+      "body_radius": 0.37,
+      "attacks": [
+        {
+          "key": "tongue",
+          "_note": "toad_drum.tongue. 혀 채찍: 띠 폭 0.8, 길이 3.5, 예고 0.6초(36틱), 피해 1, 빈틈 1.0초(60틱). 플레이어가 3칸 안에 있을 때만. 혀 간격 1.5초(90틱) [임시: U-05]. 울음 중에는 쓰지 않는다 [임시: U-66]",
+          "kind": "tongue",
+          "shape": "band",
+          "width": 0.8,
+          "length": 3.5,
+          "range": 3,
+          "telegraph_seconds": 0.6,
+          "lock": "at_start",
+          "anchor": "self",
+          "recovery_seconds": 1.0,
+          "damage": 1,
+          "damage_source": "telegraph",
+          "cooldown_seconds": 1.5
+        },
+        {
+          "key": "contact",
+          "_note": "toad_drum 접촉. 피해 1, 90틱",
+          "kind": "contact",
+          "damage": 1,
+          "damage_source": "contact",
+          "cooldown_seconds": 1.5
+        }
+      ],
+      "ai": {
+        "_note": "toad_drum.croak: 6초(360틱)마다 2.0초(120틱) 운다. 끝나면 반경 4 안의 다른 적(보스 제외)에게 4초(240틱) 이동 속도 +20%(최종 3.7 상한), 예고 뒤 빈틈 −30%(spec 05 3.8). 우는 동안 누적 피해 30 × H(w) 면 취소 + 1.0초(60틱) 경직. 따라가기: 반경 8 안 다른 적 평균에서 플레이어 반대쪽 2칸 [임시: U-64]",
+        "croak_period_seconds": 6,
+        "croak_seconds": 2.0,
+        "buff_radius": 4,
+        "buff_seconds": 4,
+        "buff_speed_ratio": 1.2,
+        "buff_speed_cap": 3.7,
+        "buff_recovery_ratio": 0.7,
+        "croak_break_damage": 30,
+        "croak_stagger_seconds": 1.0,
+        "follow_radius": 8,
+        "follow_offset": 2
+      }
+    },
+    {
+      "id": "enemy.spore_seedling",
+      "_note": "보스 천 갓의 졸개(spec 06 5절 spore_queen.summon_sprouts: 체력 20, 속도 2.5, 접촉. 판정 반지름 0.25 [임시]). 꼬리표·상성·점수·골드·드랍 없음(spec 05 6.1, 1.3 A4, TV-SPC-52). 역할은 떼(직선 추적 + 접촉)로 둔다 [임시]. R2: 버프 3.0 < V(spec 05 10.5)",
+      "minion": true,
+      "role": "swarm",
+      "base_hp": 20,
+      "move_speed": 2.5,
+      "attack_damage": 1,
+      "contact_damage": 1,
+      "cost": 0,
+      "first_wave": 0,
+      "times": [],
+      "weak": "element.neutral",
+      "resist": "element.neutral",
+      "tags": [],
+      "knockback_immune": false,
+      "species_cap": null,
+      "body_radius": 0.25,
+      "attacks": [
+        {
+          "key": "contact",
+          "_note": "spore_seedling 접촉. 피해 1 [임시: spec 06 5절], 90틱",
+          "kind": "contact",
+          "damage": 1,
+          "damage_source": "contact",
+          "cooldown_seconds": 1.5
+        }
+      ]
+    }
+  ]
+}

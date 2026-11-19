@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wizard.invalid/data/schema/characters.schema.json",
+  "title": "캐릭터 능력치 (data/sim/characters.json → 팩 절 1 characters)",
+  "description": "spec 01 5.1, spec 04 2절, CONTRACTS 2.2 CharacterDef. baseline 은 검산용 기준값 캐릭터(CharacterId.Baseline = 0, 문자열 id 없음, spec 01 15절 C16)이고 characters 는 char.1~char.5 의 줄이다. 수는 원문 단위의 십진으로 적고 DataBuild 가 정수로 바꾼다(tools/Wizard.DataBuild/Convert/CharactersConverter.cs).",
+  "type": "object",
+  "required": ["baseline"],
+  "additionalProperties": false,
+  "properties": {
+    "_note": { "$ref": "_common.schema.json#/$defs/note" },
+    "baseline": { "$ref": "#/$defs/stats", "unevaluatedProperties": false },
+    "characters": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/character" }
+    }
+  },
+  "$defs": {
+    "stats": {
+      "description": "능력치(CharacterDef 의 수 필드). 필드 이름 옆은 바뀌는 정수 단위",
+      "type": "object",
+      "required": [
+        "max_hp_cells", "walk_speed", "stance_speed", "hit_radius", "body_radius", "graze_radius", "invuln_seconds",
+        "crystal_cap", "combo_per_crystal", "crystal_loss_on_hit", "base_link_slots", "max_mutations",
+        "cool_per_second", "cool_delay_seconds", "crit_start", "lock_seconds", "graze_buff_seconds", "graze_buff_speed"
+      ],
+      "properties": {
+        "_note": { "$ref": "_common.schema.json#/$defs/note" },
+        "max_hp_cells": { "description": "체력(칸) → MaxHpCells. 체력 점수 = 칸 × 100(spec 01 6.1)", "type": "integer", "minimum": 1 },
+        "walk_speed": { "description": "이동 속도(칸/초) → WalkSpeedCenti(× 100. 4.7 → 470, spec 01 2.3)", "type": "number", "exclusiveMinimum": 0 },
+        "stance_speed": { "description": "자세·반전 자세 속도(칸/초) → StanceSpeedCenti(× 100)", "type": "number", "exclusiveMinimum": 0 },
+        "hit_radius": { "description": "피격 반지름(칸) → HitRadius Raw", "$ref": "_common.schema.json#/$defs/cells", "exclusiveMinimum": 0 },
+        "body_radius": { "description": "벽 충돌용 몸 반지름(칸) → BodyRadius Raw(spec 01 5.6)", "$ref": "_common.schema.json#/$defs/cells", "exclusiveMinimum": 0 },
+        "graze_radius": { "description": "스침 감지 반지름(칸) → GrazeRadius Raw", "$ref": "_common.schema.json#/$defs/cells", "exclusiveMinimum": 0 },
+        "invuln_seconds": { "description": "피격 후 무적(초) → InvulnTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "crystal_cap": { "description": "결정 상한 → CrystalCap. 만개(최소 3결정)가 되려면 3 이상(spec 04 2.4 [임시])", "type": "integer", "minimum": 3 },
+        "combo_per_crystal": { "description": "결정 1개당 콤보 → ComboPerCrystal", "type": "integer", "minimum": 1 },
+        "crystal_loss_on_hit": { "description": "피격 시 잃는 결정 → CrystalLossOnHit. 전용 지팡이의 특성을 반영한 값이다(성에 0, spec 04 2.2·spec 01 5.1의 칸 값)", "$ref": "_common.schema.json#/$defs/nonNegativeInteger" },
+        "base_link_slots": { "description": "시작 연결 슬롯 → BaseLinkSlots", "type": "integer", "minimum": 1 },
+        "max_mutations": { "description": "변이 보유 수 → MaxMutations. 전용 지팡이의 특성을 반영한 값이다(초롱 3, spec 01 5.1, spec 04 7.2)", "$ref": "_common.schema.json#/$defs/nonNegativeInteger" },
+        "cool_per_second": { "description": "냉각(열/초) → CoolHuPerTick(× 120 ÷ 60. 45 → 90, spec 01 2.4)", "$ref": "_common.schema.json#/$defs/heat", "minimum": 0 },
+        "cool_delay_seconds": { "description": "냉각 대기(초) → CoolDelayTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "crit_start": { "description": "임계 시작(열) → CritStartHu(× 120). 전용 지팡이의 특성을 반영한 값이다(달구 80, spec 04 2.2 '지팡이 특성 반영 임계 시작' 줄, spec 01 15절 C17). 지팡이는 그 캐릭터만 쓴다(DECISIONS 2.4)", "$ref": "_common.schema.json#/$defs/heat", "minimum": 0 },
+        "lock_seconds": { "description": "과열 잠금(초) → LockTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "graze_buff_seconds": { "description": "스침 가속 지속(초) → GrazeBuffTicks", "$ref": "_common.schema.json#/$defs/seconds" },
+        "graze_buff_speed": { "description": "스침 가속 배율(1.2 = +20%) → GrazeBuffPermille(× 1000)", "$ref": "_common.schema.json#/$defs/ratio", "exclusiveMinimum": 0 }
+      }
+    },
+    "character": {
+      "description": "캐릭터 한 줄(char.1~char.5). 능력치에 속성·패시브·지팡이 특성·고유 비기의 참조를 더한다",
+      "allOf": [{ "$ref": "#/$defs/stats" }],
+      "required": ["id", "element", "passive", "wand_trait", "unique_art"],
+      "properties": {
+        "id": { "description": "캐릭터 id(spec 14 3.2)", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^char\\.[1-9][0-9]*$" },
+        "element": { "description": "속성 id(element.*)", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^element\\." },
+        "passive": { "description": "패시브 id(passive.*)", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^passive\\." },
+        "wand_trait": { "description": "지팡이 특성 id(wand_trait.*)", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^wand_trait\\." },
+        "unique_art": { "description": "고유 비기 id(art.*)", "$ref": "_common.schema.json#/$defs/contentId", "pattern": "^art\\." }
+      },
+      "unevaluatedProperties": false
+    }
+  }
+}

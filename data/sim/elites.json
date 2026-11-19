@@ -1,0 +1,251 @@
+{
+  "_note": "spec 05 7.1~7.3(엘리트 12종과 고유 능력 [제안 + 임시]), monsters 3.1, spec 14 3.7(id elite.<바탕 키>, 코드 200 + 종). 엘리트는 바탕 종(enemies.json)의 수치·공격·약점·저항·꼬리표를 그대로 쓰고 꼬리표 엘리트가 더해진다(spec 05 7.1, 1.3 A4). 체력 ×3·비용 ×3 은 waves.json(elite_hp_mul, elite_cost_mul), 골드는 비용 × 2 라 ×3 이 따라온다. 여기에는 종마다 하나인 고유 능력(ability)과 그 매개변수(params), 능력이 쓰는 공격(attacks)만 둔다. attacks 의 replaces·follows 는 바탕 종 공격의 첨자(enemies.json 의 _note)다: replaces = 그 공격 대신, follows = 그 공격의 판정 틱에 그 구역에서 이어서, 둘 다 없으면 따로 쓰는 공격. 고유 능력이 정한 예고(왕꽈리 1.1초 등)는 그 능력의 값이다(C-13)",
+  "elites": [
+    {
+      "id": "elite.slime_moss",
+      "_note": "왕이끼 슬라임. 죽으면 이끼 슬라임 3마리(체력 20 × H(w), 엘리트 아님, 점수·골드·드랍 0)로 갈라진다. 위치 = 사망 위치 + 반지름 0.5 의 120도 간격, 시작각 0도 [임시: U-69], 동시 개체 상한 40 을 넘어도 생성 [임시: U-70]",
+      "ability": "split",
+      "attacks": [],
+      "params": {
+        "split_count": 3,
+        "split_radius": 0.5,
+        "split_start_angle_degrees": 0
+      }
+    },
+    {
+      "id": "elite.wolf_bramble",
+      "_note": "우두머리 늑대. 울부짖음 1.0초(60틱) 뒤 반경 6 안의 덤불 늑대(일반, 추적 중, 자신 제외)를 거리 오름차순(동률 entity_id)으로 0.25초(15틱) 간격에 차례로 돌진 요청(각자 상한·R5). 자신은 그 뒤 돌진을 2회 잇는다: 첫 돌진 → 경직 없이 → 둘째 예고 0.5초(바탕 돌진과 같은 30틱) → 돌진 → 경직 90틱, 사이 0틱 [임시: U-71]. 울부짖음은 자기 돌진 묶음마다 앞에 한 번 [임시]",
+      "ability": "howl",
+      "attacks": [],
+      "params": {
+        "howl_seconds": 1.0,
+        "howl_radius": 6,
+        "howl_step_seconds": 0.25,
+        "chain_count": 2,
+        "chain_gap_seconds": 0
+      }
+    },
+    {
+      "id": "elite.golem_menhir",
+      "_note": "고인돌지기. 내려찍기(첨자 0) 판정 틱에 그 원의 중심에서 돌 파편 8발이 고리로(45도 간격, 첫 탄이 플레이어 쪽 [임시]). 속도 5, 스침 대상, 무속성 탄, 판정 반지름 0.18(대, 파편)·사거리 9 [임시: U-72], 피해 1. 3칸 지점 탄 사이 2.36칸(R3). 철갑 120도 → 160도(반각 80도)",
+      "ability": "shards",
+      "attacks": [
+        {
+          "follows": 0,
+          "attack": {
+            "key": "shards",
+            "kind": "ring_shot",
+            "anchor": "self",
+            "damage": 1,
+            "damage_source": "projectile",
+            "proj": {
+              "speed": 5,
+              "count": 8,
+              "spread_degrees": 45,
+              "range": 9,
+              "hit_radius": 0.18
+            },
+            "grazeable": true,
+            "cooldown_seconds": 0
+          }
+        }
+      ],
+      "params": {
+        "armor_half_angle_degrees": 80
+      }
+    },
+    {
+      "id": "elite.shaman_cap",
+      "_note": "큰갓 술사. 3갈래 탄(첨자 0) 대신 5갈래, 간격 20도, 가운데 탄이 플레이어 쪽. 3칸 지점 탄 사이 1.047칸(R3). 탄속·시전·빈틈·사거리·간격은 바탕과 같다",
+      "ability": "wide_spread",
+      "attacks": [
+        {
+          "replaces": 0,
+          "attack": {
+            "key": "wide",
+            "kind": "spread",
+            "range": 9,
+            "cast_seconds": 0.4,
+            "lock": "at_start",
+            "anchor": "self",
+            "recovery_seconds": 0.6,
+            "damage": 1,
+            "damage_source": "projectile",
+            "proj": {
+              "speed": 6.5,
+              "count": 5,
+              "spread_degrees": 20,
+              "range": 9,
+              "hit_radius": 0.12
+            },
+            "grazeable": true,
+            "cooldown_seconds": 2.0
+          }
+        }
+      ],
+      "params": {}
+    },
+    {
+      "id": "elite.bug_lantern",
+      "_note": "왕꽈리 벌레. 점화(첨자 0) 대신 폭발 반경 2.6, 예고 1.1초(66틱, M 8.1). 점화 거리 1.2 는 바탕과 같다 [임시]. 유폭이 적에게 60 × H(w), 지연은 바탕과 같은 24틱",
+      "ability": "big_blast",
+      "attacks": [
+        {
+          "replaces": 0,
+          "attack": {
+            "key": "ignite",
+            "kind": "self_destruct",
+            "shape": "circle",
+            "radius": 2.6,
+            "range": 1.2,
+            "telegraph_seconds": 1.1,
+            "lock": "at_start",
+            "anchor": "self",
+            "damage": 1,
+            "damage_source": "telegraph",
+            "cooldown_seconds": 0
+          }
+        }
+      ],
+      "params": {
+        "sympathetic_damage": 60
+      }
+    },
+    {
+      "id": "elite.hog_needle",
+      "_note": "삼연 고슴도치. 조준선 3개를 0.5초(30틱) 간격으로 시작(s, s+30, s+60). 각 조준선은 바탕 저격과 같다(60틱, 마지막 24틱 고정). 각자 상한·R5 요청 [임시: U-73]. 빈틈 84틱은 마지막 발사 뒤",
+      "ability": "triple_aim",
+      "attacks": [],
+      "params": {
+        "aim_count": 3,
+        "aim_step_seconds": 0.5
+      }
+    },
+    {
+      "id": "elite.weasel_pot",
+      "_note": "화분 어미. 솟구침(첨자 0) 판정 틱에 솟은 자리에서 흙 띠 4개(폭 0.8, 길이 3, 예고 0.6초 = 36틱, 피해 1), 방향 +x, +y, −x, −y [임시: U-74]. 4개를 한 묶음(전부 아니면 전무)으로 요청",
+      "ability": "earth_bands",
+      "attacks": [
+        {
+          "follows": 0,
+          "attack": {
+            "key": "earth_band",
+            "kind": "zone",
+            "shape": "band",
+            "width": 0.8,
+            "length": 3,
+            "telegraph_seconds": 0.6,
+            "lock": "at_start",
+            "anchor": "self",
+            "damage": 1,
+            "damage_source": "telegraph",
+            "cooldown_seconds": 0
+          }
+        }
+      ],
+      "params": {
+        "band_count": 4,
+        "band_start_angle_degrees": 0
+      }
+    },
+    {
+      "id": "elite.bat_dusk",
+      "_note": "박쥐 여왕. 체력 비율이 60%, 20% 아래로 처음 내려간 틱에(최대 2회) 박쥐 4마리(보상 없음), 여왕 주위 반지름 1, 90도 간격 [임시: U-75]. 급강하: 띠 폭 0.8, 길이 5, 예고 0.5초(30틱), 시작 순간 방향 고정, 속도 18 [임시: U-76] → ceil(5 × 60 ÷ 18) = 17틱, 피해 1(예고 공격), 돌진(급강하 중에는 땅 높이, X4). 급강하 간격 4초(240틱) [임시: U-05]. 급강하 뒤 빈틈은 원문에 없어 0 [임시]",
+      "ability": "summon",
+      "attacks": [
+        {
+          "attack": {
+            "key": "dive",
+            "kind": "dash",
+            "shape": "band",
+            "width": 0.8,
+            "length": 5,
+            "telegraph_seconds": 0.5,
+            "lock": "at_start",
+            "anchor": "self",
+            "active_ticks": 17,
+            "dash_speed": 18,
+            "recovery_seconds": 0,
+            "damage": 1,
+            "damage_source": "telegraph",
+            "grazeable": true,
+            "is_dash": true,
+            "cooldown_seconds": 4.0
+          }
+        }
+      ],
+      "params": {
+        "summon_count": 4,
+        "summon_radius": 1,
+        "summon_hp_ratios": [0.6, 0.2]
+      }
+    },
+    {
+      "id": "elite.wisp_stray",
+      "_note": "쌍둥이불. 고리 탄(바탕 첨자 0)을 0.5초(30틱) 간격으로 두 번, 두 번째는 22.5도(2π/16) 어긋나게. 3칸 지점 각 고리 안 2.36칸, 두 고리 탄 사이 1.18칸(R3, 검산 추가)",
+      "ability": "twin_ring",
+      "attacks": [],
+      "params": {
+        "ring_repeat": 2,
+        "ring_repeat_step_seconds": 0.5,
+        "ring_repeat_angle_degrees": 22.5
+      }
+    },
+    {
+      "id": "elite.vine_thorn",
+      "_note": "꽃 핀 가시덩굴. 씨앗(첨자 0) 대신 같은 씨앗 2개를 동시에: 하나는 플레이어 위치, 하나는 플레이어 이동 방향(마지막 이동 8방향, 정지 중이면 시선 [임시: U-77]) 3칸 앞, 전장 밖이면 벽 안 0.5칸으로 자른다 [임시]. 두 구역 한 묶음 요청. 가시밭 6초(360틱), 전장 동시 3개 상한은 공통",
+      "ability": "bloom",
+      "attacks": [
+        {
+          "replaces": 0,
+          "attack": {
+            "key": "seed",
+            "kind": "lob",
+            "shape": "circle",
+            "radius": 1.5,
+            "telegraph_seconds": 1.0,
+            "lock": "at_start",
+            "anchor": "player_pos_at_start",
+            "damage": 1,
+            "damage_source": "telegraph",
+            "lob": true,
+            "cooldown_seconds": 3.5,
+            "leaves_hazard": {
+              "kind": "thorn_field",
+              "radius": 1.5,
+              "duration_seconds": 6,
+              "max_count": 3,
+              "contact_cooldown_seconds": 1.5
+            }
+          }
+        }
+      ],
+      "params": {
+        "seed_count": 2,
+        "seed_lead_distance": 3,
+        "seed_wall_inset": 0.5
+      }
+    },
+    {
+      "id": "elite.boar_tusk",
+      "_note": "외엄니. 첫 전장 벽 충돌에서 0.5초(30틱) 멈춘 뒤 벽 법선 반사 방향 [임시: U-78]으로 새 띠 예고(바탕 돌진과 같은 54틱, 요청·대기 가능) → 돌진 → 두 번째 전장 벽 충돌에서 기절 120틱(받는 피해 × 1.5). 설치 벽은 부수고 계속 달리며 튕김에 세지 않는다(X1)",
+      "ability": "bounce",
+      "attacks": [],
+      "params": {
+        "bounce_count": 1,
+        "bounce_stop_seconds": 0.5
+      }
+    },
+    {
+      "id": "elite.toad_drum",
+      "_note": "큰북 두꺼비. 울음 반경 6, 울음 끊기에 필요한 누적 피해 60 × H(w), 빙결·기절로는 취소되지 않는다(끊기 피해로만, X9)",
+      "ability": "big_drum",
+      "attacks": [],
+      "params": {
+        "croak_radius": 6,
+        "croak_break_damage": 60,
+        "croak_break_only": true
+      }
+    }
+  ]
+}

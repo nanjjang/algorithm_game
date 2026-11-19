@@ -1,0 +1,35 @@
+{
+  "_note": "캐릭터별 커맨드 트라이(spec 03 5절)와 판정기 상수. parser 는 spec 03 1.2 표(초 → 입력 시각 단위 × 15,360, 가장 가까운 정수: 0.07초 = 1,075, 0.18초 = 2,765)와 9.2의 빚 상한 2. characters 는 각 캐릭터의 트라이에 넣는 비기: 공용 10 + 그 캐릭터의 고유 1(spec 03 5.1). 경로·슬롯은 arts.json, 노드·실패 링크·간격·전이는 판정기가 만든다(spec 03 5.4, 결과는 5.5·5.6 표). 최근 방향 입력 8개(DirHistorySize)는 판정기의 자료구조 크기라 여기 없다",
+  "parser": {
+    "just_window_seconds": 0.07,
+    "gap_full_bloom_seconds": 0.18,
+    "gap_short_seconds": 0.2,
+    "gap_same_side_seconds": 0.25,
+    "gap_default_seconds": 0.3,
+    "art_cooldown_seconds": 0.4,
+    "k_buffer_window_seconds": 0.1,
+    "max_debt": 2
+  },
+  "characters": [
+    {
+      "character": "char.1",
+      "arts": ["art.burst", "art.recoil", "art.fan", "art.wings", "art.afterimage", "art.spear", "art.vent", "art.octastar", "art.thunder_spear", "art.bloom", "art.kiln"]
+    },
+    {
+      "character": "char.2",
+      "arts": ["art.burst", "art.recoil", "art.fan", "art.wings", "art.afterimage", "art.spear", "art.vent", "art.octastar", "art.thunder_spear", "art.bloom", "art.bolt_dash"]
+    },
+    {
+      "character": "char.3",
+      "arts": ["art.burst", "art.recoil", "art.fan", "art.wings", "art.afterimage", "art.spear", "art.vent", "art.octastar", "art.thunder_spear", "art.bloom", "art.copy_circle"]
+    },
+    {
+      "character": "char.4",
+      "arts": ["art.burst", "art.recoil", "art.fan", "art.wings", "art.afterimage", "art.spear", "art.vent", "art.octastar", "art.thunder_spear", "art.bloom", "art.ice_screen"]
+    },
+    {
+      "character": "char.5",
+      "arts": ["art.burst", "art.recoil", "art.fan", "art.wings", "art.afterimage", "art.spear", "art.vent", "art.octastar", "art.thunder_spear", "art.bloom", "art.shadow_hand"]
+    }
+  ]
+}

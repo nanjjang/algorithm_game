@@ -1,0 +1,21 @@
+.DS_Store
+# IDE
+bin/
+obj/
+*.user
+.vs/
+.idea/
+# 에이전트 작업 트리와 작업 상태
+/.claude/worktrees/
+/.claude/taskstate.json
+/.claude/settings.local.json
+# 비밀값
+*.pepper
+appsettings.Local.json
+.env
+
+# 로컬 개발 도구 설정(저장소에 올리지 않는다)
+.claude/
+CLAUDE.md
+docs/dev/agent-config/
+solo/mono_crash.*.json

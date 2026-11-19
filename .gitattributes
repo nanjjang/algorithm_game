@@ -1,0 +1,18 @@
+* text=auto eol=lf
+*.cs text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.sh text eol=lf
+*.py text eol=lf
+*.asmdef text eol=lf
+# Unity YAML: 줄바꿈 고정, 병합은 텍스트로
+*.meta text eol=lf
+*.unity text eol=lf
+*.asset text eol=lf
+*.prefab text eol=lf
+*.mat text eol=lf
+# 이름 표: 여러 작업이 줄을 더한다
+data/names/names.ko.json merge=union
+# 이진
+*.png binary
+*.dll binary

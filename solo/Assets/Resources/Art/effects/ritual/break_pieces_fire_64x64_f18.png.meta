@@ -1,0 +1,842 @@
+fileFormatVersion: 2
+guid: 91c5c4ae4ce0f57478fdf7d598f57c38
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8705107952824722884
+    second: break_pieces_fire_64x64_f18_0
+  - first:
+      213: 5449536946810890963
+    second: break_pieces_fire_64x64_f18_1
+  - first:
+      213: 7910443916721431723
+    second: break_pieces_fire_64x64_f18_2
+  - first:
+      213: 7789471896151194099
+    second: break_pieces_fire_64x64_f18_3
+  - first:
+      213: 2297770516213503896
+    second: break_pieces_fire_64x64_f18_4
+  - first:
+      213: 9087291738429148129
+    second: break_pieces_fire_64x64_f18_5
+  - first:
+      213: 450848484545693649
+    second: break_pieces_fire_64x64_f18_6
+  - first:
+      213: -7987642093090573217
+    second: break_pieces_fire_64x64_f18_7
+  - first:
+      213: -4776964222829035991
+    second: break_pieces_fire_64x64_f18_8
+  - first:
+      213: -4744147740462263703
+    second: break_pieces_fire_64x64_f18_9
+  - first:
+      213: 2342723543985155960
+    second: break_pieces_fire_64x64_f18_10
+  - first:
+      213: 1732007725084915262
+    second: break_pieces_fire_64x64_f18_11
+  - first:
+      213: 2971091035481988119
+    second: break_pieces_fire_64x64_f18_12
+  - first:
+      213: -2364307123602949183
+    second: break_pieces_fire_64x64_f18_13
+  - first:
+      213: -1525039279658862911
+    second: break_pieces_fire_64x64_f18_14
+  - first:
+      213: -8127287430588351153
+    second: break_pieces_fire_64x64_f18_15
+  - first:
+      213: -455962839819064413
+    second: break_pieces_fire_64x64_f18_16
+  - first:
+      213: -6412883950942578990
+    second: break_pieces_fire_64x64_f18_17
+  - first:
+      213: 294221612245075103
+    second: break_pieces_fire_64x64_f18_18
+  - first:
+      213: -7228866288229740393
+    second: break_pieces_fire_64x64_f18_19
+  - first:
+      213: -4644773663633111965
+    second: break_pieces_fire_64x64_f18_20
+  - first:
+      213: 3284253544593903866
+    second: break_pieces_fire_64x64_f18_21
+  - first:
+      213: 4119092673294251045
+    second: break_pieces_fire_64x64_f18_22
+  - first:
+      213: -1643663629486768374
+    second: break_pieces_fire_64x64_f18_23
+  - first:
+      213: -5111625796150803128
+    second: break_pieces_fire_64x64_f18_24
+  - first:
+      213: -5930807415639463698
+    second: break_pieces_fire_64x64_f18_25
+  - first:
+      213: -14807741584182935
+    second: break_pieces_fire_64x64_f18_26
+  - first:
+      213: 3039493101288203544
+    second: break_pieces_fire_64x64_f18_27
+  - first:
+      213: 1097537892273246927
+    second: break_pieces_fire_64x64_f18_28
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_0
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 22
+        width: 23
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3a5474407e313780800000000000000
+      internalID: -8705107952824722884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_1
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 25
+        width: 22
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3daa701faf4a0ab40800000000000000
+      internalID: 5449536946810890963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_2
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 25
+        width: 24
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba4a4d7b4da87cd60800000000000000
+      internalID: 7910443916721431723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_3
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 27
+        width: 15
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f9fafd4b63c91c60800000000000000
+      internalID: 7789471896151194099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_4
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 28
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89795424c1253ef10800000000000000
+      internalID: 2297770516213503896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_5
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 27
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1eb496780bb8c1e70800000000000000
+      internalID: 9087291738429148129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_6
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 28
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d78ed8de4cb14600800000000000000
+      internalID: 450848484545693649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_7
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 28
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f54f06036d1362190800000000000000
+      internalID: -7987642093090573217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_8
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 26
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92e76894950d4bdb0800000000000000
+      internalID: -4776964222829035991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_9
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 29
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96256cff3c6692eb0800000000000000
+      internalID: -4744147740462263703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_10
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 25
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87fed26a6a6038020800000000000000
+      internalID: 2342723543985155960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_11
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 27
+        width: 33
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e363be179d3590810800000000000000
+      internalID: 1732007725084915262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_12
+      rect:
+        serializedVersion: 2
+        x: 528
+        y: 30
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71c50452e8f6b3920800000000000000
+      internalID: 2971091035481988119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_13
+      rect:
+        serializedVersion: 2
+        x: 554
+        y: 28
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1cb78bd923b403fd0800000000000000
+      internalID: -2364307123602949183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_14
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 24
+        width: 20
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c67a6bead8f5dae0800000000000000
+      internalID: -1525039279658862911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_15
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 25
+        width: 25
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4db8406423163f80800000000000000
+      internalID: -8127287430588351153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_16
+      rect:
+        serializedVersion: 2
+        x: 725
+        y: 27
+        width: 23
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ab6ec586381ca9f0800000000000000
+      internalID: -455962839819064413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_17
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 25
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d69346060cd007a0800000000000000
+      internalID: -6412883950942578990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_18
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 27
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f944c1b5ff8451400800000000000000
+      internalID: 294221612245075103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_19
+      rect:
+        serializedVersion: 2
+        x: 853
+        y: 28
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79015493968edab90800000000000000
+      internalID: -7228866288229740393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_20
+      rect:
+        serializedVersion: 2
+        x: 869
+        y: 29
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3640f0546f27a8fb0800000000000000
+      internalID: -4644773663633111965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_21
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 29
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af056d5b233049d20800000000000000
+      internalID: 3284253544593903866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_22
+      rect:
+        serializedVersion: 2
+        x: 927
+        y: 25
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5243e9466f4f92930800000000000000
+      internalID: 4119092673294251045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_23
+      rect:
+        serializedVersion: 2
+        x: 978
+        y: 28
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0f363233a88039e0800000000000000
+      internalID: -1643663629486768374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_24
+      rect:
+        serializedVersion: 2
+        x: 993
+        y: 26
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84545b3cb6bdf09b0800000000000000
+      internalID: -5111625796150803128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_25
+      rect:
+        serializedVersion: 2
+        x: 1037
+        y: 28
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee8ae87041a81bda0800000000000000
+      internalID: -5930807415639463698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_26
+      rect:
+        serializedVersion: 2
+        x: 1060
+        y: 26
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 961f2feff646bcff0800000000000000
+      internalID: -14807741584182935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_27
+      rect:
+        serializedVersion: 2
+        x: 1098
+        y: 26
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 815a8872fd27e2a20800000000000000
+      internalID: 3039493101288203544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_fire_64x64_f18_28
+      rect:
+        serializedVersion: 2
+        x: 1129
+        y: 29
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc25a74e5ec3b3f00800000000000000
+      internalID: 1097537892273246927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

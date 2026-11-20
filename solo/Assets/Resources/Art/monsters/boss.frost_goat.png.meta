@@ -1,0 +1,717 @@
+fileFormatVersion: 2
+guid: d6d727de91e36624ea94b8f7fa2c1ff3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1476234607842711791
+    second: boss.frost_goat_0
+  - first:
+      213: 4493233626976173829
+    second: boss.frost_goat_1
+  - first:
+      213: 171149223444436576
+    second: boss.frost_goat_2
+  - first:
+      213: 6902845524076699212
+    second: boss.frost_goat_3
+  - first:
+      213: -2328689192491251007
+    second: boss.frost_goat_4
+  - first:
+      213: 8057576806938886143
+    second: boss.frost_goat_5
+  - first:
+      213: 8678760186831727402
+    second: boss.frost_goat_6
+  - first:
+      213: -2249965880163277012
+    second: boss.frost_goat_7
+  - first:
+      213: -3146699056496980396
+    second: boss.frost_goat_8
+  - first:
+      213: -1769379438894902925
+    second: boss.frost_goat_9
+  - first:
+      213: -8596871295432786921
+    second: boss.frost_goat_10
+  - first:
+      213: 5694309429583305883
+    second: boss.frost_goat_11
+  - first:
+      213: -8928612010034124719
+    second: boss.frost_goat_12
+  - first:
+      213: 3579238562476390695
+    second: boss.frost_goat_13
+  - first:
+      213: -4897988058375012499
+    second: boss.frost_goat_14
+  - first:
+      213: 7866645379393783397
+    second: boss.frost_goat_15
+  - first:
+      213: 5352046853004969546
+    second: boss.frost_goat_16
+  - first:
+      213: 3536601076657308645
+    second: boss.frost_goat_17
+  - first:
+      213: -7467554377360878065
+    second: boss.frost_goat_18
+  - first:
+      213: 8802667881922210169
+    second: boss.frost_goat_19
+  - first:
+      213: -3164032255070693416
+    second: boss.frost_goat_20
+  - first:
+      213: -7728057336114367391
+    second: boss.frost_goat_21
+  - first:
+      213: -7736203917579566412
+    second: boss.frost_goat_22
+  - first:
+      213: 1645428892443711426
+    second: boss.frost_goat_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: boss.frost_goat_0
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 483
+        width: 110
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe85a9ded83ac7410800000000000000
+      internalID: 1476234607842711791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.frost_goat_1
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 483
+        width: 110
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50f31c47d2c2b5e30800000000000000
+      internalID: 4493233626976173829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.frost_goat_2
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 483
+        width: 110
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0665dfadf4b006200800000000000000
+      internalID: 171149223444436576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.frost_goat_3
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 483
+        width: 110
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4e9cf96e65dbcf50800000000000000
+      internalID: 6902845524076699212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.frost_goat_4
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 483
+        width: 110
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ca84417485deafd0800000000000000
+      internalID: -2328689192491251007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.frost_goat_5
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 483
+        width: 110
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fffb4004a6342df60800000000000000
+      internalID: 8057576806938886143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.frost_goat_6
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 323
+        width: 110
+        height: 138
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2b68ea6866217870800000000000000
+      internalID: 8678760186831727402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.frost_goat_7
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 323
+        width: 110
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c276e1ce3f386c0e0800000000000000
+      internalID: -2249965880163277012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.frost_goat_8
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 323
+        width: 110
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45ec07a41eda454d0800000000000000
+      internalID: -3146699056496980396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.frost_goat_9
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 323
+        width: 110
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3711acf56c6e177e0800000000000000
+      internalID: -1769379438894902925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.frost_goat_10
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 323
+        width: 120
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71cf9ffda17c1b880800000000000000
+      internalID: -8596871295432786921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.frost_goat_11
+      rect:
+        serializedVersion: 2
+        x: 647
+        y: 323
+        width: 120
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9c5877a140460f40800000000000000
+      internalID: 5694309429583305883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.frost_goat_12
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 163
+        width: 110
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15821a4cea2371480800000000000000
+      internalID: -8928612010034124719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.frost_goat_13
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 163
+        width: 110
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 729f8ca42820ca130800000000000000
+      internalID: 3579238562476390695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.frost_goat_14
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 163
+        width: 110
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6fb372cfc9d60cb0800000000000000
+      internalID: -4897988058375012499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.frost_goat_15
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 173
+        width: 112
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5660cb41b40fb2d60800000000000000
+      internalID: 7866645379393783397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.frost_goat_16
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 163
+        width: 110
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a46cb96a14a464a40800000000000000
+      internalID: 5352046853004969546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.frost_goat_17
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 163
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e34c6601f7841130800000000000000
+      internalID: 3536601076657308645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.frost_goat_18
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 3
+        width: 110
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f06dd7ccbdaed5890800000000000000
+      internalID: -7467554377360878065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.frost_goat_19
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 3
+        width: 110
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 979a6b1dccb592a70800000000000000
+      internalID: 8802667881922210169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.frost_goat_20
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 3
+        width: 110
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d712a28d691714d0800000000000000
+      internalID: -3164032255070693416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.frost_goat_21
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 1
+        width: 110
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1643d0d3ccc60c490800000000000000
+      internalID: -7728057336114367391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.frost_goat_22
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 3
+        width: 112
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b24fae668b73a490800000000000000
+      internalID: -7736203917579566412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.frost_goat_23
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 3
+        width: 112
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c7954d1cdcb5d610800000000000000
+      internalID: 1645428892443711426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

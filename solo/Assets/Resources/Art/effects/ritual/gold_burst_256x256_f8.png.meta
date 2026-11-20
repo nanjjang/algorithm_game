@@ -1,0 +1,1542 @@
+fileFormatVersion: 2
+guid: 59d0677fdd0a3474ba20ecbf5f51d61f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3352324425692800230
+    second: gold_burst_256x256_f8_0
+  - first:
+      213: 7953057949875074703
+    second: gold_burst_256x256_f8_1
+  - first:
+      213: -1370186972195419761
+    second: gold_burst_256x256_f8_2
+  - first:
+      213: -615704948530607700
+    second: gold_burst_256x256_f8_3
+  - first:
+      213: 1867652590128792816
+    second: gold_burst_256x256_f8_4
+  - first:
+      213: -1362642457659912701
+    second: gold_burst_256x256_f8_5
+  - first:
+      213: -7974790075623916765
+    second: gold_burst_256x256_f8_6
+  - first:
+      213: -8022140700004222589
+    second: gold_burst_256x256_f8_7
+  - first:
+      213: -6782142535629329270
+    second: gold_burst_256x256_f8_8
+  - first:
+      213: 7484082536888045303
+    second: gold_burst_256x256_f8_9
+  - first:
+      213: 818439140928959100
+    second: gold_burst_256x256_f8_10
+  - first:
+      213: 7851769760184553774
+    second: gold_burst_256x256_f8_11
+  - first:
+      213: 3859575535345510281
+    second: gold_burst_256x256_f8_12
+  - first:
+      213: -3640053740653348941
+    second: gold_burst_256x256_f8_13
+  - first:
+      213: -1949859323370943022
+    second: gold_burst_256x256_f8_14
+  - first:
+      213: 5747785335925648043
+    second: gold_burst_256x256_f8_15
+  - first:
+      213: -7976669386776585100
+    second: gold_burst_256x256_f8_16
+  - first:
+      213: 7528906588420089239
+    second: gold_burst_256x256_f8_17
+  - first:
+      213: 7152482363333687253
+    second: gold_burst_256x256_f8_18
+  - first:
+      213: -2292009154736161339
+    second: gold_burst_256x256_f8_19
+  - first:
+      213: -704635505449061962
+    second: gold_burst_256x256_f8_20
+  - first:
+      213: -7080984267408475135
+    second: gold_burst_256x256_f8_21
+  - first:
+      213: -7156619378083978336
+    second: gold_burst_256x256_f8_22
+  - first:
+      213: 2900323954070307695
+    second: gold_burst_256x256_f8_23
+  - first:
+      213: 1115032230180254442
+    second: gold_burst_256x256_f8_24
+  - first:
+      213: 2259522106926323482
+    second: gold_burst_256x256_f8_25
+  - first:
+      213: 3266788763529020982
+    second: gold_burst_256x256_f8_26
+  - first:
+      213: -253606707072851169
+    second: gold_burst_256x256_f8_27
+  - first:
+      213: -1473789319953161014
+    second: gold_burst_256x256_f8_28
+  - first:
+      213: 8149263960246783220
+    second: gold_burst_256x256_f8_29
+  - first:
+      213: 762741646917942299
+    second: gold_burst_256x256_f8_30
+  - first:
+      213: 7069753692869371912
+    second: gold_burst_256x256_f8_31
+  - first:
+      213: 7003135688513695956
+    second: gold_burst_256x256_f8_32
+  - first:
+      213: -1222528797270018371
+    second: gold_burst_256x256_f8_33
+  - first:
+      213: 4276972795143526603
+    second: gold_burst_256x256_f8_34
+  - first:
+      213: 825129635789036472
+    second: gold_burst_256x256_f8_35
+  - first:
+      213: 7961559943686479998
+    second: gold_burst_256x256_f8_36
+  - first:
+      213: -5328474416720223966
+    second: gold_burst_256x256_f8_37
+  - first:
+      213: 7178329750113219990
+    second: gold_burst_256x256_f8_38
+  - first:
+      213: -3562643126428811743
+    second: gold_burst_256x256_f8_39
+  - first:
+      213: 515436262148251857
+    second: gold_burst_256x256_f8_40
+  - first:
+      213: 964181213796242662
+    second: gold_burst_256x256_f8_41
+  - first:
+      213: -1221217355627594895
+    second: gold_burst_256x256_f8_42
+  - first:
+      213: 2045080289032100949
+    second: gold_burst_256x256_f8_43
+  - first:
+      213: 544393382521230841
+    second: gold_burst_256x256_f8_44
+  - first:
+      213: 144688443290329340
+    second: gold_burst_256x256_f8_45
+  - first:
+      213: 2837312356011533086
+    second: gold_burst_256x256_f8_46
+  - first:
+      213: -3558937577181495626
+    second: gold_burst_256x256_f8_47
+  - first:
+      213: 1594736479698142648
+    second: gold_burst_256x256_f8_48
+  - first:
+      213: -6489443271459289770
+    second: gold_burst_256x256_f8_49
+  - first:
+      213: 7615286016051662541
+    second: gold_burst_256x256_f8_50
+  - first:
+      213: 4727420609286954242
+    second: gold_burst_256x256_f8_51
+  - first:
+      213: -7022812218626295561
+    second: gold_burst_256x256_f8_52
+  - first:
+      213: -8483793985153343784
+    second: gold_burst_256x256_f8_53
+  - first:
+      213: 1342034237971246271
+    second: gold_burst_256x256_f8_54
+  - first:
+      213: -4686833793357614128
+    second: gold_burst_256x256_f8_55
+  - first:
+      213: -4705394053243064211
+    second: gold_burst_256x256_f8_56
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_0
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 52
+        width: 151
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e4e845cd49d58e20800000000000000
+      internalID: 3352324425692800230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_1
+      rect:
+        serializedVersion: 2
+        x: 557
+        y: 43
+        width: 168
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f86766c7110fe5e60800000000000000
+      internalID: 7953057949875074703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_2
+      rect:
+        serializedVersion: 2
+        x: 831
+        y: 142
+        width: 49
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f898c66553e1cfce0800000000000000
+      internalID: -1370186972195419761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_3
+      rect:
+        serializedVersion: 2
+        x: 885
+        y: 153
+        width: 14
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca902688c939477f0800000000000000
+      internalID: -615704948530607700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_4
+      rect:
+        serializedVersion: 2
+        x: 907
+        y: 146
+        width: 44
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f4077ea22c3be910800000000000000
+      internalID: 1867652590128792816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_5
+      rect:
+        serializedVersion: 2
+        x: 1081
+        y: 146
+        width: 50
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30ec05387ebe61de0800000000000000
+      internalID: -1362642457659912701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_6
+      rect:
+        serializedVersion: 2
+        x: 1142
+        y: 160
+        width: 13
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32b3020bdaad35190800000000000000
+      internalID: -7974790075623916765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_7
+      rect:
+        serializedVersion: 2
+        x: 1167
+        y: 152
+        width: 45
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3897b065981aba090800000000000000
+      internalID: -8022140700004222589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_8
+      rect:
+        serializedVersion: 2
+        x: 1331
+        y: 151
+        width: 51
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8c2fb31c4df0e1a0800000000000000
+      internalID: -6782142535629329270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_9
+      rect:
+        serializedVersion: 2
+        x: 1397
+        y: 168
+        width: 14
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fe8ae83a6dccd760800000000000000
+      internalID: 7484082536888045303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_10
+      rect:
+        serializedVersion: 2
+        x: 1427
+        y: 158
+        width: 46
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c72b859ff0eab5b00800000000000000
+      internalID: 818439140928959100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_11
+      rect:
+        serializedVersion: 2
+        x: 1581
+        y: 156
+        width: 51
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2154f51ff617fc60800000000000000
+      internalID: 7851769760184553774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_12
+      rect:
+        serializedVersion: 2
+        x: 1651
+        y: 177
+        width: 17
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 987ae002087ff8530800000000000000
+      internalID: 3859575535345510281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_13
+      rect:
+        serializedVersion: 2
+        x: 1687
+        y: 165
+        width: 47
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b77601a86eeb7dc0800000000000000
+      internalID: -3640053740653348941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_14
+      rect:
+        serializedVersion: 2
+        x: 1831
+        y: 162
+        width: 51
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ddcd74b645b0f4e0800000000000000
+      internalID: -1949859323370943022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_15
+      rect:
+        serializedVersion: 2
+        x: 1905
+        y: 187
+        width: 19
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: baa2c095f4c34cf40800000000000000
+      internalID: 5747785335925648043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_16
+      rect:
+        serializedVersion: 2
+        x: 1947
+        y: 173
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47cd276747d2d4190800000000000000
+      internalID: -7976669386776585100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_17
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 60
+        width: 134
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 795a0edf6ac0c7860800000000000000
+      internalID: 7528906588420089239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_18
+      rect:
+        serializedVersion: 2
+        x: 804
+        y: 101
+        width: 186
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d730c060d8b24360800000000000000
+      internalID: 7152482363333687253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_19
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 134
+        width: 45
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cdf10e31d52130e0800000000000000
+      internalID: -2292009154736161339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_20
+      rect:
+        serializedVersion: 2
+        x: 1052
+        y: 127
+        width: 68
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b1b499bdb1a836f0800000000000000
+      internalID: -704635505449061962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_21
+      rect:
+        serializedVersion: 2
+        x: 1180
+        y: 137
+        width: 45
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10cfcf0535a4bbd90800000000000000
+      internalID: -7080984267408475135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_22
+      rect:
+        serializedVersion: 2
+        x: 1299
+        y: 127
+        width: 69
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a3a0a0d7949eac90800000000000000
+      internalID: -7156619378083978336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_23
+      rect:
+        serializedVersion: 2
+        x: 1443
+        y: 139
+        width: 45
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f63cae70545004820800000000000000
+      internalID: 2900323954070307695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_24
+      rect:
+        serializedVersion: 2
+        x: 1546
+        y: 127
+        width: 70
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae27109d7e3697f00800000000000000
+      internalID: 1115032230180254442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_25
+      rect:
+        serializedVersion: 2
+        x: 1707
+        y: 142
+        width: 43
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a175c71826f6b5f10800000000000000
+      internalID: 2259522106926323482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_26
+      rect:
+        serializedVersion: 2
+        x: 1779
+        y: 115
+        width: 83
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 636826e7217f55d20800000000000000
+      internalID: 3266788763529020982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_27
+      rect:
+        serializedVersion: 2
+        x: 1971
+        y: 145
+        width: 41
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1324482b020b7cf0800000000000000
+      internalID: -253606707072851169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_28
+      rect:
+        serializedVersion: 2
+        x: 826
+        y: 101
+        width: 48
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac46d660c6c0c8be0800000000000000
+      internalID: -1473789319953161014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_29
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 90
+        width: 40
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fc076b2560081170800000000000000
+      internalID: 8149263960246783220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_30
+      rect:
+        serializedVersion: 2
+        x: 1075
+        y: 99
+        width: 48
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1cb0f79c7dc59a00800000000000000
+      internalID: 762741646917942299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_31
+      rect:
+        serializedVersion: 2
+        x: 1185
+        y: 116
+        width: 69
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8082cf8c68fcc1260800000000000000
+      internalID: 7069753692869371912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_32
+      rect:
+        serializedVersion: 2
+        x: 1325
+        y: 96
+        width: 47
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d038b3fdc2203160800000000000000
+      internalID: 7003135688513695956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_33
+      rect:
+        serializedVersion: 2
+        x: 1449
+        y: 116
+        width: 70
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db6f80f3984b80fe0800000000000000
+      internalID: -1222528797270018371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_34
+      rect:
+        serializedVersion: 2
+        x: 1574
+        y: 94
+        width: 46
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc81a88c81cda5b30800000000000000
+      internalID: 4276972795143526603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_35
+      rect:
+        serializedVersion: 2
+        x: 1714
+        y: 116
+        width: 35
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8bb5ad23803737b00800000000000000
+      internalID: 825129635789036472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_36
+      rect:
+        serializedVersion: 2
+        x: 1980
+        y: 114
+        width: 68
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e70696d26942d7e60800000000000000
+      internalID: 7961559943686479998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_37
+      rect:
+        serializedVersion: 2
+        x: 841
+        y: 68
+        width: 41
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22162acdfb47d06b0800000000000000
+      internalID: -5328474416720223966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_38
+      rect:
+        serializedVersion: 2
+        x: 876
+        y: 35
+        width: 20
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 695fd1410ec8e9360800000000000000
+      internalID: 7178329750113219990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_39
+      rect:
+        serializedVersion: 2
+        x: 898
+        y: 49
+        width: 20
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12e39b3c3f2fe8ec0800000000000000
+      internalID: -3562643126428811743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_40
+      rect:
+        serializedVersion: 2
+        x: 1091
+        y: 62
+        width: 43
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d0a3bdac82372700800000000000000
+      internalID: 515436262148251857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_41
+      rect:
+        serializedVersion: 2
+        x: 1131
+        y: 26
+        width: 21
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e41e6b94b5716d00800000000000000
+      internalID: 964181213796242662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_42
+      rect:
+        serializedVersion: 2
+        x: 1155
+        y: 42
+        width: 20
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17b764c094d5d0fe0800000000000000
+      internalID: -1221217355627594895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_43
+      rect:
+        serializedVersion: 2
+        x: 1178
+        y: 87
+        width: 41
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55c59e400b5916c10800000000000000
+      internalID: 2045080289032100949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_44
+      rect:
+        serializedVersion: 2
+        x: 1342
+        y: 57
+        width: 43
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f55047a5e21e8700800000000000000
+      internalID: 544393382521230841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_45
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 83
+        width: 39
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf0ac616f59020200800000000000000
+      internalID: 144688443290329340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_46
+      rect:
+        serializedVersion: 2
+        x: 1593
+        y: 51
+        width: 43
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e13e4e81e88206720800000000000000
+      internalID: 2837312356011533086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_47
+      rect:
+        serializedVersion: 2
+        x: 1704
+        y: 80
+        width: 38
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6bebe4e212d1c9ec0800000000000000
+      internalID: -3558937577181495626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_48
+      rect:
+        serializedVersion: 2
+        x: 1823
+        y: 92
+        width: 44
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b5c3c60164a12610800000000000000
+      internalID: 1594736479698142648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_49
+      rect:
+        serializedVersion: 2
+        x: 1968
+        y: 76
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 655ce962abdd0f5a0800000000000000
+      internalID: -6489443271459289770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_50
+      rect:
+        serializedVersion: 2
+        x: 1385
+        y: 18
+        width: 23
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dce42c9b84eeea960800000000000000
+      internalID: 7615286016051662541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_51
+      rect:
+        serializedVersion: 2
+        x: 1412
+        y: 35
+        width: 21
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20dd8684ffb2b9140800000000000000
+      internalID: 4727420609286954242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_52
+      rect:
+        serializedVersion: 2
+        x: 1639
+        y: 9
+        width: 24
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f8b180ee75f98e90800000000000000
+      internalID: -7022812218626295561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_53
+      rect:
+        serializedVersion: 2
+        x: 1669
+        y: 27
+        width: 21
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ded65fc152834a80800000000000000
+      internalID: -8483793985153343784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_54
+      rect:
+        serializedVersion: 2
+        x: 1844
+        y: 46
+        width: 42
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbc20be670ddf9210800000000000000
+      internalID: 1342034237971246271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_55
+      rect:
+        serializedVersion: 2
+        x: 1893
+        y: 0
+        width: 26
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d37f913f7505feb0800000000000000
+      internalID: -4686833793357614128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_burst_256x256_f8_56
+      rect:
+        serializedVersion: 2
+        x: 1927
+        y: 20
+        width: 21
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d603630f90513beb0800000000000000
+      internalID: -4705394053243064211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

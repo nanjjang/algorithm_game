@@ -1,0 +1,1267 @@
+fileFormatVersion: 2
+guid: 9e8a1e6fcc7b5c34ca2fae941fab7485
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 205272215731598184
+    second: frost_field_160x160_f2_0
+  - first:
+      213: 1971749060772096416
+    second: frost_field_160x160_f2_1
+  - first:
+      213: -277325588918411924
+    second: frost_field_160x160_f2_2
+  - first:
+      213: -4820898507486878028
+    second: frost_field_160x160_f2_3
+  - first:
+      213: -4133304352603951543
+    second: frost_field_160x160_f2_4
+  - first:
+      213: 1145720054571090218
+    second: frost_field_160x160_f2_5
+  - first:
+      213: -8688042958393756296
+    second: frost_field_160x160_f2_6
+  - first:
+      213: -6061277064920219226
+    second: frost_field_160x160_f2_7
+  - first:
+      213: -3464974963681574006
+    second: frost_field_160x160_f2_8
+  - first:
+      213: -467161342026307731
+    second: frost_field_160x160_f2_9
+  - first:
+      213: 747894102887470
+    second: frost_field_160x160_f2_10
+  - first:
+      213: 8554785101456502634
+    second: frost_field_160x160_f2_11
+  - first:
+      213: 4759580962709791186
+    second: frost_field_160x160_f2_12
+  - first:
+      213: -5387696471515997192
+    second: frost_field_160x160_f2_13
+  - first:
+      213: 2511670193403040652
+    second: frost_field_160x160_f2_14
+  - first:
+      213: -1203394565788851032
+    second: frost_field_160x160_f2_15
+  - first:
+      213: 1553657933481426566
+    second: frost_field_160x160_f2_16
+  - first:
+      213: 5085589498209271394
+    second: frost_field_160x160_f2_17
+  - first:
+      213: -4404281107898467141
+    second: frost_field_160x160_f2_18
+  - first:
+      213: -889454550428914759
+    second: frost_field_160x160_f2_19
+  - first:
+      213: -3180190275565112102
+    second: frost_field_160x160_f2_20
+  - first:
+      213: -2275727665593299224
+    second: frost_field_160x160_f2_21
+  - first:
+      213: -5049448802452491675
+    second: frost_field_160x160_f2_22
+  - first:
+      213: 2115221715063314357
+    second: frost_field_160x160_f2_23
+  - first:
+      213: 4624969307023794735
+    second: frost_field_160x160_f2_24
+  - first:
+      213: -1109693939759970147
+    second: frost_field_160x160_f2_25
+  - first:
+      213: -7768996124597580003
+    second: frost_field_160x160_f2_26
+  - first:
+      213: -6085860248605149200
+    second: frost_field_160x160_f2_27
+  - first:
+      213: 7589663198720058968
+    second: frost_field_160x160_f2_28
+  - first:
+      213: 1035085759755408940
+    second: frost_field_160x160_f2_29
+  - first:
+      213: -2645769334858595600
+    second: frost_field_160x160_f2_30
+  - first:
+      213: 922797800593410244
+    second: frost_field_160x160_f2_31
+  - first:
+      213: 3292230306975011916
+    second: frost_field_160x160_f2_32
+  - first:
+      213: -3426578171565482945
+    second: frost_field_160x160_f2_33
+  - first:
+      213: 921253278710932134
+    second: frost_field_160x160_f2_34
+  - first:
+      213: 64177272020079527
+    second: frost_field_160x160_f2_35
+  - first:
+      213: 768192035971791372
+    second: frost_field_160x160_f2_36
+  - first:
+      213: 1936871798093218646
+    second: frost_field_160x160_f2_37
+  - first:
+      213: 7635140886941092125
+    second: frost_field_160x160_f2_38
+  - first:
+      213: 3327234899086208353
+    second: frost_field_160x160_f2_39
+  - first:
+      213: -2548505966726013898
+    second: frost_field_160x160_f2_40
+  - first:
+      213: 6925848923589097042
+    second: frost_field_160x160_f2_41
+  - first:
+      213: -3418130232652439764
+    second: frost_field_160x160_f2_42
+  - first:
+      213: 7415996100106319429
+    second: frost_field_160x160_f2_43
+  - first:
+      213: -6174091913501750314
+    second: frost_field_160x160_f2_44
+  - first:
+      213: 2518140832652839235
+    second: frost_field_160x160_f2_45
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_0
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 137
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86370fc1ef549d200800000000000000
+      internalID: 205272215731598184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_1
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 137
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a9e781f25f0d5b10800000000000000
+      internalID: 1971749060772096416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_2
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 122
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6d5461a8ddb62cf0800000000000000
+      internalID: -277325588918411924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_3
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 116
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b6a803895ab81db0800000000000000
+      internalID: -4820898507486878028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_4
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 125
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94e277a279d83a6c0800000000000000
+      internalID: -4133304352603951543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_5
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 122
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2140c0c15a66ef00800000000000000
+      internalID: 1145720054571090218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_6
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 116
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8753b97e5fedd6780800000000000000
+      internalID: -8688042958393756296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_7
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 125
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a1453c9f9402eba0800000000000000
+      internalID: -6061277064920219226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_8
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 110
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a834326f0afe9efc0800000000000000
+      internalID: -3464974963681574006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_9
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 113
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d672abb0c3f4489f0800000000000000
+      internalID: -467161342026307731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_10
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 113
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2c055aa438a20000800000000000000
+      internalID: 747894102887470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_11
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 111
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6f6e1e79b3b8b670800000000000000
+      internalID: 8554785101456502634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_12
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 106
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d167021bad6d0240800000000000000
+      internalID: 4759580962709791186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_13
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 110
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fbd9a9ba9e0b35b0800000000000000
+      internalID: -5387696471515997192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_14
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 113
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8399b6cbbe3bd220800000000000000
+      internalID: 2511670193403040652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_15
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 113
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a4258da40fac4fe0800000000000000
+      internalID: -1203394565788851032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_16
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 111
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68eb0aba8a3bf8510800000000000000
+      internalID: 1553657933481426566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_17
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 106
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26e783a34b4a39640800000000000000
+      internalID: 5085589498209271394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_18
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 89
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbc7fb0daa9d0e2c0800000000000000
+      internalID: -4404281107898467141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_19
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 84
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bb64d58cc508a3f0800000000000000
+      internalID: -889454550428914759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_20
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 91
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad43ac23bc1bdd3d0800000000000000
+      internalID: -3180190275565112102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_21
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 89
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ee48c6debdfa60e0800000000000000
+      internalID: -2275727665593299224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_22
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 84
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5623c4a3111cce9b0800000000000000
+      internalID: -5049448802452491675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_23
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 91
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b79a8361f6ca5d10800000000000000
+      internalID: 2115221715063314357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_24
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 80
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f22ec32a4113f2040800000000000000
+      internalID: 4624969307023794735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_25
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 75
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d98043fbd339990f0800000000000000
+      internalID: -1109693939759970147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_26
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 81
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1f89f3cf2bfe2490800000000000000
+      internalID: -7768996124597580003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_27
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 80
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f73831295eaa8ba0800000000000000
+      internalID: -6085860248605149200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_28
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 75
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 856609ca776e35960800000000000000
+      internalID: 7589663198720058968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_29
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 81
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c26594ea30d5d5e00800000000000000
+      internalID: 1035085759755408940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_30
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 63
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f2c12ecec6584bd0800000000000000
+      internalID: -2645769334858595600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_31
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 66
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c8c1efd5bf6ecc00800000000000000
+      internalID: 922797800593410244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_32
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 57
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c44550e650a50bd20800000000000000
+      internalID: 3292230306975011916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_33
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 63
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3c5bb8ce495270d0800000000000000
+      internalID: -3426578171565482945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_34
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 66
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a2aab9d9f2f8cc00800000000000000
+      internalID: 921253278710932134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_35
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 57
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a3196d83e004e000800000000000000
+      internalID: 64177272020079527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_36
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 48
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0af16f269a29aa00800000000000000
+      internalID: 768192035971791372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_37
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 42
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65381dc63a621ea10800000000000000
+      internalID: 1936871798093218646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_38
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 48
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d194f281f2875f960800000000000000
+      internalID: 7635140886941092125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_39
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 42
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16de0542386bc2e20800000000000000
+      internalID: 3327234899086208353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_40
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 27
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63c15596353e1acd0800000000000000
+      internalID: -2548505966726013898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_41
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 27
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 256bc8ab6ee8d1060800000000000000
+      internalID: 6925848923589097042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_42
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 36
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2f5ab6d9ac5090d0800000000000000
+      internalID: -3418130232652439764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_43
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 27
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 546f4825929eae660800000000000000
+      internalID: 7415996100106319429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_44
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 27
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6dbcd1dcd18315aa0800000000000000
+      internalID: -6174091913501750314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frost_field_160x160_f2_45
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 36
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 349cda0eebb32f220800000000000000
+      internalID: 2518140832652839235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

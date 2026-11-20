@@ -1,0 +1,208 @@
+{
+  "sampleRate": 44100,
+  "channels": 1,
+  "format": "PCM16",
+  "assets": {
+    "idle_band_0": {
+      "file": "idle_band_0.wav",
+      "seconds": 2,
+      "loop": true,
+      "peakDbfs": -29
+    },
+    "idle_band_1": {
+      "file": "idle_band_1.wav",
+      "seconds": 2,
+      "loop": true,
+      "peakDbfs": -28
+    },
+    "idle_band_2": {
+      "file": "idle_band_2.wav",
+      "seconds": 2,
+      "loop": true,
+      "peakDbfs": -27
+    },
+    "idle_band_3": {
+      "file": "idle_band_3.wav",
+      "seconds": 2,
+      "loop": true,
+      "peakDbfs": -41
+    },
+    "idle_band_4": {
+      "file": "idle_band_4.wav",
+      "seconds": 2,
+      "loop": true,
+      "peakDbfs": -30
+    },
+    "flicker_click": {
+      "file": "flicker_click.wav",
+      "seconds": 0.11,
+      "loop": false,
+      "peakDbfs": -15
+    },
+    "flicker_ding": {
+      "file": "flicker_ding.wav",
+      "seconds": 0.48,
+      "loop": false,
+      "peakDbfs": -15
+    },
+    "flicker_dong": {
+      "file": "flicker_dong.wav",
+      "seconds": 0.64,
+      "loop": false,
+      "peakDbfs": -15
+    },
+    "flicker_clang": {
+      "file": "flicker_clang.wav",
+      "seconds": 0.72,
+      "loop": false,
+      "peakDbfs": -15
+    },
+    "fire_band_0": {
+      "file": "fire_band_0.wav",
+      "seconds": 0.13,
+      "loop": false,
+      "peakDbfs": -9
+    },
+    "fire_band_1": {
+      "file": "fire_band_1.wav",
+      "seconds": 0.22,
+      "loop": false,
+      "peakDbfs": -9
+    },
+    "fire_band_2": {
+      "file": "fire_band_2.wav",
+      "seconds": 0.26,
+      "loop": false,
+      "peakDbfs": -9
+    },
+    "fire_band_3": {
+      "file": "fire_band_3.wav",
+      "seconds": 0.46,
+      "loop": false,
+      "peakDbfs": -9
+    },
+    "fire_band_4": {
+      "file": "fire_band_4.wav",
+      "seconds": 0.4,
+      "loop": false,
+      "peakDbfs": -9
+    },
+    "discharge_crackle": {
+      "file": "discharge_crackle.wav",
+      "seconds": 0.27,
+      "loop": false,
+      "peakDbfs": -12
+    },
+    "discharge_double_tick": {
+      "file": "discharge_double_tick.wav",
+      "seconds": 0.25,
+      "loop": false,
+      "peakDbfs": -13
+    },
+    "discharge_ground": {
+      "file": "discharge_ground.wav",
+      "seconds": 0.42,
+      "loop": false,
+      "peakDbfs": -14
+    },
+    "discharge_distant_thunder": {
+      "file": "discharge_distant_thunder.wav",
+      "seconds": 0.9,
+      "loop": false,
+      "peakDbfs": -18
+    },
+    "enhance_blackout": {
+      "file": "enhance_blackout.wav",
+      "seconds": 0.32,
+      "loop": false,
+      "peakDbfs": -26
+    },
+    "enhance_success": {
+      "file": "enhance_success.wav",
+      "seconds": 0.38,
+      "loop": false,
+      "peakDbfs": -8
+    },
+    "enhance_fail": {
+      "file": "enhance_fail.wav",
+      "seconds": 0.26,
+      "loop": false,
+      "peakDbfs": -15
+    },
+    "enhance_glass_break": {
+      "file": "enhance_glass_break.wav",
+      "seconds": 0.53,
+      "loop": false,
+      "peakDbfs": -10
+    },
+    "enhance_ward_burn": {
+      "file": "enhance_ward_burn.wav",
+      "seconds": 0.57,
+      "loop": false,
+      "peakDbfs": -14
+    },
+    "enhance_mutation_bind": {
+      "file": "enhance_mutation_bind.wav",
+      "seconds": 0.62,
+      "loop": false,
+      "peakDbfs": -10
+    },
+    "enhance_slot_snap": {
+      "file": "enhance_slot_snap.wav",
+      "seconds": 0.24,
+      "loop": false,
+      "peakDbfs": -12
+    },
+    "state_lock_off": {
+      "file": "state_lock_off.wav",
+      "seconds": 0.26,
+      "loop": false,
+      "peakDbfs": -19
+    },
+    "state_lock_relit": {
+      "file": "state_lock_relit.wav",
+      "seconds": 0.37,
+      "loop": false,
+      "peakDbfs": -13
+    },
+    "state_walk_jingle": {
+      "file": "state_walk_jingle.wav",
+      "seconds": 0.29,
+      "loop": false,
+      "peakDbfs": -20
+    },
+    "state_hook_twang": {
+      "file": "state_hook_twang.wav",
+      "seconds": 0.39,
+      "loop": false,
+      "peakDbfs": -15
+    },
+    "lightning_rod_01": {
+      "file": "lightning_rod_01.wav",
+      "seconds": 0.29,
+      "loop": false,
+      "peakDbfs": -9
+    },
+    "lightning_rod_02": {
+      "file": "lightning_rod_02.wav",
+      "seconds": 0.33,
+      "loop": false,
+      "peakDbfs": -9
+    },
+    "bolt_dash": {
+      "file": "bolt_dash.wav",
+      "seconds": 0.45,
+      "loop": false,
+      "peakDbfs": -8
+    }
+  },
+  "eventBindings": {
+    "sfx_c21": [
+      "lightning_rod_01",
+      "lightning_rod_02"
+    ],
+    "sfx_t12": [
+      "bolt_dash"
+    ]
+  }
+}

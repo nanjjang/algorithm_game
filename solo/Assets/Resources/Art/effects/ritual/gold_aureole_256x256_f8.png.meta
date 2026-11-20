@@ -1,0 +1,717 @@
+fileFormatVersion: 2
+guid: 207e8f51e4737e74ea287f028b37d707
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7368271990520430214
+    second: gold_aureole_256x256_f8_0
+  - first:
+      213: 6338809209448861268
+    second: gold_aureole_256x256_f8_1
+  - first:
+      213: 8924302971935526324
+    second: gold_aureole_256x256_f8_2
+  - first:
+      213: 8761691722210004726
+    second: gold_aureole_256x256_f8_3
+  - first:
+      213: 4904169393870481424
+    second: gold_aureole_256x256_f8_4
+  - first:
+      213: 5321870881817163912
+    second: gold_aureole_256x256_f8_5
+  - first:
+      213: 6370553879362102523
+    second: gold_aureole_256x256_f8_6
+  - first:
+      213: -6630046637576231695
+    second: gold_aureole_256x256_f8_7
+  - first:
+      213: 2633215619434865240
+    second: gold_aureole_256x256_f8_8
+  - first:
+      213: 1908274357772338530
+    second: gold_aureole_256x256_f8_9
+  - first:
+      213: -8915005811128982084
+    second: gold_aureole_256x256_f8_10
+  - first:
+      213: 2177057443277183980
+    second: gold_aureole_256x256_f8_11
+  - first:
+      213: -3277398226298658839
+    second: gold_aureole_256x256_f8_12
+  - first:
+      213: 6742086563062302339
+    second: gold_aureole_256x256_f8_13
+  - first:
+      213: 4729812876141639367
+    second: gold_aureole_256x256_f8_14
+  - first:
+      213: -7769068310902142482
+    second: gold_aureole_256x256_f8_15
+  - first:
+      213: 2550108784550441849
+    second: gold_aureole_256x256_f8_16
+  - first:
+      213: -1673189526447285418
+    second: gold_aureole_256x256_f8_17
+  - first:
+      213: 1828427181435272465
+    second: gold_aureole_256x256_f8_18
+  - first:
+      213: 6654518782847722416
+    second: gold_aureole_256x256_f8_19
+  - first:
+      213: 7053049912929373256
+    second: gold_aureole_256x256_f8_20
+  - first:
+      213: 7526293004571723932
+    second: gold_aureole_256x256_f8_21
+  - first:
+      213: -8024528548605430494
+    second: gold_aureole_256x256_f8_22
+  - first:
+      213: 3328641361714234542
+    second: gold_aureole_256x256_f8_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_0
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 83
+        width: 38
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a71c194d9a3aeb990800000000000000
+      internalID: -7368271990520430214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_1
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 138
+        width: 77
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45e8c2c3469f7f750800000000000000
+      internalID: 6338809209448861268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_2
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 78
+        width: 44
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bd0e2e154e79db70800000000000000
+      internalID: 8924302971935526324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_3
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 135
+        width: 89
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fececd2338c79970800000000000000
+      internalID: 8761691722210004726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_4
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 60
+        width: 57
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0182eff841c1f0440800000000000000
+      internalID: 4904169393870481424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_5
+      rect:
+        serializedVersion: 2
+        x: 619
+        y: 129
+        width: 104
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 888f43bde551bd940800000000000000
+      internalID: 5321870881817163912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_6
+      rect:
+        serializedVersion: 2
+        x: 799
+        y: 68
+        width: 67
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf46dd92001c86850800000000000000
+      internalID: 6370553879362102523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_7
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 120
+        width: 118
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f4eefae5b75df3a0800000000000000
+      internalID: -6630046637576231695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_8
+      rect:
+        serializedVersion: 2
+        x: 1044
+        y: 77
+        width: 82
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 852ec6d87af0b8420800000000000000
+      internalID: 2633215619434865240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_9
+      rect:
+        serializedVersion: 2
+        x: 1137
+        y: 107
+        width: 149
+        height: 135
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 265c10dfa6d8b7a10800000000000000
+      internalID: 1908274357772338530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_10
+      rect:
+        serializedVersion: 2
+        x: 1303
+        y: 83
+        width: 88
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb52d11d279874480800000000000000
+      internalID: -8915005811128982084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_11
+      rect:
+        serializedVersion: 2
+        x: 1415
+        y: 82
+        width: 114
+        height: 172
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ceb182ac536763e10800000000000000
+      internalID: 2177057443277183980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_12
+      rect:
+        serializedVersion: 2
+        x: 1538
+        y: 92
+        width: 120
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ef19f57da75482d0800000000000000
+      internalID: -3277398226298658839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_13
+      rect:
+        serializedVersion: 2
+        x: 1685
+        y: 77
+        width: 102
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 386434c0204b09d50800000000000000
+      internalID: 6742086563062302339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_14
+      rect:
+        serializedVersion: 2
+        x: 1794
+        y: 103
+        width: 134
+        height: 151
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c6bd7050cba3a140800000000000000
+      internalID: 4729812876141639367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_15
+      rect:
+        serializedVersion: 2
+        x: 1958
+        y: 58
+        width: 90
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee90fe49889be2490800000000000000
+      internalID: -7769068310902142482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_16
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 66
+        width: 79
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9737bb1bd6ec36320800000000000000
+      internalID: 2550108784550441849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_17
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 57
+        width: 110
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65b943a9df2a7c8e0800000000000000
+      internalID: -1673189526447285418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_18
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 40
+        width: 114
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11d3e1785d0ef5910800000000000000
+      internalID: 1828427181435272465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_19
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 25
+        width: 127
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b3adca6399995c50800000000000000
+      internalID: 6654518782847722416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_20
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 18
+        width: 148
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84c4143f68771e160800000000000000
+      internalID: 7053049912929373256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_21
+      rect:
+        serializedVersion: 2
+        x: 1329
+        y: 5
+        width: 165
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9841059c93c27860800000000000000
+      internalID: 7526293004571723932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_22
+      rect:
+        serializedVersion: 2
+        x: 1568
+        y: 0
+        width: 202
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22574620dc523a090800000000000000
+      internalID: -8024528548605430494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gold_aureole_256x256_f8_23
+      rect:
+        serializedVersion: 2
+        x: 1808
+        y: 1
+        width: 198
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea446adbea5b13e20800000000000000
+      internalID: 3328641361714234542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,742 @@
+fileFormatVersion: 2
+guid: 4e347f69b06cd5f4da8776887b54357e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1147669330453812748
+    second: ward_burn_64x96_f6_0
+  - first:
+      213: 1974138190204137723
+    second: ward_burn_64x96_f6_1
+  - first:
+      213: 3427975675277472826
+    second: ward_burn_64x96_f6_2
+  - first:
+      213: 8428843403664598479
+    second: ward_burn_64x96_f6_3
+  - first:
+      213: 3523647860391438204
+    second: ward_burn_64x96_f6_4
+  - first:
+      213: 5948834480186096857
+    second: ward_burn_64x96_f6_5
+  - first:
+      213: -1839328482901964534
+    second: ward_burn_64x96_f6_6
+  - first:
+      213: 8895338111391995579
+    second: ward_burn_64x96_f6_7
+  - first:
+      213: 7793999472612442202
+    second: ward_burn_64x96_f6_8
+  - first:
+      213: -4341917818716062829
+    second: ward_burn_64x96_f6_9
+  - first:
+      213: 101314312998359138
+    second: ward_burn_64x96_f6_10
+  - first:
+      213: 1594145150962748278
+    second: ward_burn_64x96_f6_11
+  - first:
+      213: 1771863752201519069
+    second: ward_burn_64x96_f6_12
+  - first:
+      213: -2087214352144234679
+    second: ward_burn_64x96_f6_13
+  - first:
+      213: -7191946700287864543
+    second: ward_burn_64x96_f6_14
+  - first:
+      213: 652797208227711629
+    second: ward_burn_64x96_f6_15
+  - first:
+      213: -3267466440290045931
+    second: ward_burn_64x96_f6_16
+  - first:
+      213: 127325667846567229
+    second: ward_burn_64x96_f6_17
+  - first:
+      213: -7388066631679680106
+    second: ward_burn_64x96_f6_18
+  - first:
+      213: -4453106315059081868
+    second: ward_burn_64x96_f6_19
+  - first:
+      213: 1908646434219317313
+    second: ward_burn_64x96_f6_20
+  - first:
+      213: -7409731813426329122
+    second: ward_burn_64x96_f6_21
+  - first:
+      213: -3680137551569952283
+    second: ward_burn_64x96_f6_22
+  - first:
+      213: 8925641607300829032
+    second: ward_burn_64x96_f6_23
+  - first:
+      213: -5984297233758611925
+    second: ward_burn_64x96_f6_24
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_0
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 34
+        width: 31
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f9a0b613d8a210f0800000000000000
+      internalID: -1147669330453812748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_1
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 32
+        width: 35
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf076ac793c856b10800000000000000
+      internalID: 1974138190204137723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_2
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 30
+        width: 40
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a34f797e6bd929f20800000000000000
+      internalID: 3427975675277472826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_3
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 46
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc5a2deea6449f470800000000000000
+      internalID: 8428843403664598479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_4
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 54
+        width: 7
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7762385f0386e030800000000000000
+      internalID: 3523647860391438204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_5
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 51
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9dc761301718e8250800000000000000
+      internalID: 5948834480186096857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_6
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 46
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a09ce5f6d746976e0800000000000000
+      internalID: -1839328482901964534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_7
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 56
+        width: 7
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb6938ef1e6927b70800000000000000
+      internalID: 8895338111391995579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_8
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 52
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5085a8d939d92c60800000000000000
+      internalID: 7793999472612442202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_9
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 52
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39b7d739fb86eb3c0800000000000000
+      internalID: -4341917818716062829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_10
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 59
+        width: 7
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2601ee4b4d0f76100800000000000000
+      internalID: 101314312998359138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_11
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 54
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67bcb83919a8f1610800000000000000
+      internalID: 1594145150962748278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_12
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 42
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddfbc54e1bce69810800000000000000
+      internalID: 1771863752201519069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_13
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 42
+        width: 19
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9478852fa99b803e0800000000000000
+      internalID: -2087214352144234679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_14
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 46
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1219cc5a492113c90800000000000000
+      internalID: -7191946700287864543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_15
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 42
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8a87ca2a933f0900800000000000000
+      internalID: 652797208227711629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_16
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 29
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51070079590a7a2d0800000000000000
+      internalID: -3267466440290045931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_17
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 28
+        width: 6
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d35b8c2350a54c100800000000000000
+      internalID: 127325667846567229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_18
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 31
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 691e0d9ca80587990800000000000000
+      internalID: -7388066631679680106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_19
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 27
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47dcad766636332c0800000000000000
+      internalID: -4453106315059081868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_20
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 26
+        width: 6
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1485579c1dfdc7a10800000000000000
+      internalID: 1908646434219317313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_21
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 30
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed900d39c285b2990800000000000000
+      internalID: -7409731813426329122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_22
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 26
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e1e81225668decc0800000000000000
+      internalID: -3680137551569952283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_23
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 23
+        width: 6
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86fcc9370cf3edb70800000000000000
+      internalID: 8925641607300829032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_burn_64x96_f6_24
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 28
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b26177f3f5183fca0800000000000000
+      internalID: -5984297233758611925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

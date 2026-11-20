@@ -1,0 +1,180 @@
+{
+ "notes": {
+  "_note": "기본 공격 유형이 다시 쓰는 있는 그림(다른 폴더). 경로는 Resources/Art 기준. 묶음 styles.reuse. 그림을 새로 만들거나 옮기지 않는다 — 각 styles/char.N/manifest.json notes.reuse 의 대응. 읽는 곳: ArtLibrary.LoadStyleArt."
+ },
+ "styles.reuse": {
+  "page_large": {
+   "path": "wands/galpi/animation/page_large.png",
+   "size": [
+    16,
+    16
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     16,
+     16
+    ],
+    [
+     16,
+     0,
+     16,
+     16
+    ],
+    [
+     32,
+     0,
+     16,
+     16
+    ],
+    [
+     48,
+     0,
+     16,
+     16
+    ]
+   ],
+   "fps": 12,
+   "loop": true,
+   "pivot": [
+    8,
+    8
+   ],
+   "use": "char.3 A 날아가는 책장 탄(회전)"
+  },
+  "page_small": {
+   "path": "wands/galpi/animation/page_small.png",
+   "size": [
+    10,
+    12
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     10,
+     12
+    ],
+    [
+     10,
+     0,
+     10,
+     12
+    ],
+    [
+     20,
+     0,
+     10,
+     12
+    ],
+    [
+     30,
+     0,
+     10,
+     12
+    ]
+   ],
+   "fps": 12,
+   "loop": true,
+   "pivot": [
+    5,
+    6
+   ],
+   "use": "char.3 K 흩날리는 작은 책장 입자"
+  },
+  "hit_page": {
+   "path": "wands/galpi/animation/hit_page.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     32,
+     32
+    ],
+    [
+     32,
+     0,
+     32,
+     32
+    ],
+    [
+     64,
+     0,
+     32,
+     32
+    ],
+    [
+     96,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 16,
+   "loop": false,
+   "pivot": [
+    16,
+    16
+   ],
+   "use": "char.3 A 책장 적중"
+  },
+  "floating_eye": {
+   "path": "wands/geumeum/parts_and_effects/floating_eye.png",
+   "size": [
+    20,
+    20
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     20,
+     20
+    ],
+    [
+     20,
+     0,
+     20,
+     20
+    ],
+    [
+     40,
+     0,
+     20,
+     20
+    ]
+   ],
+   "fps": 8,
+   "loop": true,
+   "pivot": [
+    10,
+    10
+   ],
+   "use": "char.5 C 눈알 추적탄 몸"
+  }
+ },
+ "style_icons": {
+  "_note": "기본 공격 유형(핵 블록 id) → 아이콘으로 쓸 그림 '묶음/열쇠#프레임'(ArtLibrary.Icon). 원정 준비 카드·조립 판 핵·도감이 쓴다.",
+  "block.core.ember_mortar": "styles.char.1/mortar_shell#0",
+  "block.core.flame_jet": "styles.char.1/flame_jet#2",
+  "block.core.bouncing_ember": "char.1/kiln_ember#0",
+  "block.core.chain_bolt": "styles.char.2/chain_link#1",
+  "block.core.thunder_orb": "styles.char.2/ball_lightning#0",
+  "block.core.sky_strike": "styles.char.2/strike_bolt#1",
+  "block.core.page_flurry": "styles.reuse/page_large#0",
+  "block.core.tome_throw": "styles.char.3/book_spin#0",
+  "block.core.rune_mine": "styles.char.3/rune_trap#0",
+  "block.core.frost_lance": "styles.char.4/ice_spear#0",
+  "block.core.frost_lance_shard": "special/ice_screen_shard#0",
+  "block.core.blizzard": "styles.char.4/blizzard#2",
+  "block.core.icicle_fall": "styles.char.4/icicle#0",
+  "block.core.shadow_wave": "styles.char.5/shadow_wave#2",
+  "block.core.shadow_scythe": "special/bloom_dark#0",
+  "block.core.eye_seeker": "styles.reuse/floating_eye#0"
+ }
+}

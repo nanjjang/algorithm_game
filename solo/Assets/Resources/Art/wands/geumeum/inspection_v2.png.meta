@@ -1,0 +1,1167 @@
+fileFormatVersion: 2
+guid: 9b79ed64de417c0479190425ecba2f07
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 9222394096651189975
+    second: inspection_v2_0
+  - first:
+      213: 3089128218638027783
+    second: inspection_v2_1
+  - first:
+      213: 1455261126466607760
+    second: inspection_v2_2
+  - first:
+      213: 1815811872342842987
+    second: inspection_v2_3
+  - first:
+      213: 1327942123783373872
+    second: inspection_v2_4
+  - first:
+      213: -7912364680424830475
+    second: inspection_v2_5
+  - first:
+      213: -5032803443390364284
+    second: inspection_v2_6
+  - first:
+      213: -8170172811499539398
+    second: inspection_v2_7
+  - first:
+      213: -6276586434853750738
+    second: inspection_v2_8
+  - first:
+      213: 8987001656954601868
+    second: inspection_v2_9
+  - first:
+      213: 3615691300200973011
+    second: inspection_v2_10
+  - first:
+      213: 3907365569529157897
+    second: inspection_v2_11
+  - first:
+      213: 2804633732497196148
+    second: inspection_v2_12
+  - first:
+      213: 497839315051587596
+    second: inspection_v2_13
+  - first:
+      213: 3687492979945405686
+    second: inspection_v2_14
+  - first:
+      213: -2017238526588124621
+    second: inspection_v2_15
+  - first:
+      213: 596296411945111662
+    second: inspection_v2_16
+  - first:
+      213: -3295055369454177320
+    second: inspection_v2_17
+  - first:
+      213: -2731436908947130595
+    second: inspection_v2_18
+  - first:
+      213: 5608030971243685207
+    second: inspection_v2_19
+  - first:
+      213: -2071172029408925039
+    second: inspection_v2_20
+  - first:
+      213: 5709125115973969622
+    second: inspection_v2_21
+  - first:
+      213: 5676916214101358348
+    second: inspection_v2_22
+  - first:
+      213: -4313580476117667920
+    second: inspection_v2_23
+  - first:
+      213: 3540688435629387486
+    second: inspection_v2_24
+  - first:
+      213: 7644483954728554260
+    second: inspection_v2_25
+  - first:
+      213: 816606193113941566
+    second: inspection_v2_26
+  - first:
+      213: 8208622996623815711
+    second: inspection_v2_27
+  - first:
+      213: -9171582855263926608
+    second: inspection_v2_28
+  - first:
+      213: 6123079935101731583
+    second: inspection_v2_29
+  - first:
+      213: -1495196432631860283
+    second: inspection_v2_30
+  - first:
+      213: -1157644730862984076
+    second: inspection_v2_31
+  - first:
+      213: -1164261803051627321
+    second: inspection_v2_32
+  - first:
+      213: -6113881203645637761
+    second: inspection_v2_33
+  - first:
+      213: 906819913198261446
+    second: inspection_v2_34
+  - first:
+      213: 7940755602222252669
+    second: inspection_v2_35
+  - first:
+      213: -1663482864674012734
+    second: inspection_v2_36
+  - first:
+      213: -3119102849470038082
+    second: inspection_v2_37
+  - first:
+      213: -625187145039457122
+    second: inspection_v2_38
+  - first:
+      213: 3305679979068119055
+    second: inspection_v2_39
+  - first:
+      213: 5361390492522948811
+    second: inspection_v2_40
+  - first:
+      213: -4204796256587880807
+    second: inspection_v2_41
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: inspection_v2_0
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 200
+        width: 34
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7debd8d81968cff70800000000000000
+      internalID: 9222394096651189975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_1
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 200
+        width: 41
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70c0e897fb9ceda20800000000000000
+      internalID: 3089128218638027783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_2
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 200
+        width: 54
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09a1a72c840223410800000000000000
+      internalID: 1455261126466607760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_3
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 200
+        width: 68
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6e9eedf64f033910800000000000000
+      internalID: 1815811872342842987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_4
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 200
+        width: 63
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 034c26a635ccd6210800000000000000
+      internalID: 1327942123783373872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_5
+      rect:
+        serializedVersion: 2
+        x: 1023
+        y: 215
+        width: 65
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f94ee1ae32a13290800000000000000
+      internalID: -7912364680424830475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_6
+      rect:
+        serializedVersion: 2
+        x: 1215
+        y: 215
+        width: 65
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 485ca54eee3e72ab0800000000000000
+      internalID: -5032803443390364284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_7
+      rect:
+        serializedVersion: 2
+        x: 1052
+        y: 200
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a34f3098d17bd9e80800000000000000
+      internalID: -8170172811499539398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_8
+      rect:
+        serializedVersion: 2
+        x: 1244
+        y: 200
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e28b18c64e515e8a0800000000000000
+      internalID: -6276586434853750738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_9
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 23
+        width: 70
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8140ae446e38bc70800000000000000
+      internalID: 8987001656954601868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_10
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 25
+        width: 69
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d203fda4148d2230800000000000000
+      internalID: 3615691300200973011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_11
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 26
+        width: 89
+        height: 159
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 909906b8840c93630800000000000000
+      internalID: 3907365569529157897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_12
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 135
+        width: 58
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 474c296258f0ce620800000000000000
+      internalID: 2804633732497196148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_13
+      rect:
+        serializedVersion: 2
+        x: 834
+        y: 153
+        width: 12
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c08afd8283ea8e600800000000000000
+      internalID: 497839315051587596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_14
+      rect:
+        serializedVersion: 2
+        x: 843
+        y: 148
+        width: 51
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fc746df35b9c2330800000000000000
+      internalID: 3687492979945405686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_15
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 166
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3328b737f345104e0800000000000000
+      internalID: -2017238526588124621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_16
+      rect:
+        serializedVersion: 2
+        x: 1242
+        y: 168
+        width: 10
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6014d66d68764800800000000000000
+      internalID: 596296411945111662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_17
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 25
+        width: 74
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d3b074799c9542d0800000000000000
+      internalID: -3295055369454177320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_18
+      rect:
+        serializedVersion: 2
+        x: 826
+        y: 120
+        width: 76
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d17b0d36a9cf71ad0800000000000000
+      internalID: -2731436908947130595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_19
+      rect:
+        serializedVersion: 2
+        x: 1016
+        y: 132
+        width: 13
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7556e5aa47ab3dd40800000000000000
+      internalID: 5608030971243685207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_20
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 129
+        width: 53
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19a2b564308b143e0800000000000000
+      internalID: -2071172029408925039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_21
+      rect:
+        serializedVersion: 2
+        x: 1082
+        y: 133
+        width: 13
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d6a3e37b03ea3f40800000000000000
+      internalID: 5709125115973969622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_22
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 130
+        width: 13
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c07ba29183578ce40800000000000000
+      internalID: 5676916214101358348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_23
+      rect:
+        serializedVersion: 2
+        x: 1222
+        y: 109
+        width: 52
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bf22fa49651324c0800000000000000
+      internalID: -4313580476117667920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_24
+      rect:
+        serializedVersion: 2
+        x: 1276
+        y: 132
+        width: 12
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: edee5027f5d032130800000000000000
+      internalID: 3540688435629387486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_25
+      rect:
+        serializedVersion: 2
+        x: 857
+        y: 109
+        width: 19
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41fc4c497a9a61a60800000000000000
+      internalID: 7644483954728554260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_26
+      rect:
+        serializedVersion: 2
+        x: 1026
+        y: 110
+        width: 29
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e36c0fd810b255b00800000000000000
+      internalID: 816606193113941566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_27
+      rect:
+        serializedVersion: 2
+        x: 1056
+        y: 110
+        width: 27
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f147dd0df13eae170800000000000000
+      internalID: 8208622996623815711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_28
+      rect:
+        serializedVersion: 2
+        x: 1217
+        y: 109
+        width: 27
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b64eeb7cfdf7b080800000000000000
+      internalID: -9171582855263926608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_29
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 26
+        width: 35
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff28f0f62cc89f450800000000000000
+      internalID: 6123079935101731583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_30
+      rect:
+        serializedVersion: 2
+        x: 873
+        y: 86
+        width: 14
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c3fb8334ceff3be0800000000000000
+      internalID: -1495196432631860283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_31
+      rect:
+        serializedVersion: 2
+        x: 1039
+        y: 22
+        width: 31
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4742fc030483fefe0800000000000000
+      internalID: -1157644730862984076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_32
+      rect:
+        serializedVersion: 2
+        x: 1230
+        y: 22
+        width: 35
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cc4d830f06b7dfe0800000000000000
+      internalID: -1164261803051627321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_33
+      rect:
+        serializedVersion: 2
+        x: 1235
+        y: 96
+        width: 22
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7b93c12071272ba0800000000000000
+      internalID: -6113881203645637761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_34
+      rect:
+        serializedVersion: 2
+        x: 1064
+        y: 73
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c4de6118eba59c00800000000000000
+      internalID: 906819913198261446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_35
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 8
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7286a6f52b333e60800000000000000
+      internalID: 7940755602222252669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_36
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 8
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c10829e52f1ae8e0800000000000000
+      internalID: -1663482864674012734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_37
+      rect:
+        serializedVersion: 2
+        x: 476
+        y: 8
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebffd6feb78b6b4d0800000000000000
+      internalID: -3119102849470038082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_38
+      rect:
+        serializedVersion: 2
+        x: 670
+        y: 8
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9458cd9a93e257f0800000000000000
+      internalID: -625187145039457122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_39
+      rect:
+        serializedVersion: 2
+        x: 861
+        y: 8
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f08d97d3d6220ed20800000000000000
+      internalID: 3305679979068119055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_40
+      rect:
+        serializedVersion: 2
+        x: 1052
+        y: 8
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc8acf04f3c776a40800000000000000
+      internalID: 5361390492522948811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_v2_41
+      rect:
+        serializedVersion: 2
+        x: 1243
+        y: 8
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 996ef25251095a5c0800000000000000
+      internalID: -4204796256587880807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,717 @@
+fileFormatVersion: 2
+guid: 4a2628c6650bf984680383c8bf4e1826
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2689989373994710411
+    second: inspection_idle_band_9_0
+  - first:
+      213: -9167697215021543884
+    second: inspection_idle_band_9_1
+  - first:
+      213: -1184844331615378050
+    second: inspection_idle_band_9_2
+  - first:
+      213: -569306138943025943
+    second: inspection_idle_band_9_3
+  - first:
+      213: 6390903739341387892
+    second: inspection_idle_band_9_4
+  - first:
+      213: -4350647630429342891
+    second: inspection_idle_band_9_5
+  - first:
+      213: 4349935657410264373
+    second: inspection_idle_band_9_6
+  - first:
+      213: 3483920653782386224
+    second: inspection_idle_band_9_7
+  - first:
+      213: -6467078005548859048
+    second: inspection_idle_band_9_8
+  - first:
+      213: -9206807715651907299
+    second: inspection_idle_band_9_9
+  - first:
+      213: 2178516995901203859
+    second: inspection_idle_band_9_10
+  - first:
+      213: -8897678543195392526
+    second: inspection_idle_band_9_11
+  - first:
+      213: 6950320205152400444
+    second: inspection_idle_band_9_12
+  - first:
+      213: 2419761350213759389
+    second: inspection_idle_band_9_13
+  - first:
+      213: 3784974092660135489
+    second: inspection_idle_band_9_14
+  - first:
+      213: 5308664440906027349
+    second: inspection_idle_band_9_15
+  - first:
+      213: -6424761785698384818
+    second: inspection_idle_band_9_16
+  - first:
+      213: 8519518248785356759
+    second: inspection_idle_band_9_17
+  - first:
+      213: 598167926791398956
+    second: inspection_idle_band_9_18
+  - first:
+      213: -8844249403229863627
+    second: inspection_idle_band_9_19
+  - first:
+      213: -2107891982341634356
+    second: inspection_idle_band_9_20
+  - first:
+      213: 7940307948655707693
+    second: inspection_idle_band_9_21
+  - first:
+      213: -5529101516959839730
+    second: inspection_idle_band_9_22
+  - first:
+      213: 1259074448324494596
+    second: inspection_idle_band_9_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: inspection_idle_band_9_0
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 107
+        width: 32
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b85b78e5513c45520800000000000000
+      internalID: 2689989373994710411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_idle_band_9_1
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 126
+        width: 33
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43e8d4a94fbc5c080800000000000000
+      internalID: -9167697215021543884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_idle_band_9_2
+      rect:
+        serializedVersion: 2
+        x: 852
+        y: 117
+        width: 26
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e752ee3ab569e8fe0800000000000000
+      internalID: -1184844331615378050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_idle_band_9_3
+      rect:
+        serializedVersion: 2
+        x: 1018
+        y: 132
+        width: 22
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ec0adb351b6918f0800000000000000
+      internalID: -569306138943025943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_idle_band_9_4
+      rect:
+        serializedVersion: 2
+        x: 1023
+        y: 110
+        width: 12
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 478b829271d01b850800000000000000
+      internalID: 6390903739341387892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_idle_band_9_5
+      rect:
+        serializedVersion: 2
+        x: 1045
+        y: 104
+        width: 18
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5533d55e7056f93c0800000000000000
+      internalID: -4350647630429342891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_idle_band_9_6
+      rect:
+        serializedVersion: 2
+        x: 1046
+        y: 131
+        width: 17
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53d7eb7fe631e5c30800000000000000
+      internalID: 4349935657410264373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_idle_band_9_7
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 77
+        width: 24
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0368852406f595030800000000000000
+      internalID: 3483920653782386224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_idle_band_9_8
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 81
+        width: 20
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 851c48861d25046a0800000000000000
+      internalID: -6467078005548859048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_idle_band_9_9
+      rect:
+        serializedVersion: 2
+        x: 628
+        y: 77
+        width: 15
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d111e319929da3080800000000000000
+      internalID: -9206807715651907299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_idle_band_9_10
+      rect:
+        serializedVersion: 2
+        x: 653
+        y: 62
+        width: 63
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 395a7dd5aa5ab3e10800000000000000
+      internalID: 2178516995901203859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_idle_band_9_11
+      rect:
+        serializedVersion: 2
+        x: 659
+        y: 100
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f53933c188158480800000000000000
+      internalID: -8897678543195392526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_idle_band_9_12
+      rect:
+        serializedVersion: 2
+        x: 823
+        y: 97
+        width: 14
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c343457f66f747060800000000000000
+      internalID: 6950320205152400444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_idle_band_9_13
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 86
+        width: 29
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d91f5b8a028b49120800000000000000
+      internalID: 2419761350213759389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_idle_band_9_14
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 54
+        width: 22
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 146501532ede68430800000000000000
+      internalID: 3784974092660135489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_idle_band_9_15
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 53
+        width: 17
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55193f7be2a2ca940800000000000000
+      internalID: 5308664440906027349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_idle_band_9_16
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 59
+        width: 21
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4481fc1239a6d6a0800000000000000
+      internalID: -6424761785698384818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_idle_band_9_17
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 66
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d72f4c75b86b3670800000000000000
+      internalID: 8519518248785356759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_idle_band_9_18
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 34
+        width: 19
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c26ee686f8e1d4800800000000000000
+      internalID: 598167926791398956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_idle_band_9_19
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 53
+        width: 16
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 531068fc60ae24580800000000000000
+      internalID: -8844249403229863627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_idle_band_9_20
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 47
+        width: 63
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc602aff8634fb2e0800000000000000
+      internalID: -2107891982341634356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_idle_band_9_21
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 32
+        width: 12
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2685de7204a13e60800000000000000
+      internalID: 7940307948655707693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_idle_band_9_22
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 26
+        width: 18
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0a098af67fa443b0800000000000000
+      internalID: -5529101516959839730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inspection_idle_band_9_23
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 38
+        width: 17
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40507263a81297110800000000000000
+      internalID: 1259074448324494596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,3767 @@
+fileFormatVersion: 2
+guid: ad6cb8467065df0479e1b591b8b95f0d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4683039473768131774
+    second: body_without_eyes_0
+  - first:
+      213: -2478021421041583514
+    second: body_without_eyes_1
+  - first:
+      213: -7627553116300317553
+    second: body_without_eyes_2
+  - first:
+      213: 3108891660234841447
+    second: body_without_eyes_3
+  - first:
+      213: -4916743125025109007
+    second: body_without_eyes_4
+  - first:
+      213: 7844336665506078428
+    second: body_without_eyes_5
+  - first:
+      213: 2441554466523880185
+    second: body_without_eyes_6
+  - first:
+      213: 6800248927436515480
+    second: body_without_eyes_7
+  - first:
+      213: -6623024972941629251
+    second: body_without_eyes_8
+  - first:
+      213: -3209590478988859080
+    second: body_without_eyes_9
+  - first:
+      213: -4658699854384318440
+    second: body_without_eyes_10
+  - first:
+      213: -5329722294682717539
+    second: body_without_eyes_11
+  - first:
+      213: -6577150831957155278
+    second: body_without_eyes_12
+  - first:
+      213: 1639875187469699758
+    second: body_without_eyes_13
+  - first:
+      213: -2393858567475678147
+    second: body_without_eyes_14
+  - first:
+      213: -4890439110919995854
+    second: body_without_eyes_15
+  - first:
+      213: 5740309707481981889
+    second: body_without_eyes_16
+  - first:
+      213: 6787945114725593635
+    second: body_without_eyes_17
+  - first:
+      213: -7955767360780978504
+    second: body_without_eyes_18
+  - first:
+      213: -1697067325541696448
+    second: body_without_eyes_19
+  - first:
+      213: 7732296864111776394
+    second: body_without_eyes_20
+  - first:
+      213: -2211327369135061882
+    second: body_without_eyes_21
+  - first:
+      213: 717642875318109365
+    second: body_without_eyes_22
+  - first:
+      213: 4645086484103375517
+    second: body_without_eyes_23
+  - first:
+      213: -2929215428074824369
+    second: body_without_eyes_24
+  - first:
+      213: 2949214327177765955
+    second: body_without_eyes_25
+  - first:
+      213: -1661065923718531202
+    second: body_without_eyes_26
+  - first:
+      213: 7888816120535959258
+    second: body_without_eyes_27
+  - first:
+      213: -4303238063965172931
+    second: body_without_eyes_28
+  - first:
+      213: -378983672166741429
+    second: body_without_eyes_29
+  - first:
+      213: 5281709987936737894
+    second: body_without_eyes_30
+  - first:
+      213: -8605014389040414750
+    second: body_without_eyes_31
+  - first:
+      213: -617295497986656376
+    second: body_without_eyes_32
+  - first:
+      213: -425282173031738250
+    second: body_without_eyes_33
+  - first:
+      213: 6565442742260209575
+    second: body_without_eyes_34
+  - first:
+      213: -2094782530875411290
+    second: body_without_eyes_35
+  - first:
+      213: 8898600929328669943
+    second: body_without_eyes_36
+  - first:
+      213: 2030668021081515009
+    second: body_without_eyes_37
+  - first:
+      213: 5569224016608833735
+    second: body_without_eyes_38
+  - first:
+      213: -3476512824518844906
+    second: body_without_eyes_39
+  - first:
+      213: -2886778310849220224
+    second: body_without_eyes_40
+  - first:
+      213: 684063540415179151
+    second: body_without_eyes_41
+  - first:
+      213: 2060882718414567468
+    second: body_without_eyes_42
+  - first:
+      213: -3958061197892517246
+    second: body_without_eyes_43
+  - first:
+      213: 7288940698304277092
+    second: body_without_eyes_44
+  - first:
+      213: 4436942495505071998
+    second: body_without_eyes_45
+  - first:
+      213: 7902355980207306727
+    second: body_without_eyes_46
+  - first:
+      213: 2004025778406586965
+    second: body_without_eyes_47
+  - first:
+      213: 229140194965396737
+    second: body_without_eyes_48
+  - first:
+      213: -5580539452380364744
+    second: body_without_eyes_49
+  - first:
+      213: -7643421986106242308
+    second: body_without_eyes_50
+  - first:
+      213: -6749728102226298444
+    second: body_without_eyes_51
+  - first:
+      213: -979609343303473745
+    second: body_without_eyes_52
+  - first:
+      213: 3832773404262680916
+    second: body_without_eyes_53
+  - first:
+      213: -1224106994222567130
+    second: body_without_eyes_54
+  - first:
+      213: 8475456904921447700
+    second: body_without_eyes_55
+  - first:
+      213: 2035691052928593599
+    second: body_without_eyes_56
+  - first:
+      213: -3639814869662324901
+    second: body_without_eyes_57
+  - first:
+      213: 6165965325379666016
+    second: body_without_eyes_58
+  - first:
+      213: 8692784152320009786
+    second: body_without_eyes_59
+  - first:
+      213: -5271303923049353060
+    second: body_without_eyes_60
+  - first:
+      213: -6898676799995878949
+    second: body_without_eyes_61
+  - first:
+      213: -8896370806889627936
+    second: body_without_eyes_62
+  - first:
+      213: -6176889291367288068
+    second: body_without_eyes_63
+  - first:
+      213: -4173780311775962279
+    second: body_without_eyes_64
+  - first:
+      213: 6307734809796379310
+    second: body_without_eyes_65
+  - first:
+      213: 450419223078543781
+    second: body_without_eyes_66
+  - first:
+      213: 3533314198445045002
+    second: body_without_eyes_67
+  - first:
+      213: 474108629747832761
+    second: body_without_eyes_68
+  - first:
+      213: -7194768654167224133
+    second: body_without_eyes_69
+  - first:
+      213: 4441865845338654383
+    second: body_without_eyes_70
+  - first:
+      213: -3212899942363360958
+    second: body_without_eyes_71
+  - first:
+      213: 2581890467207890836
+    second: body_without_eyes_72
+  - first:
+      213: -3307131278687767010
+    second: body_without_eyes_73
+  - first:
+      213: 8278883958565349524
+    second: body_without_eyes_74
+  - first:
+      213: -7493195598461754102
+    second: body_without_eyes_75
+  - first:
+      213: 1506386534886610289
+    second: body_without_eyes_76
+  - first:
+      213: 3714645835897662155
+    second: body_without_eyes_77
+  - first:
+      213: -9052485973018414396
+    second: body_without_eyes_78
+  - first:
+      213: 5450091811316920805
+    second: body_without_eyes_79
+  - first:
+      213: 2838358066925811749
+    second: body_without_eyes_80
+  - first:
+      213: 2307465321292034856
+    second: body_without_eyes_81
+  - first:
+      213: 459490933297446416
+    second: body_without_eyes_82
+  - first:
+      213: -3150705846737765254
+    second: body_without_eyes_83
+  - first:
+      213: 7320064906441597753
+    second: body_without_eyes_84
+  - first:
+      213: 5022617741530053199
+    second: body_without_eyes_85
+  - first:
+      213: 7102413856112986563
+    second: body_without_eyes_86
+  - first:
+      213: -6486901022504707807
+    second: body_without_eyes_87
+  - first:
+      213: 5472093668718538278
+    second: body_without_eyes_88
+  - first:
+      213: 7379698133774478989
+    second: body_without_eyes_89
+  - first:
+      213: 6716449361265466652
+    second: body_without_eyes_90
+  - first:
+      213: -5728666933510396196
+    second: body_without_eyes_91
+  - first:
+      213: -7036971149406550461
+    second: body_without_eyes_92
+  - first:
+      213: 5221876771635019750
+    second: body_without_eyes_93
+  - first:
+      213: 6769533373115978471
+    second: body_without_eyes_94
+  - first:
+      213: 2332252227173046941
+    second: body_without_eyes_95
+  - first:
+      213: 4855333456561236512
+    second: body_without_eyes_96
+  - first:
+      213: 2947018365830008662
+    second: body_without_eyes_97
+  - first:
+      213: -1395208429635091272
+    second: body_without_eyes_98
+  - first:
+      213: -2329753971297557317
+    second: body_without_eyes_99
+  - first:
+      213: 3268688076988510879
+    second: body_without_eyes_100
+  - first:
+      213: -426352401669010826
+    second: body_without_eyes_101
+  - first:
+      213: 643631174351321310
+    second: body_without_eyes_102
+  - first:
+      213: -5595502375755434719
+    second: body_without_eyes_103
+  - first:
+      213: -4834186468909677365
+    second: body_without_eyes_104
+  - first:
+      213: -4010447466757984553
+    second: body_without_eyes_105
+  - first:
+      213: 3005303763429291097
+    second: body_without_eyes_106
+  - first:
+      213: -8305123395426261767
+    second: body_without_eyes_107
+  - first:
+      213: 2513865142233838413
+    second: body_without_eyes_108
+  - first:
+      213: -9143652267127312561
+    second: body_without_eyes_109
+  - first:
+      213: -2528626676058175191
+    second: body_without_eyes_110
+  - first:
+      213: -5387498659223614422
+    second: body_without_eyes_111
+  - first:
+      213: -2558943186267902029
+    second: body_without_eyes_112
+  - first:
+      213: 2129232524210303178
+    second: body_without_eyes_113
+  - first:
+      213: -5464899114801452678
+    second: body_without_eyes_114
+  - first:
+      213: -170863297223605907
+    second: body_without_eyes_115
+  - first:
+      213: 1564902451027440401
+    second: body_without_eyes_116
+  - first:
+      213: 3777543648346921642
+    second: body_without_eyes_117
+  - first:
+      213: -1183109340535391164
+    second: body_without_eyes_118
+  - first:
+      213: -1288768592598997650
+    second: body_without_eyes_119
+  - first:
+      213: -5466688201503470464
+    second: body_without_eyes_120
+  - first:
+      213: 8673858701287566402
+    second: body_without_eyes_121
+  - first:
+      213: 2825338873553227352
+    second: body_without_eyes_122
+  - first:
+      213: 8178805856048865858
+    second: body_without_eyes_123
+  - first:
+      213: 4284174849528771313
+    second: body_without_eyes_124
+  - first:
+      213: 3904450183346646825
+    second: body_without_eyes_125
+  - first:
+      213: -2312581222968841434
+    second: body_without_eyes_126
+  - first:
+      213: 841101651486710425
+    second: body_without_eyes_127
+  - first:
+      213: 1521374831516567112
+    second: body_without_eyes_128
+  - first:
+      213: 2263298576205129791
+    second: body_without_eyes_129
+  - first:
+      213: -3766108370975036906
+    second: body_without_eyes_130
+  - first:
+      213: -2940529768415426535
+    second: body_without_eyes_131
+  - first:
+      213: 3187401334297570355
+    second: body_without_eyes_132
+  - first:
+      213: -3372378241905709776
+    second: body_without_eyes_133
+  - first:
+      213: -8228104511283770012
+    second: body_without_eyes_134
+  - first:
+      213: -2703594322659976516
+    second: body_without_eyes_135
+  - first:
+      213: 4852669985774776399
+    second: body_without_eyes_136
+  - first:
+      213: -7890235406431478144
+    second: body_without_eyes_137
+  - first:
+      213: -5866215457160195112
+    second: body_without_eyes_138
+  - first:
+      213: 250815117857824600
+    second: body_without_eyes_139
+  - first:
+      213: 7939961409754046248
+    second: body_without_eyes_140
+  - first:
+      213: -115465194313089680
+    second: body_without_eyes_141
+  - first:
+      213: 5088757508071487981
+    second: body_without_eyes_142
+  - first:
+      213: 7610930667596152989
+    second: body_without_eyes_143
+  - first:
+      213: 4947131070920628487
+    second: body_without_eyes_144
+  - first:
+      213: -7763652639890687847
+    second: body_without_eyes_145
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: body_without_eyes_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 771
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2431be01960820fb0800000000000000
+      internalID: -4683039473768131774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_1
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 772
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66af10d85ac4c9dd0800000000000000
+      internalID: -2478021421041583514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_2
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 772
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8cee7d6adc752690800000000000000
+      internalID: -7627553116300317553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_3
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 771
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76dd87d4e70052b20800000000000000
+      internalID: 3108891660234841447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_4
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 771
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fbc8058d2834cbb0800000000000000
+      internalID: -4916743125025109007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_5
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 772
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdedf0ed2aeacdc60800000000000000
+      internalID: 7844336665506078428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_6
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 772
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fa9ce4f9d422e120800000000000000
+      internalID: 2441554466523880185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_7
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 771
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 898a518ce565f5e50800000000000000
+      internalID: 6800248927436515480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_8
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 771
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db8e54d90e94614a0800000000000000
+      internalID: -6623024972941629251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_9
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 772
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 839a469e67e3573d0800000000000000
+      internalID: -3209590478988859080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_10
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 772
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81832405a29f85fb0800000000000000
+      internalID: -4658699854384318440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_11
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 771
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d92f4f1afc50906b0800000000000000
+      internalID: -5329722294682717539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_12
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 707
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23267036a2449b4a0800000000000000
+      internalID: -6577150831957155278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_13
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 707
+        width: 47
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eaacb196bc102c610800000000000000
+      internalID: 1639875187469699758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_14
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 707
+        width: 47
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d34361be05e47ced0800000000000000
+      internalID: -2393858567475678147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_15
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 707
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23ebfed0a8ba12cb0800000000000000
+      internalID: -4890439110919995854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_16
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 707
+        width: 47
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c3a037f34da9af40800000000000000
+      internalID: 5740309707481981889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_17
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 707
+        width: 47
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32231162e10a33e50800000000000000
+      internalID: 6787945114725593635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_18
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 707
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b6b001acbf679190800000000000000
+      internalID: -7955767360780978504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_19
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 707
+        width: 47
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04c3a25424ec278e0800000000000000
+      internalID: -1697067325541696448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_20
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 707
+        width: 47
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a82df3bc703ae4b60800000000000000
+      internalID: 7732296864111776394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_21
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 707
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6840b905979cf41e0800000000000000
+      internalID: -2211327369135061882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_22
+      rect:
+        serializedVersion: 2
+        x: 645
+        y: 708
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b40de2946495f900800000000000000
+      internalID: 717642875318109365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_23
+      rect:
+        serializedVersion: 2
+        x: 709
+        y: 708
+        width: 47
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9a23fbeb89a67040800000000000000
+      internalID: 4645086484103375517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_24
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 643
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4d910b76165957d0800000000000000
+      internalID: -2929215428074824369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_25
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 643
+        width: 47
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3446ce11ec6bde820800000000000000
+      internalID: 2949214327177765955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_26
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 643
+        width: 47
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e773044d755b2f8e0800000000000000
+      internalID: -1661065923718531202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_27
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 643
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad6cbe20774ba7d60800000000000000
+      internalID: 7888816120535959258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_28
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 643
+        width: 47
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3b8a65c7c3d744c0800000000000000
+      internalID: -4303238063965172931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_29
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 643
+        width: 47
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4a04dcab549dbaf0800000000000000
+      internalID: -378983672166741429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_30
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 643
+        width: 47
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66a1a9510476c4940800000000000000
+      internalID: 5281709987936737894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_31
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 643
+        width: 47
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2effe162109d49880800000000000000
+      internalID: -8605014389040414750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_32
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 643
+        width: 47
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 887be01e30dee67f0800000000000000
+      internalID: -617295497986656376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_33
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 643
+        width: 48
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 674132bed18191af0800000000000000
+      internalID: -425282173031738250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_34
+      rect:
+        serializedVersion: 2
+        x: 647
+        y: 643
+        width: 47
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a7169d83632d1b50800000000000000
+      internalID: 6565442742260209575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_35
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 643
+        width: 47
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a43a750366dde2e0800000000000000
+      internalID: -2094782530875411290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_36
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 579
+        width: 47
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f4a89ef56e2e7b70800000000000000
+      internalID: 8898600929328669943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_37
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 580
+        width: 47
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1042f456ec16e2c10800000000000000
+      internalID: 2030668021081515009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_38
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 579
+        width: 47
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c03b807cbbd94d40800000000000000
+      internalID: 5569224016608833735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_39
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 579
+        width: 47
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61ed6756102f0cfc0800000000000000
+      internalID: -3476512824518844906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_40
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 579
+        width: 47
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 081b78ccb6a10f7d0800000000000000
+      internalID: -2886778310849220224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_41
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 579
+        width: 47
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f892e3a6a284e7900800000000000000
+      internalID: 684063540415179151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_42
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 579
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2877d2d9e9b99c10800000000000000
+      internalID: 2060882718414567468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_43
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 580
+        width: 49
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2820c5caf442219c0800000000000000
+      internalID: -3958061197892517246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_44
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 580
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46a605752f4872560800000000000000
+      internalID: 7288940698304277092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_45
+      rect:
+        serializedVersion: 2
+        x: 583
+        y: 579
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7f3a6511bf239d30800000000000000
+      internalID: 4436942495505071998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_46
+      rect:
+        serializedVersion: 2
+        x: 647
+        y: 580
+        width: 48
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e7b0f045eecaad60800000000000000
+      internalID: 7902355980207306727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_47
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 580
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55a76a2e3dabfcb10800000000000000
+      internalID: 2004025778406586965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_48
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 515
+        width: 48
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10d1da41bc11e2300800000000000000
+      internalID: 229140194965396737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_49
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 516
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 830c0dd5fe0fd82b0800000000000000
+      internalID: -5580539452380364744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_50
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 516
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfa0ab1433c1de590800000000000000
+      internalID: -7643421986106242308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_51
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 515
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b974587d062452a0800000000000000
+      internalID: -6749728102226298444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_52
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 516
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa52eb11e7ab762f0800000000000000
+      internalID: -979609343303473745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_53
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 516
+        width: 49
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45944a1ba1fb03530800000000000000
+      internalID: 3832773404262680916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_54
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 516
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 621fa42ac29130fe0800000000000000
+      internalID: -1224106994222567130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_55
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 515
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41d79fe662fde9570800000000000000
+      internalID: 8475456904921447700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_56
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 516
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbeef322a3a304c10800000000000000
+      internalID: 2035691052928593599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_57
+      rect:
+        serializedVersion: 2
+        x: 583
+        y: 516
+        width: 48
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b57a79d19a7cc7dc0800000000000000
+      internalID: -3639814869662324901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_58
+      rect:
+        serializedVersion: 2
+        x: 647
+        y: 516
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06081a47bc8e19550800000000000000
+      internalID: 6165965325379666016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_59
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 515
+        width: 48
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a36ed245129f2a870800000000000000
+      internalID: 8692784152320009786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_60
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 452
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c903583b20198d6b0800000000000000
+      internalID: -5271303923049353060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_61
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 452
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd1640c400af240a0800000000000000
+      internalID: -6898676799995878949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_62
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 452
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ee3039d2edb98480800000000000000
+      internalID: -8896370806889627936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_63
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 451
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf273238ae7474aa0800000000000000
+      internalID: -6176889291367288068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_64
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 452
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95b131a8be0c316c0800000000000000
+      internalID: -4173780311775962279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_65
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 452
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea28743c363998750800000000000000
+      internalID: 6307734809796379310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_66
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 452
+        width: 50
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a1aa9f95e5304600800000000000000
+      internalID: 450419223078543781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_67
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 451
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a05392e0b8ad80130800000000000000
+      internalID: 3533314198445045002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_68
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 451
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b7111d694f549600800000000000000
+      internalID: 474108629747832761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_69
+      rect:
+        serializedVersion: 2
+        x: 584
+        y: 451
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb05f3f470c072c90800000000000000
+      internalID: -7194768654167224133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_70
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 452
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa6c95bc37da4ad30800000000000000
+      internalID: 4441865845338654383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_71
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 452
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2411f8c668c7963d0800000000000000
+      internalID: -3212899942363360958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_72
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 388
+        width: 49
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 497c4e253b7b4d320800000000000000
+      internalID: 2581890467207890836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_73
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 387
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e167b3cbf95ba12d0800000000000000
+      internalID: -3307131278687767010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_74
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 387
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 498a7fec81184e270800000000000000
+      internalID: 8278883958565349524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_75
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 387
+        width: 48
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a05aa29cd42d20890800000000000000
+      internalID: -7493195598461754102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_76
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 388
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17519528292c7e410800000000000000
+      internalID: 1506386534886610289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_77
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 388
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bca601be4b21d8330800000000000000
+      internalID: 3714645835897662155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_78
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 388
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c2f70c38fb1f5280800000000000000
+      internalID: -9052485973018414396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_79
+      rect:
+        serializedVersion: 2
+        x: 458
+        y: 387
+        width: 48
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e17fc660ad92ab40800000000000000
+      internalID: 5450091811316920805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_80
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 387
+        width: 48
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5283a74af9fd36720800000000000000
+      internalID: 2838358066925811749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_81
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 388
+        width: 48
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 823f427fb73c50020800000000000000
+      internalID: 2307465321292034856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_82
+      rect:
+        serializedVersion: 2
+        x: 646
+        y: 387
+        width: 48
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01ef4b0c190706600800000000000000
+      internalID: 459490933297446416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_83
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 388
+        width: 48
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7cf27db9b17644d0800000000000000
+      internalID: -3150705846737765254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_84
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 323
+        width: 48
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9332141cf38169560800000000000000
+      internalID: 7320064906441597753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_85
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 324
+        width: 46
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4a3976993ce3b540800000000000000
+      internalID: 5022617741530053199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_86
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 323
+        width: 47
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c94d6d95c7d09260800000000000000
+      internalID: 7102413856112986563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_87
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 323
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1291d7c93e5e9f5a0800000000000000
+      internalID: -6486901022504707807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_88
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 323
+        width: 47
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62ee1a50338c0fb40800000000000000
+      internalID: 5472093668718538278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_89
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 323
+        width: 47
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8ead357a54f96660800000000000000
+      internalID: 7379698133774478989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_90
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 323
+        width: 41
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1d902adb1f953d50800000000000000
+      internalID: 6716449361265466652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_91
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 323
+        width: 41
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd6269796cfaf70b0800000000000000
+      internalID: -5728666933510396196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_92
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 323
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34643f8e508a75e90800000000000000
+      internalID: -7036971149406550461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_93
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 323
+        width: 46
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ef3b22d145d77840800000000000000
+      internalID: 5221876771635019750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_94
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 323
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e2dabf7cb632fd50800000000000000
+      internalID: 6769533373115978471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_95
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 259
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9a53473b03dd5020800000000000000
+      internalID: 2332252227173046941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_96
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 259
+        width: 47
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02ae668dd0c916340800000000000000
+      internalID: 4855333456561236512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_97
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 259
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65f89d9f699e5e820800000000000000
+      internalID: 2947018365830008662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_98
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 259
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b448fb435933ace0800000000000000
+      internalID: -1395208429635091272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_99
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 259
+        width: 51
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb4e0ce4b1d0bafd0800000000000000
+      internalID: -2329753971297557317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_100
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 259
+        width: 52
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f92747edc76bc5d20800000000000000
+      internalID: 3268688076988510879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_101
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 259
+        width: 48
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67a4265efba451af0800000000000000
+      internalID: -426352401669010826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_102
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 259
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed8f3999423aee800800000000000000
+      internalID: 643631174351321310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_103
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 259
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1253e394c38c852b0800000000000000
+      internalID: -5595502375755434719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_104
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 259
+        width: 47
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc483a6e40589ecb0800000000000000
+      internalID: -4834186468909677365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_105
+      rect:
+        serializedVersion: 2
+        x: 646
+        y: 259
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7de6689f6470858c0800000000000000
+      internalID: -4010447466757984553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_106
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 259
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 954f85d99dbf4b920800000000000000
+      internalID: 3005303763429291097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_107
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 195
+        width: 47
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f4e4d736464ebc80800000000000000
+      internalID: -8305123395426261767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_108
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 195
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d43b510270b03e220800000000000000
+      internalID: 2513865142233838413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_109
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 195
+        width: 47
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4f6e2c45b83b1180800000000000000
+      internalID: -9143652267127312561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_110
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 195
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 929c9f37f6388ecd0800000000000000
+      internalID: -2528626676058175191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_111
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 195
+        width: 47
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2c451d7382cb35b0800000000000000
+      internalID: -5387498659223614422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_112
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 195
+        width: 46
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bf681edabecc7cd0800000000000000
+      internalID: -2558943186267902029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_113
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 195
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac073c913bd8c8d10800000000000000
+      internalID: 2129232524210303178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_114
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 195
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a79a9e89537c824b0800000000000000
+      internalID: -5464899114801452678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_115
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 198
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d61c5d78cb8f0adf0800000000000000
+      internalID: -170863297223605907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_116
+      rect:
+        serializedVersion: 2
+        x: 584
+        y: 195
+        width: 47
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 113f0adec76a7b510800000000000000
+      internalID: 1564902451027440401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_117
+      rect:
+        serializedVersion: 2
+        x: 645
+        y: 198
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aaa50431fe78c6430800000000000000
+      internalID: 3777543648346921642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_118
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 195
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44cf0fab250c49fe0800000000000000
+      internalID: -1183109340535391164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_119
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 131
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e65e4701bcf5d1ee0800000000000000
+      internalID: -1288768592598997650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_120
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 131
+        width: 47
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08c01936b0c6224b0800000000000000
+      internalID: -5466688201503470464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_121
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 131
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24c2d22688cbf5870800000000000000
+      internalID: 8673858701287566402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_122
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 131
+        width: 47
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85e0e387cbe953720800000000000000
+      internalID: 2825338873553227352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_123
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 131
+        width: 47
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2426da8c794f08170800000000000000
+      internalID: 8178805856048865858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_124
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 131
+        width: 47
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f233ddb352747b30800000000000000
+      internalID: 4284174849528771313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_125
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 131
+        width: 47
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92fe59d41c46f2630800000000000000
+      internalID: 3904450183346646825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_126
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 131
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62b24ba51af08efd0800000000000000
+      internalID: -2312581222968841434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_127
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 132
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99a1cd4ee713cab00800000000000000
+      internalID: 841101651486710425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_128
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 131
+        width: 47
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 846c3c249520d1510800000000000000
+      internalID: 1521374831516567112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_129
+      rect:
+        serializedVersion: 2
+        x: 646
+        y: 132
+        width: 47
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f38aa57401ad86f10800000000000000
+      internalID: 2263298576205129791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_130
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 131
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61a686ae3681cbbc0800000000000000
+      internalID: -3766108370975036906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_131
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 71
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 918032651c32137d0800000000000000
+      internalID: -2940529768415426535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_132
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 73
+        width: 47
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33ca96f30aceb3c20800000000000000
+      internalID: 3187401334297570355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_133
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 69
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03d24fa4bd7e231d0800000000000000
+      internalID: -3372378241905709776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_134
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 67
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46d44269a86efcd80800000000000000
+      internalID: -8228104511283770012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_135
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 67
+        width: 47
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbad61da947ea7ad0800000000000000
+      internalID: -2703594322659976516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_136
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 67
+        width: 46
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f403e4a34a5285340800000000000000
+      internalID: 4852669985774776399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_137
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 67
+        width: 47
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08e117db3b0408290800000000000000
+      internalID: -7890235406431478144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_138
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 67
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d39f0c4f14079ea0800000000000000
+      internalID: -5866215457160195112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_139
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 71
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85f963455031b7300800000000000000
+      internalID: 250815117857824600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_140
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 73
+        width: 47
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82f13be95d8603e60800000000000000
+      internalID: 7939961409754046248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_141
+      rect:
+        serializedVersion: 2
+        x: 646
+        y: 69
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07dfb0d7409c56ef0800000000000000
+      internalID: -115465194313089680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_142
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 67
+        width: 47
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de9f3b00ef5ee9640800000000000000
+      internalID: 5088757508071487981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_143
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 3
+        width: 47
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9002342e157f9960800000000000000
+      internalID: 7610930667596152989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_144
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 3
+        width: 46
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 709958b7f7db7a440800000000000000
+      internalID: 4947131070920628487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_eyes_145
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 3
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 998bacfbe07f14490800000000000000
+      internalID: -7763652639890687847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

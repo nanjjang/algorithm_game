@@ -1,0 +1,567 @@
+fileFormatVersion: 2
+guid: 932695c8798ea8e46bbda7db86ae4a80
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 9076355227802752214
+    second: break_pieces_b_lightning_64x64_f18_0
+  - first:
+      213: -4085985559087685799
+    second: break_pieces_b_lightning_64x64_f18_1
+  - first:
+      213: 7289385294149855029
+    second: break_pieces_b_lightning_64x64_f18_2
+  - first:
+      213: -3912189867370508188
+    second: break_pieces_b_lightning_64x64_f18_3
+  - first:
+      213: -7191086536005947700
+    second: break_pieces_b_lightning_64x64_f18_4
+  - first:
+      213: -451314316694915944
+    second: break_pieces_b_lightning_64x64_f18_5
+  - first:
+      213: 6846545504635109583
+    second: break_pieces_b_lightning_64x64_f18_6
+  - first:
+      213: 4723311595226101825
+    second: break_pieces_b_lightning_64x64_f18_7
+  - first:
+      213: 2416185439112019685
+    second: break_pieces_b_lightning_64x64_f18_8
+  - first:
+      213: -8674008874927618476
+    second: break_pieces_b_lightning_64x64_f18_9
+  - first:
+      213: 2229678773187982653
+    second: break_pieces_b_lightning_64x64_f18_10
+  - first:
+      213: -8294048252926851449
+    second: break_pieces_b_lightning_64x64_f18_11
+  - first:
+      213: -1361593136264738026
+    second: break_pieces_b_lightning_64x64_f18_12
+  - first:
+      213: -5368874302763091024
+    second: break_pieces_b_lightning_64x64_f18_13
+  - first:
+      213: -2855332192153536557
+    second: break_pieces_b_lightning_64x64_f18_14
+  - first:
+      213: 2597569578838638881
+    second: break_pieces_b_lightning_64x64_f18_15
+  - first:
+      213: 9209153530655928035
+    second: break_pieces_b_lightning_64x64_f18_16
+  - first:
+      213: -6885284394035310591
+    second: break_pieces_b_lightning_64x64_f18_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: break_pieces_b_lightning_64x64_f18_0
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 20
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d45178bdf0b5fd70800000000000000
+      internalID: 9076355227802752214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_b_lightning_64x64_f18_1
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 19
+        width: 39
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95fd33158c9ab47c0800000000000000
+      internalID: -4085985559087685799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_b_lightning_64x64_f18_2
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 19
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53722c0ed49192560800000000000000
+      internalID: 7289385294149855029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_b_lightning_64x64_f18_3
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 13
+        width: 32
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4609f751b0c15b9c0800000000000000
+      internalID: -3912189867370508188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_b_lightning_64x64_f18_4
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 22
+        width: 28
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cce654045e0243c90800000000000000
+      internalID: -7191086536005947700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_b_lightning_64x64_f18_5
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 18
+        width: 36
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 894f957250c9cb9f0800000000000000
+      internalID: -451314316694915944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_b_lightning_64x64_f18_6
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 23
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc0c256acd0d30f50800000000000000
+      internalID: 6846545504635109583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_b_lightning_64x64_f18_7
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 18
+        width: 38
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1487fe4eed29c8140800000000000000
+      internalID: 4723311595226101825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_b_lightning_64x64_f18_8
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 21
+        width: 25
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ee3eb9fad3088120800000000000000
+      internalID: 2416185439112019685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_b_lightning_64x64_f18_9
+      rect:
+        serializedVersion: 2
+        x: 598
+        y: 13
+        width: 19
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4568a5792eabf9780800000000000000
+      internalID: -8674008874927618476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_b_lightning_64x64_f18_10
+      rect:
+        serializedVersion: 2
+        x: 659
+        y: 21
+        width: 25
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d353917e70961fe10800000000000000
+      internalID: 2229678773187982653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_b_lightning_64x64_f18_11
+      rect:
+        serializedVersion: 2
+        x: 717
+        y: 25
+        width: 37
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7868856ce0f95ec80800000000000000
+      internalID: -8294048252926851449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_b_lightning_64x64_f18_12
+      rect:
+        serializedVersion: 2
+        x: 790
+        y: 20
+        width: 20
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61b8450b146aa1de0800000000000000
+      internalID: -1361593136264738026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_b_lightning_64x64_f18_13
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 18
+        width: 40
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bb3514644ded75b0800000000000000
+      internalID: -5368874302763091024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_b_lightning_64x64_f18_14
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 18
+        width: 21
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d773fadf72df58d0800000000000000
+      internalID: -2855332192153536557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_b_lightning_64x64_f18_15
+      rect:
+        serializedVersion: 2
+        x: 972
+        y: 18
+        width: 40
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 121c90af4cb6c0420800000000000000
+      internalID: 2597569578838638881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_b_lightning_64x64_f18_16
+      rect:
+        serializedVersion: 2
+        x: 1045
+        y: 19
+        width: 22
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3eee7cc085c7dcf70800000000000000
+      internalID: 9209153530655928035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: break_pieces_b_lightning_64x64_f18_17
+      rect:
+        serializedVersion: 2
+        x: 1102
+        y: 18
+        width: 35
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1001cfbc25e8270a0800000000000000
+      internalID: -6885284394035310591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

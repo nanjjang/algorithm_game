@@ -1,0 +1,1409 @@
+{
+ "notes": {
+  "origin": "top-left",
+  "filter": "point",
+  "mipmaps": false,
+  "built_by": "solo/Tools/art_supplement.py",
+  "about": "09 요약서 9절의 빠진 그림. 마젠타 배경·정수배 확대 원본을 규격 크기 투명 시트로 바꾼 것. icons 묶음의 열쇠는 콘텐츠 id(tod.*, whim.*, frame.*) 또는 'UI id/변형'(I-M10/borrowed_tag …)이다."
+ },
+ "player": {
+  "boomerang": {
+   "path": "player/boomerang_32x32_f4.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     32,
+     32
+    ],
+    [
+     32,
+     0,
+     32,
+     32
+    ],
+    [
+     64,
+     0,
+     32,
+     32
+    ],
+    [
+     96,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 12,
+   "loop": true,
+   "source": "art/production/effects/player/boomerang_32x32_f4_magenta_6x.png"
+  }
+ },
+ "special": {
+  "thunderlance_core": {
+   "path": "special/thunderlance_core_64x16_f2.png",
+   "size": [
+    64,
+    16
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     64,
+     16
+    ],
+    [
+     64,
+     0,
+     64,
+     16
+    ]
+   ],
+   "fps": 12,
+   "loop": false,
+   "source": "art/production/effects/special/thunder_lance_white_core_64x16_f2_magenta_6x.png"
+  },
+  "spear_scratch": {
+   "path": "special/spear_scratch_64x16_f1.png",
+   "size": [
+    64,
+    16
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     64,
+     16
+    ]
+   ],
+   "fps": 12,
+   "loop": false,
+   "source": "art/production/effects/supplement/spear_scratch_64x16_f1_magenta_8x.png"
+  },
+  "interrupt_plate": {
+   "path": "special/interrupt_plate_64x24_f3.png",
+   "size": [
+    64,
+    24
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     64,
+     24
+    ],
+    [
+     64,
+     0,
+     64,
+     24
+    ],
+    [
+     128,
+     0,
+     64,
+     24
+    ]
+   ],
+   "fps": 12,
+   "loop": false,
+   "source": "art/production/ui/kit/interrupt_plate_64x24_f3_magenta_6x.png"
+  }
+ },
+ "ambient": {
+  "firefly": {
+   "path": "ambient/firefly_4x4_f2.png",
+   "size": [
+    4,
+    4
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     4,
+     4
+    ],
+    [
+     4,
+     0,
+     4,
+     4
+    ]
+   ],
+   "fps": 5,
+   "loop": true,
+   "source": "art/production/effects/supplement/firefly_4x4_f2_64x.png"
+  }
+ },
+ "loot": {
+  "crow_pack_open": {
+   "path": "loot/crow_pack_open_64x64_f5.png",
+   "size": [
+    64,
+    64
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     64,
+     64
+    ],
+    [
+     64,
+     0,
+     64,
+     64
+    ],
+    [
+     128,
+     0,
+     64,
+     64
+    ],
+    [
+     192,
+     0,
+     64,
+     64
+    ],
+    [
+     256,
+     0,
+     64,
+     64
+    ]
+   ],
+   "fps": 12,
+   "loop": false,
+   "source": "art/production/effects/loot/crow_pack_open_64x64_f5.png"
+  }
+ },
+ "icons": {
+  "I-M11/bundle_open": {
+   "path": "loot/crow_pack_open_64x64_f5.png",
+   "size": [
+    64,
+    64
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     64,
+     64
+    ],
+    [
+     64,
+     0,
+     64,
+     64
+    ],
+    [
+     128,
+     0,
+     64,
+     64
+    ],
+    [
+     192,
+     0,
+     64,
+     64
+    ],
+    [
+     256,
+     0,
+     64,
+     64
+    ]
+   ],
+   "fps": 12,
+   "loop": false,
+   "source": "art/production/effects/loot/crow_pack_open_64x64_f5.png"
+  },
+  "sheet.tod": {
+   "path": "icons/tod_32x32_f4.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     32,
+     32
+    ],
+    [
+     32,
+     0,
+     32,
+     32
+    ],
+    [
+     64,
+     0,
+     32,
+     32
+    ],
+    [
+     96,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/icon/i-w3_wave_time_of_day_sheet_8x.png"
+  },
+  "tod.day": {
+   "path": "icons/tod_32x32_f4.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/icon/i-w3_wave_time_of_day_sheet_8x.png"
+  },
+  "tod.dusk": {
+   "path": "icons/tod_32x32_f4.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     32,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/icon/i-w3_wave_time_of_day_sheet_8x.png"
+  },
+  "tod.night": {
+   "path": "icons/tod_32x32_f4.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     64,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/icon/i-w3_wave_time_of_day_sheet_8x.png"
+  },
+  "tod.boss": {
+   "path": "icons/tod_32x32_f4.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     96,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/icon/i-w3_wave_time_of_day_sheet_8x.png"
+  },
+  "sheet.whim": {
+   "path": "icons/whim_32x32_f8.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     32,
+     32
+    ],
+    [
+     32,
+     0,
+     32,
+     32
+    ],
+    [
+     64,
+     0,
+     32,
+     32
+    ],
+    [
+     96,
+     0,
+     32,
+     32
+    ],
+    [
+     128,
+     0,
+     32,
+     32
+    ],
+    [
+     160,
+     0,
+     32,
+     32
+    ],
+    [
+     192,
+     0,
+     32,
+     32
+    ],
+    [
+     224,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/icon/wave-modifiers_32x32_8x.png"
+  },
+  "whim.crowding": {
+   "path": "icons/whim_32x32_f8.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/icon/wave-modifiers_32x32_8x.png"
+  },
+  "whim.thick_hide": {
+   "path": "icons/whim_32x32_f8.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     32,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/icon/wave-modifiers_32x32_8x.png"
+  },
+  "whim.big_pack": {
+   "path": "icons/whim_32x32_f8.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     64,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/icon/wave-modifiers_32x32_8x.png"
+  },
+  "whim.chief_parade": {
+   "path": "icons/whim_32x32_f8.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     96,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/icon/wave-modifiers_32x32_8x.png"
+  },
+  "whim.last_breath": {
+   "path": "icons/whim_32x32_f8.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     128,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/icon/wave-modifiers_32x32_8x.png"
+  },
+  "whim.slow_barrage": {
+   "path": "icons/whim_32x32_f8.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     160,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/icon/wave-modifiers_32x32_8x.png"
+  },
+  "whim.long_night": {
+   "path": "icons/whim_32x32_f8.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     192,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/icon/wave-modifiers_32x32_8x.png"
+  },
+  "whim.narrow_field": {
+   "path": "icons/whim_32x32_f8.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     224,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/icon/wave-modifiers_32x32_8x.png"
+  },
+  "sheet.frame": {
+   "path": "icons/frame_32x32_f5.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     32,
+     32
+    ],
+    [
+     32,
+     0,
+     32,
+     32
+    ],
+    [
+     64,
+     0,
+     32,
+     32
+    ],
+    [
+     96,
+     0,
+     32,
+     32
+    ],
+    [
+     128,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/icon/wave_formations_32x32.png"
+  },
+  "frame.swarm": {
+   "path": "icons/frame_32x32_f5.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/icon/wave_formations_32x32.png"
+  },
+  "frame.hunting_party": {
+   "path": "icons/frame_32x32_f5.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     32,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/icon/wave_formations_32x32.png"
+  },
+  "frame.battery": {
+   "path": "icons/frame_32x32_f5.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     64,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/icon/wave_formations_32x32.png"
+  },
+  "frame.ambush": {
+   "path": "icons/frame_32x32_f5.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     96,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/icon/wave_formations_32x32.png"
+  },
+  "frame.mixed": {
+   "path": "icons/frame_32x32_f5.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     128,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/icon/wave_formations_32x32.png"
+  },
+  "I-M10/borrowed_tag": {
+   "path": "icons/borrowed_tag_32x16.png",
+   "size": [
+    32,
+    16
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     32,
+     16
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/icon/borrow-tag.png"
+  },
+  "sheet.bag_slot": {
+   "path": "icons/bag_slot_32x32_f3.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     32,
+     32
+    ],
+    [
+     32,
+     0,
+     32,
+     32
+    ],
+    [
+     64,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/screen/results/s-1601_return_bag_slots_32x32_f3.png"
+  },
+  "I-M12/bag_slot_empty": {
+   "path": "icons/bag_slot_32x32_f3.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/screen/results/s-1601_return_bag_slots_32x32_f3.png"
+  },
+  "I-M12/bag_slot_filled": {
+   "path": "icons/bag_slot_32x32_f3.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     32,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/screen/results/s-1601_return_bag_slots_32x32_f3.png"
+  },
+  "I-M12/bag_slot_hero": {
+   "path": "icons/bag_slot_32x32_f3.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     64,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 0,
+   "loop": false,
+   "source": "art/production/ui/screen/results/s-1601_return_bag_slots_32x32_f3.png"
+  }
+ },
+ "wand": {
+  "mutation_ring": {
+   "path": "wand/mutation_ring_32x32_f2.png",
+   "size": [
+    32,
+    32
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     32,
+     32
+    ],
+    [
+     32,
+     0,
+     32,
+     32
+    ]
+   ],
+   "fps": 5,
+   "loop": true,
+   "source": "art/production/wands/parts/wild_mutation_ring_32x32_f2.png"
+  }
+ },
+ "ritual": {
+  "break_pieces_b_fire": {
+   "path": "ritual/break_pieces_b_fire_64x64_f18.png",
+   "size": [
+    64,
+    64
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     64,
+     64
+    ],
+    [
+     64,
+     0,
+     64,
+     64
+    ],
+    [
+     128,
+     0,
+     64,
+     64
+    ],
+    [
+     192,
+     0,
+     64,
+     64
+    ],
+    [
+     256,
+     0,
+     64,
+     64
+    ],
+    [
+     320,
+     0,
+     64,
+     64
+    ],
+    [
+     384,
+     0,
+     64,
+     64
+    ],
+    [
+     448,
+     0,
+     64,
+     64
+    ],
+    [
+     512,
+     0,
+     64,
+     64
+    ],
+    [
+     576,
+     0,
+     64,
+     64
+    ],
+    [
+     640,
+     0,
+     64,
+     64
+    ],
+    [
+     704,
+     0,
+     64,
+     64
+    ],
+    [
+     768,
+     0,
+     64,
+     64
+    ],
+    [
+     832,
+     0,
+     64,
+     64
+    ],
+    [
+     896,
+     0,
+     64,
+     64
+    ],
+    [
+     960,
+     0,
+     64,
+     64
+    ],
+    [
+     1024,
+     0,
+     64,
+     64
+    ],
+    [
+     1088,
+     0,
+     64,
+     64
+    ]
+   ],
+   "fps": 12,
+   "loop": false,
+   "source": "art/production/effects/wand/break-shards-v2/metal_64x64_6x3_4x.png"
+  },
+  "break_pieces_b_lightning": {
+   "path": "ritual/break_pieces_b_lightning_64x64_f18.png",
+   "size": [
+    64,
+    64
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     64,
+     64
+    ],
+    [
+     64,
+     0,
+     64,
+     64
+    ],
+    [
+     128,
+     0,
+     64,
+     64
+    ],
+    [
+     192,
+     0,
+     64,
+     64
+    ],
+    [
+     256,
+     0,
+     64,
+     64
+    ],
+    [
+     320,
+     0,
+     64,
+     64
+    ],
+    [
+     384,
+     0,
+     64,
+     64
+    ],
+    [
+     448,
+     0,
+     64,
+     64
+    ],
+    [
+     512,
+     0,
+     64,
+     64
+    ],
+    [
+     576,
+     0,
+     64,
+     64
+    ],
+    [
+     640,
+     0,
+     64,
+     64
+    ],
+    [
+     704,
+     0,
+     64,
+     64
+    ],
+    [
+     768,
+     0,
+     64,
+     64
+    ],
+    [
+     832,
+     0,
+     64,
+     64
+    ],
+    [
+     896,
+     0,
+     64,
+     64
+    ],
+    [
+     960,
+     0,
+     64,
+     64
+    ],
+    [
+     1024,
+     0,
+     64,
+     64
+    ],
+    [
+     1088,
+     0,
+     64,
+     64
+    ]
+   ],
+   "fps": 12,
+   "loop": false,
+   "source": "art/production/effects/wand/break-shards-v2/glass_64x64_6x3_4x.png"
+  },
+  "break_pieces_b_arcane": {
+   "path": "ritual/break_pieces_b_arcane_64x64_f18.png",
+   "size": [
+    64,
+    64
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     64,
+     64
+    ],
+    [
+     64,
+     0,
+     64,
+     64
+    ],
+    [
+     128,
+     0,
+     64,
+     64
+    ],
+    [
+     192,
+     0,
+     64,
+     64
+    ],
+    [
+     256,
+     0,
+     64,
+     64
+    ],
+    [
+     320,
+     0,
+     64,
+     64
+    ],
+    [
+     384,
+     0,
+     64,
+     64
+    ],
+    [
+     448,
+     0,
+     64,
+     64
+    ],
+    [
+     512,
+     0,
+     64,
+     64
+    ],
+    [
+     576,
+     0,
+     64,
+     64
+    ],
+    [
+     640,
+     0,
+     64,
+     64
+    ],
+    [
+     704,
+     0,
+     64,
+     64
+    ],
+    [
+     768,
+     0,
+     64,
+     64
+    ],
+    [
+     832,
+     0,
+     64,
+     64
+    ],
+    [
+     896,
+     0,
+     64,
+     64
+    ],
+    [
+     960,
+     0,
+     64,
+     64
+    ],
+    [
+     1024,
+     0,
+     64,
+     64
+    ],
+    [
+     1088,
+     0,
+     64,
+     64
+    ]
+   ],
+   "fps": 12,
+   "loop": false,
+   "source": "art/production/effects/wand/break-shards-v2/paper_64x64_6x3_4x.png"
+  },
+  "break_pieces_b_ice": {
+   "path": "ritual/break_pieces_b_ice_64x64_f18.png",
+   "size": [
+    64,
+    64
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     64,
+     64
+    ],
+    [
+     64,
+     0,
+     64,
+     64
+    ],
+    [
+     128,
+     0,
+     64,
+     64
+    ],
+    [
+     192,
+     0,
+     64,
+     64
+    ],
+    [
+     256,
+     0,
+     64,
+     64
+    ],
+    [
+     320,
+     0,
+     64,
+     64
+    ],
+    [
+     384,
+     0,
+     64,
+     64
+    ],
+    [
+     448,
+     0,
+     64,
+     64
+    ],
+    [
+     512,
+     0,
+     64,
+     64
+    ],
+    [
+     576,
+     0,
+     64,
+     64
+    ],
+    [
+     640,
+     0,
+     64,
+     64
+    ],
+    [
+     704,
+     0,
+     64,
+     64
+    ],
+    [
+     768,
+     0,
+     64,
+     64
+    ],
+    [
+     832,
+     0,
+     64,
+     64
+    ],
+    [
+     896,
+     0,
+     64,
+     64
+    ],
+    [
+     960,
+     0,
+     64,
+     64
+    ],
+    [
+     1024,
+     0,
+     64,
+     64
+    ],
+    [
+     1088,
+     0,
+     64,
+     64
+    ]
+   ],
+   "fps": 12,
+   "loop": false,
+   "source": "art/production/effects/wand/break-shards-v2/ice_64x64_6x3_4x.png"
+  },
+  "break_pieces_b_dark": {
+   "path": "ritual/break_pieces_b_dark_64x64_f18.png",
+   "size": [
+    64,
+    64
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     64,
+     64
+    ],
+    [
+     64,
+     0,
+     64,
+     64
+    ],
+    [
+     128,
+     0,
+     64,
+     64
+    ],
+    [
+     192,
+     0,
+     64,
+     64
+    ],
+    [
+     256,
+     0,
+     64,
+     64
+    ],
+    [
+     320,
+     0,
+     64,
+     64
+    ],
+    [
+     384,
+     0,
+     64,
+     64
+    ],
+    [
+     448,
+     0,
+     64,
+     64
+    ],
+    [
+     512,
+     0,
+     64,
+     64
+    ],
+    [
+     576,
+     0,
+     64,
+     64
+    ],
+    [
+     640,
+     0,
+     64,
+     64
+    ],
+    [
+     704,
+     0,
+     64,
+     64
+    ],
+    [
+     768,
+     0,
+     64,
+     64
+    ],
+    [
+     832,
+     0,
+     64,
+     64
+    ],
+    [
+     896,
+     0,
+     64,
+     64
+    ],
+    [
+     960,
+     0,
+     64,
+     64
+    ],
+    [
+     1024,
+     0,
+     64,
+     64
+    ],
+    [
+     1088,
+     0,
+     64,
+     64
+    ]
+   ],
+   "fps": 12,
+   "loop": false,
+   "source": "art/production/effects/wand/break-shards-v2/dark_64x64_6x3_4x.png"
+  }
+ }
+}

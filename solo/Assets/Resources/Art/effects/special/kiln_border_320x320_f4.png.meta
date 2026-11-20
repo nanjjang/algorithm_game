@@ -1,0 +1,917 @@
+fileFormatVersion: 2
+guid: 98d55de64e11ccd43b84a012bf860374
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7653182047736412978
+    second: kiln_border_320x320_f4_0
+  - first:
+      213: -5516892528481837401
+    second: kiln_border_320x320_f4_1
+  - first:
+      213: -6480092350182740763
+    second: kiln_border_320x320_f4_2
+  - first:
+      213: -242623267067852744
+    second: kiln_border_320x320_f4_3
+  - first:
+      213: 2436760444281579704
+    second: kiln_border_320x320_f4_4
+  - first:
+      213: 6652344898976105592
+    second: kiln_border_320x320_f4_5
+  - first:
+      213: 6487610985191749307
+    second: kiln_border_320x320_f4_6
+  - first:
+      213: -7216351954125842909
+    second: kiln_border_320x320_f4_7
+  - first:
+      213: -4999244517302285493
+    second: kiln_border_320x320_f4_8
+  - first:
+      213: 2913902216991079500
+    second: kiln_border_320x320_f4_9
+  - first:
+      213: -1244172071792466193
+    second: kiln_border_320x320_f4_10
+  - first:
+      213: 6584663024262374950
+    second: kiln_border_320x320_f4_11
+  - first:
+      213: -8453609714781086510
+    second: kiln_border_320x320_f4_12
+  - first:
+      213: -3958623484715557211
+    second: kiln_border_320x320_f4_13
+  - first:
+      213: 6550121275845341300
+    second: kiln_border_320x320_f4_14
+  - first:
+      213: 4877550227852188168
+    second: kiln_border_320x320_f4_15
+  - first:
+      213: 8398309909073404801
+    second: kiln_border_320x320_f4_16
+  - first:
+      213: -2437123005718024286
+    second: kiln_border_320x320_f4_17
+  - first:
+      213: 910764711552304528
+    second: kiln_border_320x320_f4_18
+  - first:
+      213: -6892354544720980776
+    second: kiln_border_320x320_f4_19
+  - first:
+      213: -5491378832535980741
+    second: kiln_border_320x320_f4_20
+  - first:
+      213: 7029258145374118488
+    second: kiln_border_320x320_f4_21
+  - first:
+      213: 8289062771669045488
+    second: kiln_border_320x320_f4_22
+  - first:
+      213: -5648794677281356696
+    second: kiln_border_320x320_f4_23
+  - first:
+      213: 8179971030238725646
+    second: kiln_border_320x320_f4_24
+  - first:
+      213: -9055639763763470790
+    second: kiln_border_320x320_f4_25
+  - first:
+      213: -3651983633907273859
+    second: kiln_border_320x320_f4_26
+  - first:
+      213: 1763807484659538949
+    second: kiln_border_320x320_f4_27
+  - first:
+      213: -118659363269675715
+    second: kiln_border_320x320_f4_28
+  - first:
+      213: 2449236443472176337
+    second: kiln_border_320x320_f4_29
+  - first:
+      213: -2363898970139079977
+    second: kiln_border_320x320_f4_30
+  - first:
+      213: -3236586994600542207
+    second: kiln_border_320x320_f4_31
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_0
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 262
+        width: 63
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23bb9bc2680953a60800000000000000
+      internalID: 7653182047736412978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 232
+        width: 72
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ae55df997f0073b0800000000000000
+      internalID: -5516892528481837401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_2
+      rect:
+        serializedVersion: 2
+        x: 757
+        y: 286
+        width: 73
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5eca1ab27561216a0800000000000000
+      internalID: -6480092350182740763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_3
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 246
+        width: 83
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8380d209c6702acf0800000000000000
+      internalID: -242623267067852744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_4
+      rect:
+        serializedVersion: 2
+        x: 1092
+        y: 303
+        width: 81
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b8602ca6bc11d120800000000000000
+      internalID: 2436760444281579704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_5
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 240
+        width: 66
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8744ad2a070e15c50800000000000000
+      internalID: 6652344898976105592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_6
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 228
+        width: 51
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb6b64571df980a50800000000000000
+      internalID: 6487610985191749307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_7
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 200
+        width: 43
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3261220b12e5adb90800000000000000
+      internalID: -7216351954125842909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_8
+      rect:
+        serializedVersion: 2
+        x: 659
+        y: 221
+        width: 69
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4bc0e0499d1f9ab0800000000000000
+      internalID: -4999244517302285493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_9
+      rect:
+        serializedVersion: 2
+        x: 861
+        y: 232
+        width: 74
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4cf9f9b0a2407820800000000000000
+      internalID: 2913902216991079500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_10
+      rect:
+        serializedVersion: 2
+        x: 1207
+        y: 207
+        width: 66
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe62955b710dbbee0800000000000000
+      internalID: -1244172071792466193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_11
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 182
+        width: 44
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 626eece222c616b50800000000000000
+      internalID: 6584663024262374950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_12
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 161
+        width: 48
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2dc9ea8e0cebeaa80800000000000000
+      internalID: -8453609714781086510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_13
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 110
+        width: 43
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ae92021ae42019c0800000000000000
+      internalID: -3958623484715557211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_14
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 148
+        width: 43
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4707d7aa894b6ea50800000000000000
+      internalID: 6550121275845341300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_15
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 118
+        width: 51
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80a5141071a80b340800000000000000
+      internalID: 4877550227852188168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_16
+      rect:
+        serializedVersion: 2
+        x: 926
+        y: 130
+        width: 15
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 183a6fbbd5acc8470800000000000000
+      internalID: 8398309909073404801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_17
+      rect:
+        serializedVersion: 2
+        x: 957
+        y: 131
+        width: 20
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2afae3ae9899d2ed0800000000000000
+      internalID: -2437123005718024286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_18
+      rect:
+        serializedVersion: 2
+        x: 1264
+        y: 107
+        width: 15
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09549020eafa3ac00800000000000000
+      internalID: 910764711552304528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_19
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 92
+        width: 47
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d45bdf0f007950a0800000000000000
+      internalID: -6892354544720980776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_20
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 47
+        width: 50
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b35f79fdb04bac3b0800000000000000
+      internalID: -5491378832535980741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_21
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 88
+        width: 45
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 852ab856a01fc8160800000000000000
+      internalID: 7029258145374118488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_22
+      rect:
+        serializedVersion: 2
+        x: 552
+        y: 56
+        width: 43
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f09f3a6caaa80370800000000000000
+      internalID: 8289062771669045488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_23
+      rect:
+        serializedVersion: 2
+        x: 871
+        y: 25
+        width: 71
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 864078b6b237b91b0800000000000000
+      internalID: -5648794677281356696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_24
+      rect:
+        serializedVersion: 2
+        x: 969
+        y: 30
+        width: 65
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e068d5a0058158170800000000000000
+      internalID: 8179971030238725646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_25
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 32
+        width: 66
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3ed9fa1d97e35280800000000000000
+      internalID: -9055639763763470790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_26
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 45
+        width: 62
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7faa67eb3c815dc0800000000000000
+      internalID: -3651983633907273859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_27
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 13
+        width: 84
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50c9e4fef8d4a7810800000000000000
+      internalID: 1763807484659538949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_28
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 18
+        width: 73
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d35790310ff6a5ef0800000000000000
+      internalID: -118659363269675715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_29
+      rect:
+        serializedVersion: 2
+        x: 769
+        y: 0
+        width: 73
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d4a918919f6df120800000000000000
+      internalID: 2449236443472176337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_30
+      rect:
+        serializedVersion: 2
+        x: 1169
+        y: 7
+        width: 81
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7dac2ff396eb13fd0800000000000000
+      internalID: -2363898970139079977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kiln_border_320x320_f4_31
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 1
+        width: 81
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1008f2ec6455513d0800000000000000
+      internalID: -3236586994600542207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

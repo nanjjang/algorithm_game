@@ -1,0 +1,7691 @@
+{
+  "referenceSize": [
+    1920,
+    1080
+  ],
+  "origin": "top-left",
+  "sampling": "nearest",
+  "layout": {
+    "header": [
+      0,
+      0,
+      1920,
+      80
+    ],
+    "circuit": [
+      0,
+      80,
+      480,
+      840
+    ],
+    "stage": [
+      480,
+      80,
+      960,
+      840
+    ],
+    "probability": [
+      1440,
+      80,
+      480,
+      840
+    ],
+    "footer": [
+      0,
+      920,
+      1920,
+      160
+    ]
+  },
+  "background": "background/workbench.png",
+  "new": {
+    "master_sleep": {
+      "sheet": "background/master_sleep/sheet.png",
+      "size": [
+        64,
+        64
+      ],
+      "fps": 2,
+      "loop": true,
+      "frames": [
+        {
+          "file": "background/master_sleep/01.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "file": "background/master_sleep/02.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ]
+        }
+      ],
+      "pivot": [
+        32,
+        60
+      ]
+    },
+    "master_peek": {
+      "sheet": "background/master_peek/sheet.png",
+      "size": [
+        64,
+        64
+      ],
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "file": "background/master_peek/01.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "file": "background/master_peek/02.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ]
+        }
+      ]
+    },
+    "master_awake": {
+      "sheet": "background/master_awake/sheet.png",
+      "size": [
+        64,
+        64
+      ],
+      "fps": 7,
+      "loop": false,
+      "frames": [
+        {
+          "file": "background/master_awake/01.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "file": "background/master_awake/02.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "file": "background/master_awake/03.png",
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ]
+        }
+      ]
+    },
+    "master_settle": {
+      "sheet": "background/master_settle/sheet.png",
+      "size": [
+        64,
+        64
+      ],
+      "fps": 5,
+      "loop": false,
+      "frames": [
+        {
+          "file": "background/master_settle/01.png",
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "file": "background/master_settle/02.png",
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ]
+        }
+      ]
+    },
+    "candle": {
+      "sheet": "background/candle/sheet.png",
+      "size": [
+        40,
+        23
+      ],
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        {
+          "file": "background/candle/01.png",
+          "rect": [
+            0,
+            0,
+            40,
+            23
+          ]
+        },
+        {
+          "file": "background/candle/02.png",
+          "rect": [
+            40,
+            0,
+            40,
+            23
+          ]
+        }
+      ]
+    },
+    "talisman_paper": {
+      "sheet": "new/talisman_paper/sheet.png",
+      "size": [
+        48,
+        80
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "new/talisman_paper/01.png",
+          "rect": [
+            0,
+            0,
+            48,
+            80
+          ]
+        }
+      ]
+    },
+    "warm_ember": {
+      "sheet": "new/warm_ember/sheet.png",
+      "size": [
+        24,
+        24
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "new/warm_ember/01.png",
+          "rect": [
+            0,
+            0,
+            24,
+            24
+          ]
+        }
+      ]
+    },
+    "seal_layers": {
+      "sheet": "ritual-new/seal_layers/sheet.png",
+      "size": [
+        240,
+        240
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ritual-new/seal_layers/01.png",
+          "rect": [
+            0,
+            0,
+            240,
+            240
+          ]
+        },
+        {
+          "file": "ritual-new/seal_layers/02.png",
+          "rect": [
+            240,
+            0,
+            240,
+            240
+          ]
+        },
+        {
+          "file": "ritual-new/seal_layers/03.png",
+          "rect": [
+            480,
+            0,
+            240,
+            240
+          ]
+        },
+        {
+          "file": "ritual-new/seal_layers/04.png",
+          "rect": [
+            720,
+            0,
+            240,
+            240
+          ]
+        },
+        {
+          "file": "ritual-new/seal_layers/05.png",
+          "rect": [
+            960,
+            0,
+            240,
+            240
+          ]
+        }
+      ]
+    },
+    "sigil_fire": {
+      "sheet": "ritual-new/sigil_fire/sheet.png",
+      "size": [
+        240,
+        240
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ritual-new/sigil_fire/01.png",
+          "rect": [
+            0,
+            0,
+            240,
+            240
+          ]
+        }
+      ]
+    },
+    "sigil_lightning": {
+      "sheet": "ritual-new/sigil_lightning/sheet.png",
+      "size": [
+        240,
+        240
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ritual-new/sigil_lightning/01.png",
+          "rect": [
+            0,
+            0,
+            240,
+            240
+          ]
+        }
+      ]
+    },
+    "sigil_arcane": {
+      "sheet": "ritual-new/sigil_arcane/sheet.png",
+      "size": [
+        240,
+        240
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ritual-new/sigil_arcane/01.png",
+          "rect": [
+            0,
+            0,
+            240,
+            240
+          ]
+        }
+      ]
+    },
+    "sigil_ice": {
+      "sheet": "ritual-new/sigil_ice/sheet.png",
+      "size": [
+        240,
+        240
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ritual-new/sigil_ice/01.png",
+          "rect": [
+            0,
+            0,
+            240,
+            240
+          ]
+        }
+      ]
+    },
+    "sigil_dark": {
+      "sheet": "ritual-new/sigil_dark/sheet.png",
+      "size": [
+        240,
+        240
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ritual-new/sigil_dark/01.png",
+          "rect": [
+            0,
+            0,
+            240,
+            240
+          ]
+        }
+      ]
+    },
+    "mutation_icons": {
+      "sheet": "ui-native/mutation_icons/sheet.png",
+      "size": [
+        32,
+        32
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ui-native/mutation_icons/01.png",
+          "rect": [
+            0,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "ui-native/mutation_icons/02.png",
+          "rect": [
+            32,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "ui-native/mutation_icons/03.png",
+          "rect": [
+            64,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "ui-native/mutation_icons/04.png",
+          "rect": [
+            96,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "ui-native/mutation_icons/05.png",
+          "rect": [
+            128,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "ui-native/mutation_icons/06.png",
+          "rect": [
+            160,
+            0,
+            32,
+            32
+          ]
+        }
+      ],
+      "order": [
+        "twisted_barrel",
+        "unstable_core",
+        "oversensitive_circuit",
+        "gluttony",
+        "mirror",
+        "glass_wand"
+      ]
+    },
+    "circuit_panel": {
+      "sheet": "ui-native/circuit_panel/sheet.png",
+      "size": [
+        432,
+        792
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ui-native/circuit_panel/01.png",
+          "rect": [
+            0,
+            0,
+            432,
+            792
+          ]
+        }
+      ]
+    },
+    "odds_panel": {
+      "sheet": "ui-native/odds_panel/sheet.png",
+      "size": [
+        432,
+        792
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ui-native/odds_panel/01.png",
+          "rect": [
+            0,
+            0,
+            432,
+            792
+          ]
+        }
+      ]
+    },
+    "wand_picker": {
+      "sheet": "ui-native/wand_picker/sheet.png",
+      "size": [
+        1200,
+        720
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ui-native/wand_picker/01.png",
+          "rect": [
+            0,
+            0,
+            1200,
+            720
+          ]
+        }
+      ]
+    },
+    "release_confirm": {
+      "sheet": "ui-native/release_confirm/sheet.png",
+      "size": [
+        640,
+        400
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ui-native/release_confirm/01.png",
+          "rect": [
+            0,
+            0,
+            640,
+            400
+          ]
+        }
+      ]
+    },
+    "engrave_modal": {
+      "sheet": "ui-native/engrave_modal/sheet.png",
+      "size": [
+        800,
+        560
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ui-native/engrave_modal/01.png",
+          "rect": [
+            0,
+            0,
+            800,
+            560
+          ]
+        }
+      ]
+    },
+    "mutation_remove_modal": {
+      "sheet": "ui-native/mutation_remove_modal/sheet.png",
+      "size": [
+        720,
+        480
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ui-native/mutation_remove_modal/01.png",
+          "rect": [
+            0,
+            0,
+            720,
+            480
+          ]
+        }
+      ]
+    },
+    "cost_panel": {
+      "sheet": "ui-native/cost_panel/sheet.png",
+      "size": [
+        432,
+        160
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ui-native/cost_panel/01.png",
+          "rect": [
+            0,
+            0,
+            432,
+            160
+          ]
+        }
+      ]
+    },
+    "enhance_button_normal": {
+      "sheet": "ui-native/enhance_button_normal/sheet.png",
+      "size": [
+        320,
+        64
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ui-native/enhance_button_normal/01.png",
+          "rect": [
+            0,
+            0,
+            320,
+            64
+          ]
+        }
+      ]
+    },
+    "enhance_button_hover": {
+      "sheet": "ui-native/enhance_button_hover/sheet.png",
+      "size": [
+        320,
+        64
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ui-native/enhance_button_hover/01.png",
+          "rect": [
+            0,
+            0,
+            320,
+            64
+          ]
+        }
+      ]
+    },
+    "enhance_button_pressed": {
+      "sheet": "ui-native/enhance_button_pressed/sheet.png",
+      "size": [
+        320,
+        64
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ui-native/enhance_button_pressed/01.png",
+          "rect": [
+            0,
+            0,
+            320,
+            64
+          ]
+        }
+      ]
+    },
+    "enhance_button_disabled": {
+      "sheet": "ui-native/enhance_button_disabled/sheet.png",
+      "size": [
+        320,
+        64
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ui-native/enhance_button_disabled/01.png",
+          "rect": [
+            0,
+            0,
+            320,
+            64
+          ]
+        }
+      ]
+    },
+    "picker_arrow_left": {
+      "sheet": "ui-native/picker_arrow_left/sheet.png",
+      "size": [
+        24,
+        24
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ui-native/picker_arrow_left/01.png",
+          "rect": [
+            0,
+            0,
+            24,
+            24
+          ]
+        }
+      ]
+    },
+    "picker_arrow_right": {
+      "sheet": "ui-native/picker_arrow_right/sheet.png",
+      "size": [
+        24,
+        24
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ui-native/picker_arrow_right/01.png",
+          "rect": [
+            0,
+            0,
+            24,
+            24
+          ]
+        }
+      ]
+    },
+    "trace_hidden": {
+      "sheet": "ui-native/trace_hidden/sheet.png",
+      "size": [
+        16,
+        16
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ui-native/trace_hidden/01.png",
+          "rect": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      ]
+    },
+    "rapid_off": {
+      "sheet": "ui-native/rapid_off/sheet.png",
+      "size": [
+        48,
+        24
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ui-native/rapid_off/01.png",
+          "rect": [
+            0,
+            0,
+            48,
+            24
+          ]
+        }
+      ]
+    },
+    "rapid_on": {
+      "sheet": "ui-native/rapid_on/sheet.png",
+      "size": [
+        48,
+        24
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ui-native/rapid_on/01.png",
+          "rect": [
+            0,
+            0,
+            48,
+            24
+          ]
+        }
+      ]
+    },
+    "repeat_off": {
+      "sheet": "ui-native/repeat_off/sheet.png",
+      "size": [
+        48,
+        24
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ui-native/repeat_off/01.png",
+          "rect": [
+            0,
+            0,
+            48,
+            24
+          ]
+        }
+      ]
+    },
+    "repeat_on": {
+      "sheet": "ui-native/repeat_on/sheet.png",
+      "size": [
+        48,
+        24
+      ],
+      "fps": 0,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ui-native/repeat_on/01.png",
+          "rect": [
+            0,
+            0,
+            48,
+            24
+          ]
+        }
+      ]
+    },
+    "protected_stamp": {
+      "sheet": "ritual-new/protected_stamp/sheet.png",
+      "size": [
+        96,
+        48
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "file": "ritual-new/protected_stamp/01.png",
+          "rect": [
+            0,
+            0,
+            96,
+            48
+          ]
+        },
+        {
+          "file": "ritual-new/protected_stamp/02.png",
+          "rect": [
+            96,
+            0,
+            96,
+            48
+          ]
+        },
+        {
+          "file": "ritual-new/protected_stamp/03.png",
+          "rect": [
+            192,
+            0,
+            96,
+            48
+          ]
+        }
+      ]
+    }
+  },
+  "existingUI": {
+    "font/f-n1_numbers_180x16.png": {
+      "id": "F-N1",
+      "file": "ui/font/f-n1_numbers_180x16.png",
+      "width": 180,
+      "height": 16,
+      "frames": 1,
+      "cell_width": 10,
+      "cell_height": 16,
+      "characters": "0123456789,.:%+−×/"
+    },
+    "font/f-n2_numbers_360x32.png": {
+      "id": "F-N2",
+      "file": "ui/font/f-n2_numbers_360x32.png",
+      "width": 360,
+      "height": 32,
+      "frames": 1,
+      "cell_width": 20,
+      "cell_height": 32,
+      "characters": "0123456789,.:%+−×/"
+    },
+    "font/f-n3_numbers_880x128.png": {
+      "id": "F-N3",
+      "file": "ui/font/f-n3_numbers_880x128.png",
+      "width": 880,
+      "height": 128,
+      "frames": 1,
+      "cell_width": 80,
+      "cell_height": 128,
+      "characters": "0123456789%"
+    },
+    "font/f-n4_probability_cap_64x32.png": {
+      "id": "F-N4",
+      "file": "ui/font/f-n4_probability_cap_64x32.png",
+      "width": 64,
+      "height": 32,
+      "frames": 1
+    },
+    "icon/i-b1_block_boomerang_48x48.png": {
+      "id": "I-B1",
+      "file": "ui/icon/i-b1_block_boomerang_48x48.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "element": "arcane",
+      "block_kind": "projectile"
+    },
+    "icon/i-b1_block_chain_lightning_48x48.png": {
+      "id": "I-B1",
+      "file": "ui/icon/i-b1_block_chain_lightning_48x48.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "element": "lightning",
+      "block_kind": "projectile"
+    },
+    "icon/i-b1_block_corrosion_48x48.png": {
+      "id": "I-B1",
+      "file": "ui/icon/i-b1_block_corrosion_48x48.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "element": "shadow",
+      "block_kind": "modifier"
+    },
+    "icon/i-b1_block_double_size_48x48.png": {
+      "id": "I-B1",
+      "file": "ui/icon/i-b1_block_double_size_48x48.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "element": "fire",
+      "block_kind": "modifier"
+    },
+    "icon/i-b1_block_fireball_48x48.png": {
+      "id": "I-B1",
+      "file": "ui/icon/i-b1_block_fireball_48x48.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "element": "fire",
+      "block_kind": "projectile"
+    },
+    "icon/i-b1_block_frost_48x48.png": {
+      "id": "I-B1",
+      "file": "ui/icon/i-b1_block_frost_48x48.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "element": "frost",
+      "block_kind": "modifier"
+    },
+    "icon/i-b1_block_homing_48x48.png": {
+      "id": "I-B1",
+      "file": "ui/icon/i-b1_block_homing_48x48.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "element": "lightning",
+      "block_kind": "modifier"
+    },
+    "icon/i-b1_block_ice_spike_48x48.png": {
+      "id": "I-B1",
+      "file": "ui/icon/i-b1_block_ice_spike_48x48.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "element": "frost",
+      "block_kind": "projectile"
+    },
+    "icon/i-b1_block_magic_bolt_48x48.png": {
+      "id": "I-B1",
+      "file": "ui/icon/i-b1_block_magic_bolt_48x48.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "element": "arcane",
+      "block_kind": "projectile"
+    },
+    "icon/i-b1_block_on_hit_trigger_48x48.png": {
+      "id": "I-B1",
+      "file": "ui/icon/i-b1_block_on_hit_trigger_48x48.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "element": "neutral",
+      "block_kind": "control"
+    },
+    "icon/i-b1_block_pierce_48x48.png": {
+      "id": "I-B1",
+      "file": "ui/icon/i-b1_block_pierce_48x48.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "element": "arcane",
+      "block_kind": "modifier"
+    },
+    "icon/i-b1_block_shadow_orb_48x48.png": {
+      "id": "I-B1",
+      "file": "ui/icon/i-b1_block_shadow_orb_48x48.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "element": "shadow",
+      "block_kind": "projectile"
+    },
+    "icon/i-b1_block_split_three_48x48.png": {
+      "id": "I-B1",
+      "file": "ui/icon/i-b1_block_split_three_48x48.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "element": "neutral",
+      "block_kind": "control"
+    },
+    "icon/i-b1_block_split_two_48x48.png": {
+      "id": "I-B1",
+      "file": "ui/icon/i-b1_block_split_two_48x48.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "element": "neutral",
+      "block_kind": "control"
+    },
+    "icon/i-b1_block_triple_heat_48x48.png": {
+      "id": "I-B1",
+      "file": "ui/icon/i-b1_block_triple_heat_48x48.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "element": "fire",
+      "block_kind": "modifier"
+    },
+    "icon/i-b1_block_wall_bounce_48x48.png": {
+      "id": "I-B1",
+      "file": "ui/icon/i-b1_block_wall_bounce_48x48.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "element": "neutral",
+      "block_kind": "modifier"
+    },
+    "icon/i-c2_expedition_purse_24x24.png": {
+      "id": "I-C2",
+      "file": "ui/icon/i-c2_expedition_purse_24x24.png",
+      "width": 24,
+      "height": 24,
+      "frames": 1
+    },
+    "icon/i-c2_gold_24x24.png": {
+      "id": "I-C2",
+      "file": "ui/icon/i-c2_gold_24x24.png",
+      "width": 24,
+      "height": 24,
+      "frames": 1
+    },
+    "icon/i-c2_season_coin_24x24.png": {
+      "id": "I-C2",
+      "file": "ui/icon/i-c2_season_coin_24x24.png",
+      "width": 24,
+      "height": 24,
+      "frames": 1
+    },
+    "icon/i-c2_starlight_24x24.png": {
+      "id": "I-C2",
+      "file": "ui/icon/i-c2_starlight_24x24.png",
+      "width": 24,
+      "height": 24,
+      "frames": 1
+    },
+    "icon/i-e1_element_arcane_32x32.png": {
+      "id": "I-E1",
+      "file": "ui/icon/i-e1_element_arcane_32x32.png",
+      "width": 32,
+      "height": 32,
+      "frames": 1
+    },
+    "icon/i-e1_element_fire_32x32.png": {
+      "id": "I-E1",
+      "file": "ui/icon/i-e1_element_fire_32x32.png",
+      "width": 32,
+      "height": 32,
+      "frames": 1
+    },
+    "icon/i-e1_element_frost_32x32.png": {
+      "id": "I-E1",
+      "file": "ui/icon/i-e1_element_frost_32x32.png",
+      "width": 32,
+      "height": 32,
+      "frames": 1
+    },
+    "icon/i-e1_element_lightning_32x32.png": {
+      "id": "I-E1",
+      "file": "ui/icon/i-e1_element_lightning_32x32.png",
+      "width": 32,
+      "height": 32,
+      "frames": 1
+    },
+    "icon/i-e1_element_neutral_32x32.png": {
+      "id": "I-E1",
+      "file": "ui/icon/i-e1_element_neutral_32x32.png",
+      "width": 32,
+      "height": 32,
+      "frames": 1
+    },
+    "icon/i-e1_element_shadow_32x32.png": {
+      "id": "I-E1",
+      "file": "ui/icon/i-e1_element_shadow_32x32.png",
+      "width": 32,
+      "height": 32,
+      "frames": 1
+    },
+    "icon/i-g1_wand_tier_0_to_3_80x80.png": {
+      "id": "I-G1",
+      "file": "ui/icon/i-g1_wand_tier_0_to_3_80x80.png",
+      "width": 80,
+      "height": 80,
+      "frames": 1,
+      "tint_edge": false
+    },
+    "icon/i-g1_wand_tier_10_to_12_80x80.png": {
+      "id": "I-G1",
+      "file": "ui/icon/i-g1_wand_tier_10_to_12_80x80.png",
+      "width": 80,
+      "height": 80,
+      "frames": 1,
+      "tint_edge": true
+    },
+    "icon/i-g1_wand_tier_13_80x80.png": {
+      "id": "I-G1",
+      "file": "ui/icon/i-g1_wand_tier_13_80x80.png",
+      "width": 80,
+      "height": 80,
+      "frames": 1,
+      "tint_edge": false
+    },
+    "icon/i-g1_wand_tier_4_to_6_80x80.png": {
+      "id": "I-G1",
+      "file": "ui/icon/i-g1_wand_tier_4_to_6_80x80.png",
+      "width": 80,
+      "height": 80,
+      "frames": 1,
+      "tint_edge": false
+    },
+    "icon/i-g1_wand_tier_7_to_9_80x80.png": {
+      "id": "I-G1",
+      "file": "ui/icon/i-g1_wand_tier_7_to_9_80x80.png",
+      "width": 80,
+      "height": 80,
+      "frames": 1,
+      "tint_edge": false
+    },
+    "icon/i-g2_scar_24x24.png": {
+      "id": "I-G2",
+      "file": "ui/icon/i-g2_scar_24x24.png",
+      "width": 24,
+      "height": 24,
+      "frames": 1
+    },
+    "icon/i-m2_stone_high_24x24.png": {
+      "id": "I-M2",
+      "file": "ui/icon/i-m2_stone_high_24x24.png",
+      "width": 24,
+      "height": 24,
+      "frames": 1
+    },
+    "icon/i-m2_stone_low_24x24.png": {
+      "id": "I-M2",
+      "file": "ui/icon/i-m2_stone_low_24x24.png",
+      "width": 24,
+      "height": 24,
+      "frames": 1
+    },
+    "icon/i-m2_stone_mid_24x24.png": {
+      "id": "I-M2",
+      "file": "ui/icon/i-m2_stone_mid_24x24.png",
+      "width": 24,
+      "height": 24,
+      "frames": 1
+    },
+    "icon/i-m3_safeguard_charm_24x24.png": {
+      "id": "I-M3",
+      "file": "ui/icon/i-m3_safeguard_charm_24x24.png",
+      "width": 24,
+      "height": 24,
+      "frames": 1
+    },
+    "icon/i-m3_safeguard_charm_48x48.png": {
+      "id": "I-M3",
+      "file": "ui/icon/i-m3_safeguard_charm_48x48.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1
+    },
+    "kit/k-01_board_48x48.png": {
+      "id": "K-01",
+      "file": "ui/kit/k-01_board_48x48.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "kit/k-02_recess_48x48.png": {
+      "id": "K-02",
+      "file": "ui/kit/k-02_recess_48x48.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "kit/k-03_paper_48x48.png": {
+      "id": "K-03",
+      "file": "ui/kit/k-03_paper_48x48.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "kit/k-05_screen_heading_96x80.png": {
+      "id": "K-05",
+      "file": "ui/kit/k-05_screen_heading_96x80.png",
+      "width": 96,
+      "height": 80,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        24,
+        16,
+        24,
+        16
+      ]
+    },
+    "kit/k-08_tooltip_24x24.png": {
+      "id": "K-08",
+      "file": "ui/kit/k-08_tooltip_24x24.png",
+      "width": 24,
+      "height": 24,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "kit/k-20_button_large_48x64_disabled.png": {
+      "id": "K-20",
+      "file": "ui/kit/k-20_button_large_48x64_disabled.png",
+      "width": 48,
+      "height": 64,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-20_button_large_48x64_hover.png": {
+      "id": "K-20",
+      "file": "ui/kit/k-20_button_large_48x64_hover.png",
+      "width": 48,
+      "height": 64,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-20_button_large_48x64_normal.png": {
+      "id": "K-20",
+      "file": "ui/kit/k-20_button_large_48x64_normal.png",
+      "width": 48,
+      "height": 64,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-20_button_large_48x64_pressed.png": {
+      "id": "K-20",
+      "file": "ui/kit/k-20_button_large_48x64_pressed.png",
+      "width": 48,
+      "height": 64,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-21_button_medium_48x48_disabled.png": {
+      "id": "K-21",
+      "file": "ui/kit/k-21_button_medium_48x48_disabled.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-21_button_medium_48x48_hover.png": {
+      "id": "K-21",
+      "file": "ui/kit/k-21_button_medium_48x48_hover.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-21_button_medium_48x48_normal.png": {
+      "id": "K-21",
+      "file": "ui/kit/k-21_button_medium_48x48_normal.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-21_button_medium_48x48_pressed.png": {
+      "id": "K-21",
+      "file": "ui/kit/k-21_button_medium_48x48_pressed.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-22_button_small_32x32_disabled.png": {
+      "id": "K-22",
+      "file": "ui/kit/k-22_button_small_32x32_disabled.png",
+      "width": 32,
+      "height": 32,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "kit/k-22_button_small_32x32_hover.png": {
+      "id": "K-22",
+      "file": "ui/kit/k-22_button_small_32x32_hover.png",
+      "width": 32,
+      "height": 32,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "kit/k-22_button_small_32x32_normal.png": {
+      "id": "K-22",
+      "file": "ui/kit/k-22_button_small_32x32_normal.png",
+      "width": 32,
+      "height": 32,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "kit/k-22_button_small_32x32_pressed.png": {
+      "id": "K-22",
+      "file": "ui/kit/k-22_button_small_32x32_pressed.png",
+      "width": 32,
+      "height": 32,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "kit/k-23_button_primary_48x64_disabled.png": {
+      "id": "K-23",
+      "file": "ui/kit/k-23_button_primary_48x64_disabled.png",
+      "width": 48,
+      "height": 64,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-23_button_primary_48x64_hover.png": {
+      "id": "K-23",
+      "file": "ui/kit/k-23_button_primary_48x64_hover.png",
+      "width": 48,
+      "height": 64,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-23_button_primary_48x64_normal.png": {
+      "id": "K-23",
+      "file": "ui/kit/k-23_button_primary_48x64_normal.png",
+      "width": 48,
+      "height": 64,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-23_button_primary_48x64_pressed.png": {
+      "id": "K-23",
+      "file": "ui/kit/k-23_button_primary_48x64_pressed.png",
+      "width": 48,
+      "height": 64,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-24_button_caution_48x48_disabled.png": {
+      "id": "K-24",
+      "file": "ui/kit/k-24_button_caution_48x48_disabled.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-24_button_caution_48x48_hover.png": {
+      "id": "K-24",
+      "file": "ui/kit/k-24_button_caution_48x48_hover.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-24_button_caution_48x48_normal.png": {
+      "id": "K-24",
+      "file": "ui/kit/k-24_button_caution_48x48_normal.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-24_button_caution_48x48_pressed.png": {
+      "id": "K-24",
+      "file": "ui/kit/k-24_button_caution_48x48_pressed.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-26_tab_vertical_48x56_hover.png": {
+      "id": "K-26",
+      "file": "ui/kit/k-26_tab_vertical_48x56_hover.png",
+      "width": 48,
+      "height": 56,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-26_tab_vertical_48x56_normal.png": {
+      "id": "K-26",
+      "file": "ui/kit/k-26_tab_vertical_48x56_normal.png",
+      "width": 48,
+      "height": 56,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-26_tab_vertical_48x56_on.png": {
+      "id": "K-26",
+      "file": "ui/kit/k-26_tab_vertical_48x56_on.png",
+      "width": 48,
+      "height": 56,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-27_toggle_48x24_disabled.png": {
+      "id": "K-27",
+      "file": "ui/kit/k-27_toggle_48x24_disabled.png",
+      "width": 48,
+      "height": 24,
+      "frames": 1
+    },
+    "kit/k-27_toggle_48x24_on.png": {
+      "id": "K-27",
+      "file": "ui/kit/k-27_toggle_48x24_on.png",
+      "width": 48,
+      "height": 24,
+      "frames": 1
+    },
+    "kit/k-27_toggle_off_48x24.png": {
+      "id": "K-27",
+      "file": "ui/kit/k-27_toggle_off_48x24.png",
+      "width": 48,
+      "height": 24,
+      "frames": 1
+    },
+    "kit/k-28_checkbox_24x24_disabled.png": {
+      "id": "K-28",
+      "file": "ui/kit/k-28_checkbox_24x24_disabled.png",
+      "width": 24,
+      "height": 24,
+      "frames": 1
+    },
+    "kit/k-28_checkbox_24x24_on.png": {
+      "id": "K-28",
+      "file": "ui/kit/k-28_checkbox_24x24_on.png",
+      "width": 24,
+      "height": 24,
+      "frames": 1
+    },
+    "kit/k-28_checkbox_empty_24x24.png": {
+      "id": "K-28",
+      "file": "ui/kit/k-28_checkbox_empty_24x24.png",
+      "width": 24,
+      "height": 24,
+      "frames": 1
+    },
+    "kit/k-31_dropdown_48x40_hover.png": {
+      "id": "K-31",
+      "file": "ui/kit/k-31_dropdown_48x40_hover.png",
+      "width": 48,
+      "height": 40,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-31_dropdown_48x40_normal.png": {
+      "id": "K-31",
+      "file": "ui/kit/k-31_dropdown_48x40_normal.png",
+      "width": 48,
+      "height": 40,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-31_dropdown_expanded_48x40.png": {
+      "id": "K-31",
+      "file": "ui/kit/k-31_dropdown_expanded_48x40.png",
+      "width": 48,
+      "height": 40,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-32_step_24x24_disabled.png": {
+      "id": "K-32",
+      "file": "ui/kit/k-32_step_24x24_disabled.png",
+      "width": 24,
+      "height": 24,
+      "frames": 1
+    },
+    "kit/k-32_step_24x24_hover.png": {
+      "id": "K-32",
+      "file": "ui/kit/k-32_step_24x24_hover.png",
+      "width": 24,
+      "height": 24,
+      "frames": 1
+    },
+    "kit/k-32_step_24x24_normal.png": {
+      "id": "K-32",
+      "file": "ui/kit/k-32_step_24x24_normal.png",
+      "width": 24,
+      "height": 24,
+      "frames": 1
+    },
+    "kit/k-33_input_48x40_disabled.png": {
+      "id": "K-33",
+      "file": "ui/kit/k-33_input_48x40_disabled.png",
+      "width": 48,
+      "height": 40,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-33_input_48x40_normal.png": {
+      "id": "K-33",
+      "file": "ui/kit/k-33_input_48x40_normal.png",
+      "width": 48,
+      "height": 40,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-33_input_editing_48x40.png": {
+      "id": "K-33",
+      "file": "ui/kit/k-33_input_editing_48x40.png",
+      "width": 48,
+      "height": 40,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-33_input_error_48x40.png": {
+      "id": "K-33",
+      "file": "ui/kit/k-33_input_error_48x40.png",
+      "width": 48,
+      "height": 40,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "kit/k-34_scroll_rail_8x16.png": {
+      "id": "K-34",
+      "file": "ui/kit/k-34_scroll_rail_8x16.png",
+      "width": 8,
+      "height": 16,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    "kit/k-34_scroll_thumb_8x24_hover.png": {
+      "id": "K-34",
+      "file": "ui/kit/k-34_scroll_thumb_8x24_hover.png",
+      "width": 8,
+      "height": 24,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    "kit/k-34_scroll_thumb_8x24_normal.png": {
+      "id": "K-34",
+      "file": "ui/kit/k-34_scroll_thumb_8x24_normal.png",
+      "width": 8,
+      "height": 24,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    "kit/k-34_scroll_thumb_8x24_pressed.png": {
+      "id": "K-34",
+      "file": "ui/kit/k-34_scroll_thumb_8x24_pressed.png",
+      "width": 8,
+      "height": 24,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    "kit/k-43_lock_16x16.png": {
+      "id": "K-43",
+      "file": "ui/kit/k-43_lock_16x16.png",
+      "width": 16,
+      "height": 16,
+      "frames": 1
+    },
+    "kit/k-43_lock_24x24.png": {
+      "id": "K-43",
+      "file": "ui/kit/k-43_lock_24x24.png",
+      "width": 24,
+      "height": 24,
+      "frames": 1
+    },
+    "kit/k-46_label_24x16.png": {
+      "id": "K-46",
+      "file": "ui/kit/k-46_label_24x16.png",
+      "width": 24,
+      "height": 16,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        4,
+        4,
+        4,
+        4
+      ]
+    },
+    "kit/k-60_item_slot_empty_64x64.png": {
+      "id": "K-60",
+      "file": "ui/kit/k-60_item_slot_empty_64x64.png",
+      "width": 64,
+      "height": 64,
+      "frames": 1
+    },
+    "kit/k-60_item_slot_filled_64x64.png": {
+      "id": "K-60",
+      "file": "ui/kit/k-60_item_slot_filled_64x64.png",
+      "width": 64,
+      "height": 64,
+      "frames": 1
+    },
+    "kit/k-60_item_slot_locked_64x64.png": {
+      "id": "K-60",
+      "file": "ui/kit/k-60_item_slot_locked_64x64.png",
+      "width": 64,
+      "height": 64,
+      "frames": 1
+    },
+    "kit/k-60_item_slot_unavailable_64x64.png": {
+      "id": "K-60",
+      "file": "ui/kit/k-60_item_slot_unavailable_64x64.png",
+      "width": 64,
+      "height": 64,
+      "frames": 1
+    },
+    "kit/k-62_wand_slot_empty_80x80.png": {
+      "id": "K-62",
+      "file": "ui/kit/k-62_wand_slot_empty_80x80.png",
+      "width": 80,
+      "height": 80,
+      "frames": 1
+    },
+    "kit/k-62_wand_slot_expedition_locked_80x80.png": {
+      "id": "K-62",
+      "file": "ui/kit/k-62_wand_slot_expedition_locked_80x80.png",
+      "width": 80,
+      "height": 80,
+      "frames": 1
+    },
+    "kit/k-62_wand_slot_filled_80x80.png": {
+      "id": "K-62",
+      "file": "ui/kit/k-62_wand_slot_filled_80x80.png",
+      "width": 80,
+      "height": 80,
+      "frames": 1
+    },
+    "kit/k-63_core_slot_empty_72x72.png": {
+      "id": "K-63",
+      "file": "ui/kit/k-63_core_slot_empty_72x72.png",
+      "width": 72,
+      "height": 72,
+      "frames": 1
+    },
+    "kit/k-63_core_slot_filled_72x72.png": {
+      "id": "K-63",
+      "file": "ui/kit/k-63_core_slot_filled_72x72.png",
+      "width": 72,
+      "height": 72,
+      "frames": 1
+    },
+    "kit/k-64_extension_slot_closed_64x64.png": {
+      "id": "K-64",
+      "file": "ui/kit/k-64_extension_slot_closed_64x64.png",
+      "width": 64,
+      "height": 64,
+      "frames": 1
+    },
+    "kit/k-64_extension_slot_open_64x64.png": {
+      "id": "K-64",
+      "file": "ui/kit/k-64_extension_slot_open_64x64.png",
+      "width": 64,
+      "height": 64,
+      "frames": 1
+    },
+    "kit/k-66_rarity_64x64_normal.png": {
+      "id": "K-66",
+      "file": "ui/kit/k-66_rarity_64x64_normal.png",
+      "width": 64,
+      "height": 64,
+      "frames": 1
+    },
+    "kit/k-66_rarity_hero_64x64.png": {
+      "id": "K-66",
+      "file": "ui/kit/k-66_rarity_hero_64x64.png",
+      "width": 64,
+      "height": 64,
+      "frames": 1
+    },
+    "kit/k-66_rarity_rare_64x64.png": {
+      "id": "K-66",
+      "file": "ui/kit/k-66_rarity_rare_64x64.png",
+      "width": 64,
+      "height": 64,
+      "frames": 1
+    },
+    "kit/k-67_rarity_32x32_normal.png": {
+      "id": "K-67",
+      "file": "ui/kit/k-67_rarity_32x32_normal.png",
+      "width": 32,
+      "height": 32,
+      "frames": 1
+    },
+    "kit/k-67_rarity_hero_32x32.png": {
+      "id": "K-67",
+      "file": "ui/kit/k-67_rarity_hero_32x32.png",
+      "width": 32,
+      "height": 32,
+      "frames": 1
+    },
+    "kit/k-67_rarity_rare_32x32.png": {
+      "id": "K-67",
+      "file": "ui/kit/k-67_rarity_rare_32x32.png",
+      "width": 32,
+      "height": 32,
+      "frames": 1
+    },
+    "kit/k-68_rarity_64x64_normal.png": {
+      "id": "K-68",
+      "file": "ui/kit/k-68_rarity_64x64_normal.png",
+      "width": 64,
+      "height": 64,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        24,
+        24,
+        24,
+        24
+      ]
+    },
+    "kit/k-68_rarity_hero_64x64.png": {
+      "id": "K-68",
+      "file": "ui/kit/k-68_rarity_hero_64x64.png",
+      "width": 64,
+      "height": 64,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        24,
+        24,
+        24,
+        24
+      ]
+    },
+    "kit/k-68_rarity_rare_64x64.png": {
+      "id": "K-68",
+      "file": "ui/kit/k-68_rarity_rare_64x64.png",
+      "width": 64,
+      "height": 64,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        24,
+        24,
+        24,
+        24
+      ]
+    },
+    "kit/k-80_mutation_slot_empty_48x48.png": {
+      "id": "K-80",
+      "file": "ui/kit/k-80_mutation_slot_empty_48x48.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1
+    },
+    "kit/k-80_mutation_slot_filled_48x48.png": {
+      "id": "K-80",
+      "file": "ui/kit/k-80_mutation_slot_filled_48x48.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1
+    },
+    "kit/k-80_mutation_slot_next_to_replace_48x48.png": {
+      "id": "K-80",
+      "file": "ui/kit/k-80_mutation_slot_next_to_replace_48x48.png",
+      "width": 48,
+      "height": 48,
+      "frames": 1
+    },
+    "screen/enhance/s-1201_odds_boundary_16x24.png": {
+      "id": "S-1201",
+      "file": "ui/screen/enhance/s-1201_odds_boundary_16x24.png",
+      "width": 16,
+      "height": 24,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        4,
+        4,
+        4,
+        4
+      ]
+    },
+    "screen/enhance/s-1201_odds_fill_16x24.png": {
+      "id": "S-1201",
+      "file": "ui/screen/enhance/s-1201_odds_fill_16x24.png",
+      "width": 16,
+      "height": 24,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        4,
+        4,
+        4,
+        4
+      ]
+    },
+    "screen/enhance/s-1201_odds_rail_16x24.png": {
+      "id": "S-1201",
+      "file": "ui/screen/enhance/s-1201_odds_rail_16x24.png",
+      "width": 16,
+      "height": 24,
+      "frames": 1,
+      "nine_slice_ltrb": [
+        4,
+        4,
+        4,
+        4
+      ]
+    },
+    "screen/enhance/s-1202_odds_base_16x16.png": {
+      "id": "S-1202",
+      "file": "ui/screen/enhance/s-1202_odds_base_16x16.png",
+      "width": 16,
+      "height": 16,
+      "frames": 1
+    },
+    "screen/enhance/s-1202_odds_momentum_16x16.png": {
+      "id": "S-1202",
+      "file": "ui/screen/enhance/s-1202_odds_momentum_16x16.png",
+      "width": 16,
+      "height": 16,
+      "frames": 1
+    },
+    "screen/enhance/s-1202_odds_sacrifice_16x16.png": {
+      "id": "S-1202",
+      "file": "ui/screen/enhance/s-1202_odds_sacrifice_16x16.png",
+      "width": 16,
+      "height": 16,
+      "frames": 1
+    },
+    "screen/enhance/s-1202_odds_same_element_16x16.png": {
+      "id": "S-1202",
+      "file": "ui/screen/enhance/s-1202_odds_same_element_16x16.png",
+      "width": 16,
+      "height": 16,
+      "frames": 1
+    },
+    "screen/enhance/s-1203_engraving_tick_empty_16x16.png": {
+      "id": "S-1203",
+      "file": "ui/screen/enhance/s-1203_engraving_tick_empty_16x16.png",
+      "width": 16,
+      "height": 16,
+      "frames": 1
+    },
+    "screen/enhance/s-1203_engraving_tick_filled_16x16.png": {
+      "id": "S-1203",
+      "file": "ui/screen/enhance/s-1203_engraving_tick_filled_16x16.png",
+      "width": 16,
+      "height": 16,
+      "frames": 1
+    },
+    "screen/enhance/s-1204_enhance_goal_16x24.png": {
+      "id": "S-1204",
+      "file": "ui/screen/enhance/s-1204_enhance_goal_16x24.png",
+      "width": 16,
+      "height": 24,
+      "frames": 1
+    }
+  },
+  "existingRitual": {
+    "seal_fire": {
+      "sheet": "ritual/seal_fire/sheet.png",
+      "size": [
+        240,
+        240
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            240,
+            240
+          ],
+          "file": "ritual/seal_fire/01.png"
+        }
+      ]
+    },
+    "outer_glyph_fire": {
+      "sheet": "ritual/outer_glyph_fire/sheet.png",
+      "size": [
+        480,
+        480
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            480,
+            480
+          ],
+          "file": "ritual/outer_glyph_fire/01.png"
+        },
+        {
+          "rect": [
+            480,
+            0,
+            480,
+            480
+          ],
+          "file": "ritual/outer_glyph_fire/02.png"
+        },
+        {
+          "rect": [
+            960,
+            0,
+            480,
+            480
+          ],
+          "file": "ritual/outer_glyph_fire/03.png"
+        },
+        {
+          "rect": [
+            1440,
+            0,
+            480,
+            480
+          ],
+          "file": "ritual/outer_glyph_fire/04.png"
+        }
+      ]
+    },
+    "charge_fire": {
+      "sheet": "ritual/charge_fire/sheet.png",
+      "size": [
+        96,
+        96
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_fire/01.png"
+        },
+        {
+          "rect": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_fire/02.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_fire/03.png"
+        },
+        {
+          "rect": [
+            288,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_fire/04.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_fire/05.png"
+        },
+        {
+          "rect": [
+            480,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_fire/06.png"
+        }
+      ]
+    },
+    "success_column_fire": {
+      "sheet": "ritual/success_column_fire/sheet.png",
+      "size": [
+        192,
+        540
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_fire/01.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_fire/02.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_fire/03.png"
+        },
+        {
+          "rect": [
+            576,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_fire/04.png"
+        },
+        {
+          "rect": [
+            768,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_fire/05.png"
+        },
+        {
+          "rect": [
+            960,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_fire/06.png"
+        }
+      ]
+    },
+    "max_column_fire": {
+      "sheet": "ritual/max_column_fire/sheet.png",
+      "size": [
+        192,
+        540
+      ],
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_fire/01.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_fire/02.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_fire/03.png"
+        },
+        {
+          "rect": [
+            576,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_fire/04.png"
+        },
+        {
+          "rect": [
+            768,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_fire/05.png"
+        },
+        {
+          "rect": [
+            960,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_fire/06.png"
+        },
+        {
+          "rect": [
+            1152,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_fire/07.png"
+        },
+        {
+          "rect": [
+            1344,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_fire/08.png"
+        }
+      ]
+    },
+    "success_mote_fire": {
+      "sheet": "ritual/success_mote_fire/sheet.png",
+      "size": [
+        16,
+        16
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "file": "ritual/success_mote_fire/01.png"
+        },
+        {
+          "rect": [
+            16,
+            0,
+            16,
+            16
+          ],
+          "file": "ritual/success_mote_fire/02.png"
+        },
+        {
+          "rect": [
+            32,
+            0,
+            16,
+            16
+          ],
+          "file": "ritual/success_mote_fire/03.png"
+        }
+      ]
+    },
+    "break_pieces_fire": {
+      "sheet": "ritual/break_pieces_fire/sheet.png",
+      "size": [
+        64,
+        64
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_fire/01.png"
+        },
+        {
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_fire/02.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_fire/03.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_fire/04.png"
+        },
+        {
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_fire/05.png"
+        },
+        {
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_fire/06.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_fire/07.png"
+        },
+        {
+          "rect": [
+            448,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_fire/08.png"
+        },
+        {
+          "rect": [
+            512,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_fire/09.png"
+        },
+        {
+          "rect": [
+            576,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_fire/10.png"
+        },
+        {
+          "rect": [
+            640,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_fire/11.png"
+        },
+        {
+          "rect": [
+            704,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_fire/12.png"
+        },
+        {
+          "rect": [
+            768,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_fire/13.png"
+        },
+        {
+          "rect": [
+            832,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_fire/14.png"
+        },
+        {
+          "rect": [
+            896,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_fire/15.png"
+        },
+        {
+          "rect": [
+            960,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_fire/16.png"
+        },
+        {
+          "rect": [
+            1024,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_fire/17.png"
+        },
+        {
+          "rect": [
+            1088,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_fire/18.png"
+        }
+      ]
+    },
+    "extinguish_fire": {
+      "sheet": "ritual/extinguish_fire/sheet.png",
+      "size": [
+        96,
+        96
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_fire/01.png"
+        },
+        {
+          "rect": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_fire/02.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_fire/03.png"
+        },
+        {
+          "rect": [
+            288,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_fire/04.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_fire/05.png"
+        }
+      ]
+    },
+    "ward_ribbon_fire": {
+      "sheet": "ritual/ward_ribbon_fire/sheet.png",
+      "size": [
+        128,
+        128
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_fire/01.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_fire/02.png"
+        },
+        {
+          "rect": [
+            256,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_fire/03.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_fire/04.png"
+        },
+        {
+          "rect": [
+            512,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_fire/05.png"
+        },
+        {
+          "rect": [
+            640,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_fire/06.png"
+        }
+      ]
+    },
+    "stage_hold_fire": {
+      "sheet": "ritual/stage_hold_fire/sheet.png",
+      "size": [
+        128,
+        96
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "file": "ritual/stage_hold_fire/01.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "file": "ritual/stage_hold_fire/02.png"
+        },
+        {
+          "rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "file": "ritual/stage_hold_fire/03.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "file": "ritual/stage_hold_fire/04.png"
+        }
+      ]
+    },
+    "seal_lightning": {
+      "sheet": "ritual/seal_lightning/sheet.png",
+      "size": [
+        240,
+        240
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            240,
+            240
+          ],
+          "file": "ritual/seal_lightning/01.png"
+        }
+      ]
+    },
+    "outer_glyph_lightning": {
+      "sheet": "ritual/outer_glyph_lightning/sheet.png",
+      "size": [
+        480,
+        480
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            480,
+            480
+          ],
+          "file": "ritual/outer_glyph_lightning/01.png"
+        },
+        {
+          "rect": [
+            480,
+            0,
+            480,
+            480
+          ],
+          "file": "ritual/outer_glyph_lightning/02.png"
+        },
+        {
+          "rect": [
+            960,
+            0,
+            480,
+            480
+          ],
+          "file": "ritual/outer_glyph_lightning/03.png"
+        },
+        {
+          "rect": [
+            1440,
+            0,
+            480,
+            480
+          ],
+          "file": "ritual/outer_glyph_lightning/04.png"
+        }
+      ]
+    },
+    "charge_lightning": {
+      "sheet": "ritual/charge_lightning/sheet.png",
+      "size": [
+        96,
+        96
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_lightning/01.png"
+        },
+        {
+          "rect": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_lightning/02.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_lightning/03.png"
+        },
+        {
+          "rect": [
+            288,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_lightning/04.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_lightning/05.png"
+        },
+        {
+          "rect": [
+            480,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_lightning/06.png"
+        }
+      ]
+    },
+    "success_column_lightning": {
+      "sheet": "ritual/success_column_lightning/sheet.png",
+      "size": [
+        192,
+        540
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_lightning/01.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_lightning/02.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_lightning/03.png"
+        },
+        {
+          "rect": [
+            576,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_lightning/04.png"
+        },
+        {
+          "rect": [
+            768,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_lightning/05.png"
+        },
+        {
+          "rect": [
+            960,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_lightning/06.png"
+        }
+      ]
+    },
+    "max_column_lightning": {
+      "sheet": "ritual/max_column_lightning/sheet.png",
+      "size": [
+        192,
+        540
+      ],
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_lightning/01.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_lightning/02.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_lightning/03.png"
+        },
+        {
+          "rect": [
+            576,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_lightning/04.png"
+        },
+        {
+          "rect": [
+            768,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_lightning/05.png"
+        },
+        {
+          "rect": [
+            960,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_lightning/06.png"
+        },
+        {
+          "rect": [
+            1152,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_lightning/07.png"
+        },
+        {
+          "rect": [
+            1344,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_lightning/08.png"
+        }
+      ]
+    },
+    "success_mote_lightning": {
+      "sheet": "ritual/success_mote_lightning/sheet.png",
+      "size": [
+        16,
+        16
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "file": "ritual/success_mote_lightning/01.png"
+        },
+        {
+          "rect": [
+            16,
+            0,
+            16,
+            16
+          ],
+          "file": "ritual/success_mote_lightning/02.png"
+        },
+        {
+          "rect": [
+            32,
+            0,
+            16,
+            16
+          ],
+          "file": "ritual/success_mote_lightning/03.png"
+        }
+      ]
+    },
+    "break_pieces_lightning": {
+      "sheet": "ritual/break_pieces_lightning/sheet.png",
+      "size": [
+        64,
+        64
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_lightning/01.png"
+        },
+        {
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_lightning/02.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_lightning/03.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_lightning/04.png"
+        },
+        {
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_lightning/05.png"
+        },
+        {
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_lightning/06.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_lightning/07.png"
+        },
+        {
+          "rect": [
+            448,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_lightning/08.png"
+        },
+        {
+          "rect": [
+            512,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_lightning/09.png"
+        },
+        {
+          "rect": [
+            576,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_lightning/10.png"
+        },
+        {
+          "rect": [
+            640,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_lightning/11.png"
+        },
+        {
+          "rect": [
+            704,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_lightning/12.png"
+        },
+        {
+          "rect": [
+            768,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_lightning/13.png"
+        },
+        {
+          "rect": [
+            832,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_lightning/14.png"
+        },
+        {
+          "rect": [
+            896,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_lightning/15.png"
+        },
+        {
+          "rect": [
+            960,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_lightning/16.png"
+        },
+        {
+          "rect": [
+            1024,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_lightning/17.png"
+        },
+        {
+          "rect": [
+            1088,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_lightning/18.png"
+        }
+      ]
+    },
+    "extinguish_lightning": {
+      "sheet": "ritual/extinguish_lightning/sheet.png",
+      "size": [
+        96,
+        96
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_lightning/01.png"
+        },
+        {
+          "rect": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_lightning/02.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_lightning/03.png"
+        },
+        {
+          "rect": [
+            288,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_lightning/04.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_lightning/05.png"
+        }
+      ]
+    },
+    "ward_ribbon_lightning": {
+      "sheet": "ritual/ward_ribbon_lightning/sheet.png",
+      "size": [
+        128,
+        128
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_lightning/01.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_lightning/02.png"
+        },
+        {
+          "rect": [
+            256,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_lightning/03.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_lightning/04.png"
+        },
+        {
+          "rect": [
+            512,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_lightning/05.png"
+        },
+        {
+          "rect": [
+            640,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_lightning/06.png"
+        }
+      ]
+    },
+    "stage_hold_lightning": {
+      "sheet": "ritual/stage_hold_lightning/sheet.png",
+      "size": [
+        128,
+        96
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "file": "ritual/stage_hold_lightning/01.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "file": "ritual/stage_hold_lightning/02.png"
+        },
+        {
+          "rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "file": "ritual/stage_hold_lightning/03.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "file": "ritual/stage_hold_lightning/04.png"
+        }
+      ]
+    },
+    "seal_arcane": {
+      "sheet": "ritual/seal_arcane/sheet.png",
+      "size": [
+        240,
+        240
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            240,
+            240
+          ],
+          "file": "ritual/seal_arcane/01.png"
+        }
+      ]
+    },
+    "outer_glyph_arcane": {
+      "sheet": "ritual/outer_glyph_arcane/sheet.png",
+      "size": [
+        480,
+        480
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            480,
+            480
+          ],
+          "file": "ritual/outer_glyph_arcane/01.png"
+        },
+        {
+          "rect": [
+            480,
+            0,
+            480,
+            480
+          ],
+          "file": "ritual/outer_glyph_arcane/02.png"
+        },
+        {
+          "rect": [
+            960,
+            0,
+            480,
+            480
+          ],
+          "file": "ritual/outer_glyph_arcane/03.png"
+        },
+        {
+          "rect": [
+            1440,
+            0,
+            480,
+            480
+          ],
+          "file": "ritual/outer_glyph_arcane/04.png"
+        }
+      ]
+    },
+    "charge_arcane": {
+      "sheet": "ritual/charge_arcane/sheet.png",
+      "size": [
+        96,
+        96
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_arcane/01.png"
+        },
+        {
+          "rect": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_arcane/02.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_arcane/03.png"
+        },
+        {
+          "rect": [
+            288,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_arcane/04.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_arcane/05.png"
+        },
+        {
+          "rect": [
+            480,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_arcane/06.png"
+        }
+      ]
+    },
+    "success_column_arcane": {
+      "sheet": "ritual/success_column_arcane/sheet.png",
+      "size": [
+        192,
+        540
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_arcane/01.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_arcane/02.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_arcane/03.png"
+        },
+        {
+          "rect": [
+            576,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_arcane/04.png"
+        },
+        {
+          "rect": [
+            768,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_arcane/05.png"
+        },
+        {
+          "rect": [
+            960,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_arcane/06.png"
+        }
+      ]
+    },
+    "max_column_arcane": {
+      "sheet": "ritual/max_column_arcane/sheet.png",
+      "size": [
+        192,
+        540
+      ],
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_arcane/01.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_arcane/02.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_arcane/03.png"
+        },
+        {
+          "rect": [
+            576,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_arcane/04.png"
+        },
+        {
+          "rect": [
+            768,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_arcane/05.png"
+        },
+        {
+          "rect": [
+            960,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_arcane/06.png"
+        },
+        {
+          "rect": [
+            1152,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_arcane/07.png"
+        },
+        {
+          "rect": [
+            1344,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_arcane/08.png"
+        }
+      ]
+    },
+    "success_mote_arcane": {
+      "sheet": "ritual/success_mote_arcane/sheet.png",
+      "size": [
+        16,
+        16
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "file": "ritual/success_mote_arcane/01.png"
+        },
+        {
+          "rect": [
+            16,
+            0,
+            16,
+            16
+          ],
+          "file": "ritual/success_mote_arcane/02.png"
+        },
+        {
+          "rect": [
+            32,
+            0,
+            16,
+            16
+          ],
+          "file": "ritual/success_mote_arcane/03.png"
+        }
+      ]
+    },
+    "break_pieces_arcane": {
+      "sheet": "ritual/break_pieces_arcane/sheet.png",
+      "size": [
+        64,
+        64
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_arcane/01.png"
+        },
+        {
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_arcane/02.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_arcane/03.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_arcane/04.png"
+        },
+        {
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_arcane/05.png"
+        },
+        {
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_arcane/06.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_arcane/07.png"
+        },
+        {
+          "rect": [
+            448,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_arcane/08.png"
+        },
+        {
+          "rect": [
+            512,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_arcane/09.png"
+        },
+        {
+          "rect": [
+            576,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_arcane/10.png"
+        },
+        {
+          "rect": [
+            640,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_arcane/11.png"
+        },
+        {
+          "rect": [
+            704,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_arcane/12.png"
+        },
+        {
+          "rect": [
+            768,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_arcane/13.png"
+        },
+        {
+          "rect": [
+            832,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_arcane/14.png"
+        },
+        {
+          "rect": [
+            896,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_arcane/15.png"
+        },
+        {
+          "rect": [
+            960,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_arcane/16.png"
+        },
+        {
+          "rect": [
+            1024,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_arcane/17.png"
+        },
+        {
+          "rect": [
+            1088,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_arcane/18.png"
+        }
+      ]
+    },
+    "extinguish_arcane": {
+      "sheet": "ritual/extinguish_arcane/sheet.png",
+      "size": [
+        96,
+        96
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_arcane/01.png"
+        },
+        {
+          "rect": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_arcane/02.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_arcane/03.png"
+        },
+        {
+          "rect": [
+            288,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_arcane/04.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_arcane/05.png"
+        }
+      ]
+    },
+    "ward_ribbon_arcane": {
+      "sheet": "ritual/ward_ribbon_arcane/sheet.png",
+      "size": [
+        128,
+        128
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_arcane/01.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_arcane/02.png"
+        },
+        {
+          "rect": [
+            256,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_arcane/03.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_arcane/04.png"
+        },
+        {
+          "rect": [
+            512,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_arcane/05.png"
+        },
+        {
+          "rect": [
+            640,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_arcane/06.png"
+        }
+      ]
+    },
+    "stage_hold_arcane": {
+      "sheet": "ritual/stage_hold_arcane/sheet.png",
+      "size": [
+        128,
+        96
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "file": "ritual/stage_hold_arcane/01.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "file": "ritual/stage_hold_arcane/02.png"
+        },
+        {
+          "rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "file": "ritual/stage_hold_arcane/03.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "file": "ritual/stage_hold_arcane/04.png"
+        }
+      ]
+    },
+    "seal_ice": {
+      "sheet": "ritual/seal_ice/sheet.png",
+      "size": [
+        240,
+        240
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            240,
+            240
+          ],
+          "file": "ritual/seal_ice/01.png"
+        }
+      ]
+    },
+    "outer_glyph_ice": {
+      "sheet": "ritual/outer_glyph_ice/sheet.png",
+      "size": [
+        480,
+        480
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            480,
+            480
+          ],
+          "file": "ritual/outer_glyph_ice/01.png"
+        },
+        {
+          "rect": [
+            480,
+            0,
+            480,
+            480
+          ],
+          "file": "ritual/outer_glyph_ice/02.png"
+        },
+        {
+          "rect": [
+            960,
+            0,
+            480,
+            480
+          ],
+          "file": "ritual/outer_glyph_ice/03.png"
+        },
+        {
+          "rect": [
+            1440,
+            0,
+            480,
+            480
+          ],
+          "file": "ritual/outer_glyph_ice/04.png"
+        }
+      ]
+    },
+    "charge_ice": {
+      "sheet": "ritual/charge_ice/sheet.png",
+      "size": [
+        96,
+        96
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_ice/01.png"
+        },
+        {
+          "rect": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_ice/02.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_ice/03.png"
+        },
+        {
+          "rect": [
+            288,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_ice/04.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_ice/05.png"
+        },
+        {
+          "rect": [
+            480,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_ice/06.png"
+        }
+      ]
+    },
+    "success_column_ice": {
+      "sheet": "ritual/success_column_ice/sheet.png",
+      "size": [
+        192,
+        540
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_ice/01.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_ice/02.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_ice/03.png"
+        },
+        {
+          "rect": [
+            576,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_ice/04.png"
+        },
+        {
+          "rect": [
+            768,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_ice/05.png"
+        },
+        {
+          "rect": [
+            960,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_ice/06.png"
+        }
+      ]
+    },
+    "max_column_ice": {
+      "sheet": "ritual/max_column_ice/sheet.png",
+      "size": [
+        192,
+        540
+      ],
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_ice/01.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_ice/02.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_ice/03.png"
+        },
+        {
+          "rect": [
+            576,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_ice/04.png"
+        },
+        {
+          "rect": [
+            768,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_ice/05.png"
+        },
+        {
+          "rect": [
+            960,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_ice/06.png"
+        },
+        {
+          "rect": [
+            1152,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_ice/07.png"
+        },
+        {
+          "rect": [
+            1344,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_ice/08.png"
+        }
+      ]
+    },
+    "success_mote_ice": {
+      "sheet": "ritual/success_mote_ice/sheet.png",
+      "size": [
+        16,
+        16
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "file": "ritual/success_mote_ice/01.png"
+        },
+        {
+          "rect": [
+            16,
+            0,
+            16,
+            16
+          ],
+          "file": "ritual/success_mote_ice/02.png"
+        },
+        {
+          "rect": [
+            32,
+            0,
+            16,
+            16
+          ],
+          "file": "ritual/success_mote_ice/03.png"
+        }
+      ]
+    },
+    "break_pieces_ice": {
+      "sheet": "ritual/break_pieces_ice/sheet.png",
+      "size": [
+        64,
+        64
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_ice/01.png"
+        },
+        {
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_ice/02.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_ice/03.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_ice/04.png"
+        },
+        {
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_ice/05.png"
+        },
+        {
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_ice/06.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_ice/07.png"
+        },
+        {
+          "rect": [
+            448,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_ice/08.png"
+        },
+        {
+          "rect": [
+            512,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_ice/09.png"
+        },
+        {
+          "rect": [
+            576,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_ice/10.png"
+        },
+        {
+          "rect": [
+            640,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_ice/11.png"
+        },
+        {
+          "rect": [
+            704,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_ice/12.png"
+        },
+        {
+          "rect": [
+            768,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_ice/13.png"
+        },
+        {
+          "rect": [
+            832,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_ice/14.png"
+        },
+        {
+          "rect": [
+            896,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_ice/15.png"
+        },
+        {
+          "rect": [
+            960,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_ice/16.png"
+        },
+        {
+          "rect": [
+            1024,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_ice/17.png"
+        },
+        {
+          "rect": [
+            1088,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_ice/18.png"
+        }
+      ]
+    },
+    "extinguish_ice": {
+      "sheet": "ritual/extinguish_ice/sheet.png",
+      "size": [
+        96,
+        96
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_ice/01.png"
+        },
+        {
+          "rect": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_ice/02.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_ice/03.png"
+        },
+        {
+          "rect": [
+            288,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_ice/04.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_ice/05.png"
+        }
+      ]
+    },
+    "ward_ribbon_ice": {
+      "sheet": "ritual/ward_ribbon_ice/sheet.png",
+      "size": [
+        128,
+        128
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_ice/01.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_ice/02.png"
+        },
+        {
+          "rect": [
+            256,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_ice/03.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_ice/04.png"
+        },
+        {
+          "rect": [
+            512,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_ice/05.png"
+        },
+        {
+          "rect": [
+            640,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_ice/06.png"
+        }
+      ]
+    },
+    "stage_hold_ice": {
+      "sheet": "ritual/stage_hold_ice/sheet.png",
+      "size": [
+        128,
+        96
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "file": "ritual/stage_hold_ice/01.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "file": "ritual/stage_hold_ice/02.png"
+        },
+        {
+          "rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "file": "ritual/stage_hold_ice/03.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "file": "ritual/stage_hold_ice/04.png"
+        }
+      ]
+    },
+    "seal_dark": {
+      "sheet": "ritual/seal_dark/sheet.png",
+      "size": [
+        240,
+        240
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            240,
+            240
+          ],
+          "file": "ritual/seal_dark/01.png"
+        }
+      ]
+    },
+    "outer_glyph_dark": {
+      "sheet": "ritual/outer_glyph_dark/sheet.png",
+      "size": [
+        480,
+        480
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            480,
+            480
+          ],
+          "file": "ritual/outer_glyph_dark/01.png"
+        },
+        {
+          "rect": [
+            480,
+            0,
+            480,
+            480
+          ],
+          "file": "ritual/outer_glyph_dark/02.png"
+        },
+        {
+          "rect": [
+            960,
+            0,
+            480,
+            480
+          ],
+          "file": "ritual/outer_glyph_dark/03.png"
+        },
+        {
+          "rect": [
+            1440,
+            0,
+            480,
+            480
+          ],
+          "file": "ritual/outer_glyph_dark/04.png"
+        }
+      ]
+    },
+    "charge_dark": {
+      "sheet": "ritual/charge_dark/sheet.png",
+      "size": [
+        96,
+        96
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_dark/01.png"
+        },
+        {
+          "rect": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_dark/02.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_dark/03.png"
+        },
+        {
+          "rect": [
+            288,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_dark/04.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_dark/05.png"
+        },
+        {
+          "rect": [
+            480,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/charge_dark/06.png"
+        }
+      ]
+    },
+    "success_column_dark": {
+      "sheet": "ritual/success_column_dark/sheet.png",
+      "size": [
+        192,
+        540
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_dark/01.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_dark/02.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_dark/03.png"
+        },
+        {
+          "rect": [
+            576,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_dark/04.png"
+        },
+        {
+          "rect": [
+            768,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_dark/05.png"
+        },
+        {
+          "rect": [
+            960,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/success_column_dark/06.png"
+        }
+      ]
+    },
+    "max_column_dark": {
+      "sheet": "ritual/max_column_dark/sheet.png",
+      "size": [
+        192,
+        540
+      ],
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_dark/01.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_dark/02.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_dark/03.png"
+        },
+        {
+          "rect": [
+            576,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_dark/04.png"
+        },
+        {
+          "rect": [
+            768,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_dark/05.png"
+        },
+        {
+          "rect": [
+            960,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_dark/06.png"
+        },
+        {
+          "rect": [
+            1152,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_dark/07.png"
+        },
+        {
+          "rect": [
+            1344,
+            0,
+            192,
+            540
+          ],
+          "file": "ritual/max_column_dark/08.png"
+        }
+      ]
+    },
+    "success_mote_dark": {
+      "sheet": "ritual/success_mote_dark/sheet.png",
+      "size": [
+        16,
+        16
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "file": "ritual/success_mote_dark/01.png"
+        },
+        {
+          "rect": [
+            16,
+            0,
+            16,
+            16
+          ],
+          "file": "ritual/success_mote_dark/02.png"
+        },
+        {
+          "rect": [
+            32,
+            0,
+            16,
+            16
+          ],
+          "file": "ritual/success_mote_dark/03.png"
+        }
+      ]
+    },
+    "break_pieces_dark": {
+      "sheet": "ritual/break_pieces_dark/sheet.png",
+      "size": [
+        64,
+        64
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_dark/01.png"
+        },
+        {
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_dark/02.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_dark/03.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_dark/04.png"
+        },
+        {
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_dark/05.png"
+        },
+        {
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_dark/06.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_dark/07.png"
+        },
+        {
+          "rect": [
+            448,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_dark/08.png"
+        },
+        {
+          "rect": [
+            512,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_dark/09.png"
+        },
+        {
+          "rect": [
+            576,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_dark/10.png"
+        },
+        {
+          "rect": [
+            640,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_dark/11.png"
+        },
+        {
+          "rect": [
+            704,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_dark/12.png"
+        },
+        {
+          "rect": [
+            768,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_dark/13.png"
+        },
+        {
+          "rect": [
+            832,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_dark/14.png"
+        },
+        {
+          "rect": [
+            896,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_dark/15.png"
+        },
+        {
+          "rect": [
+            960,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_dark/16.png"
+        },
+        {
+          "rect": [
+            1024,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_dark/17.png"
+        },
+        {
+          "rect": [
+            1088,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/break_pieces_dark/18.png"
+        }
+      ]
+    },
+    "extinguish_dark": {
+      "sheet": "ritual/extinguish_dark/sheet.png",
+      "size": [
+        96,
+        96
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_dark/01.png"
+        },
+        {
+          "rect": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_dark/02.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_dark/03.png"
+        },
+        {
+          "rect": [
+            288,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_dark/04.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            96,
+            96
+          ],
+          "file": "ritual/extinguish_dark/05.png"
+        }
+      ]
+    },
+    "ward_ribbon_dark": {
+      "sheet": "ritual/ward_ribbon_dark/sheet.png",
+      "size": [
+        128,
+        128
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_dark/01.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_dark/02.png"
+        },
+        {
+          "rect": [
+            256,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_dark/03.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_dark/04.png"
+        },
+        {
+          "rect": [
+            512,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_dark/05.png"
+        },
+        {
+          "rect": [
+            640,
+            0,
+            128,
+            128
+          ],
+          "file": "ritual/ward_ribbon_dark/06.png"
+        }
+      ]
+    },
+    "stage_hold_dark": {
+      "sheet": "ritual/stage_hold_dark/sheet.png",
+      "size": [
+        128,
+        96
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "file": "ritual/stage_hold_dark/01.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "file": "ritual/stage_hold_dark/02.png"
+        },
+        {
+          "rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "file": "ritual/stage_hold_dark/03.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "file": "ritual/stage_hold_dark/04.png"
+        }
+      ]
+    },
+    "seal_base": {
+      "sheet": "ritual/seal_base/sheet.png",
+      "size": [
+        240,
+        240
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            240,
+            240
+          ],
+          "file": "ritual/seal_base/01.png"
+        }
+      ]
+    },
+    "gold_burst": {
+      "sheet": "ritual/gold_burst/sheet.png",
+      "size": [
+        256,
+        256
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "file": "ritual/gold_burst/01.png"
+        },
+        {
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "file": "ritual/gold_burst/02.png"
+        },
+        {
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "file": "ritual/gold_burst/03.png"
+        },
+        {
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "file": "ritual/gold_burst/04.png"
+        },
+        {
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "file": "ritual/gold_burst/05.png"
+        },
+        {
+          "rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "file": "ritual/gold_burst/06.png"
+        },
+        {
+          "rect": [
+            1536,
+            0,
+            256,
+            256
+          ],
+          "file": "ritual/gold_burst/07.png"
+        },
+        {
+          "rect": [
+            1792,
+            0,
+            256,
+            256
+          ],
+          "file": "ritual/gold_burst/08.png"
+        }
+      ]
+    },
+    "gold_aureole": {
+      "sheet": "ritual/gold_aureole/sheet.png",
+      "size": [
+        256,
+        256
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "file": "ritual/gold_aureole/01.png"
+        },
+        {
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "file": "ritual/gold_aureole/02.png"
+        },
+        {
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "file": "ritual/gold_aureole/03.png"
+        },
+        {
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "file": "ritual/gold_aureole/04.png"
+        },
+        {
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "file": "ritual/gold_aureole/05.png"
+        },
+        {
+          "rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "file": "ritual/gold_aureole/06.png"
+        },
+        {
+          "rect": [
+            1536,
+            0,
+            256,
+            256
+          ],
+          "file": "ritual/gold_aureole/07.png"
+        },
+        {
+          "rect": [
+            1792,
+            0,
+            256,
+            256
+          ],
+          "file": "ritual/gold_aureole/08.png"
+        }
+      ]
+    },
+    "failure_dust": {
+      "sheet": "ritual/failure_dust/sheet.png",
+      "size": [
+        48,
+        48
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            48,
+            48
+          ],
+          "file": "ritual/failure_dust/01.png"
+        },
+        {
+          "rect": [
+            48,
+            0,
+            48,
+            48
+          ],
+          "file": "ritual/failure_dust/02.png"
+        },
+        {
+          "rect": [
+            96,
+            0,
+            48,
+            48
+          ],
+          "file": "ritual/failure_dust/03.png"
+        },
+        {
+          "rect": [
+            144,
+            0,
+            48,
+            48
+          ],
+          "file": "ritual/failure_dust/04.png"
+        }
+      ]
+    },
+    "failure_smoke": {
+      "sheet": "ritual/failure_smoke/sheet.png",
+      "size": [
+        64,
+        64
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/failure_smoke/01.png"
+        },
+        {
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/failure_smoke/02.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/failure_smoke/03.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/failure_smoke/04.png"
+        },
+        {
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/failure_smoke/05.png"
+        }
+      ]
+    },
+    "artisan_ember": {
+      "sheet": "ritual/artisan_ember/sheet.png",
+      "size": [
+        32,
+        32
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "file": "ritual/artisan_ember/01.png"
+        },
+        {
+          "rect": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "file": "ritual/artisan_ember/02.png"
+        },
+        {
+          "rect": [
+            64,
+            0,
+            32,
+            32
+          ],
+          "file": "ritual/artisan_ember/03.png"
+        },
+        {
+          "rect": [
+            96,
+            0,
+            32,
+            32
+          ],
+          "file": "ritual/artisan_ember/04.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            32,
+            32
+          ],
+          "file": "ritual/artisan_ember/05.png"
+        },
+        {
+          "rect": [
+            160,
+            0,
+            32,
+            32
+          ],
+          "file": "ritual/artisan_ember/06.png"
+        }
+      ]
+    },
+    "ward_burn": {
+      "sheet": "ritual/ward_burn/sheet.png",
+      "size": [
+        64,
+        96
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            64,
+            96
+          ],
+          "file": "ritual/ward_burn/01.png"
+        },
+        {
+          "rect": [
+            64,
+            0,
+            64,
+            96
+          ],
+          "file": "ritual/ward_burn/02.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            64,
+            96
+          ],
+          "file": "ritual/ward_burn/03.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            64,
+            96
+          ],
+          "file": "ritual/ward_burn/04.png"
+        },
+        {
+          "rect": [
+            256,
+            0,
+            64,
+            96
+          ],
+          "file": "ritual/ward_burn/05.png"
+        },
+        {
+          "rect": [
+            320,
+            0,
+            64,
+            96
+          ],
+          "file": "ritual/ward_burn/06.png"
+        }
+      ]
+    },
+    "slot_open": {
+      "sheet": "ritual/slot_open/sheet.png",
+      "size": [
+        64,
+        64
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/slot_open/01.png"
+        },
+        {
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/slot_open/02.png"
+        },
+        {
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/slot_open/03.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/slot_open/04.png"
+        },
+        {
+          "rect": [
+            256,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/slot_open/05.png"
+        },
+        {
+          "rect": [
+            320,
+            0,
+            64,
+            64
+          ],
+          "file": "ritual/slot_open/06.png"
+        }
+      ]
+    },
+    "mutation_vine": {
+      "sheet": "ritual/mutation_vine/sheet.png",
+      "size": [
+        192,
+        256
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/01.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/02.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/03.png"
+        },
+        {
+          "rect": [
+            576,
+            0,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/04.png"
+        },
+        {
+          "rect": [
+            768,
+            0,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/05.png"
+        },
+        {
+          "rect": [
+            960,
+            0,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/06.png"
+        },
+        {
+          "rect": [
+            1152,
+            0,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/07.png"
+        },
+        {
+          "rect": [
+            1344,
+            0,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/08.png"
+        },
+        {
+          "rect": [
+            1536,
+            0,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/09.png"
+        },
+        {
+          "rect": [
+            1728,
+            0,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/10.png"
+        },
+        {
+          "rect": [
+            0,
+            256,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/11.png"
+        },
+        {
+          "rect": [
+            192,
+            256,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/12.png"
+        },
+        {
+          "rect": [
+            384,
+            256,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/13.png"
+        },
+        {
+          "rect": [
+            576,
+            256,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/14.png"
+        },
+        {
+          "rect": [
+            768,
+            256,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/15.png"
+        },
+        {
+          "rect": [
+            960,
+            256,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/16.png"
+        },
+        {
+          "rect": [
+            1152,
+            256,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/17.png"
+        },
+        {
+          "rect": [
+            1344,
+            256,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/18.png"
+        },
+        {
+          "rect": [
+            1536,
+            256,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/19.png"
+        },
+        {
+          "rect": [
+            1728,
+            256,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/20.png"
+        },
+        {
+          "rect": [
+            0,
+            512,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/21.png"
+        },
+        {
+          "rect": [
+            192,
+            512,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/22.png"
+        },
+        {
+          "rect": [
+            384,
+            512,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/23.png"
+        },
+        {
+          "rect": [
+            576,
+            512,
+            192,
+            256
+          ],
+          "file": "ritual/mutation_vine/24.png"
+        }
+      ]
+    },
+    "trace_fragment": {
+      "sheet": "ritual/trace_fragment/sheet.png",
+      "size": [
+        16,
+        16
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "file": "ritual/trace_fragment/01.png"
+        },
+        {
+          "rect": [
+            16,
+            0,
+            16,
+            16
+          ],
+          "file": "ritual/trace_fragment/02.png"
+        },
+        {
+          "rect": [
+            32,
+            0,
+            16,
+            16
+          ],
+          "file": "ritual/trace_fragment/03.png"
+        }
+      ]
+    },
+    "screen_crack": {
+      "sheet": "ritual/screen_crack/sheet.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "file": "ritual/screen_crack/01.png"
+        },
+        {
+          "rect": [
+            0,
+            1080,
+            1920,
+            1080
+          ],
+          "file": "ritual/screen_crack/02.png"
+        },
+        {
+          "rect": [
+            0,
+            2160,
+            1920,
+            1080
+          ],
+          "file": "ritual/screen_crack/03.png"
+        }
+      ]
+    },
+    "max_sky_band": {
+      "sheet": "ritual/max_sky_band/sheet.png",
+      "size": [
+        1920,
+        240
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            1920,
+            240
+          ],
+          "file": "ritual/max_sky_band/01.png"
+        },
+        {
+          "rect": [
+            0,
+            240,
+            1920,
+            240
+          ],
+          "file": "ritual/max_sky_band/02.png"
+        },
+        {
+          "rect": [
+            0,
+            480,
+            1920,
+            240
+          ],
+          "file": "ritual/max_sky_band/03.png"
+        },
+        {
+          "rect": [
+            0,
+            720,
+            1920,
+            240
+          ],
+          "file": "ritual/max_sky_band/04.png"
+        }
+      ]
+    },
+    "offering_slot": {
+      "sheet": "ritual/offering_slot/sheet.png",
+      "size": [
+        56,
+        56
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            56,
+            56
+          ],
+          "file": "ritual/offering_slot/01.png"
+        },
+        {
+          "rect": [
+            56,
+            0,
+            56,
+            56
+          ],
+          "file": "ritual/offering_slot/02.png"
+        }
+      ]
+    },
+    "ward_slot": {
+      "sheet": "ritual/ward_slot/sheet.png",
+      "size": [
+        48,
+        80
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            48,
+            80
+          ],
+          "file": "ritual/ward_slot/01.png"
+        },
+        {
+          "rect": [
+            48,
+            0,
+            48,
+            80
+          ],
+          "file": "ritual/ward_slot/02.png"
+        }
+      ]
+    },
+    "artisan_slot": {
+      "sheet": "ritual/artisan_slot/sheet.png",
+      "size": [
+        24,
+        24
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            24,
+            24
+          ],
+          "file": "ritual/artisan_slot/01.png"
+        },
+        {
+          "rect": [
+            24,
+            0,
+            24,
+            24
+          ],
+          "file": "ritual/artisan_slot/02.png"
+        }
+      ]
+    },
+    "ward_attached": {
+      "sheet": "ritual/ward_attached/sheet.png",
+      "size": [
+        48,
+        80
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            48,
+            80
+          ],
+          "file": "ritual/ward_attached/01.png"
+        }
+      ]
+    },
+    "mutation_card": {
+      "sheet": "ritual/mutation_card/sheet.png",
+      "size": [
+        480,
+        272
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            480,
+            272
+          ],
+          "file": "ritual/mutation_card/01.png"
+        }
+      ]
+    },
+    "result_card": {
+      "sheet": "ritual/result_card/sheet.png",
+      "size": [
+        560,
+        320
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            560,
+            320
+          ],
+          "file": "ritual/result_card/01.png"
+        },
+        {
+          "rect": [
+            560,
+            0,
+            560,
+            320
+          ],
+          "file": "ritual/result_card/02.png"
+        }
+      ]
+    },
+    "title_ribbon_normal": {
+      "sheet": "ritual/title_ribbon_normal/sheet.png",
+      "size": [
+        720,
+        96
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            720,
+            96
+          ],
+          "file": "ritual/title_ribbon_normal/01.png"
+        },
+        {
+          "rect": [
+            720,
+            0,
+            720,
+            96
+          ],
+          "file": "ritual/title_ribbon_normal/02.png"
+        },
+        {
+          "rect": [
+            0,
+            96,
+            720,
+            96
+          ],
+          "file": "ritual/title_ribbon_normal/03.png"
+        },
+        {
+          "rect": [
+            720,
+            96,
+            720,
+            96
+          ],
+          "file": "ritual/title_ribbon_normal/04.png"
+        }
+      ]
+    },
+    "title_ribbon_gold": {
+      "sheet": "ritual/title_ribbon_gold/sheet.png",
+      "size": [
+        720,
+        96
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            720,
+            96
+          ],
+          "file": "ritual/title_ribbon_gold/01.png"
+        },
+        {
+          "rect": [
+            720,
+            0,
+            720,
+            96
+          ],
+          "file": "ritual/title_ribbon_gold/02.png"
+        },
+        {
+          "rect": [
+            0,
+            96,
+            720,
+            96
+          ],
+          "file": "ritual/title_ribbon_gold/03.png"
+        },
+        {
+          "rect": [
+            720,
+            96,
+            720,
+            96
+          ],
+          "file": "ritual/title_ribbon_gold/04.png"
+        }
+      ]
+    },
+    "plaza_notice_normal": {
+      "sheet": "ritual/plaza_notice_normal/sheet.png",
+      "size": [
+        960,
+        80
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            960,
+            80
+          ],
+          "file": "ritual/plaza_notice_normal/01.png"
+        },
+        {
+          "rect": [
+            960,
+            0,
+            960,
+            80
+          ],
+          "file": "ritual/plaza_notice_normal/02.png"
+        },
+        {
+          "rect": [
+            0,
+            80,
+            960,
+            80
+          ],
+          "file": "ritual/plaza_notice_normal/03.png"
+        }
+      ]
+    },
+    "plaza_notice_gold": {
+      "sheet": "ritual/plaza_notice_gold/sheet.png",
+      "size": [
+        960,
+        80
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            960,
+            80
+          ],
+          "file": "ritual/plaza_notice_gold/01.png"
+        },
+        {
+          "rect": [
+            960,
+            0,
+            960,
+            80
+          ],
+          "file": "ritual/plaza_notice_gold/02.png"
+        },
+        {
+          "rect": [
+            0,
+            80,
+            960,
+            80
+          ],
+          "file": "ritual/plaza_notice_gold/03.png"
+        }
+      ]
+    },
+    "news_line_normal": {
+      "sheet": "ritual/news_line_normal/sheet.png",
+      "size": [
+        960,
+        40
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            960,
+            40
+          ],
+          "file": "ritual/news_line_normal/01.png"
+        }
+      ]
+    },
+    "news_line_gold": {
+      "sheet": "ritual/news_line_gold/sheet.png",
+      "size": [
+        960,
+        40
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            960,
+            40
+          ],
+          "file": "ritual/news_line_gold/01.png"
+        }
+      ]
+    },
+    "stage_digits_tint": {
+      "sheet": "ritual/stage_digits_tint/sheet.png",
+      "size": [
+        48,
+        64
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_tint/01.png"
+        },
+        {
+          "rect": [
+            48,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_tint/02.png"
+        },
+        {
+          "rect": [
+            96,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_tint/03.png"
+        },
+        {
+          "rect": [
+            144,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_tint/04.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_tint/05.png"
+        },
+        {
+          "rect": [
+            240,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_tint/06.png"
+        },
+        {
+          "rect": [
+            288,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_tint/07.png"
+        },
+        {
+          "rect": [
+            336,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_tint/08.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_tint/09.png"
+        },
+        {
+          "rect": [
+            432,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_tint/10.png"
+        },
+        {
+          "rect": [
+            480,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_tint/11.png"
+        }
+      ]
+    },
+    "stage_digits_gold": {
+      "sheet": "ritual/stage_digits_gold/sheet.png",
+      "size": [
+        48,
+        64
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_gold/01.png"
+        },
+        {
+          "rect": [
+            48,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_gold/02.png"
+        },
+        {
+          "rect": [
+            96,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_gold/03.png"
+        },
+        {
+          "rect": [
+            144,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_gold/04.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_gold/05.png"
+        },
+        {
+          "rect": [
+            240,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_gold/06.png"
+        },
+        {
+          "rect": [
+            288,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_gold/07.png"
+        },
+        {
+          "rect": [
+            336,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_gold/08.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_gold/09.png"
+        },
+        {
+          "rect": [
+            432,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_gold/10.png"
+        },
+        {
+          "rect": [
+            480,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_gold/11.png"
+        }
+      ]
+    },
+    "stage_digits_muted": {
+      "sheet": "ritual/stage_digits_muted/sheet.png",
+      "size": [
+        48,
+        64
+      ],
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_muted/01.png"
+        },
+        {
+          "rect": [
+            48,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_muted/02.png"
+        },
+        {
+          "rect": [
+            96,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_muted/03.png"
+        },
+        {
+          "rect": [
+            144,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_muted/04.png"
+        },
+        {
+          "rect": [
+            192,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_muted/05.png"
+        },
+        {
+          "rect": [
+            240,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_muted/06.png"
+        },
+        {
+          "rect": [
+            288,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_muted/07.png"
+        },
+        {
+          "rect": [
+            336,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_muted/08.png"
+        },
+        {
+          "rect": [
+            384,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_muted/09.png"
+        },
+        {
+          "rect": [
+            432,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_muted/10.png"
+        },
+        {
+          "rect": [
+            480,
+            0,
+            48,
+            64
+          ],
+          "file": "ritual/stage_digits_muted/11.png"
+        }
+      ]
+    }
+  },
+  "wands": {
+    "dalgu": {
+      "sheet": "wands/dalgu/sheet.png",
+      "frames": [
+        {
+          "stage": 0,
+          "file": "wands/dalgu/+00.png",
+          "rect": [
+            0,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 1,
+          "file": "wands/dalgu/+01.png",
+          "rect": [
+            192,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 2,
+          "file": "wands/dalgu/+02.png",
+          "rect": [
+            384,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 3,
+          "file": "wands/dalgu/+03.png",
+          "rect": [
+            576,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 4,
+          "file": "wands/dalgu/+04.png",
+          "rect": [
+            768,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 5,
+          "file": "wands/dalgu/+05.png",
+          "rect": [
+            960,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 6,
+          "file": "wands/dalgu/+06.png",
+          "rect": [
+            1152,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 7,
+          "file": "wands/dalgu/+07.png",
+          "rect": [
+            0,
+            192,
+            192,
+            192
+          ],
+          "source": "new"
+        },
+        {
+          "stage": 8,
+          "file": "wands/dalgu/+08.png",
+          "rect": [
+            192,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 9,
+          "file": "wands/dalgu/+09.png",
+          "rect": [
+            384,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 10,
+          "file": "wands/dalgu/+10.png",
+          "rect": [
+            576,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 11,
+          "file": "wands/dalgu/+11.png",
+          "rect": [
+            768,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 12,
+          "file": "wands/dalgu/+12.png",
+          "rect": [
+            960,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 13,
+          "file": "wands/dalgu/+13.png",
+          "rect": [
+            1152,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        }
+      ]
+    },
+    "chorong": {
+      "sheet": "wands/chorong/sheet.png",
+      "frames": [
+        {
+          "stage": 0,
+          "file": "wands/chorong/+00.png",
+          "rect": [
+            0,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 1,
+          "file": "wands/chorong/+01.png",
+          "rect": [
+            192,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 2,
+          "file": "wands/chorong/+02.png",
+          "rect": [
+            384,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 3,
+          "file": "wands/chorong/+03.png",
+          "rect": [
+            576,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 4,
+          "file": "wands/chorong/+04.png",
+          "rect": [
+            768,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 5,
+          "file": "wands/chorong/+05.png",
+          "rect": [
+            960,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 6,
+          "file": "wands/chorong/+06.png",
+          "rect": [
+            1152,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 7,
+          "file": "wands/chorong/+07.png",
+          "rect": [
+            0,
+            192,
+            192,
+            192
+          ],
+          "source": "new"
+        },
+        {
+          "stage": 8,
+          "file": "wands/chorong/+08.png",
+          "rect": [
+            192,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 9,
+          "file": "wands/chorong/+09.png",
+          "rect": [
+            384,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 10,
+          "file": "wands/chorong/+10.png",
+          "rect": [
+            576,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 11,
+          "file": "wands/chorong/+11.png",
+          "rect": [
+            768,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 12,
+          "file": "wands/chorong/+12.png",
+          "rect": [
+            960,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 13,
+          "file": "wands/chorong/+13.png",
+          "rect": [
+            1152,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        }
+      ]
+    },
+    "galpi": {
+      "sheet": "wands/galpi/sheet.png",
+      "frames": [
+        {
+          "stage": 0,
+          "file": "wands/galpi/+00.png",
+          "rect": [
+            0,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 1,
+          "file": "wands/galpi/+01.png",
+          "rect": [
+            192,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 2,
+          "file": "wands/galpi/+02.png",
+          "rect": [
+            384,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 3,
+          "file": "wands/galpi/+03.png",
+          "rect": [
+            576,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 4,
+          "file": "wands/galpi/+04.png",
+          "rect": [
+            768,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 5,
+          "file": "wands/galpi/+05.png",
+          "rect": [
+            960,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 6,
+          "file": "wands/galpi/+06.png",
+          "rect": [
+            1152,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 7,
+          "file": "wands/galpi/+07.png",
+          "rect": [
+            0,
+            192,
+            192,
+            192
+          ],
+          "source": "new"
+        },
+        {
+          "stage": 8,
+          "file": "wands/galpi/+08.png",
+          "rect": [
+            192,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 9,
+          "file": "wands/galpi/+09.png",
+          "rect": [
+            384,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 10,
+          "file": "wands/galpi/+10.png",
+          "rect": [
+            576,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 11,
+          "file": "wands/galpi/+11.png",
+          "rect": [
+            768,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 12,
+          "file": "wands/galpi/+12.png",
+          "rect": [
+            960,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 13,
+          "file": "wands/galpi/+13.png",
+          "rect": [
+            1152,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        }
+      ]
+    },
+    "seonge": {
+      "sheet": "wands/seonge/sheet.png",
+      "frames": [
+        {
+          "stage": 0,
+          "file": "wands/seonge/+00.png",
+          "rect": [
+            0,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 1,
+          "file": "wands/seonge/+01.png",
+          "rect": [
+            192,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 2,
+          "file": "wands/seonge/+02.png",
+          "rect": [
+            384,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 3,
+          "file": "wands/seonge/+03.png",
+          "rect": [
+            576,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 4,
+          "file": "wands/seonge/+04.png",
+          "rect": [
+            768,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 5,
+          "file": "wands/seonge/+05.png",
+          "rect": [
+            960,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 6,
+          "file": "wands/seonge/+06.png",
+          "rect": [
+            1152,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 7,
+          "file": "wands/seonge/+07.png",
+          "rect": [
+            0,
+            192,
+            192,
+            192
+          ],
+          "source": "new"
+        },
+        {
+          "stage": 8,
+          "file": "wands/seonge/+08.png",
+          "rect": [
+            192,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 9,
+          "file": "wands/seonge/+09.png",
+          "rect": [
+            384,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 10,
+          "file": "wands/seonge/+10.png",
+          "rect": [
+            576,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 11,
+          "file": "wands/seonge/+11.png",
+          "rect": [
+            768,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 12,
+          "file": "wands/seonge/+12.png",
+          "rect": [
+            960,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 13,
+          "file": "wands/seonge/+13.png",
+          "rect": [
+            1152,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        }
+      ]
+    },
+    "geumeum": {
+      "sheet": "wands/geumeum/sheet.png",
+      "frames": [
+        {
+          "stage": 0,
+          "file": "wands/geumeum/+00.png",
+          "rect": [
+            0,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 1,
+          "file": "wands/geumeum/+01.png",
+          "rect": [
+            192,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 2,
+          "file": "wands/geumeum/+02.png",
+          "rect": [
+            384,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 3,
+          "file": "wands/geumeum/+03.png",
+          "rect": [
+            576,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 4,
+          "file": "wands/geumeum/+04.png",
+          "rect": [
+            768,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 5,
+          "file": "wands/geumeum/+05.png",
+          "rect": [
+            960,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 6,
+          "file": "wands/geumeum/+06.png",
+          "rect": [
+            1152,
+            0,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 7,
+          "file": "wands/geumeum/+07.png",
+          "rect": [
+            0,
+            192,
+            192,
+            192
+          ],
+          "source": "new"
+        },
+        {
+          "stage": 8,
+          "file": "wands/geumeum/+08.png",
+          "rect": [
+            192,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 9,
+          "file": "wands/geumeum/+09.png",
+          "rect": [
+            384,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 10,
+          "file": "wands/geumeum/+10.png",
+          "rect": [
+            576,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 11,
+          "file": "wands/geumeum/+11.png",
+          "rect": [
+            768,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 12,
+          "file": "wands/geumeum/+12.png",
+          "rect": [
+            960,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        },
+        {
+          "stage": 13,
+          "file": "wands/geumeum/+13.png",
+          "rect": [
+            1152,
+            192,
+            192,
+            192
+          ],
+          "source": "existing project"
+        }
+      ]
+    }
+  }
+}

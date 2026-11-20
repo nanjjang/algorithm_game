@@ -1,0 +1,717 @@
+fileFormatVersion: 2
+guid: 7955f097f21c0c048954990070b1f1a3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7296585725737742337
+    second: boss.mirror_phantom_0
+  - first:
+      213: -7785553976901026319
+    second: boss.mirror_phantom_1
+  - first:
+      213: -8979266832119754184
+    second: boss.mirror_phantom_2
+  - first:
+      213: 6081996506779889368
+    second: boss.mirror_phantom_3
+  - first:
+      213: -2570490919676723598
+    second: boss.mirror_phantom_4
+  - first:
+      213: -5916087751478932615
+    second: boss.mirror_phantom_5
+  - first:
+      213: -8327621977730764151
+    second: boss.mirror_phantom_6
+  - first:
+      213: 306397578660367504
+    second: boss.mirror_phantom_7
+  - first:
+      213: -3533662328835865351
+    second: boss.mirror_phantom_8
+  - first:
+      213: -5922231801502282083
+    second: boss.mirror_phantom_9
+  - first:
+      213: 3827277352061424018
+    second: boss.mirror_phantom_10
+  - first:
+      213: 3936796507172424619
+    second: boss.mirror_phantom_11
+  - first:
+      213: 1890418150835615363
+    second: boss.mirror_phantom_12
+  - first:
+      213: -5085031111171464945
+    second: boss.mirror_phantom_13
+  - first:
+      213: -5077406621701487355
+    second: boss.mirror_phantom_14
+  - first:
+      213: -1780670956974803307
+    second: boss.mirror_phantom_15
+  - first:
+      213: 114170448759186217
+    second: boss.mirror_phantom_16
+  - first:
+      213: -4511480014011314316
+    second: boss.mirror_phantom_17
+  - first:
+      213: 5501478320109331030
+    second: boss.mirror_phantom_18
+  - first:
+      213: -4623248270013382390
+    second: boss.mirror_phantom_19
+  - first:
+      213: 6669109661850496958
+    second: boss.mirror_phantom_20
+  - first:
+      213: 670073888428907380
+    second: boss.mirror_phantom_21
+  - first:
+      213: -1924652255014724676
+    second: boss.mirror_phantom_22
+  - first:
+      213: -6489962142986566872
+    second: boss.mirror_phantom_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: boss.mirror_phantom_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 303
+        width: 60
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 100b8cffe0ea24560800000000000000
+      internalID: 7296585725737742337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.mirror_phantom_1
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 301
+        width: 60
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fd3f2b58e724f390800000000000000
+      internalID: -7785553976901026319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.mirror_phantom_2
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 299
+        width: 60
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8321e00f36c336380800000000000000
+      internalID: -8979266832119754184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.mirror_phantom_3
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 299
+        width: 62
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8de28cf5997976450800000000000000
+      internalID: 6081996506779889368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.mirror_phantom_4
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 299
+        width: 62
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27e3d4aa028c35cd0800000000000000
+      internalID: -2570490919676723598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.mirror_phantom_5
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 299
+        width: 62
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97b0f09e885d5eda0800000000000000
+      internalID: -5916087751478932615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.mirror_phantom_6
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 203
+        width: 62
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9823f91dee75e6c80800000000000000
+      internalID: -8327621977730764151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.mirror_phantom_7
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 203
+        width: 62
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09c471479fa804400800000000000000
+      internalID: 306397578660367504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.mirror_phantom_8
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 203
+        width: 62
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f40f8585d8e5fec0800000000000000
+      internalID: -3533662328835865351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.mirror_phantom_9
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 203
+        width: 62
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9e4fe9cd8100dda0800000000000000
+      internalID: -5922231801502282083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.mirror_phantom_10
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 199
+        width: 60
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 291d48259783d1530800000000000000
+      internalID: 3827277352061424018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.mirror_phantom_11
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 199
+        width: 60
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: babc203b09f42a630800000000000000
+      internalID: 3936796507172424619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.mirror_phantom_12
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 107
+        width: 62
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 386f185da4d1c3a10800000000000000
+      internalID: 1890418150835615363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.mirror_phantom_13
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 107
+        width: 62
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f01a0d265275e69b0800000000000000
+      internalID: -5085031111171464945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.mirror_phantom_14
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 103
+        width: 60
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 505444d249d6989b0800000000000000
+      internalID: -5077406621701487355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.mirror_phantom_15
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 103
+        width: 60
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59679a3f239c947e0800000000000000
+      internalID: -1780670956974803307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.mirror_phantom_16
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 133
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92363221b6d959100800000000000000
+      internalID: 114170448759186217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.mirror_phantom_17
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 139
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47fc49184d00461c0800000000000000
+      internalID: -4511480014011314316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.mirror_phantom_18
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 121
+        width: 38
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65221a1526d295c40800000000000000
+      internalID: 5501478320109331030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.mirror_phantom_19
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 137
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a01c965813ce6dfb0800000000000000
+      internalID: -4623248270013382390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.mirror_phantom_20
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 119
+        width: 32
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebf69ba27ef6d8c50800000000000000
+      internalID: 6669109661850496958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.mirror_phantom_21
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 11
+        width: 60
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47bd11db6a49c4900800000000000000
+      internalID: 670073888428907380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.mirror_phantom_22
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 11
+        width: 60
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbb51b7a8f24a45e0800000000000000
+      internalID: -1924652255014724676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss.mirror_phantom_23
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 11
+        width: 60
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8238d85f0d50fe5a0800000000000000
+      internalID: -6489962142986566872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

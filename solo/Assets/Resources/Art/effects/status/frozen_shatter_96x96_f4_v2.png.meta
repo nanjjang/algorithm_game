@@ -1,0 +1,1367 @@
+fileFormatVersion: 2
+guid: c3f72ae5e2272f747a6293675b5f6a0f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -568124666906756749
+    second: frozen_shatter_96x96_f4_v2_0
+  - first:
+      213: -2108021470948515391
+    second: frozen_shatter_96x96_f4_v2_1
+  - first:
+      213: -6273023246193469207
+    second: frozen_shatter_96x96_f4_v2_2
+  - first:
+      213: 5598274707653149344
+    second: frozen_shatter_96x96_f4_v2_3
+  - first:
+      213: 3162323139209507263
+    second: frozen_shatter_96x96_f4_v2_4
+  - first:
+      213: -3187501331493486313
+    second: frozen_shatter_96x96_f4_v2_5
+  - first:
+      213: -1952116330345306129
+    second: frozen_shatter_96x96_f4_v2_6
+  - first:
+      213: -7143939046866531716
+    second: frozen_shatter_96x96_f4_v2_7
+  - first:
+      213: -5063610454872091370
+    second: frozen_shatter_96x96_f4_v2_8
+  - first:
+      213: -4335228998532727607
+    second: frozen_shatter_96x96_f4_v2_9
+  - first:
+      213: -8501027244511348568
+    second: frozen_shatter_96x96_f4_v2_10
+  - first:
+      213: -8149557126108884797
+    second: frozen_shatter_96x96_f4_v2_11
+  - first:
+      213: 8223306017467003199
+    second: frozen_shatter_96x96_f4_v2_12
+  - first:
+      213: -2067104385330189214
+    second: frozen_shatter_96x96_f4_v2_13
+  - first:
+      213: -8887776800822410784
+    second: frozen_shatter_96x96_f4_v2_14
+  - first:
+      213: 5674240961922641882
+    second: frozen_shatter_96x96_f4_v2_15
+  - first:
+      213: -7419898689201417952
+    second: frozen_shatter_96x96_f4_v2_16
+  - first:
+      213: -3114137857567360790
+    second: frozen_shatter_96x96_f4_v2_17
+  - first:
+      213: 3131257817598670043
+    second: frozen_shatter_96x96_f4_v2_18
+  - first:
+      213: 1586097830312038084
+    second: frozen_shatter_96x96_f4_v2_19
+  - first:
+      213: -3814731577049843780
+    second: frozen_shatter_96x96_f4_v2_20
+  - first:
+      213: 4468645952589356947
+    second: frozen_shatter_96x96_f4_v2_21
+  - first:
+      213: 4342901766349026964
+    second: frozen_shatter_96x96_f4_v2_22
+  - first:
+      213: 2500182506772163374
+    second: frozen_shatter_96x96_f4_v2_23
+  - first:
+      213: -5882539767443629675
+    second: frozen_shatter_96x96_f4_v2_24
+  - first:
+      213: 8229162484825340000
+    second: frozen_shatter_96x96_f4_v2_25
+  - first:
+      213: 8424127225550623789
+    second: frozen_shatter_96x96_f4_v2_26
+  - first:
+      213: -3266472149260595491
+    second: frozen_shatter_96x96_f4_v2_27
+  - first:
+      213: -1877279156792198706
+    second: frozen_shatter_96x96_f4_v2_28
+  - first:
+      213: 4373792452589020359
+    second: frozen_shatter_96x96_f4_v2_29
+  - first:
+      213: -6814652554909099718
+    second: frozen_shatter_96x96_f4_v2_30
+  - first:
+      213: 7843722486775496820
+    second: frozen_shatter_96x96_f4_v2_31
+  - first:
+      213: -3999874875260424134
+    second: frozen_shatter_96x96_f4_v2_32
+  - first:
+      213: 936827048399018117
+    second: frozen_shatter_96x96_f4_v2_33
+  - first:
+      213: 1877358677854754415
+    second: frozen_shatter_96x96_f4_v2_34
+  - first:
+      213: -436346755160026021
+    second: frozen_shatter_96x96_f4_v2_35
+  - first:
+      213: -3389680487500435760
+    second: frozen_shatter_96x96_f4_v2_36
+  - first:
+      213: -8516296968633279185
+    second: frozen_shatter_96x96_f4_v2_37
+  - first:
+      213: -4478419836011945474
+    second: frozen_shatter_96x96_f4_v2_38
+  - first:
+      213: -8510387269629635867
+    second: frozen_shatter_96x96_f4_v2_39
+  - first:
+      213: -4451806022367770488
+    second: frozen_shatter_96x96_f4_v2_40
+  - first:
+      213: 8414391985832666379
+    second: frozen_shatter_96x96_f4_v2_41
+  - first:
+      213: 9189181387275068603
+    second: frozen_shatter_96x96_f4_v2_42
+  - first:
+      213: 8099960690664295738
+    second: frozen_shatter_96x96_f4_v2_43
+  - first:
+      213: 6665753955796197524
+    second: frozen_shatter_96x96_f4_v2_44
+  - first:
+      213: -4456005949148265703
+    second: frozen_shatter_96x96_f4_v2_45
+  - first:
+      213: 1520670136206221969
+    second: frozen_shatter_96x96_f4_v2_46
+  - first:
+      213: -8177911565566859228
+    second: frozen_shatter_96x96_f4_v2_47
+  - first:
+      213: 2349007395513285131
+    second: frozen_shatter_96x96_f4_v2_48
+  - first:
+      213: 7447404978660036764
+    second: frozen_shatter_96x96_f4_v2_49
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_0
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 69
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 379b2e020ad9d18f0800000000000000
+      internalID: -568124666906756749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_1
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 55
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c1a73514adceb2e0800000000000000
+      internalID: -2108021470948515391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_2
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 72
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e8dedee79eb1f8a0800000000000000
+      internalID: -6273023246193469207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_3
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 74
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a248b88f2111bd40800000000000000
+      internalID: 5598274707653149344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_4
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 56
+        width: 20
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb1b491f324d2eb20800000000000000
+      internalID: 3162323139209507263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_5
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 54
+        width: 33
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7110f375d68b3c3d0800000000000000
+      internalID: -3187501331493486313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_6
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 77
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe767815a80b8e4e0800000000000000
+      internalID: -1952116330345306129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_7
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 47
+        width: 30
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7a4a7e7941abdc90800000000000000
+      internalID: -7143939046866531716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_8
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 64
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61515649e117ab9b0800000000000000
+      internalID: -5063610454872091370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_9
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 56
+        width: 10
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ccfb72e13c26d3c0800000000000000
+      internalID: -4335228998532727607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_10
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 49
+        width: 23
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a8bbf0f2c8460a80800000000000000
+      internalID: -8501027244511348568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_11
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 50
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c0d685d8f4f6ee80800000000000000
+      internalID: -8149557126108884797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_12
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 52
+        width: 25
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f31f372014d0f1270800000000000000
+      internalID: 8223306017467003199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_13
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 56
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26cedb6738b2053e0800000000000000
+      internalID: -2067104385330189214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_14
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 63
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e1c500d61648a480800000000000000
+      internalID: -8887776800822410784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_15
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 68
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adfae596714febe40800000000000000
+      internalID: 5674240961922641882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_16
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 64
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02153c85479370990800000000000000
+      internalID: -7419898689201417952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_17
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 31
+        width: 38
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae8f9123e1c58c4d0800000000000000
+      internalID: -3114137857567360790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_18
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 61
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd4322e1566747b20800000000000000
+      internalID: 3131257817598670043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_19
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 61
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ce44cab293f20610800000000000000
+      internalID: 1586097830312038084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_20
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 50
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb77a7c87d95f0bc0800000000000000
+      internalID: -3814731577049843780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_21
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 53
+        width: 14
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39f531761d1d30e30800000000000000
+      internalID: 4468645952589356947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_22
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 51
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49676a59526154c30800000000000000
+      internalID: 4342901766349026964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_23
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 23
+        width: 37
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2beccd4ebe62b220800000000000000
+      internalID: 2500182506772163374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_24
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 28
+        width: 25
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 599d960af350d5ea0800000000000000
+      internalID: -5882539767443629675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_25
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 50
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0683cf21eabd33270800000000000000
+      internalID: 8229162484825340000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_26
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 30
+        width: 26
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2454a5241388e470800000000000000
+      internalID: 8424127225550623789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_27
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 51
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dde8d9203e82ba2d0800000000000000
+      internalID: -3266472149260595491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_28
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 51
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec9f72b9d8092f5e0800000000000000
+      internalID: -1877279156792198706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_29
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 23
+        width: 30
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c46ad1ff05d2bc30800000000000000
+      internalID: 4373792452589020359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_30
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 48
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a395fec5b9d7d61a0800000000000000
+      internalID: -6814652554909099718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_31
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 30
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4704ffc3b008adc60800000000000000
+      internalID: 7843722486775496820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_32
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 25
+        width: 31
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a30b7124ef69d78c0800000000000000
+      internalID: -3999874875260424134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_33
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 44
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5881dcbac37400d00800000000000000
+      internalID: 936827048399018117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_34
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 25
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f66978555c7bd0a10800000000000000
+      internalID: 1877358677854754415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_35
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 35
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b54dac320f8c1f9f0800000000000000
+      internalID: -436346755160026021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_36
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 32
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0dea6705e8f65f0d0800000000000000
+      internalID: -3389680487500435760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_37
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 16
+        width: 18
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2d90ee370900d980800000000000000
+      internalID: -8516296968633279185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_38
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 20
+        width: 12
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef1e17703e479d1c0800000000000000
+      internalID: -4478419836011945474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_39
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 27
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e218b44ed705e980800000000000000
+      internalID: -8510387269629635867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_40
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 13
+        width: 14
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88803d362020832c0800000000000000
+      internalID: -4451806022367770488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_41
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 19
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0523740eece5c470800000000000000
+      internalID: 8414391985832666379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_42
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 22
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb4692d09c7868f70800000000000000
+      internalID: 9189181387275068603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_43
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 22
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3d4cad2557d86070800000000000000
+      internalID: 8099960690664295738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_44
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 22
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4902367f7e3818c50800000000000000
+      internalID: 6665753955796197524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_45
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 12
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9138dfbb2361922c0800000000000000
+      internalID: -4456005949148265703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_46
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 16
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 192ed199e618a1510800000000000000
+      internalID: 1520670136206221969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_47
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 8
+        width: 22
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42824d172c8328e80800000000000000
+      internalID: -8177911565566859228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_48
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 16
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0ab558d7c9599020800000000000000
+      internalID: 2349007395513285131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_shatter_96x96_f4_v2_49
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 15
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c90d18bbe5f7a5760800000000000000
+      internalID: 7447404978660036764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

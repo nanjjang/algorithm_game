@@ -1,0 +1,235 @@
+{
+ "notes": {
+  "origin": "top-left",
+  "filter": "point",
+  "mipmaps": false,
+  "pixelsPerUnit": 64,
+  "built_by": "solo/Tools/godot-fx/bake.sh (styles.py, compose.py, manifest.py)",
+  "pivot": "pivot = 프레임 왼쪽 위 기준 픽셀 좌표",
+  "reuse": [
+   "A 적중 스파크 = effects/player/hit_lightning_32x32_f3_v2.png (큰 것 hit_large_lightning_64x64_f4_v2.png)",
+   "B 작은 지짐 호(구체에서 적에게) = chain_link 를 짧게 잘라 쓰거나 effects/player/hit_lightning_32x32_f3_v2.png",
+   "K 벼락 질주 궤적 = 기존 bolt_dash_trail/arrival(supplement/solo/char.2) 위에 strike_bolt + strike_blast 를 궤적 따라 시간차로"
+  ]
+ },
+ "styles.char.2": {
+  "ball_lightning": {
+   "path": "ball_lightning_48x48_f6.png",
+   "size": [
+    48,
+    48
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     48,
+     48
+    ],
+    [
+     48,
+     0,
+     48,
+     48
+    ],
+    [
+     96,
+     0,
+     48,
+     48
+    ],
+    [
+     144,
+     0,
+     48,
+     48
+    ],
+    [
+     192,
+     0,
+     48,
+     48
+    ],
+    [
+     240,
+     0,
+     48,
+     48
+    ]
+   ],
+   "fps": 14,
+   "loop": true,
+   "pivot": [
+    24,
+    24
+   ],
+   "use": "B 번개 구체: 구체 반복 + 주변을 지지는 작은 호"
+  },
+  "chain_link": {
+   "path": "chain_link_64x24_f4.png",
+   "size": [
+    64,
+    24
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     64,
+     24
+    ],
+    [
+     64,
+     0,
+     64,
+     24
+    ],
+    [
+     128,
+     0,
+     64,
+     24
+    ],
+    [
+     192,
+     0,
+     64,
+     24
+    ]
+   ],
+   "fps": 20,
+   "loop": true,
+   "pivot": [
+    0,
+    12
+   ],
+   "use": "A 연쇄 번개: 가로로 이어 붙이는 번개 선(두 끝이 가운데 높이에서 만난다, 왼쪽 끝 피벗, 늘이지 말고 반복)"
+  },
+  "strike_blast": {
+   "path": "strike_blast_96x48_f5.png",
+   "size": [
+    96,
+    48
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     96,
+     48
+    ],
+    [
+     96,
+     0,
+     96,
+     48
+    ],
+    [
+     192,
+     0,
+     96,
+     48
+    ],
+    [
+     288,
+     0,
+     96,
+     48
+    ],
+    [
+     384,
+     0,
+     96,
+     48
+    ]
+   ],
+   "fps": 16,
+   "loop": false,
+   "pivot": [
+    48,
+    24
+   ],
+   "use": "C 낙뢰 착지 폭발(바닥 납작 고리). K 궤적 낙뢰에도 쓴다"
+  },
+  "strike_bolt": {
+   "path": "strike_bolt_48x192_f4.png",
+   "size": [
+    48,
+    192
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     48,
+     192
+    ],
+    [
+     48,
+     0,
+     48,
+     192
+    ],
+    [
+     96,
+     0,
+     48,
+     192
+    ],
+    [
+     144,
+     0,
+     48,
+     192
+    ]
+   ],
+   "fps": 18,
+   "loop": false,
+   "pivot": [
+    24,
+    188
+   ],
+   "use": "C 낙뢰: 하늘에서 내리치는 벼락 기둥(아래 끝 = 착지점). K 벼락 질주 강화의 궤적 낙뢰에도 쓴다"
+  },
+  "strike_marker": {
+   "path": "strike_marker_64x32_f4.png",
+   "size": [
+    64,
+    32
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     64,
+     32
+    ],
+    [
+     64,
+     0,
+     64,
+     32
+    ],
+    [
+     128,
+     0,
+     64,
+     32
+    ],
+    [
+     192,
+     0,
+     64,
+     32
+    ]
+   ],
+   "fps": 8,
+   "loop": true,
+   "pivot": [
+    32,
+    16
+   ],
+   "use": "C 낙뢰 예고 원(플레이어 쪽: 노랑·흰, 위험색 없음)"
+  }
+ }
+}

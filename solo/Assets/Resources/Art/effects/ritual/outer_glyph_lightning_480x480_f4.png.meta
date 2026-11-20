@@ -1,0 +1,917 @@
+fileFormatVersion: 2
+guid: 2d6a6d5224937d1409fd76fcaa7ee136
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7865299884036238230
+    second: outer_glyph_lightning_480x480_f4_0
+  - first:
+      213: -489458428740040648
+    second: outer_glyph_lightning_480x480_f4_1
+  - first:
+      213: -1413086422393100248
+    second: outer_glyph_lightning_480x480_f4_2
+  - first:
+      213: -2658752983196143246
+    second: outer_glyph_lightning_480x480_f4_3
+  - first:
+      213: 73256233337986806
+    second: outer_glyph_lightning_480x480_f4_4
+  - first:
+      213: 4797176235481888095
+    second: outer_glyph_lightning_480x480_f4_5
+  - first:
+      213: 4709739945267468357
+    second: outer_glyph_lightning_480x480_f4_6
+  - first:
+      213: 7657249023553396074
+    second: outer_glyph_lightning_480x480_f4_7
+  - first:
+      213: 8913425882823532559
+    second: outer_glyph_lightning_480x480_f4_8
+  - first:
+      213: -225380640378878089
+    second: outer_glyph_lightning_480x480_f4_9
+  - first:
+      213: -2833940836355212464
+    second: outer_glyph_lightning_480x480_f4_10
+  - first:
+      213: -8056316608991882786
+    second: outer_glyph_lightning_480x480_f4_11
+  - first:
+      213: -1033635994935321291
+    second: outer_glyph_lightning_480x480_f4_12
+  - first:
+      213: 4202863603651553951
+    second: outer_glyph_lightning_480x480_f4_13
+  - first:
+      213: -4009620225811643773
+    second: outer_glyph_lightning_480x480_f4_14
+  - first:
+      213: 7173531861426562946
+    second: outer_glyph_lightning_480x480_f4_15
+  - first:
+      213: 6943728384278287973
+    second: outer_glyph_lightning_480x480_f4_16
+  - first:
+      213: 679648575585656349
+    second: outer_glyph_lightning_480x480_f4_17
+  - first:
+      213: 91661350879946218
+    second: outer_glyph_lightning_480x480_f4_18
+  - first:
+      213: 8635973311254985336
+    second: outer_glyph_lightning_480x480_f4_19
+  - first:
+      213: -1357282851865348868
+    second: outer_glyph_lightning_480x480_f4_20
+  - first:
+      213: 5261011530979097508
+    second: outer_glyph_lightning_480x480_f4_21
+  - first:
+      213: 22052560547004343
+    second: outer_glyph_lightning_480x480_f4_22
+  - first:
+      213: 4246328822451382365
+    second: outer_glyph_lightning_480x480_f4_23
+  - first:
+      213: 8863058774541519453
+    second: outer_glyph_lightning_480x480_f4_24
+  - first:
+      213: 7633712769115984783
+    second: outer_glyph_lightning_480x480_f4_25
+  - first:
+      213: 7836760081326010517
+    second: outer_glyph_lightning_480x480_f4_26
+  - first:
+      213: -2457777736879406945
+    second: outer_glyph_lightning_480x480_f4_27
+  - first:
+      213: -7580894366109539215
+    second: outer_glyph_lightning_480x480_f4_28
+  - first:
+      213: -6057741180247521339
+    second: outer_glyph_lightning_480x480_f4_29
+  - first:
+      213: 2567264886104103461
+    second: outer_glyph_lightning_480x480_f4_30
+  - first:
+      213: -4425375016774058811
+    second: outer_glyph_lightning_480x480_f4_31
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_0
+      rect:
+        serializedVersion: 2
+        x: 1075
+        y: 400
+        width: 121
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6459187d67d8d290800000000000000
+      internalID: -7865299884036238230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_1
+      rect:
+        serializedVersion: 2
+        x: 1583
+        y: 451
+        width: 119
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83801aef6281539f0800000000000000
+      internalID: -489458428740040648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_2
+      rect:
+        serializedVersion: 2
+        x: 1732
+        y: 388
+        width: 131
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 828e45cb265b36ce0800000000000000
+      internalID: -1413086422393100248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_3
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 327
+        width: 74
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 271751b9f363a1bd0800000000000000
+      internalID: -2658752983196143246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_4
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 353
+        width: 117
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fe91b5f722440100800000000000000
+      internalID: 73256233337986806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_5
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 356
+        width: 77
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f55f7d0ae5ef29240800000000000000
+      internalID: 4797176235481888095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_6
+      rect:
+        serializedVersion: 2
+        x: 833
+        y: 262
+        width: 74
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5489226e68b5c5140800000000000000
+      internalID: 4709739945267468357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_7
+      rect:
+        serializedVersion: 2
+        x: 1244
+        y: 377
+        width: 91
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6d5b95ca63044a60800000000000000
+      internalID: 7657249023553396074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_8
+      rect:
+        serializedVersion: 2
+        x: 1458
+        y: 322
+        width: 74
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0028757d99d2bb70800000000000000
+      internalID: 8913425882823532559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_9
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 238
+        width: 56
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77787fe60894fdcf0800000000000000
+      internalID: -225380640378878089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_10
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 310
+        width: 58
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05bf29ef2d1dba8d0800000000000000
+      internalID: -2833940836355212464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_11
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 267
+        width: 55
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed195f27ab6323090800000000000000
+      internalID: -8056316608991882786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_12
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 257
+        width: 70
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53d92def989c7a1f0800000000000000
+      internalID: -1033635994935321291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_13
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 284
+        width: 73
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9aa1170e22935a30800000000000000
+      internalID: 4202863603651553951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_14
+      rect:
+        serializedVersion: 2
+        x: 1360
+        y: 246
+        width: 45
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 382864406a7fa58c0800000000000000
+      internalID: -4009620225811643773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_15
+      rect:
+        serializedVersion: 2
+        x: 1892
+        y: 218
+        width: 27
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 287e64198318d8360800000000000000
+      internalID: 7173531861426562946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_16
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 156
+        width: 54
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56654b11d241d5060800000000000000
+      internalID: 6943728384278287973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_17
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 115
+        width: 58
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1e12ef47c89e6900800000000000000
+      internalID: 679648575585656349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_18
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 167
+        width: 57
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae5e4d25385a54100800000000000000
+      internalID: 91661350879946218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_19
+      rect:
+        serializedVersion: 2
+        x: 535
+        y: 142
+        width: 72
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87a7b13a8f329d770800000000000000
+      internalID: 8635973311254985336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_20
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 147
+        width: 72
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf436daff66f92de0800000000000000
+      internalID: -1357282851865348868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_21
+      rect:
+        serializedVersion: 2
+        x: 961
+        y: 114
+        width: 79
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ab3e370d1ed20940800000000000000
+      internalID: 5261011530979097508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_22
+      rect:
+        serializedVersion: 2
+        x: 1336
+        y: 105
+        width: 75
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bfbacddfa85e4000800000000000000
+      internalID: 22052560547004343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_23
+      rect:
+        serializedVersion: 2
+        x: 1437
+        y: 142
+        width: 32
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d58a7b5e09dfdea30800000000000000
+      internalID: 4246328822451382365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_24
+      rect:
+        serializedVersion: 2
+        x: 1829
+        y: 57
+        width: 86
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5ac4f73ff8effa70800000000000000
+      internalID: 8863058774541519453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_25
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 96
+        width: 74
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f839580815560f960800000000000000
+      internalID: 7633712769115984783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_26
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 52
+        width: 118
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 590f565e5c3c1cc60800000000000000
+      internalID: 7836760081326010517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_27
+      rect:
+        serializedVersion: 2
+        x: 741
+        y: 53
+        width: 119
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9080709b2834edd0800000000000000
+      internalID: -2457777736879406945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_28
+      rect:
+        serializedVersion: 2
+        x: 1064
+        y: 29
+        width: 92
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 174e7444db04bc690800000000000000
+      internalID: -7580894366109539215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_29
+      rect:
+        serializedVersion: 2
+        x: 1205
+        y: 0
+        width: 121
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c7471aed749eeba0800000000000000
+      internalID: -6057741180247521339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_30
+      rect:
+        serializedVersion: 2
+        x: 1498
+        y: 17
+        width: 100
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52a919cdfc1c0a320800000000000000
+      internalID: 2567264886104103461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: outer_glyph_lightning_480x480_f4_31
+      rect:
+        serializedVersion: 2
+        x: 1626
+        y: 1
+        width: 152
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cc3b4f6ed8e592c0800000000000000
+      internalID: -4425375016774058811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

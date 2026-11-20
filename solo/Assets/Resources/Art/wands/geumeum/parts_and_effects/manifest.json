@@ -1,0 +1,5707 @@
+{
+  "character": "char.5",
+  "wand": "wand.5",
+  "sheetOrigin": "top-left",
+  "pixelsPerUnit": 64,
+  "handGrip": [
+    16,
+    48
+  ],
+  "handRows": [
+    "down_hold",
+    "down_aim",
+    "right_hold",
+    "right_aim",
+    "up_hold",
+    "up_aim"
+  ],
+  "mirrorRightForLeft": true,
+  "inspectionAnchors": {
+    "moon": [
+      96,
+      51
+    ],
+    "ward": [
+      94,
+      95
+    ],
+    "slot": [
+      94,
+      139
+    ]
+  },
+  "sheets": {
+    "hand_body_only": {
+      "path": "parts_and_effects/hand_body_only.png",
+      "cell": [
+        32,
+        64
+      ],
+      "columns": 14,
+      "frames": 84,
+      "anchor": [
+        16,
+        48
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          32,
+          64
+        ],
+        [
+          32,
+          0,
+          32,
+          64
+        ],
+        [
+          64,
+          0,
+          32,
+          64
+        ],
+        [
+          96,
+          0,
+          32,
+          64
+        ],
+        [
+          128,
+          0,
+          32,
+          64
+        ],
+        [
+          160,
+          0,
+          32,
+          64
+        ],
+        [
+          192,
+          0,
+          32,
+          64
+        ],
+        [
+          224,
+          0,
+          32,
+          64
+        ],
+        [
+          256,
+          0,
+          32,
+          64
+        ],
+        [
+          288,
+          0,
+          32,
+          64
+        ],
+        [
+          320,
+          0,
+          32,
+          64
+        ],
+        [
+          352,
+          0,
+          32,
+          64
+        ],
+        [
+          384,
+          0,
+          32,
+          64
+        ],
+        [
+          416,
+          0,
+          32,
+          64
+        ],
+        [
+          0,
+          64,
+          32,
+          64
+        ],
+        [
+          32,
+          64,
+          32,
+          64
+        ],
+        [
+          64,
+          64,
+          32,
+          64
+        ],
+        [
+          96,
+          64,
+          32,
+          64
+        ],
+        [
+          128,
+          64,
+          32,
+          64
+        ],
+        [
+          160,
+          64,
+          32,
+          64
+        ],
+        [
+          192,
+          64,
+          32,
+          64
+        ],
+        [
+          224,
+          64,
+          32,
+          64
+        ],
+        [
+          256,
+          64,
+          32,
+          64
+        ],
+        [
+          288,
+          64,
+          32,
+          64
+        ],
+        [
+          320,
+          64,
+          32,
+          64
+        ],
+        [
+          352,
+          64,
+          32,
+          64
+        ],
+        [
+          384,
+          64,
+          32,
+          64
+        ],
+        [
+          416,
+          64,
+          32,
+          64
+        ],
+        [
+          0,
+          128,
+          32,
+          64
+        ],
+        [
+          32,
+          128,
+          32,
+          64
+        ],
+        [
+          64,
+          128,
+          32,
+          64
+        ],
+        [
+          96,
+          128,
+          32,
+          64
+        ],
+        [
+          128,
+          128,
+          32,
+          64
+        ],
+        [
+          160,
+          128,
+          32,
+          64
+        ],
+        [
+          192,
+          128,
+          32,
+          64
+        ],
+        [
+          224,
+          128,
+          32,
+          64
+        ],
+        [
+          256,
+          128,
+          32,
+          64
+        ],
+        [
+          288,
+          128,
+          32,
+          64
+        ],
+        [
+          320,
+          128,
+          32,
+          64
+        ],
+        [
+          352,
+          128,
+          32,
+          64
+        ],
+        [
+          384,
+          128,
+          32,
+          64
+        ],
+        [
+          416,
+          128,
+          32,
+          64
+        ],
+        [
+          0,
+          192,
+          32,
+          64
+        ],
+        [
+          32,
+          192,
+          32,
+          64
+        ],
+        [
+          64,
+          192,
+          32,
+          64
+        ],
+        [
+          96,
+          192,
+          32,
+          64
+        ],
+        [
+          128,
+          192,
+          32,
+          64
+        ],
+        [
+          160,
+          192,
+          32,
+          64
+        ],
+        [
+          192,
+          192,
+          32,
+          64
+        ],
+        [
+          224,
+          192,
+          32,
+          64
+        ],
+        [
+          256,
+          192,
+          32,
+          64
+        ],
+        [
+          288,
+          192,
+          32,
+          64
+        ],
+        [
+          320,
+          192,
+          32,
+          64
+        ],
+        [
+          352,
+          192,
+          32,
+          64
+        ],
+        [
+          384,
+          192,
+          32,
+          64
+        ],
+        [
+          416,
+          192,
+          32,
+          64
+        ],
+        [
+          0,
+          256,
+          32,
+          64
+        ],
+        [
+          32,
+          256,
+          32,
+          64
+        ],
+        [
+          64,
+          256,
+          32,
+          64
+        ],
+        [
+          96,
+          256,
+          32,
+          64
+        ],
+        [
+          128,
+          256,
+          32,
+          64
+        ],
+        [
+          160,
+          256,
+          32,
+          64
+        ],
+        [
+          192,
+          256,
+          32,
+          64
+        ],
+        [
+          224,
+          256,
+          32,
+          64
+        ],
+        [
+          256,
+          256,
+          32,
+          64
+        ],
+        [
+          288,
+          256,
+          32,
+          64
+        ],
+        [
+          320,
+          256,
+          32,
+          64
+        ],
+        [
+          352,
+          256,
+          32,
+          64
+        ],
+        [
+          384,
+          256,
+          32,
+          64
+        ],
+        [
+          416,
+          256,
+          32,
+          64
+        ],
+        [
+          0,
+          320,
+          32,
+          64
+        ],
+        [
+          32,
+          320,
+          32,
+          64
+        ],
+        [
+          64,
+          320,
+          32,
+          64
+        ],
+        [
+          96,
+          320,
+          32,
+          64
+        ],
+        [
+          128,
+          320,
+          32,
+          64
+        ],
+        [
+          160,
+          320,
+          32,
+          64
+        ],
+        [
+          192,
+          320,
+          32,
+          64
+        ],
+        [
+          224,
+          320,
+          32,
+          64
+        ],
+        [
+          256,
+          320,
+          32,
+          64
+        ],
+        [
+          288,
+          320,
+          32,
+          64
+        ],
+        [
+          320,
+          320,
+          32,
+          64
+        ],
+        [
+          352,
+          320,
+          32,
+          64
+        ],
+        [
+          384,
+          320,
+          32,
+          64
+        ],
+        [
+          416,
+          320,
+          32,
+          64
+        ]
+      ],
+      "stages": [
+        0,
+        13
+      ],
+      "frameOrder": [
+        "direction",
+        "pose",
+        "stage"
+      ]
+    },
+    "inspection_body_only": {
+      "path": "parts_and_effects/inspection_body_only.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 7,
+      "frames": 14,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ],
+        [
+          1152,
+          0,
+          192,
+          192
+        ],
+        [
+          0,
+          192,
+          192,
+          192
+        ],
+        [
+          192,
+          192,
+          192,
+          192
+        ],
+        [
+          384,
+          192,
+          192,
+          192
+        ],
+        [
+          576,
+          192,
+          192,
+          192
+        ],
+        [
+          768,
+          192,
+          192,
+          192
+        ],
+        [
+          960,
+          192,
+          192,
+          192
+        ],
+        [
+          1152,
+          192,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        0,
+        13
+      ]
+    },
+    "shaft_tip": {
+      "path": "parts_and_effects/shaft_tip.png",
+      "cell": [
+        12,
+        12
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        6,
+        6
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          12,
+          12
+        ],
+        [
+          12,
+          0,
+          12,
+          12
+        ],
+        [
+          24,
+          0,
+          12,
+          12
+        ]
+      ],
+      "stages": [
+        5,
+        12
+      ],
+      "frameOrder": [
+        "down",
+        "right",
+        "up"
+      ]
+    },
+    "shaft_tip_inspection": {
+      "path": "parts_and_effects/shaft_tip_inspection.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 1,
+      "frames": 1,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        5,
+        12
+      ]
+    },
+    "shadow_tip": {
+      "path": "parts_and_effects/shadow_tip.png",
+      "cell": [
+        12,
+        20
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        6,
+        10
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          12,
+          20
+        ],
+        [
+          12,
+          0,
+          12,
+          20
+        ],
+        [
+          24,
+          0,
+          12,
+          20
+        ]
+      ],
+      "stages": [
+        13,
+        13
+      ],
+      "frameOrder": [
+        "down",
+        "right",
+        "up"
+      ]
+    },
+    "shadow_tip_inspection": {
+      "path": "parts_and_effects/shadow_tip_inspection.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 1,
+      "frames": 1,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        13,
+        13
+      ]
+    },
+    "floating_eye": {
+      "path": "parts_and_effects/floating_eye.png",
+      "cell": [
+        20,
+        20
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        10,
+        10
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          20,
+          20
+        ],
+        [
+          20,
+          0,
+          20,
+          20
+        ],
+        [
+          40,
+          0,
+          20,
+          20
+        ]
+      ],
+      "stages": [
+        10,
+        12
+      ],
+      "frameOrder": [
+        "down",
+        "right",
+        "up"
+      ]
+    },
+    "floating_eye_inspection": {
+      "path": "parts_and_effects/floating_eye_inspection.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 1,
+      "frames": 1,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        10,
+        12
+      ]
+    },
+    "black_moon": {
+      "path": "parts_and_effects/black_moon.png",
+      "cell": [
+        20,
+        20
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        10,
+        10
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          20,
+          20
+        ],
+        [
+          20,
+          0,
+          20,
+          20
+        ],
+        [
+          40,
+          0,
+          20,
+          20
+        ]
+      ],
+      "stages": [
+        13,
+        13
+      ],
+      "frameOrder": [
+        "down",
+        "right",
+        "up"
+      ]
+    },
+    "black_moon_inspection": {
+      "path": "parts_and_effects/black_moon_inspection.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 1,
+      "frames": 1,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        13,
+        13
+      ]
+    },
+    "floating_socket": {
+      "path": "parts_and_effects/floating_socket.png",
+      "cell": [
+        28,
+        16
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        14,
+        8
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          28,
+          16
+        ],
+        [
+          28,
+          0,
+          28,
+          16
+        ],
+        [
+          56,
+          0,
+          28,
+          16
+        ]
+      ],
+      "stages": [
+        11,
+        13
+      ],
+      "frameOrder": [
+        "down",
+        "right",
+        "up"
+      ]
+    },
+    "floating_socket_inspection": {
+      "path": "parts_and_effects/floating_socket_inspection.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 1,
+      "frames": 1,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        11,
+        13
+      ]
+    },
+    "floating_fingers": {
+      "path": "parts_and_effects/floating_fingers.png",
+      "cell": [
+        28,
+        20
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        14,
+        10
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          28,
+          20
+        ],
+        [
+          28,
+          0,
+          28,
+          20
+        ],
+        [
+          56,
+          0,
+          28,
+          20
+        ]
+      ],
+      "stages": [
+        12,
+        13
+      ],
+      "frameOrder": [
+        "down",
+        "right",
+        "up"
+      ]
+    },
+    "floating_fingers_inspection": {
+      "path": "parts_and_effects/floating_fingers_inspection.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 1,
+      "frames": 1,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        12,
+        13
+      ]
+    },
+    "blink_04": {
+      "path": "parts_and_effects/blink_04.png",
+      "cell": [
+        16,
+        16
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        8,
+        8
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          16,
+          0,
+          16,
+          16
+        ],
+        [
+          32,
+          0,
+          16,
+          16
+        ]
+      ],
+      "stages": [
+        4,
+        6
+      ]
+    },
+    "inspection_eyes_04": {
+      "path": "parts_and_effects/inspection_eyes_04.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 8,
+      "frames": 9,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ],
+        [
+          1152,
+          0,
+          192,
+          192
+        ],
+        [
+          1344,
+          0,
+          192,
+          192
+        ],
+        [
+          0,
+          192,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        4,
+        6
+      ],
+      "frameOrder": [
+        "blink_0",
+        "blink_1",
+        "blink_2",
+        "blink_3",
+        "left",
+        "left_center",
+        "center",
+        "right_center",
+        "right"
+      ]
+    },
+    "inspection_eye_expressions_04": {
+      "path": "parts_and_effects/inspection_eye_expressions_04.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 2,
+      "frames": 2,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        4,
+        6
+      ],
+      "frameOrder": [
+        "crescent",
+        "dot"
+      ]
+    },
+    "blink_07": {
+      "path": "parts_and_effects/blink_07.png",
+      "cell": [
+        16,
+        16
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        8,
+        8
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          16,
+          0,
+          16,
+          16
+        ],
+        [
+          32,
+          0,
+          16,
+          16
+        ]
+      ],
+      "stages": [
+        7,
+        9
+      ]
+    },
+    "inspection_eyes_07": {
+      "path": "parts_and_effects/inspection_eyes_07.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 8,
+      "frames": 9,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ],
+        [
+          1152,
+          0,
+          192,
+          192
+        ],
+        [
+          1344,
+          0,
+          192,
+          192
+        ],
+        [
+          0,
+          192,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        7,
+        9
+      ],
+      "frameOrder": [
+        "blink_0",
+        "blink_1",
+        "blink_2",
+        "blink_3",
+        "left",
+        "left_center",
+        "center",
+        "right_center",
+        "right"
+      ]
+    },
+    "inspection_eye_expressions_07": {
+      "path": "parts_and_effects/inspection_eye_expressions_07.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 2,
+      "frames": 2,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        7,
+        9
+      ],
+      "frameOrder": [
+        "crescent",
+        "dot"
+      ]
+    },
+    "blink_10": {
+      "path": "parts_and_effects/blink_10.png",
+      "cell": [
+        16,
+        16
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        8,
+        8
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          16,
+          0,
+          16,
+          16
+        ],
+        [
+          32,
+          0,
+          16,
+          16
+        ]
+      ],
+      "stages": [
+        10,
+        12
+      ]
+    },
+    "inspection_eyes_10": {
+      "path": "parts_and_effects/inspection_eyes_10.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 8,
+      "frames": 9,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ],
+        [
+          1152,
+          0,
+          192,
+          192
+        ],
+        [
+          1344,
+          0,
+          192,
+          192
+        ],
+        [
+          0,
+          192,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        10,
+        12
+      ],
+      "frameOrder": [
+        "blink_0",
+        "blink_1",
+        "blink_2",
+        "blink_3",
+        "left",
+        "left_center",
+        "center",
+        "right_center",
+        "right"
+      ]
+    },
+    "inspection_eye_expressions_10": {
+      "path": "parts_and_effects/inspection_eye_expressions_10.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 2,
+      "frames": 2,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        10,
+        12
+      ],
+      "frameOrder": [
+        "crescent",
+        "dot"
+      ]
+    },
+    "blink_13": {
+      "path": "parts_and_effects/blink_13.png",
+      "cell": [
+        16,
+        16
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        8,
+        8
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          16,
+          0,
+          16,
+          16
+        ],
+        [
+          32,
+          0,
+          16,
+          16
+        ]
+      ],
+      "stages": [
+        13,
+        13
+      ]
+    },
+    "inspection_eyes_13": {
+      "path": "parts_and_effects/inspection_eyes_13.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 8,
+      "frames": 9,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ],
+        [
+          1152,
+          0,
+          192,
+          192
+        ],
+        [
+          1344,
+          0,
+          192,
+          192
+        ],
+        [
+          0,
+          192,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        13,
+        13
+      ],
+      "frameOrder": [
+        "blink_0",
+        "blink_1",
+        "blink_2",
+        "blink_3",
+        "left",
+        "left_center",
+        "center",
+        "right_center",
+        "right"
+      ]
+    },
+    "inspection_eye_expressions_13": {
+      "path": "parts_and_effects/inspection_eye_expressions_13.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 2,
+      "frames": 2,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        13,
+        13
+      ],
+      "frameOrder": [
+        "crescent",
+        "dot"
+      ]
+    },
+    "crystal_glint": {
+      "path": "parts_and_effects/crystal_glint.png",
+      "cell": [
+        12,
+        14
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        6,
+        7
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          12,
+          14
+        ],
+        [
+          12,
+          0,
+          12,
+          14
+        ],
+        [
+          24,
+          0,
+          12,
+          14
+        ]
+      ],
+      "stages": [
+        1,
+        3
+      ]
+    },
+    "shadow_thread_thin": {
+      "path": "parts_and_effects/shadow_thread_thin.png",
+      "cell": [
+        8,
+        24
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        4,
+        12
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          8,
+          24
+        ],
+        [
+          8,
+          0,
+          8,
+          24
+        ],
+        [
+          16,
+          0,
+          8,
+          24
+        ],
+        [
+          24,
+          0,
+          8,
+          24
+        ],
+        [
+          32,
+          0,
+          8,
+          24
+        ],
+        [
+          40,
+          0,
+          8,
+          24
+        ]
+      ],
+      "stages": [
+        4,
+        6
+      ]
+    },
+    "shadow_thread_medium": {
+      "path": "parts_and_effects/shadow_thread_medium.png",
+      "cell": [
+        12,
+        28
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        6,
+        14
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          12,
+          28
+        ],
+        [
+          12,
+          0,
+          12,
+          28
+        ],
+        [
+          24,
+          0,
+          12,
+          28
+        ],
+        [
+          36,
+          0,
+          12,
+          28
+        ],
+        [
+          48,
+          0,
+          12,
+          28
+        ],
+        [
+          60,
+          0,
+          12,
+          28
+        ]
+      ],
+      "stages": [
+        7,
+        9
+      ]
+    },
+    "shadow_thread_column": {
+      "path": "parts_and_effects/shadow_thread_column.png",
+      "cell": [
+        16,
+        32
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        8,
+        16
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          16,
+          32
+        ],
+        [
+          16,
+          0,
+          16,
+          32
+        ],
+        [
+          32,
+          0,
+          16,
+          32
+        ],
+        [
+          48,
+          0,
+          16,
+          32
+        ],
+        [
+          64,
+          0,
+          16,
+          32
+        ],
+        [
+          80,
+          0,
+          16,
+          32
+        ]
+      ],
+      "stages": [
+        10,
+        13
+      ]
+    },
+    "crescent_charm": {
+      "path": "parts_and_effects/crescent_charm.png",
+      "cell": [
+        10,
+        12
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        5,
+        6
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          10,
+          12
+        ],
+        [
+          10,
+          0,
+          10,
+          12
+        ],
+        [
+          20,
+          0,
+          10,
+          12
+        ]
+      ],
+      "stages": [
+        6,
+        13
+      ]
+    },
+    "swinging_shadow": {
+      "path": "parts_and_effects/swinging_shadow.png",
+      "cell": [
+        12,
+        16
+      ],
+      "columns": 4,
+      "frames": 4,
+      "anchor": [
+        6,
+        8
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          12,
+          16
+        ],
+        [
+          12,
+          0,
+          12,
+          16
+        ],
+        [
+          24,
+          0,
+          12,
+          16
+        ],
+        [
+          36,
+          0,
+          12,
+          16
+        ]
+      ],
+      "stages": [
+        8,
+        13
+      ]
+    },
+    "shadow_droplet": {
+      "path": "parts_and_effects/shadow_droplet.png",
+      "cell": [
+        8,
+        12
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        4,
+        6
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          8,
+          12
+        ],
+        [
+          8,
+          0,
+          8,
+          12
+        ],
+        [
+          16,
+          0,
+          8,
+          12
+        ]
+      ],
+      "stages": [
+        8,
+        13
+      ]
+    },
+    "crescent_rim": {
+      "path": "parts_and_effects/crescent_rim.png",
+      "cell": [
+        24,
+        24
+      ],
+      "columns": 1,
+      "frames": 1,
+      "anchor": [
+        12,
+        12
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          24,
+          24
+        ]
+      ],
+      "stages": [
+        7,
+        8
+      ]
+    },
+    "horned_rim": {
+      "path": "parts_and_effects/horned_rim.png",
+      "cell": [
+        28,
+        30
+      ],
+      "columns": 1,
+      "frames": 1,
+      "anchor": [
+        14,
+        15
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          28,
+          30
+        ]
+      ],
+      "stages": [
+        9,
+        12
+      ]
+    },
+    "rim_glint": {
+      "path": "parts_and_effects/rim_glint.png",
+      "cell": [
+        28,
+        30
+      ],
+      "columns": 4,
+      "frames": 4,
+      "anchor": [
+        14,
+        15
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          28,
+          30
+        ],
+        [
+          28,
+          0,
+          28,
+          30
+        ],
+        [
+          56,
+          0,
+          28,
+          30
+        ],
+        [
+          84,
+          0,
+          28,
+          30
+        ]
+      ],
+      "stages": [
+        7,
+        13
+      ]
+    },
+    "ground_hand": {
+      "path": "parts_and_effects/ground_hand.png",
+      "cell": [
+        16,
+        8
+      ],
+      "columns": 4,
+      "frames": 4,
+      "anchor": [
+        8,
+        4
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          16,
+          8
+        ],
+        [
+          16,
+          0,
+          16,
+          8
+        ],
+        [
+          32,
+          0,
+          16,
+          8
+        ],
+        [
+          48,
+          0,
+          16,
+          8
+        ]
+      ],
+      "stages": [
+        10,
+        12
+      ]
+    },
+    "ground_night": {
+      "path": "parts_and_effects/ground_night.png",
+      "cell": [
+        64,
+        64
+      ],
+      "columns": 1,
+      "frames": 1,
+      "anchor": [
+        32,
+        32
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          64,
+          64
+        ]
+      ],
+      "stages": [
+        13,
+        13
+      ]
+    },
+    "ground_star_glint": {
+      "path": "parts_and_effects/ground_star_glint.png",
+      "cell": [
+        64,
+        64
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        32,
+        32
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ]
+      ],
+      "stages": [
+        13,
+        13
+      ]
+    },
+    "wand_debt_ring": {
+      "path": "parts_and_effects/wand_debt_ring.png",
+      "cell": [
+        6,
+        6
+      ],
+      "columns": 2,
+      "frames": 2,
+      "anchor": [
+        3,
+        3
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          6,
+          6
+        ],
+        [
+          6,
+          0,
+          6,
+          6
+        ]
+      ],
+      "stages": [
+        0,
+        13
+      ]
+    },
+    "wand_debt_dissolve": {
+      "path": "parts_and_effects/wand_debt_dissolve.png",
+      "cell": [
+        12,
+        12
+      ],
+      "columns": 4,
+      "frames": 4,
+      "anchor": [
+        6,
+        6
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          12,
+          12
+        ],
+        [
+          12,
+          0,
+          12,
+          12
+        ],
+        [
+          24,
+          0,
+          12,
+          12
+        ],
+        [
+          36,
+          0,
+          12,
+          12
+        ]
+      ],
+      "stages": [
+        0,
+        13
+      ]
+    },
+    "slot_ring_tick": {
+      "path": "parts_and_effects/slot_ring_tick.png",
+      "cell": [
+        8,
+        4
+      ],
+      "columns": 1,
+      "frames": 1,
+      "anchor": [
+        4,
+        2
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          8,
+          4
+        ]
+      ],
+      "stages": [
+        0,
+        13
+      ]
+    },
+    "seal_tie": {
+      "path": "parts_and_effects/seal_tie.png",
+      "cell": [
+        12,
+        12
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        6,
+        6
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          12,
+          12
+        ],
+        [
+          12,
+          0,
+          12,
+          12
+        ],
+        [
+          24,
+          0,
+          12,
+          12
+        ]
+      ],
+      "stages": [
+        0,
+        13
+      ]
+    },
+    "inspection_success_veil": {
+      "path": "parts_and_effects/inspection_success_veil.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        1,
+        13
+      ]
+    },
+    "inspection_success_ring": {
+      "path": "parts_and_effects/inspection_success_ring.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        1,
+        13
+      ]
+    },
+    "inspection_mutation_eye": {
+      "path": "parts_and_effects/inspection_mutation_eye.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        0,
+        13
+      ]
+    },
+    "repair_scars": {
+      "path": "parts_and_effects/repair_scars.png",
+      "cell": [
+        12,
+        12
+      ],
+      "columns": 10,
+      "frames": 10,
+      "anchor": [
+        6,
+        6
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          12,
+          12
+        ],
+        [
+          12,
+          0,
+          12,
+          12
+        ],
+        [
+          24,
+          0,
+          12,
+          12
+        ],
+        [
+          36,
+          0,
+          12,
+          12
+        ],
+        [
+          48,
+          0,
+          12,
+          12
+        ],
+        [
+          60,
+          0,
+          12,
+          12
+        ],
+        [
+          72,
+          0,
+          12,
+          12
+        ],
+        [
+          84,
+          0,
+          12,
+          12
+        ],
+        [
+          96,
+          0,
+          12,
+          12
+        ],
+        [
+          108,
+          0,
+          12,
+          12
+        ]
+      ],
+      "stages": [
+        4,
+        13
+      ]
+    },
+    "falling_parts": {
+      "path": "parts_and_effects/falling_parts.png",
+      "cell": [
+        28,
+        28
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        14,
+        14
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          28,
+          28
+        ],
+        [
+          28,
+          0,
+          28,
+          28
+        ],
+        [
+          56,
+          0,
+          28,
+          28
+        ],
+        [
+          84,
+          0,
+          28,
+          28
+        ],
+        [
+          112,
+          0,
+          28,
+          28
+        ],
+        [
+          140,
+          0,
+          28,
+          28
+        ]
+      ],
+      "frameOrder": [
+        "fingers",
+        "charm",
+        "crescent",
+        "thread",
+        "horn_tip",
+        "dust"
+      ]
+    },
+    "inspection_fall_1": {
+      "path": "parts_and_effects/inspection_fall_1.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ]
+    },
+    "inspection_fall_2": {
+      "path": "parts_and_effects/inspection_fall_2.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ]
+    },
+    "inspection_fall_3": {
+      "path": "parts_and_effects/inspection_fall_3.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ]
+    },
+    "inspection_fall_4": {
+      "path": "parts_and_effects/inspection_fall_4.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ]
+    },
+    "inspection_fall_5": {
+      "path": "parts_and_effects/inspection_fall_5.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ]
+    },
+    "inspection_fall_6": {
+      "path": "parts_and_effects/inspection_fall_6.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ]
+    },
+    "inspection_reattach_1": {
+      "path": "parts_and_effects/inspection_reattach_1.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 4,
+      "frames": 4,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ]
+      ]
+    },
+    "inspection_reattach_2": {
+      "path": "parts_and_effects/inspection_reattach_2.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 4,
+      "frames": 4,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ]
+      ]
+    },
+    "inspection_reattach_3": {
+      "path": "parts_and_effects/inspection_reattach_3.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 4,
+      "frames": 4,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ]
+      ]
+    },
+    "inspection_reattach_4": {
+      "path": "parts_and_effects/inspection_reattach_4.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 4,
+      "frames": 4,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ]
+      ]
+    },
+    "mutation_warped_barrel": {
+      "path": "parts_and_effects/mutation_warped_barrel.png",
+      "cell": [
+        24,
+        24
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        12,
+        12
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          24,
+          24
+        ],
+        [
+          24,
+          0,
+          24,
+          24
+        ],
+        [
+          48,
+          0,
+          24,
+          24
+        ]
+      ],
+      "frameOrder": [
+        "down",
+        "right",
+        "up"
+      ]
+    },
+    "mutation_warped_barrel_motion": {
+      "path": "parts_and_effects/mutation_warped_barrel_motion.png",
+      "cell": [
+        24,
+        24
+      ],
+      "columns": 2,
+      "frames": 2,
+      "anchor": [
+        12,
+        12
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          24,
+          24
+        ],
+        [
+          24,
+          0,
+          24,
+          24
+        ]
+      ]
+    },
+    "mutation_unstable_core": {
+      "path": "parts_and_effects/mutation_unstable_core.png",
+      "cell": [
+        24,
+        24
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        12,
+        12
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          24,
+          24
+        ],
+        [
+          24,
+          0,
+          24,
+          24
+        ],
+        [
+          48,
+          0,
+          24,
+          24
+        ]
+      ],
+      "frameOrder": [
+        "down",
+        "right",
+        "up"
+      ]
+    },
+    "mutation_unstable_core_motion": {
+      "path": "parts_and_effects/mutation_unstable_core_motion.png",
+      "cell": [
+        24,
+        24
+      ],
+      "columns": 2,
+      "frames": 2,
+      "anchor": [
+        12,
+        12
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          24,
+          24
+        ],
+        [
+          24,
+          0,
+          24,
+          24
+        ]
+      ]
+    },
+    "mutation_hair_trigger": {
+      "path": "parts_and_effects/mutation_hair_trigger.png",
+      "cell": [
+        24,
+        24
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        12,
+        12
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          24,
+          24
+        ],
+        [
+          24,
+          0,
+          24,
+          24
+        ],
+        [
+          48,
+          0,
+          24,
+          24
+        ]
+      ],
+      "frameOrder": [
+        "down",
+        "right",
+        "up"
+      ]
+    },
+    "mutation_hair_trigger_motion": {
+      "path": "parts_and_effects/mutation_hair_trigger_motion.png",
+      "cell": [
+        24,
+        24
+      ],
+      "columns": 2,
+      "frames": 2,
+      "anchor": [
+        12,
+        12
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          24,
+          24
+        ],
+        [
+          24,
+          0,
+          24,
+          24
+        ]
+      ]
+    },
+    "mutation_gluttony": {
+      "path": "parts_and_effects/mutation_gluttony.png",
+      "cell": [
+        24,
+        24
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        12,
+        12
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          24,
+          24
+        ],
+        [
+          24,
+          0,
+          24,
+          24
+        ],
+        [
+          48,
+          0,
+          24,
+          24
+        ]
+      ],
+      "frameOrder": [
+        "down",
+        "right",
+        "up"
+      ]
+    },
+    "mutation_gluttony_motion": {
+      "path": "parts_and_effects/mutation_gluttony_motion.png",
+      "cell": [
+        24,
+        24
+      ],
+      "columns": 2,
+      "frames": 2,
+      "anchor": [
+        12,
+        12
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          24,
+          24
+        ],
+        [
+          24,
+          0,
+          24,
+          24
+        ]
+      ]
+    },
+    "mutation_mirror": {
+      "path": "parts_and_effects/mutation_mirror.png",
+      "cell": [
+        24,
+        24
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        12,
+        12
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          24,
+          24
+        ],
+        [
+          24,
+          0,
+          24,
+          24
+        ],
+        [
+          48,
+          0,
+          24,
+          24
+        ]
+      ],
+      "frameOrder": [
+        "down",
+        "right",
+        "up"
+      ]
+    },
+    "mutation_glass": {
+      "path": "parts_and_effects/mutation_glass.png",
+      "cell": [
+        24,
+        24
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        12,
+        12
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          24,
+          24
+        ],
+        [
+          24,
+          0,
+          24,
+          24
+        ],
+        [
+          48,
+          0,
+          24,
+          24
+        ]
+      ],
+      "frameOrder": [
+        "down",
+        "right",
+        "up"
+      ]
+    },
+    "inspection_mutations": {
+      "path": "parts_and_effects/inspection_mutations.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ],
+      "frameOrder": [
+        "barrel",
+        "core",
+        "circuit",
+        "gluttony",
+        "mirror",
+        "glass"
+      ]
+    },
+    "inspection_slot_ring": {
+      "path": "parts_and_effects/inspection_slot_ring.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ]
+      ],
+      "frameOrder": [
+        "ring",
+        "empty_mount",
+        "lit_mount"
+      ]
+    },
+    "inspection_idle_band_1": {
+      "path": "parts_and_effects/inspection_idle_band_1.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 5,
+      "frames": 5,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ]
+      ]
+    },
+    "inspection_idle_band_2": {
+      "path": "parts_and_effects/inspection_idle_band_2.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ]
+    },
+    "inspection_idle_band_3": {
+      "path": "parts_and_effects/inspection_idle_band_3.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ]
+    },
+    "inspection_idle_band_4": {
+      "path": "parts_and_effects/inspection_idle_band_4.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ]
+    },
+    "inspection_idle_band_5": {
+      "path": "parts_and_effects/inspection_idle_band_5.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ]
+    },
+    "inspection_idle_band_6": {
+      "path": "parts_and_effects/inspection_idle_band_6.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ]
+    },
+    "inspection_idle_band_7": {
+      "path": "parts_and_effects/inspection_idle_band_7.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ]
+    },
+    "inspection_idle_band_8": {
+      "path": "parts_and_effects/inspection_idle_band_8.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ]
+    },
+    "inspection_idle_band_9": {
+      "path": "parts_and_effects/inspection_idle_band_9.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ]
+    },
+    "milestone_04": {
+      "path": "parts_and_effects/milestone_04.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 8,
+      "frames": 16,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ],
+        [
+          1152,
+          0,
+          192,
+          192
+        ],
+        [
+          1344,
+          0,
+          192,
+          192
+        ],
+        [
+          0,
+          192,
+          192,
+          192
+        ],
+        [
+          192,
+          192,
+          192,
+          192
+        ],
+        [
+          384,
+          192,
+          192,
+          192
+        ],
+        [
+          576,
+          192,
+          192,
+          192
+        ],
+        [
+          768,
+          192,
+          192,
+          192
+        ],
+        [
+          960,
+          192,
+          192,
+          192
+        ],
+        [
+          1152,
+          192,
+          192,
+          192
+        ],
+        [
+          1344,
+          192,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        4,
+        4
+      ]
+    },
+    "milestone_07": {
+      "path": "parts_and_effects/milestone_07.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 8,
+      "frames": 16,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ],
+        [
+          1152,
+          0,
+          192,
+          192
+        ],
+        [
+          1344,
+          0,
+          192,
+          192
+        ],
+        [
+          0,
+          192,
+          192,
+          192
+        ],
+        [
+          192,
+          192,
+          192,
+          192
+        ],
+        [
+          384,
+          192,
+          192,
+          192
+        ],
+        [
+          576,
+          192,
+          192,
+          192
+        ],
+        [
+          768,
+          192,
+          192,
+          192
+        ],
+        [
+          960,
+          192,
+          192,
+          192
+        ],
+        [
+          1152,
+          192,
+          192,
+          192
+        ],
+        [
+          1344,
+          192,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        7,
+        7
+      ]
+    },
+    "milestone_10": {
+      "path": "parts_and_effects/milestone_10.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 8,
+      "frames": 20,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ],
+        [
+          1152,
+          0,
+          192,
+          192
+        ],
+        [
+          1344,
+          0,
+          192,
+          192
+        ],
+        [
+          0,
+          192,
+          192,
+          192
+        ],
+        [
+          192,
+          192,
+          192,
+          192
+        ],
+        [
+          384,
+          192,
+          192,
+          192
+        ],
+        [
+          576,
+          192,
+          192,
+          192
+        ],
+        [
+          768,
+          192,
+          192,
+          192
+        ],
+        [
+          960,
+          192,
+          192,
+          192
+        ],
+        [
+          1152,
+          192,
+          192,
+          192
+        ],
+        [
+          1344,
+          192,
+          192,
+          192
+        ],
+        [
+          0,
+          384,
+          192,
+          192
+        ],
+        [
+          192,
+          384,
+          192,
+          192
+        ],
+        [
+          384,
+          384,
+          192,
+          192
+        ],
+        [
+          576,
+          384,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        10,
+        10
+      ]
+    },
+    "milestone_13": {
+      "path": "parts_and_effects/milestone_13.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 8,
+      "frames": 24,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ],
+        [
+          1152,
+          0,
+          192,
+          192
+        ],
+        [
+          1344,
+          0,
+          192,
+          192
+        ],
+        [
+          0,
+          192,
+          192,
+          192
+        ],
+        [
+          192,
+          192,
+          192,
+          192
+        ],
+        [
+          384,
+          192,
+          192,
+          192
+        ],
+        [
+          576,
+          192,
+          192,
+          192
+        ],
+        [
+          768,
+          192,
+          192,
+          192
+        ],
+        [
+          960,
+          192,
+          192,
+          192
+        ],
+        [
+          1152,
+          192,
+          192,
+          192
+        ],
+        [
+          1344,
+          192,
+          192,
+          192
+        ],
+        [
+          0,
+          384,
+          192,
+          192
+        ],
+        [
+          192,
+          384,
+          192,
+          192
+        ],
+        [
+          384,
+          384,
+          192,
+          192
+        ],
+        [
+          576,
+          384,
+          192,
+          192
+        ],
+        [
+          768,
+          384,
+          192,
+          192
+        ],
+        [
+          960,
+          384,
+          192,
+          192
+        ],
+        [
+          1152,
+          384,
+          192,
+          192
+        ],
+        [
+          1344,
+          384,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        13,
+        13
+      ]
+    },
+    "release_05": {
+      "path": "parts_and_effects/release_05.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        5,
+        5
+      ]
+    },
+    "release_11": {
+      "path": "parts_and_effects/release_11.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        11,
+        11
+      ]
+    },
+    "release_12": {
+      "path": "parts_and_effects/release_12.png",
+      "cell": [
+        192,
+        192
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        96,
+        96
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          192,
+          192
+        ],
+        [
+          192,
+          0,
+          192,
+          192
+        ],
+        [
+          384,
+          0,
+          192,
+          192
+        ],
+        [
+          576,
+          0,
+          192,
+          192
+        ],
+        [
+          768,
+          0,
+          192,
+          192
+        ],
+        [
+          960,
+          0,
+          192,
+          192
+        ]
+      ],
+      "stages": [
+        12,
+        12
+      ]
+    },
+    "projectile_crescent": {
+      "path": "parts_and_effects/projectile_crescent.png",
+      "cell": [
+        40,
+        40
+      ],
+      "columns": 4,
+      "frames": 4,
+      "anchor": [
+        20,
+        20
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          40,
+          40
+        ],
+        [
+          40,
+          0,
+          40,
+          40
+        ],
+        [
+          80,
+          0,
+          40,
+          40
+        ],
+        [
+          120,
+          0,
+          40,
+          40
+        ]
+      ]
+    },
+    "projectile_eclipse": {
+      "path": "parts_and_effects/projectile_eclipse.png",
+      "cell": [
+        40,
+        40
+      ],
+      "columns": 4,
+      "frames": 4,
+      "anchor": [
+        20,
+        20
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          40,
+          40
+        ],
+        [
+          40,
+          0,
+          40,
+          40
+        ],
+        [
+          80,
+          0,
+          40,
+          40
+        ],
+        [
+          120,
+          0,
+          40,
+          40
+        ]
+      ]
+    },
+    "trail_narrow": {
+      "path": "parts_and_effects/trail_narrow.png",
+      "cell": [
+        16,
+        8
+      ],
+      "columns": 1,
+      "frames": 1,
+      "anchor": [
+        8,
+        4
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          16,
+          8
+        ]
+      ]
+    },
+    "trail_long": {
+      "path": "parts_and_effects/trail_long.png",
+      "cell": [
+        24,
+        8
+      ],
+      "columns": 1,
+      "frames": 1,
+      "anchor": [
+        12,
+        4
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          24,
+          8
+        ]
+      ]
+    },
+    "trail_afterimage": {
+      "path": "parts_and_effects/trail_afterimage.png",
+      "cell": [
+        16,
+        12
+      ],
+      "columns": 1,
+      "frames": 1,
+      "anchor": [
+        8,
+        6
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          16,
+          12
+        ]
+      ]
+    },
+    "trail_smoke": {
+      "path": "parts_and_effects/trail_smoke.png",
+      "cell": [
+        32,
+        16
+      ],
+      "columns": 4,
+      "frames": 4,
+      "anchor": [
+        16,
+        8
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          32,
+          16
+        ],
+        [
+          32,
+          0,
+          32,
+          16
+        ],
+        [
+          64,
+          0,
+          32,
+          16
+        ],
+        [
+          96,
+          0,
+          32,
+          16
+        ]
+      ]
+    },
+    "trail_ring": {
+      "path": "parts_and_effects/trail_ring.png",
+      "cell": [
+        24,
+        16
+      ],
+      "columns": 2,
+      "frames": 2,
+      "anchor": [
+        12,
+        8
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          24,
+          16
+        ],
+        [
+          24,
+          0,
+          24,
+          16
+        ]
+      ]
+    },
+    "trail_broken": {
+      "path": "parts_and_effects/trail_broken.png",
+      "cell": [
+        24,
+        16
+      ],
+      "columns": 1,
+      "frames": 1,
+      "anchor": [
+        12,
+        8
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          24,
+          16
+        ]
+      ]
+    },
+    "trail_shadow_band": {
+      "path": "parts_and_effects/trail_shadow_band.png",
+      "cell": [
+        32,
+        16
+      ],
+      "columns": 4,
+      "frames": 4,
+      "anchor": [
+        16,
+        8
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          32,
+          16
+        ],
+        [
+          32,
+          0,
+          32,
+          16
+        ],
+        [
+          64,
+          0,
+          32,
+          16
+        ],
+        [
+          96,
+          0,
+          32,
+          16
+        ]
+      ]
+    },
+    "trail_stardust": {
+      "path": "parts_and_effects/trail_stardust.png",
+      "cell": [
+        32,
+        16
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        16,
+        8
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          32,
+          16
+        ],
+        [
+          32,
+          0,
+          32,
+          16
+        ],
+        [
+          64,
+          0,
+          32,
+          16
+        ]
+      ]
+    },
+    "muzzle_smoke": {
+      "path": "parts_and_effects/muzzle_smoke.png",
+      "cell": [
+        24,
+        16
+      ],
+      "columns": 2,
+      "frames": 2,
+      "anchor": [
+        12,
+        8
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          24,
+          16
+        ],
+        [
+          24,
+          0,
+          24,
+          16
+        ]
+      ]
+    },
+    "muzzle_eye": {
+      "path": "parts_and_effects/muzzle_eye.png",
+      "cell": [
+        16,
+        8
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        8,
+        4
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          16,
+          8
+        ],
+        [
+          16,
+          0,
+          16,
+          8
+        ],
+        [
+          32,
+          0,
+          16,
+          8
+        ]
+      ]
+    },
+    "muzzle_crescent": {
+      "path": "parts_and_effects/muzzle_crescent.png",
+      "cell": [
+        32,
+        32
+      ],
+      "columns": 4,
+      "frames": 4,
+      "anchor": [
+        16,
+        16
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ],
+        [
+          96,
+          0,
+          32,
+          32
+        ]
+      ]
+    },
+    "muzzle_horns": {
+      "path": "parts_and_effects/muzzle_horns.png",
+      "cell": [
+        32,
+        32
+      ],
+      "columns": 4,
+      "frames": 4,
+      "anchor": [
+        16,
+        16
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ],
+        [
+          96,
+          0,
+          32,
+          32
+        ]
+      ]
+    },
+    "muzzle_shadow_hand": {
+      "path": "parts_and_effects/muzzle_shadow_hand.png",
+      "cell": [
+        48,
+        32
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        24,
+        16
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          48,
+          32
+        ],
+        [
+          48,
+          0,
+          48,
+          32
+        ],
+        [
+          96,
+          0,
+          48,
+          32
+        ],
+        [
+          144,
+          0,
+          48,
+          32
+        ],
+        [
+          192,
+          0,
+          48,
+          32
+        ],
+        [
+          240,
+          0,
+          48,
+          32
+        ]
+      ]
+    },
+    "muzzle_black_moon": {
+      "path": "parts_and_effects/muzzle_black_moon.png",
+      "cell": [
+        48,
+        48
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        24,
+        24
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          48,
+          48
+        ],
+        [
+          48,
+          0,
+          48,
+          48
+        ],
+        [
+          96,
+          0,
+          48,
+          48
+        ],
+        [
+          144,
+          0,
+          48,
+          48
+        ],
+        [
+          192,
+          0,
+          48,
+          48
+        ],
+        [
+          240,
+          0,
+          48,
+          48
+        ]
+      ]
+    },
+    "impact_ring": {
+      "path": "parts_and_effects/impact_ring.png",
+      "cell": [
+        24,
+        24
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        12,
+        12
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          24,
+          24
+        ],
+        [
+          24,
+          0,
+          24,
+          24
+        ],
+        [
+          48,
+          0,
+          24,
+          24
+        ]
+      ]
+    },
+    "impact_eyelid": {
+      "path": "parts_and_effects/impact_eyelid.png",
+      "cell": [
+        32,
+        24
+      ],
+      "columns": 4,
+      "frames": 4,
+      "anchor": [
+        16,
+        12
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          32,
+          24
+        ],
+        [
+          32,
+          0,
+          32,
+          24
+        ],
+        [
+          64,
+          0,
+          32,
+          24
+        ],
+        [
+          96,
+          0,
+          32,
+          24
+        ]
+      ]
+    },
+    "impact_crescent": {
+      "path": "parts_and_effects/impact_crescent.png",
+      "cell": [
+        40,
+        40
+      ],
+      "columns": 5,
+      "frames": 5,
+      "anchor": [
+        20,
+        20
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          40,
+          40
+        ],
+        [
+          40,
+          0,
+          40,
+          40
+        ],
+        [
+          80,
+          0,
+          40,
+          40
+        ],
+        [
+          120,
+          0,
+          40,
+          40
+        ],
+        [
+          160,
+          0,
+          40,
+          40
+        ]
+      ]
+    },
+    "impact_eclipse": {
+      "path": "parts_and_effects/impact_eclipse.png",
+      "cell": [
+        32,
+        32
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        16,
+        16
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ],
+        [
+          96,
+          0,
+          32,
+          32
+        ],
+        [
+          128,
+          0,
+          32,
+          32
+        ],
+        [
+          160,
+          0,
+          32,
+          32
+        ]
+      ]
+    },
+    "impact_large_eclipse": {
+      "path": "parts_and_effects/impact_large_eclipse.png",
+      "cell": [
+        64,
+        64
+      ],
+      "columns": 8,
+      "frames": 8,
+      "anchor": [
+        32,
+        32
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          64,
+          64
+        ],
+        [
+          64,
+          0,
+          64,
+          64
+        ],
+        [
+          128,
+          0,
+          64,
+          64
+        ],
+        [
+          192,
+          0,
+          64,
+          64
+        ],
+        [
+          256,
+          0,
+          64,
+          64
+        ],
+        [
+          320,
+          0,
+          64,
+          64
+        ],
+        [
+          384,
+          0,
+          64,
+          64
+        ],
+        [
+          448,
+          0,
+          64,
+          64
+        ]
+      ]
+    },
+    "impact_stain": {
+      "path": "parts_and_effects/impact_stain.png",
+      "cell": [
+        32,
+        16
+      ],
+      "columns": 1,
+      "frames": 1,
+      "anchor": [
+        16,
+        8
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          32,
+          16
+        ]
+      ]
+    },
+    "impact_droplets": {
+      "path": "parts_and_effects/impact_droplets.png",
+      "cell": [
+        20,
+        24
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        10,
+        12
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          20,
+          24
+        ],
+        [
+          20,
+          0,
+          20,
+          24
+        ],
+        [
+          40,
+          0,
+          20,
+          24
+        ]
+      ]
+    },
+    "impact_droplet_trace": {
+      "path": "parts_and_effects/impact_droplet_trace.png",
+      "cell": [
+        32,
+        16
+      ],
+      "columns": 4,
+      "frames": 4,
+      "anchor": [
+        16,
+        8
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          32,
+          16
+        ],
+        [
+          32,
+          0,
+          32,
+          16
+        ],
+        [
+          64,
+          0,
+          32,
+          16
+        ],
+        [
+          96,
+          0,
+          32,
+          16
+        ]
+      ]
+    },
+    "impact_shards": {
+      "path": "parts_and_effects/impact_shards.png",
+      "cell": [
+        32,
+        32
+      ],
+      "columns": 3,
+      "frames": 3,
+      "anchor": [
+        16,
+        16
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          32,
+          32
+        ],
+        [
+          32,
+          0,
+          32,
+          32
+        ],
+        [
+          64,
+          0,
+          32,
+          32
+        ]
+      ]
+    },
+    "impact_night_trace": {
+      "path": "parts_and_effects/impact_night_trace.png",
+      "cell": [
+        32,
+        24
+      ],
+      "columns": 1,
+      "frames": 1,
+      "anchor": [
+        16,
+        12
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          32,
+          24
+        ]
+      ]
+    },
+    "critical_ring_shards": {
+      "path": "parts_and_effects/critical_ring_shards.png",
+      "cell": [
+        48,
+        48
+      ],
+      "columns": 5,
+      "frames": 5,
+      "anchor": [
+        24,
+        24
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          48,
+          48
+        ],
+        [
+          48,
+          0,
+          48,
+          48
+        ],
+        [
+          96,
+          0,
+          48,
+          48
+        ],
+        [
+          144,
+          0,
+          48,
+          48
+        ],
+        [
+          192,
+          0,
+          48,
+          48
+        ]
+      ]
+    },
+    "defeat_shadow_sink": {
+      "path": "parts_and_effects/defeat_shadow_sink.png",
+      "cell": [
+        48,
+        48
+      ],
+      "columns": 6,
+      "frames": 6,
+      "anchor": [
+        24,
+        24
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          48,
+          48
+        ],
+        [
+          48,
+          0,
+          48,
+          48
+        ],
+        [
+          96,
+          0,
+          48,
+          48
+        ],
+        [
+          144,
+          0,
+          48,
+          48
+        ],
+        [
+          192,
+          0,
+          48,
+          48
+        ],
+        [
+          240,
+          0,
+          48,
+          48
+        ]
+      ]
+    }
+  }
+}

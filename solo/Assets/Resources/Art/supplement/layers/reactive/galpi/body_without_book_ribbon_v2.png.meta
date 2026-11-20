@@ -1,0 +1,3767 @@
+fileFormatVersion: 2
+guid: ca9335a73a3e798449d67ba8f339c071
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2040075116620019069
+    second: body_without_book_ribbon_v2_0
+  - first:
+      213: -5279498950098374094
+    second: body_without_book_ribbon_v2_1
+  - first:
+      213: -681281157947069787
+    second: body_without_book_ribbon_v2_2
+  - first:
+      213: 8612735806442332453
+    second: body_without_book_ribbon_v2_3
+  - first:
+      213: 5158544183751003058
+    second: body_without_book_ribbon_v2_4
+  - first:
+      213: 5297243386176217331
+    second: body_without_book_ribbon_v2_5
+  - first:
+      213: 7428501994034128513
+    second: body_without_book_ribbon_v2_6
+  - first:
+      213: 2842956243748313206
+    second: body_without_book_ribbon_v2_7
+  - first:
+      213: 231100818854421436
+    second: body_without_book_ribbon_v2_8
+  - first:
+      213: -7450869943087340802
+    second: body_without_book_ribbon_v2_9
+  - first:
+      213: -7681327457344149471
+    second: body_without_book_ribbon_v2_10
+  - first:
+      213: 7899864515609404887
+    second: body_without_book_ribbon_v2_11
+  - first:
+      213: 3097834240858402108
+    second: body_without_book_ribbon_v2_12
+  - first:
+      213: 725069380730767122
+    second: body_without_book_ribbon_v2_13
+  - first:
+      213: 363446259640991997
+    second: body_without_book_ribbon_v2_14
+  - first:
+      213: -8043918210036197674
+    second: body_without_book_ribbon_v2_15
+  - first:
+      213: -1317527465877157713
+    second: body_without_book_ribbon_v2_16
+  - first:
+      213: 7567433198482839873
+    second: body_without_book_ribbon_v2_17
+  - first:
+      213: 787264371020773859
+    second: body_without_book_ribbon_v2_18
+  - first:
+      213: -8692598193702586413
+    second: body_without_book_ribbon_v2_19
+  - first:
+      213: 2152694347108861257
+    second: body_without_book_ribbon_v2_20
+  - first:
+      213: 9217910423110809631
+    second: body_without_book_ribbon_v2_21
+  - first:
+      213: -411308625726278698
+    second: body_without_book_ribbon_v2_22
+  - first:
+      213: 7843873596852943336
+    second: body_without_book_ribbon_v2_23
+  - first:
+      213: 647723427658713861
+    second: body_without_book_ribbon_v2_24
+  - first:
+      213: 8644444241197184801
+    second: body_without_book_ribbon_v2_25
+  - first:
+      213: 242729562343105780
+    second: body_without_book_ribbon_v2_26
+  - first:
+      213: 4221512129478976156
+    second: body_without_book_ribbon_v2_27
+  - first:
+      213: -1909497119917229774
+    second: body_without_book_ribbon_v2_28
+  - first:
+      213: -616480211858865780
+    second: body_without_book_ribbon_v2_29
+  - first:
+      213: -9009649109165125054
+    second: body_without_book_ribbon_v2_30
+  - first:
+      213: 8348759931852739631
+    second: body_without_book_ribbon_v2_31
+  - first:
+      213: 1153401604206564215
+    second: body_without_book_ribbon_v2_32
+  - first:
+      213: 7362832207312796418
+    second: body_without_book_ribbon_v2_33
+  - first:
+      213: -1755730638336929611
+    second: body_without_book_ribbon_v2_34
+  - first:
+      213: -1938979371783743714
+    second: body_without_book_ribbon_v2_35
+  - first:
+      213: 9093782497032624526
+    second: body_without_book_ribbon_v2_36
+  - first:
+      213: 8337234428285019757
+    second: body_without_book_ribbon_v2_37
+  - first:
+      213: 1230764501716300585
+    second: body_without_book_ribbon_v2_38
+  - first:
+      213: 1424057185525739594
+    second: body_without_book_ribbon_v2_39
+  - first:
+      213: 1432320554569474985
+    second: body_without_book_ribbon_v2_40
+  - first:
+      213: 1728734995645760831
+    second: body_without_book_ribbon_v2_41
+  - first:
+      213: -4942806505773260946
+    second: body_without_book_ribbon_v2_42
+  - first:
+      213: 2487225946442322891
+    second: body_without_book_ribbon_v2_43
+  - first:
+      213: 7659184491249408066
+    second: body_without_book_ribbon_v2_44
+  - first:
+      213: -2118162589180829360
+    second: body_without_book_ribbon_v2_45
+  - first:
+      213: -7855605386514542380
+    second: body_without_book_ribbon_v2_46
+  - first:
+      213: -7593703126357839069
+    second: body_without_book_ribbon_v2_47
+  - first:
+      213: -5760294204072568101
+    second: body_without_book_ribbon_v2_48
+  - first:
+      213: -4738995239150683976
+    second: body_without_book_ribbon_v2_49
+  - first:
+      213: -7169165489214953766
+    second: body_without_book_ribbon_v2_50
+  - first:
+      213: 4655563326442210217
+    second: body_without_book_ribbon_v2_51
+  - first:
+      213: -1831908355998973736
+    second: body_without_book_ribbon_v2_52
+  - first:
+      213: 4550008505760922750
+    second: body_without_book_ribbon_v2_53
+  - first:
+      213: -6006837993987105381
+    second: body_without_book_ribbon_v2_54
+  - first:
+      213: -492664547232220585
+    second: body_without_book_ribbon_v2_55
+  - first:
+      213: 414779993975782269
+    second: body_without_book_ribbon_v2_56
+  - first:
+      213: 1937695049713041577
+    second: body_without_book_ribbon_v2_57
+  - first:
+      213: 8227050622614076041
+    second: body_without_book_ribbon_v2_58
+  - first:
+      213: -6693019596272679055
+    second: body_without_book_ribbon_v2_59
+  - first:
+      213: -3782077810423329406
+    second: body_without_book_ribbon_v2_60
+  - first:
+      213: 8736617824560321341
+    second: body_without_book_ribbon_v2_61
+  - first:
+      213: 5098888711545839242
+    second: body_without_book_ribbon_v2_62
+  - first:
+      213: -7631999316573909441
+    second: body_without_book_ribbon_v2_63
+  - first:
+      213: 2781188151738471783
+    second: body_without_book_ribbon_v2_64
+  - first:
+      213: -8620859333322865363
+    second: body_without_book_ribbon_v2_65
+  - first:
+      213: -2627247058423837100
+    second: body_without_book_ribbon_v2_66
+  - first:
+      213: -8730750276186446506
+    second: body_without_book_ribbon_v2_67
+  - first:
+      213: -6584720220985609009
+    second: body_without_book_ribbon_v2_68
+  - first:
+      213: -7119201280152282094
+    second: body_without_book_ribbon_v2_69
+  - first:
+      213: 753986651398505049
+    second: body_without_book_ribbon_v2_70
+  - first:
+      213: 7105820044193798967
+    second: body_without_book_ribbon_v2_71
+  - first:
+      213: -4715989632075125063
+    second: body_without_book_ribbon_v2_72
+  - first:
+      213: -6500627069972521069
+    second: body_without_book_ribbon_v2_73
+  - first:
+      213: 279436371617922676
+    second: body_without_book_ribbon_v2_74
+  - first:
+      213: 6420968643998467234
+    second: body_without_book_ribbon_v2_75
+  - first:
+      213: -3283461468016633901
+    second: body_without_book_ribbon_v2_76
+  - first:
+      213: -1155803683093223812
+    second: body_without_book_ribbon_v2_77
+  - first:
+      213: 6458299014919372663
+    second: body_without_book_ribbon_v2_78
+  - first:
+      213: -227782655447478175
+    second: body_without_book_ribbon_v2_79
+  - first:
+      213: 1535519174740331113
+    second: body_without_book_ribbon_v2_80
+  - first:
+      213: 5474982070552782521
+    second: body_without_book_ribbon_v2_81
+  - first:
+      213: -6959228763416703897
+    second: body_without_book_ribbon_v2_82
+  - first:
+      213: -5854756695022345914
+    second: body_without_book_ribbon_v2_83
+  - first:
+      213: 1845699481139164409
+    second: body_without_book_ribbon_v2_84
+  - first:
+      213: -3291411461206517114
+    second: body_without_book_ribbon_v2_85
+  - first:
+      213: 1843174716814025553
+    second: body_without_book_ribbon_v2_86
+  - first:
+      213: -5472386938350207587
+    second: body_without_book_ribbon_v2_87
+  - first:
+      213: 3006036741974696275
+    second: body_without_book_ribbon_v2_88
+  - first:
+      213: 1636588029674843722
+    second: body_without_book_ribbon_v2_89
+  - first:
+      213: 836930609431486609
+    second: body_without_book_ribbon_v2_90
+  - first:
+      213: -8185281291470899492
+    second: body_without_book_ribbon_v2_91
+  - first:
+      213: -9169728343710117133
+    second: body_without_book_ribbon_v2_92
+  - first:
+      213: 2157959015502869778
+    second: body_without_book_ribbon_v2_93
+  - first:
+      213: 7724843801177946150
+    second: body_without_book_ribbon_v2_94
+  - first:
+      213: -8799853031426603400
+    second: body_without_book_ribbon_v2_95
+  - first:
+      213: -6390156777476480457
+    second: body_without_book_ribbon_v2_96
+  - first:
+      213: -3723107597396327538
+    second: body_without_book_ribbon_v2_97
+  - first:
+      213: -5302335815040422369
+    second: body_without_book_ribbon_v2_98
+  - first:
+      213: 2559200436046134990
+    second: body_without_book_ribbon_v2_99
+  - first:
+      213: 9161239897867790591
+    second: body_without_book_ribbon_v2_100
+  - first:
+      213: 3885356711311848382
+    second: body_without_book_ribbon_v2_101
+  - first:
+      213: 2107560401197994169
+    second: body_without_book_ribbon_v2_102
+  - first:
+      213: 2275759569309988553
+    second: body_without_book_ribbon_v2_103
+  - first:
+      213: 8118972405761261735
+    second: body_without_book_ribbon_v2_104
+  - first:
+      213: -7629894489303965727
+    second: body_without_book_ribbon_v2_105
+  - first:
+      213: -3535400411301516711
+    second: body_without_book_ribbon_v2_106
+  - first:
+      213: 1762583793920012091
+    second: body_without_book_ribbon_v2_107
+  - first:
+      213: 7328034059548806839
+    second: body_without_book_ribbon_v2_108
+  - first:
+      213: 8856579965757812274
+    second: body_without_book_ribbon_v2_109
+  - first:
+      213: -1058858065229746382
+    second: body_without_book_ribbon_v2_110
+  - first:
+      213: -2969154936495864616
+    second: body_without_book_ribbon_v2_111
+  - first:
+      213: 731441612360881128
+    second: body_without_book_ribbon_v2_112
+  - first:
+      213: -6811647456899348752
+    second: body_without_book_ribbon_v2_113
+  - first:
+      213: -1732157529301801643
+    second: body_without_book_ribbon_v2_114
+  - first:
+      213: -3518657942853508940
+    second: body_without_book_ribbon_v2_115
+  - first:
+      213: 4367562804741833338
+    second: body_without_book_ribbon_v2_116
+  - first:
+      213: 4352841393356636588
+    second: body_without_book_ribbon_v2_117
+  - first:
+      213: 1813661127629837299
+    second: body_without_book_ribbon_v2_118
+  - first:
+      213: 4974447648245651619
+    second: body_without_book_ribbon_v2_119
+  - first:
+      213: -4147004621506175770
+    second: body_without_book_ribbon_v2_120
+  - first:
+      213: 6403964930659896434
+    second: body_without_book_ribbon_v2_121
+  - first:
+      213: -6314249602190530275
+    second: body_without_book_ribbon_v2_122
+  - first:
+      213: -1632837312798180049
+    second: body_without_book_ribbon_v2_123
+  - first:
+      213: -7799783401698163144
+    second: body_without_book_ribbon_v2_124
+  - first:
+      213: 6002227569735302557
+    second: body_without_book_ribbon_v2_125
+  - first:
+      213: 5611503588083827098
+    second: body_without_book_ribbon_v2_126
+  - first:
+      213: -7750078705244779393
+    second: body_without_book_ribbon_v2_127
+  - first:
+      213: -7215862277494202419
+    second: body_without_book_ribbon_v2_128
+  - first:
+      213: 5334814892291115973
+    second: body_without_book_ribbon_v2_129
+  - first:
+      213: -2353609349996919159
+    second: body_without_book_ribbon_v2_130
+  - first:
+      213: 7998993454380387555
+    second: body_without_book_ribbon_v2_131
+  - first:
+      213: -4098010100707144096
+    second: body_without_book_ribbon_v2_132
+  - first:
+      213: -4827631546599358053
+    second: body_without_book_ribbon_v2_133
+  - first:
+      213: -7389160066113147968
+    second: body_without_book_ribbon_v2_134
+  - first:
+      213: 9167804509258684094
+    second: body_without_book_ribbon_v2_135
+  - first:
+      213: 1604617707080073502
+    second: body_without_book_ribbon_v2_136
+  - first:
+      213: -4230287585335850157
+    second: body_without_book_ribbon_v2_137
+  - first:
+      213: -2600723542553956506
+    second: body_without_book_ribbon_v2_138
+  - first:
+      213: -2725484088801140553
+    second: body_without_book_ribbon_v2_139
+  - first:
+      213: -4023233851478073636
+    second: body_without_book_ribbon_v2_140
+  - first:
+      213: -7825644664510963034
+    second: body_without_book_ribbon_v2_141
+  - first:
+      213: -6556950834332490027
+    second: body_without_book_ribbon_v2_142
+  - first:
+      213: 494614611293017737
+    second: body_without_book_ribbon_v2_143
+  - first:
+      213: 4230767035987420747
+    second: body_without_book_ribbon_v2_144
+  - first:
+      213: 9024205214044434551
+    second: body_without_book_ribbon_v2_145
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_0
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 770
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d75ff31828dcf4c10800000000000000
+      internalID: 2040075116620019069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_1
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 771
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 232b6574da37bb6b0800000000000000
+      internalID: -5279498950098374094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_2
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 771
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5aae56c756a9b86f0800000000000000
+      internalID: -681281157947069787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_3
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 770
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 521684f6595968770800000000000000
+      internalID: 8612735806442332453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_4
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 770
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bbc2ae9a94d69740800000000000000
+      internalID: 5158544183751003058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_5
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 771
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f022d13bc6938940800000000000000
+      internalID: 5297243386176217331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_6
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 771
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1866fa7a437571760800000000000000
+      internalID: 7428501994034128513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_7
+      rect:
+        serializedVersion: 2
+        x: 457
+        y: 770
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 678d89c14a5347720800000000000000
+      internalID: 2842956243748313206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_8
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 770
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb3ae1768f8053300800000000000000
+      internalID: 231100818854421436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_9
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 771
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef2e4ae5341399890800000000000000
+      internalID: -7450869943087340802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_10
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 771
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1282c8dff51766590800000000000000
+      internalID: -7681327457344149471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_11
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 770
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d5ac92fbe4f1ad60800000000000000
+      internalID: 7899864515609404887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_12
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 706
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3d286b34d7bdfa20800000000000000
+      internalID: 3097834240858402108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_13
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 706
+        width: 41
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21748fb92c6ff0a00800000000000000
+      internalID: 725069380730767122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_14
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 706
+        width: 41
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df088d092783b0500800000000000000
+      internalID: 363446259640991997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_15
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 706
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d61f78a1034e5090800000000000000
+      internalID: -8043918210036197674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_16
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 706
+        width: 41
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa8429610c337bde0800000000000000
+      internalID: -1317527465877157713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_17
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 706
+        width: 41
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1495119666ce40960800000000000000
+      internalID: 7567433198482839873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_18
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 706
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e9b30b36ccecea00800000000000000
+      internalID: 787264371020773859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_19
+      rect:
+        serializedVersion: 2
+        x: 458
+        y: 707
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d7b7298fffad5780800000000000000
+      internalID: -8692598193702586413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_20
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 707
+        width: 41
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9454a6d6a18efdd10800000000000000
+      internalID: 2152694347108861257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_21
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 706
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f18f3e4f0b89cef70800000000000000
+      internalID: 9217910423110809631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_22
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 706
+        width: 41
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d3f78eebfcba4af0800000000000000
+      internalID: -411308625726278698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_23
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 706
+        width: 41
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e93c7b4a790bdc60800000000000000
+      internalID: 7843873596852943336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_24
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 642
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50bcb42960d2df800800000000000000
+      internalID: 647723427658713861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_25
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 642
+        width: 41
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 127ba35bc3c37f770800000000000000
+      internalID: 8644444241197184801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_26
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 642
+        width: 41
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f462fb30495e5300800000000000000
+      internalID: 242729562343105780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_27
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 642
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c92e89c4ae2d59a30800000000000000
+      internalID: 4221512129478976156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_28
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 642
+        width: 41
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 239b3b38c7a1085e0800000000000000
+      internalID: -1909497119917229774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_29
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 642
+        width: 41
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8148197382d177f0800000000000000
+      internalID: -616480211858865780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_30
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 642
+        width: 41
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2425c41dedb47f280800000000000000
+      internalID: -9009649109165125054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_31
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 642
+        width: 41
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f24d815ace0ccd370800000000000000
+      internalID: 8348759931852739631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_32
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 642
+        width: 41
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7731916e5a4b10010800000000000000
+      internalID: 1153401604206564215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_33
+      rect:
+        serializedVersion: 2
+        x: 590
+        y: 642
+        width: 42
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20b3fa1f1e80e2660800000000000000
+      internalID: 7362832207312796418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_34
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 642
+        width: 41
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b058a4694462a7e0800000000000000
+      internalID: -1755730638336929611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_35
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 643
+        width: 41
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e171506d88c5715e0800000000000000
+      internalID: -1938979371783743714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_36
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 578
+        width: 41
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e895b48000b933e70800000000000000
+      internalID: 9093782497032624526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_37
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 578
+        width: 41
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d66e51b3a8ec3b370800000000000000
+      internalID: 8337234428285019757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_38
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 578
+        width: 42
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 923f5fe1bcd841110800000000000000
+      internalID: 1230764501716300585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_39
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 578
+        width: 41
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a40ba1b177443c310800000000000000
+      internalID: 1424057185525739594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_40
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 578
+        width: 42
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a3aa93a4ff90e310800000000000000
+      internalID: 1432320554569474985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_41
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 578
+        width: 43
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f35804eb153bdf710800000000000000
+      internalID: 1728734995645760831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_42
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 578
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6f15edcbaf976bb0800000000000000
+      internalID: -4942806505773260946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_43
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 579
+        width: 43
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc354d502d6648220800000000000000
+      internalID: 2487225946442322891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_44
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 579
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2481a16f6b3ea4a60800000000000000
+      internalID: 7659184491249408066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_45
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 578
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 051ea5ff856ca92e0800000000000000
+      internalID: -2118162589180829360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_46
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 579
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d0d72195884bf290800000000000000
+      internalID: -7855605386514542380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_47
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 579
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 323faaf5d3fbd9690800000000000000
+      internalID: -7593703126357839069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_48
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 514
+        width: 42
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bda5384d0f25f00b0800000000000000
+      internalID: -5760294204072568101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_49
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 515
+        width: 43
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b8f72230f4bb3eb0800000000000000
+      internalID: -4738995239150683976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_50
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 515
+        width: 42
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad66a5fa8f1028c90800000000000000
+      internalID: -7169165489214953766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_51
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 514
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a38ceddd22eb9040800000000000000
+      internalID: 4655563326442210217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_52
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 515
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d08c9b5e01c396e0800000000000000
+      internalID: -1831908355998973736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_53
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 515
+        width: 43
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7cb2e601a0e42f30800000000000000
+      internalID: 4550008505760922750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_54
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 515
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9d14198bac63aca0800000000000000
+      internalID: -6006837993987105381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_55
+      rect:
+        serializedVersion: 2
+        x: 458
+        y: 514
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75a7bcc5434b929f0800000000000000
+      internalID: -492664547232220585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_56
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 515
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7b7dd8f43891c500800000000000000
+      internalID: 414779993975782269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_57
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 515
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a0cd21a16314ea10800000000000000
+      internalID: 1937695049713041577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_58
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 515
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98a7116d3fa5c2270800000000000000
+      internalID: 8227050622614076041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_59
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 514
+        width: 42
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1774079632e9d13a0800000000000000
+      internalID: -6693019596272679055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_60
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 451
+        width: 42
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28d84dc054c538bc0800000000000000
+      internalID: -3782077810423329406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_61
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 451
+        width: 43
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3393437f93be3970800000000000000
+      internalID: 8736617824560321341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_62
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 451
+        width: 42
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8e50f0a444e2c640800000000000000
+      internalID: 5098888711545839242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_63
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 450
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3e8691ce01b51690800000000000000
+      internalID: -7631999316573909441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_64
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 451
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76595ed73e3c89620800000000000000
+      internalID: 2781188151738471783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_65
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 451
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d250ea29c1e8c5880800000000000000
+      internalID: -8620859333322865363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_66
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 451
+        width: 44
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45e057958b42a8bd0800000000000000
+      internalID: -2627247058423837100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_67
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 450
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 655634d91e426d680800000000000000
+      internalID: -8730750276186446506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_68
+      rect:
+        serializedVersion: 2
+        x: 528
+        y: 450
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc432daa8df5e94a0800000000000000
+      internalID: -6584720220985609009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_69
+      rect:
+        serializedVersion: 2
+        x: 587
+        y: 450
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21c5404a724833d90800000000000000
+      internalID: -7119201280152282094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_70
+      rect:
+        serializedVersion: 2
+        x: 651
+        y: 451
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9528ef95dd2b67a00800000000000000
+      internalID: 753986651398505049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_71
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 451
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73b95049ea1fc9260800000000000000
+      internalID: 7105820044193798967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_72
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 387
+        width: 42
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9beacbf7a607d8eb0800000000000000
+      internalID: -4715989632075125063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_73
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 386
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39fdff42f1229c5a0800000000000000
+      internalID: -6500627069972521069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_74
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 386
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47e3c9346e1c0e300800000000000000
+      internalID: 279436371617922676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_75
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 386
+        width: 42
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a4437346fcdb1950800000000000000
+      internalID: 6420968643998467234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_76
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 387
+        width: 42
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d79f2df03dce62d0800000000000000
+      internalID: -3283461468016633901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_77
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 387
+        width: 42
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c76e3278ca2c5ffe0800000000000000
+      internalID: -1155803683093223812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_78
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 387
+        width: 43
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77f368d8cbc70a950800000000000000
+      internalID: 6458299014919372663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_79
+      rect:
+        serializedVersion: 2
+        x: 458
+        y: 386
+        width: 42
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 160de08b1e0c6dcf0800000000000000
+      internalID: -227782655447478175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_80
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 386
+        width: 42
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96ac23ccd824f4510800000000000000
+      internalID: 1535519174740331113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_81
+      rect:
+        serializedVersion: 2
+        x: 584
+        y: 387
+        width: 42
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b66eea7f2b0bfb40800000000000000
+      internalID: 5474982070552782521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_82
+      rect:
+        serializedVersion: 2
+        x: 654
+        y: 386
+        width: 41
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76ccdddaf4adb6f90800000000000000
+      internalID: -6959228763416703897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_83
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 387
+        width: 42
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6416ad24ec9bfbea0800000000000000
+      internalID: -5854756695022345914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_84
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 322
+        width: 41
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f43c6f26ed3d9910800000000000000
+      internalID: 1845699481139164409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_85
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 323
+        width: 42
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68ad225f6be8252d0800000000000000
+      internalID: -3291411461206517114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_86
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 322
+        width: 41
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1536eaea3a5449910800000000000000
+      internalID: 1843174716814025553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_87
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 322
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9df522d21d2e04b0800000000000000
+      internalID: -5472386938350207587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_88
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 322
+        width: 41
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 351ac2b7d7697b920800000000000000
+      internalID: 3006036741974696275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_89
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 322
+        width: 41
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4eec68542456b610800000000000000
+      internalID: 1636588029674843722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_90
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 322
+        width: 30
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 190a0dc74ff5d9b00800000000000000
+      internalID: 836930609431486609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_91
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 323
+        width: 36
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd6f93b680a086e80800000000000000
+      internalID: -8185281291470899492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_92
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 322
+        width: 41
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f2d35a97a49eb080800000000000000
+      internalID: -9169728343710117133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_93
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 322
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21576ee8a4c92fd10800000000000000
+      internalID: 2157959015502869778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_94
+      rect:
+        serializedVersion: 2
+        x: 718
+        y: 322
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 628f69a5288243b60800000000000000
+      internalID: 7724843801177946150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_95
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 258
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8764c22aa44a0e580800000000000000
+      internalID: -8799853031426603400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_96
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 258
+        width: 41
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 732a573744a9157a0800000000000000
+      internalID: -6390156777476480457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_97
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 258
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8342a4bd5dd45cc0800000000000000
+      internalID: -3723107597396327538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_98
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 258
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1e2fa05ba15a66b0800000000000000
+      internalID: -5302335815040422369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_99
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 258
+        width: 45
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecefd83cc3b148320800000000000000
+      internalID: 2559200436046134990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_100
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 258
+        width: 46
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff8ab861623432f70800000000000000
+      internalID: 9161239897867790591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_101
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 258
+        width: 42
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb33c6be75f8be530800000000000000
+      internalID: 3885356711311848382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_102
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 258
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b01610c40f8f3d10800000000000000
+      internalID: 2107560401197994169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_103
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 258
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c6fae2554f159f10800000000000000
+      internalID: 2275759569309988553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_104
+      rect:
+        serializedVersion: 2
+        x: 590
+        y: 258
+        width: 41
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a0499a03626ca070800000000000000
+      internalID: 8118972405761261735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_105
+      rect:
+        serializedVersion: 2
+        x: 654
+        y: 258
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ef935b036b2d1690800000000000000
+      internalID: -7629894489303965727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_106
+      rect:
+        serializedVersion: 2
+        x: 718
+        y: 258
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95a6a99ae0cbfeec0800000000000000
+      internalID: -3535400411301516711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_107
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 194
+        width: 41
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3f667b3f94f57810800000000000000
+      internalID: 1762583793920012091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_108
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 194
+        width: 41
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bece5dc62862b560800000000000000
+      internalID: 7328034059548806839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_109
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 194
+        width: 41
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23ee5dffd84e8ea70800000000000000
+      internalID: 8856579965757812274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_110
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 194
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23f6c62233e2e41f0800000000000000
+      internalID: -1058858065229746382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_111
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 194
+        width: 41
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d4011701517bc6d0800000000000000
+      internalID: -2969154936495864616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_112
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 194
+        width: 41
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e395b6654a962a00800000000000000
+      internalID: 731441612360881128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_113
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 194
+        width: 41
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f642544aba2871a0800000000000000
+      internalID: -6811647456899348752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_114
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 194
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 555a2fa87e326f7e0800000000000000
+      internalID: -1732157529301801643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_115
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 197
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b02c1e5e373b2fc0800000000000000
+      internalID: -3518657942853508940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_116
+      rect:
+        serializedVersion: 2
+        x: 592
+        y: 194
+        width: 41
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7288d60b33bc9c30800000000000000
+      internalID: 4367562804741833338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_117
+      rect:
+        serializedVersion: 2
+        x: 653
+        y: 197
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca183a65f26686c30800000000000000
+      internalID: 4352841393356636588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_118
+      rect:
+        serializedVersion: 2
+        x: 718
+        y: 194
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f39f47bf2b6b2910800000000000000
+      internalID: 1813661127629837299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_119
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 130
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a89573c7c9c80540800000000000000
+      internalID: 4974447648245651619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_120
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 130
+        width: 41
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ec983db441e276c0800000000000000
+      internalID: -4147004621506175770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_121
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 130
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27cca0ebc247fd850800000000000000
+      internalID: 6403964930659896434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_122
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 130
+        width: 41
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d19284ee0774f58a0800000000000000
+      internalID: -6314249602190530275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_123
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 130
+        width: 41
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2d39aa7d1ff659e0800000000000000
+      internalID: -1632837312798180049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_124
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 130
+        width: 41
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8360bc8325a91c390800000000000000
+      internalID: -7799783401698163144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_125
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 130
+        width: 41
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9df02b6c223c4350800000000000000
+      internalID: 6002227569735302557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_126
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 130
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a91019748c010ed40800000000000000
+      internalID: 5611503588083827098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_127
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 131
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7cc090ba70327490800000000000000
+      internalID: -7750078705244779393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_128
+      rect:
+        serializedVersion: 2
+        x: 590
+        y: 130
+        width: 41
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcf11d96d7b1cdb90800000000000000
+      internalID: -7215862277494202419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_129
+      rect:
+        serializedVersion: 2
+        x: 654
+        y: 131
+        width: 41
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cbc97521e1190a40800000000000000
+      internalID: 5334814892291115973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_130
+      rect:
+        serializedVersion: 2
+        x: 718
+        y: 130
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 986456124cc465fd0800000000000000
+      internalID: -2353609349996919159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_131
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 70
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ec84019a22220f60800000000000000
+      internalID: 7998993454380387555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_132
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 72
+        width: 41
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06e436d8681f027c0800000000000000
+      internalID: -4098010100707144096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_133
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 68
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b91c97eafaec00db0800000000000000
+      internalID: -4827631546599358053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_134
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 66
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cbe2deb11e647990800000000000000
+      internalID: -7389160066113147968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_135
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 66
+        width: 41
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb69698c0a59a3f70800000000000000
+      internalID: 9167804509258684094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_136
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 66
+        width: 41
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e114fce8d4fb44610800000000000000
+      internalID: 1604617707080073502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_137
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 66
+        width: 41
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35bcf4aaadffa45c0800000000000000
+      internalID: -4230287585335850157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_138
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 66
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66f631f97bf58ebd0800000000000000
+      internalID: -2600723542553956506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_139
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 70
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b0670659a22d2ad0800000000000000
+      internalID: -2725484088801140553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_140
+      rect:
+        serializedVersion: 2
+        x: 590
+        y: 72
+        width: 41
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cde925ac02a9a28c0800000000000000
+      internalID: -4023233851478073636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_141
+      rect:
+        serializedVersion: 2
+        x: 654
+        y: 68
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a2a461c3a9b56390800000000000000
+      internalID: -7825644664510963034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_142
+      rect:
+        serializedVersion: 2
+        x: 718
+        y: 66
+        width: 41
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d629e5d4f70105a0800000000000000
+      internalID: -6556950834332490027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_143
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 2
+        width: 41
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98696de4e593dd600800000000000000
+      internalID: 494614611293017737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_144
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 2
+        width: 41
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4666732434b6ba30800000000000000
+      internalID: 4230767035987420747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: body_without_book_ribbon_v2_145
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 2
+        width: 41
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 770b85374da6c3d70800000000000000
+      internalID: 9024205214044434551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

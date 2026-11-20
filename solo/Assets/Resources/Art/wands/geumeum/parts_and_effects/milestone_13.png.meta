@@ -1,0 +1,1717 @@
+fileFormatVersion: 2
+guid: d0a4e24808183684880d0dce57253069
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6739993624193487526
+    second: milestone_13_0
+  - first:
+      213: 6150940982101318636
+    second: milestone_13_1
+  - first:
+      213: 5775363952608541227
+    second: milestone_13_2
+  - first:
+      213: 2418975075411575318
+    second: milestone_13_3
+  - first:
+      213: -6717465854955372807
+    second: milestone_13_4
+  - first:
+      213: -7585771912228119322
+    second: milestone_13_5
+  - first:
+      213: -6744586643255053340
+    second: milestone_13_6
+  - first:
+      213: -4903736470817709320
+    second: milestone_13_7
+  - first:
+      213: -847416543985992911
+    second: milestone_13_8
+  - first:
+      213: 7308348296289544785
+    second: milestone_13_9
+  - first:
+      213: -7337635512580987071
+    second: milestone_13_10
+  - first:
+      213: -6088955819968404903
+    second: milestone_13_11
+  - first:
+      213: 5694704709209195640
+    second: milestone_13_12
+  - first:
+      213: 1095471092440004766
+    second: milestone_13_13
+  - first:
+      213: -689327815389155708
+    second: milestone_13_14
+  - first:
+      213: -2369808663753667293
+    second: milestone_13_15
+  - first:
+      213: -2828680901890524550
+    second: milestone_13_16
+  - first:
+      213: -240411624225184589
+    second: milestone_13_17
+  - first:
+      213: -4960078551691632269
+    second: milestone_13_18
+  - first:
+      213: -3255299804634350531
+    second: milestone_13_19
+  - first:
+      213: 8246485439565397410
+    second: milestone_13_20
+  - first:
+      213: -3439390601947239065
+    second: milestone_13_21
+  - first:
+      213: -5487696238238125387
+    second: milestone_13_22
+  - first:
+      213: -566519177590116641
+    second: milestone_13_23
+  - first:
+      213: -3021636699138325343
+    second: milestone_13_24
+  - first:
+      213: 6221606621041847856
+    second: milestone_13_25
+  - first:
+      213: -253877798699993856
+    second: milestone_13_26
+  - first:
+      213: 4588139215788133104
+    second: milestone_13_27
+  - first:
+      213: -8455113621508558975
+    second: milestone_13_28
+  - first:
+      213: -6002718252468227368
+    second: milestone_13_29
+  - first:
+      213: 8062480759122756504
+    second: milestone_13_30
+  - first:
+      213: 1336427337887250018
+    second: milestone_13_31
+  - first:
+      213: 2514573086146129861
+    second: milestone_13_32
+  - first:
+      213: 3247685588439392544
+    second: milestone_13_33
+  - first:
+      213: 2701233300363206737
+    second: milestone_13_34
+  - first:
+      213: -4894247998769882327
+    second: milestone_13_35
+  - first:
+      213: -2618735328606831931
+    second: milestone_13_36
+  - first:
+      213: 1961991955951393464
+    second: milestone_13_37
+  - first:
+      213: 3896781538447411224
+    second: milestone_13_38
+  - first:
+      213: -2461112904173436322
+    second: milestone_13_39
+  - first:
+      213: -8109203515616383625
+    second: milestone_13_40
+  - first:
+      213: 198009745388895969
+    second: milestone_13_41
+  - first:
+      213: -4140665188168931916
+    second: milestone_13_42
+  - first:
+      213: 7416336096229163007
+    second: milestone_13_43
+  - first:
+      213: 7439807302309954756
+    second: milestone_13_44
+  - first:
+      213: -812338292669472401
+    second: milestone_13_45
+  - first:
+      213: -4058493131990533768
+    second: milestone_13_46
+  - first:
+      213: 8179068087680294240
+    second: milestone_13_47
+  - first:
+      213: -793341015666072523
+    second: milestone_13_48
+  - first:
+      213: 6328171655488810331
+    second: milestone_13_49
+  - first:
+      213: 4919595955893062091
+    second: milestone_13_50
+  - first:
+      213: 4276222634138043369
+    second: milestone_13_51
+  - first:
+      213: 608990080931506261
+    second: milestone_13_52
+  - first:
+      213: -2803325679975408659
+    second: milestone_13_53
+  - first:
+      213: -3764402612185592955
+    second: milestone_13_54
+  - first:
+      213: -6014277872915328777
+    second: milestone_13_55
+  - first:
+      213: 7930771199792680905
+    second: milestone_13_56
+  - first:
+      213: -258987465144883686
+    second: milestone_13_57
+  - first:
+      213: -490674092242641617
+    second: milestone_13_58
+  - first:
+      213: 3945558935022996694
+    second: milestone_13_59
+  - first:
+      213: -3856954795604439184
+    second: milestone_13_60
+  - first:
+      213: 6722114582221352028
+    second: milestone_13_61
+  - first:
+      213: -386122194375011615
+    second: milestone_13_62
+  - first:
+      213: 4865949771315288122
+    second: milestone_13_63
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: milestone_13_0
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 550
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a2537ebd74498d50800000000000000
+      internalID: 6739993624193487526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_1
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 550
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ceb9a80fb388c5550800000000000000
+      internalID: 6150940982101318636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_2
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 550
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2af3db6ae6362050800000000000000
+      internalID: 5775363952608541227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_3
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 406
+        width: 79
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6124e6ac30de19120800000000000000
+      internalID: 2418975075411575318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_4
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 550
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9feb1944564c6c2a0800000000000000
+      internalID: -6717465854955372807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_5
+      rect:
+        serializedVersion: 2
+        x: 824
+        y: 406
+        width: 79
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ecd18013ace9b690800000000000000
+      internalID: -7585771912228119322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_6
+      rect:
+        serializedVersion: 2
+        x: 1016
+        y: 406
+        width: 79
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e330fbae2a6662a0800000000000000
+      internalID: -6744586643255053340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_7
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 406
+        width: 80
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f268c039ad62fbb0800000000000000
+      internalID: -4903736470817709320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_8
+      rect:
+        serializedVersion: 2
+        x: 1399
+        y: 406
+        width: 81
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13bfcee942f5d34f0800000000000000
+      internalID: -847416543985992911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_9
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 516
+        width: 13
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15a6b2fdd087c6560800000000000000
+      internalID: 7308348296289544785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_10
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 513
+        width: 53
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 147a155b06b7b2a90800000000000000
+      internalID: -7337635512580987071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_11
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 517
+        width: 13
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9526cb141feaf7ba0800000000000000
+      internalID: -6088955819968404903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_12
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 406
+        width: 79
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 874882dd2c7a70f40800000000000000
+      internalID: 5694704709209195640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_13
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 406
+        width: 79
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e98789e8725e33f00800000000000000
+      internalID: 1095471092440004766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_14
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 494
+        width: 29
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48eeeed01040f66f0800000000000000
+      internalID: -689327815389155708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_15
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 494
+        width: 27
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32dc15b739fbc1fd0800000000000000
+      internalID: -2369808663753667293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_16
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 406
+        width: 31
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7a32ebe4b18eb8d0800000000000000
+      internalID: -2828680901890524550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_17
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 457
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b4ee2ac6e2e9acf0800000000000000
+      internalID: -240411624225184589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_18
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 392
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 371e26c36d24a2bb0800000000000000
+      internalID: -4960078551691632269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_19
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 392
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3cfe53331ad2d2d0800000000000000
+      internalID: -3255299804634350531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_20
+      rect:
+        serializedVersion: 2
+        x: 476
+        y: 392
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2adf9b6c0d6617270800000000000000
+      internalID: 8246485439565397410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_21
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 392
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76d2e1f5874d440d0800000000000000
+      internalID: -3439390601947239065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_22
+      rect:
+        serializedVersion: 2
+        x: 860
+        y: 392
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b2b19ca859c7d3b0800000000000000
+      internalID: -5487696238238125387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_23
+      rect:
+        serializedVersion: 2
+        x: 1052
+        y: 392
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fde6b4d3fc15328f0800000000000000
+      internalID: -566519177590116641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_24
+      rect:
+        serializedVersion: 2
+        x: 1243
+        y: 392
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a483937e6df016d0800000000000000
+      internalID: -3021636699138325343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_25
+      rect:
+        serializedVersion: 2
+        x: 1435
+        y: 392
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03eea632246975650800000000000000
+      internalID: 6221606621041847856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_26
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 214
+        width: 84
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 005f028bc7b0a7cf0800000000000000
+      internalID: -253877798699993856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_27
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 214
+        width: 87
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fa4719ce485caf30800000000000000
+      internalID: 4588139215788133104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_28
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 214
+        width: 90
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18f6a6655f669aa80800000000000000
+      internalID: -8455113621508558975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_29
+      rect:
+        serializedVersion: 2
+        x: 625
+        y: 214
+        width: 94
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d2b0ea9d8f02bca0800000000000000
+      internalID: -6002718252468227368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_30
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 214
+        width: 97
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8930fe7988fa3ef60800000000000000
+      internalID: 8062480759122756504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_31
+      rect:
+        serializedVersion: 2
+        x: 1006
+        y: 214
+        width: 100
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 266f3e64591fb8210800000000000000
+      internalID: 1336427337887250018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_32
+      rect:
+        serializedVersion: 2
+        x: 1196
+        y: 214
+        width: 104
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cf6f7926ee85e220800000000000000
+      internalID: 2514573086146129861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_33
+      rect:
+        serializedVersion: 2
+        x: 1387
+        y: 214
+        width: 107
+        height: 165
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 021e511f5d8121d20800000000000000
+      internalID: 3247685588439392544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_34
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 200
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 150ea9bff55bc7520800000000000000
+      internalID: 2701233300363206737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_35
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 200
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92b97ae3063241cb0800000000000000
+      internalID: -4894247998769882327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_36
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 200
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cabf91e71268abd0800000000000000
+      internalID: -2618735328606831931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_37
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 200
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ba18a2f9456a3b10800000000000000
+      internalID: 1961991955951393464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_38
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 200
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8184576c926241630800000000000000
+      internalID: 3896781538447411224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_39
+      rect:
+        serializedVersion: 2
+        x: 1051
+        y: 200
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e52cc9a6ade58ddd0800000000000000
+      internalID: -2461112904173436322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_40
+      rect:
+        serializedVersion: 2
+        x: 1243
+        y: 200
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77d2650fd52567f80800000000000000
+      internalID: -8109203515616383625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_41
+      rect:
+        serializedVersion: 2
+        x: 1435
+        y: 200
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ee78f770d87fb200800000000000000
+      internalID: 198009745388895969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_42
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 22
+        width: 110
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b56d5513f66986c0800000000000000
+      internalID: -4140665188168931916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_43
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 22
+        width: 114
+        height: 168
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fff75a6d26e1ce660800000000000000
+      internalID: 7416336096229163007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_44
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 22
+        width: 116
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c4ca8bd2518f3760800000000000000
+      internalID: 7439807302309954756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_45
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 22
+        width: 121
+        height: 171
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f612df370aef9b4f0800000000000000
+      internalID: -812338292669472401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_46
+      rect:
+        serializedVersion: 2
+        x: 801
+        y: 22
+        width: 125
+        height: 171
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8797750dff55da7c0800000000000000
+      internalID: -4058493131990533768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_47
+      rect:
+        serializedVersion: 2
+        x: 993
+        y: 22
+        width: 126
+        height: 171
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06ddae75713e18170800000000000000
+      internalID: 8179068087680294240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_48
+      rect:
+        serializedVersion: 2
+        x: 1183
+        y: 22
+        width: 129
+        height: 171
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 534e97fac8c7df4f0800000000000000
+      internalID: -793341015666072523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_49
+      rect:
+        serializedVersion: 2
+        x: 1434
+        y: 168
+        width: 10
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5d2b13b79e22d750800000000000000
+      internalID: 6328171655488810331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_50
+      rect:
+        serializedVersion: 2
+        x: 1400
+        y: 130
+        width: 13
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc9447de47ae54440800000000000000
+      internalID: 4919595955893062091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_51
+      rect:
+        serializedVersion: 2
+        x: 1414
+        y: 109
+        width: 52
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e3884054d1385b30800000000000000
+      internalID: 4276222634138043369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_52
+      rect:
+        serializedVersion: 2
+        x: 1468
+        y: 132
+        width: 12
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 558a8a58041937800800000000000000
+      internalID: 608990080931506261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_53
+      rect:
+        serializedVersion: 2
+        x: 1409
+        y: 109
+        width: 27
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: debd55f85269819d0800000000000000
+      internalID: -2803325679975408659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_54
+      rect:
+        serializedVersion: 2
+        x: 1422
+        y: 22
+        width: 35
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58b0025d4c722cbc0800000000000000
+      internalID: -3764402612185592955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_55
+      rect:
+        serializedVersion: 2
+        x: 1427
+        y: 96
+        width: 22
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f0d36cb32ef88ca0800000000000000
+      internalID: -6014277872915328777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_56
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 8
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cf8a8e1362cf0e60800000000000000
+      internalID: 7930771199792680905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_57
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 8
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a16a2cac544e76cf0800000000000000
+      internalID: -258987465144883686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_58
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 8
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2dd3674386c039f0800000000000000
+      internalID: -490674092242641617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_59
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 8
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6dc0a6a62f071c630800000000000000
+      internalID: 3945558935022996694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_60
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 8
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07f02456c08597ac0800000000000000
+      internalID: -3856954795604439184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_61
+      rect:
+        serializedVersion: 2
+        x: 1051
+        y: 8
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5ce6c4e89fb94d50800000000000000
+      internalID: 6722114582221352028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_62
+      rect:
+        serializedVersion: 2
+        x: 1243
+        y: 8
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e21264f8e734aaf0800000000000000
+      internalID: -386122194375011615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: milestone_13_63
+      rect:
+        serializedVersion: 2
+        x: 1435
+        y: 8
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a38142e3983578340800000000000000
+      internalID: 4865949771315288122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

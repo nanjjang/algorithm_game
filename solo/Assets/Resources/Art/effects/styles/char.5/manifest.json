@@ -1,0 +1,146 @@
+{
+ "notes": {
+  "origin": "top-left",
+  "filter": "point",
+  "mipmaps": false,
+  "pixelsPerUnit": 64,
+  "built_by": "solo/Tools/godot-fx/bake.sh (styles.py, compose.py, manifest.py)",
+  "pivot": "pivot = 프레임 왼쪽 위 기준 픽셀 좌표",
+  "reuse": [
+   "B 그림자 낫 휩쓸기 = effects/special/bloom_dark_192x192_f6_v2.png (초승달 궤적)",
+   "C 눈알 추적탄 = wands/geumeum/parts_and_effects/floating_eye.png (20x20 x3) + 둘레 effects/player/shadow_orb_40x40_f4_v2.png",
+   "C 갈라짐 = effects/player/shadow_orb_fade_40x40_f4_v2.png, 적중 = effects/player/hit_dark_32x32_f3_v2.png",
+   "K 바닥 충격 = effects/special/shadow_pool_128x128_f4.png + styles/common ground_slam"
+  ]
+ },
+ "styles.char.5": {
+  "giant_hand": {
+   "path": "giant_hand_128x128_f8.png",
+   "size": [
+    128,
+    128
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     128,
+     128
+    ],
+    [
+     128,
+     0,
+     128,
+     128
+    ],
+    [
+     256,
+     0,
+     128,
+     128
+    ],
+    [
+     384,
+     0,
+     128,
+     128
+    ],
+    [
+     512,
+     0,
+     128,
+     128
+    ],
+    [
+     640,
+     0,
+     128,
+     128
+    ],
+    [
+     768,
+     0,
+     128,
+     128
+    ],
+    [
+     896,
+     0,
+     128,
+     128
+    ]
+   ],
+   "fps": 12,
+   "loop": false,
+   "pivot": [
+    64,
+    116
+   ],
+   "clips": {
+    "rise": [
+     0,
+     1
+    ],
+    "grip": [
+     2,
+     4
+    ],
+    "slam": [
+     5,
+     6
+    ],
+    "fade": [
+     7,
+     7
+    ]
+   },
+   "use": "K 그림자 손 강화: 땅에서 솟는 거대한 주먹(솟음·움켜쥠·짓누름·흩어짐). 펼친 손 프레임은 GPT 필요 목록"
+  },
+  "shadow_wave": {
+   "path": "shadow_wave_128x96_f5.png",
+   "size": [
+    128,
+    96
+   ],
+   "frames": [
+    [
+     0,
+     0,
+     128,
+     96
+    ],
+    [
+     128,
+     0,
+     128,
+     96
+    ],
+    [
+     256,
+     0,
+     128,
+     96
+    ],
+    [
+     384,
+     0,
+     128,
+     96
+    ],
+    [
+     512,
+     0,
+     128,
+     96
+    ]
+   ],
+   "fps": 14,
+   "loop": false,
+   "pivot": [
+    6,
+    48
+   ],
+   "use": "A 그림자 파동: 부채꼴로 퍼지는 어둠 물결(왼쪽 = 시전 위치)"
+  }
+ }
+}

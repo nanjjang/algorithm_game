@@ -1,0 +1,2313 @@
+fileFormatVersion: 2
+guid: 5650d4e887295916b8fc96153b7c5132
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5934168113216659973
+    second: wand_hand_32x64_f84_down_hold_plus_00
+  - first:
+      213: -7314856067999639933
+    second: wand_hand_32x64_f84_down_hold_plus_01
+  - first:
+      213: 2528394245772601764
+    second: wand_hand_32x64_f84_down_hold_plus_02
+  - first:
+      213: -6084360679356055105
+    second: wand_hand_32x64_f84_down_hold_plus_03
+  - first:
+      213: -2967880217410927889
+    second: wand_hand_32x64_f84_down_hold_plus_04
+  - first:
+      213: -5755396816905775263
+    second: wand_hand_32x64_f84_down_hold_plus_05
+  - first:
+      213: -6561066765123278192
+    second: wand_hand_32x64_f84_down_hold_plus_06
+  - first:
+      213: 956806141881645584
+    second: wand_hand_32x64_f84_down_hold_plus_07
+  - first:
+      213: -4004366523864850825
+    second: wand_hand_32x64_f84_down_hold_plus_08
+  - first:
+      213: 621947146623898704
+    second: wand_hand_32x64_f84_down_hold_plus_09
+  - first:
+      213: -1244047694279691205
+    second: wand_hand_32x64_f84_down_hold_plus_10
+  - first:
+      213: -7622943277569209864
+    second: wand_hand_32x64_f84_down_hold_plus_11
+  - first:
+      213: -751559158310095745
+    second: wand_hand_32x64_f84_down_hold_plus_12
+  - first:
+      213: 5275325360480200270
+    second: wand_hand_32x64_f84_down_hold_plus_13
+  - first:
+      213: 251438151808848508
+    second: wand_hand_32x64_f84_down_aim_plus_00
+  - first:
+      213: 540219791670949656
+    second: wand_hand_32x64_f84_down_aim_plus_01
+  - first:
+      213: 1356089142879460723
+    second: wand_hand_32x64_f84_down_aim_plus_02
+  - first:
+      213: 1348423896509479592
+    second: wand_hand_32x64_f84_down_aim_plus_03
+  - first:
+      213: 2854852694171115712
+    second: wand_hand_32x64_f84_down_aim_plus_04
+  - first:
+      213: -521550851336673766
+    second: wand_hand_32x64_f84_down_aim_plus_05
+  - first:
+      213: 3635846514510046887
+    second: wand_hand_32x64_f84_down_aim_plus_06
+  - first:
+      213: 432347438791344333
+    second: wand_hand_32x64_f84_down_aim_plus_07
+  - first:
+      213: -819767175419840000
+    second: wand_hand_32x64_f84_down_aim_plus_08
+  - first:
+      213: 2941033288850899042
+    second: wand_hand_32x64_f84_down_aim_plus_09
+  - first:
+      213: 8011613478927238977
+    second: wand_hand_32x64_f84_down_aim_plus_10
+  - first:
+      213: 2055733992285278274
+    second: wand_hand_32x64_f84_down_aim_plus_11
+  - first:
+      213: -8051706380047478501
+    second: wand_hand_32x64_f84_down_aim_plus_12
+  - first:
+      213: 3875402456332667125
+    second: wand_hand_32x64_f84_down_aim_plus_13
+  - first:
+      213: -5233690638047322138
+    second: wand_hand_32x64_f84_right_hold_plus_00
+  - first:
+      213: -4445052626748580010
+    second: wand_hand_32x64_f84_right_hold_plus_01
+  - first:
+      213: 8776087552231804249
+    second: wand_hand_32x64_f84_right_hold_plus_02
+  - first:
+      213: -86277600970162116
+    second: wand_hand_32x64_f84_right_hold_plus_03
+  - first:
+      213: -7692136214972274036
+    second: wand_hand_32x64_f84_right_hold_plus_04
+  - first:
+      213: 3016357219506759432
+    second: wand_hand_32x64_f84_right_hold_plus_05
+  - first:
+      213: -5788511207674723675
+    second: wand_hand_32x64_f84_right_hold_plus_06
+  - first:
+      213: -6190464525965606528
+    second: wand_hand_32x64_f84_right_hold_plus_07
+  - first:
+      213: -7530180228704819564
+    second: wand_hand_32x64_f84_right_hold_plus_08
+  - first:
+      213: -5274098965153080145
+    second: wand_hand_32x64_f84_right_hold_plus_09
+  - first:
+      213: -8230346939462718866
+    second: wand_hand_32x64_f84_right_hold_plus_10
+  - first:
+      213: -4690424871071151644
+    second: wand_hand_32x64_f84_right_hold_plus_11
+  - first:
+      213: 8451368560129512276
+    second: wand_hand_32x64_f84_right_hold_plus_12
+  - first:
+      213: -7848088465568483584
+    second: wand_hand_32x64_f84_right_hold_plus_13
+  - first:
+      213: -2066570864606075638
+    second: wand_hand_32x64_f84_right_aim_plus_00
+  - first:
+      213: -2128864542973317152
+    second: wand_hand_32x64_f84_right_aim_plus_01
+  - first:
+      213: -2344767672301696693
+    second: wand_hand_32x64_f84_right_aim_plus_02
+  - first:
+      213: -7495150882559988242
+    second: wand_hand_32x64_f84_right_aim_plus_03
+  - first:
+      213: -6106695024846950755
+    second: wand_hand_32x64_f84_right_aim_plus_04
+  - first:
+      213: -5068567545419221925
+    second: wand_hand_32x64_f84_right_aim_plus_05
+  - first:
+      213: -6351117256406659867
+    second: wand_hand_32x64_f84_right_aim_plus_06
+  - first:
+      213: -8797841945118937425
+    second: wand_hand_32x64_f84_right_aim_plus_07
+  - first:
+      213: 2791971930522979961
+    second: wand_hand_32x64_f84_right_aim_plus_08
+  - first:
+      213: 3087010945720904360
+    second: wand_hand_32x64_f84_right_aim_plus_09
+  - first:
+      213: -547937337290954882
+    second: wand_hand_32x64_f84_right_aim_plus_10
+  - first:
+      213: 3118259049209468359
+    second: wand_hand_32x64_f84_right_aim_plus_11
+  - first:
+      213: 3718264271712333610
+    second: wand_hand_32x64_f84_right_aim_plus_12
+  - first:
+      213: 4566462540405728554
+    second: wand_hand_32x64_f84_right_aim_plus_13
+  - first:
+      213: 8604522250199577831
+    second: wand_hand_32x64_f84_up_hold_plus_00
+  - first:
+      213: 6770723568543781644
+    second: wand_hand_32x64_f84_up_hold_plus_01
+  - first:
+      213: -1129483298460184426
+    second: wand_hand_32x64_f84_up_hold_plus_02
+  - first:
+      213: -1319598260668268756
+    second: wand_hand_32x64_f84_up_hold_plus_03
+  - first:
+      213: -5120053165666985053
+    second: wand_hand_32x64_f84_up_hold_plus_04
+  - first:
+      213: 5716370646082419194
+    second: wand_hand_32x64_f84_up_hold_plus_05
+  - first:
+      213: -185769816684143800
+    second: wand_hand_32x64_f84_up_hold_plus_06
+  - first:
+      213: -8061186798322211910
+    second: wand_hand_32x64_f84_up_hold_plus_07
+  - first:
+      213: -5452768127716797046
+    second: wand_hand_32x64_f84_up_hold_plus_08
+  - first:
+      213: 4769418757406615118
+    second: wand_hand_32x64_f84_up_hold_plus_09
+  - first:
+      213: -2134529467940365616
+    second: wand_hand_32x64_f84_up_hold_plus_10
+  - first:
+      213: -7941713075917862113
+    second: wand_hand_32x64_f84_up_hold_plus_11
+  - first:
+      213: -342075765684511478
+    second: wand_hand_32x64_f84_up_hold_plus_12
+  - first:
+      213: 4755915442065212008
+    second: wand_hand_32x64_f84_up_hold_plus_13
+  - first:
+      213: 2789852804924057888
+    second: wand_hand_32x64_f84_up_aim_plus_00
+  - first:
+      213: 8451122420978710160
+    second: wand_hand_32x64_f84_up_aim_plus_01
+  - first:
+      213: -4041619076684117462
+    second: wand_hand_32x64_f84_up_aim_plus_02
+  - first:
+      213: 4305420334484691841
+    second: wand_hand_32x64_f84_up_aim_plus_03
+  - first:
+      213: 7437003048249123578
+    second: wand_hand_32x64_f84_up_aim_plus_04
+  - first:
+      213: 2942736047374520322
+    second: wand_hand_32x64_f84_up_aim_plus_05
+  - first:
+      213: 1266154839680101547
+    second: wand_hand_32x64_f84_up_aim_plus_06
+  - first:
+      213: 2122476261728286968
+    second: wand_hand_32x64_f84_up_aim_plus_07
+  - first:
+      213: 516386763323391854
+    second: wand_hand_32x64_f84_up_aim_plus_08
+  - first:
+      213: 765379567999843720
+    second: wand_hand_32x64_f84_up_aim_plus_09
+  - first:
+      213: -3786550779401872543
+    second: wand_hand_32x64_f84_up_aim_plus_10
+  - first:
+      213: -1021502024240650207
+    second: wand_hand_32x64_f84_up_aim_plus_11
+  - first:
+      213: -4165207727016602030
+    second: wand_hand_32x64_f84_up_aim_plus_12
+  - first:
+      213: 1935119037740759807
+    second: wand_hand_32x64_f84_up_aim_plus_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_hold_plus_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 320
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98d61d75b3965cbab174c46dddf7f4b9
+      internalID: -5934168113216659973
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_hold_plus_01
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 320
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e924af0cedf5769bd4b6b6101c8ce34
+      internalID: -7314856067999639933
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_hold_plus_02
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 320
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 872121465d7656c0a65dfce0fab9036a
+      internalID: 2528394245772601764
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_hold_plus_03
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 320
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bccbbd8a89d65f11b8ceefd8416e53ee
+      internalID: -6084360679356055105
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_hold_plus_04
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 320
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26c730d11e375b659204e193228aa654
+      internalID: -2967880217410927889
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_hold_plus_05
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 320
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10e3bef97d9c594bbb92ec8e7839f77d
+      internalID: -5755396816905775263
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_hold_plus_06
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 320
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7afd675d40685b44a975208d0dafa74c
+      internalID: -6561066765123278192
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_hold_plus_07
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 320
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9835f753b6d59b8a9f6ca8d8e8acd43
+      internalID: 956806141881645584
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_hold_plus_08
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 320
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b0a28437de353569d43f371e43acae2
+      internalID: -4004366523864850825
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_hold_plus_09
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 320
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ce65643314a5b49853018cbbd187a7c
+      internalID: 621947146623898704
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_hold_plus_10
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 320
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba4ef0ba41cc59858ed2536d112b2a0c
+      internalID: -1244047694279691205
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_hold_plus_11
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 320
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca0ba2122f5554ceb465a188df742cb3
+      internalID: -7622943277569209864
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_hold_plus_12
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 320
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 084f3266b2ad5b95b3233632d0329043
+      internalID: -751559158310095745
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_hold_plus_13
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 320
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3016dea4e8485b57bde3f407cc38bb48
+      internalID: 5275325360480200270
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_aim_plus_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 905c0ce7bfbd5c56a437f8ef900ed159
+      internalID: 251438151808848508
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_aim_plus_01
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 256
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 572d43757fb45ac88c7d52b497400b56
+      internalID: 540219791670949656
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_aim_plus_02
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 256
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73b21256b7a65d8a82a90d513c2c6dc5
+      internalID: 1356089142879460723
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_aim_plus_03
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 256
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3815164c4dea5058a6128b43d3ab1536
+      internalID: 1348423896509479592
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_aim_plus_04
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 737b1a77cacf511d91f034edd7d1d161
+      internalID: 2854852694171115712
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_aim_plus_05
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 256
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f56ca4047fb5a9299a26c601e6dae63
+      internalID: -521550851336673766
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_aim_plus_06
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 256
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7efe5351b91e51cbb6a7acd075f7057a
+      internalID: 3635846514510046887
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_aim_plus_07
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 256
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95d38bf1b1175cc68d254cf169931cbf
+      internalID: 432347438791344333
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_aim_plus_08
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7db017564fc50b5a53dabf12fc5b6d5
+      internalID: -819767175419840000
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_aim_plus_09
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 256
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7d1f0eb80e65080a8705c2300e41791
+      internalID: 2941033288850899042
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_aim_plus_10
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 256
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39c66ae5e3ef5f43ab020bb8204d5009
+      internalID: 8011613478927238977
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_aim_plus_11
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 256
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04bbf041b5c1555ea0874788569d9626
+      internalID: 2055733992285278274
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_aim_plus_12
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 256
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84296f4f3fa359f8a24dbb1eb94d1fd2
+      internalID: -8051706380047478501
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_down_aim_plus_13
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 256
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff2f9f42d29b5635b0d7598738cfd54f
+      internalID: 3875402456332667125
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_hold_plus_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b312af7723b51fba6c536231f13cdc1
+      internalID: -5233690638047322138
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_hold_plus_01
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 192
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e179974a8397515e8d5ed1365b127c8a
+      internalID: -4445052626748580010
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_hold_plus_02
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a083117d756e55dbb1c2a2412bc11fef
+      internalID: 8776087552231804249
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_hold_plus_03
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 192
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c89941e2bbb5c3589d38e33b14bcf7c
+      internalID: -86277600970162116
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_hold_plus_04
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d3f3b80b1c258c2b7aae92409298bb0
+      internalID: -7692136214972274036
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_hold_plus_05
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 192
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddbda1e8b4a25f2cb298badd48e3dcab
+      internalID: 3016357219506759432
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_hold_plus_06
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21a4f5e319c35fe2bf1dd4896c492207
+      internalID: -5788511207674723675
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_hold_plus_07
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 192
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7233eabae3155a359237707b323c000b
+      internalID: -6190464525965606528
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_hold_plus_08
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 192
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26a5ace426ad543cbfee1c4203b5c961
+      internalID: -7530180228704819564
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_hold_plus_09
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 192
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c89502ad3ee55d8b9421adae905fde3
+      internalID: -5274098965153080145
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_hold_plus_10
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 192
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30b606dfdbb552d39f17928ba7e9afd9
+      internalID: -8230346939462718866
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_hold_plus_11
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 192
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82b24d8e97705cb08511554983d6dffa
+      internalID: -4690424871071151644
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_hold_plus_12
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 192
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7bef2adfaca56adbe5ba09ac99cdfcf
+      internalID: 8451368560129512276
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_hold_plus_13
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 192
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c8b83b733cc5cb7b1b599c2b114706f
+      internalID: -7848088465568483584
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_aim_plus_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fe4c57b00515c8f95d56bba3287c4d9
+      internalID: -2066570864606075638
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_aim_plus_01
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 128
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16d37bf9b5975cee8eb43530638e4ee0
+      internalID: -2128864542973317152
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_aim_plus_02
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1adedc1a470f51788663020b08a03ee0
+      internalID: -2344767672301696693
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_aim_plus_03
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 128
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1df516e8f0b753b1afe8746358754c24
+      internalID: -7495150882559988242
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_aim_plus_04
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0350c55711a7544989fdac1b32afc7e7
+      internalID: -6106695024846950755
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_aim_plus_05
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 128
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6d8f00d490a5fd5ac2acdaf0b9bae3f
+      internalID: -5068567545419221925
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_aim_plus_06
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa6841c4bca75791afe04ce30886be57
+      internalID: -6351117256406659867
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_aim_plus_07
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 128
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f15355cb70c54229c1138c06d8a6a69
+      internalID: -8797841945118937425
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_aim_plus_08
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db5bd43157465d34a942d0521c018041
+      internalID: 2791971930522979961
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_aim_plus_09
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 128
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efaffd3aac18536aba9a7dff57526dae
+      internalID: 3087010945720904360
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_aim_plus_10
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 128
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81615b4fcf6d59e5892f4046ad3f95c0
+      internalID: -547937337290954882
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_aim_plus_11
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 128
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eef0ebb3b3cb5a178b1b80e5cb700487
+      internalID: 3118259049209468359
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_aim_plus_12
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 128
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df2dc4dd5abd58c8bdbb178bf4069267
+      internalID: 3718264271712333610
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_right_aim_plus_13
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 128
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f63910ab4656558284a19d0493b201f6
+      internalID: 4566462540405728554
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_hold_plus_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7199a732f04656db9fb35f9fdfe40a29
+      internalID: 8604522250199577831
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_hold_plus_01
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 64
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1574203586853e19c8dfbf398611576
+      internalID: 6770723568543781644
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_hold_plus_02
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 843124268d285f6781556a1d7fb8d53f
+      internalID: -1129483298460184426
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_hold_plus_03
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 64
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 537ddef942c2536bb21568601ba3b924
+      internalID: -1319598260668268756
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_hold_plus_04
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c23233008ac566b9999fd44a5b63700
+      internalID: -5120053165666985053
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_hold_plus_05
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 64
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c21292a1d3a57ee829a29971b5b577c
+      internalID: 5716370646082419194
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_hold_plus_06
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa2a683c9e2d5154936e4efbb19aba2e
+      internalID: -185769816684143800
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_hold_plus_07
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 64
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb3841e9d26a55049c0bde7b0331cf78
+      internalID: -8061186798322211910
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_hold_plus_08
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea9ebcc0c4e057f694779bf5b5c1575b
+      internalID: -5452768127716797046
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_hold_plus_09
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 64
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5dc5295df44a5b6b912f98ca266d41b5
+      internalID: 4769418757406615118
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_hold_plus_10
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 64
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 011fff27a2c3578c90cad29aae7819ec
+      internalID: -2134529467940365616
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_hold_plus_11
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 64
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00dc430be07454d388e307c775c368c6
+      internalID: -7941713075917862113
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_hold_plus_12
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 64
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 298da7a64686597692e6ba813310e903
+      internalID: -342075765684511478
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_hold_plus_13
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 64
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2af6aa0cd82582ea79e0a4e3054f7c1
+      internalID: 4755915442065212008
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_aim_plus_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d52edcce5be054c4957c833bbda36151
+      internalID: 2789852804924057888
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_aim_plus_01
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daf873227722528090991a008da6b6fe
+      internalID: 8451122420978710160
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_aim_plus_02
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab5e68ea3d8b5fe0ae406c6acda15eaa
+      internalID: -4041619076684117462
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_aim_plus_03
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6aad408519bc51468b0c2490d9d40006
+      internalID: 4305420334484691841
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_aim_plus_04
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b84aa67f90150c4bd140caf9488fb2d
+      internalID: 7437003048249123578
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_aim_plus_05
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b01d24bd85a52f4b6bde08e931906d5
+      internalID: 2942736047374520322
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_aim_plus_06
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99c1569f9b9d59c1b31f98c80eecf994
+      internalID: 1266154839680101547
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_aim_plus_07
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 528ea2073f94585f92f433340b100685
+      internalID: 2122476261728286968
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_aim_plus_08
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec5bbb4a90975e0e92e2adbf725e9bea
+      internalID: 516386763323391854
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_aim_plus_09
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8183d66db7625320b8abaabd0f521a22
+      internalID: 765379567999843720
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_aim_plus_10
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3075857e21d4503d8baf0ad48f17a2cb
+      internalID: -3786550779401872543
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_aim_plus_11
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 0
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5a1a8a5488459e4b63341830d7eb157
+      internalID: -1021502024240650207
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_aim_plus_12
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e764498052e55eec8226b63c1c03a315
+      internalID: -4165207727016602030
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wand_hand_32x64_f84_up_aim_plus_13
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 0
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11c0ce918ae05f0cbb4b065f93fd32ad
+      internalID: 1935119037740759807
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    outline: []
+    customData:
+    physicsShape: []
+    bones: []
+    spriteID: 86f1b185a62a5f5883768d638e24f777
+    internalID: 0
+    vertices: []
+    indices:
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      wand_hand_32x64_f84_down_hold_plus_00: -5934168113216659973
+      wand_hand_32x64_f84_down_hold_plus_01: -7314856067999639933
+      wand_hand_32x64_f84_down_hold_plus_02: 2528394245772601764
+      wand_hand_32x64_f84_down_hold_plus_03: -6084360679356055105
+      wand_hand_32x64_f84_down_hold_plus_04: -2967880217410927889
+      wand_hand_32x64_f84_down_hold_plus_05: -5755396816905775263
+      wand_hand_32x64_f84_down_hold_plus_06: -6561066765123278192
+      wand_hand_32x64_f84_down_hold_plus_07: 956806141881645584
+      wand_hand_32x64_f84_down_hold_plus_08: -4004366523864850825
+      wand_hand_32x64_f84_down_hold_plus_09: 621947146623898704
+      wand_hand_32x64_f84_down_hold_plus_10: -1244047694279691205
+      wand_hand_32x64_f84_down_hold_plus_11: -7622943277569209864
+      wand_hand_32x64_f84_down_hold_plus_12: -751559158310095745
+      wand_hand_32x64_f84_down_hold_plus_13: 5275325360480200270
+      wand_hand_32x64_f84_down_aim_plus_00: 251438151808848508
+      wand_hand_32x64_f84_down_aim_plus_01: 540219791670949656
+      wand_hand_32x64_f84_down_aim_plus_02: 1356089142879460723
+      wand_hand_32x64_f84_down_aim_plus_03: 1348423896509479592
+      wand_hand_32x64_f84_down_aim_plus_04: 2854852694171115712
+      wand_hand_32x64_f84_down_aim_plus_05: -521550851336673766
+      wand_hand_32x64_f84_down_aim_plus_06: 3635846514510046887
+      wand_hand_32x64_f84_down_aim_plus_07: 432347438791344333
+      wand_hand_32x64_f84_down_aim_plus_08: -819767175419840000
+      wand_hand_32x64_f84_down_aim_plus_09: 2941033288850899042
+      wand_hand_32x64_f84_down_aim_plus_10: 8011613478927238977
+      wand_hand_32x64_f84_down_aim_plus_11: 2055733992285278274
+      wand_hand_32x64_f84_down_aim_plus_12: -8051706380047478501
+      wand_hand_32x64_f84_down_aim_plus_13: 3875402456332667125
+      wand_hand_32x64_f84_right_hold_plus_00: -5233690638047322138
+      wand_hand_32x64_f84_right_hold_plus_01: -4445052626748580010
+      wand_hand_32x64_f84_right_hold_plus_02: 8776087552231804249
+      wand_hand_32x64_f84_right_hold_plus_03: -86277600970162116
+      wand_hand_32x64_f84_right_hold_plus_04: -7692136214972274036
+      wand_hand_32x64_f84_right_hold_plus_05: 3016357219506759432
+      wand_hand_32x64_f84_right_hold_plus_06: -5788511207674723675
+      wand_hand_32x64_f84_right_hold_plus_07: -6190464525965606528
+      wand_hand_32x64_f84_right_hold_plus_08: -7530180228704819564
+      wand_hand_32x64_f84_right_hold_plus_09: -5274098965153080145
+      wand_hand_32x64_f84_right_hold_plus_10: -8230346939462718866
+      wand_hand_32x64_f84_right_hold_plus_11: -4690424871071151644
+      wand_hand_32x64_f84_right_hold_plus_12: 8451368560129512276
+      wand_hand_32x64_f84_right_hold_plus_13: -7848088465568483584
+      wand_hand_32x64_f84_right_aim_plus_00: -2066570864606075638
+      wand_hand_32x64_f84_right_aim_plus_01: -2128864542973317152
+      wand_hand_32x64_f84_right_aim_plus_02: -2344767672301696693
+      wand_hand_32x64_f84_right_aim_plus_03: -7495150882559988242
+      wand_hand_32x64_f84_right_aim_plus_04: -6106695024846950755
+      wand_hand_32x64_f84_right_aim_plus_05: -5068567545419221925
+      wand_hand_32x64_f84_right_aim_plus_06: -6351117256406659867
+      wand_hand_32x64_f84_right_aim_plus_07: -8797841945118937425
+      wand_hand_32x64_f84_right_aim_plus_08: 2791971930522979961
+      wand_hand_32x64_f84_right_aim_plus_09: 3087010945720904360
+      wand_hand_32x64_f84_right_aim_plus_10: -547937337290954882
+      wand_hand_32x64_f84_right_aim_plus_11: 3118259049209468359
+      wand_hand_32x64_f84_right_aim_plus_12: 3718264271712333610
+      wand_hand_32x64_f84_right_aim_plus_13: 4566462540405728554
+      wand_hand_32x64_f84_up_hold_plus_00: 8604522250199577831
+      wand_hand_32x64_f84_up_hold_plus_01: 6770723568543781644
+      wand_hand_32x64_f84_up_hold_plus_02: -1129483298460184426
+      wand_hand_32x64_f84_up_hold_plus_03: -1319598260668268756
+      wand_hand_32x64_f84_up_hold_plus_04: -5120053165666985053
+      wand_hand_32x64_f84_up_hold_plus_05: 5716370646082419194
+      wand_hand_32x64_f84_up_hold_plus_06: -185769816684143800
+      wand_hand_32x64_f84_up_hold_plus_07: -8061186798322211910
+      wand_hand_32x64_f84_up_hold_plus_08: -5452768127716797046
+      wand_hand_32x64_f84_up_hold_plus_09: 4769418757406615118
+      wand_hand_32x64_f84_up_hold_plus_10: -2134529467940365616
+      wand_hand_32x64_f84_up_hold_plus_11: -7941713075917862113
+      wand_hand_32x64_f84_up_hold_plus_12: -342075765684511478
+      wand_hand_32x64_f84_up_hold_plus_13: 4755915442065212008
+      wand_hand_32x64_f84_up_aim_plus_00: 2789852804924057888
+      wand_hand_32x64_f84_up_aim_plus_01: 8451122420978710160
+      wand_hand_32x64_f84_up_aim_plus_02: -4041619076684117462
+      wand_hand_32x64_f84_up_aim_plus_03: 4305420334484691841
+      wand_hand_32x64_f84_up_aim_plus_04: 7437003048249123578
+      wand_hand_32x64_f84_up_aim_plus_05: 2942736047374520322
+      wand_hand_32x64_f84_up_aim_plus_06: 1266154839680101547
+      wand_hand_32x64_f84_up_aim_plus_07: 2122476261728286968
+      wand_hand_32x64_f84_up_aim_plus_08: 516386763323391854
+      wand_hand_32x64_f84_up_aim_plus_09: 765379567999843720
+      wand_hand_32x64_f84_up_aim_plus_10: -3786550779401872543
+      wand_hand_32x64_f84_up_aim_plus_11: -1021502024240650207
+      wand_hand_32x64_f84_up_aim_plus_12: -4165207727016602030
+      wand_hand_32x64_f84_up_aim_plus_13: 1935119037740759807
+      combat_128x128_f12_0: -6872251245459912467
+      combat_128x128_f12_1: 8737547567669707162
+      combat_128x128_f12_10: -2492749947198411662
+      combat_128x128_f12_11: -2538762917359622859
+      combat_128x128_f12_2: -505700265493781659
+      combat_128x128_f12_3: -6046979318077803633
+      combat_128x128_f12_4: -3426884183030932179
+      combat_128x128_f12_5: 1151736356808580428
+      combat_128x128_f12_6: 8729383671941050033
+      combat_128x128_f12_7: 2898432474952583216
+      combat_128x128_f12_8: -8871050767337842810
+      combat_128x128_f12_9: 2319582051892306867
+  mipmapLimitGroupName:
+  pSDRemoveMatte: 0
+  userData:
+  assetBundleName:
+  assetBundleVariant:

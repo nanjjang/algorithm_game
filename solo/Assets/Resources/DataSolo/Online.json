@@ -1,0 +1,13 @@
+{
+  "_note": "온라인 서버 주소(Docs/11-online.md, 13-coop-server-deploy.md). 클라이언트는 server_host부터 차례로 붙어 본다(집 안에서는 도메인이 안 될 수 있어 내부 주소를 뒤에 둔다). 플레이어 이름은 서버 프로필(4단계) 전까지 기기 이름 대신 player_name_default.",
+  "server_hosts": [
+    "coop.yoonjunseo.com",
+    "192.168.219.112",
+    "127.0.0.1"
+  ],
+  "server_port": 27870,
+  "connect_timeout_ms": 1500,
+  "tls_pins": [
+    "a462d7f41035523915278124b9551d0c6702ef121a0b3900cc6aed7cd28e4b08"
+  ]
+}

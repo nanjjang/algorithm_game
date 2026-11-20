@@ -1,0 +1,21 @@
+{
+  "_note": "위협 모듈(G05)의 명세 수치 중 Def에 없는 것. 05 요약서 2.1절: 120틱 넘게 기다린 요청이 막혀 있으면 그보다 늦은 요청은 그 틱 시작 안 함. Modules.cs 공통 규칙 4: 표는 판정·취소 뒤 600틱 남는다. 05 요약서 1.2절: 번쩍은 판정 2틱 전부터, 남는 구역은 사라지기 1초 전부터 깜박. 05 요약서 2.2절(S5 3.5) R5: 칸 0.5, 시간 단계 0.05초, 처음 5단계 제자리, 구역 줄임 25/256칸(0.10칸의 정수 꼴), 정적 막힘 여유 0.15칸, 지평선 = max(kz) + 6",
+  "queue": {
+    "starve_ticks": 120,
+    "ticket_keep_ticks": 600
+  },
+  "telegraph": {
+    "flash_lead_ticks": 2
+  },
+  "hazard": {
+    "expire_warn_seconds": 1.0
+  },
+  "r5": {
+    "cell_size": 0.5,
+    "step_seconds": 0.05,
+    "reaction_steps": 5,
+    "quantize_shrink_256": 25,
+    "static_margin": 0.15,
+    "horizon_extra_steps": 6
+  }
+}

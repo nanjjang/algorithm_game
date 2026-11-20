@@ -1,0 +1,20 @@
+{
+  "str.ui.hint.item": "{key} {action}",
+  "str.ui.hint.pick": "고르기",
+  "str.ui.hint.sep": " · ",
+  "str.ui.key.backspace": "Backspace",
+  "str.ui.key.downarrow": "↓",
+  "str.ui.key.enter": "Enter",
+  "str.ui.key.escape": "Esc",
+  "str.ui.key.leftarrow": "←",
+  "str.ui.key.leftctrl": "Ctrl",
+  "str.ui.key.leftshift": "Shift",
+  "str.ui.key.none": "-",
+  "str.ui.key.rightarrow": "→",
+  "str.ui.key.rightctrl": "Ctrl",
+  "str.ui.key.rightshift": "Shift",
+  "str.ui.key.space": "Space",
+  "str.ui.key.tab": "Tab",
+  "str.ui.key.uparrow": "↑",
+  "~end": ""
+}

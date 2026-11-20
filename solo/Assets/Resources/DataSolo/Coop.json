@@ -1,0 +1,24 @@
+{
+  "_note": "협동(Docs/11-online.md) 솔로 임시 값. party_spawn_points: 슬롯 0은 arena.json spawn_points[0] 그대로, 슬롯 1~3은 아래 자리(칸, 전장 24×14). revive: 쓰러진 동료 곁 revive_radius칸에 revive_seconds초 서 있으면 체력 revive_hp_cells칸·무적 revive_invuln_seconds초로 일어난다. wave_clear_revive = 웨이브를 깨면 쓰러진 동료가 같은 체력으로 일어난다. 전원이 쓰러지면 게임 오버.",
+  "party_spawn_points": [
+    {
+      "x": 10.0,
+      "y": 7.0
+    },
+    {
+      "x": 14.0,
+      "y": 7.0
+    },
+    {
+      "x": 12.0,
+      "y": 9.0
+    }
+  ],
+  "revive": {
+    "revive_radius": 1.5,
+    "revive_seconds": 3.0,
+    "revive_hp_cells": 1,
+    "revive_invuln_seconds": 2.0,
+    "wave_clear_revive": true
+  }
+}

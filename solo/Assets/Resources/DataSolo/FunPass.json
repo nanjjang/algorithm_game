@@ -1,0 +1,224 @@
+{
+  "_note": "재미 조정 손잡이(사용자 지시 2026-11-15 \"게임이 재미없다, 아주 재미있게\", 수치 조정 권한). 명세 사본(Resources/Data)과 보충 조각(DataSolo)은 고치지 않고 읽는 순간에 덮어쓴다(Wizard.Solo.Data.TuningPatches). 게임 부팅(ContentDb.LoadFromResources)만 켜고, 테스트의 ContentDb.LoadFromDirectory는 기본 꺼짐 → 명세 벡터 테스트는 명세 값 그대로. enabled = false면 전부 명세 그대로. 각 줄의 was = 덮어쓰기 전 값(다르면 읽기 오류 — 명세가 바뀌면 조정을 다시 본다). 표와 측정은 Docs/11-fun-pass.md. 떼 출현(horde)과 카메라 줌은 이 파일이 아니라 G09.json horde 절·Juice.json camera 절에서 바꿨다(이미 있던 솔로 손잡이).",
+  "enabled": true,
+  "patches": [
+    {
+      "id": "heat.cool_delay",
+      "_note": "A절. 냉각 대기 0.2초(12틱) → 0.08초(5틱). 측정(허수아비 6,000틱, FunPassBalanceTests): 명세에서 한 발씩 끊어 쏘기(다음 발이 잠그면 손을 뗌) = 꾹 누르기의 96~108%(char.1 46.9 vs 48.7 DPS)라 과열 리듬이 보상받지 못했다. 몰아 쏘기는 이미 +34~52%지만 85~100에서 정확히 멈추는 상급 기술뿐이다. 꾹 누르기는 식을 틈이 없고 잠금이 열을 0으로 돌려 그대로(초보 진행 불변, 측정 ±0%)이고, 손을 떼는 리듬만 바로 식기 시작해 끊어 쏘기 +29~45%, 몰아 쏘기 +56~73%. 잠금 3초·임계 ×2는 그대로(초보에게 벌을 키우지 않는다)",
+      "target": "sim/characters",
+      "select": ["baseline", "characters[*]"],
+      "set": { "cool_delay_seconds": 0.08 },
+      "was": { "cool_delay_seconds": 0.2 }
+    },
+    {
+      "id": "graze.radius",
+      "_note": "D절. 스침 감지 반지름 0.6 → 0.7칸(피격 0.15칸은 그대로). 입력 관용: 스침 판정은 피격보다 넉넉해야 '아슬아슬'이 자주 인정된다. 띠 폭 0.45 → 0.55칸(+22%).",
+      "target": "sim/characters",
+      "select": ["baseline", "characters[id=char.1]", "characters[id=char.3]", "characters[id=char.4]", "characters[id=char.5]"],
+      "set": { "graze_radius": 0.7 },
+      "was": { "graze_radius": 0.6 }
+    },
+    {
+      "id": "graze.radius_char2",
+      "_note": "D절. char.2(스침 특화 0.75)도 같은 +0.1칸 → 0.85. 캐릭터 사이의 차이(0.15칸)는 그대로 둔다.",
+      "target": "sim/characters",
+      "select": "characters[id=char.2]",
+      "set": { "graze_radius": 0.85 },
+      "was": { "graze_radius": 0.75 }
+    },
+    {
+      "id": "graze.combo_gain",
+      "_note": "D절. 스침 콤보 +2 → +5. 스침 보상을 자원에 직결: 결정 1개 = 콤보 15(char.2 12)라 스침 3번이면 결정 1개(비기 1번). 명세 구조(스침 → 콤보 → 결정)는 그대로 값만.",
+      "target": "solo/const",
+      "set": { "graze_combo_gain": 5 },
+      "was": { "graze_combo_gain": 2 }
+    },
+    {
+      "id": "graze.heat_relief",
+      "_note": "D절. 새 손잡이(G01 graze_heat_relief, 기본 0). 임계 구간 안(열 > 임계 시작)에서 스치면 열 −12(마력탄 3발), 임계 시작 아래로는 안 내린다. 명세의 스침 보상(잠금 깨기·임계 시작까지 올림·다음 1발 열 면제)은 그대로 두고, 이미 뜨거울 때 스친 것도 '과열을 즉시 일부 해소'하게 한다.",
+      "target": "DataSolo/G01",
+      "set": { "graze_heat_relief": 12 }
+    },
+    {
+      "id": "arts.input_leniency",
+      "_note": "D절. 커맨드 판정기 여유창을 약 15~25% 넓힌다(입력 관용). 섬(저스트) 0.07 → 0.085초(5틱), 만개 간격 0.18 → 0.21, 짧은 간격 0.2 → 0.23, 같은 쪽 0.25 → 0.29, 기본 간격 0.3 → 0.35, 대기 끝 전 K 보관(커맨드 버퍼) 0.1 → 0.15초(9틱). 크기 순서(섬 < 만개 < 짧은 < 같은 쪽 < 기본)는 지켜 기술 구분은 그대로다. 재사용 대기 0.4초·빚 상한은 그대로.",
+      "target": "sim/tries",
+      "select": "parser",
+      "set": {
+        "just_window_seconds": 0.085,
+        "gap_full_bloom_seconds": 0.21,
+        "gap_short_seconds": 0.23,
+        "gap_same_side_seconds": 0.29,
+        "gap_default_seconds": 0.35,
+        "k_buffer_window_seconds": 0.15
+      },
+      "was": {
+        "just_window_seconds": 0.07,
+        "gap_full_bloom_seconds": 0.18,
+        "gap_short_seconds": 0.2,
+        "gap_same_side_seconds": 0.25,
+        "gap_default_seconds": 0.3,
+        "k_buffer_window_seconds": 0.1
+      }
+    },
+    {
+      "id": "run.wave_start_crystal",
+      "_note": "B절. 새 손잡이(G10 wave_start_crystal_until_wave, 기본 0). 웨이브 1~3은 결정이 없으면 1개를 쥐고 시작 → 첫 웨이브부터 K가 된다(명세에선 슬라임 접촉만 있는 웨이브 1~2에 스침이 없어 결정이 0, K를 못 써 'J 누르기 → 잠금 대기'만 반복). 안 쓰면 웨이브 끝 환전(결정 1개 = 골드)으로 사라지는 명세 규칙 그대로.",
+      "target": "DataSolo/G10",
+      "set": { "wave_start_crystal_until_wave": 3 }
+    },
+    {
+      "id": "enemies.slime_approach_speed",
+      "_note": "이끼 슬라임의 추격 속도 3.0 → 2.7칸/초. 초반 QA에서 슬라임 접촉이 8번 피격 중 7번을 차지했다. 접촉 피해와 체력은 그대로 두고 자세를 풀어 자리를 잡을 시간을 준다.",
+      "target": "sim/enemies",
+      "select": "enemies[id=enemy.slime_moss]",
+      "set": { "move_speed": 2.7 },
+      "was": { "move_speed": 3.0 }
+    },
+    {
+      "id": "enemies.shaman_attack_spacing",
+      "_note": "갓버섯 술사 3갈래 탄의 시전 0.4 → 0.55초, 재사용 2.0 → 2.6초. 접촉 압력을 낮춘 QA에서도 남은 피격의 절반이 술사 탄이었다. 탄의 모양·속도·피해는 그대로다.",
+      "target": "sim/enemies",
+      "select": "enemies[id=enemy.shaman_cap]/attacks[key=triple]",
+      "set": { "cast_seconds": 0.55, "cooldown_seconds": 2.6 },
+      "was": { "cast_seconds": 0.4, "cooldown_seconds": 2.0 }
+    },
+    {
+      "id": "camp.heal_base",
+      "_note": "야영 회복 기본 비용 30 → 20골드. 첫 웨이브 뒤 35 → 25골드. 웨이브별 증가분과 재구매 할증은 그대로다.",
+      "target": "solo/camp",
+      "set": { "heal_base": 20 },
+      "was": { "heal_base": 30 }
+    },
+    {
+      "id": "waves.opening_budgets",
+      "_note": "웨이브 1~2의 적 편성 예산 16/22 → 12/18. 무리를 나누고도 첫 웨이브에서 다섯 번 접촉 피해를 받아 쓰러진 QA 결과를 반영했다. 술사와 등불 벌레의 고정 편성은 남겨 둔다.",
+      "target": "DataSolo/G09",
+      "set": { "opening_budgets": [12, 18] }
+    },
+    {
+      "id": "waves.script_w1",
+      "_note": "B절. 웨이브 1: 이끼 슬라임만 → 갓버섯 술사 1 + 슬라임. 탄을 쏘는 약한 적이 있어야 첫 웨이브부터 스침이 성립한다. 새 요소 = 적 탄과 스침.",
+      "target": "sim/waves",
+      "select": "script[wave=1]",
+      "set": { "fixed": [{ "species": "enemy.shaman_cap", "min": 1, "max": 1 }] },
+      "was": { "fixed": [] }
+    },
+    {
+      "id": "waves.script_w2",
+      "_note": "B절. 웨이브 2: 등불 벌레 2~3 + 슬라임 → 등불 벌레 2~3 + 갓버섯 술사 1 + 슬라임. 새 요소 = 자폭 예고(등불 벌레), 스침은 계속.",
+      "target": "sim/waves",
+      "select": "script[wave=2]",
+      "set": { "fixed": [{ "species": "enemy.bug_lantern", "min": 2, "max": 3 }, { "species": "enemy.shaman_cap", "min": 1, "max": 1 }] },
+      "was": { "fixed": [{ "species": "enemy.bug_lantern", "min": 2, "max": 3 }] }
+    },
+    {
+      "id": "waves.script_w3",
+      "_note": "B·C절. 웨이브 3: 늑대 주 묶음 100% → 50%, 나머지 슬라임. 측정: 명세 + 떼 ×2.5에서 늑대 20마리(돌진 20번)가 한꺼번에 와 급등. 새 요소 = 늑대 돌진은 그대로 처음 보인다.",
+      "target": "sim/waves",
+      "select": "script[wave=3]",
+      "set": { "group_share": 50 },
+      "was": { "group_share": 100 }
+    },
+    {
+      "id": "waves.script_w4",
+      "_note": "B·C절. 웨이브 4: 늑대 주 묶음 100% → 60%. 새 요소 = 가시 고슴도치 저격(이미 각본).",
+      "target": "sim/waves",
+      "select": "script[wave=4]",
+      "set": { "group_share": 60 },
+      "was": { "group_share": 100 }
+    },
+    {
+      "id": "waves.script_w9",
+      "_note": "F·G절. 웨이브 9: 늑대 주 묶음 60% → 40%. 보스 시연(아래 waves.boss_preview)이 더해지는 자리라 측정에서 이 웨이브만 체력 ÷ 화력이 33.8초(앞뒤 10~22초)로 튀었다. 시연 종이 들어갈 예산을 비워 둔다.",
+      "target": "sim/waves",
+      "select": "script[wave=9]",
+      "set": { "group_share": 40 },
+      "was": { "group_share": 60 }
+    },
+    {
+      "id": "waves.whims_day2",
+      "_note": "B절. 변덕 수 표에 웨이브 14·16~18(1개)을 더한다(명세는 21부터). 하루 2(11~19)에서 각본에 새 종이 없는 웨이브(14·16·17·18)마다 '눈에 띄는 변화 하나'가 보이게. 21 이후는 명세 그대로. 변덕의 점수 배율도 명세 그대로 붙는다.",
+      "target": "sim/waves",
+      "set": {
+        "modifier_count": [
+          { "from": 14, "to": 14, "value": 1 },
+          { "from": 16, "to": 18, "value": 1 },
+          { "from": 21, "to": 40, "value": 1 },
+          { "from": 41, "to": null, "value": 2 }
+        ]
+      },
+      "was": {
+        "modifier_count": [
+          { "from": 21, "to": 40, "value": 1 },
+          { "from": 41, "to": null, "value": 2 }
+        ]
+      }
+    },
+    {
+      "id": "waves.boss_preview",
+      "_note": "G절. 보스 웨이브 바로 앞 웨이브(9, 19, 29 …)에 다음 보스의 패턴을 미리 보여 주는 일반 적을 고정 개수로 넣는다(예산 안, 종 상한 지킴. 고르는 보스 = 보스 웨이브가 실제로 쓸 보스). 짝: 가마등(띠 돌진·발구르기 고리·낙석 원) = 늑대 돌진 + 떠돌이 도깨비불 고리 탄 + 선돌 거인 원 예고 / 허상(내 주문 복사·부채꼴 비기·팔방 만개·슬라임 부르기) = 갓버섯 술사 부채꼴 + 도깨비불 고리 + 슬라임 / 천 갓(포자 고리·포자 구름·새싹) = 도깨비불 고리 ×2 + 술사 + 슬라임 / 밤눈(활강 띠·깃털 부채·번개 원) = 늑대 돌진 + 술사 부채꼴 + 거인 원 / 흰뿔(뿔 돌진·숨결 쓸기 탄·기둥) = 늑대 + 술사 + 거인 / 밤삼킴(조준 침·잠행 솟음·비늘 탄) = 고슴도치 조준 + 단지 족제비 매복 원 + 도깨비불. 웨이브 9·19·29는 밤이라 밤에 안 나오는 종(고슴도치)도 각본의 고정 개수처럼 시간대를 보지 않고 넣는다.",
+      "target": "DataSolo/G09",
+      "set": {
+        "boss_preview": {
+          "enabled": true,
+          "bosses": {
+            "boss.kiln_boar": [
+              { "species": "enemy.wolf_bramble", "min": 3, "max": 3 },
+              { "species": "enemy.wisp_stray", "min": 1, "max": 1 },
+              { "species": "enemy.golem_menhir", "min": 1, "max": 1 }
+            ],
+            "boss.mirror_phantom": [
+              { "species": "enemy.shaman_cap", "min": 2, "max": 2 },
+              { "species": "enemy.wisp_stray", "min": 1, "max": 1 },
+              { "species": "enemy.slime_moss", "min": 4, "max": 4 }
+            ],
+            "boss.spore_queen": [
+              { "species": "enemy.wisp_stray", "min": 2, "max": 2 },
+              { "species": "enemy.shaman_cap", "min": 1, "max": 1 },
+              { "species": "enemy.slime_moss", "min": 4, "max": 4 }
+            ],
+            "boss.storm_owl": [
+              { "species": "enemy.wolf_bramble", "min": 3, "max": 3 },
+              { "species": "enemy.shaman_cap", "min": 1, "max": 1 },
+              { "species": "enemy.golem_menhir", "min": 1, "max": 1 }
+            ],
+            "boss.frost_goat": [
+              { "species": "enemy.wolf_bramble", "min": 2, "max": 2 },
+              { "species": "enemy.shaman_cap", "min": 1, "max": 1 },
+              { "species": "enemy.golem_menhir", "min": 1, "max": 1 }
+            ],
+            "boss.night_serpent": [
+              { "species": "enemy.hog_needle", "min": 1, "max": 1 },
+              { "species": "enemy.weasel_pot", "min": 2, "max": 2 },
+              { "species": "enemy.wisp_stray", "min": 1, "max": 1 }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "attack_style.tutorial_default",
+      "_note": "기본 공격 유형(Docs/12-attack-styles.md). 튜토리얼 판을 그 캐릭터의 A 유형으로 돌린다(사용자 지시 '튜토리얼은 A 유형으로'). 관문 값은 그대로 — AttackStyleTutorialTests가 다섯 캐릭터의 A로 관문을 통과시켜 확인한다.",
+      "target": "DataSolo/AttackStyles",
+      "set": { "tutorial_uses_default_style": true },
+      "was": { "tutorial_uses_default_style": false }
+    },
+    {
+      "id": "attack_style.art_upgrades",
+      "_note": "고유 비기 강화(불기둥 고리·낙뢰 궤적·책장 소용돌이·얼음 가시·그림자 손 짓누름). 비용·커맨드는 그대로, 덧피해는 원래 총량의 +20% 이내(AttackStyles.json art_upgrades 표, Docs/12 4절).",
+      "target": "DataSolo/AttackStyles",
+      "select": "art_upgrades",
+      "set": { "enabled": true },
+      "was": { "enabled": false }
+    },
+    {
+      "id": "attack_style.final_abilities",
+      "_note": "파이널 어빌리티(게이지 가득 + 커맨드 없는 K → 결정 전부, 캐릭터 × 기본 공격 유형 15가지. AttackStyles.json final_abilities 표).",
+      "target": "DataSolo/AttackStyles",
+      "select": "final_abilities",
+      "set": { "enabled": true },
+      "was": { "enabled": false }
+    }
+  ]
+}

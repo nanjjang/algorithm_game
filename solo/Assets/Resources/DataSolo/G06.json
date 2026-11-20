@@ -1,0 +1,15 @@
+{
+  "_note": "적 AI(G06)의 보충 수치. 명세·데이터에 값이 없어 둔 것만 적는다. dummy.* = 허수아비(05·08 8.5절 '적 탄 쏘기'에 수치 없음 → 솔로 임시): hp = 죽지 않게 매 틱 가득 채우는 표시용 체력, fire_interval_seconds·shot_speed·shot_radius·shot_damage = 옵션이 켜졌을 때 쏘는 직선 탄(갓버섯 술사 탄과 같은 속도·반지름·피해, 간격 2초). heavy_freeze_slow = 05 5절 표의 '살얼음 빙결 → 중량 감속 −30%'(보스는 감속 절반 규칙으로 −15%). cc_slow_default_seconds = ApplyCc(Slow)에는 시간 인자가 없어 쓰는 기본 시간(05 5절 표의 감속 1.0초). slow_barrage_min_gap = 06 1.4절 느린 탄막 '탄 사이 1.0칸'. arrive_epsilon = 목표 자리에 닿았다고 보는 거리(솔로 임시). queen_dive_trigger = 박쥐 여왕 급강하를 시작하는 거리(원문 없음 → 띠 길이 5와 같게, 솔로 임시).",
+  "dummy": {
+    "hp": 1000000,
+    "fire_interval_seconds": 2.0,
+    "shot_speed": 6.5,
+    "shot_radius": 0.12,
+    "shot_damage": 1
+  },
+  "heavy_freeze_slow": 0.3,
+  "cc_slow_default_seconds": 1.0,
+  "slow_barrage_min_gap": 1.0,
+  "arrive_epsilon": 0.05,
+  "queen_dive_trigger": 5
+}

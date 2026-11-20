@@ -1,0 +1,25 @@
+{
+  "_note": "전투 HUD(G17)의 솔로 임시 값. 요약서(08 6.1·13.1절, 10 1.3·2.3·3.4·3.6절)에 값이 없는 것만 둔다. 사용자가 QA에서 정한다. 읽는 곳: Wizard.Solo.View.Hud.HudTuning.",
+  "hud": {
+    "notice_seconds": 2.0,
+    "master_advice_seconds": 4.0,
+    "master_advice_rect": [480, 104, 960, 24],
+    "boss_wave_elapsed_y": 104,
+    "combo_hud_pos": [124, 108],
+    "crystal_row_offset_y": -100,
+    "combo_bar_width": 48,
+    "combo_bar_height": 2,
+    "combo_break_seconds": 0.4,
+    "circuit_step_seconds": 0.05,
+    "unlock_flash_seconds": 0.25,
+    "late_line_seconds": 1.0,
+    "late_line_offset_y": -124,
+    "fizzle_blink_seconds": 0.3,
+    "crystal_break_seconds": 0.2,
+    "frost_shield_seconds": 0.3,
+    "wave_end_coin_seconds": 0.4,
+    "facing_arrow_radius_px": 54,
+    "facing_arrow_size_px": 12,
+    "facing_arrow_normal_alpha": 0.5
+  }
+}

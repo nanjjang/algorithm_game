@@ -1,0 +1,25 @@
+{
+  "_note": "허수아비 연습·튜토리얼 방(08 요약서 6.4·8.5절, 00 문서 D-17·D-57·D-59). dummy = Ids.Enemy.Dummy의 EnemyDef: 움직이지 않고(move_speed 0, knockback_immune) 공격하지 않으며(attacks 없음, 피해 0) 죽지 않는 표적. base_hp 0은 '체력 없음 = 죽지 않음, 받은 피해만 센다'는 뜻(적 체력 공식을 타지 않는다). 몸 반지름 body_radius 0.5는 명세 값이 없어 솔로 임시로 둔 값(사용자 확인 대기). 자리는 전장 정보(arena.json place.field)를 쓰는 쪽이 정한다. tutorial_block_id = 일반 등급 고정 순서(06 0.2절: magic_bolt, split_two, …)에서 투사체가 아닌 첫 블록(D-59). report_interval_seconds 0.5는 솔로 임시(허수아비 수치판 갱신 주기), recent_damage_window_seconds 10은 08 8.5절 '최근 10초 피해'",
+  "dummy": {
+    "id": "enemy.dummy",
+    "role": "dummy",
+    "base_hp": 0,
+    "move_speed": 0,
+    "attack_damage": 0,
+    "contact_damage": 0,
+    "cost": 0,
+    "first_wave": 0,
+    "times": [],
+    "weak": null,
+    "resist": null,
+    "tags": [],
+    "knockback_immune": true,
+    "species_cap": null,
+    "body_radius": 0.5,
+    "attacks": [],
+    "minion": false
+  },
+  "tutorial_block_id": "block.split_two",
+  "report_interval_seconds": 0.5,
+  "recent_damage_window_seconds": 10
+}

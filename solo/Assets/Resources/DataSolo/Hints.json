@@ -1,0 +1,22 @@
+{
+  "_note": "문맥 힌트(처음 일어난 일을 한 번만 알려 주는 쪽지)와 막힘 감지의 수치. 원문에 값이 없다 → 솔로 임시(사용자 QA에서 조정). card_seconds = 쪽지가 떠 있는 시간(일시정지 중에는 멈춘다), gap_seconds = 쪽지 사이 쉼, stuck_max_shows = 막힘 힌트를 한 프로필에 최대 몇 번까지(판마다 한 번), dry_fire_count·dry_fire_window_seconds = 과열 잠금 중 J 연타가 이 창 안에 이만큼이면 막힘, fizzle_count·fizzle_window_seconds = 결정 부족 불발이 이만큼이면 막힘, queue_max_wait_seconds = 줄에서 이만큼 넘게 기다린 힌트는 그 순간이 지나 버렸으므로 띄우지 않는다(본 것으로 적지 않아 다음에 그 일이 생기면 뜬다), enhance_delay_seconds = 강화 결과(하락·변이)를 본 뒤 쪽지를 띄우기까지(의식 연출을 가리지 않게), card = 쪽지 기본 자리·크기(px, 1920×1080 왼쪽 위 원점), spots = 화면(ScreenId 이름)마다 버튼·카드를 가리지 않는 안전 자리(x·y·폭, 높이는 본문 길이로 정한다): 전투 = 오른쪽 가운데 위, 전리품 = 카드 열 위 오른쪽, 야영 = 다음 웨이브 판 아래쪽 빈 곳, 정산 = [다음] 오른쪽, 강화 = 제물 칸 오른쪽, 지팡이 고르기 = 목록 판 오른쪽. 쪽지는 자기 문맥 화면에서만 보이고 화면이 바뀌면 닫힌다.",
+  "card_seconds": 8,
+  "gap_seconds": 0.6,
+  "stuck_max_shows": 3,
+  "dry_fire_count": 6,
+  "dry_fire_window_seconds": 4,
+  "fizzle_count": 3,
+  "fizzle_window_seconds": 12,
+  "enhance_delay_seconds": 3.5,
+  "queue_max_wait_seconds": 15,
+  "card": { "x": 1376, "y": 768, "w": 528, "h": 156 },
+  "spots": {
+    "Battle": { "x": 1436, "y": 236, "w": 464 },
+    "LootPick": { "x": 1500, "y": 12, "w": 404 },
+    "Camp": { "x": 1474, "y": 566, "w": 412 },
+    "ArtTrie": { "x": 1436, "y": 236, "w": 464 },
+    "Settlement": { "x": 1600, "y": 728, "w": 304 },
+    "Enhance": { "x": 1206, "y": 630, "w": 254 },
+    "WandPicker": { "x": 1580, "y": 200, "w": 320 }
+  }
+}

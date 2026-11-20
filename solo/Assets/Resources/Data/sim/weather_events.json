@@ -1,0 +1,53 @@
+{
+  "_note": "날씨와 돌발 사건 5행(world-characters 2.3 의 표, spec 14 3.9 event.*). 칸의 뜻은 WeatherEventDef 와 DECISIONS-TECH T-55. 원문의 수: 소나기 = 낮·해질녘, 하루 1회 이하, 60초 / 안개 = 해질녘, 가장자리 3칸 / 별똥 결정 = 밤 / 느루의 훈수 = 아무 때나 / 버린 물건 = 날이 바뀔 때. 원문이 정하지 않아 [임시]로 둔 것(OPEN-QUESTIONS Q-19, Q-20): 소나기·안개·훈수의 웨이브당 확률, 안개의 길이(그 웨이브가 끝날 때까지), 훈수의 줄 수(원문의 두 줄). 결투에는 날씨와 돌발 사건이 없고 웨이브마다 한 번만 뽑는 것은 규칙이라 데이터에 없다.",
+  "events": [
+    {
+      "_note": "빗줄기와 바닥 물웅덩이 반사. 규칙 영향 없음(연출). chance_percent 는 [임시]: 낮·해질녘 웨이브 7개에서 하루에 한 번이라도 올 확률이 약 52%",
+      "id": "event.shower",
+      "affects_rules": false,
+      "when": "wave_start",
+      "tods": ["tod.day", "tod.dusk"],
+      "chance_percent": 10,
+      "max_per_day": 1,
+      "span": "timed",
+      "duration_seconds": 60
+    },
+    {
+      "_note": "가장자리 3칸이 뿌옇고 등장구의 덤불 흔들림이 더 크게 그려진다. 규칙 영향 없음(연출). chance_percent 와 span 은 [임시]",
+      "id": "event.fog",
+      "affects_rules": false,
+      "when": "wave_start",
+      "tods": ["tod.dusk"],
+      "chance_percent": 20,
+      "span": "wave",
+      "edge_width": 3
+    },
+    {
+      "_note": "규칙에 영향을 주는 사건(마력 결정 +1). 수치(확률, 때, 자리, 예고 1.5초, 8초, 결정 수)는 starfall.json 한 곳에만 둔다. 이 줄은 목록의 자리다",
+      "id": "event.star_crystal",
+      "affects_rules": true,
+      "when": "wave_start",
+      "tods": ["tod.night"],
+      "span": "instant"
+    },
+    {
+      "_note": "까마귀가 쪽지를 떨어뜨리고 화면 위에 느루의 한 줄이 뜬다. '아무 때나 드물게'. 규칙 영향 없음. chance_percent 는 [임시]. variants 는 이름 표의 event.master_advice.line.1~2",
+      "id": "event.master_advice",
+      "affects_rules": false,
+      "when": "wave_start",
+      "tods": ["tod.day", "tod.dusk", "tod.night", "tod.boss"],
+      "chance_percent": 5,
+      "span": "instant",
+      "variants": 2
+    },
+    {
+      "_note": "탑 창문에서 물건이 떨어져 새 소품이 된다. 날이 바뀌면 늘 일어난다(spec 07 20절 day.changed). 규칙 영향 없음. variants 는 소품 그림 6종(spec 14 4.7)",
+      "id": "event.discarded_item",
+      "affects_rules": false,
+      "when": "day_change",
+      "chance_percent": 100,
+      "span": "instant",
+      "variants": 6
+    }
+  ]
+}

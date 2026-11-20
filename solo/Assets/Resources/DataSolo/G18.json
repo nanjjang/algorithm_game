@@ -1,0 +1,10 @@
+{
+  "_note": "시작 묶음 화면(G18)의 수치. title_pulse_seconds·시간대 시각은 08 요약서 3.2·4.1절 값([임시] U-14), title_pulse_min_brightness는 원문에 값이 없는 솔로 임시 값. 읽는 곳: Wizard.Solo.Screens.Start.StartTuning.",
+  "start": {
+    "title_pulse_seconds": 2.0,
+    "title_pulse_min_brightness": 0.5,
+    "day_start_hour": 6,
+    "dusk_start_hour": 17,
+    "night_start_hour": 20
+  }
+}

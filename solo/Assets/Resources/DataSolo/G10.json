@@ -1,0 +1,13 @@
+{
+  "_note": "G10(판 흐름)의 보충 수치. 명세 값: gold_pull_radius 2칸(05 요약서 3.4절 '골드는 2칸 안이면 빨려 온다' — 연출용 조각만, 지갑은 처치 순간에 오른다), tutorial_move_cells 1칸·tutorial_last_step 5(08 요약서 6.4절), revenge_wave 20(05 요약서 10.3절 '웨이브 20 허상'). 솔로 임시(원문에 값 없음, 사용자 확인 대기): dummy_offset_x/y = 허수아비 자리(전장 가운데에서의 오프셋, 칸. 플레이어 첫 시야 S 쪽 3칸), health_shard_pickup_radius 0.5칸(별똥 줍기 거리와 같게), practice_dps_min_seconds 1(DPS 분모의 하한 — 첫 적중 직후 값이 튀지 않게). 자료구조 크기: dummy_hp_pool/dummy_hp_floor = 허수아비가 받은 피해를 재는 체력 통(틱마다 가득으로 되돌린다. 기획 수치가 아니다)",
+  "dummy_offset_x": 0,
+  "dummy_offset_y": 3,
+  "dummy_hp_pool": 1000000,
+  "dummy_hp_floor": 1,
+  "health_shard_pickup_radius": 0.5,
+  "gold_pull_radius": 2,
+  "tutorial_move_cells": 1,
+  "tutorial_last_step": 5,
+  "revenge_wave": 20,
+  "practice_dps_min_seconds": 1
+}

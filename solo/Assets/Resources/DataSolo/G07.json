@@ -1,0 +1,21 @@
+{
+  "_note": "G07 보스 공통 뼈대의 보충 수치(bosses.json에 없는 것). revenge_wave 20 = 05 요약서 10.3절(웨이브 20 허상). reflection_bloom_ticks 24/54/84 = 05 요약서 10.2절 되비침 만개 연출(판정 없음). collapse_master_line_ticks 72 = 10.2절 쓰러짐 72틱 대사. r1_reaction_seconds 0.25·r1_margin_seconds 0.05 = 2절 R1. r3_check_distance 3·r3_min_gap 1 = 2절 R3(발사점 3칸 지점 탄 사이 1.0칸. 허상 복사의 갈래 벌림 2·asin(1/6) = 19.19도, 03 요약서 12절). boulder_shard_damage 1·ember_damage 1 = 9.1절. 그 밖은 원문에 값이 없는 솔로 임시: 등장 자리(전장 가로 가운데, 세로 1/4·3/4 중 플레이어에게서 먼 쪽), 쫓기를 멈추는 거리 0.1칸, 허상 거리 유지의 허용 폭 0.25칸, 슬라임 졸개를 부르는 고리 반경 1.5칸, 불씨 띠 조각 길이 1칸(9.1절 U30의 조각 단위), 복사 탄이 플레이어를 맞혔다고 보는 여유 0.1칸, 패턴이 끝나지 않을 때 끊는 한도 600틱(예고 표의 수명과 같다)",
+  "revenge_wave": 20,
+  "spawn_x_ratio": 0.5,
+  "spawn_y_ratio_a": 0.25,
+  "spawn_y_ratio_b": 0.75,
+  "reflection_bloom_ticks": [24, 54, 84],
+  "collapse_master_line_ticks": 72,
+  "r1_reaction_seconds": 0.25,
+  "r1_margin_seconds": 0.05,
+  "r3_check_distance": 3.0,
+  "r3_min_gap": 1.0,
+  "boulder_shard_damage": 1,
+  "ember_damage": 1,
+  "chase_stop_distance": 0.1,
+  "keep_distance_band": 0.25,
+  "summon_ring_radius": 1.5,
+  "ember_segment_length": 1.0,
+  "copy_hit_slack": 0.1,
+  "pattern_stall_ticks": 600
+}

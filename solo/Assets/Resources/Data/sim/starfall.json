@@ -1,0 +1,16 @@
+{
+  "_note": "별똥 결정(event.star_crystal). 원문: world-characters 2.3, GDD 7 — 밤(웨이브 8~9), 웨이브당 1회 이하, 1.5초 예고 뒤 빈 바닥에 떨어지고 8초 안에 밟으면 마력 결정 1개, 마지막 2초 깜빡임(effects 11.3). 원문이 정하지 않은 확률·때·자리·줍는 반지름·다시 찾기는 spec 01 10.5 의 [임시] 표 값이다(spec 01 19절 U28). 밤 = 하루 속 순번 8~9(spec 01 18절 C12, waves.json 의 tod_ranges). 웨이브당 한 번만 뽑는 것, 결투에 없는 것, 결정 상한·그믐의 빚, 웨이브 끝에 사라지는 것은 규칙이라 데이터에 없다.",
+  "only_tod": "tod.night",
+  "chance_percent": 50,
+  "drop_window_seconds": { "from": 10, "to": 40 },
+  "telegraph_seconds": 1.5,
+  "landed_seconds": 8,
+  "blink_seconds": 2,
+  "area": { "width": 20, "height": 10 },
+  "grid_step": 0.5,
+  "hazard_clearance": 2,
+  "player_clearance": 3,
+  "retry_seconds": 1,
+  "pick_radius": 0.5,
+  "crystals": 1
+}

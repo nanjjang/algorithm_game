@@ -1,0 +1,19 @@
+{
+  "_note": "02 요약서 9.1절(S04 11, S01 7.6)과 07 요약서 4.7절의 변이 수치. data/에 없던 값(02 M-06). 뒤틀린 총열: 변이 배율 ×1.6, 발사마다 [−25°, +25°] 정수도 균등 [임시]. 불안정 핵: 폭발 반경 +100%(배율 2), 발사 1회당 5%, 잠금 2초(120틱, t + 간격 + 120틱, 더 긴 쪽), 0.3초 전 예고. 과민 회로: 임계 시작 70, 잠금 +1.5초(+90틱). 탐식: 처치당 열 −4(−480 HU), 최근 1초(60틱) 합 ≤ 20(2,400 HU) [임시], 냉각 ×0.5. 거울상: 발사당 열 ×1.5. 유리 지팡이: 임계 배율 +1, 피격 시 판 안 임시 강화 −1(웨이브당 1회, 단계가 glass_wand_min_stage보다 클 때만, 그 아래로 내려가지 않음)",
+  "twisted_barrel_damage_mul": 1.6,
+  "twisted_barrel_spread_degrees": 25,
+  "unstable_core_radius_mul": 2.0,
+  "unstable_core_chance_percent": 5,
+  "unstable_core_lock_seconds": 2.0,
+  "unstable_core_warn_seconds": 0.3,
+  "hypersensitive_crit_start": 70,
+  "hypersensitive_lock_plus_seconds": 1.5,
+  "gluttony_heat_per_kill": 4,
+  "gluttony_heat_per_second_cap": 20,
+  "gluttony_window_seconds": 1.0,
+  "gluttony_cool_mul": 0.5,
+  "mirror_image_heat_mul": 1.5,
+  "glass_wand_crit_bonus": 1,
+  "glass_wand_min_stage": 3,
+  "glass_wand_drops_per_wave": 1
+}

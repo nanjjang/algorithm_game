@@ -1,0 +1,7 @@
+{
+  "_note": "플레이어 모듈(G01)의 Def에 없는 수치. 열 링(02 요약서 6.6절): Imminent = 임계 시작 − 15부터, Brink = 95부터. 빚이 있을 때 받는 피해 +1칸(02 요약서 5.2절, 3칸 상한 뒤). 스침 묶음 기억을 지우는 때: 그 시전의 위협이 다 사라진 뒤(02 요약서 7.1절 [임시]) — 연속 발사의 다음 탄이 늦게 나올 수 있어 예고 표가 남는 600틱(00 문서 5.4절 (바))만큼 더 기억한다(솔로 임시). 읽는 곳: Wizard.Solo.Sim.Player.PlayerTuning.",
+  "ring_imminent_below_crit": 15,
+  "ring_brink_from": 95,
+  "debt_extra_damage_cells": 1,
+  "graze_cast_forget_seconds": 10
+}

@@ -1,0 +1,12 @@
+{
+  "str.battle_hud.gold_caption": "골드",
+  "str.camp.header_chip": "{day}일째 · 웨이브 {wave} 다음",
+  "str.camp.section.spell": "주문 흐름",
+  "str.camp.section.stats": "주문 수치",
+  "str.expedition_prep.stats": "능력치",
+  "str.settlement.section.score": "점수 내역",
+  "str.solo_ui.hud.heat": "과열",
+  "str.ui.details": "상세 보기",
+  "str.ui.hide_details": "상세 닫기",
+  "~end": ""
+}

@@ -1,0 +1,360 @@
+{
+  "_note": "WP4 도전 과제(솔로 임시 값 — QA에서 사용자가 정한다). character 1~5 = 그 제자, 0 = 다섯 제자 모두(aggregate: sum 합 / min 다섯 모두 / max 누구든). kind: best_wave, best_score, total_waves, total_grazes, total_kills, total_elites, revenge, run_grazes(한 판 스침 최고), run_no_hit_waves(한 판 무피격 웨이브 최고), boss_no_hit(무피격 보스 처치 수). 보상은 선택지·표시 해금만(칭호, 꾸미기, 서고 칸 = 서고 확장 1단계). 결제·강화 확률·강화 시간과 무관.",
+  "challenges": [
+    {
+      "id": "c1.wave_15",
+      "character": 1,
+      "kind": "best_wave",
+      "target": 15,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.1.wave_15"
+      }
+    },
+    {
+      "id": "c1.graze_300",
+      "character": 1,
+      "kind": "total_grazes",
+      "target": 300,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.1.graze"
+      }
+    },
+    {
+      "id": "c1.boss_no_hit",
+      "character": 1,
+      "kind": "boss_no_hit",
+      "target": 1,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.1.boss_clean"
+      }
+    },
+    {
+      "id": "c1.revenge",
+      "character": 1,
+      "kind": "revenge",
+      "target": 1,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.1.revenge"
+      }
+    },
+    {
+      "id": "c1.kills_1500",
+      "character": 1,
+      "kind": "total_kills",
+      "target": 1500,
+      "reward": {
+        "kind": "library_slot",
+        "count": 1
+      }
+    },
+    {
+      "id": "c1.wave_30",
+      "character": 1,
+      "kind": "best_wave",
+      "target": 30,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.1.wave_30"
+      }
+    },
+    {
+      "id": "c2.wave_15",
+      "character": 2,
+      "kind": "best_wave",
+      "target": 15,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.2.wave_15"
+      }
+    },
+    {
+      "id": "c2.graze_300",
+      "character": 2,
+      "kind": "total_grazes",
+      "target": 300,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.2.graze"
+      }
+    },
+    {
+      "id": "c2.boss_no_hit",
+      "character": 2,
+      "kind": "boss_no_hit",
+      "target": 1,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.2.boss_clean"
+      }
+    },
+    {
+      "id": "c2.revenge",
+      "character": 2,
+      "kind": "revenge",
+      "target": 1,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.2.revenge"
+      }
+    },
+    {
+      "id": "c2.kills_1500",
+      "character": 2,
+      "kind": "total_kills",
+      "target": 1500,
+      "reward": {
+        "kind": "library_slot",
+        "count": 1
+      }
+    },
+    {
+      "id": "c2.wave_30",
+      "character": 2,
+      "kind": "best_wave",
+      "target": 30,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.2.wave_30"
+      }
+    },
+    {
+      "id": "c3.wave_15",
+      "character": 3,
+      "kind": "best_wave",
+      "target": 15,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.3.wave_15"
+      }
+    },
+    {
+      "id": "c3.graze_300",
+      "character": 3,
+      "kind": "total_grazes",
+      "target": 300,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.3.graze"
+      }
+    },
+    {
+      "id": "c3.boss_no_hit",
+      "character": 3,
+      "kind": "boss_no_hit",
+      "target": 1,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.3.boss_clean"
+      }
+    },
+    {
+      "id": "c3.revenge",
+      "character": 3,
+      "kind": "revenge",
+      "target": 1,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.3.revenge"
+      }
+    },
+    {
+      "id": "c3.kills_1500",
+      "character": 3,
+      "kind": "total_kills",
+      "target": 1500,
+      "reward": {
+        "kind": "library_slot",
+        "count": 1
+      }
+    },
+    {
+      "id": "c3.wave_30",
+      "character": 3,
+      "kind": "best_wave",
+      "target": 30,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.3.wave_30"
+      }
+    },
+    {
+      "id": "c4.wave_15",
+      "character": 4,
+      "kind": "best_wave",
+      "target": 15,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.4.wave_15"
+      }
+    },
+    {
+      "id": "c4.graze_300",
+      "character": 4,
+      "kind": "total_grazes",
+      "target": 300,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.4.graze"
+      }
+    },
+    {
+      "id": "c4.boss_no_hit",
+      "character": 4,
+      "kind": "boss_no_hit",
+      "target": 1,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.4.boss_clean"
+      }
+    },
+    {
+      "id": "c4.revenge",
+      "character": 4,
+      "kind": "revenge",
+      "target": 1,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.4.revenge"
+      }
+    },
+    {
+      "id": "c4.kills_1500",
+      "character": 4,
+      "kind": "total_kills",
+      "target": 1500,
+      "reward": {
+        "kind": "library_slot",
+        "count": 1
+      }
+    },
+    {
+      "id": "c4.wave_30",
+      "character": 4,
+      "kind": "best_wave",
+      "target": 30,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.4.wave_30"
+      }
+    },
+    {
+      "id": "c5.wave_15",
+      "character": 5,
+      "kind": "best_wave",
+      "target": 15,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.5.wave_15"
+      }
+    },
+    {
+      "id": "c5.graze_300",
+      "character": 5,
+      "kind": "total_grazes",
+      "target": 300,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.5.graze"
+      }
+    },
+    {
+      "id": "c5.boss_no_hit",
+      "character": 5,
+      "kind": "boss_no_hit",
+      "target": 1,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.5.boss_clean"
+      }
+    },
+    {
+      "id": "c5.revenge",
+      "character": 5,
+      "kind": "revenge",
+      "target": 1,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.5.revenge"
+      }
+    },
+    {
+      "id": "c5.kills_1500",
+      "character": 5,
+      "kind": "total_kills",
+      "target": 1500,
+      "reward": {
+        "kind": "library_slot",
+        "count": 1
+      }
+    },
+    {
+      "id": "c5.wave_30",
+      "character": 5,
+      "kind": "best_wave",
+      "target": 30,
+      "reward": {
+        "kind": "title",
+        "id": "title.challenge.5.wave_30"
+      }
+    },
+    {
+      "id": "all.first_night",
+      "character": 0,
+      "aggregate": "min",
+      "kind": "best_wave",
+      "target": 10,
+      "reward": {
+        "kind": "cosmetic",
+        "id": "cosmetic.seat.rocking_chair"
+      }
+    },
+    {
+      "id": "all.grazes_2000",
+      "character": 0,
+      "aggregate": "sum",
+      "kind": "total_grazes",
+      "target": 2000,
+      "reward": {
+        "kind": "cosmetic",
+        "id": "cosmetic.cloak.master_lap_blanket"
+      }
+    },
+    {
+      "id": "all.run_grazes_120",
+      "character": 0,
+      "aggregate": "max",
+      "kind": "run_grazes",
+      "target": 120,
+      "reward": {
+        "kind": "cosmetic",
+        "id": "cosmetic.wand.clothesline"
+      }
+    },
+    {
+      "id": "all.no_hit_waves_5",
+      "character": 0,
+      "aggregate": "max",
+      "kind": "run_no_hit_waves",
+      "target": 5,
+      "reward": {
+        "kind": "library_slot",
+        "count": 1
+      }
+    },
+    {
+      "id": "all.waves_300",
+      "character": 0,
+      "aggregate": "sum",
+      "kind": "total_waves",
+      "target": 300,
+      "reward": {
+        "kind": "library_slot",
+        "count": 1
+      }
+    }
+  ]
+}

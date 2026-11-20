@@ -1,0 +1,7 @@
+{
+  "_note": "G13(지팡이·서고·떠나보내기·상점)의 Def에 없는 명세 수치. 07 요약서 3.5절(S8 2.6, S13 9.2): +7 이상은 지팡이 이름을 그대로 입력해야 떠나보낼 수 있다, 여러 자루 떠나보내기는 +3 이하 && 변이 0 && 확장 0만. 읽는 곳: Wizard.Solo.Meta.Inventory.InventoryTuning.",
+  "release_name_confirm_min_stage": 7,
+  "release_multi_max_stage": 3,
+  "release_multi_max_mutations": 0,
+  "release_multi_max_slots_extra": 0
+}

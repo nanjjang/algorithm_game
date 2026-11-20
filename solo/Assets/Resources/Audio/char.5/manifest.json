@@ -1,0 +1,198 @@
+{
+  "character": "char.5",
+  "wand": "wand.5",
+  "clips": {
+    "fire_knot": {
+      "file": "fire_knot.wav",
+      "group": "fire",
+      "stages": [
+        0,
+        3
+      ]
+    },
+    "fire_open_eye": {
+      "file": "fire_open_eye.wav",
+      "group": "fire",
+      "stages": [
+        4,
+        6
+      ]
+    },
+    "fire_crescent": {
+      "file": "fire_crescent.wav",
+      "group": "fire",
+      "stages": [
+        7,
+        9
+      ]
+    },
+    "fire_floating_eye": {
+      "file": "fire_floating_eye.wav",
+      "group": "fire",
+      "stages": [
+        10,
+        12
+      ]
+    },
+    "fire_black_moon": {
+      "file": "fire_black_moon.wav",
+      "group": "fire",
+      "stages": [
+        13,
+        13
+      ]
+    },
+    "hit_knot": {
+      "file": "hit_knot.wav",
+      "group": "hit",
+      "stages": [
+        0,
+        2
+      ]
+    },
+    "hit_eyelid": {
+      "file": "hit_eyelid.wav",
+      "group": "hit",
+      "stages": [
+        3,
+        6
+      ]
+    },
+    "hit_crescent": {
+      "file": "hit_crescent.wav",
+      "group": "hit",
+      "stages": [
+        7,
+        9
+      ]
+    },
+    "hit_eclipse": {
+      "file": "hit_eclipse.wav",
+      "group": "hit",
+      "stages": [
+        10,
+        13
+      ]
+    },
+    "hit_droplet": {
+      "file": "hit_droplet.wav",
+      "group": "hit_accent"
+    },
+    "hit_glass": {
+      "file": "hit_glass.wav",
+      "group": "hit_accent"
+    },
+    "hit_bell": {
+      "file": "hit_bell.wav",
+      "group": "hit_accent"
+    },
+    "idle_floating_eye": {
+      "file": "idle_floating_eye.wav",
+      "group": "idle",
+      "stages": [
+        10,
+        12
+      ]
+    },
+    "idle_black_moon": {
+      "file": "idle_black_moon.wav",
+      "group": "idle",
+      "stages": [
+        13,
+        13
+      ]
+    },
+    "idle_blink": {
+      "file": "idle_blink.wav",
+      "group": "idle_accent"
+    },
+    "idle_charm": {
+      "file": "idle_charm.wav",
+      "group": "idle_accent"
+    },
+    "idle_head_snap": {
+      "file": "idle_head_snap.wav",
+      "group": "idle_accent"
+    },
+    "enhance_offer": {
+      "file": "enhance_offer.wav",
+      "group": "enhance"
+    },
+    "enhance_waxing_moon": {
+      "file": "enhance_waxing_moon.wav",
+      "group": "enhance"
+    },
+    "enhance_success": {
+      "file": "enhance_success.wav",
+      "group": "enhance"
+    },
+    "enhance_release": {
+      "file": "enhance_release.wav",
+      "group": "enhance"
+    },
+    "enhance_stage04": {
+      "file": "enhance_stage04.wav",
+      "group": "enhance"
+    },
+    "enhance_stage07": {
+      "file": "enhance_stage07.wav",
+      "group": "enhance"
+    },
+    "enhance_stage10": {
+      "file": "enhance_stage10.wav",
+      "group": "enhance"
+    },
+    "enhance_stage13": {
+      "file": "enhance_stage13.wav",
+      "group": "enhance"
+    },
+    "enhance_great_success": {
+      "file": "enhance_great_success.wav",
+      "group": "enhance"
+    },
+    "enhance_failure": {
+      "file": "enhance_failure.wav",
+      "group": "enhance"
+    },
+    "enhance_fall": {
+      "file": "enhance_fall.wav",
+      "group": "enhance"
+    },
+    "enhance_shatter": {
+      "file": "enhance_shatter.wav",
+      "group": "enhance"
+    },
+    "enhance_reattach": {
+      "file": "enhance_reattach.wav",
+      "group": "enhance"
+    },
+    "enhance_ward": {
+      "file": "enhance_ward.wav",
+      "group": "enhance"
+    },
+    "enhance_mutation": {
+      "file": "enhance_mutation.wav",
+      "group": "enhance"
+    },
+    "shadow_pull": {
+      "file": "shadow_pull.wav",
+      "group": "signature"
+    },
+    "shadow_clench": {
+      "file": "shadow_clench.wav",
+      "group": "signature"
+    },
+    "shadow_borrow": {
+      "file": "shadow_borrow.wav",
+      "group": "debt"
+    },
+    "shadow_repay": {
+      "file": "shadow_repay.wav",
+      "group": "debt"
+    },
+    "shadow_double_shatter": {
+      "file": "shadow_double_shatter.wav",
+      "group": "debt"
+    }
+  }
+}

@@ -173,36 +173,4 @@ namespace Wizard.Solo.UI
         /// <summary>true인 동안 메뉴 키(Esc 포함)를 화면에 보내지 않는다 — 키 재설정의 "키를 누르세요" 동안 그 화면이 키보드를 직접 읽는다.</summary>
         bool CaptureKeys { get; set; }
     }
-
-    /// <summary>
-    /// 화면 등록 자리. 화면 작업은 자기 폴더의 `ScreenRegistry.&lt;묶음&gt;.cs`에서 자기 partial 메서드 하나만 구현해
-    /// m.Register(ScreenId.X, () =&gt; new XScreen())를 부른다. 구현이 없는 묶음은 컴파일 때 사라진다.
-    /// </summary>
-    public static partial class ScreenRegistry
-    {
-        static partial void RegisterCommon(IScreenManager m, GameContext ctx);
-        static partial void RegisterStart(IScreenManager m, GameContext ctx);
-        static partial void RegisterPrep(IScreenManager m, GameContext ctx);
-        static partial void RegisterBattle(IScreenManager m, GameContext ctx);
-        static partial void RegisterCamp(IScreenManager m, GameContext ctx);
-        static partial void RegisterSettlement(IScreenManager m, GameContext ctx);
-        static partial void RegisterEnhance(IScreenManager m, GameContext ctx);
-        static partial void RegisterMeta(IScreenManager m, GameContext ctx);
-        static partial void RegisterSettings(IScreenManager m, GameContext ctx);
-        static partial void RegisterTutorial(IScreenManager m, GameContext ctx);
-
-        public static void RegisterAll(IScreenManager m, GameContext ctx)
-        {
-            RegisterCommon(m, ctx);
-            RegisterStart(m, ctx);
-            RegisterPrep(m, ctx);
-            RegisterBattle(m, ctx);
-            RegisterCamp(m, ctx);
-            RegisterSettlement(m, ctx);
-            RegisterEnhance(m, ctx);
-            RegisterMeta(m, ctx);
-            RegisterSettings(m, ctx);
-            RegisterTutorial(m, ctx);
-        }
-    }
 }

@@ -36,7 +36,7 @@
   "health_shard_heal_cells": 1,
   "bag_waves_per_slot": 3,
   "bag_slot_cap": 12,
-  "bag_waves_per_hero": 10,
+  "bag_waves_per_hero": 5,
   "materials": {
     "crow_bundle": {
       "wave": 3,

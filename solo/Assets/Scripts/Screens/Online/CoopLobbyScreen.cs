@@ -26,7 +26,7 @@ namespace Wizard.Solo.Screens.Online
         CoopLobbyModel _model;
         bool _askedLogin;
 
-        RectTransform _sceneCamp, _sceneDuel;
+        RectTransform _sceneCamp, _sceneDuel, _sceneRoom;
 
         UiLabel _who, _gold, _rating, _kindTag;
         RectTransform _kindTagRoot;
@@ -75,6 +75,8 @@ namespace Wizard.Solo.Screens.Online
             if (OnlineUi.Online("bg_online_hub") == null)
                 OnlineUi.AnimImg(Ctx, _sceneCamp, "S-0501", "campfire", 1236f - 64f, 780f - 100f, 128f, 128f);
             _sceneDuel = OnlineUi.Scene(Ctx, content, "S-0901", "duel_floor", 0.45f);
+            // 협동 방 안(천막, bg_room). 받아 온 그림이 없으면 들머리 장면을 그대로 쓴다.
+            if (OnlineUi.Online("bg_room") != null) _sceneRoom = OnlineUi.Scene(Ctx, content, null, null, 0.25f, "bg_room");
             BuildHeader(content);
             BuildOutside(content);
             BuildInside(content);
@@ -154,10 +156,12 @@ namespace Wizard.Solo.Screens.Online
             float leftW = OnlineUi.Span(9);
             var noteImg = OnlineUi.OnlineImg(_inside, "frame_code_note", OnlineUi.Edge, 112f, 480f, 176f);
             var note = noteImg != null ? noteImg.rectTransform : OnlineUi.Nine(Ctx, _inside, "S-2102", "room_note", OnlineUi.Edge, 112f, 480f, 176f, null, UiTheme.Paper).rectTransform;
-            UiKit.Label(Ctx, note, T(OnlineKeys.HubCodeCaption), UiFontId.F16, 32f, 24f, 300f, 24f, UiTheme.PaperText);
-            _codeLabel = UiKit.Label(Ctx, note, string.Empty, UiFontId.F64, 32f, 56f, 300f, 88f, UiTheme.PaperText, TextAnchor.MiddleLeft);
-            _localLabel = UiKit.Label(Ctx, note, T(OnlineKeys.HubLocalRoom), UiFontId.F32, 32f, 56f, 416f, 88f, UiTheme.PaperText, TextAnchor.MiddleLeft);
-            _copy = UiKit.Button(Ctx, note, T(OnlineKeys.HubCopy), 344f, 76f, 112f, 48f, OnCopy, UiButtonStyle.Small, Focus, null, UiFontId.F16, OnlineUi.Sprite(Ctx, "I-F2", "copy"));
+            float nx = noteImg != null ? 56f : 32f; // 받아 온 쪽지는 모서리 장식이 넓다
+            UiKit.Label(Ctx, note, T(OnlineKeys.HubCodeCaption), UiFontId.F16, nx, 28f, 300f, 24f, UiTheme.PaperText);
+            _codeLabel = UiKit.Label(Ctx, note, string.Empty, UiFontId.F64, nx, 56f, 288f, 88f, UiTheme.PaperText, TextAnchor.MiddleLeft);
+            _localLabel = UiKit.Label(Ctx, note, T(OnlineKeys.HubLocalRoom), UiFontId.F32, nx, 56f, 416f - (nx - 32f), 88f, UiTheme.PaperText, TextAnchor.MiddleLeft);
+            _copy = UiKit.Button(Ctx, note, T(OnlineKeys.HubCopy), 344f, 76f, 112f, 48f, OnCopy, UiButtonStyle.Small, Focus, null, UiFontId.F16,
+                OnlineUi.Online("icon_copy") ?? OnlineUi.Sprite(Ctx, "I-F2", "copy"));
             _share = UiKit.Label(Ctx, _inside, T(OnlineKeys.HubShare), UiFontId.F24, OnlineUi.Edge + 512f, 176f, leftW - 512f, 48f, UiTheme.Chalk);
             UiKit.DropShadow(_share);
             _benchRoot = UiKit.Node(_inside, "Bench", OnlineUi.Edge, 336f, leftW, SeatH);
@@ -202,13 +206,15 @@ namespace Wizard.Solo.Screens.Online
             s.Leader = OnlineUi.Img(Ctx, s.Root, "S-2104", "room_leader", 20f, 20f, 32f, 32f);
             var tag = OnlineUi.Tag(Ctx, s.Root, T(OnlineKeys.Bot), SeatW - 76f, 24f, UiTheme.SlateBlue, 52f);
             s.BotTag = (RectTransform)tag.transform.parent;
+            OnlineUi.OnlineImg(s.BotTag, "badge_bot", -36f, -4f, 32f, 32f); // 꼬리표(높이 24) 왼쪽에 톱니 표
             s.Name = UiKit.Label(Ctx, s.Root, string.Empty, UiFontId.F32, 16f, 300f, SeatW - 32f, 44f, UiTheme.Chalk, TextAnchor.MiddleCenter);
             s.Role = UiKit.Label(Ctx, s.Root, string.Empty, UiFontId.F16, 16f, 344f, SeatW - 32f, 24f, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
             s.StageRoot = UiKit.Node(s.Root, "Stage", (SeatW - 140f) * 0.5f, 372f, 140f, 28f);
             s.Stage = OnlineUi.IconText(Ctx, s.StageRoot, "I-F5", "hammer", string.Empty, 0f, 0f, 140f, 28f, UiFontId.F16, UiTheme.Chalk, 16f);
             s.Ready = OnlineUi.OnlineImg(s.Root, "badge_ready", (SeatW - 96f) * 0.5f, 400f, 96f, 40f)
                 ?? OnlineUi.Img(Ctx, s.Root, "S-2103", "ready_ready", (SeatW - 96f) * 0.5f, 404f, 96f, 32f);
-            s.Hourglass = OnlineUi.AnimImg(Ctx, s.Root, "S-2105", "waiting_hourglass", (SeatW - 48f) * 0.5f, 172f, 48f, 48f);
+            s.Hourglass = OnlineUi.OnlineImg(s.Root, "badge_waiting", (SeatW - 96f) * 0.5f, 176f, 96f, 40f)
+                ?? OnlineUi.AnimImg(Ctx, s.Root, "S-2105", "waiting_hourglass", (SeatW - 48f) * 0.5f, 172f, 48f, 48f);
             s.Waiting = UiKit.Label(Ctx, s.Root, T(OnlineKeys.HubWaitingSlot), UiFontId.F24, 16f, 232f, SeatW - 32f, 36f, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
             return s;
         }
@@ -259,7 +265,9 @@ namespace Wizard.Solo.Screens.Online
             bool room = _model.HasRoom;
             bool duelRoom = room && _model.Mode == RoomMode.Duel;
             _sceneDuel.gameObject.SetActive(duelRoom);
-            _sceneCamp.gameObject.SetActive(!duelRoom);
+            bool coopRoom = room && !duelRoom && _sceneRoom != null;
+            if (_sceneRoom != null) _sceneRoom.gameObject.SetActive(coopRoom);
+            _sceneCamp.gameObject.SetActive(!duelRoom && !coopRoom);
             _outside.gameObject.SetActive(!room);
             _inside.gameObject.SetActive(room);
             RefreshHeader(room);

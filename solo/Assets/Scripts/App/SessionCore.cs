@@ -110,19 +110,11 @@ namespace Wizard.Solo.App
         {
             if (cfg == null) throw new ArgumentNullException(nameof(cfg));
             if (_main != null) EndRun();
-            _paused = false;
-            _pausedSeconds = 0f;
-            _lastSummary = null;
-            _runEndedRaised = false;
-            _acc.Reset();
+            ResetRunState();
             var w = _worldFactory();
             _main = w;
             w.StartRun(cfg);
-            DiscardInput();
-            _gateOpen = false;
-            _needAttach = true;
-            if (_host != null) _host.Build(w);
-            RunStarted?.Invoke(w);
+            EnterRun(w);
         }
 
         public bool IsOnline => _online != null;
@@ -133,21 +125,31 @@ namespace Wizard.Solo.App
             var w = link.World;
             if (w == null) throw new InvalidOperationException("StartOnline needs link.World (the run has not started yet).");
             if (_main != null) EndRun();
-            _paused = false;
-            _pausedSeconds = 0f;
-            _lastSummary = null;
-            _runEndedRaised = false;
-            _acc.Reset();
+            ResetRunState();
             _online = link;
             _main = w;
             w.ViewSlot = link.Slot;
             LocalSlot = link.Slot;
             w.InputQueues[LocalSlot].Clear();
             w.Commands.Clear();
+            EnterRun(w);
+        }
+
+        void ResetRunState()
+        {
+            _paused = false;
+            _pausedSeconds = 0f;
+            _lastSummary = null;
+            _runEndedRaised = false;
+            _acc.Reset();
+        }
+
+        void EnterRun(SimWorld w)
+        {
             DiscardInput();
             _gateOpen = false;
             _needAttach = true;
-            if (_host != null) _host.Build(w);
+            _host?.Build(w);
             RunStarted?.Invoke(w);
         }
 

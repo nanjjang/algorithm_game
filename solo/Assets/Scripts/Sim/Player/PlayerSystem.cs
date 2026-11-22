@@ -7,7 +7,7 @@ namespace Wizard.Solo.Sim.Player
     /// <summary>
     /// 플레이어 모듈 구현: 입력 적용, 이동·시야·자세, 체력·피격·무적, 과열, 스침, 콤보, 결정.
     /// 02 요약서 2~7절, 10 요약서 1·2절, 00 문서 5.1·5.4절.
-    /// 파일 나눔: 이 파일(판 시작·공용), .Input(2·3단계), .Move(4단계·비기 이동), .Heat(1·6·11단계·잠금),
+    /// 파일 나눔: 이 파일(판 시작·공용), .Controls(입력·시야·이동), .Heat(1·6·11단계·잠금),
     /// .Hit(피격·무적·체력), .Graze(9단계 스침), .Combo(콤보·결정).
     /// </summary>
     public sealed partial class PlayerSystem : PlayerModule

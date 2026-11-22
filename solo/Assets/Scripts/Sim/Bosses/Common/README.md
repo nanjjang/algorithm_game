@@ -15,22 +15,15 @@
 | `BossPatternData.cs` | `BossPattern`/`BossStep` — 단계 overrides·second_cycle을 반영한 패턴 표 |
 | `BossContext.cs` | 싸움 문맥(`BossState.Brain`에 들어 있다) + 도우미, `BossStepInstance`, `BossPatternRun` |
 | `IBossBrain.cs` | 두뇌 인터페이스, `BossBrainBase`(기본 구현), `DefaultBossBrain` |
-| `BossBrainRegistry.cs` | 보스 id → 두뇌 등록 자리(partial) |
+| `BossBrainRegistry.cs` | 보스 ID와 행동 클래스 연결 |
 | `BossTuning.cs` | `Resources/DataSolo/G07.json`(bosses.json에 없는 수치) |
 
 ## 등록
 
-자기 폴더에 `BossBrainRegistry.<보스>.cs`를 두고 partial 메서드 하나만 구현한다(네임스페이스 `Wizard.Solo.Sim.Bosses`).
-미리 선언된 자리: `RegisterKilnBoar`, `RegisterMirrorPhantom`, `RegisterSporeQueen`, `RegisterStormOwl`, `RegisterFrostGoat`, `RegisterNightSerpent`.
+보스 폴더에 행동 클래스를 두고 `BossBrainRegistry.Build()`에 추가한다.
 
 ```csharp
-namespace Wizard.Solo.Sim.Bosses
-{
-    public static partial class BossBrainRegistry
-    {
-        static partial void RegisterSporeQueen(BossBrainTable t) { t.Add(Ids.Boss.SporeQueen, () => new SporeQueenBrain()); }
-    }
-}
+table.Add(Ids.Boss.SporeQueen, () => new SporeQueenBrain());
 ```
 
 등록이 없는 보스는 `DefaultBossBrain`으로 돈다(플레이어를 쫓고, 데이터의 패턴을 기본 처리로 실행).

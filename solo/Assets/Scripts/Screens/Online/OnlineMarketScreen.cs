@@ -120,7 +120,10 @@ namespace Wizard.Solo.Screens.Online
             _price.onValueChanged.AddListener(_ => Receipt());
             y += 84f;
             // 영수증(쪽지).
-            var paper = UiKit.Panel(Ctx, panel, UiPanelKind.Paper, RP, y, inner, 132f).rectTransform;
+            // 받아 온 영수증 쪽지(frame_receipt)는 테두리와 밀랍 도장이 있어 글자 칸보다 조금 크게 깔고, 값은 도장 왼쪽에서 끝낸다.
+            bool receiptArt = OnlineUi.OnlineImg(panel, "frame_receipt", RP - 16f, y - 12f, inner + 32f, 156f) != null;
+            _receiptValueInset = receiptArt ? 64f : 0f;
+            var paper = receiptArt ? UiKit.Node(panel, "Receipt", RP, y, inner, 132f) : UiKit.Panel(Ctx, panel, UiPanelKind.Paper, RP, y, inner, 132f).rectTransform;
             _rPrice = ReceiptRow(paper, 10f, T(OnlineKeys.MktReceiptPrice));
             _rDeposit = ReceiptRow(paper, 38f, T(OnlineKeys.MktReceiptDeposit));
             _rFee = ReceiptRow(paper, 66f, T(OnlineKeys.MktReceiptFee));
@@ -147,11 +150,13 @@ namespace Wizard.Solo.Screens.Online
             _mineEmpty = UiKit.Label(Ctx, panel, T(OnlineKeys.MktMineEmpty), UiFontId.F16, RP, y, inner, 40f, UiTheme.SlateBlue);
         }
 
+        float _receiptValueInset;
+
         UiLabel ReceiptRow(RectTransform paper, float y, string caption)
         {
             float w = RightW - 2f * RP;
             UiKit.Label(Ctx, paper, caption, UiFontId.F16, 16f, y, w - 180f, 26f, UiTheme.PaperText);
-            return UiKit.Label(Ctx, paper, string.Empty, UiFontId.F16, w - 176f, y, 160f, 24f, UiTheme.PaperText, TextAnchor.MiddleRight);
+            return UiKit.Label(Ctx, paper, string.Empty, UiFontId.F16, w - 176f - _receiptValueInset, y, 160f, 24f, UiTheme.PaperText, TextAnchor.MiddleRight);
         }
 
         public override void OnEnter(ScreenArgs args)

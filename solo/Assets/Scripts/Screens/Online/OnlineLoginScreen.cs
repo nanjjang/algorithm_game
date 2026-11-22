@@ -66,6 +66,7 @@ namespace Wizard.Solo.Screens.Online
             _emailRow = UiKit.Node(_loginGroup, "EmailRow", 0f, 0f, BoardW, 80f);
             _email = OnlineUi.Field(Ctx, Focus, _emailRow, T(OnlineKeys.LoginEmail), T(OnlineKeys.LoginEmailHint), Pad, 0f, FieldW, AccountStore.EmailMax, false, UiFontId.F24);
             _email.contentType = UInputField.ContentType.EmailAddress;
+            OnlineUi.OnlineImg((RectTransform)_email.transform, "icon_email_account", FieldW - 44f, 8f, 32f, 32f);
             _emailNote = UiKit.Node(_loginGroup, "EmailNote", Pad, 0f, FieldW, 22f);
             UiKit.Label(Ctx, _emailNote, T(OnlineKeys.LoginEmailNote), UiFontId.F12, 2f, 0f, FieldW, 22f, UiTheme.SlateBlue);
             _nameRow = UiKit.Node(_loginGroup, "NameRow", 0f, 0f, BoardW, 80f);
@@ -83,7 +84,16 @@ namespace Wizard.Solo.Screens.Online
             UiKit.Divider(Ctx, _lowerBlock, Pad, 92f, FieldW / 2f - 40f);
             UiKit.Label(Ctx, _lowerBlock, T(OnlineKeys.LoginOr), UiFontId.F16, Pad + FieldW / 2f - 40f, 80f, 80f, 24f, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
             UiKit.Divider(Ctx, _lowerBlock, Pad + FieldW / 2f + 40f, 92f, FieldW / 2f - 40f);
-            _google = UiKit.Button(Ctx, _lowerBlock, T(OnlineKeys.LoginGoogle), Pad, 116f, FieldW, 56f, StartGoogle, UiButtonStyle.Medium, Focus);
+            // Google 버튼은 공식 자산(google_button.png, 브랜드 규정상 다시 그리지 않는다)이 있으면 그것만 보인다.
+            var googleArt = OnlineUi.Online("google_button");
+            if (googleArt != null)
+            {
+                const float GW = 252f, GH = 56f;
+                _google = UiKit.Button(Ctx, _lowerBlock, null, Pad + (FieldW - GW) * 0.5f, 116f, GW, GH, StartGoogle, UiButtonStyle.Plain, Focus, null, UiFontId.F24, null, true);
+                var gr = _google.ContentRoot != null ? _google.ContentRoot : _google.Rect;
+                UiKit.Image(gr, googleArt, 0f, 0f, GW, GH, Color.white, true).name = "google_button";
+            }
+            else _google = UiKit.Button(Ctx, _lowerBlock, T(OnlineKeys.LoginGoogle), Pad, 116f, FieldW, 56f, StartGoogle, UiButtonStyle.Medium, Focus);
             _forgot = UiKit.Button(Ctx, _lowerBlock, T(OnlineKeys.LoginForgot), Pad, 188f, 220f, 32f, Forgot, UiButtonStyle.Plain, Focus, null, UiFontId.F16);
             _mailOffTag = OnlineUi.Tag(Ctx, _lowerBlock, T(OnlineKeys.LoginMailOffTag), Pad + 228f, 192f, UiTheme.Amber);
             _error = OnlineUi.Error(Ctx, _lowerBlock, Pad, 236f, FieldW);

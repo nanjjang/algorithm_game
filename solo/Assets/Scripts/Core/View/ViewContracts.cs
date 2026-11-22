@@ -97,36 +97,4 @@ namespace Wizard.Solo.View
             return Vector2.LerpUnclamped(prev, cur, alpha);
         }
     }
-
-    /// <summary>
-    /// 표시 층 등록 자리(SimModuleFactory와 같은 방식). 표시 작업은 자기 폴더의 `ViewRegistry.&lt;이름&gt;.cs`에서
-    /// 자기 partial 메서드 하나만 구현해 layers.Add(new XLayer())를 한다. 더한 순서대로 Build·Render된다.
-    /// </summary>
-    public static partial class ViewRegistry
-    {
-        static partial void AddArena(List<IWorldViewLayer> layers);
-        static partial void AddCharacters(List<IWorldViewLayer> layers);
-        static partial void AddEnemies(List<IWorldViewLayer> layers);
-        static partial void AddThreats(List<IWorldViewLayer> layers);
-        static partial void AddShots(List<IWorldViewLayer> layers);
-        static partial void AddEffects(List<IWorldViewLayer> layers);
-        static partial void AddHud(List<IWorldViewLayer> layers);
-        static partial void AddAudio(List<IWorldViewLayer> layers);
-        static partial void AddStory(List<IWorldViewLayer> layers);
-
-        public static List<IWorldViewLayer> CreateAll()
-        {
-            var layers = new List<IWorldViewLayer>();
-            AddArena(layers);
-            AddCharacters(layers);
-            AddEnemies(layers);
-            AddThreats(layers);
-            AddShots(layers);
-            AddEffects(layers);
-            AddHud(layers);
-            AddAudio(layers);
-            AddStory(layers);
-            return layers;
-        }
-    }
 }

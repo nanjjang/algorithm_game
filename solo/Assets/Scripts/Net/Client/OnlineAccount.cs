@@ -33,11 +33,25 @@ namespace Wizard.Solo.Net
         /// <summary>저장 파일. 기본 = Application.persistentDataPath/online_account.json. 테스트는 바꾼다.</summary>
         public static string FilePath;
 
+        static string _defaultPath;
+
+        /// <summary>
+        /// Application.persistentDataPath는 메인 스레드에서만 읽힌다. 로그인 응답은 Task.Run(백그라운드)에서 저장되므로,
+        /// 예전에는 읽기에 실패해 상대 경로("online_account.json" = 프로젝트 폴더)에 저장되고 화면은 다른 경로를 읽어
+        /// 로그인에 성공해도 계정이 없는 걸로 보였다. 부팅 때 메인 스레드에서 경로를 한 번 잡아 둔다.
+        /// </summary>
+        [UnityEngine.RuntimeInitializeOnLoadMethod(UnityEngine.RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static void CachePath()
+        {
+            try { _defaultPath = System.IO.Path.Combine(UnityEngine.Application.persistentDataPath, "online_account.json"); }
+            catch (Exception) { }
+        }
+
         static string PathOrDefault()
         {
             if (!string.IsNullOrEmpty(FilePath)) return FilePath;
-            try { return System.IO.Path.Combine(UnityEngine.Application.persistentDataPath, "online_account.json"); }
-            catch (Exception) { return "online_account.json"; }
+            if (_defaultPath == null) CachePath();
+            return _defaultPath ?? "online_account.json";
         }
 
         public static OnlineAccount Load()

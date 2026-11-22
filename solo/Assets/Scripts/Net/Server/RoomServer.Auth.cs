@@ -16,6 +16,8 @@ namespace Wizard.Solo.Net
         public bool AllowInsecureAuth;
         /// <summary>복구 메일(확인 코드·비밀번호 찾기). 메일 발송을 붙이기 전까지 꺼져 있다(13-ui-flows 3.5 "복구 메일 꺼짐").</summary>
         public bool RecoveryMailEnabled;
+        /// <summary>복구 코드를 보내는 쪽(null이면 보내지 않는다). RecoveryMailEnabled가 켜져 있어야 한다.</summary>
+        public IRecoveryMailer Mailer;
 
         sealed class Job { public Task Work; public Action Finish; }
         readonly Dictionary<INetPipe, Job> _jobs = new Dictionary<INetPipe, Job>();
@@ -46,6 +48,13 @@ namespace Wizard.Solo.Net
             }
             _doneJobs.Clear();
         }
+
+        const string RecoveryMailSubject = "[엄청엄청 위대한 마법사 키우기] 비밀번호 재설정 코드";
+
+        static string RecoveryMailBody(string code)
+            => "비밀번호 재설정 코드: " + code + "\n\n"
+             + "게임의 비밀번호 찾기 화면에 이 코드를 넣고 새 비밀번호를 정해 주세요. 코드는 " + AccountStore.RecoveryCodeMinutes + "분 동안만 쓸 수 있습니다.\n"
+             + "직접 요청하지 않았다면 이 메일은 무시해도 됩니다. 비밀번호는 바뀌지 않습니다.";
 
         bool Secure(INetPipe pipe) => AllowInsecureAuth || (pipe is ISecurePipe s && s.IsSecure);
 
@@ -114,6 +123,8 @@ namespace Wizard.Solo.Net
                 case NetMsg.GoogleLogin:
                 case NetMsg.GoogleFinish:
                 case NetMsg.Logout:
+                case NetMsg.RecoveryRequest:
+                case NetMsg.RecoveryConfirm:
                     break;
                 default:
                     return false;
@@ -217,6 +228,49 @@ namespace Wizard.Solo.Net
                         if (res != AccountStore.SignupResult.Ok) { Fail(pipe, ErrorOf(res)); return true; }
                         _tickets.Remove(ticket);
                         LoggedIn(pipe, rec, "google signup");
+                        return true;
+                    }
+                    case NetMsg.RecoveryRequest:
+                    {
+                        string email = r.Str();
+                        if (!Secure(pipe)) { Fail(pipe, AuthError.NotSecure); return true; }
+                        var mailer = Mailer;
+                        if (!RecoveryMailEnabled || mailer == null || !mailer.Enabled) { Fail(pipe, AuthError.MailOff); return true; }
+                        if (!AccountStore.IsValidEmail(email)) { Fail(pipe, AuthError.BadEmail); return true; }
+                        long now = DateTime.UtcNow.Ticks;
+                        int wait = Accounts.RecoveryWaitSeconds(email, now);
+                        if (wait > 0) { Fail(pipe, AuthError.Throttled, wait); return true; }
+                        string code = Accounts.BeginRecovery(email, now);
+                        long accountId = code != null ? Accounts.FindByEmail(email).Id : 0;
+                        string to = email.Trim();
+                        StartJob(pipe, () =>
+                        {
+                            if (code == null) { System.Threading.Thread.Sleep(400); return; } // 계정이 없어도 비슷한 시간이 걸리게
+                            if (!mailer.Send(to, RecoveryMailSubject, RecoveryMailBody(code), out string err))
+                                Log?.Invoke("[room-server] recovery mail failed: " + err);
+                        }, () =>
+                        {
+                            if (code != null) Log?.Invoke("[room-server] account " + accountId + " recovery code requested");
+                            pipe.Send(new NetWriter(NetMsg.RecoveryRequested).ToArray());
+                        });
+                        return true;
+                    }
+                    case NetMsg.RecoveryConfirm:
+                    {
+                        string email = r.Str(), code = r.Str(), pw = r.Str();
+                        if (!Secure(pipe)) { Fail(pipe, AuthError.NotSecure); return true; }
+                        if (!RecoveryMailEnabled) { Fail(pipe, AuthError.MailOff); return true; }
+                        if (!AccountStore.IsValidPassword(pw, email)) { Fail(pipe, AuthError.WeakPassword); return true; }
+                        if (!Accounts.ConfirmRecoveryCode(email, code, DateTime.UtcNow.Ticks)) { Fail(pipe, AuthError.BadCode); return true; }
+                        var rec = Accounts.FindByEmail(email);
+                        if (rec == null) { Fail(pipe, AuthError.BadCode); return true; }
+                        string salt = AccountStore.NewSalt(), hash = null;
+                        StartJob(pipe, () => hash = AccountStore.HashPassword(pw, salt, AccountStore.PasswordIterations), () =>
+                        {
+                            if (!Accounts.SetPassword(rec, salt, hash)) { Fail(pipe, AuthError.ServerError); return; }
+                            Log?.Invoke("[room-server] account " + rec.Id + " password reset");
+                            pipe.Send(new NetWriter(NetMsg.RecoveryDone).ToArray());
+                        });
                         return true;
                     }
                     case NetMsg.Logout:

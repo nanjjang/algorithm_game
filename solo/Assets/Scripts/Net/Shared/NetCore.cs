@@ -187,6 +187,8 @@ namespace Wizard.Solo.Net
         /// <summary>클라이언트 → 방 서버(로그인 뒤): 로그아웃 — 이 로그인 표를 지운다. 몸 = 토큰. 응답 LogoutDone.</summary>
         Logout = 97,
         LogoutDone = 98,
+        /// <summary>클라이언트 → 방 서버(맨 앞, 암호화된 연결에서만): 비밀번호 재설정 코드를 이메일로 보내 달라. 몸 = 이메일. 응답 RecoveryRequested / AuthFail(Throttled·MailOff). 없는 이메일도 같은 답이다.</summary>
+        RecoveryRequest = 99,
         // ---- 13판: 우편함·차단·신고·시즌·순위표·리그·자동 매치·관전(11-online.md 6.14절). 전부 계정 뒤의 "요청 → 답" 연결에서 쓴다.
         /// <summary>우편 목록(→). 응답 MailList.</summary>
         MailListRequest = 100,
@@ -236,6 +238,12 @@ namespace Wizard.Solo.Net
         HallRequest = 122,
         /// <summary>역대 후계자(서버 →). 몸 = n, (시즌 번호, 후계자 이름(없으면 null), 후계 점수(int))×n.</summary>
         HallReply = 123,
+        /// <summary>방 서버 → 클라이언트: 코드를 보냈다(또는 보낸 척한다). 몸 없음.</summary>
+        RecoveryRequested = 124,
+        /// <summary>클라이언트 → 방 서버(맨 앞, 암호화된 연결에서만): 코드로 비밀번호 바꾸기. 몸 = 이메일, 코드, 새 비밀번호. 응답 RecoveryDone / AuthFail(BadCode·WeakPassword·Throttled).</summary>
+        RecoveryConfirm = 125,
+        /// <summary>방 서버 → 클라이언트: 비밀번호를 바꿨다(그 계정의 로그인 표는 모두 지웠다). 몸 없음.</summary>
+        RecoveryDone = 126,
     }
 
     /// <summary>계정 실패 이유. AuthFail 몸 = 이유(byte), 기다릴 초(int).</summary>
@@ -243,6 +251,10 @@ namespace Wizard.Solo.Net
     {
         BadName = 1, NameTaken = 2, BadSecret = 3, WrongLogin = 4,
         BadEmail = 5, EmailTaken = 6, WeakPassword = 7, Throttled = 8, NotSecure = 9, GoogleOff = 10, GoogleFailed = 11, BadTicket = 12, ServerError = 13,
+        /// <summary>복구 코드가 틀렸거나 지났다(또는 시도 횟수를 넘었다).</summary>
+        BadCode = 14,
+        /// <summary>서버에서 복구 메일이 꺼져 있다.</summary>
+        MailOff = 15,
     }
 
     /// <summary>계정 종류(AuthOk 몸 끝).</summary>

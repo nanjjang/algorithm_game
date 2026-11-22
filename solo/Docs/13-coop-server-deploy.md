@@ -166,7 +166,18 @@ openssl x509 -in tls-cert.pem -outform der | shasum -a 256   # → Online.json t
 
 흐름: 게임이 이 기기의 빈 포트에서 기다리며 브라우저로 Google 로그인 쪽을 연다(PKCE S256 + state) → 받은 인가 코드를 TLS로 게임 서버에 보냄 → 서버가 Google 토큰 끝점에서 바꿔 id_token의 iss·aud·exp를 확인 → 처음 온 Google 사용자면 이름을 정하게 한다.
 
-### 7.4 메일(보류)
+### 7.4 메일(비밀번호 찾기)
 
-확인 코드·비밀번호 찾기 메일은 아직 보내지 않는다(복구 메일 꺼짐 — 로그인 화면에 "지금은 보낼 수 없음" 꼬리표). 가입·로그인은 그대로 된다. 붙일 때는 `RoomServer.RecoveryMailEnabled`와 메일 발송기를 더한다.
+비밀번호를 잃었을 때 6자리 코드를 이메일로 보내 새 비밀번호를 정하게 한다. 메일은 [Resend](https://resend.com) HTTPS API로 보낸다(무료 플랜으로 충분하다).
+가입 확인 메일은 아직 없다(가입·로그인은 메일 없이 된다).
+
+1. Resend에서 도메인을 추가해 인증한다(Cloudflare DNS에 SPF·DKIM 레코드). **발신 권한만** 있는 API 키를 도메인 하나에 묶어 만든다.
+2. 맥미니 `~/WizardCoopServer/server.json`에 두 줄을 넣는다(권한 600, 저장소에 올리지 않는다).
+   ```json
+   "resend_api_key": "re_…", "mail_from": "Wizard Game <no-reply@도메인>"
+   ```
+3. `coop-server-service.sh restart` → 로그에 `recovery mail on`. 로그인 화면의 "지금은 보낼 수 없음" 꼬리표가 사라지고 [비밀번호를 잊었다]가 열린다.
+
+규칙: 코드는 15분, 맞히기 5번, 같은 이메일은 60초 간격·시간당 5번. 없는 이메일도 같은 답을 받는다(계정이 있는지 알려 주지 않는다). 비밀번호를 바꾸면 그 계정의 로그인 표가 모두 지워져 다른 기기에서도 다시 로그인해야 한다.
+키가 없거나 비어 있으면 복구 메일은 꺼진 채로 둔다(서버는 그대로 돈다).
 

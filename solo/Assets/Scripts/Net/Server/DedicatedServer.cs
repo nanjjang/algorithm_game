@@ -74,6 +74,13 @@ namespace Wizard.Solo.Net
                 _rooms.Google = new GoogleOAuthServer(cfg.GoogleClientId, cfg.GoogleClientSecret);
                 Debug.Log("[coop-server] google login on");
             }
+            var mailer = new ResendMailer(cfg.ResendApiKey, cfg.MailFrom);
+            if (mailer.Enabled)
+            {
+                _rooms.Mailer = mailer;
+                _rooms.RecoveryMailEnabled = true;
+                Debug.Log("[coop-server] recovery mail on");
+            }
             _last = Time.realtimeSinceStartupAsDouble;
             Debug.Log("[coop-server] listening on port " + _listener.Port + " (protocol " + NetProtocol.Version + ")");
         }
@@ -139,7 +146,8 @@ namespace Wizard.Solo.Net
     /// <summary>
     /// 서버 설정(데이터 폴더의 server.json). 없으면 기본값 = JSON 저장, TLS 끔, Google 끔.
     ///   { "db": "Host=127.0.0.1;Database=wizard;Username=wizard;Password=…", "tls_pfx": "server.pfx", "tls_password": "",
-    ///     "google_client_id": "", "google_client_secret": "", "allow_insecure_auth": false }
+    ///     "google_client_id": "", "google_client_secret": "", "allow_insecure_auth": false,
+    ///     "resend_api_key": "", "mail_from": "" }
     /// 비밀(DB 비밀번호, Google 클라이언트 비밀, 인증서)은 이 폴더에만 둔다 — 저장소에 올리지 않는다.
     /// </summary>
     public sealed class ServerConfig
@@ -150,6 +158,9 @@ namespace Wizard.Solo.Net
         [Newtonsoft.Json.JsonProperty("google_client_id")] public string GoogleClientId;
         [Newtonsoft.Json.JsonProperty("google_client_secret")] public string GoogleClientSecret;
         [Newtonsoft.Json.JsonProperty("allow_insecure_auth")] public bool AllowInsecureAuth;
+        /// <summary>복구 메일(Resend). 둘 다 있어야 켜진다. mail_from 예: "이름 &lt;no-reply@도메인&gt;"(도메인은 Resend에서 인증된 것).</summary>
+        [Newtonsoft.Json.JsonProperty("resend_api_key")] public string ResendApiKey;
+        [Newtonsoft.Json.JsonProperty("mail_from")] public string MailFrom;
 
         public static ServerConfig Load(string dataDir)
         {

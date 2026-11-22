@@ -1,9 +1,0 @@
-{
-  "format": 1,
-  "id": "m1/practice-stance",
-  "kind": "practice",
-  "seed": "0x0",
-  "setup": { "hashEveryTicks": 300, "players": 1 },
-  "record": "record.wzrc",
-  "notes": "연습 모드 1인, 1분. 자세·반전과 같은 오프셋의 방향·K 가 잦다(판정기). 기록: replaycli bot --kind practice --ticks 3600 --bot-seed 0x53 --profile stance"
-}

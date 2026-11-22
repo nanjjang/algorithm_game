@@ -80,14 +80,17 @@ namespace Wizard.Solo.UI
             if (ScrollRail == null || ScrollThumb == null || Viewport == null) return;
             float viewH = Viewport.rect.height;
             bool need = _height > viewH + 0.5f;
-            ScrollRail.gameObject.SetActive(need);
+            if (ScrollRail.gameObject.activeSelf != need) ScrollRail.gameObject.SetActive(need);
             if (!need) return;
             float railH = ScrollRail.rect.height;
             float thumbH = Mathf.Max(24f, railH * viewH / _height);
             float max = Mathf.Max(1f, _height - viewH);
             float t = Mathf.Clamp01(Content.anchoredPosition.y / max);
-            ScrollThumb.sizeDelta = new Vector2(ScrollThumb.sizeDelta.x, thumbH);
-            ScrollThumb.anchoredPosition = new Vector2(0f, -t * (railH - thumbH));
+            // 값이 그대로면 쓰지 않는다(가만히 있는 목록이 프레임마다 캔버스를 다시 그리게 하지 않게)
+            var size = new Vector2(ScrollThumb.sizeDelta.x, thumbH);
+            var pos = new Vector2(0f, -t * (railH - thumbH));
+            if (ScrollThumb.sizeDelta != size) ScrollThumb.sizeDelta = size;
+            if (ScrollThumb.anchoredPosition != pos) ScrollThumb.anchoredPosition = pos;
         }
 
         internal static void SetupImage(UImage img, Color c) { img.color = c; img.raycastTarget = false; }

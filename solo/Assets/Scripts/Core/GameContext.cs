@@ -99,6 +99,9 @@ namespace Wizard.Solo
         bool IsOnline { get; }
         /// <summary>link의 꼭두각시 세계로 판을 연다(link.World가 있어야 한다). 이 세션은 Step하지 않고 link.Step을 부른다.</summary>
         void StartOnline(IOnlineLink link);
+        /// <summary>온라인 판만 걷고 연결(방)은 남긴다 — 판이 끝나 같은 방으로 돌아갈 때. 판에서 "나가기"는 EndRun(연결도 끊는다).
+        /// 온라인 판이 아니면 EndRun과 같다.</summary>
+        void DetachOnline();
     }
 
     public interface IGameSession

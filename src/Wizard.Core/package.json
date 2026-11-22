@@ -1,8 +1,0 @@
-{
-  "name": "com.wizard.core",
-  "version": "0.0.0",
-  "displayName": "Wizard.Core",
-  "description": "Fixed-point math, PCG32, state hash, deterministic collections, byte codecs",
-  "unity": "6000.3",
-  "dependencies": {}
-}

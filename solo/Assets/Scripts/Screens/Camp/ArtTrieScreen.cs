@@ -121,8 +121,7 @@ namespace Wizard.Solo.Screens.Camp
         public override bool OnMenuKey(MenuKey key)
         {
             bool used = base.OnMenuKey(key);
-            var n = _view.NodeOf(Focus.Current);
-            if (n != null) _view.Select(n);
+            _view.SelectFocused(Focus.Current);
             if (!used && key == MenuKey.Cancel) { Close(); return true; }
             return used;
         }

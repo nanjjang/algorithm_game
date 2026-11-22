@@ -206,6 +206,9 @@ namespace Wizard.Solo.Screens.Online
             _client.Leave();
             foreach (var v in _views.Values) if (v.Root != null) Object.Destroy(v.Root.gameObject);
             _views.Clear();
+            _lastOrder.Clear();
+            _shownCount = -1;
+            _shownDoor = -2;
             if (Screens != null) Screens.CaptureKeys = false;
             base.OnExit();
         }
@@ -280,7 +283,12 @@ namespace Wizard.Solo.Screens.Online
                 // 문 위에 서 있으면 안내, Space면 그 방 화면으로.
                 int door = -1;
                 if (_client.People.TryGetValue(_client.MyId, out var me)) door = DoorAt(me.Pos);
-                _doorPrompt.SetText(door >= 0 ? F(OnlineKeys.DoorPrompt, "door", T(Doors[door].LabelKey)) : string.Empty);
+                if (door != _shownDoor)
+                {
+                    // 문이 바뀔 때만 글을 만든다(프레임마다 문구 조립·할당을 하지 않게)
+                    _shownDoor = door;
+                    _doorPrompt.SetText(door >= 0 ? F(OnlineKeys.DoorPrompt, "door", T(Doors[door].LabelKey)) : string.Empty);
+                }
                 if (door >= 0 && !typing && kb.spaceKey.wasPressedThisFrame)
                 {
                     Screens?.Replace(ScreenId.CoopLobby, ScreenArgs.From(ScreenId.Plaza).With(ScreenArgKeys.RoomMode, Doors[door].Mode));
@@ -339,20 +347,42 @@ namespace Wizard.Solo.Screens.Online
             return -1;
         }
 
+        // 프레임마다 새 목록·람다를 만들지 않게 다시 쓴다
+        readonly List<PlazaClient.Shown> _order = new List<PlazaClient.Shown>();
+        readonly List<int> _lastOrder = new List<int>();
+        static readonly System.Comparison<PlazaClient.Shown> ByY = (a, b) => a.Pos.y.CompareTo(b.Pos.y);
+        int _shownCount = -1;
+        int _shownDoor = -2;
+
         void Render(float dt)
         {
-            _count.SetText(F(OnlineKeys.PlazaCount, "n", _client.People.Count, "max", PlazaHost.MaxAvatars));
+            int people = _client.People.Count;
+            if (people != _shownCount)
+            {
+                _shownCount = people;
+                _count.SetText(F(OnlineKeys.PlazaCount, "n", people, "max", PlazaHost.MaxAvatars));
+            }
             _gone.Clear();
             _gone.AddRange(_views.Keys);
             // 아래쪽 사람이 앞에 그려지게 y 순으로 둔다.
-            var order = new List<PlazaClient.Shown>(_client.People.Values);
-            order.Sort((a, b) => a.Pos.y.CompareTo(b.Pos.y));
-            foreach (var s in order)
+            _order.Clear();
+            _order.AddRange(_client.People.Values);
+            _order.Sort(ByY);
+            // 앞뒤 순서가 지난 프레임과 같으면 형제 순서를 다시 매기지 않는다(매 프레임 SetAsLastSibling은 캔버스 전체를 다시 묶게 한다).
+            bool reorder = _order.Count != _lastOrder.Count;
+            for (int i = 0; i < _order.Count && !reorder; i++)
+                if (_order[i].Now.Id != _lastOrder[i] || !_views.ContainsKey(_lastOrder[i])) reorder = true;
+            if (reorder)
+            {
+                _lastOrder.Clear();
+                for (int i = 0; i < _order.Count; i++) _lastOrder.Add(_order[i].Now.Id);
+            }
+            foreach (var s in _order)
             {
                 var a = s.Now;
                 _gone.Remove(a.Id);
                 if (!_views.TryGetValue(a.Id, out var v)) { v = MakeView(a); _views[a.Id] = v; }
-                v.Root.SetAsLastSibling();
+                if (reorder) v.Root.SetAsLastSibling();
                 Vector2 pos = s.Pos;
                 v.Root.anchoredPosition = new Vector2(pos.x * Cell - AvatarPx * 0.5f, -(pos.y * Cell - AvatarPx));
                 bool moving = a.MoveDir >= 0;
@@ -363,7 +393,8 @@ namespace Wizard.Solo.Screens.Online
                 try { clip = Ctx != null && Ctx.Art != null ? Ctx.Art.CharacterClip(a.CharId, moving ? "walk" : "idle", f) : null; } catch (System.Exception) { }
                 var sp = clip != null ? clip.At(v.AnimT) : null;
                 if (sp != null) { v.Body.sprite = sp; v.Body.color = Color.white; }
-                v.Body.rectTransform.localScale = new Vector3(flip ? -1f : 1f, 1f, 1f);
+                var scale = new Vector3(flip ? -1f : 1f, 1f, 1f);
+                if (v.Body.rectTransform.localScale != scale) v.Body.rectTransform.localScale = scale;
                 if (v.ShownName != a.Name)
                 {
                     v.ShownName = a.Name;
@@ -373,7 +404,7 @@ namespace Wizard.Solo.Screens.Online
                     UiKit.Place(v.Name.Rect, 0f, 0f, nw, 22f);
                 }
                 bool hasBubble = !string.IsNullOrEmpty(a.Bubble);
-                v.BubbleRoot.gameObject.SetActive(hasBubble);
+                if (v.BubbleRoot.gameObject.activeSelf != hasBubble) v.BubbleRoot.gameObject.SetActive(hasBubble);
                 if (hasBubble && v.ShownBubble != a.Bubble)
                 {
                     v.ShownBubble = a.Bubble;
@@ -388,7 +419,7 @@ namespace Wizard.Solo.Screens.Online
                 }
                 int e = a.Emote;
                 bool emote = e > 0 && e <= EmoteIcons.Length;
-                v.EmoteIcon.gameObject.SetActive(emote);
+                if (v.EmoteIcon.gameObject.activeSelf != emote) v.EmoteIcon.gameObject.SetActive(emote);
                 if (emote && v.ShownEmote != e)
                 {
                     v.ShownEmote = e;

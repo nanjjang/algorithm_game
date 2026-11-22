@@ -82,6 +82,10 @@ namespace Wizard.Solo.Net
         AddBot = 11,
         /// <summary>클라이언트 → 서버: 마지막 봇 빼기(방장만, 판 전).</summary>
         RemoveBot = 12,
+        /// <summary>클라이언트 → 서버: 방에서 내 캐릭터 바꾸기(판 전, 관전자·봇 아님). 몸 = 출발 설정(Hello와 같다). 서버가 OnHello처럼 다시 만들고 Lobby를 보낸다.</summary>
+        ChangeCharacter = 13,
+        /// <summary>서버 → 클라이언트: 판이 끝나 같은 방(같은 코드·자리·봇)으로 돌아왔다. 몸 없음. 뒤이어 Lobby가 온다.</summary>
+        BackToLobby = 14,
         /// <summary>클라이언트 → 방 서버(첫 메시지): 새 방. 몸 = RoomMode(byte).</summary>
         CreateRoom = 20,
         /// <summary>클라이언트 → 방 서버(첫 메시지): 코드로 참가. 몸 = 코드(string).</summary>
@@ -268,7 +272,7 @@ namespace Wizard.Solo.Net
     public static class NetProtocol
     {
         /// <summary>메시지 꼴이 바뀌면 올린다. 다르면 Reject(Version).</summary>
-        public const int Version = 14; // 14: 협동 보상이 사람마다(RunState.Rewards, PlayerState.Left)
+        public const int Version = 15; // 15: 방에서 캐릭터 바꾸기(ChangeCharacter), 판 끝 뒤 같은 방으로(BackToLobby). 14: 협동 보상이 사람마다(RunState.Rewards, PlayerState.Left)
         /// <summary>스냅숏을 보내는 틱 간격(60틱 / 3 = 20Hz).</summary>
         public const int SnapshotEveryTicks = 3;
     }
@@ -280,9 +284,25 @@ namespace Wizard.Solo.Net
     {
         readonly MemoryStream _ms = new MemoryStream(256);
         readonly BinaryWriter _w;
+        /// <summary>Str가 UTF-8로 바꿀 때 쓰는 칸(글마다 새 배열을 만들지 않는다).</summary>
+        byte[] _strBuf = new byte[64];
 
         public NetWriter() { _w = new BinaryWriter(_ms, Encoding.UTF8); }
         public NetWriter(NetMsg kind) : this() { Byte((byte)kind); }
+
+        /// <summary>지금까지 쓴 바이트 수.</summary>
+        public int Length { get { _w.Flush(); return (int)_ms.Length; } }
+
+        /// <summary>비우고 처음부터 다시 쓴다(속 버퍼는 그대로 둔다 — 스냅숏처럼 자주 쓰는 쪽이 다시 쓴다).</summary>
+        public void Reset()
+        {
+            _w.Flush();
+            _ms.Position = 0;
+            _ms.SetLength(0);
+        }
+
+        /// <summary>속 버퍼(앞 Length 바이트가 쓴 내용). 다음 쓰기·Reset 전까지만 유효하다.</summary>
+        public byte[] GetBuffer() { _w.Flush(); return _ms.GetBuffer(); }
 
         public void Byte(byte v) => _w.Write(v);
         public void Bool(bool v) => _w.Write(v);
@@ -294,15 +314,24 @@ namespace Wizard.Solo.Net
         public void Str(string s)
         {
             if (s == null) { _w.Write(-1); return; }
-            var b = Encoding.UTF8.GetBytes(s);
-            _w.Write(b.Length);
-            _w.Write(b);
+            int max = Encoding.UTF8.GetMaxByteCount(s.Length);
+            if (_strBuf.Length < max) _strBuf = new byte[Math.Max(max, _strBuf.Length * 2)];
+            int n = Encoding.UTF8.GetBytes(s, 0, s.Length, _strBuf, 0);
+            _w.Write(n);
+            _w.Write(_strBuf, 0, n);
         }
         public void Bytes(byte[] b)
         {
             if (b == null) { _w.Write(-1); return; }
             _w.Write(b.Length);
             _w.Write(b);
+        }
+        /// <summary>b[offset..offset+count)를 Bytes와 같은 모양(길이 + 몸)으로 쓴다.</summary>
+        public void Bytes(byte[] b, int offset, int count)
+        {
+            if (b == null) { _w.Write(-1); return; }
+            _w.Write(count);
+            _w.Write(b, offset, count);
         }
         public void StrList(ICollection<string> l)
         {
@@ -324,8 +353,73 @@ namespace Wizard.Solo.Net
     public sealed class NetReader
     {
         readonly BinaryReader _r;
+        readonly MemoryStream _ms;
+        /// <summary>속 버퍼를 이 읽개가 가지는가(빈 생성자 → <see cref="Load"/>·<see cref="LoadFrom"/>로 다시 쓴다).</summary>
+        readonly bool _owned;
+        byte[] _strBuf;
 
-        public NetReader(byte[] data) { _r = new BinaryReader(new MemoryStream(data ?? Array.Empty<byte>()), Encoding.UTF8); }
+        public NetReader(byte[] data)
+        {
+            data = data ?? Array.Empty<byte>();
+            // publiclyVisible: BytesView가 몸을 베끼지 않고 볼 수 있게
+            _ms = new MemoryStream(data, 0, data.Length, false, true);
+            _r = new BinaryReader(_ms, Encoding.UTF8);
+        }
+
+        /// <summary>다시 쓰는 읽개(스냅숏 받기처럼 자주 읽는 쪽). 속 버퍼는 Load·LoadFrom으로 채운다.</summary>
+        public NetReader()
+        {
+            _ms = new MemoryStream(256);
+            _owned = true;
+            _r = new BinaryReader(_ms, Encoding.UTF8);
+        }
+
+        /// <summary>다시 쓰는 읽개에 data[offset..offset+count)를 베껴 넣고 처음부터 읽게 한다.</summary>
+        public void Load(byte[] data, int offset, int count)
+        {
+            BeginLoad().Write(data, offset, count);
+            EndLoad();
+        }
+
+        /// <summary>다시 쓰는 읽개에 src의 남은 내용을 끝까지 부어 넣는다(압축 풀기처럼 길이를 모를 때).</summary>
+        public void LoadFrom(Stream src)
+        {
+            src.CopyTo(BeginLoad());
+            EndLoad();
+        }
+
+        MemoryStream BeginLoad()
+        {
+            if (!_owned) throw new InvalidOperationException("NetReader(byte[])는 다시 채울 수 없다. new NetReader()를 쓴다.");
+            _ms.Position = 0;
+            _ms.SetLength(0);
+            return _ms;
+        }
+
+        void EndLoad() { _ms.Position = 0; }
+
+        /// <summary>
+        /// Bytes와 같은 모양(길이 + 몸)을 베끼지 않고 읽는다: buffer[offset..offset+count)가 몸이다(이 읽개가 다시 채워지기 전까지 유효).
+        /// 없음(−1)이면 false. 몸이 모자라면 남은 만큼만 준다(Bytes와 같다).
+        /// </summary>
+        public bool BytesView(out byte[] buffer, out int offset, out int count)
+        {
+            int n = _r.ReadInt32();
+            buffer = null; offset = 0; count = 0;
+            if (n < 0) return false;
+            if (!_ms.TryGetBuffer(out var seg))
+            {
+                buffer = _r.ReadBytes(n);
+                count = buffer.Length;
+                return true;
+            }
+            int pos = (int)_ms.Position;
+            count = Math.Min(n, (int)_ms.Length - pos);
+            buffer = seg.Array;
+            offset = seg.Offset + pos;
+            _ms.Position = pos + count;
+            return true;
+        }
 
         public byte Byte() => _r.ReadByte();
         public bool Bool() => _r.ReadBoolean();
@@ -338,7 +432,24 @@ namespace Wizard.Solo.Net
         {
             int n = _r.ReadInt32();
             if (n < 0) return null;
-            return Encoding.UTF8.GetString(_r.ReadBytes(n));
+            if (n == 0) return string.Empty;
+            // 몸을 베끼지 않고 속 버퍼에서 바로 풀고(ReadBytes는 글마다 배열을 만든다), 모자라면 남은 만큼만(ReadBytes와 같다)
+            if (_ms.TryGetBuffer(out var seg))
+            {
+                int pos = (int)_ms.Position;
+                int m = Math.Min(n, (int)_ms.Length - pos);
+                _ms.Position = pos + m;
+                return Encoding.UTF8.GetString(seg.Array, seg.Offset + pos, m);
+            }
+            if (_strBuf == null || _strBuf.Length < n) _strBuf = new byte[Math.Max(n, 64)];
+            int got = 0;
+            while (got < n)
+            {
+                int k = _r.Read(_strBuf, got, n - got);
+                if (k <= 0) break;
+                got += k;
+            }
+            return Encoding.UTF8.GetString(_strBuf, 0, got);
         }
         public byte[] Bytes()
         {

@@ -896,7 +896,7 @@ namespace Wizard.Solo.Screens.Camp
             bool used = base.OnMenuKey(key);
             int cur = RefOf(Focus.Current);
             if (cur != _selected && cur != SlotRefs.None) { _selected = cur; CampViews.Clear(_descRoot); BuildDescription(); UpdateOps(); }
-            if (_tab == CampTab.Arts) { var n = _trie.NodeOf(Focus.Current); if (n != null) _trie.Select(n); }
+            if (_tab == CampTab.Arts) _trie.SelectFocused(Focus.Current);
             return used;
         }
 

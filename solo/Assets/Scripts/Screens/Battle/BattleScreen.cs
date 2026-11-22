@@ -58,9 +58,13 @@ namespace Wizard.Solo.Screens.Battle
             UiKit.DropShadow(_duelBig, 3f);
             _duelBar.gameObject.SetActive(false);
             _duelBig.gameObject.SetActive(false);
+            _duelBarKey = long.MinValue; // 새 점수판 칸은 첫 프레임에 반드시 글을 쓴다
+            _deathCameraFx = null;
         }
 
         UiLabel _duelBar, _duelBig;
+        long _duelBarKey = long.MinValue;
+        Wizard.Solo.View.CameraFx _deathCameraFx;
         public const string DuelBarKey = "str.duel.bar", DuelCountKey = "str.duel.countdown", DuelFightKey = "str.duel.fight",
             DuelRoundWinKey = "str.duel.round_win", DuelRoundLoseKey = "str.duel.round_lose", DuelRoundDrawKey = "str.duel.round_draw",
             DuelOvertimeKey = "str.duel.overtime";
@@ -77,8 +81,14 @@ namespace Wizard.Solo.Screens.Battle
             int roundTicks = d.Overtime ? SimConst.Ticks(30f) : SimConst.Ticks(90f);
             int left = w.Run.Phase == RunPhase.DuelFight ? Mathf.Max(0, roundTicks - (w.Tick - d.RoundStartTick)) : roundTicks;
             int secs = (left + SimConst.TicksPerSecond - 1) / SimConst.TicksPerSecond;
-            _duelBar.SetText(F(DuelBarKey, "round", d.Round, "time", (secs / 60) + ":" + (secs % 60).ToString("00"),
-                "me", d.Wins[me], "them", d.Wins[them]) + (d.Overtime ? "  " + T(DuelOvertimeKey) : string.Empty));
+            // 점수판 글은 초·라운드·승수가 바뀔 때만 다시 만든다(프레임마다 문자열 조립·할당을 하지 않게)
+            long barKey = ((long)d.Round << 40) ^ ((long)secs << 20) ^ ((long)(d.Wins[me] & 0xFF) << 12) ^ ((long)(d.Wins[them] & 0xFF) << 4) ^ (d.Overtime ? 1L : 0L);
+            if (barKey != _duelBarKey)
+            {
+                _duelBarKey = barKey;
+                _duelBar.SetText(F(DuelBarKey, "round", d.Round, "time", (secs / 60) + ":" + (secs % 60).ToString("00"),
+                    "me", d.Wins[me], "them", d.Wins[them]) + (d.Overtime ? "  " + T(DuelOvertimeKey) : string.Empty));
+            }
             string big = null;
             int since = w.Tick - w.Run.PhaseStartTick;
             if (w.Run.Phase == RunPhase.DuelCountdown)
@@ -127,7 +137,9 @@ namespace Wizard.Solo.Screens.Battle
         /// <summary>쓰러진 캐릭터가 화면 위쪽 반에 있으면 글을 아래쪽 1/3 높이에, 아래쪽 반이면 위쪽 1/3 높이에 둔다(QA: 위쪽 벽 근처에서 쓰러지면 글이 캐릭터를 덮었다).</summary>
         void PlaceDeathLineAwayFromSubject()
         {
-            var cf = Object.FindFirstObjectByType<Wizard.Solo.View.CameraFx>();
+            // 글이 보이기 전까지 프레임마다 불리므로 장면 찾기는 한 번만(카메라가 바뀌어 부서졌으면 다시 찾는다)
+            if (_deathCameraFx == null) _deathCameraFx = Object.FindFirstObjectByType<Wizard.Solo.View.CameraFx>();
+            var cf = _deathCameraFx;
             float vy = cf != null ? cf.SubjectViewportY : -1f;
             if (vy < 0f) return;   // 모르면 기본 자리(가운데에서 조금 위)
             float centerFromTop = vy > 0.5f ? UiScale.RefHeight * 0.68f : UiScale.RefHeight * 0.30f;

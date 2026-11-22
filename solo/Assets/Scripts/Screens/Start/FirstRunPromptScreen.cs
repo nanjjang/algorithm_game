@@ -20,7 +20,7 @@ namespace Wizard.Solo.Screens.Start
 
         protected override void BuildContent(RectTransform content)
         {
-            UiKit.Rect(content, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, UiTheme.WoodDark, true, "Background");
+            UiFullBleed.Fill(UiKit.Rect(content, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, UiTheme.WoodDark, true, "Background").rectTransform);
             var board = UiKit.Panel(Ctx, content, UiPanelKind.Board, 0f, 0f, BoardW, BoardH).rectTransform;
             UiKit.Center(board, BoardW, BoardH);
             board.name = "FirstRunBoard";

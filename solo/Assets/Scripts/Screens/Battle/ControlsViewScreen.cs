@@ -68,6 +68,16 @@ namespace Wizard.Solo.Screens.Battle
                 PlaceKeys(row, r.Primary, colKey1);
                 PlaceKeys(row, r.Secondary, colKey2);
             }
+            // 표 아래 한 줄: 비기 = 자세 키 누른 채 방향 → 비기 키(플레이 피드백 "비기 설명이 더 필요"). 표와 [닫기] 사이 빈 줄.
+            var names = Ctx != null ? Ctx.Names : null;
+            if (names != null && names.Has(ControlsViewModel.ArtNoteKey))
+            {
+                string note = names.Format(ControlsViewModel.ArtNoteKey,
+                    "stance", UiKeyLabels.Of(names, ControlsViewModel.FirstKey(rows, LogicalKey.Stance)),
+                    "art", UiKeyLabels.Of(names, ControlsViewModel.FirstKey(rows, LogicalKey.Skill)));
+                var lbl = UiKit.Label(Ctx, _table, note, UiFontId.F16, Pad, rows.Count * RowH + 4f, PanelW - Pad * 2f, 24f, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
+                _rowObjects.Add(lbl.gameObject);
+            }
         }
 
         void PlaceKeys(RectTransform row, Key[] keys, float x)

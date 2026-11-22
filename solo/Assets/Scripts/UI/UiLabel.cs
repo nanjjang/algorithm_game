@@ -19,6 +19,9 @@ namespace Wizard.Solo.UI
         bool _truncated;
         float _fitWidth = -1f;
         UiTooltipTrigger _tip;
+        /// <summary>Refit을 한 번이라도 했는가(같은 글 건너뛰기는 그 뒤에만).</summary>
+        bool _fitted;
+        System.Func<string> _tipProvider;
 
         public UText Text => _text != null ? _text : (_text = GetComponent<UText>());
         public string FullText => _full;
@@ -32,6 +35,7 @@ namespace Wizard.Solo.UI
             _text = text;
             _size = size;
             _wrap = wrap;
+            _fitted = false;
         }
 
         public bool Wrap
@@ -46,10 +50,15 @@ namespace Wizard.Solo.UI
             set { if (Text != null) Text.color = value; }
         }
 
-        /// <summary>글을 바꾼다(이미 이름 표를 거친 글).</summary>
+        /// <summary>
+        /// 글을 바꾼다(이미 이름 표를 거친 글). 이미 맞춘 글과 같고 칸 폭도 그대로면 아무것도 하지 않는다
+        /// (매 프레임 같은 글을 넣는 HUD·화면이 자르기 계산·글 메시 재생성을 되풀이하지 않게).
+        /// </summary>
         public void SetText(string s)
         {
-            _full = s ?? string.Empty;
+            s = s ?? string.Empty;
+            if (_fitted && string.Equals(s, _full) && (_wrap || Mathf.Abs(Rect.rect.width - _fitWidth) <= 0.5f)) return;
+            _full = s;
             Refit();
         }
 
@@ -65,6 +74,7 @@ namespace Wizard.Solo.UI
         {
             var t = Text;
             if (t == null) return;
+            _fitted = true;
             if (_wrap)
             {
                 _truncated = false;
@@ -87,7 +97,7 @@ namespace Wizard.Solo.UI
             {
                 if (_tip == null) _tip = gameObject.GetComponent<UiTooltipTrigger>();
                 if (_tip == null) _tip = gameObject.AddComponent<UiTooltipTrigger>();
-                _tip.TextProvider = () => _full;
+                _tip.TextProvider = _tipProvider ?? (_tipProvider = () => _full);
                 _tip.enabled = true;
                 if (Text != null) Text.raycastTarget = true;
             }

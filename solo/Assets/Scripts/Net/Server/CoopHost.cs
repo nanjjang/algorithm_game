@@ -38,6 +38,17 @@ namespace Wizard.Solo.Net
         public int SpectatorsMax = 6;
         readonly bool[] _leftDuringRun = new bool[SimConst.MaxPlayers];
         byte[] _startMsg;
+        /// <summary>판이 끝난(RunEnded) 뒤 같은 방(로비)으로 돌아가기까지(틱). 방 서버가 그 사이에 결과를 한 번 적는다.
+        /// 자동 매치 방(<see cref="Ranked"/>)은 돌아가지 않고, 이만큼 지나면 <see cref="Finished"/>가 된다(방 서버가 닫는다).
+        /// 기본 3초: 손님 화면의 쓰러짐 대기(camp.json downed_to_settlement_seconds 2초)보다 길어야, 방장이 다시 시작할 수 있게 될 때
+        /// 모두가 이미 방 화면에 와 있다(아직 전투 화면에 있는 손님이 새 판 시작 이벤트를 끝난 판에 받지 않는다).</summary>
+        public int ReturnToLobbyTicks = 180;
+        int _endedTicks;
+        /// <summary>적어도 2틱: 판이 끝난 틱(손님이 끊겨 끝난 틱 포함) 뒤 방 서버의 RecordIfEnded가 한 번은 지나간다.</summary>
+        int ReturnDelay => Math.Max(2, ReturnToLobbyTicks);
+
+        /// <summary>이 방에서 연 판의 수(StartRun마다 1씩). 방 서버가 "이 판은 적었다"를 판마다 따로 센다.</summary>
+        public int RunNumber { get; private set; }
 
         /// <summary>그 슬롯 사람이 판 도중에 끊겼나(자동 매치 이탈).</summary>
         public bool LeftDuringRun(int slot) => slot >= 0 && slot < _leftDuringRun.Length && _leftDuringRun[slot];
@@ -90,6 +101,8 @@ namespace Wizard.Solo.Net
         public int LastSnapshotBytes { get; private set; }
         public bool Started => World != null;
         public int PlayerCount { get { int n = 0; foreach (var p in _peers) if (p.Slot >= 0 && !p.Dropped) n++; return n; } }
+        /// <summary>자리에 앉은 사람 수(봇 빼고). 사람이 다 나가면 봇만 남은 방은 끝난 것으로 본다.</summary>
+        public int HumanCount { get { int n = 0; foreach (var p in _peers) if (p.Slot >= 0 && !p.Dropped && p.Bot == null) n++; return n; } }
 
         /// <summary>modules = 세계마다 새 모듈 묶음(기본 SimModuleSet.CreateDefault).</summary>
         /// <summary>협동(최대 4) 또는 결투(2명). 결투는 두 사람이 다 있어야 시작한다.</summary>
@@ -126,14 +139,15 @@ namespace Wizard.Solo.Net
             }
         }
 
-        /// <summary>판이 끝났고 남은 손님이 없다(전용 서버가 방을 새로 연다).</summary>
+        /// <summary>판 중에 사람이 다 나갔다(봇만 남아도), 또는 자동 매치 방의 판이 끝나고 <see cref="ReturnToLobbyTicks"/>가 지났다
+        /// (방 서버가 방을 닫는다). 보통 방은 판이 끝나면 같은 방(로비)으로 돌아가므로 끝나지 않는다.</summary>
         public bool Finished
         {
             get
             {
                 if (!Started) return false;
-                if (World.Run.Phase != RunPhase.RunEnded && PlayerCount > 0) return false;
-                return PlayerCount == 0;
+                if (HumanCount == 0) return true;
+                return Ranked && World.Run != null && World.Run.Phase == RunPhase.RunEnded && _endedTicks >= ReturnDelay;
             }
         }
 
@@ -212,6 +226,8 @@ namespace Wizard.Solo.Net
 
             var w = new SimWorld(_content, _modules(), seed);
             World = w;
+            RunNumber++;
+            _endedTicks = 0;
             w.StartRun(cfg);
 
             var msg = new NetWriter(NetMsg.Start);
@@ -232,7 +248,18 @@ namespace Wizard.Solo.Net
             if (AutoStartSeed != 0 && !Started && PlayerCount >= _maxPlayers) StartRun(AutoStartSeed);
             var w = World;
             if (w == null) return;
-            if (w.Run != null && w.Run.Phase == RunPhase.RunEnded) { FlushEvents(); return; }
+            if (w.Run != null && w.Run.Phase == RunPhase.RunEnded)
+            {
+                // Step 밖에서 끝난 판(끊긴 사람의 Drop이 마지막 쓰러짐을 부른 경우 등)은 판 끝 스냅숏이 아직 안 갔다:
+                // 처음 본 틱에 한 번 보내 꼭두각시도 RunEnded가 되게 한다(이벤트보다 먼저 — 위 흐름 규칙과 같다).
+                if (_endedTicks == 0) SendSnapshot();
+                FlushEvents();
+                // 판이 끝나면 잠시 뒤 같은 방으로 돌아간다(자동 매치 방은 그대로 두고 방 서버가 닫는다).
+                // 사람이 다 나갔으면 돌아가지 않는다(Finished로 남아 방 서버가 닫는다 — 봇만 있는 로비를 열어 두지 않는다).
+                _endedTicks++;
+                if (!Ranked && HumanCount > 0 && _endedTicks >= ReturnDelay) ReturnToLobby();
+                return;
+            }
             // 서버 안 봇의 보상 고르기(전리품·비기·출발): 봇도 자기 몫을 스스로 끝낸다. 사람은 각자 화면에서 고른다.
             foreach (var p in _peers)
                 if (p.Bot != null && !p.Dropped && p.Slot >= 0) CoopBotRewards.Decide(w, p.Slot, _botCmds);
@@ -250,6 +277,27 @@ namespace Wizard.Solo.Net
         }
 
         readonly List<RunCommand> _botCmds = new List<RunCommand>();
+
+        /// <summary>
+        /// 끝난 판을 걷고 같은 방(로비)으로 돌아간다: 같은 코드, 남은 사람·봇은 같은 슬롯, 판 도중 나간 사람은 뺀다.
+        /// 모두에게 BackToLobby → Lobby를 보낸다. 방장은 다시 시작할 수 있고, 방 서버는 다시 참가를 받는다.
+        /// 판이 끝난 뒤(RunEnded)에만 한다. 했으면 true.
+        /// </summary>
+        public bool ReturnToLobby()
+        {
+            var w = World;
+            if (w == null || w.Run == null || w.Run.Phase != RunPhase.RunEnded) return false;
+            World = null;
+            _startMsg = null;
+            _endedTicks = 0;
+            Array.Clear(_leftDuringRun, 0, _leftDuringRun.Length);
+            _evBuf.Clear();
+            _botCmds.Clear();
+            _peers.RemoveAll(p => p.Dropped);
+            Broadcast(new NetWriter(NetMsg.BackToLobby).ToArray());
+            SendLobby();
+            return true;
+        }
 
         static bool ChangesFlow(SimEventType t) =>
             t == SimEventType.PhaseChanged || t == SimEventType.CampChanged || t == SimEventType.RunEnded
@@ -314,6 +362,13 @@ namespace Wizard.Solo.Net
                 case NetMsg.RemoveBot:
                     if (p.Slot >= 0 && p.Slot == LeaderSlot) RemoveBot();
                     break;
+                case NetMsg.ChangeCharacter:
+                    {
+                        RunConfig cfg = null;
+                        try { cfg = NetCodec.ReadConfig(r); } catch (Exception) { }
+                        ChangeCharacter(p, cfg);
+                    }
+                    break;
                 case NetMsg.Command:
                     if (p.Slot < 0 || World == null) return;
                     {
@@ -336,19 +391,36 @@ namespace Wizard.Solo.Net
             catch (Exception) { Reject(p, RejectReason.BadHello); return; }
             if (member == null || string.IsNullOrEmpty(member.CharId)) { Reject(p, RejectReason.BadHello); return; }
             member.Party = null;
-            // 출발 설정은 서버가 다시 만든다: 캐릭터·기본 공격 유형만 손님 것, 지팡이 단계는 서버 프로필(OnlineMember).
-            int ch = Ids.Char.NumberOf(member.CharId);
-            int stage = p.AccountId > 0 && StageLookup != null ? StageLookup(p.AccountId, ch) : 0;
-            member = OnlineMember.Build(_content, ch, stage, member.AttackStyle, p.AccountId > 0 && LoadoutLookup != null ? LoadoutLookup(p.AccountId, ch) : null);
-            if (p.AccountId > 0 && MutationLookup != null) member.Mutations = MutationLookup(p.AccountId, ch) ?? new List<string>();
-            if (MemberFilter != null) member = MemberFilter(member) ?? member;
-            p.Member = member;
+            p.Member = BuildMember(p, Ids.Char.NumberOf(member.CharId), member.AttackStyle);
             p.Slot = FreeSlot();
             var msg = new NetWriter(NetMsg.Welcome);
             msg.Int(NetProtocol.Version);
             msg.Int(p.Slot);
             p.Pipe.Send(msg.ToArray());
             SendLobby();
+        }
+
+        /// <summary>출발 설정은 서버가 다시 만든다: 캐릭터·기본 공격 유형만 손님 것, 지팡이 단계·조립·변이는 서버 프로필(OnlineMember), 마지막에 리그 제한.</summary>
+        RunConfig BuildMember(Peer p, int ch, string attackStyle)
+        {
+            int stage = p.AccountId > 0 && StageLookup != null ? StageLookup(p.AccountId, ch) : 0;
+            var member = OnlineMember.Build(_content, ch, stage, attackStyle, p.AccountId > 0 && LoadoutLookup != null ? LoadoutLookup(p.AccountId, ch) : null);
+            if (p.AccountId > 0 && MutationLookup != null) member.Mutations = MutationLookup(p.AccountId, ch) ?? new List<string>();
+            if (MemberFilter != null) member = MemberFilter(member) ?? member;
+            return member;
+        }
+
+        /// <summary>방에서 캐릭터 바꾸기(ChangeCharacter): 판 전, 자리에 앉은 사람(관전자·봇 아님)만. 캐릭터 1~Ids.Char.Count.
+        /// 출발 설정은 Hello 때처럼 서버가 다시 만들고 모두에게 Lobby를 보낸다. 받았으면 true.</summary>
+        bool ChangeCharacter(Peer p, RunConfig cfg)
+        {
+            if (Started || p == null || p.Dropped || p.Spectator || p.Bot != null || p.Slot < 0 || p.Member == null) return false;
+            if (cfg == null || string.IsNullOrEmpty(cfg.CharId)) return false;
+            int ch = Ids.Char.NumberOf(cfg.CharId);
+            if (ch < 1 || ch > Ids.Char.Count) return false;
+            p.Member = BuildMember(p, ch, cfg.AttackStyle);
+            SendLobby();
+            return true;
         }
 
         int FreeSlot()
@@ -447,13 +519,17 @@ namespace Wizard.Solo.Net
         byte[] SnapshotMessage()
         {
             // 몸은 Deflate로 줄여 보낸다(판 상태 약 5KB → 1~2KB). 마지막 크기는 LastSnapshotBytes.
-            var body = new NetWriter();
-            WorldSnapshot.Write(body, World);
-            byte[] packed = NetCodec.Deflate(body.ToArray());
+            // 몸·압축 칸은 다시 쓴다(3틱마다 몸 배열·압축 배열을 새로 만들지 않는다). 나가는 메시지 배열만 새로 만든다.
+            _snapBody.Reset();
+            WorldSnapshot.Write(_snapBody, World);
+            int packedLen = NetCodec.DeflateTo(_snapBody.GetBuffer(), _snapBody.Length, _snapPacked);
             var msg = new NetWriter(NetMsg.Snapshot);
-            msg.Bytes(packed);
-            LastSnapshotBytes = packed.Length;
+            msg.Bytes(_snapPacked.GetBuffer(), 0, packedLen);
+            LastSnapshotBytes = packedLen;
             return msg.ToArray();
         }
+
+        readonly NetWriter _snapBody = new NetWriter();
+        readonly System.IO.MemoryStream _snapPacked = new System.IO.MemoryStream(4096);
     }
 }

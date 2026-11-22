@@ -68,6 +68,7 @@ namespace Wizard.Solo.App
         public void StartRun(RunConfig cfg) => C.StartRun(cfg);
         public bool IsOnline => _core != null && _core.IsOnline;
         public void StartOnline(IOnlineLink link) => C.StartOnline(link);
+        public void DetachOnline() { if (_core != null) _core.DetachOnline(); }
         public void EndRun() { if (_core != null) _core.EndRun(); }
         public void PushSubRun(RunConfig cfg) => C.PushSubRun(cfg);
         public void PopSubRun() { if (_core != null) _core.PopSubRun(); }

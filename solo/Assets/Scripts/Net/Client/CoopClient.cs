@@ -36,12 +36,18 @@ namespace Wizard.Solo.Net
         public SimWorld World { get; private set; }
         public RunConfig Config { get; private set; }
         public readonly List<LobbyMember> Lobby = new List<LobbyMember>();
+        /// <summary>받은 판 시작(Start)의 수. 같은 방에서 판을 다시 열면 늘어난다 — 화면은 이것으로 "새 판"과 끝난 판을 가른다.</summary>
+        public int RunNumber { get; private set; }
+        /// <summary>로비 목록·상태·판이 바뀔 때마다 늘어난다(화면이 바뀐 때만 다시 그리게).</summary>
+        public int LobbyVersion { get; private set; }
         /// <summary>마지막으로 받은 스냅숏의 서버 틱(−1 = 아직 없음).</summary>
         public int LastSnapshotTick { get; private set; } = -1;
         public int SnapshotsReceived { get; private set; }
         /// <summary>마지막 스냅숏 뒤 흐른 60Hz 틱 수(OnlineCoop.Step이 센다).</summary>
         public int FramesSinceSnapshot;
         readonly SnapshotSmoother _smooth = new SnapshotSmoother();
+        /// <summary>스냅숏 풀기용으로 다시 쓰는 읽개.</summary>
+        readonly NetReader _snapReader = new NetReader();
 
         /// <summary>표시 보간 비(0~1): 앞 스냅숏 자리(PrevPos) → 지금 스냅숏 자리(Pos)를 스냅숏 간격 동안 잇는다.</summary>
         public float InterpAlpha => FramesSinceSnapshot >= NetProtocol.SnapshotEveryTicks ? 1f : (FramesSinceSnapshot + 1f) / NetProtocol.SnapshotEveryTicks;
@@ -150,6 +156,17 @@ namespace Wizard.Solo.Net
             _pipe.Send(msg.ToArray());
         }
 
+        /// <summary>방에서 내 캐릭터를 바꿔 달라고 청한다(판 전, 관전자가 아닐 때). 서버가 출발 설정을 다시 만들고 Lobby를 보낸다.</summary>
+        public void RequestChangeCharacter(RunConfig member)
+        {
+            if (State != CoopClientState.Lobby || _pipe == null || member == null || Spectator) return;
+            var msg = new NetWriter(NetMsg.ChangeCharacter);
+            var m = NetCodec.Clone(member);
+            m.Party = null;
+            NetCodec.WriteConfig(msg, m);
+            _pipe.Send(msg.ToArray());
+        }
+
         public void RequestRemoveBot()
         {
             if (State != CoopClientState.Lobby || _pipe == null) return;
@@ -173,7 +190,7 @@ namespace Wizard.Solo.Net
         {
             if (_pipe == null) return;
             while (_pipe.TryReceive(out var data)) Handle(data);
-            if (!_pipe.Connected && State != CoopClientState.Rejected) State = CoopClientState.Disconnected;
+            if (!_pipe.Connected && State != CoopClientState.Rejected && State != CoopClientState.Disconnected) { State = CoopClientState.Disconnected; LobbyVersion++; }
         }
 
         /// <summary>받아 둔 표시 이벤트를 넘기고 비운다(뷰의 OnEvent에 그대로 준다).</summary>
@@ -186,7 +203,9 @@ namespace Wizard.Solo.Net
         void Handle(byte[] data)
         {
             var r = new NetReader(data);
-            switch ((NetMsg)r.Byte())
+            var kind = (NetMsg)r.Byte();
+            if (kind != NetMsg.Snapshot && kind != NetMsg.Events) LobbyVersion++;
+            switch (kind)
             {
                 case NetMsg.Welcome:
                     r.Int();
@@ -225,19 +244,35 @@ namespace Wizard.Solo.Net
                 case NetMsg.Start:
                     {
                         Config = NetCodec.ReadConfig(r);
+                        WorldSnapshot.Warm(); // 스냅숏 빠른 길을 판 시작에 미리 컴파일(첫 스냅숏에서 멈칫하지 않게)
                         var w = new SimWorld(_content, _modules(), Config.Seed);
                         w.StartRun(NetCodec.Clone(Config));
                         w.Events.Clear(); // 서버가 판 시작 이벤트를 따로 보낸다
+                        _events.Clear(); // 앞 판에서 남은 표시 이벤트는 버린다(새 판의 것은 이 뒤에 온다)
                         World = w;
+                        RunNumber++;
+                        LastSnapshotTick = -1;
+                        SnapshotsReceived = 0;
+                        FramesSinceSnapshot = 0;
                         State = CoopClientState.InRun;
                     }
+                    break;
+                case NetMsg.BackToLobby:
+                    // 판이 끝나 같은 방으로 돌아왔다. 받아 둔 이벤트(판 끝 RunEnded 등)는 그대로 둔다 — 세션이 아직 꺼내지 않았을 수 있다.
+                    World = null;
+                    Config = null;
+                    LastSnapshotTick = -1;
+                    SnapshotsReceived = 0;
+                    FramesSinceSnapshot = 0;
+                    if (State == CoopClientState.InRun) State = CoopClientState.Lobby;
                     break;
                 case NetMsg.Snapshot:
                     if (World == null) return;
                     {
-                        byte[] raw = NetCodec.Inflate(r.Bytes());
+                        // 압축 몸을 베끼지 않고 다시 쓰는 읽개에 풀어 넣는다(스냅숏마다 배열·읽개를 새로 만들지 않는다)
+                        if (!NetCodec.InflateTo(r, _snapReader)) return;
                         _smooth.Capture(World);
-                        WorldSnapshot.Apply(new NetReader(raw), World);
+                        WorldSnapshot.Apply(_snapReader, World);
                         _smooth.Restore(World);
                         FramesSinceSnapshot = 0;
                     }

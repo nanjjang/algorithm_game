@@ -113,6 +113,26 @@ namespace Wizard.Solo.Net
             if (IsLeader) Me?.RequestRemoveBot();
         }
 
+        /// <summary>방에서 내 캐릭터를 바꾼다(판 전). 이 기기 방이든 원격 방이든 같은 길(ChangeCharacter 메시지)로 서버에 청한다 —
+        /// 서버가 출발 설정을 다시 만들고 Lobby를 보낸다. 보냈으면 true.</summary>
+        public bool ChangeCharacter(RunConfig member)
+        {
+            if (Me == null || member == null || Me.Spectator || Me.State != CoopClientState.Lobby || Me.World != null) return false;
+            Me.RequestChangeCharacter(member);
+            if (Host != null) Pump();
+            return true;
+        }
+
+        /// <summary>받은 판 시작의 수(같은 방에서 다시 열 때마다 는다).</summary>
+        public int RunNumber => Me != null ? Me.RunNumber : 0;
+        /// <summary>세션이 마지막으로 연 판의 번호(방 화면이 넣는다). RunNumber와 같으면 남아 있는 세계는 이미 끝난 판이다(BackToLobby 전).</summary>
+        public int EnteredRun { get; set; }
+        /// <summary>자동 매치로 잡힌 결투 방(방 화면이 넣는다). 판이 끝나면 같은 방으로 돌아가지 않고 나간다(서버도 방을 닫는다).
+        /// 연결에 두어 방 화면(모델)을 새로 만들어도 잃지 않는다.</summary>
+        public bool Ranked { get; set; }
+        /// <summary>로비 목록·상태가 바뀔 때마다 는다(화면의 다시 그리기 판단용).</summary>
+        public int LobbyVersion => Me != null ? Me.LobbyVersion : 0;
+
         /// <summary>로비의 봇 수(로비 목록 기준).</summary>
         public int BotCount { get { int n = 0; if (Me != null) foreach (var m in Me.Lobby) if (m.IsBot) n++; return n; } }
         /// <summary>로비의 사람·봇 수.</summary>

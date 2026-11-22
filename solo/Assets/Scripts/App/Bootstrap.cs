@@ -65,8 +65,26 @@ namespace Wizard.Solo.App
             }
             _current = boot;
             ApplySavedDisplay(boot);
+            ApplyFramePacing();
             OpenFirstScreen(boot, options.InputOverride == null);
             return boot;
+        }
+
+        /// <summary>
+        /// 프레임 상한: 수직 동기가 꺼져 있으면(품질 단계·그래픽 드라이버가 끈 경우) 화면 주사율로 묶는다.
+        /// 묶지 않으면 메뉴·전투가 수백 fps로 돌며 GPU·CPU를 데워, 노트북에서 열 조절로 오히려 끊긴다. 수직 동기가 켜져 있으면 −1(엔진 기본).
+        /// </summary>
+        public static int FrameRateCap(int vSyncCount, double refreshHz)
+        {
+            if (vSyncCount > 0) return -1;
+            int hz = refreshHz > 0 ? (int)Math.Round(refreshHz) : 0;
+            return hz >= 30 ? hz : 60;
+        }
+
+        static void ApplyFramePacing()
+        {
+            if (!Application.isPlaying || Application.isEditor) return;
+            Application.targetFrameRate = FrameRateCap(QualitySettings.vSyncCount, Screen.currentResolution.refreshRateRatio.value);
         }
 
         /// <summary>

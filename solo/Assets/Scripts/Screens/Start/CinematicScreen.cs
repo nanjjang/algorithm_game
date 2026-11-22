@@ -72,12 +72,14 @@ namespace Wizard.Solo.Screens.Start
 
         protected override void BuildContent(RectTransform content)
         {
-            UiKit.Rect(content, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, Color.black, true, "Background");
+            // 검은 바탕은 창 끝까지, 영상(16:9)은 창 안에 잘리지 않게 가장 크게(UiFullBleed.Contain) — 남는 곳만 검은 띠.
+            UiFullBleed.Fill(UiKit.Rect(content, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, Color.black, true, "Background").rectTransform);
 
             var go = new GameObject("CinematicFrame", typeof(RectTransform), typeof(RawImage));
             var rt = (RectTransform)go.transform;
             rt.SetParent(content, false);
-            UiKit.Stretch(rt);
+            UiKit.Place(rt, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight);
+            UiFullBleed.Contain(rt, (float)UiScale.RefWidth / UiScale.RefHeight);
             _frame = go.GetComponent<RawImage>();
             _frame.color = Color.white;
             _frame.raycastTarget = false;

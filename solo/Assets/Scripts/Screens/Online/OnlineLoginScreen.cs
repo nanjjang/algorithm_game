@@ -52,11 +52,15 @@ namespace Wizard.Solo.Screens.Online
             _board = boardImg.rectTransform;
             _board.name = "LoginBoard";
             UiKit.Bevel(_board);
+            // 받아 온 장부 그림은 밝은 양피지다: 그 위 글자는 먹 글자 계열로(분필·회청·노랑·호박은 1.2~1.7:1로 묻혔다).
+            bool paper = ledger != null;
+            Color body = UiTheme.TextOn(paper, UiTextRole.Body), muted = UiTheme.TextOn(paper, UiTextRole.Muted),
+                accent = UiTheme.TextOn(paper, UiTextRole.Accent), warn = UiTheme.TextOn(paper, UiTextRole.Warn);
             // 머리 그림: 여럿이 앉은 모닥불(서버 프로필).
             _hero = OnlineUi.Img(Ctx, _board, "S-0301", "server_card", (BoardW - 496f) * 0.5f, 28f, 496f, 240f).rectTransform;
             OnlineUi.Img(Ctx, _board, "K-12", "crow_feather", BoardW - 40f, -8f, 32f, 32f);
-            _title = UiKit.Label(Ctx, _board, T(OnlineKeys.LoginTitle), UiFontId.F32, Pad, 276f, FieldW, 44f, UiTheme.Chalk, TextAnchor.MiddleCenter);
-            UiKit.DropShadow(_title);
+            _title = UiKit.Label(Ctx, _board, T(OnlineKeys.LoginTitle), UiFontId.F32, Pad, 276f, FieldW, 44f, body, TextAnchor.MiddleCenter);
+            if (!paper) UiKit.DropShadow(_title);
 
             _loginGroup = UiKit.Node(_board, "LoginGroup", 0f, 0f, BoardW, BoardH);
             float tabW = FieldW / 2f;
@@ -65,30 +69,30 @@ namespace Wizard.Solo.Screens.Online
             _tabSignup = UiKit.Button(Ctx, _tabs, T(OnlineKeys.LoginTabSignup), Pad + tabW, 0f, tabW, 48f, () => SetMode(Mode.Signup), UiButtonStyle.Tab, Focus);
 
             _emailRow = UiKit.Node(_loginGroup, "EmailRow", 0f, 0f, BoardW, 80f);
-            _email = OnlineUi.Field(Ctx, Focus, _emailRow, T(OnlineKeys.LoginEmail), T(OnlineKeys.LoginEmailHint), Pad, 0f, FieldW, AccountStore.EmailMax, false, UiFontId.F24);
+            _email = OnlineUi.Field(Ctx, Focus, _emailRow, T(OnlineKeys.LoginEmail), T(OnlineKeys.LoginEmailHint), Pad, 0f, FieldW, AccountStore.EmailMax, false, UiFontId.F24, captionColor: muted);
             _email.contentType = UInputField.ContentType.EmailAddress;
             OnlineUi.OnlineImg((RectTransform)_email.transform, "icon_email_account", FieldW - 44f, 8f, 32f, 32f);
             _emailNote = UiKit.Node(_loginGroup, "EmailNote", Pad, 0f, FieldW, 22f);
-            UiKit.Label(Ctx, _emailNote, T(OnlineKeys.LoginEmailNote), UiFontId.F12, 2f, 0f, FieldW, 22f, UiTheme.SlateBlue);
+            UiKit.Label(Ctx, _emailNote, T(OnlineKeys.LoginEmailNote), UiFontId.F12, 2f, 0f, FieldW, 22f, muted);
             _nameRow = UiKit.Node(_loginGroup, "NameRow", 0f, 0f, BoardW, 80f);
-            _name = OnlineUi.Field(Ctx, Focus, _nameRow, T(OnlineKeys.LoginName), T(OnlineKeys.LoginNameHint), Pad, 0f, FieldW, AccountStore.NameMax);
+            _name = OnlineUi.Field(Ctx, Focus, _nameRow, T(OnlineKeys.LoginName), T(OnlineKeys.LoginNameHint), Pad, 0f, FieldW, AccountStore.NameMax, captionColor: muted);
             _passwordRow = UiKit.Node(_loginGroup, "PasswordRow", 0f, 0f, BoardW, 80f);
-            _password = OnlineUi.Field(Ctx, Focus, _passwordRow, T(OnlineKeys.LoginPassword), T(OnlineKeys.LoginPasswordHint), Pad, 0f, FieldW, AccountStore.PasswordMax, true, UiFontId.F24);
+            _password = OnlineUi.Field(Ctx, Focus, _passwordRow, T(OnlineKeys.LoginPassword), T(OnlineKeys.LoginPasswordHint), Pad, 0f, FieldW, AccountStore.PasswordMax, true, UiFontId.F24, captionColor: muted);
             _password2Row = UiKit.Node(_loginGroup, "Password2Row", 0f, 0f, BoardW, 80f);
-            _password2 = OnlineUi.Field(Ctx, Focus, _password2Row, T(OnlineKeys.LoginPassword2), T(OnlineKeys.LoginPassword2Hint), Pad, 0f, FieldW, AccountStore.PasswordMax, true, UiFontId.F24);
+            _password2 = OnlineUi.Field(Ctx, Focus, _password2Row, T(OnlineKeys.LoginPassword2), T(OnlineKeys.LoginPassword2Hint), Pad, 0f, FieldW, AccountStore.PasswordMax, true, UiFontId.F24, captionColor: muted);
             _codeRow = UiKit.Node(_loginGroup, "CodeRow", 0f, 0f, BoardW, 80f);
-            _code = OnlineUi.Field(Ctx, Focus, _codeRow, T(OnlineKeys.RecoverCode), T(OnlineKeys.RecoverCodeHint), Pad, 0f, FieldW, 12, false, UiFontId.F24);
+            _code = OnlineUi.Field(Ctx, Focus, _codeRow, T(OnlineKeys.RecoverCode), T(OnlineKeys.RecoverCodeHint), Pad, 0f, FieldW, 12, false, UiFontId.F24, captionColor: muted);
             _newPasswordRow = UiKit.Node(_loginGroup, "NewPasswordRow", 0f, 0f, BoardW, 80f);
-            _newPassword = OnlineUi.Field(Ctx, Focus, _newPasswordRow, T(OnlineKeys.RecoverNewPassword), T(OnlineKeys.LoginPasswordHint), Pad, 0f, FieldW, AccountStore.PasswordMax, true, UiFontId.F24);
+            _newPassword = OnlineUi.Field(Ctx, Focus, _newPasswordRow, T(OnlineKeys.RecoverNewPassword), T(OnlineKeys.LoginPasswordHint), Pad, 0f, FieldW, AccountStore.PasswordMax, true, UiFontId.F24, captionColor: muted);
 
             // 아래 묶음(버튼·또는·Google·잊음·오류)은 칸 수에 따라 위아래로 옮긴다.
             _lowerBlock = UiKit.Node(_loginGroup, "Lower", 0f, 0f, BoardW, 360f);
             _submit = UiKit.Button(Ctx, _lowerBlock, T(OnlineKeys.LoginSubmit), Pad, 0f, FieldW, 64f, Submit, UiButtonStyle.Primary, Focus);
             _spinner = OnlineUi.AnimImg(Ctx, _lowerBlock, "K-44", null, Pad + 24f, 16f, 32f, 32f);
-            _working = UiKit.Label(Ctx, _lowerBlock, T(OnlineKeys.LoginWorking), UiFontId.F16, Pad + 72f, 0f, FieldW - 72f, 64f, UiTheme.Chalk, TextAnchor.MiddleLeft);
+            _working = UiKit.Label(Ctx, _lowerBlock, T(OnlineKeys.LoginWorking), UiFontId.F16, Pad + 72f, 0f, FieldW - 72f, 64f, body, TextAnchor.MiddleLeft);
             _orGroup = UiKit.Node(_lowerBlock, "OrGroup", 0f, 0f, BoardW, 360f);
             UiKit.Divider(Ctx, _orGroup, Pad, 92f, FieldW / 2f - 40f);
-            UiKit.Label(Ctx, _orGroup, T(OnlineKeys.LoginOr), UiFontId.F16, Pad + FieldW / 2f - 40f, 80f, 80f, 24f, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
+            UiKit.Label(Ctx, _orGroup, T(OnlineKeys.LoginOr), UiFontId.F16, Pad + FieldW / 2f - 40f, 80f, 80f, 24f, muted, TextAnchor.MiddleCenter);
             UiKit.Divider(Ctx, _orGroup, Pad + FieldW / 2f + 40f, 92f, FieldW / 2f - 40f);
             // Google 버튼은 공식 자산(google_button.png, 브랜드 규정상 다시 그리지 않는다)이 있으면 그것만 보인다.
             var googleArt = OnlineUi.Online("google_button");
@@ -101,18 +105,19 @@ namespace Wizard.Solo.Screens.Online
             }
             else _google = UiKit.Button(Ctx, _orGroup, T(OnlineKeys.LoginGoogle), Pad, 116f, FieldW, 56f, StartGoogle, UiButtonStyle.Medium, Focus);
             _forgot = UiKit.Button(Ctx, _lowerBlock, T(OnlineKeys.LoginForgot), Pad, 188f, 220f, 32f, Forgot, UiButtonStyle.Plain, Focus, null, UiFontId.F16);
+            if (paper && _forgot.Label != null) { _forgot.LabelColor = accent; _forgot.Refresh(); } // 바탕 없는 글 단추: 양피지 위 분필은 안 읽힌다
             _mailOffTag = OnlineUi.Tag(Ctx, _lowerBlock, T(OnlineKeys.LoginMailOffTag), Pad + 228f, 192f, UiTheme.Amber);
-            _error = OnlineUi.Error(Ctx, _lowerBlock, Pad, 236f, FieldW);
+            _error = OnlineUi.Error(Ctx, _lowerBlock, Pad, 236f, FieldW, warn);
 
             // Google 첫 가입: 이름 정하기.
             _nameGroup = UiKit.Node(_board, "NeedName", 0f, 0f, BoardW, BoardH);
-            _needNameTitle = UiKit.Label(Ctx, _nameGroup, T(OnlineKeys.LoginNeedName), UiFontId.F24, Pad, 348f, FieldW, 40f, UiTheme.SelectYellow, TextAnchor.MiddleLeft);
-            _googleName = OnlineUi.Field(Ctx, Focus, _nameGroup, T(OnlineKeys.LoginName), T(OnlineKeys.LoginNameHint), Pad, 404f, FieldW, AccountStore.NameMax);
+            _needNameTitle = UiKit.Label(Ctx, _nameGroup, T(OnlineKeys.LoginNeedName), UiFontId.F24, Pad, 348f, FieldW, 40f, accent, TextAnchor.MiddleLeft);
+            _googleName = OnlineUi.Field(Ctx, Focus, _nameGroup, T(OnlineKeys.LoginName), T(OnlineKeys.LoginNameHint), Pad, 404f, FieldW, AccountStore.NameMax, captionColor: muted);
             _nameSubmit = UiKit.Button(Ctx, _nameGroup, T(OnlineKeys.LoginNeedNameSubmit), Pad, 500f, FieldW, 64f, SubmitGoogleName, UiButtonStyle.Primary, Focus);
-            _nameError = OnlineUi.Error(Ctx, _nameGroup, Pad, 580f, FieldW);
+            _nameError = OnlineUi.Error(Ctx, _nameGroup, Pad, 580f, FieldW, warn);
 
             _back = UiKit.Button(Ctx, _board, T(OnlineKeys.LoginBack), Pad, BoardH - 72f, 180f, 40f, () => Close(), UiButtonStyle.Small, Focus, null, UiFontId.F16);
-            UiKit.Label(Ctx, _board, T(OnlineKeys.LoginSecureNote), UiFontId.F12, Pad + 196f, BoardH - 72f, FieldW - 196f, 40f, UiTheme.SlateBlue, TextAnchor.MiddleRight, wrap: true);
+            UiKit.Label(Ctx, _board, T(OnlineKeys.LoginSecureNote), UiFontId.F12, Pad + 196f, BoardH - 72f, FieldW - 196f, 40f, muted, TextAnchor.MiddleRight, wrap: true);
         }
 
         /// <summary>야영지 밤 장면 + 모닥불 + 오른쪽에 서버에서 할 수 있는 것 세 줄(그림 + 짧은 글).</summary>

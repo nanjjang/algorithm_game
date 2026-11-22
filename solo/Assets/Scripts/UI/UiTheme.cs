@@ -3,6 +3,19 @@ using Wizard.Solo.Art;
 
 namespace Wizard.Solo.UI
 {
+    /// <summary>글자의 쓰임(바탕 밝기에 따라 UiTheme.TextOn이 색을 고른다).</summary>
+    public enum UiTextRole
+    {
+        /// <summary>본문(분필 / 먹 글자).</summary>
+        Body = 0,
+        /// <summary>보조(회청 / 쪽지 보조).</summary>
+        Muted = 1,
+        /// <summary>강조·구역 머리(금 / 쪽지 강조).</summary>
+        Accent = 2,
+        /// <summary>경고·오류(호박 / 쪽지 경고).</summary>
+        Warn = 3
+    }
+
     /// <summary>
     /// 화면 색과 글자 크기(08 요약서 1.4·1.5절, UA 1.2). 화면 작업은 색을 직접 적지 않고 여기 상수만 쓴다.
     /// 위험색(빨강 #FF3B30, 자홍 #FF2E88)은 여기에 두지 않는다 — 메뉴·창·플레이어 쪽에 쓰지 않는다(HUD 세 곳은 HUD 작업이 따로 둔다).
@@ -19,14 +32,23 @@ namespace Wizard.Solo.UI
         public static readonly Color Wood = Hex(0x2A2D40);
         /// <summary>나무 밝음 = 올림 테, 켜짐 바탕.</summary>
         public static readonly Color WoodLight = Hex(0x3A3F5A);
-        /// <summary>회청 = 보조 글자, 꺼진 괄호, 꺼진 글자.</summary>
-        public static readonly Color SlateBlue = Hex(0x8E9AAE);
+        /// <summary>
+        /// 회청 = 보조 글자, 꺼진 괄호, 꺼진 글자. 1.5절 원값 #8E9AAE는 어두운 판(K-01·K-02)·켜진 탭 위에서 대비가 모자라
+        /// (판 5.5:1, 켜진 탭 3.6:1 — 플레이 시험에서 "거의 안 보인다") 같은 색상각에서 밝기만 올렸다(판 6.7:1, 안쪽 판 7.8:1).
+        /// </summary>
+        public static readonly Color SlateBlue = Hex(0xA0ABBF);
         /// <summary>분필 흰색 = 본문 글자, 켜짐 아랫줄.</summary>
         public static readonly Color Chalk = Hex(0xF2EDE0);
         /// <summary>쪽지 / 그늘 / 쪽지 위 글자 = 결과 카드, 확인 창.</summary>
         public static readonly Color Paper = Hex(0xE8DDBF);
         public static readonly Color PaperShade = Hex(0xC9BB96);
         public static readonly Color PaperText = Hex(0x2B2A33);
+        /// <summary>쪽지 위 보조 글자(쪽지 판·장부·영수증 그림 위 회청 대신). 쪽지 그림 위 4.9:1 이상.</summary>
+        public static readonly Color PaperMuted = Hex(0x4E4636);
+        /// <summary>쪽지 위 강조 글자(쪽지 위 금색·선택 노랑 대신 — 밝은 바탕에서 금색은 1.2:1로 묻힌다). 4.7:1 이상.</summary>
+        public static readonly Color PaperAccent = Hex(0x6B3F0E);
+        /// <summary>쪽지 위 경고 글자(쪽지 위 호박색 대신). 위험색 범위 밖(색상각 약 30도, 명도 48%). 4.4:1 이상.</summary>
+        public static readonly Color PaperWarn = Hex(0x7A3E00);
         /// <summary>선택 노랑 = 선택 괄호 전용.</summary>
         public static readonly Color SelectYellow = Hex(0xFFE94A);
         /// <summary>금색 = 골드, 영웅 등급, +13(값진 것만).</summary>
@@ -142,6 +164,50 @@ namespace Wizard.Solo.UI
             new Color(((rgb >> 16) & 0xFF) / 255f, ((rgb >> 8) & 0xFF) / 255f, (rgb & 0xFF) / 255f, alpha);
 
         public static Color WithAlpha(Color c, float a) => new Color(c.r, c.g, c.b, a);
+
+        // ---- 글자 대비(WCAG 2.x). 본문 4.5:1, 큰 제목(24px 이상) 3:1을 목표로 한다.
+
+        /// <summary>본문 글자의 최소 대비.</summary>
+        public const float MinContrastBody = 4.5f;
+        /// <summary>큰 글자(24px 이상)의 최소 대비.</summary>
+        public const float MinContrastLarge = 3f;
+
+        /// <summary>상대 휘도(WCAG, sRGB 값 그대로). 알파는 보지 않는다.</summary>
+        public static float Luminance(Color c) => 0.2126f * Lin(c.r) + 0.7152f * Lin(c.g) + 0.0722f * Lin(c.b);
+
+        static float Lin(float v) => v <= 0.03928f ? v / 12.92f : Mathf.Pow((v + 0.055f) / 1.055f, 2.4f);
+
+        /// <summary>두 색의 대비(1~21). 순서는 상관없다.</summary>
+        public static float Contrast(Color a, Color b)
+        {
+            float la = Luminance(a), lb = Luminance(b);
+            return (Mathf.Max(la, lb) + 0.05f) / (Mathf.Min(la, lb) + 0.05f);
+        }
+
+        /// <summary>바탕이 밝은 편인가(분필 글자보다 먹 글자가 더 잘 읽히는 바탕).</summary>
+        public static bool IsLight(Color background) => Contrast(PaperText, background) > Contrast(Chalk, background);
+
+        /// <summary>
+        /// 글자 쓰임 → 바탕 밝기에 맞는 색. 어두운 바탕(판·장면) = 분필·회청·금·호박, 밝은 바탕(쪽지·장부·영수증) = 먹 글자·쪽지 보조·쪽지 강조·쪽지 경고.
+        /// 화면은 쪽지 그림 위에 글을 얹을 때 이것으로 색을 고른다(쪽지 위 분필·금·회청은 1.2~1.7:1로 안 읽힌다).
+        /// </summary>
+        public static Color TextOn(bool lightSurface, UiTextRole role)
+        {
+            switch (role)
+            {
+                case UiTextRole.Muted: return lightSurface ? PaperMuted : SlateBlue;
+                case UiTextRole.Accent: return lightSurface ? PaperAccent : Gold;
+                case UiTextRole.Warn: return lightSurface ? PaperWarn : Amber;
+                default: return lightSurface ? PaperText : Chalk;
+            }
+        }
+
+        /// <summary>preferred가 bg 위에서 min 대비를 넘으면 그대로, 아니면 먹 글자·분필 중 더 잘 읽히는 쪽.</summary>
+        public static Color ReadableOn(Color background, Color preferred, float min = MinContrastBody)
+        {
+            if (Contrast(preferred, background) >= min) return preferred;
+            return IsLight(background) ? PaperText : Chalk;
+        }
 
         /// <summary>
         /// 위험색 판정(색상각 330~15도, 채도·명도 70% 이상). 메뉴·창에 쓰려는 색을 검사하는 데 쓴다(테스트·단언용).

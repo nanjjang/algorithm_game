@@ -80,20 +80,22 @@ namespace Wizard.Solo.Screens.Online
         /// </summary>
         public static RectTransform Scene(GameContext ctx, RectTransform parent, string id, string variant, float dim, string onlineBg = null)
         {
+            // 반응형: 장면 칸은 창 끝까지(UiFullBleed), 단색·덮개는 칸에 붙여 늘이고, 그림은 비율을 지켜 덮는다(가운데에서 잘림).
             var node = UiKit.Node(parent, "Scene", 0f, 0f, UiScale.RefWidth, UiScale.RefHeight);
-            UiKit.Rect(node, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, UiTheme.WoodDark, true, "Background");
+            UiFullBleed.Fill(node);
+            UiKit.Stretch(UiKit.Rect(node, 0f, 0f, 0f, 0f, UiTheme.WoodDark, true, "Background").rectTransform);
             var custom = Online(onlineBg);
             if (custom != null)
             {
-                UiKit.Image(node, custom, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, Color.white, false);
-                if (dim > 0f) UiKit.Rect(node, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, UiTheme.WithAlpha(UiTheme.Ink, dim * 0.5f), false, "Dim");
+                UiFullBleed.Cover(UiKit.Image(node, custom, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, Color.white, false));
+                if (dim > 0f) UiKit.Stretch(UiKit.Rect(node, 0f, 0f, 0f, 0f, UiTheme.WithAlpha(UiTheme.Ink, dim * 0.5f), false, "Dim").rectTransform);
                 return node;
             }
             // UI 그림(S-xxxx)은 manifest에서, 그 밖의 열쇠("enhance.workbench" 등)는 배경에서 찾는다(없는 UI id는 바둑판 대체 그림이 나오므로 섞지 않는다).
             Sprite s = id != null && id.StartsWith("S-", StringComparison.Ordinal) ? Sprite(ctx, id, variant) : null;
             if (s == null && ctx != null && ctx.Art != null) { try { s = ctx.Art.Background(id); } catch (Exception) { s = null; } }
-            if (s != null) UiKit.Image(node, s, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, Color.white, false);
-            if (dim > 0f) UiKit.Rect(node, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, UiTheme.WithAlpha(UiTheme.Ink, dim), false, "Dim");
+            if (s != null) UiFullBleed.Cover(UiKit.Image(node, s, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, Color.white, false));
+            if (dim > 0f) UiKit.Stretch(UiKit.Rect(node, 0f, 0f, 0f, 0f, UiTheme.WithAlpha(UiTheme.Ink, dim), false, "Dim").rectTransform);
             UiBackdrop.VignetteOver(node, 0.6f);
             return node;
         }
@@ -101,8 +103,11 @@ namespace Wizard.Solo.Screens.Online
         /// <summary>위 띠(K-05, 1920×80): 왼쪽에 아이콘 + 제목(F-32). 오른쪽은 부르는 쪽이 채운다.</summary>
         public static UiLabel HeaderBand(GameContext ctx, RectTransform parent, string iconId, string iconVariant, string title, out RectTransform band)
         {
+            // 띠 판은 좌우·위 끝까지(UiFullBleed), 안의 아이콘·제목·단추 자리(band)는 1920 안전 영역 그대로.
             var img = Nine(ctx, parent, "K-05", null, 0f, 0f, UiScale.RefWidth, Band);
-            band = img.rectTransform;
+            img.name = "HeaderBandBg";
+            UiFullBleed.Fill(img.rectTransform, UiBleedEdges.Horizontal | UiBleedEdges.Top);
+            band = UiKit.Node(parent, "K-05", 0f, 0f, UiScale.RefWidth, Band);
             float x = Edge;
             if (iconId != null)
             {
@@ -156,10 +161,11 @@ namespace Wizard.Solo.Screens.Online
         /// 입력 칸(K-33). 위에 작은 이름(F-16 회청)을 두고, 칸 안은 쪽지 글자색. password면 ● 가림 + 눈 단추(S-0302)를 오른쪽에.
         /// </summary>
         public static UInputField Field(GameContext ctx, UiFocusGroup focus, RectTransform parent, string caption, string hint, float x, float y, float w,
-            int limit, bool password = false, UiFontId font = UiFontId.F24)
+            int limit, bool password = false, UiFontId font = UiFontId.F24, Color? captionColor = null)
         {
             const float H = 48f;
-            if (caption != null) UiKit.Label(ctx, parent, caption, UiFontId.F16, x + 2f, y, w, 24f, UiTheme.SlateBlue, TextAnchor.MiddleLeft);
+            // captionColor: 쪽지·장부 그림 위면 UiTheme.PaperMuted(회청은 밝은 바탕에서 1.6:1).
+            if (caption != null) UiKit.Label(ctx, parent, caption, UiFontId.F16, x + 2f, y, w, 24f, captionColor ?? UiTheme.SlateBlue, TextAnchor.MiddleLeft);
             float fy = caption != null ? y + 26f : y;
             var bg = UiKit.NineSlice(ctx, parent, "K-33", "input", null, x, fy, w, H, UiTheme.Chalk);
             bg.raycastTarget = true;
@@ -206,11 +212,12 @@ namespace Wizard.Solo.Screens.Online
             }
         }
 
-        public static ErrorLine Error(GameContext ctx, RectTransform parent, float x, float y, float w)
+        /// <summary>color: 쪽지·장부 그림 위면 UiTheme.PaperWarn(호박색은 밝은 바탕에서 1.2:1).</summary>
+        public static ErrorLine Error(GameContext ctx, RectTransform parent, float x, float y, float w, Color? color = null)
         {
             var root = UiKit.Node(parent, "ErrorLine", x, y, w, 32f);
             Img(ctx, root, "I-F2", "warning", 0f, 4f, 24f, 24f);
-            var t = UiKit.Label(ctx, root, string.Empty, UiFontId.F16, 32f, 0f, w - 32f, 32f, UiTheme.Amber, TextAnchor.MiddleLeft, wrap: true);
+            var t = UiKit.Label(ctx, root, string.Empty, UiFontId.F16, 32f, 0f, w - 32f, 32f, color ?? UiTheme.Amber, TextAnchor.MiddleLeft, wrap: true);
             var e = new ErrorLine { Root = root, Text = t };
             e.Set(null);
             return e;

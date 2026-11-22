@@ -27,7 +27,8 @@ namespace Wizard.Solo.Net
         readonly List<INetPipe> _pending = new List<INetPipe>();
         /// <summary>계정 확인을 마친 연결 → 그 계정(다음 메시지로 길을 나눈다).</summary>
         readonly Dictionary<INetPipe, AccountRecord> _authed = new Dictionary<INetPipe, AccountRecord>();
-        readonly HashSet<CoopHost> _recorded = new HashSet<CoopHost>();
+        /// <summary>방 → 결과를 적은 마지막 판 번호(CoopHost.RunNumber). 같은 방에서 판을 다시 열면 그 판도 한 번 적는다.</summary>
+        readonly Dictionary<CoopHost, int> _recorded = new Dictionary<CoopHost, int>();
         public AccountStore Accounts { get; }
         readonly Dictionary<string, CoopHost> _rooms = new Dictionary<string, CoopHost>();
         readonly List<string> _dead = new List<string>();
@@ -85,7 +86,8 @@ namespace Wizard.Solo.Net
                 var h = kv.Value;
                 h.Tick();
                 RecordIfEnded(h);
-                if (!h.Started) h.IdleTicks = h.PlayerCount > 0 ? 0 : h.IdleTicks + 1;
+                // 판 전(판이 끝나 돌아온 로비 포함) 사람이 없으면 센다 — 봇만 남은 방도 빈 방이다.
+                if (!h.Started) h.IdleTicks = h.HumanCount > 0 ? 0 : h.IdleTicks + 1;
                 h.AgeTicks++;
                 // 잡힌 경기 방: 정한 시간 안에 둘 다 들어오지 않으면 닫는다(점수는 변하지 않는다).
                 bool noShow = h.Ranked && !h.Started && h.AgeTicks > Accounts.Rules.MatchJoinSeconds * 60;
@@ -317,11 +319,13 @@ namespace Wizard.Solo.Net
         public Wizard.Solo.Meta.Enhance.IEnhanceRandom EnhanceRng { set => _enhanceRngField = value; }
         Wizard.Solo.Meta.Enhance.IEnhanceRandom _enhanceRng => _enhanceRngField ?? (_enhanceRngField = new DiceRandom(_dice));
 
-        /// <summary>판이 끝난 방의 결과를 서버 프로필에 한 번 적는다(계정이 있는 사람만).</summary>
+        /// <summary>판이 끝난 방의 결과를 서버 프로필에 판마다 한 번 적는다(계정이 있는 사람만). 방은 그 뒤
+        /// CoopHost.ReturnToLobbyTicks가 지나야 로비로 돌아가므로(같은 Tick 안에서 RunEnded가 된 직후 여기를 지난다) 결과를 놓치지 않는다.</summary>
         void RecordIfEnded(CoopHost h)
         {
-            if (!h.Started || _recorded.Contains(h) || h.World.Run.Phase != RunPhase.RunEnded) return;
-            _recorded.Add(h);
+            if (!h.Started || h.World.Run.Phase != RunPhase.RunEnded) return;
+            if (_recorded.TryGetValue(h, out int done) && done == h.RunNumber) return;
+            _recorded[h] = h.RunNumber;
             var run = h.World.Run;
             long now = Now;
             int seconds = h.World.Tick / SimConst.TicksPerSecond;

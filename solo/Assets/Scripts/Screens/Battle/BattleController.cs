@@ -151,8 +151,21 @@ namespace Wizard.Solo.Screens.Battle
         /// <summary>매 프레임. 정산 대기가 끝나면 Settlement로 Replace.</summary>
         public void Tick(float dt)
         {
+            if (Online && !Flow.Ended && LinkLost())
+            {
+                // 판 끝 이벤트를 받기 전에 서버가 방으로 돌아갔거나(BackToLobby) 연결이 끊겼다: 판에 갇히지 않게 방 화면으로.
+                GoToSettlement();
+                return;
+            }
             if (!Flow.Advance(dt)) return;
             GoToSettlement();
+        }
+
+        /// <summary>세션이 도는 온라인 연결이 판을 잃었다(세계 없음 또는 끊김).</summary>
+        bool LinkLost()
+        {
+            var link = _ctx != null ? _ctx.Online : null;
+            return link != null && (!link.Connected || link.World == null);
         }
 
         void GoToSettlement()
@@ -171,7 +184,9 @@ namespace Wizard.Solo.Screens.Battle
                 if (duel != null)
                     args.With(ScreenArgKeys.DuelWinner, duel.MatchWinner).With(ScreenArgKeys.DuelMySlot, w.ViewSlot)
                         .With(ScreenArgKeys.DuelWins0, duel.Wins[0]).With(ScreenArgKeys.DuelWins1, duel.Wins[1]);
-                s.EndRun();
+                // 판이 끝나도 방에서 나가지 않는다: 판만 걷고 연결은 남겨 같은 방(같은 코드·자리·봇)으로 돌아간다.
+                // 방에서 나가는 것은 Esc 확인(LeaveOnline) 또는 방 화면의 [나가기]뿐이다.
+                if (s is IOnlineSession os) os.DetachOnline(); else s.EndRun();
                 if (m.Top != ScreenId.Battle && m.IsOpen(ScreenId.Battle)) m.PopTo(ScreenId.Battle);
                 m.Replace(ScreenId.CoopLobby, args);
                 return;

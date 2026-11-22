@@ -181,6 +181,38 @@ namespace Wizard.Solo.UI
             }
         }
 
+        /// <summary>
+        /// 판 그림의 실제 바탕색(solo_kit 그림 가운데 칸 평균, 그림이 없으면 PanelFallback과 같은 쪽). 글자 대비 판정·시험용.
+        /// </summary>
+        public static Color PanelBaseColor(UiPanelKind k)
+        {
+            switch (k)
+            {
+                case UiPanelKind.Board: return UiTheme.Hex(0x222139);
+                case UiPanelKind.Recess: return UiTheme.Hex(0x141425);
+                case UiPanelKind.Paper: return UiTheme.Hex(0xD4BFA7);
+                case UiPanelKind.Heading: return UiTheme.Hex(0x171629);
+                case UiPanelKind.ScreenHeading: return UiTheme.Hex(0x18172A);
+                case UiPanelKind.ControlStrip: return UiTheme.Hex(0x18172A);
+                case UiPanelKind.Tooltip: return UiTheme.Hex(0x1D1D2A);
+                case UiPanelKind.Toast: return UiTheme.Hex(0xD4BFA7);
+                default: return PanelFallback(k);
+            }
+        }
+
+        /// <summary>밝은 판(쪽지·토스트)인가. 이 판 위 글자는 먹 글자 계열(UiTheme.TextOn(true, …))을 쓴다.</summary>
+        public static bool IsLightPanel(UiPanelKind k) => k == UiPanelKind.Paper || k == UiPanelKind.Toast;
+
+        /// <summary>판 종류 + 글자 쓰임 → 읽히는 글자색(어두운 판 = 분필·회청·금·호박, 쪽지 = 먹 글자 계열).</summary>
+        public static Color TextColor(UiPanelKind k, UiTextRole role) => UiTheme.TextOn(IsLightPanel(k), role);
+
+        /// <summary>
+        /// 글자 받침: 먹 82% 단색 판(PlateFill). 밝거나 얼룩진 그림(돌판·장면) 위에 글을 얹을 때 글 뒤에 먼저 깐다.
+        /// 회청·금 글자도 받침 위에서는 6:1 이상으로 읽힌다.
+        /// </summary>
+        public static UImage TextPlate(RectTransform parent, float x, float y, float w, float h, string name = "TextPlate")
+            => Rect(parent, x, y, w, h, UiTheme.PlateFill, false, name);
+
         /// <summary>9조각 키트 그림 아무거나(id·variant·state = 09 요약서 6.1절 규칙). 없으면 fallback 색.</summary>
         public static UImage NineSlice(GameContext ctx, RectTransform parent, string id, string variant, string state,
             float x, float y, float w, float h, Color fallback)

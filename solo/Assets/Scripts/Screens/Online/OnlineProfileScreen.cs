@@ -51,6 +51,7 @@ namespace Wizard.Solo.Screens.Online
         readonly List<UImage> _rankBg = new List<UImage>(), _rankMedal = new List<UImage>();
         readonly List<UiLabel> _rankNo = new List<UiLabel>(), _rankName = new List<UiLabel>(), _rankRating = new List<UiLabel>(), _rankWl = new List<UiLabel>();
         UiLabel _rankEmpty, _youName, _youRating;
+        GameObject _rankEmptyRoot;
         UImage _rankEmptyArt;
 
         public override ScreenId Id => ScreenId.OnlineProfile;
@@ -192,7 +193,8 @@ namespace Wizard.Solo.Screens.Online
             var panel = (tablet ?? UiKit.Panel(Ctx, content, UiPanelKind.Board, RankX, RankY, RankW, RankH)).rectTransform;
             if (tablet == null) UiKit.Bevel(panel);
             OnlineUi.Img(Ctx, panel, "I-F1", "ranking", 24f, 24f, 32f, 32f);
-            UiKit.Label(Ctx, panel, T(OnlineKeys.ProfileTop), UiFontId.F32, 68f, 18f, RankW - 92f, 44f, UiTheme.Chalk);
+            var top = UiKit.Label(Ctx, panel, T(OnlineKeys.ProfileTop), UiFontId.F32, 68f, 18f, RankW - 92f, 44f, UiTheme.Chalk);
+            if (tablet != null) UiKit.DropShadow(top); // 받아 온 돌판은 얼룩진 회색(분필 3.7~4.4:1)이라 먹 그림자로 테를 세운다
             for (int i = 0; i < RankRows; i++)
             {
                 float y = 76f + i * (RankRowH + 4f);
@@ -207,7 +209,10 @@ namespace Wizard.Solo.Screens.Online
                 _rankRows.Add(row);
             }
             _rankEmptyArt = OnlineUi.OnlineImg(panel, "empty_ranking", (RankW - 256f) * 0.5f, 220f, 256f, 256f);
-            _rankEmpty = UiKit.Label(Ctx, panel, T(OnlineKeys.ProfUnranked), UiFontId.F24, 32f, 500f, RankW - 64f, 72f, UiTheme.SlateBlue, TextAnchor.MiddleCenter, wrap: true);
+            // 돌판 위 회청 글자는 1.5:1이었다 — 먹색 받침을 깔고 그 위에 쓴다(받침은 글과 함께 켜고 끈다).
+            var emptyPlate = tablet != null ? UiKit.TextPlate(panel, 24f, 496f, RankW - 48f, 80f, "RankEmptyPlate").rectTransform : panel;
+            _rankEmpty = UiKit.Label(Ctx, emptyPlate, T(OnlineKeys.ProfUnranked), UiFontId.F24, tablet != null ? 8f : 32f, tablet != null ? 4f : 500f, RankW - 64f, 72f, UiTheme.SlateBlue, TextAnchor.MiddleCenter, wrap: true);
+            _rankEmptyRoot = tablet != null ? emptyPlate.gameObject : _rankEmpty.gameObject;
             // 내 줄(아래 고정).
             var you = UiKit.Node(panel, "You", 16f, RankH - 16f - RankRowH, RankW - 32f, RankRowH);
             OnlineUi.Nine(Ctx, you, "S-2503", "leaderboard_row_you", 0f, 0f, RankW - 32f, RankRowH);
@@ -238,7 +243,7 @@ namespace Wizard.Solo.Screens.Online
         {
             var top = _svc != null ? _svc.Leaderboard() : null;
             int n = top != null ? Mathf.Min(top.Count, RankRows) : 0;
-            _rankEmpty.gameObject.SetActive(n == 0);
+            _rankEmptyRoot.SetActive(n == 0);
             if (_rankEmptyArt != null) _rankEmptyArt.gameObject.SetActive(n == 0);
             for (int i = 0; i < RankRows; i++)
             {

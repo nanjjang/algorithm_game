@@ -8,7 +8,9 @@ namespace Wizard.Solo.Screens.Online
     /// <summary>
     /// 협동 방(ScreenId.CoopLobby, 11-online.md)의 규칙. 엔진 없음.
     /// 2단계: 이 기기에 방을 만들고(방장 = 슬롯 0), 동료 봇을 0~3명 더해 시작한다. 내 캐릭터 = 마지막으로 고른 캐릭터의 든 지팡이(D-56과 같은 규칙).
-    /// 판이 끝나면 Battle이 이 화면으로 돌아오며 결과(웨이브·점수)를 넘긴다. 오프라인 프로필에는 아무것도 쓰지 않는다.
+    /// 판이 끝나면 Battle이 이 화면으로 돌아오며 결과(웨이브·점수)를 넘긴다. 연결은 그대로라 같은 방(같은 코드·자리·봇)에 남고,
+    /// 서버가 BackToLobby를 보내면 방장이 다시 시작할 수 있다(자동 매치 결투 방만 판 뒤에 나간다).
+    /// 방 안에서 내 캐릭터를 바꿀 수 있다(판 전). 고른 캐릭터는 이 모델에만 둔다 — 오프라인 프로필에는 아무것도 쓰지 않는다.
     /// </summary>
     public sealed class CoopLobbyModel
     {
@@ -92,6 +94,52 @@ namespace Wizard.Solo.Screens.Online
             && (Mode != RoomMode.Duel || Room.MemberCount == 2);
         /// <summary>원격 방에서 시작을 청했고 아직 판이 안 열렸다.</summary>
         bool _startRequested;
+        /// <summary>방에서 고른 내 캐릭터(0 = 아직 안 고름 → 오프라인의 마지막 캐릭터). 오프라인 프로필에 쓰지 않는다.</summary>
+        int _chosenCharacter;
+
+        /// <summary>판이 끝나 방 화면에 돌아왔고, 서버가 아직 방(로비)으로 되돌리지 않았다(BackToLobby를 기다린다).</summary>
+        public bool ReturningToRoom => HasRoom && Room.World != null && Room.RunNumber == Room.EnteredRun && !InSession;
+
+        bool InSession => _ctx != null && _ctx.Session is IOnlineSession os && os.IsOnline;
+
+        /// <summary>방 안에서 내 캐릭터를 바꿀 수 있나: 판 전, 자리에 앉아 있고(관전 아님), 시작을 청하지 않았다.</summary>
+        public bool CanChangeCharacter => !Watching && HasRoom && Room.World == null && !_startRequested && Room.Me != null
+            && Room.Me.State == CoopClientState.Lobby && MySeat().HasValue;
+
+        /// <summary>로비 목록의 내 자리(없으면 null).</summary>
+        public CoopClient.LobbyMember? MySeat()
+        {
+            if (Room == null || Room.Me == null) return null;
+            foreach (var m in Room.Me.Lobby) if (m.Slot == Room.Me.Slot && !m.IsBot) return m;
+            return null;
+        }
+
+        /// <summary>방에서 내 캐릭터를 앞(−1)·뒤(+1)로 바꾼다(1~Ids.Char.Count를 돈다). 서버가 출발 설정을 다시 만들어 로비를 보낸다.</summary>
+        public bool ChangeCharacter(int delta)
+        {
+            ErrorKey = null;
+            if (!CanChangeCharacter || delta == 0) return false;
+            int count = Wizard.Solo.Ids.Char.Count;
+            // 서버의 Lobby가 오기 전에 또 누르면(원격 방) 로비 목록은 아직 옛 캐릭터다: 마지막으로 청한 것에서 잇는다.
+            int cur = _chosenCharacter >= 1 && _chosenCharacter <= count ? _chosenCharacter : SeatCharacter;
+            int next = ((cur - 1 + delta) % count + count) % count + 1;
+            var cfg = MemberConfig(next);
+            if (cfg == null) { ErrorKey = OnlineKeys.ErrorWand; return false; }
+            if (!Room.ChangeCharacter(cfg)) return false;
+            _chosenCharacter = next;
+            return true;
+        }
+
+        /// <summary>지금 내 자리의 캐릭터(로비 목록 기준, 없으면 고른 것 또는 오프라인의 마지막 캐릭터).</summary>
+        public int SeatCharacter
+        {
+            get
+            {
+                var seat = MySeat();
+                int n = seat.HasValue ? Wizard.Solo.Ids.Char.NumberOf(seat.Value.CharId) : 0;
+                return n >= 1 ? n : MyCharacter;
+            }
+        }
 
         /// <summary>원격 방에서 시작을 청하고 서버를 기다리는 중.</summary>
         public bool WaitingForStart => _startRequested && Room != null && Room.World == null;
@@ -99,10 +147,12 @@ namespace Wizard.Solo.Screens.Online
         /// <summary>자리 줄의 역할 글자: 방장 / (이 기기 방이면) 봇 / 동료.</summary>
         public string RoleKey(int slot)
         {
+            if (Room == null || Room.Me == null) return OnlineKeys.Member;
+            var lobby = Room.Me.Lobby;
             int leader = int.MaxValue;
-            foreach (var m in Members()) if (m.Slot < leader) leader = m.Slot;
+            for (int i = 0; i < lobby.Count; i++) if (lobby[i].Slot < leader) leader = lobby[i].Slot;
             if (slot == leader) return OnlineKeys.Host;
-            foreach (var m in Members()) if (m.Slot == slot && m.IsBot) return OnlineKeys.Bot;
+            for (int i = 0; i < lobby.Count; i++) if (lobby[i].Slot == slot && lobby[i].IsBot) return OnlineKeys.Bot;
             return OnlineKeys.Member;
         }
 
@@ -115,10 +165,12 @@ namespace Wizard.Solo.Screens.Online
             return l;
         }
 
+        /// <summary>방에 들고 갈 캐릭터: 방에서 고른 것, 없으면 오프라인의 마지막 캐릭터(읽기만 한다).</summary>
         int MyCharacter
         {
             get
             {
+                if (_chosenCharacter >= 1 && _chosenCharacter <= Wizard.Solo.Ids.Char.Count) return _chosenCharacter;
                 var p = _ctx != null ? _ctx.Profile : null;
                 return p != null && p.LastCharacter >= 1 ? p.LastCharacter : 1;
             }
@@ -168,7 +220,9 @@ namespace Wizard.Solo.Screens.Online
         public bool JoinMatch(string code)
         {
             SelectedMode = RoomMode.Duel;
-            return JoinCode(code);
+            bool ok = JoinCode(code);
+            if (ok && Room != null) Room.Ranked = true;
+            return ok;
         }
 
         /// <summary>코드의 결투 방을 관전한다.</summary>
@@ -234,7 +288,7 @@ namespace Wizard.Solo.Screens.Online
         {
             if (!CanAddBot) return false;
             int n = Room.BotCount + 1;
-            int c = (MyCharacter - 1 + n) % Wizard.Solo.Ids.Char.Count + 1;
+            int c = (SeatCharacter - 1 + n) % Wizard.Solo.Ids.Char.Count + 1;
             var cfg = MemberConfig(c);
             return cfg != null && Room.AddBot(cfg);
         }
@@ -286,6 +340,7 @@ namespace Wizard.Solo.Screens.Online
                 return false; // 서버의 Start를 기다린다(Tick이 연다)
             }
             if (!Room.StartRun(seed)) { ErrorKey = OnlineKeys.ErrorConnect; return false; }
+            Room.EnteredRun = Room.RunNumber;
             os.StartOnline(Room);
             return true;
         }
@@ -295,16 +350,18 @@ namespace Wizard.Solo.Screens.Online
         {
             Room?.Leave();
             Room = null;
+            _startRequested = false;
             if (_ctx != null && _ctx.Online != null && !_ctx.Online.Connected) _ctx.Online = null;
         }
 
-        /// <summary>프레임마다. 원격 방에서 판이 열렸으면(방장이 시작했다) 세션을 열고 true — 화면은 Battle로 간다.</summary>
+        /// <summary>프레임마다. 방에서 새 판이 열렸으면(방장이 시작했다 — 원격 방이든 이 기기 방이든, 판이 끝나 돌아온 같은 방이든)
+        /// 세션을 열고 true — 화면은 Battle로 간다. 끝난 판의 세계(BackToLobby 전)는 새 판으로 보지 않는다(RunNumber).</summary>
         public bool Tick()
         {
             PollProfile();
             if (Room != null && Room.Me != null && Room.Me.Profile != null) Profile = Room.Me.Profile;
             if (Room == null) return false;
-            if (Room.World == null)
+            if (!InSession)
             {
                 Room.Pump();
                 if (!Room.Connected)
@@ -321,9 +378,10 @@ namespace Wizard.Solo.Screens.Online
                     return false;
                 }
             }
-            if (Room != null && !Room.IsLocalHost && Room.World != null && _ctx.Session is IOnlineSession os && !os.IsOnline)
+            if (Room != null && Room.World != null && Room.RunNumber != Room.EnteredRun && _ctx.Session is IOnlineSession os && !os.IsOnline)
             {
                 _startRequested = false;
+                Room.EnteredRun = Room.RunNumber;
                 os.StartOnline(Room);
                 return true;
             }
@@ -344,6 +402,10 @@ namespace Wizard.Solo.Screens.Online
             _startRequested = false;
             if (Room != null && !Room.Connected) Room = null;
             if (_ctx != null && _ctx.Online != null && !_ctx.Online.Connected) _ctx.Online = null;
+            // 판에서 돌아왔다: 연결은 그대로다(같은 방). 화면을 새로 만들었으면 열린 방을 다시 집는다.
+            if (Room == null && _ctx != null && _ctx.Online is OnlineCoop open && open.Connected) Room = open;
+            // 자동 매치 결투 방은 한 판으로 끝난다(서버도 방을 닫는다) — 예전처럼 나온다.
+            if (Room != null && Room.Ranked && args != null && args.Entry == ScreenId.Battle) Leave();
         }
     }
 
@@ -492,6 +554,9 @@ namespace Wizard.Solo.Screens.Online
         public const string Join = "str.coop.join";
         public const string AddressHint = "str.coop.address_hint";
         public const string Waiting = "str.coop.waiting";
+        public const string Returning = "str.coop.returning";
+        public const string CharPrev = "str.coop.char_prev";
+        public const string CharNext = "str.coop.char_next";
         public const string Member = "str.coop.member";
         public const string ModeCoop = "str.coop.mode.coop";
         public const string ModeDuel = "str.coop.mode.duel";

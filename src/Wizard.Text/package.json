@@ -1,8 +1,0 @@
-{
-  "name": "com.wizard.text",
-  "version": "0.0.0",
-  "displayName": "Wizard.Text",
-  "description": "Name table, templates, text metrics",
-  "unity": "6000.3",
-  "dependencies": {}
-}

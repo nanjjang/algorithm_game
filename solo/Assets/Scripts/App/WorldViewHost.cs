@@ -332,8 +332,21 @@ namespace Wizard.Solo.App
             // 줌 펀치는 움직임 연출: 연출 감도(전체 1 / 줄임 0.3 / 최소 0)와 흔들림 배율을 따른다
             _director.MotionScale = ShakeAccumulator.LevelScale(_options.EffectsLevel) * Mathf.Clamp01(_options.ShakeScale);
             _director.ClampSlackCells = _cameraFx != null ? _cameraFx.ClampSlack : 0f;
-            _director.Step(dt, sw, sh, ui, focus, look, WantZoom(w), arenaW, arenaH);
+            _director.Step(dt, sw, sh, ui, focus, look, CoverArena(WantZoom(w), sw, sh, ui, arenaW, arenaH), arenaW, arenaH);
             _camera.orthographicSize = _director.OrthographicSize;
+        }
+
+        /// <summary>넓은 창(21:9)·보스 줌 아웃에서 전장 밖 먹색이 보이지 않게 줌을 올리는 한도(기본 줌의 배수). 넘으면 먹색 띠가 남는다.</summary>
+        public const float MaxCoverZoom = 1.25f;
+
+        /// <summary>
+        /// 반응형 전장 틀: 보이는 사각형이 전장보다 넓어지지 않을 만큼만 줌 목표를 올린다(UiFit.MinZoomToCover, 한도 MaxCoverZoom).
+        /// 표시 전용 — 시뮬과 무관.
+        /// </summary>
+        float CoverArena(float want, int sw, int sh, float ui, float arenaW, float arenaH)
+        {
+            float cover = UiFit.MinZoomToCover(sw, sh, _director.BasePixelsPerUnit(ui), arenaW, arenaH);
+            return Mathf.Max(want, Mathf.Min(cover, MaxCoverZoom));
         }
 
         /// <summary>동적 줌 목표: 보스가 살아 있으면 boss_zoom, 넓은 예고(반지름·길이 ≥ wide_threat_cells)가 떠 있으면 wide_threat_zoom.</summary>

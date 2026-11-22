@@ -15,7 +15,9 @@ namespace Wizard.Solo.Screens.Online
     ///  - 방 밖: 모드 카드 3장(440×640)이 화면 가운데. 고른 카드만 밝고 위로 올라오며, 카드 아래쪽에 그 모드의 할 일이 들어 있다
     ///    (협동·결투: [방 만들고 코드 받기], 코드 칸 + [참가], [이 기기에서 봇과] / 광장: [광장으로 가기]). 따로 떠 있는 판이 없다.
     ///  - 방 안: 왼쪽 위 방 코드 쪽지, 그 아래 자리(협동 4·결투 2 + 가운데 "대"), 오른쪽 판: 모드·인원·결과·[시작]·봇·[나가기].
-    ///    결투 방은 결투장 바닥(S-0901) 장면.
+    ///    결투 방은 결투장 바닥(S-0901) 장면. 내 자리에는 판 전에 캐릭터를 바꾸는 ←·→ 단추가 있다.
+    ///  - 판이 끝나면 Battle이 결과와 함께 이 화면으로 돌아오고, 같은 방(같은 코드·자리·봇)에 그대로 남는다.
+    /// 다시 그리기는 보이는 상태(방·로비 판·프로필·오류 …)가 바뀐 프레임에만 한다(<see cref="ViewKey"/>).
     /// 받아 온 그림(Docs/15)이 있으면 그것을 쓴다. 계정이 없으면 로그인 화면을 먼저 연다.
     /// </summary>
     public sealed class CoopLobbyScreen : ScreenBase
@@ -60,6 +62,7 @@ namespace Wizard.Solo.Screens.Online
 
         sealed class Seat
         {
+            public UiButton Prev, Next;
             public RectTransform Root, BotTag, StageRoot;
             public UImage Frame, EmptyFrame, Art, Pedestal, Ready, Leader, Hourglass;
             public UiLabel Name, Role, Stage, Waiting;
@@ -216,6 +219,9 @@ namespace Wizard.Solo.Screens.Online
             s.Hourglass = OnlineUi.OnlineImg(s.Root, "badge_waiting", (SeatW - 96f) * 0.5f, 176f, 96f, 40f)
                 ?? OnlineUi.AnimImg(Ctx, s.Root, "S-2105", "waiting_hourglass", (SeatW - 48f) * 0.5f, 172f, 48f, 48f);
             s.Waiting = UiKit.Label(Ctx, s.Root, T(OnlineKeys.HubWaitingSlot), UiFontId.F24, 16f, 232f, SeatW - 32f, 36f, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
+            // 내 자리의 캐릭터 바꾸기(판 전). 그림 양옆, 포커스 묶음에 들어간다.
+            s.Prev = UiKit.Button(Ctx, s.Root, T(OnlineKeys.CharPrev), 8f, 116f, 44f, 64f, () => OnChangeCharacter(-1), UiButtonStyle.Small, Focus, null, UiFontId.F32);
+            s.Next = UiKit.Button(Ctx, s.Root, T(OnlineKeys.CharNext), SeatW - 52f, 116f, 44f, 64f, () => OnChangeCharacter(1), UiButtonStyle.Small, Focus, null, UiFontId.F32);
             return s;
         }
 
@@ -249,7 +255,45 @@ namespace Wizard.Solo.Screens.Online
                 Screens?.Push(ScreenId.OnlineLogin, a);
                 return;
             }
-            Refresh();
+            if (_copiedTimer > 0f) _copiedTimer -= Time.unscaledDeltaTime;
+            // 매 프레임 다시 그리지 않는다: 보이는 상태가 바뀐 때만(로비 목록·프로필·오류·결과 …).
+            var key = ViewKey();
+            if (!key.Equals(_shown)) Refresh();
+        }
+
+        /// <summary>화면에 보이는 것을 정하는 값들. 같으면 Refresh를 건너뛴다(목록 만들기·글자 찾기·SetText를 하지 않는다).</summary>
+        struct ViewState : System.IEquatable<ViewState>
+        {
+            public object Room, Profile, Account;
+            public string Error;
+            public int LobbyVersion, ResultWave, DuelWinner, Picked;
+            public bool HasRoom, Waiting, Returning, Loading, Copied, CanChange, CanStart, CanAdd, CanRemove, Leader;
+
+            public bool Equals(ViewState o) =>
+                ReferenceEquals(Room, o.Room) && ReferenceEquals(Profile, o.Profile) && ReferenceEquals(Account, o.Account)
+                && ReferenceEquals(Error, o.Error) && LobbyVersion == o.LobbyVersion && ResultWave == o.ResultWave
+                && DuelWinner == o.DuelWinner && Picked == o.Picked && HasRoom == o.HasRoom && Waiting == o.Waiting
+                && Returning == o.Returning && Loading == o.Loading && Copied == o.Copied && CanChange == o.CanChange
+                && CanStart == o.CanStart && CanAdd == o.CanAdd && CanRemove == o.CanRemove && Leader == o.Leader;
+            public override bool Equals(object obj) => obj is ViewState v && Equals(v);
+            public override int GetHashCode() => LobbyVersion;
+        }
+
+        ViewState _shown;
+
+        ViewState ViewKey()
+        {
+            bool room = _model.HasRoom;
+            return new ViewState
+            {
+                Room = _model.Room, Profile = _model.Profile, Account = _model.Account, Error = _model.ErrorKey,
+                LobbyVersion = _model.Room != null ? _model.Room.LobbyVersion : 0,
+                ResultWave = _model.ResultWave, DuelWinner = _model.ResultDuelWinner, Picked = _picked,
+                HasRoom = room, Waiting = _model.WaitingForStart, Returning = _model.ReturningToRoom, Loading = _model.ProfileLoading,
+                Copied = _copiedTimer > 0f,
+                CanChange = room && _model.CanChangeCharacter, CanStart = room && _model.CanStart,
+                CanAdd = room && _model.CanAddBot, CanRemove = room && _model.CanRemoveBot, Leader = room && _model.Room.IsLeader,
+            };
         }
 
         public override void OnExit()
@@ -262,6 +306,7 @@ namespace Wizard.Solo.Screens.Online
 
         void Refresh()
         {
+            _shown = ViewKey();
             bool room = _model.HasRoom;
             bool duelRoom = room && _model.Mode == RoomMode.Duel;
             _sceneDuel.gameObject.SetActive(duelRoom);
@@ -276,12 +321,12 @@ namespace Wizard.Solo.Screens.Online
             string status = string.Empty;
             if (_model.ErrorKey != null) status = T(_model.ErrorKey);
             else if (_model.WaitingForStart) status = T(OnlineKeys.Waiting);
+            else if (_model.ReturningToRoom) status = T(OnlineKeys.Returning);
             else if (room && _model.Mode == RoomMode.Duel && _model.Room.MemberCount < 2) status = T(OnlineKeys.DuelNeedTwo);
             else if (_model.ResultWave >= 0) status = F(OnlineKeys.Result, "wave", _model.ResultWave, "score", N(_model.ResultScore));
             else if (_copiedTimer > 0f) status = T(OnlineKeys.HubCopied);
             _status.SetText(status);
             _status.Text.color = _model.ErrorKey != null ? UiTheme.Amber : UiTheme.Chalk;
-            if (_copiedTimer > 0f) _copiedTimer -= Time.unscaledDeltaTime;
         }
 
         void RefreshHeader(bool room)
@@ -347,6 +392,7 @@ namespace Wizard.Solo.Screens.Online
             float gap = duel ? 256f : OnlineUi.Gutter;
             float total = max * SeatW + (max - 1) * gap;
             float x0 = duel ? UiScale.RefWidth * 0.5f - OnlineUi.Edge - total * 0.5f : (benchW - total) * 0.5f;
+            _canChange = _model.CanChangeCharacter;
             for (int i = 0; i < _seats.Count; i++)
             {
                 var s = _seats[i];
@@ -378,10 +424,17 @@ namespace Wizard.Solo.Screens.Online
             if (sp != null) _resultBanner.sprite = sp;
         }
 
+        bool _canChange;
+
         void FillSeat(Seat s, int slot, CoopClient.LobbyMember? mm)
         {
             bool filled = mm.HasValue;
             var m = mm.GetValueOrDefault();
+            bool mine = filled && !m.IsBot && _model.Room != null && _model.Room.Slot == slot && !_model.Watching;
+            s.Prev.gameObject.SetActive(mine);
+            s.Next.gameObject.SetActive(mine);
+            s.Prev.Enabled = mine && _canChange;
+            s.Next.Enabled = mine && _canChange;
             s.Frame.gameObject.SetActive(filled);
             s.EmptyFrame.gameObject.SetActive(!filled);
             s.Art.gameObject.SetActive(filled);
@@ -464,6 +517,7 @@ namespace Wizard.Solo.Screens.Online
         void OnCreateLocal() { _model.CreateRoom(); Refresh(); }
         void OnJoin() { _model.JoinCode(_codeInput.text); Refresh(); }
         void OnAddBot() { _model.AddBot(); Refresh(); }
+        void OnChangeCharacter(int delta) { _model.ChangeCharacter(delta); Refresh(); }
         void OnRemoveBot() { _model.RemoveBot(); Refresh(); }
         void OnPlaza() { Screens?.Replace(ScreenId.Plaza, ScreenArgs.From(ScreenId.CoopLobby)); }
 

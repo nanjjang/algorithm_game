@@ -1,9 +1,0 @@
-{
-  "format": 1,
-  "id": "m1/practice-solo",
-  "kind": "practice",
-  "seed": "0x0",
-  "setup": { "hashEveryTicks": 300, "players": 1 },
-  "record": "record.wzrc",
-  "notes": "연습 모드 1인, 1분(3,600틱). 시제품 내용(마력탄·화염구, 3갈래, 슬라임, 포탑, 판정기와 임시 기술). 기록: replaycli bot --kind practice --ticks 3600 --bot-seed 0x51 --profile play"
-}

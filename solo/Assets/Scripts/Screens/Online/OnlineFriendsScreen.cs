@@ -64,16 +64,20 @@ namespace Wizard.Solo.Screens.Online
             _name = OnlineUi.Field(Ctx, Focus, d, null, T(OnlineKeys.FriendsNameHint), P, y, inner - 196f, AccountStore.NameMax);
             UiKit.Button(Ctx, d, T(OnlineKeys.FriendsAdd), P + inner - 184f, y, 184f, 48f, Add, UiButtonStyle.Primary, Focus, null, UiFontId.F16, OnlineUi.Sprite(Ctx, "I-F3", "friend_add"));
             y += 72f;
-            _reqHead = UiKit.Label(Ctx, d, string.Empty, UiFontId.F24, P, y, inner, 32f, UiTheme.SelectYellow);
-            y += 32f;
+            // 구역 머리는 어두운 제목 띠(K-04) 위 분필 글자: 서랍 그림 위쪽의 밝은 편지 칸 위에 노랑 글자를 바로 얹으면 1.2:1로 묻혔다(플레이 시험).
+            _reqHead = UiKit.SectionHeader(Ctx, d, string.Empty, P, y, inner, 32f);
+            y += 36f;
             _reqRoot = UiKit.Node(d, "Requests", P, y, inner, RequestRows * (RowH + 6f));
             for (int i = 0; i < RequestRows; i++) _reqRows.Add(BuildRow(_reqRoot, i, true));
-            _noReq = UiKit.Label(Ctx, _reqRoot, T(OnlineKeys.FrNoRequests), UiFontId.F16, 8f, 0f, inner, 40f, UiTheme.SlateBlue);
+            // 빈 줄 안내도 줄과 같은 안쪽 판(K-02) 위에 둔다(그림 위 회청 3.8:1 → 판 위 7.8:1).
+            var noReqPlate = UiKit.Panel(Ctx, _reqRoot, UiPanelKind.Recess, 0f, 0f, inner, 40f);
+            noReqPlate.raycastTarget = false;
+            _noReq = UiKit.Label(Ctx, noReqPlate.rectTransform, T(OnlineKeys.FrNoRequests), UiFontId.F16, 16f, 0f, inner - 32f, 40f, UiKit.TextColor(UiPanelKind.Recess, UiTextRole.Muted));
             y += RequestRows * (RowH + 6f) + 12f;
             UiKit.Divider(Ctx, d, P, y, inner);
             y += 12f;
-            _frHead = UiKit.Label(Ctx, d, string.Empty, UiFontId.F24, P, y, inner, 32f, UiTheme.SelectYellow);
-            y += 32f;
+            _frHead = UiKit.SectionHeader(Ctx, d, string.Empty, P, y, inner, 32f);
+            y += 36f;
             _frRoot = UiKit.Node(d, "Friends", P, y, inner, FriendRows * (RowH + 6f));
             for (int i = 0; i < FriendRows; i++) _frRows.Add(BuildRow(_frRoot, i, false));
             _noFrArt = OnlineUi.OnlineImg(_frRoot, "empty_friends", (inner - 192f) * 0.5f, 24f, 192f, 192f);
@@ -132,7 +136,7 @@ namespace Wizard.Solo.Screens.Online
             if (_svc != null && _svc.Friends(out var f, out var r)) { _friends = f; _requests = r; }
             _reqHead.SetText(F(OnlineKeys.FrRequestsHead, "n", _requests.Count));
             _frHead.SetText(F(OnlineKeys.FrFriendsHead, "n", _friends.Count));
-            _noReq.gameObject.SetActive(_requests.Count == 0);
+            _noReq.transform.parent.gameObject.SetActive(_requests.Count == 0);
             _noFr.gameObject.SetActive(_friends.Count == 0);
             if (_noFrArt != null) _noFrArt.gameObject.SetActive(_friends.Count == 0);
             for (int i = 0; i < _reqRows.Count; i++)

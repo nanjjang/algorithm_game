@@ -124,7 +124,8 @@ namespace Wizard.Solo.App
             if (link == null) throw new ArgumentNullException(nameof(link));
             var w = link.World;
             if (w == null) throw new InvalidOperationException("StartOnline needs link.World (the run has not started yet).");
-            if (_main != null) EndRun();
+            // 같은 방에서 다시 연 판이면 걷기만 하고 연결은 남긴다.
+            if (_main != null) EndRunInternal(!ReferenceEquals(_online, link));
             ResetRunState();
             _online = link;
             _main = w;
@@ -153,14 +154,19 @@ namespace Wizard.Solo.App
             RunStarted?.Invoke(w);
         }
 
-        public void EndRun()
+        public void EndRun() => EndRunInternal(true);
+
+        /// <summary>온라인 판만 걷고 연결은 남긴다(판이 끝나 같은 방으로 돌아갈 때). 오프라인 판이면 EndRun과 같다.</summary>
+        public void DetachOnline() => EndRunInternal(false);
+
+        void EndRunInternal(bool leaveLink)
         {
             if (_online != null)
             {
                 var link = _online;
                 _online = null;
                 LocalSlot = 0;
-                link.Leave();
+                if (leaveLink) link.Leave();
             }
             if (_main == null && _sub == null) return;
             if (_host != null) _host.DisposeLayers();

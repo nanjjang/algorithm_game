@@ -246,6 +246,31 @@ namespace Wizard.Solo.Net
             }
         }
 
+        /// <summary>
+        /// raw의 앞 count 바이트를 dst(다시 쓰는 칸)에 압축해 넣고 압축된 길이를 돌려준다(Deflate(byte[])와 같은 바이트).
+        /// 스냅숏처럼 자주 보내는 쪽이 몸·압축 결과 배열을 매번 새로 만들지 않게 한다.
+        /// </summary>
+        public static int DeflateTo(byte[] raw, int count, MemoryStream dst)
+        {
+            dst.Position = 0;
+            dst.SetLength(0);
+            using (var z = new DeflateStream(dst, CompressionLevel.Fastest, true)) z.Write(raw, 0, count);
+            return (int)dst.Length;
+        }
+
+        /// <summary>
+        /// r에서 Bytes 모양(길이 + 압축 몸)을 읽어 풀고, 그 결과를 into(new NetReader()로 만든 다시 쓰는 읽개)에 채운다.
+        /// Inflate(r.Bytes())와 같은 내용이지만 압축 몸·풀린 몸 배열을 따로 만들지 않는다. 몸이 없으면(−1) false.
+        /// </summary>
+        public static bool InflateTo(NetReader r, NetReader into)
+        {
+            if (!r.BytesView(out var buf, out int off, out int len)) return false;
+            using (var src = new MemoryStream(buf, off, len, false))
+            using (var z = new DeflateStream(src, CompressionMode.Decompress))
+                into.LoadFrom(z);
+            return true;
+        }
+
         public static byte[] Inflate(byte[] packed)
         {
             using (var src = new MemoryStream(packed))

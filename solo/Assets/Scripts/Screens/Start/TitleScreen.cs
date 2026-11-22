@@ -30,11 +30,12 @@ namespace Wizard.Solo.Screens.Start
         protected override void BuildContent(RectTransform content)
         {
             _model = new TitleModel(StartTuning.Load(Ctx != null ? Ctx.Content : null));
-            UiKit.Rect(content, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, UiTheme.WoodDark, true, "Background");
+            // 바탕은 창 끝까지(UiFullBleed): 단색은 늘이고 그림은 비율대로 덮는다. 제목·단추는 1920×1080 안전 영역 그대로.
+            UiFullBleed.Fill(UiKit.Rect(content, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, UiTheme.WoodDark, true, "Background").rectTransform);
             var art = Ctx != null ? Ctx.Art : null;
             if (art != null)
             {
-                UiKit.Image(content, art.Background("title"), 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, null, false);
+                UiFullBleed.Cover(UiKit.Image(content, art.Background("title"), 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, null, false));
                 var titleArt = art.Ui("S-0202", "title_korean");
                 if (titleArt.IsValid) UiKit.Image(content, titleArt.Sprite, TitleX, TitleY, TitleW, TitleH);
                 else TitleText(content);

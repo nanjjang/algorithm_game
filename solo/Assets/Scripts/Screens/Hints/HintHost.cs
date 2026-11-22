@@ -212,7 +212,15 @@ namespace Wizard.Solo.Screens.Hints
             switch (top)
             {
                 case ScreenId.LootPick: if (real) Request(HintIds.FirstLoot); break;
-                case ScreenId.Camp: if (real && _session.HasRun && !_session.HasSubRun) Request(HintIds.FirstCamp); break;
+                case ScreenId.Camp:
+                    if (real && _session.HasRun && !_session.HasSubRun)
+                    {
+                        Request(HintIds.FirstCamp);
+                        // 처음 비기를 고를 차례: 야영 쪽지 다음에 "비기란?"(자세 + 방향 + 비기 키, 결정으로 값을 치른다).
+                        if (Camp.CampRules.ArtPickPending(Camp.CampRules.RewardOf(w, Camp.CampRules.MeOf(w)))) Request(HintIds.FirstArts);
+                    }
+                    break;
+                case ScreenId.ArtTrie: Request(HintIds.FirstArts); break;
                 case ScreenId.Settlement:
                     Request(HintIds.FirstSettlement);
                     Request(HintIds.FirstBag);
@@ -370,6 +378,13 @@ namespace Wizard.Solo.Screens.Hints
                 case HintIds.FirstFizzle:
                 case HintIds.StuckFizzle:
                     return names.Format(key, "n", p != null && p.Def != null ? p.Def.ComboPerCrystal : 0, "cap", p != null && p.Def != null ? p.Def.CrystalCap : 0);
+                case HintIds.FirstArts:
+                {
+                    // 판 밖(메인 메뉴 연습의 트라이)이면 기준 캐릭터의 콤보·결정 수치.
+                    var ch = p != null && p.Def != null ? p.Def : db != null ? db.BaselineCharacter : null;
+                    return names.Format(key, "stance", KeyLabel(ctx, LogicalKey.Stance), "art", KeyLabel(ctx, LogicalKey.Skill),
+                        "n", ch != null ? ch.ComboPerCrystal : 0, "cap", ch != null ? ch.CrystalCap : 0);
+                }
                 case HintIds.FirstFinal:
                     return names.Format(key, "n", AttackStyles.FinalMinCrystals(db), "stance", KeyLabel(ctx, LogicalKey.Stance), "art", KeyLabel(ctx, LogicalKey.Skill));
                 case HintIds.FirstAffinity:

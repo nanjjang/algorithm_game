@@ -1,8 +1,0 @@
-{
-  "name": "com.wizard.protocol",
-  "version": "0.0.0",
-  "displayName": "Wizard.Protocol",
-  "description": "HTTP DTOs, realtime messages, duel packet codec, file schemas",
-  "unity": "6000.3",
-  "dependencies": {}
-}

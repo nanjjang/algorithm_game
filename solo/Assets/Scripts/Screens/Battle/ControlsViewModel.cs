@@ -28,6 +28,22 @@ namespace Wizard.Solo.Screens.Battle
         public const string TitleKey = "str.controls_view.title";
         public const string PrimaryHeaderKey = "str.key_rebind.primary";
         public const string SecondaryHeaderKey = "str.key_rebind.secondary";
+        /// <summary>표 아래 한 줄: 비기를 내는 법(자세 키 + 방향 → 비기 키)과 도감 안내. 값 stance·art = 지금 배치의 기본 키.</summary>
+        public const string ArtNoteKey = "str.controls_view.art_note";
+
+        /// <summary>그 논리 키 줄의 첫 키(기본 키 칸, 없으면 보조 키 칸). 없으면 Key.None.</summary>
+        public static Key FirstKey(List<ControlsRow> rows, LogicalKey k)
+        {
+            if (rows == null) return Key.None;
+            for (int i = 0; i < rows.Count; i++)
+            {
+                var r = rows[i];
+                if (r == null || r.Action != k) continue;
+                if (r.Primary != null && r.Primary.Length > 0) return r.Primary[0];
+                if (r.Secondary != null && r.Secondary.Length > 0) return r.Secondary[0];
+            }
+            return Key.None;
+        }
 
         /// <summary>표에 그리는 논리 키 9개(위·왼쪽·아래·오른쪽·발사·비기·자세·반전 자세·일시정지 — LogicalKey 번호 순).</summary>
         public static readonly LogicalKey[] Order =

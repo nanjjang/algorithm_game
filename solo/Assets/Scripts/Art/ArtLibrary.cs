@@ -288,7 +288,51 @@ namespace Wizard.Solo.Art
             return name != null ? pc.ClipByName[name] : null;
         }
 
+        // ---------- 조회 기억 ----------
+        // 표시 층은 프레임마다 개체마다 같은 (id, 클립)으로 묻는다. 묻는 글 그대로를 열쇠로 결과를 기억해 두면
+        // 매번 열쇠 글 잇기("mo|"+id+"|"+clip 등)·별칭 풀기·람다·목록 만들기를 하지 않는다(GC 쓰레기가 프레임마다 쌓이던 곳).
+        // _anims에 든 진짜 그림만 기억한다(자리 표시 그림은 예전처럼 매번 새로). 효과는 Release가 기억을 비운다.
+
+        const string NullKey = "\u0000";
+        readonly Dictionary<string, Dictionary<string, SpriteAnim[]>> _charClipMemo = new Dictionary<string, Dictionary<string, SpriteAnim[]>>(StringComparer.Ordinal);
+        readonly Dictionary<string, Dictionary<string, SpriteAnim>> _monsterClipMemo = new Dictionary<string, Dictionary<string, SpriteAnim>>(StringComparer.Ordinal);
+        readonly Dictionary<string, IReadOnlyList<string>> _monsterClipNamesMemo = new Dictionary<string, IReadOnlyList<string>>(StringComparer.Ordinal);
+        readonly Dictionary<string, Dictionary<string, SpriteAnim>> _effectMemo = new Dictionary<string, Dictionary<string, SpriteAnim>>(StringComparer.Ordinal);
+        Func<string, bool> _monsterExists;
+
+        Func<string, bool> MonsterExists => _monsterExists ?? (_monsterExists = k => _monsters.ById.ContainsKey(k));
+
+        /// <summary>_anims에 들어 있는 바로 그 그림인가(기억해도 되는 결과인가).</summary>
+        bool IsCachedAnim(SpriteAnim a) => a != null && a.Key != null && _anims.TryGetValue(a.Key, out var c) && ReferenceEquals(c, a);
+
+        static bool TryMemo<T>(Dictionary<string, Dictionary<string, T>> memo, string a, string b, out T value)
+        {
+            value = default(T);
+            return a != null && memo.TryGetValue(a, out var inner) && inner.TryGetValue(b ?? NullKey, out value);
+        }
+
+        static void PutMemo<T>(Dictionary<string, Dictionary<string, T>> memo, string a, string b, T value)
+        {
+            if (a == null) return;
+            if (!memo.TryGetValue(a, out var inner)) memo[a] = inner = new Dictionary<string, T>(StringComparer.Ordinal);
+            inner[b ?? NullKey] = value;
+        }
+
         public SpriteAnim CharacterClip(string charId, string clip, Facing3 facing)
+        {
+            int fi = (int)facing;
+            bool memoable = fi >= 0 && fi < 8;
+            if (memoable && TryMemo(_charClipMemo, charId, clip, out var byFacing) && byFacing[fi] != null) return byFacing[fi];
+            var r = CharacterClipUncached(charId, clip, facing);
+            if (memoable && IsCachedAnim(r))
+            {
+                if (!TryMemo(_charClipMemo, charId, clip, out byFacing)) PutMemo(_charClipMemo, charId, clip, byFacing = new SpriteAnim[8]);
+                byFacing[fi] = r;
+            }
+            return r;
+        }
+
+        SpriteAnim CharacterClipUncached(string charId, string clip, Facing3 facing)
         {
             var pc = CharacterOf(charId);
             int canvas = _players.Canvas.X > 0 ? _players.Canvas.X : RectMath.PixelsPerUnitInt;
@@ -422,7 +466,15 @@ namespace Wizard.Solo.Art
 
         public SpriteAnim MonsterClip(string monsterId, string clip)
         {
-            var id = ArtAliases.MonsterEntryKey(monsterId, k => _monsters.ById.ContainsKey(k));
+            if (TryMemo(_monsterClipMemo, monsterId, clip, out var hit)) return hit;
+            var r = MonsterClipUncached(monsterId, clip);
+            if (IsCachedAnim(r)) PutMemo(_monsterClipMemo, monsterId, clip, r);
+            return r;
+        }
+
+        SpriteAnim MonsterClipUncached(string monsterId, string clip)
+        {
+            var id = ArtAliases.MonsterEntryKey(monsterId, MonsterExists);
             if (id == null) return PlaceholderAnim("mo|" + monsterId, RectMath.PixelsPerUnitInt, RectMath.PixelsPerUnitInt);
             var e = _monsters.ById[id];
             if (e.Clips.Count == 0) return PlaceholderAnim("mo|" + id, Math.Max(1, e.Size.X), Math.Max(1, e.Size.Y));
@@ -439,13 +491,16 @@ namespace Wizard.Solo.Art
             return CacheAnim(key, new SpriteAnim { Frames = frames, Fps = _presentation.MonsterClipFps, Loop = _presentation.MonsterClipLoops(c.Name) });
         }
 
-        /// <summary>그 몬스터 그림의 클립 이름들(manifest 순서). 없으면 빈 목록.</summary>
+        /// <summary>그 몬스터 그림의 클립 이름들(manifest 순서). 없으면 빈 목록. 같은 id면 같은 (읽기 전용) 목록을 돌려준다.</summary>
         public IReadOnlyList<string> MonsterClipNames(string monsterId)
         {
-            var id = ArtAliases.MonsterEntryKey(monsterId, k => _monsters.ById.ContainsKey(k));
+            if (monsterId != null && _monsterClipNamesMemo.TryGetValue(monsterId, out var memo)) return memo;
+            var id = ArtAliases.MonsterEntryKey(monsterId, MonsterExists);
             var list = new List<string>();
             if (id != null) foreach (var c in _monsters.ById[id].Clips) list.Add(c.Name);
-            return list;
+            var ro = list.AsReadOnly();
+            if (monsterId != null) _monsterClipNamesMemo[monsterId] = ro;
+            return ro;
         }
 
         public Sprite BossPortrait(string bossId)
@@ -463,6 +518,14 @@ namespace Wizard.Solo.Art
         // ---------- 효과 ----------
 
         public SpriteAnim Effect(string group, string key)
+        {
+            if (TryMemo(_effectMemo, group, key, out var hit)) return hit;
+            var r = EffectUncached(group, key);
+            if (IsCachedAnim(r)) PutMemo(_effectMemo, group, key, r);
+            return r;
+        }
+
+        SpriteAnim EffectUncached(string group, string key)
         {
             string filter = null;
             if (key != null && group == LayersGroup)
@@ -512,6 +575,8 @@ namespace Wizard.Solo.Art
         public void Release(string effectGroup)
         {
             if (effectGroup == null || !_groupCaches.TryGetValue(effectGroup, out var g)) return;
+            // 기억해 둔 효과 결과가 지울 그림을 가리킬 수 있다(묻는 묶음 이름과 그림의 묶음이 다를 수 있어 통째로 비운다 — 드물다)
+            _effectMemo.Clear();
             foreach (var k in g.Anims) _anims.Remove(k);
             foreach (var k in g.Sprites)
             {

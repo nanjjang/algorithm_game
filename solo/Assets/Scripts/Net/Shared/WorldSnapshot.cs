@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Reflection;
 using UnityEngine;
 using Wizard.Solo.Data;
@@ -20,7 +21,19 @@ namespace Wizard.Solo.Net
     {
         // ------------------------------------------------------------ 세계
 
+        /// <summary>
+        /// 형식 정보 캐시(_types·_defIdField)를 지키는 자물쇠. 한 프로세스 안에서 서버 틱 스레드와 손님(메인 스레드)이 함께 쓰고 읽을 수 있다
+        /// (시험의 방 서버 스레드 + 손님 Pump, 손님의 Warm). 처음 훑기·컴파일이 수십 ms라 그 사이 다른 스레드가 반쯤 만든 정보를 보면 안 된다.
+        /// 들어가는 곳(Write·Apply·Warm·ResetTypeCache)에서 한 번만 잡는다(스냅숏마다 한 번, 다툼이 없으면 거의 공짜).
+        /// </summary>
+        static readonly object _gate = new object();
+
         public static void Write(NetWriter w, SimWorld world)
+        {
+            lock (_gate) WriteLocked(w, world);
+        }
+
+        static void WriteLocked(NetWriter w, SimWorld world)
         {
             w.Int(world.Tick);
             w.Float(world.ArenaWidth);
@@ -44,6 +57,11 @@ namespace Wizard.Solo.Net
 
         /// <summary>받은 스냅숏을 꼭두각시 세계에 덮어쓴다. 받기 전의 표시용 위치는 PrevPos에 남는다(스냅숏의 PrevPos가 덮는다).</summary>
         public static void Apply(NetReader r, SimWorld world)
+        {
+            lock (_gate) ApplyLocked(r, world);
+        }
+
+        static void ApplyLocked(NetReader r, SimWorld world)
         {
             var db = world.Content;
             world.Tick = r.Int();
@@ -96,6 +114,17 @@ namespace Wizard.Solo.Net
             public Type Elem2;  // Dict의 값
             public Type EnumUnder;
             public FieldInfo[] Fields; // Struct·Class
+            /// <summary>Fields와 같은 순서의 빠른 길(값 형식 필드를 상자에 넣지 않고 바로 읽고 쓴다). 칸이 null이면 리플렉션 길.</summary>
+            public FieldOps[] Ops;
+            /// <summary>HashSet·Queue의 Clear·Add(Enqueue) — 스냅숏마다 GetMethod로 찾지 않게.</summary>
+            public MethodInfo Clear, Add;
+        }
+
+        /// <summary>필드 하나의 미리 만든 읽기·쓰기(식 트리로 한 번 컴파일). 바이트 모양은 리플렉션 길과 같다.</summary>
+        sealed class FieldOps
+        {
+            public Action<NetWriter, object> Write;
+            public Action<NetReader, object> Read;
         }
 
         static readonly Dictionary<Type, TypeInfo> _types = new Dictionary<Type, TypeInfo>();
@@ -140,13 +169,109 @@ namespace Wizard.Solo.Net
                     keep.Add(f);
                 }
                 ti.Fields = keep.ToArray();
+                ti.Ops = new FieldOps[ti.Fields.Length];
+                if (!t.IsValueType)
+                    for (int i = 0; i < ti.Fields.Length; i++) ti.Ops[i] = FastOps(t, ti.Fields[i]);
             }
             else ti.Kind = Kind.Skip;
 
             // 원소가 보낼 수 없는 형식이면 모음 전체를 보내지 않는다.
             if ((ti.Kind == Kind.List || ti.Kind == Kind.Array || ti.Kind == Kind.HashSet || ti.Kind == Kind.Queue) && Info(ti.Elem).Kind == Kind.Skip) ti.Kind = Kind.Skip;
             if (ti.Kind == Kind.Dict && (Info(ti.Elem).Kind == Kind.Skip || Info(ti.Elem2).Kind == Kind.Skip)) ti.Kind = Kind.Skip;
+            if (ti.Kind == Kind.HashSet) { ti.Clear = t.GetMethod("Clear"); ti.Add = t.GetMethod("Add"); }
+            else if (ti.Kind == Kind.Queue) { ti.Clear = t.GetMethod("Clear"); ti.Add = t.GetMethod("Enqueue"); }
             return ti;
+        }
+
+        // ------------------------------------------------------------ 빠른 길(식 트리)
+
+        /// <summary>
+        /// 식 트리를 기계어로 컴파일할 수 있는 런타임(Mono·.NET)에서만 빠른 길을 쓴다. IL2CPP처럼 해석기로 도는 곳은 리플렉션 길이 낫다.
+        /// 형식 정보는 처음 쓸 때 한 번 만들어 두므로, 시험이 두 길을 비교하려면 바꾼 뒤 <see cref="ResetTypeCache"/>를 부른다.
+        /// </summary>
+        public static bool FastPathEnabled = System.Runtime.CompilerServices.RuntimeFeature.IsDynamicCodeCompiled;
+
+        /// <summary>
+        /// 형식 훑기와 빠른 길 컴파일(필드 수백 개, 수십~백 ms)을 미리 해 둔다. 첫 스냅숏을 쓰거나 받는 순간 멈칫하지 않게
+        /// 판 시작(어차피 세계를 새로 만드는 때)이나 서버가 뜰 때 부른다. 여러 번 불러도 된다.
+        /// </summary>
+        public static void Warm()
+        {
+            lock (_gate) WarmLocked();
+        }
+
+        static void WarmLocked()
+        {
+            Info(typeof(PlayerState));
+            Info(typeof(List<EnemyState>));
+            Info(typeof(List<ProjectileEntity>));
+            Info(typeof(List<EnemyShotEntity>));
+            Info(typeof(List<ZoneEntity>));
+            Info(typeof(List<HazardEntity>));
+            Info(typeof(List<ObstacleEntity>));
+            Info(typeof(List<PlayerZoneEntity>));
+            Info(typeof(List<DropEntity>));
+            Info(typeof(RunState));
+            Info(typeof(WaveState));
+            Info(typeof(BossState));
+            Info(typeof(StarfallState));
+            Info(typeof(WeatherState));
+        }
+
+        /// <summary>훑어 둔 형식 정보를 버린다(시험용: FastPathEnabled를 바꾼 뒤).</summary>
+        public static void ResetTypeCache()
+        {
+            lock (_gate) _types.Clear();
+        }
+
+        /// <summary>
+        /// 클래스의 쓰기 가능한 단순 필드(정수·실수·논리·열거·글·Vector2)에 상자 없는 읽기·쓰기를 만든다.
+        /// FieldInfo.GetValue/SetValue는 값마다 상자를 만들어(스냅숏마다 수천 개, 초당 20번 × 서버·손님 양쪽) GC를 부른다.
+        /// 만들 수 없으면 null(리플렉션 길). 줄에 싣는 모양은 WriteValue·ReadValue와 똑같다.
+        /// </summary>
+        static FieldOps FastOps(Type owner, FieldInfo f)
+        {
+            if (!FastPathEnabled || f.IsInitOnly || f.IsLiteral) return null;
+            string name;
+            Type wire; // 줄에 실리는 형식(NetWriter·NetReader 메서드의 인자·반환형)
+            switch (Info(f.FieldType).Kind)
+            {
+                case Kind.Int: name = "Int"; wire = typeof(int); break;
+                case Kind.Long: name = "Long"; wire = typeof(long); break;
+                case Kind.ULong: name = "ULong"; wire = typeof(ulong); break;
+                case Kind.Float: name = "Float"; wire = typeof(float); break;
+                case Kind.Bool: name = "Bool"; wire = typeof(bool); break;
+                case Kind.Byte: name = "Byte"; wire = typeof(byte); break;
+                case Kind.Short: name = "Int"; wire = typeof(int); break;   // 리플렉션 길처럼 int로 싣는다
+                case Kind.Enum: name = "Long"; wire = typeof(long); break;  // 리플렉션 길처럼 long으로 싣는다
+                case Kind.String: name = "Str"; wire = typeof(string); break;
+                case Kind.Vector2: name = "Vec"; wire = typeof(Vector2); break;
+                default: return null;
+            }
+            try
+            {
+                var wm = typeof(NetWriter).GetMethod(name, new[] { wire });
+                var rm = typeof(NetReader).GetMethod(name, Type.EmptyTypes);
+                if (wm == null || rm == null || rm.ReturnType != wire) return null;
+
+                var w = Expression.Parameter(typeof(NetWriter), "w");
+                var r = Expression.Parameter(typeof(NetReader), "r");
+                var o = Expression.Parameter(typeof(object), "o");
+                var field = Expression.Field(Expression.Convert(o, owner), f);
+
+                Expression val = field;
+                if (f.FieldType != wire) val = Expression.Convert(val, wire);
+                var write = Expression.Lambda<Action<NetWriter, object>>(Expression.Call(w, wm, val), w, o).Compile();
+
+                Expression got = Expression.Call(r, rm);
+                if (f.FieldType != wire) got = Expression.Convert(got, f.FieldType);
+                var read = Expression.Lambda<Action<NetReader, object>>(Expression.Assign(field, got), r, o).Compile();
+                return new FieldOps { Write = write, Read = read };
+            }
+            catch (Exception)
+            {
+                return null; // 컴파일이 안 되는 런타임·필드는 리플렉션 길로
+            }
         }
 
         /// <summary>시뮬 상태 형식(Wizard.Solo.Sim 이름공간의 클래스·구조체)만 펼친다. 모듈 속(CompiledSpell 등)은 이름으로 뺀다.</summary>
@@ -161,7 +286,14 @@ namespace Wizard.Solo.Net
         static void WriteObject(NetWriter w, object o, Type t)
         {
             var ti = Info(t);
-            foreach (var f in ti.Fields) WriteValue(w, f.GetValue(o), f.FieldType);
+            var fields = ti.Fields;
+            var ops = ti.Ops;
+            for (int i = 0; i < fields.Length; i++)
+            {
+                var op = ops[i];
+                if (op != null) op.Write(w, o);
+                else WriteValue(w, fields[i].GetValue(o), fields[i].FieldType);
+            }
         }
 
         static void WriteValue(NetWriter w, object v, Type t)
@@ -192,6 +324,14 @@ namespace Wizard.Solo.Net
                 case Kind.Queue:
                     {
                         if (v == null) { w.Int(-1); return; }
+                        if (v is IList il)
+                        {
+                            // List·배열: 길이를 바로 읽고 번호로 돈다(열거자를 두 번 만들지 않는다)
+                            int c = il.Count;
+                            w.Int(c);
+                            for (int i = 0; i < c; i++) WriteValue(w, il[i], ti.Elem);
+                            return;
+                        }
                         // HashSet<T>는 ICollection(제네릭 아님)이 아니라서 세어서 쓴다. HashSet의 순서는 약속이 아니지만 받는 쪽도 집합이라 상관없다.
                         int count = 0;
                         foreach (var _ in (IEnumerable)v) count++;
@@ -232,8 +372,13 @@ namespace Wizard.Solo.Net
         static void ReadObject(NetReader r, object target, Type t, IContentDb db)
         {
             var ti = Info(t);
-            foreach (var f in ti.Fields)
+            var fields = ti.Fields;
+            var ops = ti.Ops;
+            for (int i = 0; i < fields.Length; i++)
             {
+                var op = ops[i];
+                if (op != null) { op.Read(r, target); continue; }
+                var f = fields[i];
                 object cur = f.GetValue(target);
                 object nv = ReadValue(r, cur, f.FieldType, db);
                 if (f.IsInitOnly)
@@ -318,8 +463,8 @@ namespace Wizard.Solo.Net
                         int n = r.Int();
                         if (n < 0) return null;
                         object set = cur ?? Activator.CreateInstance(t);
-                        t.GetMethod("Clear").Invoke(set, null);
-                        var add = t.GetMethod("Add");
+                        ti.Clear.Invoke(set, null);
+                        var add = ti.Add;
                         var arg = new object[1];
                         for (int i = 0; i < n; i++) { arg[0] = ReadValue(r, null, ti.Elem, db); add.Invoke(set, arg); }
                         return set;
@@ -329,8 +474,8 @@ namespace Wizard.Solo.Net
                         int n = r.Int();
                         if (n < 0) return null;
                         object q = cur ?? Activator.CreateInstance(t);
-                        t.GetMethod("Clear").Invoke(q, null);
-                        var enq = t.GetMethod("Enqueue");
+                        ti.Clear.Invoke(q, null);
+                        var enq = ti.Add;
                         var arg = new object[1];
                         for (int i = 0; i < n; i++) { arg[0] = ReadValue(r, null, ti.Elem, db); enq.Invoke(q, arg); }
                         return q;

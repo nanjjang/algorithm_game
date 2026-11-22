@@ -1,8 +1,0 @@
-{
-  "name": "com.wizard.content",
-  "version": "0.0.0",
-  "displayName": "Wizard.Content",
-  "description": "Content ids, definition types, binary content pack",
-  "unity": "6000.3",
-  "dependencies": {}
-}

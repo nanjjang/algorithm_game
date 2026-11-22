@@ -42,3 +42,4 @@ appsettings.Local.json
 CLAUDE.md
 docs/dev/agent-config/
 server/Wizard.Server.Api.DevHost/appsettings.Development.json
+solo/mono_crash.*.json

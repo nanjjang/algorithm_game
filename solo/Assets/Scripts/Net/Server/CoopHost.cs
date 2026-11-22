@@ -21,6 +21,62 @@ namespace Wizard.Solo.Net
             public CoopBot Bot; // 서버 안 봇이면 그 봇(아니면 null)
             public long AccountId; // 계정으로 들어왔으면 그 id(아니면 0)
             public string AccountName;
+            public bool Spectator; // 관전자: 슬롯 없이 상태만 받는다
+        }
+
+        /// <summary>자동 매치 방(결투 점수에 반영). 리그 제한을 걸고, 정해진 두 계정만 들어오고, 둘이 차면 서버가 시작한다.</summary>
+        public bool Ranked;
+        public int League;
+        /// <summary>들어올 수 있는 계정(null = 누구나).</summary>
+        public HashSet<long> Reserved;
+        /// <summary>서버가 다시 만든 출발 설정에 마지막으로 거는 것(리그 제한).</summary>
+        public Func<RunConfig, RunConfig> MemberFilter;
+        /// <summary>자리가 다 차면 이 씨앗으로 바로 시작한다(0 = 방장이 시작).</summary>
+        public ulong AutoStartSeed;
+        /// <summary>방이 열린 뒤 지난 틱(방 서버가 센다).</summary>
+        public int AgeTicks;
+        public int SpectatorsMax = 6;
+        readonly bool[] _leftDuringRun = new bool[SimConst.MaxPlayers];
+        byte[] _startMsg;
+
+        /// <summary>그 슬롯 사람이 판 도중에 끊겼나(자동 매치 이탈).</summary>
+        public bool LeftDuringRun(int slot) => slot >= 0 && slot < _leftDuringRun.Length && _leftDuringRun[slot];
+
+        /// <summary>그 슬롯의 출발 설정(없으면 null).</summary>
+        public RunConfig MemberOfSlot(int slot)
+        {
+            foreach (var p in _peers) if (p.Slot == slot && p.Member != null) return p.Member;
+            return null;
+        }
+
+        /// <summary>판에 들어온 사람 수(봇 포함, 끊긴 사람 포함 — 판이 끝난 뒤 세는 용도).</summary>
+        public int MemberCount { get { int n = 0; foreach (var p in _peers) if (p.Slot >= 0 && p.Member != null) n++; return n; } }
+
+        public int SpectatorCount { get { int n = 0; foreach (var p in _peers) if (p.Spectator && !p.Dropped) n++; return n; } }
+
+        /// <summary>관전자를 들인다(가득이면 false). 판 중이면 판 설정과 지금 상태를 바로 보낸다.</summary>
+        public bool AcceptSpectator(INetPipe pipe)
+        {
+            if (pipe == null || SpectatorCount >= SpectatorsMax) return false;
+            var p = new Peer { Pipe = pipe, Spectator = true };
+            _peers.Add(p);
+            var msg = new NetWriter(NetMsg.Welcome);
+            msg.Int(NetProtocol.Version);
+            msg.Int(-1);
+            pipe.Send(msg.ToArray());
+            if (Started)
+            {
+                if (_startMsg != null) pipe.Send(_startMsg);
+                pipe.Send(SnapshotMessage());
+            }
+            else SendLobby();
+            return true;
+        }
+
+        /// <summary>방을 닫을 때 남은 연결(관전자 포함)을 끊는다.</summary>
+        public void CloseAll()
+        {
+            foreach (var p in _peers) if (!p.Dropped) { p.Dropped = true; p.Pipe.Close(); }
         }
 
         readonly IContentDb _content;
@@ -160,7 +216,8 @@ namespace Wizard.Solo.Net
 
             var msg = new NetWriter(NetMsg.Start);
             NetCodec.WriteConfig(msg, cfg);
-            Broadcast(msg.ToArray());
+            _startMsg = msg.ToArray();
+            Broadcast(_startMsg);
             SendSnapshot();
             FlushEvents();
             return true;
@@ -172,6 +229,7 @@ namespace Wizard.Solo.Net
             // 서버 안 봇: 받은 것 처리 → 이번 틱 입력 보내기(사람 손님과 같은 길로 들어온다).
             foreach (var p in _peers) if (p.Bot != null && !p.Dropped) { p.Bot.Client.Pump(); p.Bot.Act(); }
             Pump();
+            if (AutoStartSeed != 0 && !Started && PlayerCount >= _maxPlayers) StartRun(AutoStartSeed);
             var w = World;
             if (w == null) return;
             if (w.Run != null && w.Run.Phase == RunPhase.RunEnded) { FlushEvents(); return; }
@@ -201,6 +259,7 @@ namespace Wizard.Solo.Net
                 if (!p.Pipe.Connected) { Drop(p); continue; }
                 while (p.Pipe.TryReceive(out var data))
                 {
+                    if (p.Spectator) continue; // 관전자가 보낸 것은 읽고 버린다
                     try { Handle(p, data); }
                     catch (Exception) { Drop(p); break; }
                 }
@@ -274,6 +333,7 @@ namespace Wizard.Solo.Net
             int stage = p.AccountId > 0 && StageLookup != null ? StageLookup(p.AccountId, ch) : 0;
             member = OnlineMember.Build(_content, ch, stage, member.AttackStyle, p.AccountId > 0 && LoadoutLookup != null ? LoadoutLookup(p.AccountId, ch) : null);
             if (p.AccountId > 0 && MutationLookup != null) member.Mutations = MutationLookup(p.AccountId, ch) ?? new List<string>();
+            if (MemberFilter != null) member = MemberFilter(member) ?? member;
             p.Member = member;
             p.Slot = FreeSlot();
             var msg = new NetWriter(NetMsg.Welcome);
@@ -309,9 +369,11 @@ namespace Wizard.Solo.Net
             if (p.Dropped) return;
             p.Dropped = true;
             p.Pipe.Close();
+            if (p.Spectator) return;
             var w = World;
             if (w != null && p.Slot >= 0)
             {
+                if (w.Run != null && w.Run.Phase != RunPhase.RunEnded) _leftDuringRun[p.Slot] = true;
                 var pl = w.Players[p.Slot];
                 w.InputQueues[p.Slot].Clear();
                 if (w.Run.Config != null && w.Run.Config.Mode == RunMode.Duel) w.Mods.Run.ForfeitDuel(w, p.Slot);
@@ -328,7 +390,7 @@ namespace Wizard.Solo.Net
 
         void Broadcast(byte[] data)
         {
-            foreach (var p in _peers) if (p.Slot >= 0 && !p.Dropped) p.Pipe.Send(data);
+            foreach (var p in _peers) if ((p.Slot >= 0 || p.Spectator) && !p.Dropped) p.Pipe.Send(data);
         }
 
         void SendLobby()
@@ -367,7 +429,9 @@ namespace Wizard.Solo.Net
             _evBuf.Clear();
         }
 
-        void SendSnapshot()
+        void SendSnapshot() => Broadcast(SnapshotMessage());
+
+        byte[] SnapshotMessage()
         {
             // 몸은 Deflate로 줄여 보낸다(판 상태 약 5KB → 1~2KB). 마지막 크기는 LastSnapshotBytes.
             var body = new NetWriter();
@@ -376,7 +440,7 @@ namespace Wizard.Solo.Net
             var msg = new NetWriter(NetMsg.Snapshot);
             msg.Bytes(packed);
             LastSnapshotBytes = packed.Length;
-            Broadcast(msg.ToArray());
+            return msg.ToArray();
         }
     }
 }

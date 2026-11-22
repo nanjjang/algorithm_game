@@ -46,6 +46,9 @@ namespace Wizard.Solo.Net
             _modules = modules ?? SimModuleSet.CreateDefault;
             _rng = seed != 0 ? new Random(seed) : new Random();
             Plaza = new PlazaHost { Accounts = Accounts };
+            // 온라인 규칙 수치(DataSolo/OnlineRules.json)와 콘텐츠(보유 IL 계산용)를 계정 저장소에 넘긴다.
+            Accounts.Content = content;
+            Accounts.Rules = OnlineRules.Load(content);
         }
 
         public CoopHost Room(string code) => code != null && _rooms.TryGetValue(code, out var h) ? h : null;
@@ -69,6 +72,8 @@ namespace Wizard.Solo.Net
                 if (TryAccountMessage(pipe, data)) continue; // 이메일·Google·서버 정보: 연결은 그대로(또는 끊음)
                 if (TryAuth(pipe, data)) continue; // 계정 메시지면 연결은 그대로 기다린다
                 if (TryService(pipe, data)) continue; // 강화·순위표: 답하고 연결은 그대로
+                if (TryOnlineService(pipe, data)) continue; // 우편·차단·신고·시즌·대기열: 답하고 연결은 그대로
+                _queue.RemoveAll(q => q.Pipe == pipe); // 방·광장으로 가면 대기열에서 빠진다
                 _pending.RemoveAt(i);
                 _authed.TryGetValue(pipe, out var acct);
                 _authed.Remove(pipe);
@@ -81,15 +86,20 @@ namespace Wizard.Solo.Net
                 h.Tick();
                 RecordIfEnded(h);
                 if (!h.Started) h.IdleTicks = h.PlayerCount > 0 ? 0 : h.IdleTicks + 1;
-                if (h.Finished || (!h.Started && h.IdleTicks > EmptyRoomTicks)) _dead.Add(kv.Key);
+                h.AgeTicks++;
+                // 잡힌 경기 방: 정한 시간 안에 둘 다 들어오지 않으면 닫는다(점수는 변하지 않는다).
+                bool noShow = h.Ranked && !h.Started && h.AgeTicks > Accounts.Rules.MatchJoinSeconds * 60;
+                if (h.Finished || noShow || (!h.Started && h.IdleTicks > EmptyRoomTicks)) _dead.Add(kv.Key);
             }
             foreach (var code in _dead)
             {
                 Log?.Invoke("[room-server] room " + code + " closed");
+                _rooms[code].CloseAll();
                 _recorded.Remove(_rooms[code]);
                 _rooms.Remove(code);
             }
             _dead.Clear();
+            QueueTick();
             Plaza.Tick();
             if (++_expireTicks >= 60 * 60) { _expireTicks = 0; Accounts.ExpireListings(DateTime.UtcNow.Ticks); }
         }
@@ -313,13 +323,30 @@ namespace Wizard.Solo.Net
             if (!h.Started || _recorded.Contains(h) || h.World.Run.Phase != RunPhase.RunEnded) return;
             _recorded.Add(h);
             var run = h.World.Run;
+            long now = Now;
+            int seconds = h.World.Tick / SimConst.TicksPerSecond;
             if (h.Mode == RoomMode.Duel && run.Duel != null)
             {
                 long a = h.AccountOfSlot(0), b = h.AccountOfSlot(1);
                 if (a > 0 && b > 0)
                 {
                     long winner = run.Duel.MatchWinner < 0 ? 0 : h.AccountOfSlot(run.Duel.MatchWinner);
-                    Accounts.RecordDuel(a, b, winner);
+                    Accounts.AddPlayTime(a, seconds);
+                    Accounts.AddPlayTime(b, seconds);
+                    if (!h.Ranked) Accounts.RecordDuel(a, b, winner);
+                    else
+                    {
+                        // 자동 매치(4.10절): 중도 이탈은 패배 + 이탈 기록, 양쪽이 다 끊겼으면 무효(점수가 변하지 않는다).
+                        bool la = h.LeftDuringRun(0), lb = h.LeftDuringRun(1);
+                        if (la && lb) Log?.Invoke("[room-server] match " + h.Code + " void (both left)");
+                        else
+                        {
+                            bool rated = Accounts.RecordRankedDuel(a, b, winner, h.League, now);
+                            if (la) Accounts.RecordLeave(a, now);
+                            if (lb) Accounts.RecordLeave(b, now);
+                            Log?.Invoke("[room-server] match " + h.Code + " winner " + winner + (rated ? " (rated)" : " (unrated)"));
+                        }
+                    }
                 }
             }
             else
@@ -333,7 +360,11 @@ namespace Wizard.Solo.Net
                     var mats = table != null ? Wizard.Solo.Meta.Settlement.SettlementService.DrawMaterials(table, run.DropChances, false, bp => _dice.Next(10000) < bp) : null;
                     var blocks = new List<string>();
                     foreach (var wb in run.Storage) if (!wb.Borrowed && !string.IsNullOrEmpty(wb.BlockId)) blocks.Add(wb.BlockId);
+                    Accounts.AddPlayTime(id, seconds);
                     Accounts.RecordCoop(id, run.LastClearedWave, run.Purse, mats, blocks);
+                    // 판 기록과 순위표(판은 서버가 돌렸으므로 그대로 믿는다). 점수는 판의 점수(같이 한 사람은 같은 점수).
+                    var member = h.MemberOfSlot(s);
+                    if (member != null) Accounts.RecordRun(id, Ids.Char.NumberOf(member.CharId), member.WandStage, run.LastClearedWave, run.Score, run.Purse, h.MemberCount, now);
                 }
             }
             Log?.Invoke("[room-server] room " + h.Code + " recorded");
@@ -353,7 +384,7 @@ namespace Wizard.Solo.Net
                         RoomMode mode;
                         try { mode = (RoomMode)r.Byte(); } catch (Exception) { mode = RoomMode.Coop; }
                         if (mode != RoomMode.Coop && mode != RoomMode.Duel) mode = RoomMode.Coop;
-                        var h = new CoopHost(_content, _modules, SimConst.MaxPlayers, mode) { Code = NewCode(), StageLookup = Accounts.StageOf, MutationLookup = Accounts.MutationIds, LoadoutLookup = (aid, ch) => Accounts.LoadoutSpecOf(aid, ch, _content) };
+                        var h = new CoopHost(_content, _modules, SimConst.MaxPlayers, mode) { Code = NewCode(), StageLookup = Accounts.StageOf, MutationLookup = Accounts.MutationIds, LoadoutLookup = (aid, ch) => Accounts.LoadoutSpecOf(aid, ch, _content), SpectatorsMax = Accounts.Rules.SpectatorsMax };
                         _rooms[h.Code] = h;
                         Log?.Invoke("[room-server] room " + h.Code + " created (" + mode + ")");
                         SendInfo(pipe, h);
@@ -368,8 +399,22 @@ namespace Wizard.Solo.Net
                         if (h == null) { Fail(pipe, RoomError.NotFound); return; }
                         if (h.Started) { Fail(pipe, RoomError.Started); return; }
                         if (h.PlayerCount >= h.MaxPlayers) { Fail(pipe, RoomError.Full); return; }
+                        // 잡힌 경기 방에는 그 두 계정만 들어온다.
+                        if (h.Reserved != null && (acct == null || !h.Reserved.Contains(acct.Id) || h.HasAccount(acct.Id))) { Fail(pipe, RoomError.NotFound); return; }
                         SendInfo(pipe, h);
                         h.Accept(pipe, acct);
+                        break;
+                    }
+                case NetMsg.SpectateRoom:
+                    {
+                        // 관전(4.6절): 결투 방만, 방마다 SpectatorsMax명까지. 판 중에도 들어올 수 있다.
+                        string code = null;
+                        try { code = Normalize(r.Str()); } catch (Exception) { }
+                        var h = Room(code);
+                        if (h == null || h.Mode != RoomMode.Duel) { Fail(pipe, RoomError.NotFound); return; }
+                        if (h.SpectatorCount >= h.SpectatorsMax) { Fail(pipe, RoomError.Full); return; }
+                        SendInfo(pipe, h);
+                        h.AcceptSpectator(pipe);
                         break;
                     }
                 case NetMsg.EnterPlaza:

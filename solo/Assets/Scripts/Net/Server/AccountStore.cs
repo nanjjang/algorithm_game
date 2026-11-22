@@ -74,6 +74,8 @@ namespace Wizard.Solo.Net
         }
         public string CreatedAt;
         public string LastSeenAt;
+        /// <summary>우편·차단·리그·결투 점수·시즌 기록(11-online.md 6.14절). 옛 저장에는 없을 수 있다(AccountStore.X가 채운다).</summary>
+        public OnlineExtra X = new OnlineExtra();
     }
 
     /// <summary>서버 지팡이 조립 한 벌. Links 길이 = 그 지팡이의 연결 칸 수(빈 칸 = null).</summary>
@@ -144,6 +146,9 @@ namespace Wizard.Solo.Net
         {
             _db = db ?? new JsonAccountDb(null);
             _data = _db.Load() ?? new AccountData();
+            if (_data.Hall == null) _data.Hall = new List<SeasonArchive>();
+            if (_data.Reports == null) _data.Reports = new List<ReportEntry>();
+            if (_data.Runs == null) _data.Runs = new List<RunRecord>();
             foreach (var a in _data.Accounts) Index(a);
             foreach (var l in _data.Listings) _committedListings.Add(l.Id);
         }
@@ -614,7 +619,14 @@ namespace Wizard.Solo.Net
         /// </summary>
         public void Save()
         {
-            var c = new AccountDbChanges { NextId = _data.NextId, NextListingId = _data.NextListingId };
+            var c = new AccountDbChanges { NextId = _data.NextId, NextListingId = _data.NextListingId, WorldDirty = _worldDirty };
+            if (Content != null)
+            {
+                // 손댄 계정의 보유 IL·리그를 다시 본다(강화·거래·장터·우편 어디서 바뀌었든 여기 한 곳에서).
+                long nowTicks = Clock();
+                foreach (var id in new List<long>(_touched)) if (_byId.TryGetValue(id, out var ta)) RefreshIl(ta, nowTicks);
+                c.WorldDirty = _worldDirty;
+            }
             foreach (var id in _touched) if (_byId.TryGetValue(id, out var a)) c.Accounts.Add(a);
             var now = new HashSet<long>();
             foreach (var l in _data.Listings)
@@ -636,6 +648,7 @@ namespace Wizard.Solo.Net
                 return;
             }
             _touched.Clear();
+            _worldDirty = false;
             _pendingLog.Clear();
             _committedListings.Clear();
             foreach (var id in now) _committedListings.Add(id);

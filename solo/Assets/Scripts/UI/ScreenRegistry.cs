@@ -26,6 +26,7 @@ namespace Wizard.Solo.UI
             m.Register(ScreenId.OnlineAssembly, () => new Screens.Online.OnlineAssemblyScreen());
             m.Register(ScreenId.OnlineMarket, () => new Screens.Online.OnlineMarketScreen());
             m.Register(ScreenId.OnlineFriends, () => new Screens.Online.OnlineFriendsScreen());
+            m.Register(ScreenId.OnlineSeason, () => new Screens.Online.OnlineSeasonScreen());
             m.Register(ScreenId.OnlineLogin, () => new Screens.Online.OnlineLoginScreen());
 
             // 원정 준비

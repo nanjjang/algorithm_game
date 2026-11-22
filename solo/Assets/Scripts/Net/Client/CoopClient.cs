@@ -73,6 +73,20 @@ namespace Wizard.Solo.Net
         }
 
         /// <summary>방 코드(방 서버의 방이면, RoomInfo가 온 뒤).</summary>
+        /// <summary>관전으로 들어왔다(입력·명령을 보내지 않는다. 화면은 슬롯 0의 눈으로 본다).</summary>
+        public bool Spectator { get; private set; }
+
+        /// <summary>그 방을 관전한다(11-online.md 6.14절). Welcome(슬롯 −1) 뒤 Lobby 또는 Start·Snapshot이 온다.</summary>
+        public void ConnectSpectate(INetPipe pipe, string code)
+        {
+            _pipe = pipe;
+            Spectator = true;
+            State = CoopClientState.Connecting;
+            var msg = new NetWriter(NetMsg.SpectateRoom);
+            msg.Str(code);
+            pipe.Send(msg.ToArray());
+        }
+
         public string RoomCode { get; private set; }
         public RoomMode Mode { get; private set; }
         public int RoomMaxPlayers { get; private set; } = SimConst.MaxPlayers;
@@ -104,13 +118,13 @@ namespace Wizard.Solo.Net
         /// <summary>이번 프레임의 입력을 모아 둔다(<see cref="Flush"/>가 한 메시지로 보낸다).</summary>
         public void QueueInput(in InputEvent e)
         {
-            if (State == CoopClientState.InRun) _outInputs.Add(e);
+            if (State == CoopClientState.InRun && !Spectator) _outInputs.Add(e);
         }
 
         /// <summary>화면 명령(전리품·야영·포기 …)을 서버로. 꼭두각시 세계에는 넣지 않는다.</summary>
         public void SendCommand(in RunCommand c)
         {
-            if (State != CoopClientState.InRun || _pipe == null) return;
+            if (State != CoopClientState.InRun || _pipe == null || Spectator) return;
             var msg = new NetWriter(NetMsg.Command);
             NetCodec.WriteCommand(msg, c);
             _pipe.Send(msg.ToArray());
@@ -177,6 +191,7 @@ namespace Wizard.Solo.Net
                 case NetMsg.Welcome:
                     r.Int();
                     Slot = r.Int();
+                    if (Slot < 0) { Spectator = true; Slot = 0; }
                     State = CoopClientState.Lobby;
                     break;
                 case NetMsg.AuthOk:

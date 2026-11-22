@@ -148,7 +148,9 @@ namespace Wizard.Solo.Net
                     {
                         string text = Clean(r.Str(), ChatMaxChars);
                         if (string.IsNullOrEmpty(text) || _tick - p.LastChatTick < ChatCooldownTicks) return;
+                        if (Muted(p)) return; // 신고가 쌓여 채팅이 막힌 동안(5.3절)
                         p.LastChatTick = _tick;
+                        Remember(p, text);
                         p.Avatar.Bubble = text;
                         p.Avatar.BubbleUntilTick = _tick + BubbleTicks;
                     }
@@ -200,7 +202,9 @@ namespace Wizard.Solo.Net
             text = Clean(text, ChatMaxChars);
             if (string.IsNullOrEmpty(text) || toName == null) return;
             if (_tick - p.LastChatTick < ChatCooldownTicks) return;
+            if (Muted(p)) return;
             p.LastChatTick = _tick;
+            Remember(p, text);
             Peer to = null;
             foreach (var q in _peers) if (q != p && string.Equals(q.Avatar.Name, toName.Trim(), StringComparison.OrdinalIgnoreCase)) { to = q; break; }
             var m = new NetWriter(NetMsg.WhisperIn);
@@ -211,10 +215,31 @@ namespace Wizard.Solo.Net
                 p.Pipe.Send(m.ToArray());
                 return;
             }
+            // 차단(5.3절): 어느 쪽이든 막았으면 귓속말은 가지 않는다(보낸 쪽에는 알리지 않는다).
+            if (Accounts != null && Accounts.BlockedEither(p.AccountId, to.AccountId)) return;
             m.Str(p.Avatar.Name);
             m.Str(text);
             to.Pipe.Send(m.ToArray());
         }
+
+        // ------------------------------------------------------------ 채팅 기록 · 정지 · 차단
+
+        readonly Dictionary<long, List<string>> _chatLog = new Dictionary<long, List<string>>();
+        /// <summary>계정마다 들고 있는 최근 채팅 줄 수(신고에 붙인다).</summary>
+        public const int ChatLogLines = 30;
+
+        bool Muted(Peer p) => Accounts != null && p.AccountId > 0 && Accounts.ChatMutedSeconds(p.AccountId, Accounts.Clock()) > 0;
+
+        void Remember(Peer p, string text)
+        {
+            if (p.AccountId <= 0) return;
+            if (!_chatLog.TryGetValue(p.AccountId, out var l)) _chatLog[p.AccountId] = l = new List<string>();
+            l.Add(text);
+            if (l.Count > ChatLogLines) l.RemoveRange(0, l.Count - ChatLogLines);
+        }
+
+        /// <summary>그 계정이 광장에서 한 최근 말(신고에 붙인다). 없으면 빈 목록.</summary>
+        public List<string> RecentChat(long accountId) => _chatLog.TryGetValue(accountId, out var l) ? new List<string>(l) : new List<string>();
 
         // ------------------------------------------------------------ 거래
 
@@ -229,6 +254,7 @@ namespace Wizard.Solo.Net
             var t = ById(targetId);
             if (Accounts == null || p.AccountId <= 0 || t == null || t == p) { SendTrade(p, TradeResult.Guest); return; }
             if (t.AccountId <= 0) { SendTrade(p, TradeResult.Guest); return; }
+            if (Accounts.BlockedEither(p.AccountId, t.AccountId)) { SendTrade(p, TradeResult.Busy); return; } // 차단한 사이에는 청이 가지 않는다
             if (p.Trade != null || t.Trade != null) { SendTrade(p, TradeResult.Busy); return; }
             if ((t.Avatar.Pos - p.Avatar.Pos).magnitude > TradeRange) { SendTrade(p, TradeResult.TooFar); return; }
             t.InviteFrom = p.Avatar.Id;
@@ -318,7 +344,28 @@ namespace Wizard.Solo.Net
             m.Int(_peers.Count);
             foreach (var p in _peers) PlazaCodec.Write(m, p.Avatar);
             var bytes = m.ToArray();
-            foreach (var p in _peers) p.Pipe.Send(bytes);
+            foreach (var p in _peers)
+            {
+                // 차단한 사람의 말풍선은 그 사람에게만 가려서 보낸다(5.3절).
+                var acct = Accounts != null && p.AccountId > 0 ? Accounts.Peek(p.AccountId) : null;
+                var blocked = acct != null && acct.Profile.X != null ? acct.Profile.X.Blocked : null;
+                if (blocked == null || blocked.Count == 0) { p.Pipe.Send(bytes); continue; }
+                var mine = new NetWriter(NetMsg.PlazaState);
+                mine.Int(_tick);
+                mine.Int(_peers.Count);
+                foreach (var q in _peers)
+                {
+                    if (q.Avatar.Bubble != null && q.AccountId > 0 && blocked.Contains(q.AccountId))
+                    {
+                        string keep = q.Avatar.Bubble;
+                        q.Avatar.Bubble = null;
+                        PlazaCodec.Write(mine, q.Avatar);
+                        q.Avatar.Bubble = keep;
+                    }
+                    else PlazaCodec.Write(mine, q.Avatar);
+                }
+                p.Pipe.Send(mine.ToArray());
+            }
         }
 
         public static Vector2 DirVector(int d)

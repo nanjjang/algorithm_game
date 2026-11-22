@@ -85,10 +85,10 @@ namespace Wizard.Solo.Screens.Online
         }
 
         public bool HasRoom => Room != null && Room.Connected;
-        public bool CanAddBot => HasRoom && Room.IsLeader && Room.World == null && Room.MemberCount > 0 && Room.MemberCount < MaxMembers;
-        public bool CanRemoveBot => HasRoom && Room.IsLeader && Room.World == null && Room.BotCount > 0;
+        public bool CanAddBot => !Watching && HasRoom && Room.IsLeader && Room.World == null && Room.MemberCount > 0 && Room.MemberCount < MaxMembers;
+        public bool CanRemoveBot => !Watching && HasRoom && Room.IsLeader && Room.World == null && Room.BotCount > 0;
         public bool CanOpenNetwork => HasRoom && Room.IsLocalHost && !Room.OpenToNetwork;
-        public bool CanStart => HasRoom && Room.IsLeader && Room.World == null && !_startRequested
+        public bool CanStart => !Watching && HasRoom && Room.IsLeader && Room.World == null && !_startRequested
             && (Mode != RoomMode.Duel || Room.MemberCount == 2);
         /// <summary>원격 방에서 시작을 청했고 아직 판이 안 열렸다.</summary>
         bool _startRequested;
@@ -156,6 +156,29 @@ namespace Wizard.Solo.Screens.Online
             var me = MemberConfig(MyCharacter);
             if (me == null) { ErrorKey = ErrorKey ?? OnlineKeys.ErrorWand; return false; }
             Room = OnlineCoop.JoinCode(_ctx.Content, code, me);
+            if (Room == null) { ErrorKey = OnlineKeys.ErrorServer; return false; }
+            if (_ctx != null) _ctx.Online = Room;
+            return true;
+        }
+
+        /// <summary>관전으로 들어와 있다(시작·봇 단추를 쓰지 않는다).</summary>
+        public bool Watching => Room != null && Room.Me != null && Room.Me.Spectator;
+
+        /// <summary>자동 매치로 잡힌 결투 방에 들어간다(둘 다 들어오면 서버가 시작한다).</summary>
+        public bool JoinMatch(string code)
+        {
+            SelectedMode = RoomMode.Duel;
+            return JoinCode(code);
+        }
+
+        /// <summary>코드의 결투 방을 관전한다.</summary>
+        public bool Spectate(string code)
+        {
+            ErrorKey = null;
+            if (HasRoom) return true;
+            code = RoomServer.Normalize(code);
+            if (string.IsNullOrEmpty(code) || code.Length != RoomServer.CodeLength) { ErrorKey = OnlineKeys.ErrorCode; return false; }
+            Room = OnlineCoop.Spectate(_ctx.Content, code);
             if (Room == null) { ErrorKey = OnlineKeys.ErrorServer; return false; }
             if (_ctx != null) _ctx.Online = Room;
             return true;
@@ -331,6 +354,7 @@ namespace Wizard.Solo.Screens.Online
         public const string NavFriends = "str.online.nav.friends";
         public const string NavMarket = "str.online.nav.market";
         public const string NavLogout = "str.online.nav.logout";
+        public const string NavSeason = "str.online.nav.season";
         public const string MktCount = "str.online.mkt.count";
         public const string FrSideTitle = "str.online.fr.side_title";
         public const string FrSideNote = "str.online.fr.side_note";

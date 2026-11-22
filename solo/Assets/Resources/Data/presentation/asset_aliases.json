@@ -51,7 +51,9 @@
     "silhouette": { "cell": [32, 32], "frames": 1 }
   },
   "ui_external_size": {
-    "S-0201": [1920, 1080]
+    "S-0201": [1920, 1080],
+    "S-2405": [640, 128],
+    "S-2407": [384, 128]
   },
   "wand_up_split": {
     "wand.2": { "split_y": 28, "offset_x": 6 }

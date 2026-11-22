@@ -595,6 +595,8 @@ namespace Wizard.Solo.Tests.Integration
             Assert.AreEqual(AccountStore.MarketResult.Ok, st.Buy(buy.Id, l1.Id));
             Assert.AreEqual(4000, buy.Profile.Gold);
             Assert.AreEqual(4, buy.Profile.Qty(Ids.Item.StoneMid));
+            Assert.AreEqual(100 - AccountStore.DepositFor(1000), sel.Profile.Gold, "대금은 우편함으로 간다(받기 전에는 골드가 아니다)");
+            Assert.AreEqual(AccountStore.MailResult.Ok, st.ClaimMail(sel.Id, 0, now));
             Assert.AreEqual(100 + 1000 - AccountStore.MarketFee(1000), sel.Profile.Gold, "판 값 − 수수료 5% + 보증금");
             Assert.AreEqual(AccountStore.MarketResult.NotFound, st.Buy(buy.Id, l1.Id), "두 번 살 수 없다");
 
@@ -604,6 +606,9 @@ namespace Wizard.Solo.Tests.Integration
             st.List(sel.Id, Ids.Item.StoneMid, 3, 300, now, out _);
             st.ExpireListings(now + System.TimeSpan.FromHours(AccountStore.ListingHours + 1).Ticks);
             Assert.AreEqual(0, st.Browse(null, 10).Count, "48시간이 지나면 내려간다");
+            Assert.AreEqual(3, sel.Profile.Qty(Ids.Item.StoneMid), "돌아온 물건은 우편함에 있다");
+            long later = now + System.TimeSpan.FromHours(AccountStore.ListingHours + 2).Ticks;
+            Assert.AreEqual(AccountStore.MailResult.Ok, st.ClaimMail(sel.Id, 0, later));
             Assert.AreEqual(6, sel.Profile.Qty(Ids.Item.StoneMid));
         }
 

@@ -10,12 +10,13 @@ namespace Wizard.Solo.Net
     /// PostgreSQL 계정 저장소(docs/spec/08 8.7절, 11-online.md 7절). 표:
     ///   accounts(계정·인증·서버 프로필 숫자, 지팡이 상태는 jsonb), items(창고, 수량 &gt; 0), friends, friend_requests,
     ///   sessions(로그인 토큰의 SHA-256), listings(장터), enhance_log(강화 기록, 지우지 않는다), meta(다음 id).
+    ///   2판: accounts.extra(jsonb — 우편·차단·리그·결투 점수·시즌 기록), world_state(시즌·역대 후계자·신고·판 기록 한 덩어리).
     /// 서버 프로세스 하나가 메모리 사본을 들고 있고, Save() 한 번 = 트랜잭션 한 번(손댄 계정 줄을 통째로 다시 쓴다).
     /// 골드 ≥ 0, 수량 &gt; 0, 이름·이메일·Google sub 유일은 DB 제약으로도 막는다(코드가 잘못해도 커밋이 실패한다).
     /// </summary>
     public sealed class PostgresAccountDb : IAccountDb
     {
-        public const int SchemaVersion = 1;
+        public const int SchemaVersion = 2;
 
         readonly string _cs;
         NpgsqlConnection _conn;
@@ -121,6 +122,13 @@ create table if not exists meta (key text primary key, value bigint not null);
                     Exec(c, tx, SchemaV1);
                     Exec(c, tx, "insert into schema_version(v) values (1)");
                 }
+                if (v < 2)
+                {
+                    // 2판: 계정마다의 온라인 상태(우편·차단·리그·결투 점수·시즌 기록)와 서버 전체 상태(시즌·신고·판 기록).
+                    Exec(c, tx, "alter table accounts add column if not exists extra jsonb not null default '{}'::jsonb");
+                    Exec(c, tx, "create table if not exists world_state (key text primary key, value jsonb not null)");
+                    Exec(c, tx, "insert into schema_version(v) values (2)");
+                }
                 tx.Commit();
             }
         }
@@ -142,7 +150,7 @@ create table if not exists meta (key text primary key, value bigint not null);
             var d = new AccountData();
             var byId = new Dictionary<long, AccountRecord>();
             using (var cmd = new NpgsqlCommand(@"select id, name, email, email_verified, pw_salt, pw_hash, pw_iter, google_sub, device_salt, device_hash,
-  created_at, last_seen_at, gold, rating, duel_wins, duel_losses, duel_draws, coop_runs, coop_best_wave, enhance_tries, next_attempt_seq, wand_state::text
+  created_at, last_seen_at, gold, rating, duel_wins, duel_losses, duel_draws, coop_runs, coop_best_wave, enhance_tries, next_attempt_seq, wand_state::text, extra::text
   from accounts order by id", c))
             using (var r = cmd.ExecuteReader())
             {
@@ -172,6 +180,8 @@ create table if not exists meta (key text primary key, value bigint not null);
                     if (w.Mutations != null) p.Mutations = w.Mutations;
                     if (w.PendingOffers != null) p.PendingOffers = w.PendingOffers;
                     if (w.Loadouts != null) p.Loadouts = w.Loadouts;
+                    p.X = JsonConvert.DeserializeObject<OnlineExtra>(r.GetString(22)) ?? new OnlineExtra();
+                    AccountStore.X(p);
                     d.Accounts.Add(a);
                     byId[a.Id] = a;
                 }
@@ -206,6 +216,15 @@ create table if not exists meta (key text primary key, value bigint not null);
             foreach (var l in d.Listings) maxListing = Math.Max(maxListing, l.Id);
             d.NextId = Math.Max(maxId + 1, MetaValue(c, "next_account_id"));
             d.NextListingId = Math.Max(maxListing + 1, MetaValue(c, "next_listing_id"));
+            using (var cmd = new NpgsqlCommand("select value::text from world_state where key = 'world'", c))
+            {
+                var v = cmd.ExecuteScalar();
+                if (v != null && !(v is DBNull))
+                {
+                    var world = JsonConvert.DeserializeObject<WorldState>((string)v);
+                    if (world != null) world.Into(d);
+                }
+            }
             return d;
         }
 
@@ -247,6 +266,12 @@ create table if not exists meta (key text primary key, value bigint not null);
                         cmd.Parameters.Add(P("f", e.StageAfter)); cmd.Parameters.Add(P("o", e.Outcome ?? string.Empty)); cmd.Parameters.Add(P("t", e.AtTicks));
                         cmd.ExecuteNonQuery();
                     }
+                if (ch.WorldDirty && all != null)
+                    using (var cmd = new NpgsqlCommand("insert into world_state(key, value) values ('world', @v) on conflict (key) do update set value = excluded.value", c, tx))
+                    {
+                        cmd.Parameters.Add(new NpgsqlParameter("v", NpgsqlDbType.Jsonb) { Value = JsonConvert.SerializeObject(WorldState.Of(all)) });
+                        cmd.ExecuteNonQuery();
+                    }
                 foreach (var kv in new[] { ("next_account_id", ch.NextId), ("next_listing_id", ch.NextListingId) })
                     using (var cmd = new NpgsqlCommand("insert into meta(key, value) values (@k, @v) on conflict (key) do update set value = greatest(meta.value, excluded.value)", c, tx))
                     {
@@ -269,14 +294,14 @@ create table if not exists meta (key text primary key, value bigint not null);
             };
             using (var cmd = new NpgsqlCommand(@"insert into accounts(id, name, name_key, email, email_key, email_verified, pw_salt, pw_hash, pw_iter, google_sub,
   device_salt, device_hash, created_at, last_seen_at, gold, rating, duel_wins, duel_losses, duel_draws, coop_runs, coop_best_wave, enhance_tries,
-  next_attempt_seq, wand_state)
-  values (@id, @name, @nk, @em, @ek, @ev, @ps, @ph, @pi, @gs, @ds, @dh, @ca, @ls, @gold, @rt, @dw, @dl, @dd, @cr, @cb, @et, @na, @ws)
+  next_attempt_seq, wand_state, extra)
+  values (@id, @name, @nk, @em, @ek, @ev, @ps, @ph, @pi, @gs, @ds, @dh, @ca, @ls, @gold, @rt, @dw, @dl, @dd, @cr, @cb, @et, @na, @ws, @ex)
   on conflict (id) do update set name = excluded.name, name_key = excluded.name_key, email = excluded.email, email_key = excluded.email_key,
   email_verified = excluded.email_verified, pw_salt = excluded.pw_salt, pw_hash = excluded.pw_hash, pw_iter = excluded.pw_iter,
   google_sub = excluded.google_sub, device_salt = excluded.device_salt, device_hash = excluded.device_hash, created_at = excluded.created_at,
   last_seen_at = excluded.last_seen_at, gold = excluded.gold, rating = excluded.rating, duel_wins = excluded.duel_wins,
   duel_losses = excluded.duel_losses, duel_draws = excluded.duel_draws, coop_runs = excluded.coop_runs, coop_best_wave = excluded.coop_best_wave,
-  enhance_tries = excluded.enhance_tries, next_attempt_seq = excluded.next_attempt_seq, wand_state = excluded.wand_state", c, tx))
+  enhance_tries = excluded.enhance_tries, next_attempt_seq = excluded.next_attempt_seq, wand_state = excluded.wand_state, extra = excluded.extra", c, tx))
             {
                 cmd.Parameters.Add(P("id", a.Id));
                 cmd.Parameters.Add(P("name", a.Name));
@@ -302,6 +327,7 @@ create table if not exists meta (key text primary key, value bigint not null);
                 cmd.Parameters.Add(P("et", p.EnhanceTries));
                 cmd.Parameters.Add(P("na", p.NextAttemptSeq));
                 cmd.Parameters.Add(new NpgsqlParameter("ws", NpgsqlDbType.Jsonb) { Value = JsonConvert.SerializeObject(w) });
+                cmd.Parameters.Add(new NpgsqlParameter("ex", NpgsqlDbType.Jsonb) { Value = JsonConvert.SerializeObject(AccountStore.X(p)) });
                 cmd.ExecuteNonQuery();
             }
         }
@@ -351,7 +377,7 @@ create table if not exists meta (key text primary key, value bigint not null);
         /// <summary>JSON 저장 파일을 통째로 옮긴다(한 트랜잭션). 빈 DB에서만.</summary>
         public void Import(AccountData data)
         {
-            var ch = new AccountDbChanges { NextId = data.NextId, NextListingId = data.NextListingId };
+            var ch = new AccountDbChanges { NextId = data.NextId, NextListingId = data.NextListingId, WorldDirty = true };
             ch.Accounts.AddRange(data.Accounts);
             ch.AddedListings.AddRange(data.Listings);
             Commit(data, ch);
@@ -363,7 +389,7 @@ create table if not exists meta (key text primary key, value bigint not null);
             var c = Conn();
             using (var tx = c.BeginTransaction())
             {
-                Exec(c, tx, "drop table if exists enhance_log, listings, sessions, friend_requests, friends, items, accounts, meta, schema_version cascade");
+                Exec(c, tx, "drop table if exists world_state, enhance_log, listings, sessions, friend_requests, friends, items, accounts, meta, schema_version cascade");
                 tx.Commit();
             }
         }

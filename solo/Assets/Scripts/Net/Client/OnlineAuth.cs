@@ -25,6 +25,8 @@ namespace Wizard.Solo.Net
         /// <summary>서버에 못 붙었다(또는 답이 없다).</summary>
         public bool NoServer;
         public bool NeedName;
+        /// <summary>복구 코드를 보냈다(RecoveryRequest의 성공) / 비밀번호를 바꿨다(RecoveryConfirm의 성공).</summary>
+        public bool CodeSent, PasswordReset;
         public string Ticket, SuggestedName;
         internal INetPipe Pipe;
         public bool Ok => Account != null;
@@ -80,10 +82,12 @@ namespace Wizard.Solo.Net
         /// <summary>AuthOk / AuthFail / GoogleNeedName 하나를 읽어 결과로. keepPipe면 성공·이름 필요일 때 연결을 닫지 않는다.</summary>
         static AuthResult Read(INetPipe pipe)
         {
-            var data = Wait(pipe, ReplyTimeoutMs, NetMsg.AuthOk, NetMsg.AuthFail, NetMsg.GoogleNeedName);
+            var data = Wait(pipe, ReplyTimeoutMs, NetMsg.AuthOk, NetMsg.AuthFail, NetMsg.GoogleNeedName, NetMsg.RecoveryRequested, NetMsg.RecoveryDone);
             if (data == null) return new AuthResult { NoServer = true };
             var r = new NetReader(data);
             var kind = (NetMsg)r.Byte();
+            if (kind == NetMsg.RecoveryRequested) return new AuthResult { CodeSent = true };
+            if (kind == NetMsg.RecoveryDone) return new AuthResult { PasswordReset = true };
             if (kind == NetMsg.AuthFail)
             {
                 var err = (AuthError)r.Byte();
@@ -132,6 +136,24 @@ namespace Wizard.Solo.Net
             m.Str(email != null ? email.Trim() : null);
             m.Str(password);
             m.Str(name);
+            return Send(db, m);
+        });
+
+        /// <summary>비밀번호 재설정 코드를 이메일로 보내 달라(성공이면 CodeSent). 없는 이메일도 같은 답이다.</summary>
+        public static Task<AuthResult> RecoveryRequest(IContentDb db, string email) => Task.Run(() =>
+        {
+            var m = new NetWriter(NetMsg.RecoveryRequest);
+            m.Str(email != null ? email.Trim() : null);
+            return Send(db, m);
+        });
+
+        /// <summary>메일로 받은 코드와 새 비밀번호를 보낸다(성공이면 PasswordReset — 다시 로그인해야 한다).</summary>
+        public static Task<AuthResult> RecoveryConfirm(IContentDb db, string email, string code, string newPassword) => Task.Run(() =>
+        {
+            var m = new NetWriter(NetMsg.RecoveryConfirm);
+            m.Str(email != null ? email.Trim() : null);
+            m.Str(code != null ? code.Trim() : null);
+            m.Str(newPassword);
             return Send(db, m);
         });
 

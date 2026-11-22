@@ -439,6 +439,15 @@ namespace Wizard.Solo.Screens.Online
         public const string LoginForgot = "str.online.login.forgot";
         public const string LoginMailOffTag = "str.online.login.mail_off_tag";
         public const string LoginMailOff = "str.online.login.mail_off";
+        public const string RecoverTitle = "str.online.recover.title";
+        public const string RecoverCode = "str.online.recover.code";
+        public const string RecoverCodeHint = "str.online.recover.code_hint";
+        public const string RecoverNewPassword = "str.online.recover.new_password";
+        public const string RecoverSend = "str.online.recover.send";
+        public const string RecoverSubmit = "str.online.recover.submit";
+        public const string RecoverSent = "str.online.recover.sent";
+        public const string RecoverDone = "str.online.recover.done";
+        public const string RecoverResend = "str.online.recover.resend";
         public const string LoginBack = "str.online.login.back";
         public const string LoginWorking = "str.online.login.working";
         public const string LoginNeedName = "str.online.login.need_name";

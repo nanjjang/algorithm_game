@@ -23,6 +23,21 @@ namespace Wizard.Solo.Tests.Integration
                 => code == "good" ? Next : new GoogleIdentity { Error = "bad code" };
         }
 
+        sealed class FakeMailer : IRecoveryMailer
+        {
+            public bool Enabled { get; set; } = true;
+            public readonly List<string> To = new List<string>();
+            public string LastBody;
+            public bool Send(string toAddress, string subject, string textBody, out string error)
+            {
+                lock (To) { To.Add(toAddress); LastBody = textBody; }
+                error = null;
+                return true;
+            }
+            public int Count { get { lock (To) return To.Count; } }
+            public string LastCode { get { lock (To) return System.Text.RegularExpressions.Regex.Match(LastBody ?? string.Empty, @"\d{6}").Value; } }
+        }
+
         IntegrationKit _k;
         IPipeListener _listener;
         RoomServer _server;
@@ -242,6 +257,86 @@ namespace Wizard.Solo.Tests.Integration
             Assert.AreEqual("exp", GoogleOAuthServer.ParseIdToken(Jwt("{\"iss\":\"accounts.google.com\",\"aud\":\"cid\",\"exp\":" + (now - 3600) + ",\"sub\":\"42\"}"), "cid", now).Error);
             Assert.IsFalse(GoogleOAuthServer.IsLoopback("https://evil.com/"));
             Assert.IsTrue(GoogleOAuthServer.IsLoopback("http://127.0.0.1:5000/"));
+        }
+
+        [Test]
+        public void Recovery_SendsCode_ThenChangesPassword_AndRevokesOldSessions()
+        {
+            Start(tls: true);
+            var mail = new FakeMailer();
+            _server.Mailer = mail;
+            _server.RecoveryMailEnabled = true;
+            Assert.IsTrue(Await(OnlineAuth.Info(_k.Db)).RecoveryMail);
+
+            var su = Await(OnlineAuth.EmailSignup(_k.Db, "lost@example.com", "the old password", "잃은마법사"));
+            Assert.IsTrue(su.Ok);
+            string oldSecret = su.Account.Secret;
+
+            var req = Await(OnlineAuth.RecoveryRequest(_k.Db, "Lost@Example.com"));
+            Assert.IsTrue(req.CodeSent, "request " + req.Error);
+            Assert.AreEqual(1, mail.Count);
+            Assert.AreEqual("Lost@Example.com", mail.To[0]);
+            string code = mail.LastCode;
+            Assert.AreEqual(6, code.Length);
+
+            // 바로 또 요청하면 기다리게 한다.
+            var again = Await(OnlineAuth.RecoveryRequest(_k.Db, "lost@example.com"));
+            Assert.AreEqual(AuthError.Throttled, again.Error);
+            Assert.Greater(again.WaitSeconds, 0);
+            Assert.AreEqual(1, mail.Count);
+
+            // 틀린 코드 / 약한 비밀번호는 안 바뀐다(약한 비밀번호는 코드를 쓰지 않는다).
+            Assert.AreEqual(AuthError.BadCode, Await(OnlineAuth.RecoveryConfirm(_k.Db, "lost@example.com", code == "000000" ? "111111" : "000000", "the new password")).Error);
+            Assert.AreEqual(AuthError.WeakPassword, Await(OnlineAuth.RecoveryConfirm(_k.Db, "lost@example.com", code, "short")).Error);
+
+            var done = Await(OnlineAuth.RecoveryConfirm(_k.Db, "lost@example.com", code, "the new password"));
+            Assert.IsTrue(done.PasswordReset, "confirm " + done.Error);
+
+            // 코드는 한 번만 쓴다. 옛 비밀번호는 안 되고 새 비밀번호는 된다.
+            Assert.AreEqual(AuthError.BadCode, Await(OnlineAuth.RecoveryConfirm(_k.Db, "lost@example.com", code, "another new password")).Error);
+            Assert.AreEqual(AuthError.WrongLogin, Await(OnlineAuth.EmailLogin(_k.Db, "lost@example.com", "the old password")).Error);
+            var li = Await(OnlineAuth.EmailLogin(_k.Db, "lost@example.com", "the new password"));
+            Assert.IsTrue(li.Ok, "login " + li.Error);
+            Assert.AreEqual(su.Account.Id, li.Account.Id);
+            Assert.AreNotEqual(oldSecret, li.Account.Secret);
+        }
+
+        [Test]
+        public void Recovery_UnknownEmail_GetsSameAnswer_ButNoMail()
+        {
+            Start(tls: true);
+            var mail = new FakeMailer();
+            _server.Mailer = mail;
+            _server.RecoveryMailEnabled = true;
+            Assert.IsTrue(Await(OnlineAuth.RecoveryRequest(_k.Db, "nobody@example.com")).CodeSent);
+            Assert.AreEqual(0, mail.Count, "no mail for an unknown address");
+            Assert.AreEqual(AuthError.Throttled, Await(OnlineAuth.RecoveryRequest(_k.Db, "nobody@example.com")).Error, "same cooldown as a real address");
+            Assert.AreEqual(AuthError.BadCode, Await(OnlineAuth.RecoveryConfirm(_k.Db, "nobody@example.com", "123456", "the new password")).Error);
+        }
+
+        [Test]
+        public void Recovery_TooManyWrongCodes_BurnsTheCode()
+        {
+            Start(tls: true);
+            var mail = new FakeMailer();
+            _server.Mailer = mail;
+            _server.RecoveryMailEnabled = true;
+            Assert.IsTrue(Await(OnlineAuth.EmailSignup(_k.Db, "burn@example.com", "the old password", "태운마법사")).Ok);
+            Assert.IsTrue(Await(OnlineAuth.RecoveryRequest(_k.Db, "burn@example.com")).CodeSent);
+            string code = mail.LastCode;
+            string wrong = code == "000000" ? "111111" : "000000";
+            for (int i = 0; i < AccountStore.RecoveryMaxAttempts; i++)
+                Assert.AreEqual(AuthError.BadCode, Await(OnlineAuth.RecoveryConfirm(_k.Db, "burn@example.com", wrong, "the new password")).Error);
+            Assert.AreEqual(AuthError.BadCode, Await(OnlineAuth.RecoveryConfirm(_k.Db, "burn@example.com", code, "the new password")).Error, "the right code no longer works");
+        }
+
+        [Test]
+        public void Recovery_IsOff_WithoutMailer()
+        {
+            Start(tls: true);
+            Assert.IsFalse(Await(OnlineAuth.Info(_k.Db)).RecoveryMail);
+            Assert.AreEqual(AuthError.MailOff, Await(OnlineAuth.RecoveryRequest(_k.Db, "a@example.com")).Error);
+            Assert.AreEqual(AuthError.MailOff, Await(OnlineAuth.RecoveryConfirm(_k.Db, "a@example.com", "123456", "the new password")).Error);
         }
 
         [Test]

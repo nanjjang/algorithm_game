@@ -21,14 +21,15 @@ namespace Wizard.Solo.Screens.Online
         const float BoardX = 120f, BoardY = 72f, BoardW = 640f, BoardH = 936f, Pad = 56f;
         const float FieldW = BoardW - 2f * Pad;
 
-        enum Mode { Login, Signup, NeedName }
+        enum Mode { Login, Signup, NeedName, Recover }
 
         Mode _mode = Mode.Login;
         RectTransform _board, _loginGroup, _nameGroup, _hero, _tabs;
         UiLabel _title;
         UiButton _tabLogin, _tabSignup, _submit, _google, _forgot, _back, _nameSubmit;
-        UInputField _email, _password, _password2, _name, _googleName;
-        RectTransform _emailRow, _passwordRow, _password2Row, _nameRow, _emailNote, _lowerBlock;
+        UInputField _email, _password, _password2, _name, _googleName, _code, _newPassword;
+        RectTransform _emailRow, _passwordRow, _password2Row, _nameRow, _emailNote, _lowerBlock, _orGroup, _codeRow, _newPasswordRow;
+        int _recoverStep; // 0 = 이메일을 넣고 코드 받기, 1 = 코드와 새 비밀번호
         UiLabel _working, _needNameTitle;
         UImage _spinner;
         UiLabel _mailOffTag;
@@ -75,25 +76,30 @@ namespace Wizard.Solo.Screens.Online
             _password = OnlineUi.Field(Ctx, Focus, _passwordRow, T(OnlineKeys.LoginPassword), T(OnlineKeys.LoginPasswordHint), Pad, 0f, FieldW, AccountStore.PasswordMax, true, UiFontId.F24);
             _password2Row = UiKit.Node(_loginGroup, "Password2Row", 0f, 0f, BoardW, 80f);
             _password2 = OnlineUi.Field(Ctx, Focus, _password2Row, T(OnlineKeys.LoginPassword2), T(OnlineKeys.LoginPassword2Hint), Pad, 0f, FieldW, AccountStore.PasswordMax, true, UiFontId.F24);
+            _codeRow = UiKit.Node(_loginGroup, "CodeRow", 0f, 0f, BoardW, 80f);
+            _code = OnlineUi.Field(Ctx, Focus, _codeRow, T(OnlineKeys.RecoverCode), T(OnlineKeys.RecoverCodeHint), Pad, 0f, FieldW, 12, false, UiFontId.F24);
+            _newPasswordRow = UiKit.Node(_loginGroup, "NewPasswordRow", 0f, 0f, BoardW, 80f);
+            _newPassword = OnlineUi.Field(Ctx, Focus, _newPasswordRow, T(OnlineKeys.RecoverNewPassword), T(OnlineKeys.LoginPasswordHint), Pad, 0f, FieldW, AccountStore.PasswordMax, true, UiFontId.F24);
 
             // 아래 묶음(버튼·또는·Google·잊음·오류)은 칸 수에 따라 위아래로 옮긴다.
             _lowerBlock = UiKit.Node(_loginGroup, "Lower", 0f, 0f, BoardW, 360f);
             _submit = UiKit.Button(Ctx, _lowerBlock, T(OnlineKeys.LoginSubmit), Pad, 0f, FieldW, 64f, Submit, UiButtonStyle.Primary, Focus);
             _spinner = OnlineUi.AnimImg(Ctx, _lowerBlock, "K-44", null, Pad + 24f, 16f, 32f, 32f);
             _working = UiKit.Label(Ctx, _lowerBlock, T(OnlineKeys.LoginWorking), UiFontId.F16, Pad + 72f, 0f, FieldW - 72f, 64f, UiTheme.Chalk, TextAnchor.MiddleLeft);
-            UiKit.Divider(Ctx, _lowerBlock, Pad, 92f, FieldW / 2f - 40f);
-            UiKit.Label(Ctx, _lowerBlock, T(OnlineKeys.LoginOr), UiFontId.F16, Pad + FieldW / 2f - 40f, 80f, 80f, 24f, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
-            UiKit.Divider(Ctx, _lowerBlock, Pad + FieldW / 2f + 40f, 92f, FieldW / 2f - 40f);
+            _orGroup = UiKit.Node(_lowerBlock, "OrGroup", 0f, 0f, BoardW, 360f);
+            UiKit.Divider(Ctx, _orGroup, Pad, 92f, FieldW / 2f - 40f);
+            UiKit.Label(Ctx, _orGroup, T(OnlineKeys.LoginOr), UiFontId.F16, Pad + FieldW / 2f - 40f, 80f, 80f, 24f, UiTheme.SlateBlue, TextAnchor.MiddleCenter);
+            UiKit.Divider(Ctx, _orGroup, Pad + FieldW / 2f + 40f, 92f, FieldW / 2f - 40f);
             // Google 버튼은 공식 자산(google_button.png, 브랜드 규정상 다시 그리지 않는다)이 있으면 그것만 보인다.
             var googleArt = OnlineUi.Online("google_button");
             if (googleArt != null)
             {
                 const float GW = 252f, GH = 56f;
-                _google = UiKit.Button(Ctx, _lowerBlock, null, Pad + (FieldW - GW) * 0.5f, 116f, GW, GH, StartGoogle, UiButtonStyle.Plain, Focus, null, UiFontId.F24, null, true);
+                _google = UiKit.Button(Ctx, _orGroup, null, Pad + (FieldW - GW) * 0.5f, 116f, GW, GH, StartGoogle, UiButtonStyle.Plain, Focus, null, UiFontId.F24, null, true);
                 var gr = _google.ContentRoot != null ? _google.ContentRoot : _google.Rect;
                 UiKit.Image(gr, googleArt, 0f, 0f, GW, GH, Color.white, true).name = "google_button";
             }
-            else _google = UiKit.Button(Ctx, _lowerBlock, T(OnlineKeys.LoginGoogle), Pad, 116f, FieldW, 56f, StartGoogle, UiButtonStyle.Medium, Focus);
+            else _google = UiKit.Button(Ctx, _orGroup, T(OnlineKeys.LoginGoogle), Pad, 116f, FieldW, 56f, StartGoogle, UiButtonStyle.Medium, Focus);
             _forgot = UiKit.Button(Ctx, _lowerBlock, T(OnlineKeys.LoginForgot), Pad, 188f, 220f, 32f, Forgot, UiButtonStyle.Plain, Focus, null, UiFontId.F16);
             _mailOffTag = OnlineUi.Tag(Ctx, _lowerBlock, T(OnlineKeys.LoginMailOffTag), Pad + 228f, 192f, UiTheme.Amber);
             _error = OnlineUi.Error(Ctx, _lowerBlock, Pad, 236f, FieldW);
@@ -155,30 +161,44 @@ namespace Wizard.Solo.Screens.Online
         void SetMode(Mode m)
         {
             _mode = m;
-            bool signup = m == Mode.Signup, need = m == Mode.NeedName;
+            bool signup = m == Mode.Signup, need = m == Mode.NeedName, recover = m == Mode.Recover;
+            if (m != Mode.Recover) _recoverStep = 0;
             _loginGroup.gameObject.SetActive(!need);
             _nameGroup.gameObject.SetActive(need);
             _tabLogin.On = m == Mode.Login;
             _tabSignup.On = signup;
+            _tabs.gameObject.SetActive(!recover);
+            bool step2 = recover && _recoverStep == 1;
             _nameRow.gameObject.SetActive(signup);
-            _password2Row.gameObject.SetActive(signup);
+            _passwordRow.gameObject.SetActive(!recover);
+            _password2Row.gameObject.SetActive(signup || step2);
+            _codeRow.gameObject.SetActive(step2);
+            _newPasswordRow.gameObject.SetActive(step2);
             _emailNote.gameObject.SetActive(signup);
-            // 새 계정은 칸이 넷이라 머리 그림을 접고 제목·탭을 위로 올린다.
-            _hero.gameObject.SetActive(!signup);
-            UiKit.Place(_title.Rect, Pad, signup ? 28f : 276f, FieldW, 44f);
-            float top = signup ? 84f : 332f;
+            _orGroup.gameObject.SetActive(!recover);
+            _forgot.gameObject.SetActive(!recover || step2);
+            _forgot.SetText(T(recover ? OnlineKeys.RecoverResend : OnlineKeys.LoginForgot));
+            _title.SetText(T(recover ? OnlineKeys.RecoverTitle : OnlineKeys.LoginTitle));
+            // 새 계정·비밀번호 찾기는 칸이 많아 머리 그림을 접고 제목·탭을 위로 올린다.
+            _hero.gameObject.SetActive(!signup && !recover);
+            UiKit.Place(_title.Rect, Pad, signup || recover ? 28f : 276f, FieldW, 44f);
+            float top = signup ? 84f : recover ? 20f : 332f;
             UiKit.Place(_tabs, 0f, top, BoardW, 48f);
             // 칸 배치: 이메일 → [메모] → [이름] → 비밀번호 → [비밀번호 확인] → 아래 묶음.
-            float y = top + 64f;
+            float y = recover ? 96f : top + 64f;
             UiKit.Place(_emailRow, 0f, y, BoardW, 80f);
             y += 80f;
+            if (step2)
+            {
+                UiKit.Place(_codeRow, 0f, y, BoardW, 80f); y += 80f;
+                UiKit.Place(_newPasswordRow, 0f, y, BoardW, 80f); y += 80f;
+            }
             if (signup) { UiKit.Place(_emailNote, Pad, y - 6f, FieldW, 22f); y += 20f; }
             if (signup) { UiKit.Place(_nameRow, 0f, y, BoardW, 80f); y += 80f; }
-            UiKit.Place(_passwordRow, 0f, y, BoardW, 80f);
-            y += 80f;
-            if (signup) { UiKit.Place(_password2Row, 0f, y, BoardW, 80f); y += 80f; }
+            if (!recover) { UiKit.Place(_passwordRow, 0f, y, BoardW, 80f); y += 80f; }
+            if (signup || step2) { UiKit.Place(_password2Row, 0f, y, BoardW, 80f); y += 80f; }
             UiKit.Place(_lowerBlock, 0f, y + 12f, BoardW, 360f);
-            _submit.SetText(T(signup ? OnlineKeys.LoginSubmitSignup : OnlineKeys.LoginSubmit));
+            _submit.SetText(T(recover ? (step2 ? OnlineKeys.RecoverSubmit : OnlineKeys.RecoverSend) : signup ? OnlineKeys.LoginSubmitSignup : OnlineKeys.LoginSubmit));
             _error.Set(null);
             Refresh();
         }
@@ -195,14 +215,14 @@ namespace Wizard.Solo.Screens.Online
             _google.DisabledReasonKey = googleOn ? null : OnlineKeys.LoginGoogleOff;
             _tabLogin.Enabled = !busy;
             _tabSignup.Enabled = !busy;
-            _mailOffTag.transform.parent.gameObject.SetActive(_info == null || !_info.RecoveryMail);
+            _mailOffTag.transform.parent.gameObject.SetActive(_mode != Mode.Recover && (_info == null || !_info.RecoveryMail));
             _nameSubmit.Enabled = !busy;
         }
 
         public override void Tick(float dt)
         {
             if (Screens != null)
-                Screens.CaptureKeys = _email.isFocused || _password.isFocused || _password2.isFocused || _name.isFocused || _googleName.isFocused;
+                Screens.CaptureKeys = _email.isFocused || _password.isFocused || _password2.isFocused || _name.isFocused || _googleName.isFocused || _code.isFocused || _newPassword.isFocused;
             HandleKeys();
             if (_infoTask != null && _infoTask.IsCompleted)
             {
@@ -234,14 +254,16 @@ namespace Wizard.Solo.Screens.Online
             if (kb == null) return;
             if (kb.tabKey.wasPressedThisFrame)
             {
-                var order = _mode == Mode.Signup ? new[] { _email, _name, _password, _password2 } : new[] { _email, _password };
+                var order = _mode == Mode.Signup ? new[] { _email, _name, _password, _password2 }
+                    : _mode == Mode.Recover ? (_recoverStep == 1 ? new[] { _email, _code, _newPassword, _password2 } : new[] { _email })
+                    : new[] { _email, _password };
                 for (int i = 0; i < order.Length; i++)
                     if (order[i].isFocused) { order[(i + 1) % order.Length].Select(); order[(i + 1) % order.Length].ActivateInputField(); break; }
             }
             if ((kb.enterKey.wasPressedThisFrame || kb.numpadEnterKey.wasPressedThisFrame) && !Busy)
             {
                 if (_mode == Mode.NeedName) { if (_googleName.isFocused) SubmitGoogleName(); }
-                else if (_email.isFocused || _password.isFocused || _password2.isFocused || _name.isFocused) Submit();
+                else if (_email.isFocused || _password.isFocused || _password2.isFocused || _name.isFocused || _code.isFocused || _newPassword.isFocused) Submit();
             }
         }
 
@@ -255,6 +277,24 @@ namespace Wizard.Solo.Screens.Online
 
         void Finish(AuthResult r)
         {
+            if (r.CodeSent)
+            {
+                _recoverStep = 1;
+                _code.text = string.Empty;
+                SetMode(Mode.Recover);
+                _error.Set(T(OnlineKeys.RecoverSent));
+                return;
+            }
+            if (r.PasswordReset)
+            {
+                _newPassword.text = string.Empty;
+                _password2.text = string.Empty;
+                _code.text = string.Empty;
+                _password.text = string.Empty;
+                SetMode(Mode.Login);
+                _error.Set(T(OnlineKeys.RecoverDone));
+                return;
+            }
             if (r.Ok)
             {
                 PlayUi(UiSounds.ConfirmCheck);
@@ -283,6 +323,20 @@ namespace Wizard.Solo.Screens.Online
             var db = Ctx != null ? Ctx.Content : null;
             string email = _email.text != null ? _email.text.Trim() : string.Empty;
             if (!AccountStore.IsValidEmail(email)) { _error.Set(T(OnlineKeys.LoginErrorPrefix + AuthError.BadEmail)); return; }
+            if (_mode == Mode.Recover)
+            {
+                if (_recoverStep == 0) _authTask = OnlineAuth.RecoveryRequest(db, email);
+                else
+                {
+                    if (string.IsNullOrWhiteSpace(_code.text)) { _error.Set(T(OnlineKeys.LoginErrorPrefix + AuthError.BadCode)); return; }
+                    if (_newPassword.text != _password2.text) { _error.Set(T(OnlineKeys.LoginMismatch)); return; }
+                    if (!AccountStore.IsValidPassword(_newPassword.text, email)) { _error.Set(T(OnlineKeys.LoginErrorPrefix + AuthError.WeakPassword)); return; }
+                    _authTask = OnlineAuth.RecoveryConfirm(db, email, _code.text, _newPassword.text);
+                }
+                _error.Set(null);
+                Refresh();
+                return;
+            }
             if (_mode == Mode.Signup)
             {
                 if (_password.text != _password2.text) { _error.Set(T(OnlineKeys.LoginMismatch)); return; }
@@ -315,17 +369,19 @@ namespace Wizard.Solo.Screens.Online
             Refresh();
         }
 
-        void Forget()
+        void Forgot()
         {
-            // 복구 메일은 아직 꺼져 있다(13-ui-flows 3.5 "복구 메일 꺼짐 안내").
-            _error.Set(T(OnlineKeys.LoginMailOff));
+            if (Busy) return;
+            if (_mode == Mode.Recover) { _recoverStep = 0; SetMode(Mode.Recover); return; } // "코드를 다시 받기"
+            // 서버에서 복구 메일이 꺼져 있으면 안내만(13-ui-flows 3.5 "복구 메일 꺼짐 안내").
+            if (_info == null || !_info.RecoveryMail) { _error.Set(T(OnlineKeys.LoginMailOff)); return; }
+            SetMode(Mode.Recover);
         }
-
-        void Forgot() => Forget();
 
         public override bool OnBack()
         {
             if (_mode == Mode.NeedName) { _pendingGoogle?.Dispose(); _pendingGoogle = null; SetMode(Mode.Login); return true; }
+            if (_mode == Mode.Recover) { SetMode(Mode.Login); return true; }
             Close();
             return true;
         }

@@ -23,13 +23,13 @@ namespace Wizard.Solo.Sim.Run
             for (int i = 0; i < w.Players.Length; i++)
             {
                 var down = w.Players[i];
-                if (!down.Active || !down.Downed) { if (down.ReviveTicks != 0) down.ReviveTicks = 0; continue; }
+                if (!down.Active || !down.Downed || down.Left) { if (down.ReviveTicks != 0) down.ReviveTicks = 0; continue; }
                 if (!loaded) { t = Revive(w); loaded = true; }
                 PlayerState helper = null;
                 for (int k = 0; k < w.Players.Length; k++)
                 {
                     var h = w.Players[k];
-                    if (h == down || !h.Active || h.Downed) continue;
+                    if (h == down || !h.Active || h.Downed || h.Left) continue;
                     if ((h.Pos - down.Pos).sqrMagnitude <= t.Radius * t.Radius) { helper = h; break; }
                 }
                 if (helper == null) { down.ReviveTicks = 0; continue; }
@@ -51,7 +51,7 @@ namespace Wizard.Solo.Sim.Run
             for (int i = 0; i < w.Players.Length; i++)
             {
                 var p = w.Players[i];
-                if (p.Active && p.Downed) StandUp(w, p, t, -1);
+                if (p.Active && p.Downed && !p.Left) StandUp(w, p, t, -1); // 판 도중 나간 사람은 일으키지 않는다
             }
         }
 

@@ -175,7 +175,11 @@ namespace Wizard.Solo.Sim.Run
         /// 그 블록을 고르면 별이 오를 자리. 찾는 순서: 지팡이 칸(코어 → 연결 칸) → 보관함 → 서고 블록 대기 칸. 빌린 블록과 별이 상한인 것은 건너뛴다.
         /// 찾으면 그 자리(SlotRef: 0..L 칸, 100 + i 보관함, 300 + i 대기 칸)와 지금 별 수, 없으면 -1.
         /// </summary>
-        public static int StarTargetRef(RunState run, RunLoadout lo, string blockId, int starMax, out int stars)
+        public static int StarTargetRef(RunState run, RunLoadout lo, string blockId, int starMax, out int stars) =>
+            StarTargetRef(run != null ? run.Rewards[0] : null, lo, blockId, starMax, out stars);
+
+        /// <summary>그 사람의 보관함·대기 칸(RunState.Rewards[slot])으로 찾는다.</summary>
+        public static int StarTargetRef(SlotReward run, RunLoadout lo, string blockId, int starMax, out int stars)
         {
             stars = 0;
             if (string.IsNullOrEmpty(blockId) || starMax <= 0) return -1;

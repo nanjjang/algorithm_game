@@ -68,7 +68,7 @@ namespace Wizard.Solo.Screens.Camp
         {
             var s = Session;
             var main = s != null ? s.MainWorld : null;
-            var p = FirstActive(main);
+            var p = CampRules.MeOf(main); // 협동: 내 캐릭터로 연습
             var wands = _ctx != null ? _ctx.Wands : null;
             if (p == null || wands == null) { ErrorKey = CampFormat.ErrorKey(ErrorCode.NotFound); return false; }
             Character = Ids.Char.NumberOf(p.CharId);

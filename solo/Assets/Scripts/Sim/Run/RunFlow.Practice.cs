@@ -33,7 +33,7 @@ namespace Wizard.Solo.Sim.Run
                 if (practice != null && !string.IsNullOrEmpty(practice.TutorialBlockId))
                 {
                     BlockDef def = w.Content.Block(practice.TutorialBlockId);
-                    AddWild(w, s, practice.TutorialBlockId, def != null ? def.Rarity : null, false, 0);
+                    AddWild(w, s, 0, practice.TutorialBlockId, def != null ? def.Rarity : null, false, 0);
                 }
             }
 

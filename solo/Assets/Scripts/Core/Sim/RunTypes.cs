@@ -148,7 +148,9 @@ namespace Wizard.Solo.Sim
         TutorialAdvance,
         /// <summary>전리품을 건너뛰고 작은 확정 보상을 받는다. A = 0 골드(LootOffer.SkipGold) / 1 체력(SkipHealCells, 가득이면 거절). Slot = 플레이어.
         /// 빌린 블록은 그대로 받는다. 넘침 처리 중에는 받지 않는다.</summary>
-        LootSkip
+        LootSkip,
+        /// <summary>협동: 출발 준비를 거둔다(Slot = 플레이어). 동료를 기다리는 동안 다시 야영 화면을 열 때.</summary>
+        CampCancelDepart
     }
 
     /// <summary>
@@ -310,26 +312,17 @@ namespace Wizard.Solo.Sim
         public int SkippedScore;
         public readonly List<WaveResult> WaveResults = new List<WaveResult>();
         public readonly List<DropChance> DropChances = new List<DropChance>();
-        /// <summary>보관함(12칸). 야생 블록만.</summary>
-        public readonly List<WildBlock> Storage = new List<WildBlock>();
-        /// <summary>출발 조립에서 뺀 서고 블록의 대기 칸(상한 없음, FromLibrary = true). 판이 끝나면 버려지고 출발 조립은 프로필에 그대로다.</summary>
-        public readonly List<WildBlock> LibraryBench = new List<WildBlock>();
+        /// <summary>사람마다의 보상 상태(전리품·보관함·대기 칸·비기 차례·야영 화면·출발 준비). 슬롯 번호로 찾는다.
+        /// 협동에서는 사람마다 따로 고르고, 참여 중인 사람이 모두 끝내야 판이 다음 단계로 넘어간다.</summary>
+        public readonly SlotReward[] Rewards = NewRewards();
         public int NextWildUid = 1;
-        public LootOffer Loot;
         public WavePlan NextPlan;
-        /// <summary>야영 하위 상태. Camp와 StartCamp 둘 다 쓴다.</summary>
-        public CampSubState CampSub;
         /// <summary>모닥불·출발 표식의 자리(판정 좌표)와 J가 먹는 거리. Run이 야영에 들어갈 때 camp.json 값으로 정하고 표시는 이것만 읽는다.</summary>
         public Vector2 CampFirePos;
         public Vector2 DepartMarkerPos;
         public float CampInteractRadius;
         public float DepartMarkerRadius;
-        public int HealsThisCamp;
         public bool DawnCamp;
-        public int DepartHoldStartTick = -1;
-        /// <summary>남은 비기 해금 차례(웨이브 번호). 야영을 떠나기 전 다 골라야 한다.</summary>
-        public readonly Queue<int> PendingArtTurns = new Queue<int>();
-        public ArtOffer CurrentArtOffer;
         public readonly List<string> NewArtsThisRun = new List<string>();
         public RunEndReason EndReason;
         public bool PhantomFirstDone;
@@ -356,6 +349,48 @@ namespace Wizard.Solo.Sim
         public int BloomCasts;
         public int TotalKills;
         public bool GaveUp;
+
+        static SlotReward[] NewRewards()
+        {
+            var a = new SlotReward[SimConst.MaxPlayers];
+            for (int i = 0; i < a.Length; i++) a[i] = new SlotReward();
+            return a;
+        }
+
+        // 솔로(슬롯 0) 지름길. 스냅숏은 필드만 보내므로 이 속성들은 두 번 가지 않는다.
+        // 규칙·화면 코드는 사람이 정해진 곳에서 Rewards[slot]을 쓴다(협동에서 슬롯 0으로 새지 않게).
+        /// <summary>슬롯 0의 보관함(12칸). 야생 블록만.</summary>
+        public List<WildBlock> Storage => Rewards[0].Storage;
+        /// <summary>슬롯 0의 서고 블록 대기 칸.</summary>
+        public List<WildBlock> LibraryBench => Rewards[0].LibraryBench;
+        public LootOffer Loot { get => Rewards[0].Loot; set => Rewards[0].Loot = value; }
+        public CampSubState CampSub { get => Rewards[0].CampSub; set => Rewards[0].CampSub = value; }
+        public int HealsThisCamp { get => Rewards[0].HealsThisCamp; set => Rewards[0].HealsThisCamp = value; }
+        public int DepartHoldStartTick { get => Rewards[0].DepartHoldStartTick; set => Rewards[0].DepartHoldStartTick = value; }
+        public Queue<int> PendingArtTurns => Rewards[0].ArtTurns;
+        public ArtOffer CurrentArtOffer { get => Rewards[0].ArtOffer; set => Rewards[0].ArtOffer = value; }
+    }
+
+    /// <summary>한 사람의 보상 상태(RunState.Rewards[slot]). 주인: Run 모듈(RunFlow).</summary>
+    public sealed class SlotReward
+    {
+        /// <summary>이 사람의 전리품 제시(LootPick 동안). 끝냈으면 null이고 LootDone = true.</summary>
+        public LootOffer Loot;
+        /// <summary>이번 LootPick에서 고르기를 끝냈다(받기·건너뛰기·버리기까지). 동료를 기다리는 중.</summary>
+        public bool LootDone;
+        /// <summary>보관함(12칸). 야생 블록만.</summary>
+        public readonly List<WildBlock> Storage = new List<WildBlock>();
+        /// <summary>출발 조립에서 뺀 서고 블록의 대기 칸(상한 없음, FromLibrary = true). 판이 끝나면 버려지고 출발 조립은 프로필에 그대로다.</summary>
+        public readonly List<WildBlock> LibraryBench = new List<WildBlock>();
+        /// <summary>야영 하위 상태(이 사람의 화면). Camp와 StartCamp 둘 다 쓴다.</summary>
+        public CampSubState CampSub;
+        public int HealsThisCamp;
+        public int DepartHoldStartTick = -1;
+        /// <summary>출발 표식에서 출발을 마쳤다(동료를 기다리는 중). 모두 준비되면 출발한다.</summary>
+        public bool DepartReady;
+        /// <summary>남은 비기 해금 차례(웨이브 번호). 야영을 떠나기 전 다 골라야 한다.</summary>
+        public readonly Queue<int> ArtTurns = new Queue<int>();
+        public ArtOffer ArtOffer;
     }
 
     /// <summary>판이 끝났을 때 정산에 넘기는 요약(시뮬레이션 → 메타). 중간 지점 저장에도 같은 꼴을 쓴다.</summary>

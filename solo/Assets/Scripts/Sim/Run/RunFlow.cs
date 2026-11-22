@@ -76,7 +76,7 @@ namespace Wizard.Solo.Sim.Run
                 run.SkippedScore = skipped;
                 run.Score = skipped;
                 int lastTurn = Mathf.Min(cfg.StartWave - 1, w.Content.Camp.ArtUnlockLastWave);
-                for (int wv = 1; wv <= lastTurn; wv++) run.PendingArtTurns.Enqueue(wv);
+                for (int wv = 1; wv <= lastTurn; wv++) EnqueueArtTurn(w, wv);
                 EnterCamp(w, s, startCamp: true);
             }
             else
@@ -167,8 +167,13 @@ namespace Wizard.Solo.Sim.Run
             run.NextPlan = null;
             run.Wave = wave;
             run.ReachedWave = wave;
-            run.CampSub = CampSubState.FireIdle;
-            run.DepartHoldStartTick = -1;
+            for (int i = 0; i < run.Rewards.Length; i++)
+            {
+                var r = run.Rewards[i];
+                r.CampSub = CampSubState.FireIdle;
+                r.DepartHoldStartTick = -1;
+                r.DepartReady = false;
+            }
             run.RevengeKillTick = -1;
             s.WaveGold = 0;
             s.RevengeClearing = false;
@@ -330,7 +335,7 @@ namespace Wizard.Solo.Sim.Run
         {
             var run = w.Run;
             for (int i = 0; i < w.Players.Length; i++)
-                if (w.Players[i].Active) w.Mods.Player.Rise(w, w.Players[i]);
+                if (w.Players[i].Active && !w.Players[i].Left) w.Mods.Player.Rise(w, w.Players[i]);
             w.Mods.Bosses.Dismiss(w);
             run.PhantomFirstDone = true;
             run.RevengeActive = true;
@@ -394,7 +399,7 @@ namespace Wizard.Solo.Sim.Run
             // 7. 직접 넘긴 웨이브
             run.ClearedDirect++;
             run.LastClearedWave = wave;
-            if (wave >= 1 && wave <= db.Camp.ArtUnlockLastWave) run.PendingArtTurns.Enqueue(wave);
+            if (wave >= 1 && wave <= db.Camp.ArtUnlockLastWave) EnqueueArtTurn(w, wave);
             if (revenge)
             {
                 run.KilledPhantomAtWave20 = true;
@@ -455,9 +460,14 @@ namespace Wizard.Solo.Sim.Run
             s.RevengeClearing = false;
             // 남은 연출용 드랍을 걷는다.
             for (int i = 0; i < w.Drops.Count; i++) w.Drops[i].Picked = true;
-            run.Loot = BuildLoot(w, s);
+            // 사람마다 자기 제시(협동이면 각자 고르고, 모두 끝내야 야영으로 간다).
+            if (!OfferLootToAll(w, s)) { EnterCamp(w, s, startCamp: false); return; }
             SetPhase(w, RunPhase.LootPick);
-            w.Emit(SimEventType.LootOffered, a: run.Loot.Cards.Count);
+            for (int i = 0; i < w.Players.Length; i++)
+            {
+                var offer = run.Rewards[i].Loot;
+                if (offer != null) w.Emit(SimEventType.LootOffered, i, a: offer.Cards.Count);
+            }
         }
 
         // ------------------------------------------------------------ 지갑·기회·드랍

@@ -268,7 +268,7 @@ namespace Wizard.Solo.Net
     public static class NetProtocol
     {
         /// <summary>메시지 꼴이 바뀌면 올린다. 다르면 Reject(Version).</summary>
-        public const int Version = 13;
+        public const int Version = 14; // 14: 협동 보상이 사람마다(RunState.Rewards, PlayerState.Left)
         /// <summary>스냅숏을 보내는 틱 간격(60틱 / 3 = 20Hz).</summary>
         public const int SnapshotEveryTicks = 3;
     }

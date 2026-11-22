@@ -313,6 +313,7 @@ namespace Wizard.Solo.Screens.Online
                         : Room.Me.RoomErrorCode == RoomError.NotFound ? OnlineKeys.ErrorNoRoom
                         : Room.Me.RoomErrorCode == RoomError.Full ? OnlineKeys.ErrorFull
                         : Room.Me.RoomErrorCode == RoomError.Started ? OnlineKeys.ErrorStarted
+                        : Room.Me.RejectedBecause == RejectReason.Version ? OnlineKeys.ErrorVersion
                         : OnlineKeys.ErrorRejected;
                     Room = null;
                     _startRequested = false;
@@ -487,6 +488,7 @@ namespace Wizard.Solo.Screens.Online
         public const string OpenNetwork = "str.coop.open_network";
         public const string OpenedAt = "str.coop.opened_at";
         public const string ErrorRejected = "str.coop.error.rejected";
+        public const string ErrorVersion = "str.coop.error.version";
         public const string Join = "str.coop.join";
         public const string AddressHint = "str.coop.address_hint";
         public const string Waiting = "str.coop.waiting";

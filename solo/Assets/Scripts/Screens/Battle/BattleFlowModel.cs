@@ -92,8 +92,8 @@ namespace Wizard.Solo.Screens.Battle
         /// <summary>웨이브 번호가 중간 지점(5의 배수)인가.</summary>
         public bool IsCheckpointWave(int wave) => wave > 0 && CheckpointInterval > 0 && wave % CheckpointInterval == 0;
 
-        /// <summary>야영 화면이 열려 있어야 하는 상태인가(Camp·StartCamp이고 CampSub == CampScreen).</summary>
-        public static bool CampScreenWanted(SimWorld w) => w != null && w.InCamp && w.Run.CampSub == CampSubState.CampScreen;
+        /// <summary>야영 화면이 열려 있어야 하는 상태인가(Camp·StartCamp이고 내 CampSub == CampScreen). 협동에서는 사람마다 따로 연다.</summary>
+        public static bool CampScreenWanted(SimWorld w) => w != null && w.InCamp && w.Run.Rewards[w.Me.Slot].CampSub == CampSubState.CampScreen;
 
         static bool IsCampPhase(RunPhase p) => p == RunPhase.Camp || p == RunPhase.StartCamp;
 
@@ -130,6 +130,7 @@ namespace Wizard.Solo.Screens.Battle
                 case SimEventType.ArtUnlocked:
                 {
                     if (string.IsNullOrEmpty(e.Id)) return;
+                    if (e.Slot >= 0 && e.Slot != world.ViewSlot) return; // 협동: 동료의 해금은 내 기록이 아니다
                     string charId = null;
                     if (e.Slot >= 0 && e.Slot < world.Players.Length) charId = world.Players[e.Slot].CharId;
                     if (charId == null && world.Run.Config != null) charId = world.Run.Config.CharId;

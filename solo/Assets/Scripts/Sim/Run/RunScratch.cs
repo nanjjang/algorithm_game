@@ -76,10 +76,17 @@ namespace Wizard.Solo.Sim.Run
 
         // ---- 전리품 개편(DataSolo/Loot.json)
         public LootTuning Loot;
-        /// <summary>맞물림 카드가 하나도 없던 제시(다시 뽑기 포함)가 이어진 수. 운 보정이 읽는다.</summary>
-        public int LootDryOffers;
-        /// <summary>이 판에서 이미 보인 맞물림(카드 블록 + 짝). 조회만 한다(순회하지 않는다).</summary>
-        public readonly HashSet<string> SeenSynergy = new HashSet<string>();
+        /// <summary>사람(슬롯)마다: 맞물림 카드가 하나도 없던 제시(다시 뽑기 포함)가 이어진 수. 운 보정이 읽는다.</summary>
+        public readonly int[] LootDryOffers = new int[SimConst.MaxPlayers];
+        /// <summary>사람(슬롯)마다: 이 판에서 이미 보인 맞물림(카드 블록 + 짝). 조회만 한다(순회하지 않는다).</summary>
+        public readonly HashSet<string>[] SeenSynergy = NewSeen();
+
+        static HashSet<string>[] NewSeen()
+        {
+            var a = new HashSet<string>[SimConst.MaxPlayers];
+            for (int i = 0; i < a.Length; i++) a[i] = new HashSet<string>();
+            return a;
+        }
 
         // ---- 연습 방 수치판
         public int DummyId;

@@ -233,6 +233,11 @@ namespace Wizard.Solo.Net
             var w = World;
             if (w == null) return;
             if (w.Run != null && w.Run.Phase == RunPhase.RunEnded) { FlushEvents(); return; }
+            // 서버 안 봇의 보상 고르기(전리품·비기·출발): 봇도 자기 몫을 스스로 끝낸다. 사람은 각자 화면에서 고른다.
+            foreach (var p in _peers)
+                if (p.Bot != null && !p.Dropped && p.Slot >= 0) CoopBotRewards.Decide(w, p.Slot, _botCmds);
+            for (int i = 0; i < _botCmds.Count; i++) w.Enqueue(_botCmds[i]);
+            _botCmds.Clear();
             w.Step();
             // 판 흐름이 바뀐 틱(전리품·야영·판 끝 …)은 스냅숏을 이벤트보다 먼저 보낸다: 손님 화면은 이벤트를 받는 순간의
             // 꼭두각시 상태(Run.Phase, CampSub, Loot)를 보고 화면을 열기 때문이다.
@@ -244,8 +249,11 @@ namespace Wizard.Solo.Net
             SendEvents(w.Tick);
         }
 
+        readonly List<RunCommand> _botCmds = new List<RunCommand>();
+
         static bool ChangesFlow(SimEventType t) =>
             t == SimEventType.PhaseChanged || t == SimEventType.CampChanged || t == SimEventType.RunEnded
+            || t == SimEventType.LootChanged || t == SimEventType.ArtOffered
             || t == SimEventType.WaveCleared || t == SimEventType.PlayerRevived || t == SimEventType.PlayerDowned || t == SimEventType.PlayerRose;
 
         // ------------------------------------------------------------ 받기
@@ -377,10 +385,15 @@ namespace Wizard.Solo.Net
                 var pl = w.Players[p.Slot];
                 w.InputQueues[p.Slot].Clear();
                 if (w.Run.Config != null && w.Run.Config.Mode == RunMode.Duel) w.Mods.Run.ForfeitDuel(w, p.Slot);
-                else if (pl.Active && !pl.Downed && w.Run.Phase != RunPhase.RunEnded)
+                else
                 {
-                    w.Mods.Player.ForceDown(w, pl, default(PlayerDamageSource));
-                    w.Mods.Run.OnPlayerDowned(w, pl);
+                    if (pl.Active && !pl.Downed && w.Run.Phase != RunPhase.RunEnded)
+                    {
+                        w.Mods.Player.ForceDown(w, pl, default(PlayerDamageSource));
+                        w.Mods.Run.OnPlayerDowned(w, pl);
+                    }
+                    // 협동: 나간 사람은 보상 고르기·출발 기다림에서 빠진다(남은 사람이 다 끝냈으면 바로 넘어간다).
+                    if (w.Run.Phase != RunPhase.RunEnded) w.Mods.Run.OnPlayerLeft(w, p.Slot);
                 }
             }
             else SendLobby();

@@ -580,7 +580,11 @@ namespace Wizard.Solo.Sim
         public virtual void OnCrystalsSpent(SimWorld w, PlayerState p, int count) { }
         public virtual void AddPurse(SimWorld w, int gold, Vector2 from) { }
         /// <summary>지금 야영의 체력 회복 값.</summary>
-        public virtual int HealCost(SimWorld w) { return 0; }
+        public virtual int HealCost(SimWorld w) { return HealCost(w, 0); }
+        /// <summary>그 슬롯 사람의 지금 야영 체력 회복 값(같은 야영의 두 번째부터 비싸지는 것은 사람마다 센다).</summary>
+        public virtual int HealCost(SimWorld w, int slot) { return 0; }
+        /// <summary>협동: 그 슬롯 사람이 판 도중에 나갔다(서버가 끊김 뒤 부른다). 보상 고르기·출발 기다림에서 빼고, 남은 사람이 다 끝냈으면 넘어간다.</summary>
+        public virtual void OnPlayerLeft(SimWorld w, int slot) { }
         /// <summary>판 끝 요약(정산·중간 지점 저장용).</summary>
         public virtual RunSummary BuildSummary(SimWorld w) { return new RunSummary(); }
     }

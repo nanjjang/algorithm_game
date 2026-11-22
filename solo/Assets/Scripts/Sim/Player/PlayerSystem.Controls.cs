@@ -259,11 +259,11 @@ namespace Wizard.Solo.Sim.Player
 
         public override void Stage4_Move(SimWorld w)
         {
-            bool control = w.PlayerControlActive;
             for (int s = 0; s < w.Players.Length; s++)
             {
                 PlayerState p = w.Players[s];
                 if (!p.Active) continue;
+                bool control = w.PlayerControlActiveFor(p);
                 p.PrevPos = p.Pos;
                 Dir8 dir;
                 if (!control || p.Downed || p.InputLocked || p.Def == null || !PlayerRules.TryMoveDir(p.Keys, out dir))

@@ -135,6 +135,7 @@ namespace Wizard.Solo.View.Hud
             }
             else if (_eventKey != null) { s = names != null ? names.Get(_eventKey) : _eventKey; m = Mode.Banner; }
             else if (f.StateNotice == HudStateNotice.DepartHint) { s = names != null ? names.Get(HudModel.KeyDepartHint) : null; m = Mode.Hint; }
+            else if (f.StateNotice == HudStateNotice.WaitingParty) { s = names != null ? names.Format(HudModel.KeyWaitingParty, "n", f.PartyReady, "m", f.PartyTotal) : null; m = Mode.Hint; }
             if (f.StateNotice == HudStateNotice.DepartHint && _lastState != HudStateNotice.DepartHint) layer.Play("ui.hud.notice");
             _lastState = f.StateNotice;
 

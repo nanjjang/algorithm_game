@@ -359,7 +359,7 @@ namespace Wizard.Solo.Net
                     var table = _content != null && _content.Drops != null ? _content.Drops.MaterialTable : null;
                     var mats = table != null ? Wizard.Solo.Meta.Settlement.SettlementService.DrawMaterials(table, run.DropChances, false, bp => _dice.Next(10000) < bp) : null;
                     var blocks = new List<string>();
-                    foreach (var wb in run.Storage) if (!wb.Borrowed && !string.IsNullOrEmpty(wb.BlockId)) blocks.Add(wb.BlockId);
+                    foreach (var wb in run.Rewards[s].Storage) if (!wb.Borrowed && !string.IsNullOrEmpty(wb.BlockId)) blocks.Add(wb.BlockId);
                     Accounts.AddPlayTime(id, seconds);
                     Accounts.RecordCoop(id, run.LastClearedWave, run.Purse, mats, blocks);
                     // 판 기록과 순위표(판은 서버가 돌렸으므로 그대로 믿는다). 점수는 판의 점수(같이 한 사람은 같은 점수).

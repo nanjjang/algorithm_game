@@ -87,6 +87,10 @@ namespace Wizard.ViewLogic.Tests.Convert
         {
             string root = TestRepo.Root;
             string dir = Path.Combine(root, "unity", "Assets");
+            if (!Directory.Exists(dir))
+            {
+                return;   // unity/ 프로젝트를 저장소에서 뺐다. 없으면 검사할 것도 없다.
+            }
             var hits = new List<string>();
             foreach (string file in Directory.EnumerateFiles(dir, "*.cs", SearchOption.AllDirectories))
             {

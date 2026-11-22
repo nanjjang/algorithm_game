@@ -147,11 +147,15 @@ namespace Wizard.Solo.Sim
         /// <summary>전투가 도는 상태인가(적 AI·피해 판정).</summary>
         public bool CombatActive =>
             Run.Phase == RunPhase.WaveCombat || Run.Phase == RunPhase.Practice || Run.Phase == RunPhase.PhantomFinale || Run.Phase == RunPhase.DuelFight;
-        /// <summary>플레이어가 움직일 수 있는 상태인가(전리품 고르기와 판 종료만 아니면).</summary>
-        public bool PlayerControlActive =>
+        /// <summary>슬롯 0이 움직일 수 있는 상태인가(솔로 지름길 — 규칙 코드는 PlayerControlActiveFor(p)).</summary>
+        public bool PlayerControlActive => PlayerControlActiveFor(Players[0]);
+        /// <summary>그 플레이어가 움직일 수 있는 상태인가(전리품 고르기·판 종료·자기 야영 화면이 떠 있는 동안이 아니면).
+        /// 협동에서 동료가 야영 화면을 열어도 나는 걷는다.</summary>
+        public bool PlayerControlActiveFor(PlayerState p) =>
             Run.Phase != RunPhase.NotStarted && Run.Phase != RunPhase.RunEnded && Run.Phase != RunPhase.LootPick
             && Run.Phase != RunPhase.DuelCountdown && Run.Phase != RunPhase.DuelRoundEnd
-            && !(InCamp && Run.CampSub == CampSubState.CampScreen);
+            && !(InCamp && p != null && p.Slot >= 0 && p.Slot < Run.Rewards.Length && Run.Rewards[p.Slot].CampSub == CampSubState.CampScreen)
+            && (p == null || !p.Left);
         /// <summary>야영 중인가(Camp 또는 출발 야영 StartCamp). 둘 다 CampSub·모닥불·출발 표식을 쓴다.</summary>
         public bool InCamp => Run.Phase == RunPhase.Camp || Run.Phase == RunPhase.StartCamp;
         /// <summary>발사·비기가 되는 상태인가: WavePrelude·WaveCombat·Practice이고 AttackLocked·InputLocked·Downed가 아니다.

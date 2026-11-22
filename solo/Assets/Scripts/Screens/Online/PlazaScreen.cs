@@ -131,13 +131,13 @@ namespace Wizard.Solo.Screens.Online
             UiKit.Rect(content, 0f, by - 14f, UiScale.RefWidth, UiScale.RefHeight - by + 14f, UiTheme.WithAlpha(UiTheme.Ink, 0.72f), false, "BottomStrip");
             OnlineUi.OnlineImg(content, "frame_chatbox", 16f, by - 24f, 1136f, 96f);
             _chat = BuildInput(content, 48f, by, 900f, 52f, OnlineKeys.ChatHint, 60);
-            UiKit.Button(Ctx, content, T(OnlineKeys.ChatSend), 960f, by, 160f, 52f, SendChat, UiButtonStyle.Medium, Focus);
-            UiKit.Button(Ctx, content, T(OnlineKeys.PlazaRooms), UiScale.RefWidth - 48f - 220f, by, 220f, 52f, GoRooms, UiButtonStyle.Primary, Focus);
-            UiKit.Button(Ctx, content, T(OnlineKeys.Leave), UiScale.RefWidth - 48f - 220f - 12f - 160f, by, 160f, 52f, Leave, UiButtonStyle.Medium, Focus);
+            UiKit.Button(Ctx, content, T(OnlineKeys.ChatSend), 960f, by, 160f, 52f, SendChat, UiButtonStyle.Medium);
+            UiKit.Button(Ctx, content, T(OnlineKeys.PlazaRooms), UiScale.RefWidth - 48f - 220f, by, 220f, 52f, GoRooms, UiButtonStyle.Primary);
+            UiKit.Button(Ctx, content, T(OnlineKeys.Leave), UiScale.RefWidth - 48f - 220f - 12f - 160f, by, 160f, 52f, Leave, UiButtonStyle.Medium);
 
             _tradeLine = UiKit.Label(Ctx, content, string.Empty, UiFontId.F24, (UiScale.RefWidth - 1200f) * 0.5f, 110f, 1200f, 40f,
                 UiTheme.SelectYellow, TextAnchor.MiddleCenter, outline: true);
-            _trade = new PlazaTradePanel(Ctx, content, Focus, _client, T);
+            _trade = new PlazaTradePanel(Ctx, content, null, _client, T);
 
             // 이름 정하기 판(처음 한 번).
             var board = UiKit.Panel(Ctx, content, UiPanelKind.Board, 0f, 0f, 560f, 260f).rectTransform;
@@ -219,6 +219,13 @@ namespace Wizard.Solo.Screens.Online
             if (!_client.TryWhisperCommand(_chat.text)) _client.Say(_chat.text);
             _chat.text = string.Empty;
             _chat.DeactivateInputField();
+        }
+
+        /// <summary>광장 안에서는 키보드가 걷기·감정·거래 키만 맡는다. 아래 단추·거래 판은 마우스로만 누른다(방향키·Space가 단추 커서를 옮기거나 누르지 않게).</summary>
+        public override bool OnMenuKey(MenuKey key)
+        {
+            if (_entered) return true;
+            return base.OnMenuKey(key);
         }
 
         public override bool OnBack()

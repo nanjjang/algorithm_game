@@ -87,6 +87,8 @@ namespace Wizard.Solo.Sim
     {
         public int Slot;
         public bool Active;
+        /// <summary>협동: 판 도중에 나갔다(끊김). 쓰러진 채로 남고, 다시 일어나지 않으며, 보상 고르기·출발 기다림에서 빠진다.</summary>
+        public bool Left;
         public string CharId;
         public CharacterDef Def;
         public WandRuntime Wand = new WandRuntime();

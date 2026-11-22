@@ -10,6 +10,7 @@ namespace Wizard.Solo.App
     /// 부팅(00 문서 4절, 08 요약서 2절). 장면은 빈 Main.unity 하나이고 모든 것을 코드로 만든다.
     /// - 자동 부팅은 활성 장면 이름이 Main일 때만(PlayMode 테스트의 InitTestScene…에서는 돌지 않는다).
     /// - Boot는 AppFactory.Build 뒤 첫 화면을 연다: 설정 파일이 없었으면 FirstRunPrompt, 있으면 Title.
+    ///   첫 실행이고 사람이 조작하면(봇 입력이 아니면) 인트로 영상을 그 위에 먼저 튼다 — 끝나면 닫혀 FirstRunPrompt가 나온다.
     ///   인자: ScreenArgKeys.ProfileRestored(bool), ScreenArgKeys.PendingSettled(자동 정산 결과, 없으면 넣지 않음).
     /// - 다시 부르면 앞서 만든 GameObject(실행기, 카메라, 캔버스, EventSystem …)를 먼저 걷는다. 걷을 대상은 Build 동안
     ///   새로 생긴 장면 뿌리 객체 전부다(누가 만들었든) — 기반 작업이 무엇을 만드는지 여기서 알 필요가 없다.
@@ -64,7 +65,7 @@ namespace Wizard.Solo.App
             }
             _current = boot;
             ApplySavedDisplay(boot);
-            OpenFirstScreen(boot);
+            OpenFirstScreen(boot, options.InputOverride == null);
             return boot;
         }
 
@@ -95,11 +96,20 @@ namespace Wizard.Solo.App
         public static ScreenId FirstScreen(BootResult boot) =>
             boot != null && boot.FirstRun ? ScreenId.FirstRunPrompt : ScreenId.Title;
 
-        static void OpenFirstScreen(BootResult boot)
+        /// <summary>첫 실행 인트로를 트는가: 첫 실행, 사람 입력, 영상 파일이 있을 때.</summary>
+        public static bool PlaysIntro(BootResult boot, bool humanInput) =>
+            humanInput && boot != null && boot.FirstRun
+            && Wizard.Solo.Screens.Start.CinematicScreen.Available(Wizard.Solo.Screens.Start.CinematicScreen.IntroVideo);
+
+        static void OpenFirstScreen(BootResult boot, bool humanInput)
         {
             var ctx = boot != null ? boot.Context : null;
             if (ctx == null || ctx.Screens == null) return;
             ctx.Screens.Push(FirstScreen(boot), FirstScreenArgs(boot));
+            // 인트로는 첫 화면(연출 감도 물음) 위에 얹는다. 끝나거나 건너뛰면 닫혀 물음이 드러난다.
+            if (PlaysIntro(boot, humanInput))
+                ctx.Screens.Push(ScreenId.Cinematic,
+                    Wizard.Solo.Screens.Start.CinematicScreen.ArgsFor(Wizard.Solo.Screens.Start.CinematicScreen.IntroVideo, ScreenId.None, null));
         }
 
         /// <summary>세운 것을 전부 걷는다(판을 끝내고 입력원을 놓고 GameObject를 부순다). 세운 것이 없으면 아무것도 안 한다.</summary>

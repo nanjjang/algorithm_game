@@ -33,7 +33,9 @@ namespace Wizard.Solo.UI
         /// <summary>온라인 로그인·가입(이메일, Google). 로그인하면 닫히고 부른 화면으로 돌아간다.</summary>
         OnlineLogin,
         /// <summary>시즌(11-online.md 6.14절): 시즌·리그·후계 점수, 자동 매치 대기, 관전, 순위표, 우편함, 차단·신고.</summary>
-        OnlineSeason
+        OnlineSeason,
+        /// <summary>시네마틱 영상(인트로·이야기). 첫 실행 물음 뒤에 인트로를 한 번 튼다.</summary>
+        Cinematic
     }
 
     public enum ScreenLayer { Fullscreen = 0, Panel = 1, HudOverlay = 2, Modal = 3, Toast = 4 }

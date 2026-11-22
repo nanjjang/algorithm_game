@@ -232,9 +232,9 @@ namespace Wizard.Solo.UI
             UiKit.Stretch(slot);
             if (s.Layer == ScreenLayer.Modal)
             {
-                // 창 뒤 덮개(K-10): 창 크기 밖(먹색 띠)까지 덮도록 넉넉히.
-                var dim = UiKit.Rect(slot, 0f, 0f, 0f, 0f, UiTheme.ModalDim, true, "Dim");
-                UiKit.Center(dim.rectTransform, UiScale.RefWidth * 4f, UiScale.RefHeight * 4f);
+                // 창 뒤 덮개(K-10): 안전 영역 밖까지 창 전체를 덮는다(UiFullBleed — 창 크기가 바뀌어도 따라간다).
+                var dim = UiKit.Rect(slot, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, UiTheme.ModalDim, true, "Dim");
+                UiFullBleed.Fill(dim.rectTransform);
             }
             var root = UiKit.Node(slot, "Root");
             UiKit.Stretch(root);

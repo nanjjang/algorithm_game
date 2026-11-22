@@ -114,14 +114,14 @@ namespace Wizard.Solo.Tests.Settlement
         [TestCase(1, 0, 0)]
         [TestCase(2, 0, 0)]
         [TestCase(3, 1, 0)]
-        [TestCase(8, 2, 0)]
-        [TestCase(10, 3, 1)]
-        [TestCase(14, 4, 1)]
-        [TestCase(20, 6, 2)]
-        [TestCase(30, 10, 3)]
-        [TestCase(36, 12, 3)]
-        [TestCase(40, 12, 4)]
-        [TestCase(60, 12, 6)]
+        [TestCase(8, 2, 1)]
+        [TestCase(10, 3, 2)]
+        [TestCase(14, 4, 2)]
+        [TestCase(20, 6, 4)]
+        [TestCase(30, 10, 6)]
+        [TestCase(36, 12, 7)]
+        [TestCase(40, 12, 8)]
+        [TestCase(60, 12, 12)]
         public void S09_T090_T099__BagSlotsAndHeroCap(int cleared, int slots, int heroCap)
         {
             BagLimits b = _svc.BagLimitsFor(cleared);
@@ -130,20 +130,20 @@ namespace Wizard.Solo.Tests.Settlement
         }
 
         [Test]
-        public void S09_T100__StartAt21Clear21To29GivesThreeSlotsNoHero()
+        public void S09_T100__StartAt21Clear21To29GivesThreeSlotsOneHero()
         {
-            // 건너뛴 20웨이브는 세지 않는다: 직접 넘긴 9웨이브 → 3칸, 영웅 0.
+            // 건너뛴 20웨이브는 세지 않는다: 직접 넘긴 9웨이브 → 3칸, 영웅 1(5웨이브당 1).
             RunSummary s = Run("r-skip", cleared: 9, startWave: 21);
             SettlementView v = _svc.Prepare(s);
             Assert.AreEqual(3, v.Bag.Slots);
-            Assert.AreEqual(0, v.Bag.HeroCap);
+            Assert.AreEqual(1, v.Bag.HeroCap);
         }
 
         [Test]
         public void S07_TV_236__AutoPickHeroCapThenRare()
         {
-            // cleared 20(6칸, 영웅 2), 영웅 4·희귀 5·일반 3 → 영웅 2 + 희귀 4
-            RunSummary s = Run("r-auto", cleared: 20);
+            // cleared 10(3칸, 영웅 2), 영웅 4·희귀 5·일반 3 → 영웅 2 + 희귀 1
+            RunSummary s = Run("r-auto", cleared: 10);
             int uid = 1;
             string[] heroes = { Ids.Block.Corrosion, Ids.Block.Homing, Ids.Block.ChainLightning, Ids.Block.TripleHeat };
             foreach (string h in heroes) s.WildBlocks.Add(Wild(uid++, h, Ids.Rarity.Hero));
@@ -152,7 +152,7 @@ namespace Wizard.Solo.Tests.Settlement
 
             SettlementView v = _svc.Prepare(s);
             List<int> picks = _svc.AutoPick(v);
-            Assert.AreEqual(6, picks.Count);
+            Assert.AreEqual(3, picks.Count);
             int hero = 0, rare = 0, common = 0;
             foreach (int id in picks)
             {
@@ -160,13 +160,13 @@ namespace Wizard.Solo.Tests.Settlement
                 if (rarity == Ids.Rarity.Hero) hero++; else if (rarity == Ids.Rarity.Rare) rare++; else common++;
             }
             Assert.AreEqual(2, hero);
-            Assert.AreEqual(4, rare);
+            Assert.AreEqual(1, rare);
             Assert.AreEqual(0, common);
             // 영웅 안에서는 블록 표 순서(연쇄 번개, 유도 …): uid 3(연쇄 번개), uid 2(유도)
             Assert.AreEqual(3, picks[0]);
             Assert.AreEqual(2, picks[1]);
             // 같은 블록이면 uid 오름차순
-            CollectionAssert.AreEqual(new[] { 5, 6, 7, 8 }, picks.GetRange(2, 4));
+            CollectionAssert.AreEqual(new[] { 5 }, picks.GetRange(2, 1));
             // 자동 가방은 검증을 통과한다
             Assert.IsTrue(_svc.Commit(s, picks).Ok);
         }
@@ -188,7 +188,7 @@ namespace Wizard.Solo.Tests.Settlement
         [Test]
         public void S07_TV_241__BagValidationRejects()
         {
-            RunSummary s = Run("r-bad", cleared: 10);   // 3칸, 영웅 1
+            RunSummary s = Run("r-bad", cleared: 9);   // 3칸, 영웅 1
             s.Purse = 100;
             s.WildBlocks.Add(Wild(1, Ids.Block.Homing, Ids.Rarity.Hero));
             s.WildBlocks.Add(Wild(2, Ids.Block.ChainLightning, Ids.Rarity.Hero));

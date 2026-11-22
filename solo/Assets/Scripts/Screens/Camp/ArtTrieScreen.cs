@@ -46,7 +46,7 @@ namespace Wizard.Solo.Screens.Camp
 
         PlayerState Player()
         {
-            var p = PracticeSession.FirstActive(LiveWorld);
+            var p = CampRules.MeOf(LiveWorld);
             return p != null && (_character == 0 || Ids.Char.NumberOf(p.CharId) == _character) ? p : null;
         }
 
@@ -68,7 +68,7 @@ namespace Wizard.Solo.Screens.Camp
         {
             var p = Player();
             var main = MainWorld;
-            ArtOffer offer = _pickMode && main != null ? main.Run.CurrentArtOffer : null;
+            ArtOffer offer = _pickMode && main != null ? CampRules.RewardOf(main, CampRules.MeOf(main)).ArtOffer : null;
             var cands = offer != null ? offer.Candidates : null;
             string charId = Ids.Char.Of(_character);
             var m = ArtTrieModel.Build(Ctx.Content, Ctx.Rules != null ? Ctx.Rules.Arts : null, charId, UnlockedFor(Ctx, p, _character), cands);
@@ -84,11 +84,12 @@ namespace Wizard.Solo.Screens.Camp
         void OnPicked(string artId)
         {
             var main = MainWorld;
-            var p = PracticeSession.FirstActive(main);
-            var offer = main != null ? main.Run.CurrentArtOffer : null;
+            var p = CampRules.MeOf(main);
+            var offer = main != null && p != null ? CampRules.RewardOf(main, p).ArtOffer : null;
             if (p == null || offer == null || !offer.Candidates.Contains(artId)) return;
             main.Enqueue(new RunCommand(RunCommandKind.ArtPick, 0, 0, artId, p.Slot));
-            if (Ctx.Settlement != null) Ctx.Settlement.RecordArtUnlock(Ids.Char.NumberOf(p.CharId), artId);
+            bool online = Ctx.Session is IOnlineSession os && os.IsOnline; // 온라인 판은 오프라인 프로필에 남기지 않는다
+            if (Ctx.Settlement != null && !online) Ctx.Settlement.RecordArtUnlock(Ids.Char.NumberOf(p.CharId), artId);
             PlayUi("ui.trie.unlock");
         }
 
@@ -98,7 +99,8 @@ namespace Wizard.Solo.Screens.Camp
             var main = MainWorld;
             var live = LiveWorld;
             var sb = new System.Text.StringBuilder();
-            if (_pickMode && main != null) sb.Append(main.Run.CurrentArtOffer != null ? main.Run.CurrentArtOffer.TurnWave : -1).Append(main.Run.PendingArtTurns.Count);
+            var mine = _pickMode && main != null ? CampRules.RewardOf(main, CampRules.MeOf(main)) : null;
+            if (mine != null) sb.Append(mine.ArtOffer != null ? mine.ArtOffer.TurnWave : -1).Append(mine.ArtTurns.Count);
             var p = Player();
             if (p != null && live != null && live.Run.Phase == RunPhase.Practice)
             {
@@ -113,14 +115,13 @@ namespace Wizard.Solo.Screens.Camp
             _sig = sig;
             Rebuild();
             // 고를 차례가 다 끝났으면 닫는다(야영 화면이 연 고르기).
-            if (_pickMode && main != null && !CampRules.ArtPickPending(main.Run)) Close();
+            if (_pickMode && main != null && !CampRules.ArtPickPending(CampRules.RewardOf(main, CampRules.MeOf(main)))) Close();
         }
 
         public override bool OnMenuKey(MenuKey key)
         {
             bool used = base.OnMenuKey(key);
-            var n = _view.NodeOf(Focus.Current);
-            if (n != null) _view.Select(n);
+            _view.SelectFocused(Focus.Current);
             if (!used && key == MenuKey.Cancel) { Close(); return true; }
             return used;
         }

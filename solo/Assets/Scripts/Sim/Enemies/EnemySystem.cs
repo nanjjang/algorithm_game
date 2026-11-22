@@ -235,6 +235,7 @@ namespace Wizard.Solo.Sim.Enemies
             for (int i = 0; i < n; i++)
             {
                 var e = w.Enemies[i];
+                if (e.DuelProxyOf >= 0) continue; // 결투 과녁은 생각하지 않는다
                 if (!e.Alive || e.IsBoss) continue;
                 var b = e.Brain as EnemyBrain;
                 if (b == null) continue;

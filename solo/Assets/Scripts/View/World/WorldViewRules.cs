@@ -330,10 +330,12 @@ namespace Wizard.Solo.View.World
         /// </summary>
         public static float DepartHoldRatio(SimWorld w, CampConfig camp)
         {
-            if (w == null || !w.InCamp || w.Run.CampSub != CampSubState.DepartHold || w.Run.DepartHoldStartTick < 0) return -1f;
+            if (w == null || !w.InCamp) return -1f;
+            var mine = w.Run.Rewards[w.Me.Slot]; // 협동: 내 출발 누름만 그린다
+            if (mine.CampSub != CampSubState.DepartHold || mine.DepartHoldStartTick < 0) return -1f;
             int hold = camp != null ? SimConst.Ticks(camp.DepartHoldSeconds) : 0;
             if (hold <= 0) return 1f;
-            return Mathf.Clamp01((w.Tick - w.Run.DepartHoldStartTick) / (float)hold);
+            return Mathf.Clamp01((w.Tick - mine.DepartHoldStartTick) / (float)hold);
         }
     }
 

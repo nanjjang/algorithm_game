@@ -23,6 +23,12 @@ namespace Wizard.Solo.UI
         public static int WidthPx(string text, int fontPx)
         {
             if (string.IsNullOrEmpty(text)) return 0;
+            return (int)(HalfUnits(text) * fontPx / 2);
+        }
+
+        /// <summary>글 폭을 반각 단위로(반각 1, 전각 2).</summary>
+        static long HalfUnits(string text)
+        {
             long half = 0;
             int i = 0;
             while (i < text.Length)
@@ -31,7 +37,7 @@ namespace Wizard.Solo.UI
                 half += IsHalfWidth(cp) ? 1 : 2;
                 i += len;
             }
-            return (int)(half * fontPx / 2);
+            return half;
         }
 
         public static bool Fits(string text, int fontPx, int maxWidthPx) => WidthPx(text, fontPx) <= maxWidthPx;
@@ -44,9 +50,15 @@ namespace Wizard.Solo.UI
         {
             if (string.IsNullOrEmpty(text) || WidthPx(text, fontPx) <= maxWidthPx) return text ?? string.Empty;
             int e = WidthPx(Ellipsis, fontPx);
+            // 앞부분 폭을 반각 단위로 이어 센다(예전처럼 자를 때마다 Substring을 만들어 다시 세지 않는다 — 결과는 같다).
+            long half = HalfUnits(text);
             int end = text.Length;
-            while (end > 0 && WidthPx(text.Substring(0, end), fontPx) + e > maxWidthPx)
-                end = PreviousBoundary(text, end);
+            while (end > 0 && (int)(half * fontPx / 2) + e > maxWidthPx)
+            {
+                int prev = PreviousBoundary(text, end);
+                half -= IsHalfWidth(CodePointAt(text, prev, out _)) ? 1 : 2;
+                end = prev;
+            }
             return text.Substring(0, end) + Ellipsis;
         }
 

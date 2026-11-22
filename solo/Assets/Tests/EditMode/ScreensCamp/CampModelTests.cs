@@ -145,12 +145,12 @@ namespace Wizard.Solo.Tests.ScreensCamp
         }
 
         [Test]
-        public void S06_TV_197__BagPreviewCleared14Is4SlotsHero1()
+        public void S06_TV_197__BagPreviewCleared14Is4SlotsHero2()
         {
             var b = CampRules.BagPreview(null, TestContent.Db, 14);
             Assert.AreEqual(4, b.Slots);
-            Assert.AreEqual(1, b.HeroCap);
-            Assert.AreEqual("지금 판을 끝내면 가져가는 귀환 가방 4칸 · 영웅 1개까지",
+            Assert.AreEqual(2, b.HeroCap);
+            Assert.AreEqual("지금 판을 끝내면 가져가는 귀환 가방 4칸 · 영웅 2개까지",
                 TestContent.Names.Format("str.camp.bag_preview", "slots", b.Slots, "hero", b.HeroCap));
             var st = new CampFakeSettlement { Limits = new BagLimits { Slots = 9, HeroCap = 2 } };
             var b2 = CampRules.BagPreview(st, TestContent.Db, 14);

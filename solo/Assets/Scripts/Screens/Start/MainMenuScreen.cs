@@ -132,7 +132,8 @@ namespace Wizard.Solo.Screens.Start
             // 진한 몸통 뒤로 얇은 띠 여러 장이 조금씩 옅어져 경계가 보이지 않게 장면 쪽으로 풀린다.
             const int Steps = 24;
             float solid = ScrimW * 0.55f, fade = ScrimW - solid;
-            UiKit.Rect(content, 0f, 0f, solid, h, UiTheme.WithAlpha(UiTheme.Night, 0.62f), false, "Scrim");
+            // 진한 몸통은 넓은 창에서 왼쪽 창 끝까지(UiFullBleed) — 안전 영역 밖 장면이 밝게 드러나지 않게.
+            UiFullBleed.Fill(UiKit.Rect(content, 0f, 0f, solid, h, UiTheme.WithAlpha(UiTheme.Night, 0.62f), false, "Scrim").rectTransform, UiBleedEdges.Left);
             for (int i = 0; i < Steps; i++)
             {
                 float t = (i + 0.5f) / Steps;
@@ -198,14 +199,16 @@ namespace Wizard.Solo.Screens.Start
             var names = new List<string>();
             for (int i = 0; i < MainMenuModel.ServerOnlyKeys.Length; i++) names.Add(T(MainMenuModel.ServerOnlyKeys[i]));
             float h16 = UiTheme.LineHeight(UiFontId.F16);
-            var l = UiKit.Label(Ctx, r, F(MainMenuModel.ServerLineKey, "names", string.Join(T(MainMenuModel.ServerLineSepKey), names),
-                    "note", T(StartNameKeys.MainMenuServerOnly)), UiFontId.F16, RowInset, (h - h16) * 0.5f, w - RowInset, h16, UiTheme.SlateBlue);
+            // 결투·광장·친구·장터·순위표는 [온라인]에 생겼다(11-online.md). 아직 없는 것만 "준비 중"으로 알린다.
+            var l = UiKit.Label(Ctx, r, T(Wizard.Solo.Screens.Online.OnlineKeys.MenuServerLine), UiFontId.F16, RowInset, (h - h16) * 0.5f, w - RowInset, h16, UiTheme.SlateBlue);
             _buttons[MainMenuAction.ServerOnly] = b;
         }
         void BuildBackdrop()
         {
             var back = UiKit.Node(Root, "MenuBackdrop", 0f, 0f, UiScale.RefWidth, UiScale.RefHeight);
             back.SetSiblingIndex(1); // 바탕 단색 바로 위, 위 띠·내용 아래
+            // 반응형: 장면(그림 + 모닥불·캐릭터)을 통째로 키워 창을 덮는다. 축은 가로 가운데·모닥불 높이 — 아래쪽 장면이 덜 잘린다.
+            UiFullBleed.ScaleCover(back, new Vector2(0.5f, FireAnchorY / (float)UiScale.RefHeight));
             var art = Ctx != null ? Ctx.Art : null;
             if (art == null) return;
             var bg = art.Ui("S-0501", "camp_background");

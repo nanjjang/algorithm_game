@@ -112,9 +112,11 @@ namespace Wizard.Solo.Screens.Camp
                 return b < LinkCount ? b : LinkCount;
             }
         }
-        public override int StorageCount => _w != null ? _w.Run.Storage.Count : 0;
+        /// <summary>이 사람의 보관함·대기 칸(협동은 사람마다 따로).</summary>
+        SlotReward Mine => CampRules.RewardOf(_w, _p);
+        public override int StorageCount => _w != null ? Mine.Storage.Count : 0;
         public override int StorageCap => Db != null && Db.Drops != null ? Db.Drops.StorageCap : 0;
-        public override int BenchCount => _w != null ? _w.Run.LibraryBench.Count : 0;
+        public override int BenchCount => _w != null ? Mine.LibraryBench.Count : 0;
 
         public override AssemblyItem At(int r)
         {
@@ -127,15 +129,17 @@ namespace Wizard.Solo.Screens.Camp
             if (SlotRefs.IsStorage(r))
             {
                 int i = SlotRefs.IndexOf(r);
-                if (i < 0 || i >= _w.Run.Storage.Count) return default;
-                var wb = _w.Run.Storage[i];
+                var st = Mine.Storage;
+                if (i < 0 || i >= st.Count) return default;
+                var wb = st[i];
                 return new AssemblyItem { BlockId = wb.BlockId, Borrowed = wb.Borrowed, Wild = true, Stars = wb.Stars };
             }
             if (SlotRefs.IsBench(r))
             {
                 int i = SlotRefs.IndexOf(r);
-                if (i < 0 || i >= _w.Run.LibraryBench.Count) return default;
-                return new AssemblyItem { BlockId = _w.Run.LibraryBench[i].BlockId, Stars = _w.Run.LibraryBench[i].Stars };
+                var bench = Mine.LibraryBench;
+                if (i < 0 || i >= bench.Count) return default;
+                return new AssemblyItem { BlockId = bench[i].BlockId, Stars = bench[i].Stars };
             }
             return default;
         }

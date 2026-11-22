@@ -100,7 +100,7 @@ namespace Wizard.Solo.Data
         /// <summary>Resources/Data의 TextAsset으로 읽는다(부팅 경로). 게임은 재미 조정 손잡이(FunPass.json)를 켠다.</summary>
         public static ContentDb LoadFromResources(Action<string> logError = null, bool applyTuning = true)
         {
-            return Load(
+            var db = Load(
                 rel =>
                 {
                     var ta = Resources.Load<TextAsset>(ResourcesDataRoot + "/" + rel);
@@ -112,6 +112,10 @@ namespace Wizard.Solo.Data
                     return ta != null ? ta.text : null;
                 },
                 logError, applyTuning);
+            // Resources.Load는 메인 스레드에서만 된다. 온라인 접속(로그인·서버 정보)은 Task.Run 안에서 주소를 읽으므로
+            // 여기(메인 스레드)서 미리 읽어 캐시에 담아 둔다. 안 그러면 주소를 못 읽고 127.0.0.1 평문으로 떨어진다.
+            db.SoloExtra("Online");
+            return db;
         }
 
         /// <summary>
@@ -507,7 +511,7 @@ namespace Wizard.Solo.Data
                 catch (Exception e)
                 {
                     _logError("ContentDb: cannot read solo extra '" + name + "': " + e.Message);
-                    result = null;
+                    return null; // 실패는 캐시하지 않는다(다른 스레드에서 한 번 실패해도 다음에 다시 읽게).
                 }
             }
             _soloExtraCache[name] = result;

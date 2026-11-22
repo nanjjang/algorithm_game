@@ -87,6 +87,8 @@ namespace Wizard.Solo.Sim
     {
         public int Slot;
         public bool Active;
+        /// <summary>협동: 판 도중에 나갔다(끊김). 쓰러진 채로 남고, 다시 일어나지 않으며, 보상 고르기·출발 기다림에서 빠진다.</summary>
+        public bool Left;
         public string CharId;
         public CharacterDef Def;
         public WandRuntime Wand = new WandRuntime();
@@ -210,6 +212,9 @@ namespace Wizard.Solo.Sim
         public bool IsElite => Elite != null;
         public bool IsBoss;
         public BossDef BossDef;
+        /// <summary>결투 과녁: 이 슬롯 플레이어 자리에 세운 보이지 않는 적(−1 = 보통 적). 적을 맞히는 모든 공격이 상대에게 닿게 한다(RunFlow.Duel.cs).
+        /// 움직이지·생각하지·죽지 않고, 받은 피해는 그 플레이어의 결투 피해로 넘어간다. 그리지 않는다.</summary>
+        public int DuelProxyOf = -1;
         public EnemyTags Tags;
         public string Weak, Resist;
         public int Cost;

@@ -13,18 +13,16 @@ namespace Wizard.Solo.Net
     {
         public CoopHost Host { get; private set; }
         public CoopClient Me { get; private set; }
-        readonly List<CoopBot> _bots = new List<CoopBot>();
         readonly IContentDb _content;
 
-        public IReadOnlyList<CoopBot> Bots => _bots;
 
         OnlineCoop(IContentDb content) { _content = content; }
 
         /// <summary>이 기기에 방을 만들고 내가 슬롯 0으로 들어간다.</summary>
-        public static OnlineCoop HostLocal(IContentDb content, RunConfig me)
+        public static OnlineCoop HostLocal(IContentDb content, RunConfig me, RoomMode mode = RoomMode.Coop)
         {
             var o = new OnlineCoop(content);
-            o.Host = new CoopHost(content);
+            o.Host = new CoopHost(content, null, SimConst.MaxPlayers, mode);
             LoopbackPipe.CreatePair(out var serverEnd, out var clientEnd);
             o.Host.Accept(serverEnd);
             o.Me = new CoopClient(content);
@@ -32,6 +30,42 @@ namespace Wizard.Solo.Net
             o.Pump();
             return o;
         }
+
+        /// <summary>방 서버에 새 방을 만든다(코드는 Me.RoomCode). 서버에 못 붙으면 null.</summary>
+        public static OnlineCoop CreateRoom(IContentDb content, RoomMode mode, RunConfig me)
+        {
+            var pipe = OnlineServer.ConnectAuthed(content);
+            if (pipe == null) return null;
+            var o = new OnlineCoop(content);
+            o.Me = new CoopClient(content);
+            o.Me.ConnectCreate(pipe, mode, me);
+            return o;
+        }
+
+        /// <summary>방 서버의 코드 방에 들어간다. 서버에 못 붙으면 null(코드가 틀리면 Me.State = Rejected, RoomErrorCode).</summary>
+        public static OnlineCoop JoinCode(IContentDb content, string code, RunConfig me)
+        {
+            var pipe = OnlineServer.ConnectAuthed(content);
+            if (pipe == null) return null;
+            var o = new OnlineCoop(content);
+            o.Me = new CoopClient(content);
+            o.Me.ConnectJoin(pipe, RoomServer.Normalize(code), me);
+            return o;
+        }
+
+        /// <summary>방 서버의 결투 방을 관전한다(11-online.md 6.14절). 서버에 못 붙으면 null.</summary>
+        public static OnlineCoop Spectate(IContentDb content, string code)
+        {
+            var pipe = OnlineServer.ConnectAuthed(content);
+            if (pipe == null) return null;
+            var o = new OnlineCoop(content);
+            o.Me = new CoopClient(content);
+            o.Me.ConnectSpectate(pipe, RoomServer.Normalize(code));
+            return o;
+        }
+
+        public string RoomCode => Me != null ? Me.RoomCode : null;
+        public RoomMode Mode => Host != null ? Host.Mode : (Me != null ? Me.Mode : RoomMode.Coop);
 
         /// <summary>원격 서버(전용 서버)에 붙는다. 실패하면 null.</summary>
         public static OnlineCoop JoinRemote(IContentDb content, string host, int port, RunConfig me)
@@ -58,34 +92,81 @@ namespace Wizard.Solo.Net
             }
         }
 
-        /// <summary>동료 봇을 하나 더한다(방장 기기 안). 가득이면 false.</summary>
+        /// <summary>동료 봇을 하나 더한다. 이 기기 방이면 서버에 바로, 원격 방이면 서버에 청한다(방장만). 봇은 서버 안에서 돈다.</summary>
         public bool AddBot(RunConfig member)
         {
-            if (Host == null || Host.Started || Host.PlayerCount >= SimConst.MaxPlayers) return false;
-            LoopbackPipe.CreatePair(out var serverEnd, out var clientEnd);
-            Host.Accept(serverEnd);
-            var c = new CoopClient(_content);
-            c.Connect(clientEnd, member);
-            _bots.Add(new CoopBot(c));
-            Pump();
+            if (Host != null)
+            {
+                bool ok = Host.AddBot(member);
+                Pump();
+                return ok;
+            }
+            if (!IsLeader || Me == null) return false;
+            Me.RequestAddBot(member);
             return true;
         }
 
         /// <summary>마지막 봇을 뺀다.</summary>
         public void RemoveBot()
         {
-            if (_bots.Count == 0 || Host == null || Host.Started) return;
-            _bots[_bots.Count - 1].Client.Disconnect();
-            _bots.RemoveAt(_bots.Count - 1);
-            Pump();
+            if (Host != null) { Host.RemoveBot(); Pump(); return; }
+            if (IsLeader) Me?.RequestRemoveBot();
+        }
+
+        /// <summary>방에서 내 캐릭터를 바꾼다(판 전). 이 기기 방이든 원격 방이든 같은 길(ChangeCharacter 메시지)로 서버에 청한다 —
+        /// 서버가 출발 설정을 다시 만들고 Lobby를 보낸다. 보냈으면 true.</summary>
+        public bool ChangeCharacter(RunConfig member)
+        {
+            if (Me == null || member == null || Me.Spectator || Me.State != CoopClientState.Lobby || Me.World != null) return false;
+            Me.RequestChangeCharacter(member);
+            if (Host != null) Pump();
+            return true;
+        }
+
+        /// <summary>받은 판 시작의 수(같은 방에서 다시 열 때마다 는다).</summary>
+        public int RunNumber => Me != null ? Me.RunNumber : 0;
+        /// <summary>세션이 마지막으로 연 판의 번호(방 화면이 넣는다). RunNumber와 같으면 남아 있는 세계는 이미 끝난 판이다(BackToLobby 전).</summary>
+        public int EnteredRun { get; set; }
+        /// <summary>자동 매치로 잡힌 결투 방(방 화면이 넣는다). 판이 끝나면 같은 방으로 돌아가지 않고 나간다(서버도 방을 닫는다).
+        /// 연결에 두어 방 화면(모델)을 새로 만들어도 잃지 않는다.</summary>
+        public bool Ranked { get; set; }
+        /// <summary>로비 목록·상태가 바뀔 때마다 는다(화면의 다시 그리기 판단용).</summary>
+        public int LobbyVersion => Me != null ? Me.LobbyVersion : 0;
+
+        /// <summary>로비의 봇 수(로비 목록 기준).</summary>
+        public int BotCount { get { int n = 0; if (Me != null) foreach (var m in Me.Lobby) if (m.IsBot) n++; return n; } }
+        /// <summary>로비의 사람·봇 수.</summary>
+        public int MemberCount => Me != null ? Me.Lobby.Count : 0;
+
+        // ------------------------------------------------------------ 이 기기 방을 다른 기기에 열기
+
+        TcpPipeListener _listener;
+        public bool OpenToNetwork => _listener != null;
+        public int NetworkPort => _listener != null ? _listener.Port : 0;
+
+        /// <summary>이 기기 방에 다른 기기가 TCP로 들어오게 연다(전용 서버 없이 방장 기기가 서버 노릇).</summary>
+        public bool OpenNetwork(int port)
+        {
+            if (Host == null) return false;
+            if (_listener != null) return true;
+            try { _listener = new TcpPipeListener(port, bindAll: true); }
+            catch (System.Exception) { _listener = null; return false; }
+            return true;
+        }
+
+        void AcceptNetwork()
+        {
+            if (_listener == null || Host == null) return;
+            TcpPipe p;
+            while ((p = _listener.Poll()) != null) Host.Accept(p);
         }
 
         /// <summary>로비 동안 프레임마다: 메시지만 주고받는다(판은 아직 없다).</summary>
         public void Pump()
         {
+            AcceptNetwork();
             Host?.Tick();
             Me?.Pump();
-            for (int i = 0; i < _bots.Count; i++) _bots[i].Client.Pump();
             Host?.Tick();
             Me?.Pump();
         }
@@ -101,7 +182,6 @@ namespace Wizard.Solo.Net
             }
             if (!Host.StartRun(seed)) return false;
             Me.Pump();
-            for (int i = 0; i < _bots.Count; i++) _bots[i].Client.Pump();
             return Me.World != null;
         }
 
@@ -121,20 +201,22 @@ namespace Wizard.Solo.Net
         public void Step()
         {
             if (Me == null) return;
+            Me.FramesSinceSnapshot++;
             Me.Flush();
-            for (int i = 0; i < _bots.Count; i++) _bots[i].Act();
+            AcceptNetwork();
             Host?.Tick();
             Me.Pump();
-            for (int i = 0; i < _bots.Count; i++) _bots[i].Client.Pump();
         }
 
         public void DrainEvents(List<SimEvent> into) => Me?.DrainEvents(into);
 
+        public float InterpAlpha => Me != null ? Me.InterpAlpha : 1f;
+
         public void Leave()
         {
-            for (int i = 0; i < _bots.Count; i++) _bots[i].Client.Disconnect();
-            _bots.Clear();
             Me?.Disconnect();
+            _listener?.Stop();
+            _listener = null;
             Host = null;
         }
     }
@@ -170,19 +252,30 @@ namespace Wizard.Solo.Net
             var w = Client.World;
             if (w == null || Client.Slot < 0) return;
             var p = w.Players[Client.Slot];
-            bool fight = w.Run != null && (w.Run.Phase == RunPhase.WavePrelude || w.Run.Phase == RunPhase.WaveCombat);
+            bool duel = w.Run != null && w.Run.Config != null && w.Run.Config.Mode == RunMode.Duel;
+            bool fight = w.Run != null && (w.Run.Phase == RunPhase.WavePrelude || w.Run.Phase == RunPhase.WaveCombat || w.Run.Phase == RunPhase.DuelFight);
             if (!fight || !p.Active || p.Downed) { ReleaseAll(); Client.Flush(); return; }
-            EnemyState best = null;
-            float bd = float.MaxValue;
-            foreach (var e in w.Enemies)
+            // 결투면 상대 사람, 아니면 가장 가까운 적을 노린다.
+            bool has = false;
+            Vector2 target = default;
+            if (duel)
             {
-                if (!e.Targetable) continue;
-                float d = (e.Pos - p.Pos).sqrMagnitude;
-                if (d < bd) { bd = d; best = e; }
+                var o = w.Players[Client.Slot == 0 ? 1 : 0];
+                if (o.Active && !o.Downed) { has = true; target = o.Pos; }
             }
-            Key(LogicalKey.Fire, best != null);
-            if (best == null) { for (int i = 0; i < 4; i++) Key((LogicalKey)i, false); Client.Flush(); return; }
-            Vector2 v = best.Pos - p.Pos;
+            else
+            {
+                float bd = float.MaxValue;
+                foreach (var e in w.Enemies)
+                {
+                    if (!e.Targetable) continue;
+                    float d = (e.Pos - p.Pos).sqrMagnitude;
+                    if (d < bd) { bd = d; target = e.Pos; has = true; }
+                }
+            }
+            Key(LogicalKey.Fire, has);
+            if (!has) { for (int i = 0; i < 4; i++) Key((LogicalKey)i, false); Client.Flush(); return; }
+            Vector2 v = target - p.Pos;
             bool h = Mathf.Abs(v.x) > Mathf.Abs(v.y);
             bool close = v.sqrMagnitude < 2.5f * 2.5f;
             bool blink = (w.Tick & 1) == 0;

@@ -1,0 +1,22 @@
+{
+  "str.art_guide.cost": "{cost} · 다음 비기까지 {sec}초",
+  "str.art_guide.fallback": "결정이 모자라면 대신 나간다: {art}",
+  "str.art_guide.gap": "방향 사이 {sec}초 안에 이어 누른다",
+  "str.art_guide.howto.cmd": "{stance} 누른 채 {cmd} → {art}",
+  "str.art_guide.howto.just": "{stance} 누른 채 {cmd} → 마지막 방향 뒤 {sec}초 안에 {art}(섬)",
+  "str.art_guide.howto.tap": "{art}만 누른다. 자세 밖에서도 나간다.",
+  "str.art_guide.list_sep": ", ",
+  "str.art_guide.mirror": "(좌우를 바꿔도 된다)",
+  "str.art_guide.next": "다음 가지: {list}",
+  "str.art_guide.no_credit": "외상 불가",
+  "str.art_guide.short": "{stance} + {cmd} + {art}",
+  "str.art_guide.unlock.prereq": "배우는 법: {art} 보유 뒤 야영 후보로 나온다.",
+  "str.art_guide.unlock.prereq_wave": "배우는 법: {art} 보유 뒤, 웨이브 {wave}부터 야영 후보로 나온다.",
+  "str.art_guide.unlock.start": "처음부터 쓸 수 있다.",
+  "str.art_guide.unlock.unique": "이 캐릭터만의 고유 비기. 처음부터 쓸 수 있다.",
+  "str.art_guide.upgrade": "강화: {text}",
+  "str.controls_view.art_note": "비기 = {stance} 누른 채 방향 키 → {art}. 결정(◆)을 쓴다. 비기마다 효과는 [조작·도감]의 비기 칸에.",
+  "str.hint.first_arts.body": "{stance} 누른 채 방향 키를 이어 누르고 {art} — 비기가 나간다. ↑는 바라보는 쪽. 비기마다 마력 결정(◆)을 쓰고, 결정은 콤보 {n}마다 하나 생긴다(최대 {cap}개). 피해의 T는 지팡이 주문 한 번의 피해.",
+  "str.hint.first_arts.title": "비기란?",
+  "~end": ""
+}

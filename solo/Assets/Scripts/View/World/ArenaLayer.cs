@@ -110,6 +110,7 @@ namespace Wizard.Solo.View.World
                     _windowThrowStart = _time;
                     break;
                 case SimEventType.DepartHold:
+                    if (e.Slot >= 0 && w != null && e.Slot != w.Me.Slot) break; // 협동: 동료의 출발 누름은 내 고리가 아니다
                     if (e.A == 0 && _lastHoldRatio > 0f)
                     {
                         _holdCancelStart = _time;

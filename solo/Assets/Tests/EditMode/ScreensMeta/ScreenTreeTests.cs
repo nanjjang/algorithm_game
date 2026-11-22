@@ -155,14 +155,7 @@ namespace Wizard.Solo.Tests.ScreensMeta
         public void S00_2_1__MetaAndSettingsScreensAreRegistered()
         {
             var m = new RecordingScreens();
-            // 다른 묶음의 등록에 기대지 않게 이 작업의 두 자리만 부른다(partial 메서드는 비공개 정적).
-            const System.Reflection.BindingFlags F = System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static;
-            foreach (var name in new[] { "RegisterMeta", "RegisterSettings" })
-            {
-                var mi = typeof(ScreenRegistry).GetMethod(name, F);
-                Assert.IsNotNull(mi, name + " 구현이 있어야 한다");
-                mi.Invoke(null, new object[] { m, new GameContext() });
-            }
+            ScreenRegistry.RegisterAll(m, new GameContext());
             foreach (var id in new[] { ScreenId.Records, ScreenId.TitlePicker, ScreenId.Wardrobe, ScreenId.Shop, ScreenId.ShopBuyConfirm,
                 ScreenId.Settings, ScreenId.KeyRebind })
             {

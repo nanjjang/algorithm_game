@@ -15,14 +15,31 @@ namespace Wizard.Solo.Sim.Run
 
         LootTuning LootTune(SimWorld w, RunScratch s) => s.Loot ?? (s.Loot = LootTuning.From(w.Content));
 
-        /// <summary>전리품을 받는 플레이어(솔로 = 첫 활동 플레이어). 맞물림·별은 이 플레이어의 조립으로 본다.</summary>
-        static PlayerState LootPlayer(SimWorld w)
+        /// <summary>보상을 고르는 사람인가(협동에서 판 도중 나간 사람은 빠진다). 쓰러져 있어도 고른다.</summary>
+        static bool Participating(PlayerState p) => p != null && p.Active && !p.Left;
+
+        /// <summary>
+        /// 웨이브를 넘긴 뒤 참여 중인 사람마다 자기 전리품 제시를 만든다(슬롯 순서, 같은 RngStream.Loot — 솔로는 예전과 같은 난수 순서).
+        /// 맞물림·별·운 보정은 그 사람의 조립과 보관함으로 본다. 고를 사람이 없으면 false.
+        /// </summary>
+        bool OfferLootToAll(SimWorld w, RunScratch s)
         {
-            for (int i = 0; i < w.Players.Length; i++) if (w.Players[i].Active) return w.Players[i];
-            return null;
+            bool any = false;
+            for (int i = 0; i < w.Players.Length; i++)
+            {
+                var p = w.Players[i];
+                var r = w.Run.Rewards[i];
+                r.LootDone = true;
+                r.Loot = null;
+                if (!Participating(p)) continue;
+                r.Loot = BuildLoot(w, s, p);
+                r.LootDone = false;
+                any = true;
+            }
+            return any;
         }
 
-        LootOffer BuildLoot(SimWorld w, RunScratch s)
+        LootOffer BuildLoot(SimWorld w, RunScratch s, PlayerState p)
         {
             var drops = w.Content.Drops;
             var lt = LootTune(w, s);
@@ -38,7 +55,7 @@ namespace Wizard.Solo.Sim.Run
             int guaranteed = s.ClearedIsBoss && !s.ClearedPhantomFirst ? count - 1 : -1;
 
             for (int i = 0; i < count; i++) offer.Cards.Add(new LootCard { Guaranteed = i == guaranteed });
-            RollCards(w, s, rng, offer);
+            RollCards(w, s, rng, offer, p);
 
             // 빌린 블록: 1일째 웨이브 6을 넘겼을 때만, 정해진 등급에서 균등 1장.
             if (offer.Wave == drops.BorrowedBlockWave && drops.BorrowedBlockCount > 0)
@@ -57,12 +74,13 @@ namespace Wizard.Solo.Sim.Run
         /// 제시의 카드를 모두 (다시) 뽑는다. 카드마다: 등급(날별 확률, 확정 칸은 일반을 뺀 비율) → 종류(그 등급에서 이미 나온 블록을 뺀 것 중 균등,
         /// 운 보정이 걸리면 그중 맞물림 블록에서) → 맞물림·별 표시. 끝에 맞물림이 없던 제시 수를 갱신한다.
         /// </summary>
-        void RollCards(SimWorld w, RunScratch s, Pcg32 rng, LootOffer offer)
+        void RollCards(SimWorld w, RunScratch s, Pcg32 rng, LootOffer offer, PlayerState p)
         {
             var lt = LootTune(w, s);
-            var p = LootPlayer(w);
             var lo = p != null ? p.Loadout : null;
-            int pityBp = lt.PityBp(s.LootDryOffers);
+            int slot = p != null ? p.Slot : 0;
+            var seen = s.SeenSynergy[slot];
+            int pityBp = lt.PityBp(s.LootDryOffers[slot]);
             offer.PityBp = pityBp;
             var used = new List<string>(offer.Cards.Count);
             for (int i = 0; i < offer.Cards.Count; i++)
@@ -84,13 +102,13 @@ namespace Wizard.Solo.Sim.Run
                 {
                     any = true;
                     string key = LootRules.SynergyKey(c.BlockId, partner);
-                    c.SynergyFirst = !s.SeenSynergy.Contains(key);
-                    s.SeenSynergy.Add(key);
+                    c.SynergyFirst = !seen.Contains(key);
+                    seen.Add(key);
                 }
                 int stars;
-                c.StarTarget = LootRules.StarTargetRef(w.Run, lo, c.BlockId, lt.StarMax, out stars) >= 0 ? stars + 1 : 0;
+                c.StarTarget = LootRules.StarTargetRef(w.Run.Rewards[slot], lo, c.BlockId, lt.StarMax, out stars) >= 0 ? stars + 1 : 0;
             }
-            s.LootDryOffers = any ? 0 : s.LootDryOffers + 1;
+            s.LootDryOffers[slot] = any ? 0 : s.LootDryOffers[slot] + 1;
         }
 
         LootCard RollCard(SimWorld w, LootTuning lt, Pcg32 rng, int wave, bool guaranteed, List<string> used, RunLoadout lo, int pityBp)
@@ -163,9 +181,18 @@ namespace Wizard.Solo.Sim.Run
             return n;
         }
 
-        void CmdLootPick(SimWorld w, int index, bool pick)
+        /// <summary>그 슬롯 사람의 지금 제시(고르는 중일 때만). 끝냈거나 없으면 null.</summary>
+        static LootOffer OfferOf(SimWorld w, int slot)
         {
-            var offer = w.Run.Loot;
+            var p = PlayerOf(w, slot);
+            if (!Participating(p)) return null;
+            var r = w.Run.Rewards[slot];
+            return r.LootDone ? null : r.Loot;
+        }
+
+        void CmdLootPick(SimWorld w, int slot, int index, bool pick)
+        {
+            var offer = OfferOf(w, slot);
             if (offer == null || offer.OverflowToDiscard > 0) return;
             if (index < 0 || index >= offer.Cards.Count) return;
             var card = offer.Cards[index];
@@ -181,15 +208,15 @@ namespace Wizard.Solo.Sim.Run
                 if (!card.Picked) return;
                 card.Picked = false;
             }
-            w.Emit(SimEventType.LootChanged);
+            w.Emit(SimEventType.LootChanged, slot);
         }
 
         /// <summary>다시 뽑기: 지갑에서 지금 값을 치르고 같은 확률로 전부 새로 뽑는다. 확정 칸은 확정으로 남는다. 고른 것은 비운다.
-        /// 값은 이 제시에서 다시 뽑을 때마다 오른다(Brotato 방식, 다음 제시에서 처음 값으로).</summary>
-        void CmdLootReroll(SimWorld w, RunScratch s)
+        /// 값은 이 제시에서 다시 뽑을 때마다 오른다(Brotato 방식, 다음 제시에서 처음 값으로). 지갑은 원정대 공용이다.</summary>
+        void CmdLootReroll(SimWorld w, RunScratch s, int slot)
         {
             var run = w.Run;
-            var offer = run.Loot;
+            var offer = OfferOf(w, slot);
             if (offer == null || offer.OverflowToDiscard > 0) return;
             var lt = LootTune(w, s);
             int cost = lt.RerollCost(offer.Rerolls);
@@ -198,44 +225,44 @@ namespace Wizard.Solo.Sim.Run
             w.Emit(SimEventType.PurseChanged, a: run.Purse);
             var rng = w.Rng(RngStream.Loot);
             for (int i = 0; i < offer.Cards.Count; i++) offer.Cards[i] = new LootCard { Guaranteed = offer.Cards[i].Guaranteed };
-            RollCards(w, s, rng, offer);
+            RollCards(w, s, rng, offer, w.Players[slot]);
             offer.Rerolls++;
             offer.RerollCost = lt.RerollCost(offer.Rerolls);
-            w.Emit(SimEventType.LootChanged);
+            w.Emit(SimEventType.LootChanged, slot);
         }
 
-        WildBlock AddWild(SimWorld w, RunScratch s, string blockId, string rarity, bool borrowed, int wave)
+        WildBlock AddWild(SimWorld w, RunScratch s, int slot, string blockId, string rarity, bool borrowed, int wave)
         {
             var run = w.Run;
             var wb = new WildBlock { Uid = run.NextWildUid++, BlockId = blockId, Rarity = rarity, Borrowed = borrowed, AcquiredWave = wave };
-            run.Storage.Add(wb);
+            run.Rewards[slot].Storage.Add(wb);
             s.WildByUid[wb.Uid] = wb;
             return wb;
         }
 
         /// <summary>
         /// 고른 블록을 받는다: 같은 블록(빌림 제외, 별이 상한 아래)이 있으면 그 별을 하나 올리고(지팡이 칸 → 보관함 → 대기 칸 순서),
-        /// 없으면 보관함에 새로 넣는다. 지팡이 칸의 별이 올랐으면 true(다시 컴파일한다).
+        /// 없으면 보관함에 새로 넣는다. 지팡이 칸의 별이 올랐으면 true(다시 컴파일한다). 보관함·대기 칸은 그 사람(p) 것이다.
         /// </summary>
         bool TakeBlock(SimWorld w, RunScratch s, LootTuning lt, PlayerState p, string blockId, string rarity, int wave)
         {
-            var run = w.Run;
-            var lo = p != null ? p.Loadout : null;
+            var r0 = w.Run.Rewards[p.Slot];
+            var lo = p.Loadout;
             int stars;
-            int r = LootRules.StarTargetRef(run, lo, blockId, lt.StarMax, out stars);
+            int r = LootRules.StarTargetRef(r0, lo, blockId, lt.StarMax, out stars);
             if (r < 0)
             {
-                AddWild(w, s, blockId, rarity, false, wave);
+                AddWild(w, s, p.Slot, blockId, rarity, false, wave);
                 return false;
             }
             if (r >= LootRules.BenchRef)
             {
-                run.LibraryBench[r - LootRules.BenchRef].Stars = stars + 1;
+                r0.LibraryBench[r - LootRules.BenchRef].Stars = stars + 1;
                 return false;
             }
             if (r >= LootRules.StorageRef)
             {
-                run.Storage[r - LootRules.StorageRef].Stars = stars + 1;
+                r0.Storage[r - LootRules.StorageRef].Stars = stars + 1;
                 return false;
             }
             SlotItem it = GetSlot(lo, r);
@@ -246,14 +273,13 @@ namespace Wizard.Solo.Sim.Run
             return true;
         }
 
-        void CmdLootConfirm(SimWorld w, RunScratch s)
+        void CmdLootConfirm(SimWorld w, RunScratch s, int slot)
         {
-            var run = w.Run;
-            var offer = run.Loot;
+            var offer = OfferOf(w, slot);
             if (offer == null || offer.OverflowToDiscard > 0) return;
             if (PickedCount(offer) != offer.PickCount) return;
             var lt = LootTune(w, s);
-            var p = LootPlayer(w);
+            var p = w.Players[slot];
 
             bool recompile = false;
             for (int i = 0; i < offer.Cards.Count; i++)
@@ -261,20 +287,19 @@ namespace Wizard.Solo.Sim.Run
                 var card = offer.Cards[i];
                 if (card.Picked && card.BlockId != null) recompile |= TakeBlock(w, s, lt, p, card.BlockId, card.Rarity, offer.Wave);
             }
-            if (recompile && p != null) w.Mods.Player.RecompileSpell(w, p);
-            TakeBorrowedAndFinish(w, s);
+            if (recompile) w.Mods.Player.RecompileSpell(w, p);
+            TakeBorrowedAndFinish(w, s, slot);
         }
 
         /// <summary>건너뛰기: 카드를 받지 않고 작은 확정 보상(mode 0 골드 / 1 체력). 빌린 블록은 그대로 받는다.</summary>
         void CmdLootSkip(SimWorld w, RunScratch s, int slot, int mode)
         {
-            var run = w.Run;
-            var offer = run.Loot;
+            var offer = OfferOf(w, slot);
             if (offer == null || offer.OverflowToDiscard > 0) return;
             if (mode == SkipModeHeal)
             {
-                var p = PlayerOf(w, slot);
-                if (p == null || offer.SkipHealCells <= 0 || p.Hp >= p.MaxHp) return;
+                var p = w.Players[slot];
+                if (offer.SkipHealCells <= 0 || p.Hp >= p.MaxHp) return;
                 w.Mods.Player.Heal(w, p, offer.SkipHealCells);
             }
             else if (mode == SkipModeGold)
@@ -284,54 +309,66 @@ namespace Wizard.Solo.Sim.Run
             }
             else return;
             for (int i = 0; i < offer.Cards.Count; i++) offer.Cards[i].Picked = false;
-            TakeBorrowedAndFinish(w, s);
+            TakeBorrowedAndFinish(w, s, slot);
         }
 
         /// <summary>LootSkip의 A.</summary>
         public const int SkipModeGold = 0, SkipModeHeal = 1;
 
-        void TakeBorrowedAndFinish(SimWorld w, RunScratch s)
+        void TakeBorrowedAndFinish(SimWorld w, RunScratch s, int slot)
         {
-            var run = w.Run;
-            var offer = run.Loot;
+            var r = w.Run.Rewards[slot];
+            var offer = r.Loot;
             var drops = w.Content.Drops;
             if (offer.BorrowedBlockId != null)
             {
-                AddWild(w, s, offer.BorrowedBlockId, drops.BorrowedBlockRarity, true, offer.Wave);
+                AddWild(w, s, slot, offer.BorrowedBlockId, drops.BorrowedBlockRarity, true, offer.Wave);
                 offer.BorrowedBlockId = null;
             }
 
-            int over = run.Storage.Count - drops.StorageCap;
+            int over = r.Storage.Count - drops.StorageCap;
             if (over > 0)
             {
                 // 보관함이 넘쳤다: 지금 보관함(방금 넣은 카드 포함)에서 버릴 블록을 고르게 한다.
                 offer.OverflowToDiscard = over;
-                w.Emit(SimEventType.LootChanged);
+                w.Emit(SimEventType.LootChanged, slot);
                 return;
             }
-            FinishLoot(w, s);
+            FinishLoot(w, s, slot);
         }
 
         /// <summary>넘친 만큼 버린다. 버린 블록은 그 자리에서 골드(일반 5, 희귀 15, 영웅 50, 빌림 50).</summary>
-        void CmdLootDiscard(SimWorld w, RunScratch s, int slotRef)
+        void CmdLootDiscard(SimWorld w, RunScratch s, int slot, int slotRef)
         {
-            var run = w.Run;
-            var offer = run.Loot;
+            var offer = OfferOf(w, slot);
             if (offer == null || offer.OverflowToDiscard <= 0) return;
+            var storage = w.Run.Rewards[slot].Storage;
             int index = slotRef >= StorageBase && slotRef < BenchBase ? slotRef - StorageBase : slotRef;
-            if (index < 0 || index >= run.Storage.Count) return;
-            var wb = run.Storage[index];
-            run.Storage.RemoveAt(index);
+            if (index < 0 || index >= storage.Count) return;
+            var wb = storage[index];
+            storage.RemoveAt(index);
             s.WildByUid.Remove(wb.Uid);
             GainGold(w, s, w.Content.Drops.DiscardGold(wb.Rarity, wb.Borrowed), NoPos);
             offer.OverflowToDiscard--;
-            w.Emit(SimEventType.LootChanged);
-            if (offer.OverflowToDiscard <= 0) FinishLoot(w, s);
+            w.Emit(SimEventType.LootChanged, slot);
+            if (offer.OverflowToDiscard <= 0) FinishLoot(w, s, slot);
         }
 
-        void FinishLoot(SimWorld w, RunScratch s)
+        /// <summary>그 사람의 고르기가 끝났다. 참여 중인 사람이 모두 끝냈으면 야영으로(솔로는 바로).</summary>
+        void FinishLoot(SimWorld w, RunScratch s, int slot)
         {
-            EnterCamp(w, s, startCamp: false);
+            var r = w.Run.Rewards[slot];
+            r.LootDone = true;
+            if (AllLootDone(w)) EnterCamp(w, s, startCamp: false);
+            else w.Emit(SimEventType.LootChanged, slot); // 동료를 기다린다(내 화면은 기다림으로 바뀐다)
+        }
+
+        /// <summary>참여 중인 사람이 모두 전리품 고르기를 끝냈나.</summary>
+        static bool AllLootDone(SimWorld w)
+        {
+            for (int i = 0; i < w.Players.Length; i++)
+                if (Participating(w.Players[i]) && !w.Run.Rewards[i].LootDone) return false;
+            return true;
         }
     }
 }

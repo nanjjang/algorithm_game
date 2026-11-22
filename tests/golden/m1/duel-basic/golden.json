@@ -1,9 +1,0 @@
-{
-  "format": 1,
-  "id": "m1/duel-basic",
-  "kind": "duel",
-  "seed": "0x00000000d0e10001",
-  "setup": { "hashEveryTicks": 30, "players": 2 },
-  "record": "record.wzdr",
-  "notes": "결투 세계 2인, 1분. 해시는 30틱마다(spec 01 3.4). 기록: replaycli bot --kind duel --ticks 3600 --bot-seed 0x56 --profile play --seed 0x00000000d0e10001"
-}

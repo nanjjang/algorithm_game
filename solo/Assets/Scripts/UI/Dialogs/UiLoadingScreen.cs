@@ -62,6 +62,7 @@ namespace Wizard.Solo.UI
             var bg = UiKit.KitSprite(Ctx, "S-2601");
             var bgImg = UiKit.Rect(content, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, UiTheme.WoodDark, true, "Background");
             if (bg.IsValid) { UiKit.SetSprite(bgImg, bg); bgImg.color = Color.white; }
+            UiFullBleed.Cover(bgImg); // 반응형: 창 끝까지(그림은 비율대로 덮기, 없으면 단색 늘이기)
             float cx = (UiScale.RefWidth - BarWidth) * 0.5f, cy = UiScale.RefHeight * 0.5f;
             var fire = UiKit.KitSprite(Ctx, "K-44", "loading_campfire");
             if (fire.IsValid) UiKit.Image(content, fire.Sprite, (UiScale.RefWidth - 64f) * 0.5f, cy - 140f, 64f, 64f);

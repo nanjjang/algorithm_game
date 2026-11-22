@@ -30,30 +30,18 @@ namespace Wizard.Solo.Sim.Bosses
         }
     }
 
-    /// <summary>
-    /// 두뇌 등록 자리. 보스 작업은 자기 폴더에 `BossBrainRegistry.&lt;보스&gt;.cs`를 두고 해당 partial 메서드 하나만 구현한다:
-    /// <code>static partial void RegisterSporeQueen(BossBrainTable t) { t.Add(Ids.Boss.SporeQueen, () => new SporeQueenBrain()); }</code>
-    /// 구현이 없는 partial 메서드는 컴파일 때 사라진다(그 보스는 DefaultBossBrain으로 돈다).
-    /// </summary>
-    public static partial class BossBrainRegistry
+    public static class BossBrainRegistry
     {
-        static partial void RegisterKilnBoar(BossBrainTable t);
-        static partial void RegisterMirrorPhantom(BossBrainTable t);
-        static partial void RegisterSporeQueen(BossBrainTable t);
-        static partial void RegisterStormOwl(BossBrainTable t);
-        static partial void RegisterFrostGoat(BossBrainTable t);
-        static partial void RegisterNightSerpent(BossBrainTable t);
-
         public static BossBrainTable Build()
         {
-            var t = new BossBrainTable();
-            RegisterKilnBoar(t);
-            RegisterMirrorPhantom(t);
-            RegisterSporeQueen(t);
-            RegisterStormOwl(t);
-            RegisterFrostGoat(t);
-            RegisterNightSerpent(t);
-            return t;
+            var table = new BossBrainTable();
+            table.Add(Ids.Boss.KilnBoar, () => new KilnBoarBrain());
+            table.Add(Ids.Boss.MirrorPhantom, () => new MirrorPhantomBrain());
+            table.Add(Ids.Boss.SporeQueen, () => new SporeQueenBrain());
+            table.Add(Ids.Boss.StormOwl, () => new StormOwlBrain());
+            table.Add(Ids.Boss.FrostGoat, () => new FrostGoatBrain());
+            table.Add(Ids.Boss.NightSerpent, () => new NightSerpentBrain());
+            return table;
         }
     }
 }

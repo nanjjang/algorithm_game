@@ -56,22 +56,36 @@ namespace Wizard.Solo.UI
             if (HasFrame)
             {
                 // 바탕: 밤색 그라데이션 + 위 가운데 빛 번짐 + 비네트(빈 검은 바탕 대신). 화면이 자기 배경 그림을 깔면 그 아래에 깔린다.
+                // 반응형: 바탕은 창 끝까지, 위·아래 띠의 판은 좌우와 바깥쪽(위/아래) 끝까지 넓힌다(UiFullBleed). 띠 안의 글·단추는
+                // 1920 안전 영역 그대로(TopBar·BottomBar 좌표계는 바뀌지 않는다).
                 var backdrop = UiBackdrop.Screen(root);
                 backdrop.name = "Background";
-                var top = UiKit.Panel(ctx, root, UiPanelKind.ScreenHeading, 0f, 0f, UiScale.RefWidth, TopBarHeight);
-                TopBar = top.rectTransform;
-                TopBar.name = "TopBar";
-                // 제목 띠 아래 그림자와 놋쇠 장식 줄.
-                UiBackdrop.Fade(root, 0f, TopBarHeight, UiScale.RefWidth, UiTheme.Space6, UiTheme.Shadow);
-                UiKit.AccentRule(TopBar, 0f, TopBarHeight - 3f, UiScale.RefWidth);
+                UiFullBleed.Fill(backdrop);
+                var topBg = UiKit.Panel(ctx, root, UiPanelKind.ScreenHeading, 0f, 0f, UiScale.RefWidth, TopBarHeight);
+                topBg.name = "TopBarBg";
+                UiFullBleed.Fill(topBg.rectTransform, UiBleedEdges.Horizontal | UiBleedEdges.Top);
+                // 제목 띠 아래 그림자와 놋쇠 장식 줄(둘 다 좌우 끝까지).
+                var fade = UiBackdrop.Fade(root, 0f, TopBarHeight, UiScale.RefWidth, UiTheme.Space6, UiTheme.Shadow);
+                UiFullBleed.Fill(fade.rectTransform, UiBleedEdges.Horizontal);
+                var rule = UiKit.AccentRule(root, 0f, TopBarHeight - 3f, UiScale.RefWidth);
+                for (int i = 0; i < rule.childCount; i++) UiFullBleed.StretchX((RectTransform)rule.GetChild(i));
+                UiFullBleed.Fill(rule, UiBleedEdges.Horizontal);
+                TopBar = UiKit.Node(root, "TopBar", 0f, 0f, UiScale.RefWidth, TopBarHeight);
                 float lh = UiTheme.LineHeight(UiFontId.F32);
                 UiKit.Diamond(TopBar, UiTheme.Gutter + 6f, TopBarHeight * 0.5f, 12f, UiTheme.Brass);
                 TitleLabel = UiKit.Label(ctx, TopBar, TitleKey != null ? T(TitleKey) : string.Empty, UiFontId.F32,
                     UiTheme.Gutter + 28f, (TopBarHeight - lh) * 0.5f, UiScale.RefWidth - 96f - 28f, lh, UiTheme.Chalk, TextAnchor.MiddleLeft);
                 UiKit.DropShadow(TitleLabel);
                 Content = UiKit.Node(root, "Content", 0f, TopBarHeight, UiScale.RefWidth, ContentHeight);
+                var bottomBg = UiKit.Panel(ctx, root, UiPanelKind.ControlStrip, 0f, UiScale.RefHeight - BottomBarHeight, UiScale.RefWidth, BottomBarHeight);
+                bottomBg.name = "BottomBarBg";
+                bottomBg.raycastTarget = false;
+                UiFullBleed.Fill(bottomBg.rectTransform, UiBleedEdges.Horizontal | UiBleedEdges.Bottom);
                 HintLabel = UiKit.KeyHintBar(ctx, root, 0f, UiScale.RefHeight - BottomBarHeight, UiScale.RefWidth, BottomBarHeight, KeyHints);
                 BottomBar = (RectTransform)HintLabel.transform.parent;
+                // 안내 띠의 판은 위 BottomBarBg가 창 끝까지 그린다 — 안전 영역 안의 같은 판은 숨긴다(글 자리는 그대로).
+                var strip = BottomBar.GetComponent<UnityEngine.UI.Image>();
+                if (strip != null) strip.enabled = false;
             }
             else
             {
@@ -123,10 +137,11 @@ namespace Wizard.Solo.UI
                 try { s = Ctx.Art.Background(id); } catch (System.Exception) { s = null; }
             }
             if (s == null) return null;
-            var node = UiKit.Node(Root, "BackdropArt");
-            UiKit.Stretch(node);
+            // 창 끝까지(UiFullBleed): 칸은 늘이고, 그림은 비율을 지켜 덮는다(가운데에서 잘림).
+            var node = UiKit.Node(Root, "BackdropArt", 0f, 0f, UiScale.RefWidth, UiScale.RefHeight);
+            UiFullBleed.Fill(node);
             var img = UiKit.Image(node, s, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, UiTheme.WithAlpha(Color.white, alpha), false);
-            UiKit.Stretch(img.rectTransform);
+            UiFullBleed.Cover(img);
             UiBackdrop.VignetteOver(node, 0.75f);
             // 바탕(Background) 바로 위, 위 띠·내용 아래.
             var bg = Root.Find("Background");

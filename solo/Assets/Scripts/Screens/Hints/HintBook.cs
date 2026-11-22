@@ -15,12 +15,14 @@ namespace Wizard.Solo.Screens.Hints
             FirstArtUnlock = "first_art_unlock", FirstAffinity = "first_affinity", FirstSettlement = "first_settlement",
             FirstBag = "first_bag", FirstDrop = "first_drop", FirstMutation = "first_mutation", FirstFinal = "first_final",
             StuckDryFire = "stuck_dry_fire", StuckFizzle = "stuck_fizzle";
+        /// <summary>비기가 무엇인지(자세 + 방향 + 비기 키, 결정으로 값을 치른다, T의 뜻). 비기 트라이를 처음 열 때·야영에서 처음 비기를 고를 때.</summary>
+        public const string FirstArts = "first_arts";
 
         /// <summary>처음 한 번만 뜨는 힌트(도감·테스트가 목록으로 돈다).</summary>
         public static readonly string[] FirstTime =
         {
             FirstLock, FirstFizzle, FirstCrystal, FirstGraze, FirstElite, FirstBoss, FirstLoot, FirstCamp, FirstArtUnlock,
-            FirstAffinity, FirstSettlement, FirstBag, FirstDrop, FirstMutation, FirstFinal
+            FirstAffinity, FirstSettlement, FirstBag, FirstDrop, FirstMutation, FirstFinal, FirstArts
         };
 
         /// <summary>막혔을 때 뜨는 힌트(판마다 한 번, 프로필에 stuck_max_shows번까지).</summary>
@@ -45,6 +47,7 @@ namespace Wizard.Solo.Screens.Hints
                 case HintIds.FirstLoot: return screen == ScreenId.LootPick;
                 case HintIds.FirstCamp: return screen == ScreenId.Camp;
                 case HintIds.FirstArtUnlock: return screen == ScreenId.Camp || screen == ScreenId.Battle;
+                case HintIds.FirstArts: return screen == ScreenId.ArtTrie || screen == ScreenId.Camp;
                 case HintIds.FirstSettlement:
                 case HintIds.FirstBag: return screen == ScreenId.Settlement;
                 case HintIds.FirstDrop:

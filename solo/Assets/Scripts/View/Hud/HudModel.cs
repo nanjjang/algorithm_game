@@ -8,7 +8,7 @@ using Wizard.Solo.Sim;
 namespace Wizard.Solo.View.Hud
 {
     /// <summary>상태에서 정하는 한 줄 안내(우선순위: 과열 잠금 &gt; 사건 안내 &gt; 출발 안내).</summary>
-    public enum HudStateNotice { None = 0, HeatLock = 1, DepartHint = 2 }
+    public enum HudStateNotice { None = 0, HeatLock = 1, DepartHint = 2, WaitingParty = 3 }
 
     /// <summary>
     /// 한 프레임에 HUD가 그릴 것(상태에서만 계산한다 — 이벤트 없이 Build 직후에도 같은 값이 나온다).
@@ -51,6 +51,8 @@ namespace Wizard.Solo.View.Hud
 
         public HudStateNotice StateNotice;
         public int HeatLockSecondsLeft;
+        /// <summary>협동 야영: 출발 준비를 마친 사람 수 / 기다리는 사람 수(StateNotice == WaitingParty일 때).</summary>
+        public int PartyReady, PartyTotal;
         public float HeatLockRemainRatio;
 
         /// <summary>콤보를 초상 옆(HUD)에 둔다(옵션 combo_position = hud).</summary>
@@ -95,6 +97,8 @@ namespace Wizard.Solo.View.Hud
         public const string KeyRevengeHud = "revenge.tracker.hud";
         public const string KeyRevengeTag = "revenge.tag";
         public const string KeyDepartHint = "str.camp.depart_hint";
+        /// <summary>협동: 출발 준비를 마치고 동료를 기다리는 중({n}/{m}).</summary>
+        public const string KeyWaitingParty = "str.coop.wait_party_depart";
         public const string KeyWandStage = "str.format.wand_stage";
         public const string KeyLateInput = "str.dummy_practice.fail.late_input";
         public const string KeyMasterAdviceLinePrefix = "event.master_advice.line.";
@@ -186,16 +190,31 @@ namespace Wizard.Solo.View.Hud
         /// <summary>출발 안내: 야영 전장(FireIdle·DepartHold)에서 활동 중인 플레이어가 출발 표식 반경 안에 있을 때만(D-52).</summary>
         public static bool ShowDepartHint(SimWorld w)
         {
-            if (w == null || !w.InCamp || w.Run.CampSub == CampSubState.CampScreen) return false;
+            if (w == null || !w.InCamp) return false;
+            var me = w.Me;
+            if (me == null || !me.Active) return false;
+            var mine = w.Run.Rewards[me.Slot];
+            if (mine.CampSub == CampSubState.CampScreen || mine.DepartReady) return false;
             float r = w.Run.DepartMarkerRadius;
             if (r <= 0f) return false;
+            return (me.Pos - w.Run.DepartMarkerPos).sqrMagnitude <= r * r;
+        }
+
+        /// <summary>협동 야영: 내가 출발 준비를 마치고 동료를 기다리는 중이면 true(준비된 수·기다리는 수).</summary>
+        public static bool WaitingParty(SimWorld w, out int ready, out int total)
+        {
+            ready = total = 0;
+            if (w == null || !w.InCamp) return false;
+            var me = w.Me;
+            if (me == null || !me.Active || !w.Run.Rewards[me.Slot].DepartReady) return false;
             for (int i = 0; i < w.Players.Length; i++)
             {
                 var p = w.Players[i];
-                if (p == null || !p.Active) continue;
-                if ((p.Pos - w.Run.DepartMarkerPos).sqrMagnitude <= r * r) return true;
+                if (p == null || !p.Active || p.Left || p.Downed) continue;
+                total++;
+                if (w.Run.Rewards[i].DepartReady) ready++;
             }
-            return false;
+            return total > 1;
         }
 
         /// <summary>콤보 자리: 옵션 combo_position이 hud이면 초상 옆, 그 밖(near_character, 기본)이면 캐릭터 옆.</summary>
@@ -264,6 +283,7 @@ namespace Wizard.Solo.View.Hud
                 f.HeatLockSecondsLeft = HeatLockSecondsLeft(p0.UnlockTick, w.Tick);
                 f.HeatLockRemainRatio = LockRemainRatio(p0.LockStartTick, p0.UnlockTick, w.Tick);
             }
+            else if (WaitingParty(w, out f.PartyReady, out f.PartyTotal)) f.StateNotice = HudStateNotice.WaitingParty;
             else if (ShowDepartHint(w)) f.StateNotice = HudStateNotice.DepartHint;
 
             f.ComboInHud = ComboInHud(options);

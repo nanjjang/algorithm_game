@@ -87,6 +87,31 @@ namespace Wizard.Solo.Tests.Integration
             Key(ci, LogicalKey.Down, !h && v.y > 0 && (!close || blink));
         }
 
+        /// <summary>그 손님이 자기 보상(전리품·비기·출발)을 고른다. 서버가 Slot을 다시 찍으므로 명령에 슬롯을 넣지 않는다.</summary>
+        static void ResolveRewards(CoopClient c)
+        {
+            var cw = c.World;
+            if (cw == null || c.Slot < 0 || cw.Tick % NetProtocol.SnapshotEveryTicks != 0) return;
+            var r = cw.Run.Rewards[c.Slot];
+            if (cw.Run.Phase == RunPhase.LootPick)
+            {
+                var loot = r.Loot;
+                if (r.LootDone || loot == null) return;
+                if (loot.OverflowToDiscard > 0) c.SendCommand(new RunCommand(RunCommandKind.LootDiscard, 100));
+                else
+                {
+                    for (int i = 0; i < loot.Cards.Count && i < loot.PickCount; i++) c.SendCommand(new RunCommand(RunCommandKind.LootPick, i));
+                    c.SendCommand(new RunCommand(RunCommandKind.LootConfirm));
+                }
+            }
+            else if (cw.InCamp)
+            {
+                if (r.ArtOffer != null && r.ArtOffer.Candidates.Count > 0)
+                    c.SendCommand(new RunCommand(RunCommandKind.ArtPick, 0, 0, r.ArtOffer.Candidates[0], 0));
+                else if (!r.DepartReady) c.SendCommand(new RunCommand(RunCommandKind.CampDepart));
+            }
+        }
+
         bool Play(int maxTicks, System.Func<SimWorld, bool> until)
         {
             for (int t = 0; t < maxTicks; t++)
@@ -94,30 +119,12 @@ namespace Wizard.Solo.Tests.Integration
                 var sw = _host.World;
                 if (until(sw)) return true;
                 if (sw.Run.Phase == RunPhase.RunEnded) return false;
-                var cw = _clients[0].World;
-                var run = cw.Run;
-                if (run.Phase == RunPhase.LootPick || cw.InCamp)
+                var cw0 = _clients[0].World;
+                if (cw0.Run.Phase == RunPhase.LootPick || cw0.InCamp)
                 {
                     for (int ci = 0; ci < _clients.Count; ci++) { Key(ci, LogicalKey.Fire, false); for (int i = 0; i < 4; i++) Key(ci, (LogicalKey)i, false); }
-                    // 방장(슬롯 0)이 고른다. 명령은 스냅숏 주기마다 한 번만(같은 명령을 여러 번 보내지 않게).
-                    if (cw.Tick % NetProtocol.SnapshotEveryTicks == 0)
-                    {
-                        if (run.Phase == RunPhase.LootPick && run.Loot != null)
-                        {
-                            if (run.Loot.OverflowToDiscard > 0) _clients[0].SendCommand(new RunCommand(RunCommandKind.LootDiscard, 100));
-                            else
-                            {
-                                for (int i = 0; i < run.Loot.Cards.Count && i < run.Loot.PickCount; i++) _clients[0].SendCommand(new RunCommand(RunCommandKind.LootPick, i));
-                                _clients[0].SendCommand(new RunCommand(RunCommandKind.LootConfirm));
-                            }
-                        }
-                        else if (cw.InCamp)
-                        {
-                            if (run.CurrentArtOffer != null && run.CurrentArtOffer.Candidates.Count > 0)
-                                _clients[0].SendCommand(new RunCommand(RunCommandKind.ArtPick, 0, 0, run.CurrentArtOffer.Candidates[0], 0));
-                            else _clients[0].SendCommand(new RunCommand(RunCommandKind.CampDepart));
-                        }
-                    }
+                    // 사람마다 자기 꼭두각시 세계의 자기 몫(Rewards[내 슬롯])을 보고 고른다. 명령은 스냅숏 주기마다 한 번만.
+                    for (int ci = 0; ci < _clients.Count; ci++) ResolveRewards(_clients[ci]);
                 }
                 else for (int ci = 0; ci < _clients.Count; ci++) Bot(ci);
                 Frame(god: true);
@@ -218,7 +225,7 @@ namespace Wizard.Solo.Tests.Integration
             Assert.IsTrue(evs.Exists(e => e.Type == SimEventType.WaveCleared), "손님도 웨이브 클리어 이벤트를 받는다");
 
             Assert.IsTrue(Play(4000, w => w.Run.Phase == RunPhase.WaveCombat && w.Wave != null && w.Wave.Wave == 2),
-                "방장 명령(전리품·야영 출발)이 서버에 닿아 웨이브 2 전투(Phase = " + _host.World.Run.Phase + ")");
+                "두 사람이 각자 고른 명령(전리품·비기·야영 출발)이 서버에 닿아 웨이브 2 전투(Phase = " + _host.World.Run.Phase + ")");
         }
 
         [Test]
@@ -253,11 +260,61 @@ namespace Wizard.Solo.Tests.Integration
                 {
                     if (e.Type != SimEventType.PhaseChanged || (RunPhase)e.A != RunPhase.LootPick) continue;
                     sawLoot = true;
-                    if (cw.Run.Phase != RunPhase.LootPick || cw.Run.Loot == null) stale = true;
+                    if (cw.Run.Phase != RunPhase.LootPick || cw.Run.Rewards[_clients[1].Slot].Loot == null) stale = true;
                 }
             }
             Assert.IsTrue(sawLoot, "전리품 단계에 닿는다");
             Assert.IsFalse(stale, "이벤트를 받을 때 꼭두각시 상태가 이미 전리품이어야 한다");
+        }
+
+        [Test]
+        public void Loopback_EachPlayerPicksOwnLoot_WaitsForTeammate()
+        {
+            // 협동 보상은 사람마다: 손님 1이 자기 몫을 골라도 손님 0의 제시는 그대로이고, 둘 다 끝내야 야영으로 간다.
+            Connect(2);
+            _host.StartRun(5UL);
+            foreach (var c in _clients) c.Pump();
+            Assert.IsTrue(Play(12000, w => w.Run.Phase == RunPhase.LootPick), "웨이브 1 클리어");
+            var hw = _host.World;
+            Assert.IsNotNull(hw.Run.Rewards[0].Loot, "슬롯 0의 제시");
+            Assert.IsNotNull(hw.Run.Rewards[1].Loot, "슬롯 1의 제시");
+            Assert.AreNotSame(hw.Run.Rewards[0].Loot, hw.Run.Rewards[1].Loot, "제시는 사람마다 따로");
+
+            for (int ci = 0; ci < _clients.Count; ci++) { Key(ci, LogicalKey.Fire, false); for (int i = 0; i < 4; i++) Key(ci, (LogicalKey)i, false); }
+            var c1 = _clients[1];
+            var loot1 = hw.Run.Rewards[c1.Slot].Loot;
+            int stored0 = hw.Run.Rewards[_clients[0].Slot].Storage.Count;
+            for (int i = 0; i < loot1.Cards.Count && i < loot1.PickCount; i++) c1.SendCommand(new RunCommand(RunCommandKind.LootPick, i));
+            c1.SendCommand(new RunCommand(RunCommandKind.LootConfirm));
+            for (int k = 0; k < NetProtocol.SnapshotEveryTicks * 2; k++) Frame(true);
+
+            Assert.AreEqual(RunPhase.LootPick, hw.Run.Phase, "동료가 아직 고르는 중이면 전리품 단계에 머문다");
+            Assert.IsTrue(hw.Run.Rewards[c1.Slot].LootDone, "손님 1은 끝냈다");
+            Assert.IsFalse(hw.Run.Rewards[_clients[0].Slot].LootDone, "손님 0은 아직 고르는 중");
+            Assert.AreEqual(stored0, hw.Run.Rewards[_clients[0].Slot].Storage.Count, "손님 1의 고르기가 손님 0의 보관함을 건드리지 않는다");
+            Assert.IsTrue(c1.World.Run.Rewards[c1.Slot].LootDone, "손님 1의 꼭두각시도 기다림 상태를 안다");
+
+            Assert.IsTrue(Play(4000, w => w.InCamp), "둘 다 고르면 야영으로");
+        }
+
+        [Test]
+        public void Loopback_TeammateLeavesDuringLoot_OthersMoveOn()
+        {
+            Connect(2);
+            _host.StartRun(5UL);
+            foreach (var c in _clients) c.Pump();
+            Assert.IsTrue(Play(12000, w => w.Run.Phase == RunPhase.LootPick), "웨이브 1 클리어");
+            var c0 = _clients[0];
+            var loot0 = _host.World.Run.Rewards[c0.Slot].Loot;
+            for (int i = 0; i < loot0.Cards.Count && i < loot0.PickCount; i++) c0.SendCommand(new RunCommand(RunCommandKind.LootPick, i));
+            c0.SendCommand(new RunCommand(RunCommandKind.LootConfirm));
+            for (int k = 0; k < NetProtocol.SnapshotEveryTicks * 2; k++) Frame(true);
+            Assert.AreEqual(RunPhase.LootPick, _host.World.Run.Phase, "손님 1을 기다린다");
+
+            _clients[1].Disconnect();
+            for (int k = 0; k < 4; k++) Frame(true);
+            Assert.IsTrue(_host.World.Players[1].Left, "나간 사람은 Left");
+            Assert.IsTrue(_host.World.InCamp, "나간 사람을 기다리지 않고 야영으로(Phase = " + _host.World.Run.Phase + ")");
         }
 }
 }

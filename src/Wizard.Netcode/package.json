@@ -1,8 +1,0 @@
-{
-  "name": "com.wizard.netcode",
-  "version": "0.0.0",
-  "displayName": "Wizard.Netcode",
-  "description": "Duel and plaza host/client cores without sockets",
-  "unity": "6000.3",
-  "dependencies": {}
-}

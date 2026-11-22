@@ -47,7 +47,7 @@ namespace Wizard.Solo.Screens.Start
 
             _root = UiKit.Node(_parent, "PendingSettled", 0f, 0f, UiScale.RefWidth, UiScale.RefHeight);
             _root.SetAsLastSibling();
-            UiKit.Rect(_root, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, UiTheme.ModalDim, true, "Dim");
+            UiFullBleed.Fill(UiKit.Rect(_root, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, UiTheme.ModalDim, true, "Dim").rectTransform);
 
             int gainCount = lines.Count - 1;
             float h24 = UiTheme.LineHeight(UiFontId.F24), h16 = UiTheme.LineHeight(UiFontId.F16);

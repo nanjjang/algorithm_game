@@ -574,7 +574,7 @@ namespace Wizard.Solo.Tests.Data
             Assert.AreEqual(1, d.HealthShardHealCells);
             Assert.AreEqual(3, d.BagWavesPerSlot);
             Assert.AreEqual(12, d.BagSlotCap);
-            Assert.AreEqual(10, d.BagWavesPerHero);
+            Assert.AreEqual(5, d.BagWavesPerHero);
         }
 
         // 06 요약서 4.5절: 보스 처치 골드 20 × (9 + w) = 10: 380, 20: 580, 30: 780, 50: 1,180
@@ -620,14 +620,14 @@ namespace Wizard.Solo.Tests.Data
         [TestCase(1, 0, 0)]
         [TestCase(2, 0, 0)]
         [TestCase(3, 1, 0)]
-        [TestCase(8, 2, 0)]
-        [TestCase(10, 3, 1)]
-        [TestCase(14, 4, 1)]
-        [TestCase(20, 6, 2)]
-        [TestCase(30, 10, 3)]
-        [TestCase(36, 12, 3)]
-        [TestCase(40, 12, 4)]
-        [TestCase(60, 12, 6)]
+        [TestCase(8, 2, 1)]
+        [TestCase(10, 3, 2)]
+        [TestCase(14, 4, 2)]
+        [TestCase(20, 6, 4)]
+        [TestCase(30, 10, 6)]
+        [TestCase(36, 12, 7)]
+        [TestCase(40, 12, 8)]
+        [TestCase(60, 12, 12)]
         public void S07_TV_230__BagSlotsAndHeroLimitFromData(int cleared, int slots, int heroLimit)
         {
             var d = Db.Drops;

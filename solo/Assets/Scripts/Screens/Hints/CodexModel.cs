@@ -77,7 +77,7 @@ namespace Wizard.Solo.Screens.Hints
             }
             switch (section)
             {
-                case Arts: AddArts(rows, names, db, charId); break;
+                case Arts: AddArts(rows, names, db, charId, args); break;
                 case Blocks: AddBlocks(rows, names, db); break;
                 case Styles: AddStyles(rows, names, db); break;
                 case Mutations:
@@ -105,22 +105,35 @@ namespace Wizard.Solo.Screens.Hints
             return rows;
         }
 
-        static void AddArts(List<CodexRow> rows, INameTable names, IContentDb db, string charId)
+        static void AddArts(List<CodexRow> rows, INameTable names, IContentDb db, string charId, object[] args)
         {
             if (db == null) return;
             var ids = charId != null ? db.TrieArts(charId) : null;
             if (ids == null || ids.Count == 0) return;
+            // 커맨드는 지금 키 배치의 키 이름으로(ArtGuide.Short: "L + ↑ ↑ + K"). 키 이름은 Args의 stance·art 값.
+            string stance = ArgOf(args, "stance"), art = ArgOf(args, "art");
+            System.Func<LogicalKey, string> keyName = k => k == LogicalKey.Stance && stance != null ? stance : k == LogicalKey.Skill && art != null ? art : k.ToString();
             foreach (var id in ids)
             {
                 var a = db.Art(id);
                 if (a == null) continue;
+                string cmd = ArtGuide.Short(names, a, keyName) ?? Command(names, a);
                 rows.Add(new CodexRow
                 {
                     Head = Get(names, id), IconId = id,
-                    Side = Command(names, a) + "  " + ArtDescriber.CostLine(names, db, id),
+                    Side = cmd + "  " + ArtDescriber.CostLine(names, db, id),
                     Body = ArtDescriber.OneLine(names, db, id)
                 });
             }
+        }
+
+        /// <summary>Args 묶음(이름, 값 번갈아)에서 그 이름의 값 글. 없으면 null.</summary>
+        static string ArgOf(object[] args, string name)
+        {
+            if (args == null) return null;
+            for (int i = 0; i + 1 < args.Length; i += 2)
+                if (args[i] as string == name) return args[i + 1] != null ? args[i + 1].ToString() : null;
+            return null;
         }
 
         /// <summary>커맨드 글: 첫 경로의 입력 문양 + K(섬 기술은 섬 문양).</summary>

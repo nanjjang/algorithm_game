@@ -1,0 +1,8 @@
+<!-- 서버 빌드의 코드 줄이기(managed stripping)가 Npgsql·System.Text.Json의 반사 코드를 지우지 않게 한다. -->
+<linker>
+  <assembly fullname="Npgsql" preserve="all" />
+  <assembly fullname="System.Text.Json" preserve="all" />
+  <assembly fullname="System.Text.Encodings.Web" preserve="all" />
+  <assembly fullname="Microsoft.Bcl.AsyncInterfaces" preserve="all" />
+  <assembly fullname="System.Net.Http" preserve="all" />
+</linker>

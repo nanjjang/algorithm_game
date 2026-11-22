@@ -198,7 +198,7 @@ namespace Wizard.Solo.Screens.Camp
             {
                 var s = Ctx != null ? Ctx.Session : null;
                 _world = s != null ? (s.MainWorld ?? s.World) : null;
-                _player = PracticeSession.FirstActive(_world);
+                _player = CampRules.MeOf(_world); // 협동: 내 캐릭터(내 보관함·내 비기 차례)
                 _assembly = new WorldAssembly(_world, _player);
                 _character = _player != null ? Ids.Char.NumberOf(_player.CharId) : 0;
             }
@@ -224,7 +224,7 @@ namespace Wizard.Solo.Screens.Camp
 
             _tab = CampTab.Assembly;
             // 해금 차례가 남아 있으면 비기 탭(고르는 판)부터(04 11.3절).
-            if (mode == CampMode.Camp && _world != null && CampRules.ArtPickPending(_world.Run)) _tab = CampTab.Arts;
+            if (mode == CampMode.Camp && _world != null && CampRules.ArtPickPending(CampRules.RewardOf(_world, _player))) _tab = CampTab.Arts;
             if (_tabsWidget != null) _tabsWidget.Select(_layout.Tabs.IndexOf(_tab), false);
             ApplyModeVisibility();
             RebuildAll();
@@ -678,7 +678,7 @@ namespace Wizard.Solo.Screens.Camp
         void RebuildTrie()
         {
             if (_world == null || _player == null) { _trie.Rebuild(null, false); return; }
-            var offer = _world.Run.CurrentArtOffer;
+            var offer = CampRules.RewardOf(_world, _player).ArtOffer;
             var cands = offer != null ? offer.Candidates : null;
             var m = ArtTrieModel.Build(Ctx.Content, Ctx.Rules != null ? Ctx.Rules.Arts : null, _player.CharId, _player.UnlockedArts, cands);
             bool pick = cands != null && cands.Count > 0;
@@ -805,17 +805,20 @@ namespace Wizard.Solo.Screens.Camp
             PlayUi("ui.camp.heal");
         }
 
+        bool IsOnlineRun => Ctx != null && Ctx.Session is IOnlineSession os && os.IsOnline;
+
         void OnDepart()
         {
             if (_world == null) return;
-            if (CampRules.ArtPickPending(_world.Run))
+            if (CampRules.ArtPickPending(CampRules.RewardOf(_world, _player)))
             {
                 // 남은 해금 차례를 먼저 고른다(04 11.3절 [임시 U-22]).
                 _noticeKey = "str.camp.depart_need_pick";
                 SelectTab(CampTab.Arts);
                 return;
             }
-            _world.Enqueue(new RunCommand(RunCommandKind.CampDepart));
+            // 협동: 내 출발 준비. 모두 준비되면 떠나고, 아니면 화면이 닫히고 전장에서 동료를 기다린다.
+            _world.Enqueue(new RunCommand(RunCommandKind.CampDepart, slot: _player != null ? _player.Slot : 0));
             PlayUi("ui.camp.depart");
         }
 
@@ -842,11 +845,11 @@ namespace Wizard.Solo.Screens.Camp
         void OnArtPicked(string artId)
         {
             if (_world == null || _player == null || artId == null) return;
-            var offer = _world.Run.CurrentArtOffer;
+            var offer = CampRules.RewardOf(_world, _player).ArtOffer;
             if (offer == null || !offer.Candidates.Contains(artId)) return;
             _world.Enqueue(new RunCommand(RunCommandKind.ArtPick, 0, 0, artId, _player.Slot));
-            // 비기 해금은 계정에 캐릭터별로 바로 남긴다(04 11.3절 "오프라인 프로필에 즉시 저장").
-            if (Ctx.Settlement != null) Ctx.Settlement.RecordArtUnlock(_character, artId);
+            // 비기 해금은 계정에 캐릭터별로 바로 남긴다(04 11.3절 "오프라인 프로필에 즉시 저장"). 온라인 판은 오프라인 프로필에 남기지 않는다.
+            if (Ctx.Settlement != null && !IsOnlineRun) Ctx.Settlement.RecordArtUnlock(_character, artId);
             PlayUi("ui.trie.unlock");
             _noticeKey = null;
         }
@@ -893,7 +896,7 @@ namespace Wizard.Solo.Screens.Camp
             bool used = base.OnMenuKey(key);
             int cur = RefOf(Focus.Current);
             if (cur != _selected && cur != SlotRefs.None) { _selected = cur; CampViews.Clear(_descRoot); BuildDescription(); UpdateOps(); }
-            if (_tab == CampTab.Arts) { var n = _trie.NodeOf(Focus.Current); if (n != null) _trie.Select(n); }
+            if (_tab == CampTab.Arts) _trie.SelectFocused(Focus.Current);
             return used;
         }
 
@@ -902,7 +905,7 @@ namespace Wizard.Solo.Screens.Camp
             if (_layout != null && _layout.CloseByCommand)
             {
                 // 판 중 야영: 닫기는 CampClose 명령. 화면을 Pop 하는 것은 Battle(CampChanged).
-                if (_world != null) _world.Enqueue(new RunCommand(RunCommandKind.CampClose));
+                if (_world != null) _world.Enqueue(new RunCommand(RunCommandKind.CampClose, slot: _player != null ? _player.Slot : 0));
                 return true;
             }
             return false;
@@ -926,18 +929,19 @@ namespace Wizard.Solo.Screens.Camp
         string Signature()
         {
             var run = _world.Run;
+            var mine = CampRules.RewardOf(_world, _player);
             var sb = new System.Text.StringBuilder();
-            sb.Append(run.Purse).Append('|').Append(run.HealsThisCamp).Append('|').Append(run.Phase).Append('|');
+            sb.Append(run.Purse).Append('|').Append(mine.HealsThisCamp).Append('|').Append(run.Phase).Append('|');
             if (_player != null)
             {
                 sb.Append(_player.Hp).Append('|').Append(_player.Loadout.Core.BlockId).Append(_player.Loadout.Core.WildUid);
                 for (int i = 0; i < _player.Loadout.Links.Length; i++) sb.Append(',').Append(_player.Loadout.Links[i].BlockId).Append(_player.Loadout.Links[i].WildUid);
                 sb.Append('|').Append(_player.UnlockedArts.Count);
             }
-            for (int i = 0; i < run.Storage.Count; i++) sb.Append(run.Storage[i].Uid).Append(';');
+            for (int i = 0; i < mine.Storage.Count; i++) sb.Append(mine.Storage[i].Uid).Append(';');
             sb.Append('|');
-            for (int i = 0; i < run.LibraryBench.Count; i++) sb.Append(run.LibraryBench[i].Uid).Append(';');
-            sb.Append('|').Append(run.PendingArtTurns.Count).Append(run.CurrentArtOffer != null ? run.CurrentArtOffer.TurnWave : -1);
+            for (int i = 0; i < mine.LibraryBench.Count; i++) sb.Append(mine.LibraryBench[i].Uid).Append(';');
+            sb.Append('|').Append(mine.ArtTurns.Count).Append(mine.ArtOffer != null ? mine.ArtOffer.TurnWave : -1);
             return sb.ToString();
         }
 

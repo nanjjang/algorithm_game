@@ -559,6 +559,12 @@ namespace Wizard.Solo.Sim
         /// 야영(Camp·StartCamp)의 FireIdle에서는 여기서 직접 읽는다: 모닥불 반경 안 + p.JPressedThisTick → CampSub = CampScreen,
         /// 출발 표식 반경 안 + J 눌림 유지 → DepartHold(60틱) → 출발. 보스 웨이브의 전이는 w.Boss.State만 보고 한다(공통 규칙 5).</summary>
         public virtual void Stage11_Phase(SimWorld w) { }
+        /// <summary>9단계(내 탄 이동 뒤): 결투에서 플레이어 탄이 상대 플레이어를 맞히는 판정(Mode == Duel일 때만 일한다).</summary>
+        public virtual void Stage4_DuelSync(SimWorld w) { }
+        /// <summary>결투 과녁이 맞았다: attackerSlot이 victimSlot에게 amount(무한 웨이브 배율이 든 값)만큼. 돌려주는 값 = 실제로 깎인 체력.</summary>
+        public virtual int DuelProxyDamage(SimWorld w, int victimSlot, int attackerSlot, float amount, UnityEngine.Vector2 at) => 0;
+        /// <summary>결투 기권·끊김: loserSlot이 경기에서 진다(결투가 아니면 아무 일도 없다).</summary>
+        public virtual void ForfeitDuel(SimWorld w, int loserSlot) { }
         /// <summary>적이 죽었다: 골드(지갑), 점수 재료, 체력 조각, 재료 기회.</summary>
         public virtual void OnEnemyKilled(SimWorld w, EnemyState e, in HitInfo killingHit) { }
         /// <summary>플레이어 체력이 0이 됐다(Player.Stage10_ResolveHits가 부른다). 첫 만남이면 Bosses.BeginCollapse,
@@ -574,7 +580,11 @@ namespace Wizard.Solo.Sim
         public virtual void OnCrystalsSpent(SimWorld w, PlayerState p, int count) { }
         public virtual void AddPurse(SimWorld w, int gold, Vector2 from) { }
         /// <summary>지금 야영의 체력 회복 값.</summary>
-        public virtual int HealCost(SimWorld w) { return 0; }
+        public virtual int HealCost(SimWorld w) { return HealCost(w, 0); }
+        /// <summary>그 슬롯 사람의 지금 야영 체력 회복 값(같은 야영의 두 번째부터 비싸지는 것은 사람마다 센다).</summary>
+        public virtual int HealCost(SimWorld w, int slot) { return 0; }
+        /// <summary>협동: 그 슬롯 사람이 판 도중에 나갔다(서버가 끊김 뒤 부른다). 보상 고르기·출발 기다림에서 빼고, 남은 사람이 다 끝냈으면 넘어간다.</summary>
+        public virtual void OnPlayerLeft(SimWorld w, int slot) { }
         /// <summary>판 끝 요약(정산·중간 지점 저장용).</summary>
         public virtual RunSummary BuildSummary(SimWorld w) { return new RunSummary(); }
     }
@@ -608,45 +618,19 @@ namespace Wizard.Solo.Sim
 
         /// <summary>전부 빈 구현인 묶음(테스트가 자기 모듈만 갈아 끼운다).</summary>
         public static SimModuleSet Stubs() => new SimModuleSet();
-        /// <summary>구현이 등록된 모듈은 구현으로, 나머지는 빈 구현으로 채운 묶음.</summary>
-        public static SimModuleSet CreateDefault()
+        /// <summary>실제 게임에서 쓰는 시스템을 판마다 새로 만든다.</summary>
+        public static SimModuleSet CreateDefault() => new SimModuleSet
         {
-            var s = new SimModuleSet();
-            SimModuleFactory.Fill(s);
-            return s;
-        }
-    }
-
-    /// <summary>
-    /// 모듈 등록 자리. 구현 작업은 자기 폴더에 `SimModuleFactory.&lt;모듈&gt;.cs`를 두고 해당 partial 메서드 하나만 구현한다:
-    /// <code>static partial void CreatePlayer(ref PlayerModule m) { m = new Player.PlayerSystem(); }</code>
-    /// 구현이 없는 partial 메서드는 컴파일 때 사라지므로 어느 시점에도 전체가 컴파일된다.
-    /// </summary>
-    public static partial class SimModuleFactory
-    {
-        static partial void CreatePlayer(ref PlayerModule m);
-        static partial void CreateSpells(ref SpellModule m);
-        static partial void CreateArts(ref ArtModule m);
-        static partial void CreateTraits(ref TraitModule m);
-        static partial void CreateThreats(ref ThreatModule m);
-        static partial void CreateEnemies(ref EnemyModule m);
-        static partial void CreateBosses(ref BossModule m);
-        static partial void CreateWaves(ref WaveModule m);
-        static partial void CreateRun(ref RunModule m);
-        static partial void CreateScore(ref ScoreRules m);
-
-        public static void Fill(SimModuleSet s)
-        {
-            PlayerModule player = null; CreatePlayer(ref player); if (player != null) s.Player = player;
-            SpellModule spells = null; CreateSpells(ref spells); if (spells != null) s.Spells = spells;
-            ArtModule arts = null; CreateArts(ref arts); if (arts != null) s.Arts = arts;
-            TraitModule traits = null; CreateTraits(ref traits); if (traits != null) s.Traits = traits;
-            ThreatModule threats = null; CreateThreats(ref threats); if (threats != null) s.Threats = threats;
-            EnemyModule enemies = null; CreateEnemies(ref enemies); if (enemies != null) s.Enemies = enemies;
-            BossModule bosses = null; CreateBosses(ref bosses); if (bosses != null) s.Bosses = bosses;
-            WaveModule waves = null; CreateWaves(ref waves); if (waves != null) s.Waves = waves;
-            RunModule run = null; CreateRun(ref run); if (run != null) s.Run = run;
-            ScoreRules score = null; CreateScore(ref score); if (score != null) s.Score = score;
-        }
+            Player = new Player.PlayerSystem(),
+            Spells = new Spells.SpellSystem(),
+            Arts = new Arts.ArtSystem(),
+            Traits = new Traits.TraitSystem(),
+            Threats = new Threats.ThreatSystem(),
+            Enemies = new Enemies.EnemySystem(),
+            Bosses = new Bosses.BossSystem(),
+            Waves = new Waves.WaveDirector(),
+            Run = new Run.RunFlow(),
+            Score = new Score.ScoreCalculator(),
+        };
     }
 }

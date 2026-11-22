@@ -108,3 +108,76 @@ nc -z -w 3 coop.example.com 27870 && echo OPEN
 | 끊김 | 판 상태를 1초 20번 통째로 보낸다(손님당 약 100KB/s). 보간·차이만 보내기는 다음 작업 |
 
 서비스 해제: `coop-server-service.sh uninstall`.
+
+## 7. 계정 DB(PostgreSQL)와 암호화(TLS) — 2026-11-15
+
+서버는 데이터 폴더(`~/WizardCoopServer`)의 `server.json`을 읽는다. 비밀(DB 비밀번호, 인증서 비밀번호, Google 클라이언트 비밀)은 **이 파일과 이 폴더에만** 둔다(권한 600, 저장소에 올리지 않는다).
+
+```json
+{
+  "db": "Host=127.0.0.1;Port=5433;Database=wizard;Username=wizard;Password=…",
+  "tls_pfx": "server.pfx",
+  "tls_password": "…",
+  "google_client_id": "",
+  "google_client_secret": "",
+  "allow_insecure_auth": false
+}
+```
+
+- `db`가 비어 있으면 예전처럼 `accounts.json` 하나에 쓴다(개발용). 처음 Postgres로 바꿀 때 DB가 비어 있고 `accounts.json`이 있으면 통째로 옮기고 파일 이름을 `accounts.json.imported-날짜`로 바꾼다.
+- `server.pfx`가 있으면 TLS로만 받는다. 로그에 `tls on, fingerprint sha256 …`이 찍힌다. 이 지문을 게임의 `Assets/Resources/DataSolo/Online.json` → `tls_pins`에 넣어 빌드한다. 인증서를 바꾸면 지문도 바꿔야 한다(옛 게임은 붙지 못한다).
+- 비밀번호·Google 로그인은 TLS 연결에서만 받는다(`allow_insecure_auth`는 같은 기기 개발에서만 true).
+
+### 7.1 맥미니에 처음 한 번(이미 해 둠)
+
+```bash
+brew install postgresql@17
+# 맥미니의 Docker가 127.0.0.1:5432를 쓰고 있어서 게임 DB는 5433으로 띄운다.
+printf "\nport = 5433\nlisten_addresses = 'localhost'\n" >> /opt/homebrew/var/postgresql@17/postgresql.conf
+# TCP 접속은 비밀번호(scram) 필요, 유닉스 소켓은 관리용(trust) 그대로
+sed -i "" -E "s/^(host[[:space:]]+all[[:space:]]+all[[:space:]]+(127.0.0.1\/32|::1\/128)[[:space:]]+)trust/\1scram-sha-256/" /opt/homebrew/var/postgresql@17/pg_hba.conf
+brew services restart postgresql@17
+psql -p 5433 -d postgres -c "create role wizard login password '<무작위>'"
+createdb -p 5433 -O wizard wizard
+cd ~/WizardCoopServer
+openssl req -x509 -newkey rsa:2048 -nodes -keyout tls-key.pem -out tls-cert.pem -days 3650 -subj "/CN=coop.yoonjunseo.com"
+openssl pkcs12 -export -legacy -inkey tls-key.pem -in tls-cert.pem -out server.pfx -passout pass:<무작위>
+chmod 600 tls-key.pem server.pfx server.json
+openssl x509 -in tls-cert.pem -outform der | shasum -a 256   # → Online.json tls_pins
+```
+
+표(서버가 처음 뜰 때 만든다, `PostgresAccountDb.cs`): `accounts`(계정·인증·서버 프로필 숫자, 지팡이 상태 jsonb), `items`(창고, 수량 > 0), `friends`, `friend_requests`, `sessions`(로그인 표의 SHA-256), `listings`(장터), `enhance_log`(강화 기록), `meta`, `schema_version`. 골드 ≥ 0, 수량 > 0, 이름·이메일·Google sub 유일은 DB 제약으로도 막는다.
+
+### 7.2 DB 다루기
+
+- 서버가 시작할 때 전부 읽어 메모리에 두고, 처리마다 바뀐 줄을 트랜잭션 하나로 쓴다. **DB를 손으로 고칠 때는 서버를 멈추고**(`coop-server-service.sh stop`) 고친 뒤 `start`. 켠 채로 고치면 서버의 메모리 사본이 덮어쓴다.
+- 백업: `pg_dump -p 5433 -Fc wizard > ~/WizardCoopServer/backup-$(date +%Y%m%d).dump` / 되돌리기: `pg_restore -p 5433 -c -d wizard 파일`.
+- 들여다보기: `psql -p 5433 -d wizard -c "select id, name, email, gold, rating from accounts order by id"`.
+- 시험 계정 지우기(서버 멈춘 뒤): `psql -p 5433 -d wizard -c "delete from accounts where email like 'qa-live-%@example.com'"`.
+- 진짜 서버 확인 테스트: `WIZARD_LIVE=1 Tools/unity-test-edit.sh -f LiveServerSmokeTests` (가입·로그인·로그아웃. 만든 계정 이메일이 로그에 찍힌다).
+
+### 7.3 Google 로그인 켜기(사용자가 할 일)
+
+1. https://console.cloud.google.com → 프로젝트 만들기(또는 고르기).
+2. **API 및 서비스 → OAuth 동의 화면**: 사용자 유형 "외부", 앱 이름, 지원 이메일. 범위는 `openid`, `email`, `profile`만. 게시 상태가 "테스트"면 테스트 사용자에 넣은 계정만 로그인된다(모두에게 열려면 "앱 게시").
+3. **사용자 인증 정보 → 사용자 인증 정보 만들기 → OAuth 클라이언트 ID → 애플리케이션 유형 "데스크톱 앱"**. 리디렉션 URI는 넣지 않는다(데스크톱 앱은 `http://127.0.0.1:아무포트`를 허용한다).
+4. 받은 **클라이언트 ID**와 **클라이언트 보안 비밀**을 맥미니 `~/WizardCoopServer/server.json`의 `google_client_id`, `google_client_secret`에 넣고 `coop-server-service.sh restart`. 로그에 `google login on`.
+5. 게임 빌드는 바꿀 것이 없다(클라이언트 ID는 로그인 화면이 서버에 물어본다). 로그인 화면의 [Google 계정으로 계속]이 켜진다.
+
+흐름: 게임이 이 기기의 빈 포트에서 기다리며 브라우저로 Google 로그인 쪽을 연다(PKCE S256 + state) → 받은 인가 코드를 TLS로 게임 서버에 보냄 → 서버가 Google 토큰 끝점에서 바꿔 id_token의 iss·aud·exp를 확인 → 처음 온 Google 사용자면 이름을 정하게 한다.
+
+### 7.4 메일(비밀번호 찾기)
+
+비밀번호를 잃었을 때 6자리 코드를 이메일로 보내 새 비밀번호를 정하게 한다. 메일은 [Resend](https://resend.com) HTTPS API로 보낸다(무료 플랜으로 충분하다).
+가입 확인 메일은 아직 없다(가입·로그인은 메일 없이 된다).
+
+1. Resend에서 도메인을 추가해 인증한다(Cloudflare DNS에 SPF·DKIM 레코드). **발신 권한만** 있는 API 키를 도메인 하나에 묶어 만든다.
+2. 맥미니 `~/WizardCoopServer/server.json`에 두 줄을 넣는다(권한 600, 저장소에 올리지 않는다).
+   ```json
+   "resend_api_key": "re_…", "mail_from": "Wizard Game <no-reply@도메인>"
+   ```
+3. `coop-server-service.sh restart` → 로그에 `recovery mail on`. 로그인 화면의 "지금은 보낼 수 없음" 꼬리표가 사라지고 [비밀번호를 잊었다]가 열린다.
+
+규칙: 코드는 15분, 맞히기 5번, 같은 이메일은 60초 간격·시간당 5번. 없는 이메일도 같은 답을 받는다(계정이 있는지 알려 주지 않는다). 비밀번호를 바꾸면 그 계정의 로그인 표가 모두 지워져 다른 기기에서도 다시 로그인해야 한다.
+키가 없거나 비어 있으면 복구 메일은 꺼진 채로 둔다(서버는 그대로 돈다).
+

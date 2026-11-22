@@ -144,6 +144,7 @@ namespace Wizard.Solo.Tests.ScreensCamp
     {
         public int Cost;
         public override int HealCost(SimWorld w) => Cost;
+        public override int HealCost(SimWorld w, int slot) => Cost;
     }
 
     sealed class CampFakeArts : ArtModule

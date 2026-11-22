@@ -68,8 +68,21 @@ write_plist() {
 EOF
 }
 
-svc_stop()  { launchctl bootout "gui/$(id -u)/$LABEL" 2>/dev/null || true; }
-svc_start() { launchctl bootstrap "gui/$(id -u)" "$PLIST"; }
+svc_stop() {
+  launchctl bootout "gui/$(id -u)/$LABEL" 2>/dev/null || true
+  # 내리기는 비동기다: 다 내려갈 때까지 기다린다(최대 10초).
+  for _ in 1 2 3 4 5 6 7 8 9 10; do
+    launchctl print "gui/$(id -u)/$LABEL" >/dev/null 2>&1 || return 0
+    sleep 1
+  done
+}
+svc_start() {
+  for _ in 1 2 3; do
+    launchctl bootstrap "gui/$(id -u)" "$PLIST" 2>/dev/null && return 0
+    sleep 2
+  done
+  launchctl bootstrap "gui/$(id -u)" "$PLIST"
+}
 
 port_now() { [ -f "$PORT_FILE" ] && cat "$PORT_FILE" || echo "$DEFAULT_PORT"; }
 

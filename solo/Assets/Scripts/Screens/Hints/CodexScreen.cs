@@ -136,9 +136,11 @@ namespace Wizard.Solo.Screens.Hints
                 var r = rows[i];
                 if (r.Head == null)
                 {
-                    float ph = dense ? 32f : 40f;
+                    // 한 줄에 안 들어가는 설명 줄(긴 키 이름 등)은 두 줄 자리를 준다 — 아래 줄을 덮지 않게.
+                    string note = "• " + r.Body;
+                    float ph = (dense ? 32f : 40f) + (UiTextFit.Fits(note, (int)UiFontId.F16, (int)bw) ? 0f : 16f);
                     if (y + ph > maxH) break;
-                    UiKit.Label(Ctx, _body, "• " + r.Body, UiFontId.F16, 0f, y, bw, ph, UiTheme.Chalk, TextAnchor.UpperLeft, true);
+                    UiKit.Label(Ctx, _body, note, UiFontId.F16, 0f, y, bw, ph, UiTheme.Chalk, TextAnchor.UpperLeft, true);
                     y += ph;
                     continue;
                 }
@@ -154,8 +156,14 @@ namespace Wizard.Solo.Screens.Hints
                     x = 44f;
                 }
                 UiKit.Label(Ctx, line, r.Head, UiFontId.F16, x, 0f, 196f, rowH - 4f, UiTheme.Chalk);
-                float side = r.Side != null ? 260f : 0f;
-                UiKit.Label(Ctx, line, r.Body ?? string.Empty, UiFontId.F16, x + 204f, 0f, bw - x - 204f - side, rowH - 4f, UiTheme.Chalk, TextAnchor.MiddleLeft, false);
+                // 옆 글(비기 커맨드는 키 이름까지 — "L + ↑ ↓ ↓ ↑ + K  결정 전부(최소 3)")이 들어가게 300.
+                // 본문이 한 줄에 안 들어가면(긴 비기 설명) 접는다. 줄 높이가 F16 두 줄보다 낮으면 F12로 접어 옆 줄을 덮지 않는다.
+                float side = r.Side != null ? 300f : 0f;
+                float bodyW = bw - x - 204f - side - 8f;
+                string bodyText = r.Body ?? string.Empty;
+                bool oneLine = UiTextFit.Fits(bodyText, (int)UiFontId.F16, (int)bodyW);
+                var bodyFont = oneLine || rowH - 4f >= 2f * UiTheme.LineHeight(UiFontId.F16) ? UiFontId.F16 : UiFontId.F12;
+                UiKit.Label(Ctx, line, bodyText, bodyFont, x + 204f, 0f, bodyW, rowH - 4f, UiTheme.Chalk, TextAnchor.MiddleLeft, !oneLine);
                 if (r.Body2 != null)
                     UiKit.Label(Ctx, line, r.Body2, UiFontId.F16, x + 204f, rowH - 8f, bw - x - 204f, 24f, UiTheme.SlateBlue);
                 if (r.Side != null)

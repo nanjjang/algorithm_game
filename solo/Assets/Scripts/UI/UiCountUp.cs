@@ -32,6 +32,7 @@ namespace Wizard.Solo.UI
             c._delay = Mathf.Max(0f, delay);
             c._seconds = Mathf.Max(0.01f, seconds);
             c._popAtEnd = popAtEnd;
+            c._shownValid = false;
             // 끝 값을 먼저 쓴다(에디터 모드·테스트에서도 글이 맞다). 플레이 중이면 첫 Update가 시작 값으로 바꾼다.
             label.SetText(c._format(target));
             c._t = Application.isPlaying && from != target ? -c._delay : 1e9f;
@@ -59,8 +60,15 @@ namespace Wizard.Solo.UI
                 return;
             }
             long v = _from + (long)Math.Round((_target - _from) * (double)UiMotion.EaseOutCubic(k));
+            // 값이 그대로인 프레임(작은 수를 천천히 올릴 때·끝 무렵)은 글을 다시 만들지 않는다
+            if (_shownValid && v == _shown) return;
+            _shown = v;
+            _shownValid = true;
             _label.SetText(_format(v));
         }
+
+        long _shown;
+        bool _shownValid;
 
         void OnDisable() { if (_t < 1e8f) Complete(); }
     }

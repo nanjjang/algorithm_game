@@ -139,6 +139,31 @@ namespace Wizard.Solo.Tests.Art
         }
 
         [Test]
+        public void Lookups_RepeatedQueries_ReturnSameCachedAnim()
+        {
+            // 표시 층이 프레임마다 묻는 길: 같은 물음이면 같은 그림(조회 기억), 다른 물음이면 예전 결과 그대로
+            var fly = _art.MonsterClip(Ids.Enemy.BatDusk, "fly");
+            Assert.AreSame(fly, _art.MonsterClip(Ids.Enemy.BatDusk, "fly"));
+            Assert.AreNotSame(fly, _art.MonsterClip(Ids.Enemy.BatDusk, "death"));
+            Assert.AreSame(_art.MonsterClip(Ids.Enemy.BatDusk, null), _art.MonsterClip(Ids.Enemy.BatDusk, null));
+            var names = _art.MonsterClipNames(Ids.Enemy.BatDusk);
+            Assert.AreSame(names, _art.MonsterClipNames(Ids.Enemy.BatDusk));
+            CollectionAssert.Contains(names, "fly");
+            Assert.AreEqual(0, _art.MonsterClipNames("enemy.unknown").Count);
+            Assert.AreEqual(0, _art.MonsterClipNames(null).Count);
+            var hit = _art.Effect("player", "hit_fire");
+            Assert.AreSame(hit, _art.Effect("player", "hit_fire"));
+            var steam = _art.Effect(ArtLibrary.LayersGroup, "reactive/char.1/steam:threshold");
+            Assert.AreSame(steam, _art.Effect(ArtLibrary.LayersGroup, "reactive/char.1/steam:threshold"));
+            var idle = _art.CharacterClip(Ids.Char.C1, "idle", Facing3.Down);
+            Assert.AreSame(idle, _art.CharacterClip(Ids.Char.C1, "idle", Facing3.Down));
+            Assert.AreEqual(idle.Frames.Length, _art.CharacterClip(Ids.Char.C1, "idle", Facing3.Down).Frames.Length);
+            // 없는 것(자리 표시)은 기억하지 않아도 매번 1칸 그림
+            Assert.AreEqual(1, _art.MonsterClip("enemy.unknown", "move").Frames.Length);
+            Assert.AreEqual(1, _art.MonsterClip("enemy.unknown", "move").Frames.Length);
+        }
+
+        [Test]
         public void Effect_MissingIsSingleFramePlaceholder()
         {
             var e = _art.Effect("player", "no_such_effect");

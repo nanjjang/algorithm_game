@@ -116,7 +116,7 @@ namespace Wizard.Solo.Screens.Camp
             var s = new HealButtonState();
             if (w == null || p == null) return s;
             s.Visible = true;
-            s.Cost = w.Mods.Run.HealCost(w);
+            s.Cost = w.Mods.Run.HealCost(w, p.Slot);
             s.DawnLine = w.Run.DawnCamp;
             if (p.Hp >= p.MaxHp) { s.Enabled = false; return s; }
             if (w.Run.Purse < s.Cost) { s.Enabled = false; s.DisabledReasonKey = "error.not_enough_gold"; return s; }
@@ -212,8 +212,23 @@ namespace Wizard.Solo.Screens.Camp
         }
 
         /// <summary>출발 전에 골라야 할 해금 차례가 남았나(04 11.3절 "야영을 떠나기 전 남은 차례를 모두 골라야 한다").</summary>
-        public static bool ArtPickPending(RunState run) =>
-            run != null && ((run.CurrentArtOffer != null && run.CurrentArtOffer.Candidates.Count > 0) || run.PendingArtTurns.Count > 0);
+        public static bool ArtPickPending(RunState run) => run != null && ArtPickPending(run.Rewards[0]);
+
+        /// <summary>그 사람(RunState.Rewards[slot])에게 골라야 할 해금 차례가 남았나(협동은 사람마다 따로).</summary>
+        public static bool ArtPickPending(SlotReward r) =>
+            r != null && ((r.ArtOffer != null && r.ArtOffer.Candidates.Count > 0) || r.ArtTurns.Count > 0);
+
+        /// <summary>그 플레이어의 보상 상태(없으면 슬롯 0).</summary>
+        public static SlotReward RewardOf(SimWorld w, PlayerState p) =>
+            w == null ? null : w.Run.Rewards[p != null && p.Slot >= 0 && p.Slot < w.Run.Rewards.Length ? p.Slot : 0];
+
+        /// <summary>화면이 "나"로 보는 플레이어: 세계의 Me(협동 = 내 슬롯)가 활동 중이면 그것, 아니면 첫 활동 플레이어(연습 방 등).</summary>
+        public static PlayerState MeOf(SimWorld w)
+        {
+            if (w == null) return null;
+            var me = w.Me;
+            return me != null && me.Active ? me : PracticeSession.FirstActive(w);
+        }
 
         /// <summary>임계 사격 가능 횟수 0이면 경고(TV-069). −1 = 무한(열 0).</summary>
         public static bool CritZeroWarning(in SpellStats s) => s.CritShots == 0;

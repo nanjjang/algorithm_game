@@ -99,6 +99,7 @@ namespace Wizard.Solo.Screens.Story
         {
             float W = UiScale.RefWidth, H = UiScale.RefHeight;
             _collapse = UiKit.Rect(_root, 0f, 0f, W, H, StoryColors.CollapseGray, false, "CollapseTint");
+            UiFullBleed.Fill(_collapse.rectTransform);
 
             var ir = _t.IntroBand;
             _intro = UiKit.Node(_root, "IntroBand", ir.X, ir.Y, ir.W, ir.H);
@@ -132,13 +133,26 @@ namespace Wizard.Solo.Screens.Story
             _rageEdge[1] = UiKit.Rect(_root, 0f, H - e, W, e, StoryColors.DangerMagenta, false, "RageEdgeBottom");
             _rageEdge[2] = UiKit.Rect(_root, 0f, 0f, e, H, StoryColors.DangerMagenta, false, "RageEdgeLeft");
             _rageEdge[3] = UiKit.Rect(_root, W - e, 0f, e, H, StoryColors.DangerMagenta, false, "RageEdgeRight");
+            PinToWindowEdges(_rageEdge);
 
             _flash = UiKit.Rect(_root, 0f, 0f, W, H, StoryColors.FlashWhite, false, "Flash");
+            UiFullBleed.Fill(_flash.rectTransform);
             float b = _t.FlashBorderPx;
             _border[0] = UiKit.Rect(_root, 0f, 0f, W, b, StoryColors.FlashWhite, false, "FlashBorderTop");
             _border[1] = UiKit.Rect(_root, 0f, H - b, W, b, StoryColors.FlashWhite, false, "FlashBorderBottom");
             _border[2] = UiKit.Rect(_root, 0f, 0f, b, H, StoryColors.FlashWhite, false, "FlashBorderLeft");
             _border[3] = UiKit.Rect(_root, W - b, 0f, b, H, StoryColors.FlashWhite, false, "FlashBorderRight");
+            PinToWindowEdges(_border);
+        }
+
+        /// <summary>반응형: 화면 덮개는 창 끝까지, 테두리 띠(위·아래·왼·오른 순)는 굵기 그대로 창 가장자리에 붙인다(UiFullBleed).</summary>
+        static void PinToWindowEdges(UImage[] edges)
+        {
+            if (edges == null || edges.Length < 4) return;
+            UiFullBleed.Fill(edges[0] != null ? edges[0].rectTransform : null, UiBleedEdges.Horizontal, UiBleedEdges.Top);
+            UiFullBleed.Fill(edges[1] != null ? edges[1].rectTransform : null, UiBleedEdges.Horizontal, UiBleedEdges.Bottom);
+            UiFullBleed.Fill(edges[2] != null ? edges[2].rectTransform : null, UiBleedEdges.Vertical, UiBleedEdges.Left);
+            UiFullBleed.Fill(edges[3] != null ? edges[3].rectTransform : null, UiBleedEdges.Vertical, UiBleedEdges.Right);
         }
 
         void BuildWorldMarks(GameContext ctx)

@@ -103,9 +103,11 @@ namespace Wizard.Solo.Screens.Camp
             var lt = LootTuning.From(db);
             m.StorageCap = drops != null ? drops.StorageCap : 0;
             m.Purse = run.Purse;
-            m.StorageCount = run.Storage.Count;
+            // 협동: 그 사람(p)의 제시·보관함. p가 없으면(시험·판 밖) 슬롯 0.
+            var mine = run.Rewards[p != null && p.Slot >= 0 && p.Slot < run.Rewards.Length ? p.Slot : 0];
+            m.StorageCount = mine.Storage.Count;
             m.PlayerHurt = p != null && p.Hp < p.MaxHp;
-            var offer = run.Loot;
+            var offer = mine.LootDone ? null : mine.Loot;
             m.RerollCost = lt.RerollCost(0);
             m.NextRerollCost = lt.RerollCost(1);
             if (offer == null) return m;
@@ -134,7 +136,7 @@ namespace Wizard.Solo.Screens.Camp
                 v.StarTarget = c.StarTarget;
                 if (c.StarTarget > 0) v.StarLine = BlockDescriber.StarLine(db != null ? db.Block(c.BlockId) : null, c.StarTarget, stars);
                 if (coreDef != null && coreDef.Style != null) v.OnCore = BlockDescriber.OnCore(db != null ? db.Block(c.BlockId) : null, coreDef);
-                if (baseR != null) Preview(v, rules, db, p, run, lt, baseR);
+                if (baseR != null) Preview(v, rules, db, p, mine, lt, baseR);
                 if (c.Picked) m.Picked++;
                 m.Cards.Add(v);
             }
@@ -143,7 +145,7 @@ namespace Wizard.Solo.Screens.Camp
                 m.BorrowedCard = Card(db, offer.BorrowedBlockId, drops != null ? drops.BorrowedBlockRarity : Ids.Rarity.Hero, true);
                 m.BorrowedCard.Index = -1;
                 if (coreDef != null && coreDef.Style != null) m.BorrowedCard.OnCore = BlockDescriber.OnCore(db.Block(offer.BorrowedBlockId), coreDef);
-                if (baseR != null) Preview(m.BorrowedCard, rules, db, p, run, lt, baseR);
+                if (baseR != null) Preview(m.BorrowedCard, rules, db, p, mine, lt, baseR);
             }
             return m;
         }
@@ -172,7 +174,7 @@ namespace Wizard.Solo.Screens.Camp
         /// 끼웠을 때 미리보기: 같은 블록이 지팡이 칸에 있고 별이 오르면 그 칸 별 +1, 아니면 빈 코어(투사체) → 첫 빈 연결 칸,
         /// 빈 칸이 없으면 허수아비 DPS가 가장 오르는 칸(같으면 앞 칸)의 블록 대신. 보관함의 같은 블록이 자랄 때는 그 별로 끼운다고 본다.
         /// </summary>
-        static void Preview(LootCardView v, SimModuleSet rules, IContentDb db, PlayerState p, RunState run, LootTuning lt, SpellPreviewResult baseR)
+        static void Preview(LootCardView v, SimModuleSet rules, IContentDb db, PlayerState p, SlotReward run, LootTuning lt, SpellPreviewResult baseR)
         {
             BlockDef def = db != null && v.BlockId != null ? db.Block(v.BlockId) : null;
             var lo = p.Loadout;

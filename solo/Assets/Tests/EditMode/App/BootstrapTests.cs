@@ -9,6 +9,15 @@ namespace Wizard.Solo.Tests.App
     public class BootstrapTests
     {
         [Test]
+        public void FrameRateCap_OnlyWhenVSyncOff_UsesRefreshRate()
+        {
+            Assert.AreEqual(-1, Bootstrap.FrameRateCap(1, 144.0), "수직 동기가 켜져 있으면 엔진 기본");
+            Assert.AreEqual(144, Bootstrap.FrameRateCap(0, 143.9999));
+            Assert.AreEqual(60, Bootstrap.FrameRateCap(0, 59.94));
+            Assert.AreEqual(60, Bootstrap.FrameRateCap(0, 0.0), "주사율을 모르면 60");
+        }
+
+        [Test]
         public void FirstRun_GoesToFirstRunPrompt_ElseTitle()
         {
             Assert.AreEqual(ScreenId.FirstRunPrompt, Bootstrap.FirstScreen(new BootResult { FirstRun = true }));

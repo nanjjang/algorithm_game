@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using Wizard.Solo.Art;
 using Wizard.Solo.Meta;
 using Wizard.Solo.Sim;
@@ -40,6 +41,10 @@ namespace Wizard.Solo.Screens.Story
 
         TutorialController _ctl;
         TutorialPlan _plan;
+        TutorialOpening _opening;
+        AsyncOperation _openingLoad;
+        UImage _openingVeil;
+        float _openingReveal;
         RectTransform _balloon, _dialog, _pips, _keys;
         UImage _praiseFrame, _setbackFrame;
         UiLabel _chip, _title, _body, _goal, _hint, _praise, _skip;
@@ -167,12 +172,22 @@ namespace Wizard.Solo.Screens.Story
             _shownStep = -1;
             _shownLine = -1;
             if (_ctl == null) _ctl = new TutorialController(Ctx);
-            _ctl.Enter(Args);
-            Refresh();
+            var run = Args.Get<RunConfig>(ScreenArgKeys.RunConfig);
+            if (run != null && Ctx?.Art != null && Ctx.Session != null
+                && Application.CanStreamedLevelBeLoaded(TutorialOpening.ScenePath))
+            {
+                _openingVeil = UiKit.Rect(Content, 0f, 0f, 1920f, 1080f, Color.black, true, "Opening transition");
+                UiFullBleed.Fill(_openingVeil.rectTransform);
+                _openingLoad = SceneManager.LoadSceneAsync(TutorialOpening.ScenePath, LoadSceneMode.Additive);
+                if (_openingLoad != null) return;
+            }
+            StartTutorial(false);
         }
 
         public override void OnExit()
         {
+            ReleaseOpening();
+            ClearOpeningVeil();
             if (_ctl != null) _ctl.Exit();
             base.OnExit();
         }
@@ -180,6 +195,11 @@ namespace Wizard.Solo.Screens.Story
         /// <summary>Esc = 건너뛰기 확인 창(일시정지 화면을 쓰지 않는다 — 00 4.1절).</summary>
         public override bool OnBack()
         {
+            if (_openingLoad != null || _opening != null)
+            {
+                StartTutorial(true);
+                return true;
+            }
             if (_ctl != null) _ctl.RequestSkip();
             return true;
         }
@@ -187,6 +207,7 @@ namespace Wizard.Solo.Screens.Story
         public override bool OnMenuKey(MenuKey key)
         {
             // 메뉴 키(J·방향)는 같은 물리 키로 전투에도 들어간다. 도입 대사의 J(다음 줄)와 블록 단계의 J([조립 열기])만 쓴다.
+            if (_openingLoad != null || _opening != null) return true;
             if (key != MenuKey.Confirm || _ctl == null || _ctl.Model == null) return true;
             if (_ctl.NextIntroLine()) return true;
             if (_ctl.Model.CanOpenLoadout(_ctl.CurrentStep)) _ctl.OpenLoadout();
@@ -195,12 +216,76 @@ namespace Wizard.Solo.Screens.Story
 
         public override void Tick(float dt)
         {
+            if (_openingLoad != null)
+            {
+                if (!_openingLoad.isDone) return;
+                _openingLoad = null;
+                var scene = SceneManager.GetSceneByPath(TutorialOpening.ScenePath);
+                foreach (var root in scene.GetRootGameObjects())
+                {
+                    if (root.TryGetComponent(out _opening)) break;
+                }
+                int effects = SettingsOptions.EffectsLevel(Ctx.Settings?.Current);
+                float motion = effects == 0 ? 1f : effects == 1 ? 0.5f : 0f;
+                if (_opening == null || !_opening.Build(Content, Ctx, Args.Get<RunConfig>(ScreenArgKeys.RunConfig), motion))
+                    StartTutorial(false);
+                return;
+            }
+            if (_opening != null)
+            {
+                if (!_opening.Advance(dt)) StartTutorial(true);
+                return;
+            }
+            if (_openingVeil != null)
+            {
+                _openingReveal = Mathf.MoveTowards(_openingReveal, 0f, dt / 0.55f);
+                _openingVeil.color = new Color(0f, 0f, 0f, _openingReveal);
+                if (_openingReveal <= 0f) ClearOpeningVeil();
+            }
             if (_ctl == null) return;
             _ctl.Tick();
             if (_praiseAge >= 0f) _praiseAge += dt;
             _stepAge += dt;
             if (_setbackAge >= 0f) _setbackAge += dt;
             Refresh();
+        }
+
+        void StartTutorial(bool openingShown)
+        {
+            ReleaseOpening();
+            if (_openingVeil != null)
+            {
+                _openingVeil.raycastTarget = false;
+                _openingReveal = 1f;
+            }
+            _ctl.Enter(Args, openingShown);
+            Refresh();
+        }
+
+        void ClearOpeningVeil()
+        {
+            if (_openingVeil == null) return;
+            _openingVeil.gameObject.SetActive(false);
+            Destroy(_openingVeil.gameObject);
+            _openingVeil = null;
+        }
+
+        void ReleaseOpening()
+        {
+            var pending = _openingLoad;
+            _openingLoad = null;
+            if (_opening != null) _opening.Hide();
+            _opening = null;
+            if (pending != null && !pending.isDone)
+                pending.completed += _ => UnloadOpeningScene();
+            else
+                UnloadOpeningScene();
+        }
+
+        static void UnloadOpeningScene()
+        {
+            var scene = SceneManager.GetSceneByPath(TutorialOpening.ScenePath);
+            if (scene.IsValid() && scene.isLoaded) SceneManager.UnloadSceneAsync(scene);
         }
 
         void Refresh()

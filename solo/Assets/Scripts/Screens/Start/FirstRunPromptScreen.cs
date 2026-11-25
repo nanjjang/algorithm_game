@@ -65,7 +65,9 @@ namespace Wizard.Solo.Screens.Start
         /// <summary>Esc: 저장하지 않는다 → 다음 실행에 다시 묻는다 [임시]. 이번에는 타이틀로 넘어간다.</summary>
         public override bool OnBack()
         {
-            _model.Skip(Args).Apply(Screens, this);
+            var nav = _model.Skip(Args);
+            if (nav.Kind == StartNavKind.None) return true;
+            nav.Apply(Screens, this);
             return true;
         }
     }

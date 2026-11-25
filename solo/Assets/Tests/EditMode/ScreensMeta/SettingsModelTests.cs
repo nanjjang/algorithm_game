@@ -190,12 +190,15 @@ namespace Wizard.Solo.Tests.ScreensMeta
         // ---------------------------------------------------------------- 해상도 (D-50)
 
         [Test]
-        public void S00_D_50__WindowedResolutionsAreIntegerMultiplesThatFit()
+        public void S00_D_50__WindowedResolutionsAreCandidatesThatFit()
         {
-            CollectionAssert.AreEqual(new[] { new Vector2Int(1920, 1080) }, SettingsModel.WindowedResolutions(2560, 1440));
-            CollectionAssert.AreEqual(new[] { new Vector2Int(1920, 1080), new Vector2Int(3840, 2160) },
-                SettingsModel.WindowedResolutions(3840, 2160));
-            CollectionAssert.AreEqual(new[] { new Vector2Int(1920, 1080) }, SettingsModel.WindowedResolutions(1920, 1080));
+            CollectionAssert.AreEqual(new[] { new Vector2Int(1280, 720), new Vector2Int(1600, 900), new Vector2Int(1920, 1080), new Vector2Int(2560, 1440) },
+                SettingsModel.WindowedResolutions(2560, 1440));
+            CollectionAssert.AreEqual(new[] { new Vector2Int(1280, 720), new Vector2Int(1600, 900), new Vector2Int(1920, 1080),
+                new Vector2Int(2560, 1440) }, SettingsModel.WindowedResolutions(3024, 1964));
+            CollectionAssert.AreEqual(new[] { new Vector2Int(1280, 720), new Vector2Int(1600, 900), new Vector2Int(1920, 1080) },
+                SettingsModel.WindowedResolutions(1920, 1080));
+            CollectionAssert.AreEqual(new[] { new Vector2Int(1024, 600) }, SettingsModel.WindowedResolutions(1024, 600));
         }
 
         [Test]

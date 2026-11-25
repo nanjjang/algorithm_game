@@ -85,7 +85,7 @@ namespace Wizard.Solo.Screens.Story
         }
 
         /// <summary>화면 OnEnter. 튜토리얼 방을 열었으면 true, 열지 못해 진짜 판으로 바로 넘어갔으면 false.</summary>
-        public bool Enter(ScreenArgs args)
+        public bool Enter(ScreenArgs args, bool openingShown = false)
         {
             _left = false;
             _running = false;
@@ -101,6 +101,8 @@ namespace Wizard.Solo.Screens.Story
                 return false;
             }
 
+            int moveStep = _plan.StepOf(TutorialStepIds.Move);
+            if (openingShown && moveStep > 0) _tutorialCfg.TutorialStep = moveStep;
             session.StartRun(_tutorialCfg);
             _prevInputScreen = session.InputScreen;
             session.InputScreen = ScreenId.Tutorial;

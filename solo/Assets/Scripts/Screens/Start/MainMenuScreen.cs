@@ -115,6 +115,7 @@ namespace Wizard.Solo.Screens.Start
             {
                 if (mb == null) continue;
                 if (mb.Background != null) mb.Background.enabled = false;
+                mb.GlowEnabled = false;
                 if (mb.Glow != null) mb.Glow.enabled = false;
             }
             Focus.CursorChanged = prev =>

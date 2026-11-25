@@ -17,6 +17,9 @@ namespace Wizard.Solo.Screens.Start
         const float HintX = 760f, HintY = 840f, HintW = 400f, HintH = 48f;
         const float CornerW = 480f, CornerPad = 16f;
 
+        RectTransform _viewport;
+        RectTransform _layout;
+        Vector2 _layoutSize;
         TitleModel _model;
         UiLabel _hint;
         UiLabel _profileLabel;
@@ -30,38 +33,63 @@ namespace Wizard.Solo.Screens.Start
         protected override void BuildContent(RectTransform content)
         {
             _model = new TitleModel(StartTuning.Load(Ctx != null ? Ctx.Content : null));
-            // 바탕은 창 끝까지(UiFullBleed): 단색은 늘이고 그림은 비율대로 덮는다. 제목·단추는 1920×1080 안전 영역 그대로.
-            UiFullBleed.Fill(UiKit.Rect(content, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, UiTheme.WoodDark, true, "Background").rectTransform);
+            _viewport = UiKit.Rect(content, 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, UiTheme.WoodDark, true, "Background").rectTransform;
+            UiFullBleed.Fill(_viewport);
             var art = Ctx != null ? Ctx.Art : null;
             if (art != null)
-            {
                 UiFullBleed.Cover(UiKit.Image(content, art.Background("title"), 0f, 0f, UiScale.RefWidth, UiScale.RefHeight, null, false));
+
+            _layout = UiKit.Node(content, "TitleLayout");
+            UiKit.Center(_layout, UiScale.RefWidth, UiScale.RefHeight);
+            FitLayout();
+            var title = ReferenceGroup("Title", 0.5f, (TitleY + TitleH / 2f) / UiScale.RefHeight);
+            var profile = ReferenceGroup("Profile", 0f, 1f);
+            var prompt = ReferenceGroup("StartPrompt", 0.5f, (HintY + HintH / 2f) / UiScale.RefHeight);
+            var credits = ReferenceGroup("Credits", 1f, 1f);
+            if (art != null)
+            {
                 var titleArt = art.Ui("S-0202", "title_korean");
-                if (titleArt.IsValid) UiKit.Image(content, titleArt.Sprite, TitleX, TitleY, TitleW, TitleH);
-                else TitleText(content);
+                if (titleArt.IsValid) UiKit.Image(title, titleArt.Sprite, TitleX, TitleY, TitleW, TitleH);
+                else TitleText(title);
             }
-            else TitleText(content);
+            else TitleText(title);
 
             var badge = art != null ? art.Ui("I-F12", TitleModel.ProfileBadgeVariant(Ctx.Kind)) : default(UiSprite);
-            if (badge.IsValid) UiKit.Image(content, badge.Sprite, BadgeX, BadgeY, BadgeW, BadgeH, null, false);
-            else UiKit.Panel(Ctx, content, UiPanelKind.Heading, BadgeX, BadgeY, BadgeW, BadgeH);
+            if (badge.IsValid) UiKit.Image(profile, badge.Sprite, BadgeX, BadgeY, BadgeW, BadgeH, null, false);
+            else UiKit.Panel(Ctx, profile, UiPanelKind.Heading, BadgeX, BadgeY, BadgeW, BadgeH);
             // 표지 그림(I-F12)은 왼쪽에 문서 아이콘, 오른쪽이 글자 자리인 종이다 → 글자는 아이콘 오른쪽에 종이 글자색으로.
-            _profileLabel = UiKit.Label(Ctx, content, T(TitleModel.ProfileKey(Ctx != null ? Ctx.Kind : ProfileKind.Offline)),
+            _profileLabel = UiKit.Label(Ctx, profile, T(TitleModel.ProfileKey(Ctx != null ? Ctx.Kind : ProfileKind.Offline)),
                 UiFontId.F16, BadgeX + TitleModel.BadgeTextInset, BadgeY, BadgeW - TitleModel.BadgeTextInset - TitleModel.BadgeTextRight, BadgeH,
                 badge.IsValid ? UiTheme.PaperText : UiTheme.Chalk, TextAnchor.MiddleCenter, false, !badge.IsValid);
 
-            _change = UiKit.Button(Ctx, content, T(StartNameKeys.TitleChangeProfile), ChangeX, ChangeY, ChangeW, ChangeH,
+            _change = UiKit.Button(Ctx, profile, T(StartNameKeys.TitleChangeProfile), ChangeX, ChangeY, ChangeW, ChangeH,
                 OpenProfileSelect, UiButtonStyle.Small, null, null, UiFontId.F16);
 
-            _hint = UiKit.Label(Ctx, content, T(StartNameKeys.TitleStartHint), UiFontId.F24, HintX, HintY, HintW, HintH,
+            _hint = UiKit.Label(Ctx, prompt, T(StartNameKeys.TitleStartHint), UiFontId.F24, HintX, HintY, HintW, HintH,
                 UiTheme.Chalk, TextAnchor.MiddleCenter, false, true);
 
             float lh = UiTheme.LineHeight(UiFontId.F12);
             float bottom = UiScale.RefHeight - CornerPad;
-            _version = UiKit.Label(Ctx, content, TitleModel.BuildVersionText(Ctx != null ? Ctx.Names : null, Ctx != null ? Ctx.BuildVersion : null),
+            _version = UiKit.Label(Ctx, credits, TitleModel.BuildVersionText(Ctx != null ? Ctx.Names : null, Ctx != null ? Ctx.BuildVersion : null),
                 UiFontId.F12, UiScale.RefWidth - CornerPad - CornerW, bottom - 2f * lh, CornerW, lh, UiTheme.SlateBlue, TextAnchor.MiddleRight, false, true);
-            UiKit.Label(Ctx, content, T(StartNameKeys.TitleCredits), UiFontId.F12, UiScale.RefWidth - CornerPad - CornerW, bottom - lh,
+            UiKit.Label(Ctx, credits, T(StartNameKeys.TitleCredits), UiFontId.F12, UiScale.RefWidth - CornerPad - CornerW, bottom - lh,
                 CornerW, lh, UiTheme.SlateBlue, TextAnchor.MiddleRight, false, true);
+        }
+
+        RectTransform ReferenceGroup(string name, float anchorX, float anchorY)
+        {
+            return UiKit.PlaceAnchored(UiKit.Node(_layout, name), anchorX, anchorY,
+                0f, 0f, UiScale.RefWidth, UiScale.RefHeight);
+        }
+
+        void FitLayout()
+        {
+            Vector2 size = _viewport.rect.size;
+            if (size == _layoutSize || size.x <= 0f || size.y <= 0f) return;
+            _layoutSize = size;
+            float scale = Mathf.Min(size.x / UiScale.RefWidth, size.y / UiScale.RefHeight);
+            _layout.sizeDelta = size / scale;
+            _layout.localScale = new Vector3(scale, scale, 1f);
         }
 
         void TitleText(RectTransform content)
@@ -83,8 +111,10 @@ namespace Wizard.Solo.Screens.Start
         public override void Tick(float dt)
         {
             if (_model == null) return;
+            FitLayout();
             if (_model.Advance(dt, out float b)) PlayUi(StartSounds.TitleStartPromptPulse);
-            if (_hint != null) _hint.Color = new Color(UiTheme.Chalk.r * b, UiTheme.Chalk.g * b, UiTheme.Chalk.b * b, 1f);
+            // 밝기는 CanvasRenderer 색에 곱한다(글 색을 바꾸면 매 프레임 글 메시를 다시 만든다). 글 색은 Chalk 그대로.
+            if (_hint != null && _hint.Text != null) _hint.Text.canvasRenderer.SetColor(new Color(b, b, b, 1f));
         }
 
         public override bool OnMenuKey(MenuKey key)

@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>고객센터 — 엄청엄청 위대한 마법사 키우기</title>
+<meta name="description" content="설치 도움말, 계정·로그인, 자주 묻는 질문, 버그 제보와 1:1 문의.">
+<link rel="icon" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#130e24">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@2.40.3/dist/galmuri.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
+<link rel="stylesheet" href="site.css">
+<style>
+.page-head{min-height:min(62svh,560px)}
+.search{margin-top:30px;max-width:560px;display:flex;align-items:center;gap:12px}
+.search input{flex:1;min-width:0;background:transparent;border:0;color:var(--cream);font:inherit;font-size:16px;padding:4px 2px;outline:none}
+.search input::placeholder{color:var(--cream-faint)}
+.search svg{width:18px;height:18px;color:var(--cream-faint);flex:none}
+.search.recess:focus-within{filter:brightness(1.25)}
+
+.topics{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:-36px;position:relative;z-index:2}
+@media (max-width:900px){.topics{grid-template-columns:repeat(2,1fr)}}
+.topic{display:flex;flex-direction:column;gap:10px;padding:22px 20px;text-decoration:none;background:var(--slate);box-shadow:0 0 0 2px var(--ink),inset 0 2px 0 rgba(255,255,255,.06),0 18px 30px -16px rgba(0,0,0,.6);transition:transform .2s,box-shadow .2s}
+.topic:hover{transform:translateY(-4px);box-shadow:0 0 0 2px var(--ink),0 0 0 4px var(--ember),0 18px 30px -16px rgba(0,0,0,.6)}
+.topic svg{width:28px;height:28px;color:var(--ember)}
+.topic b{font-size:16px}
+.topic span{font-size:13px;color:var(--cream-dim);font-family:"Pretendard Variable",sans-serif;line-height:1.5}
+
+.faq{padding:90px 0 40px}
+.faq .wrap{max-width:920px}
+.cat{margin-top:56px;scroll-margin-top:100px}
+.cat:first-child{margin-top:0}
+.cat h2{margin:0 0 18px;font-size:22px;display:flex;align-items:center;gap:12px}
+.cat h2 small{font-size:12px;color:var(--cream-faint);font-weight:400}
+.qa{margin-bottom:12px}
+.qa summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:14px;font-size:15.5px;color:var(--cream);padding:2px 0}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::before{content:"Q";font-family:"Galmuri11",monospace;font-weight:700;color:var(--ember);flex:none}
+.qa summary::after{content:"+";margin-left:auto;color:var(--ember);font-family:"Galmuri11",monospace;font-size:18px}
+.qa[open] summary::after{content:"−"}
+.qa .a{margin-top:14px;padding-left:26px;font-size:14.5px;line-height:1.85;color:var(--cream-dim)}
+.qa .a ol,.qa .a ul{margin:6px 0;padding-left:20px}
+.qa .a b{color:var(--cream);font-weight:600}
+.qa .a a{color:var(--ember)}
+.qa.hide{display:none}
+.no-hit{display:none;text-align:center;padding:30px 0;color:var(--cream-dim)}
+.hit-count{font-size:12px;color:var(--cream-faint);margin:0 0 26px}
+
+.contact{padding:60px 0 120px;scroll-margin-top:80px}
+.contact-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:40px;margin-top:40px;align-items:start}
+@media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
+.panel .inner{margin:-14px -10px -10px}
+.panel h3{margin:0;font-size:20px;display:flex;align-items:center;gap:10px}
+.panel p{margin:12px 0 0;font-size:14px;line-height:1.8;color:var(--cream-dim)}
+.panel .pbtn{margin-top:22px}
+.form{display:grid;gap:16px;margin-top:20px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:560px){.row2{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:7px}
+.field label{font-size:12px;color:var(--cream-dim)}
+.field input,.field select,.field textarea{width:100%;background:#1f2131;color:var(--cream);border:0;font:inherit;font-size:15px;padding:11px 12px;box-shadow:inset 0 0 0 2px #12131c,inset 0 3px 0 rgba(0,0,0,.35);outline:none;border-radius:0}
+.field textarea{min-height:150px;resize:vertical;line-height:1.6}
+.field input:focus,.field select:focus,.field textarea:focus{box-shadow:inset 0 0 0 2px var(--ember)}
+.field .hint{font-size:11.5px;color:var(--cream-faint)}
+.err{color:#ff8a8a !important}
+.form-foot{display:flex;flex-wrap:wrap;align-items:center;gap:16px}
+.form-foot .pbtn{margin-top:0}
+.status{font-size:13px;color:var(--cream-dim);line-height:1.6}
+.status.ok{color:#9be39b}
+.prep{display:none;margin-top:14px;padding:12px 14px;font-size:13px;line-height:1.7;background:rgba(246,214,74,.08);box-shadow:inset 3px 0 0 var(--gold);color:var(--cream-dim)}
+.linkbtn{background:none;border:0;color:var(--ember);font:inherit;font-size:13px;cursor:pointer;padding:0;text-decoration:underline}
+</style>
+</head>
+<body>
+
+<nav class="site">
+  <div class="wrap">
+    <a class="mark px-b" href="index.html"><i class="campfire" aria-hidden="true"></i><span>엄청엄청 위대한 마법사 키우기</span></a>
+    <div class="nav-links px" id="nav-links">
+      <a href="index.html">홈</a><a href="game.html">게임 소개</a><a href="releases.html">버전 기록</a><a href="support.html" aria-current="page">고객센터</a>
+      <a class="pbtn sm px-b m-dl" data-dl="auto" href="index.html#download">무료 다운로드</a>
+    </div>
+    <a class="pbtn sm px-b nav-dl" data-dl="auto" href="index.html#download">무료 다운로드</a>
+    <button class="menu-btn" type="button" aria-label="메뉴" aria-expanded="false" aria-controls="nav-links"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 3h12v2H2zM2 7h12v2H2zM2 11h12v2H2z"/></svg></button>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="art" style="background-image:url(assets/bg_support.jpg)"></div>
+  <div class="wrap">
+    <div class="head left px">고객센터</div>
+    <h1 class="px-b">무엇을 도와줄까?</h1>
+    <p>자주 묻는 질문에서 먼저 찾아보고, 없으면 제보나 문의를 남겨 주세요.</p>
+    <label class="search recess" for="q">
+      <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M6 1h4v1h1v1h1v4h-1v1h-1v1H6V8H5V7H4V3h1V2h1zm0 2v4h4V3zm5 6h1v1h1v1h1v1h1v2h-2v-1h-1v-1h-1v-1h-1v-1h1z"/></svg>
+      <input id="q" type="search" class="px" placeholder="예: 비밀번호, 손상, 협동" autocomplete="off">
+    </label>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="topics px" aria-label="도움말 분류">
+    <a class="topic" href="#install"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M7 1h2v7h2v-1h1v1h-1v1h-1v1H9v1H7v-1H6V9H5V8H4V7h1v1h2zM2 12h2v1h8v-1h2v3H2z"/></svg><b>설치 · 실행</b><span>받기, 경고창, 업데이트</span></a>
+    <a class="topic" href="#account"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2h4v1h1v1h1v4H9v1H8v1H7v1H6v1h1v1H6v1H5v1H3v-1H2v-2h1v-1h1V9H3V8H2V4h1V3h1zm0 2v4h1v1h2V8h1V4H7V3H5v1z"/></svg><b>계정 · 로그인</b><span>가입, 비밀번호 찾기</span></a>
+    <a class="topic" href="#play"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M11 1h1v2h2v1h-2v2h-1V4H9V3h2zM8 6h1v1h1v1H9v1H8v1H7v1H6v1H5v1H4v1H3v1H2v-1H1v-1h1v-1h1v-1h1V10h1V9h1V8h1V7h1z"/></svg><b>게임</b><span>협동, 강화, 결제</span></a>
+    <a class="topic" href="#contact"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 3h14v10H1zm2 2v1h1v1h1v1h1v1h4V8h1V7h1V6h1V5h-1v1h-1v1h-1v1H7V7H6V6H5V5zm-0 3v3h10V8h-1v1h-1v1H5V9H4V8z"/></svg><b>제보 · 문의</b><span>버그 제보, 1:1 문의</span></a>
+  </nav>
+</div>
+
+<section class="faq">
+  <div class="wrap">
+    <p class="hit-count px" id="hits" aria-live="polite"></p>
+    <div class="no-hit px" id="nohit">찾는 내용이 없어요. 아래 <a href="#contact" style="color:var(--ember)">문의</a>로 남겨 주세요.</div>
+
+    <div class="cat" id="install">
+      <h2 class="px-b">설치 · 실행</h2>
+      <details class="qa recess"><summary>어떤 컴퓨터에서 돌아가나요?</summary><div class="a">
+        <b>Windows 10 / 11 (64비트)</b> 또는 <b>macOS 12 이상</b>(Apple 실리콘, Intel 모두)에서 돌아가요. 저장 공간은 1.5GB 이상 비워 두세요.</div></details>
+      <details class="qa recess"><summary>휴대폰이나 태블릿에서도 할 수 있나요?</summary><div class="a">
+        지금은 PC용(Windows · macOS)만 있어요.</div></details>
+      <details class="qa recess" id="q-win"><summary>Windows에서 "Windows의 PC 보호" 창이 떠요</summary><div class="a">
+        개인이 만든 게임이라 인증서 서명이 없어서 처음 한 번 뜨는 창이에요.
+        <ol><li>창의 <b>추가 정보</b>를 누르고</li><li>아래에 생긴 <b>실행</b>을 누르세요.</li></ol>
+        압축을 풀지 않고 zip 안에서 바로 실행하면 제대로 돌지 않을 수 있어요. 꼭 <b>압축 풀기</b>를 먼저 해 주세요.</div></details>
+      <details class="qa recess" id="q-mac"><summary>macOS에서 "확인되지 않은 개발자" 경고가 떠요</summary><div class="a">
+        <ol><li><code>Wizard.app</code>을 <b>응용 프로그램</b> 폴더로 옮기고 한 번 열어 경고를 닫으세요.</li>
+        <li><b>시스템 설정 → 개인정보 보호 및 보안</b>을 열고 맨 아래로 내리면 <b>그래도 열기</b>가 있어요.</li>
+        <li>누르고 암호를 넣으면 다음부터는 바로 열려요.</li></ol></div></details>
+      <details class="qa recess"><summary>macOS에서 "손상되었기 때문에 열 수 없습니다"라고 나와요</summary><div class="a">
+        파일이 망가진 게 아니라, 인터넷에서 받은 앱에 붙는 표시 때문에 생기는 문제예요. <b>터미널</b>을 열고 아래 한 줄을 붙여 넣은 뒤 다시 여세요.<br>
+        <code>xattr -dr com.apple.quarantine /Applications/Wizard.app</code><br>
+        <button class="linkbtn px" type="button" data-copy="xattr -dr com.apple.quarantine /Applications/Wizard.app">명령어 복사</button></div></details>
+      <details class="qa recess"><summary>새 판이 나왔어요. 어떻게 업데이트하나요?</summary><div class="a">
+        <a href="index.html#download">다운로드</a>에서 새 판을 받아 압축을 풀고 실행하면 돼요. 진행 저장은 게임 폴더가 아니라 컴퓨터의 사용자 데이터 폴더에 따로 있어서, 예전 게임 폴더를 지워도 남아 있어요.<br>
+        온라인 모드는 서버와 판이 다르면 게임이 알려 줘요. 그때도 새 판을 받으면 돼요. 판마다 바뀐 점은 <a href="releases.html">버전 기록</a>에 있어요.</div></details>
+    </div>
+
+    <div class="cat" id="account">
+      <h2 class="px-b">계정 · 로그인</h2>
+      <details class="qa recess"><summary>계정이 꼭 있어야 하나요?</summary><div class="a">
+        <b>솔로</b>는 계정 없이, 인터넷 없이 할 수 있어요. <b>협동 · 결투 · 광장</b>은 온라인이라 계정이 있어야 해요.</div></details>
+      <details class="qa recess"><summary>계정은 어떻게 만드나요?</summary><div class="a">
+        게임 안 <b>온라인</b> 화면에서 <b>새 계정</b>을 고르고 이메일과 비밀번호로 만들거나, <b>Google 계정</b>으로 들어올 수 있어요.</div></details>
+      <details class="qa recess"><summary>비밀번호를 잊었어요</summary><div class="a">
+        <ol><li>로그인 화면에서 <b>비밀번호를 잊었다</b>를 누르세요.</li>
+        <li>가입한 이메일로 <b>숫자 6자리 코드</b>가 와요.</li>
+        <li>코드를 넣고 새 비밀번호를 정하면 끝이에요.</li></ol>
+        메일이 안 오면 스팸함을 확인해 주세요. 그래도 없으면 <a href="#contact">1:1 문의</a>로 알려 주세요.</div></details>
+      <details class="qa recess"><summary>솔로에서 키운 지팡이를 온라인으로 옮길 수 있나요?</summary><div class="a">
+        아니요. 솔로 진행(오프라인 프로필)과 온라인 진행(서버 프로필)은 처음부터 따로 쌓이고, 서로 옮길 수 없어요.</div></details>
+      <details class="qa recess"><summary>계정을 지우고 싶어요</summary><div class="a">
+        <a href="#contact">1:1 문의</a>에 가입한 이메일과 함께 남겨 주세요. 확인한 뒤 처리해 드려요.</div></details>
+    </div>
+
+    <div class="cat" id="play">
+      <h2 class="px-b">게임</h2>
+      <details class="qa recess"><summary>결제나 유료 아이템이 있나요?</summary><div class="a">
+        없어요. 게임 안에 결제가 아예 없어요.</div></details>
+      <details class="qa recess"><summary>친구와 협동하려면 어떻게 하나요?</summary><div class="a">
+        한 명이 <b>온라인 → 협동</b>에서 방을 만들면 <b>방 코드</b>가 나와요. 그 코드를 친구에게 알려 주고, 친구는 코드로 들어오면 돼요. 2~4명이 함께할 수 있어요.</div></details>
+      <details class="qa recess"><summary>강화 확률은 어떻게 되나요?</summary><div class="a">
+        +1은 100%, +2는 90%… +13은 3%로 단계가 오를수록 낮아져요. 다섯 제자의 지팡이 모두 확률과 비용이 같고, 제물을 올리면 확률이 올라가요. 단계별 표는 <a href="game.html#enhance">게임 소개 · 지팡이 강화</a>에 있어요.</div></details>
+      <details class="qa recess"><summary>판 도중에는 왜 강화가 안 되나요?</summary><div class="a">
+        강화는 <b>전용 강화 화면</b>에서만 할 수 있게 만들었어요. 판 중 야영에서는 주문 조립, 회복, 비기 고르기를 할 수 있어요.</div></details>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="head left px">제보 · 문의</div>
+    <h2 class="title px-b">그래도 안 풀린다면</h2>
+    <div class="contact-grid">
+      <div class="panel board">
+        <div class="inner">
+          <h3 class="px-b"><span style="color:var(--ember)">!</span> 버그 제보</h3>
+          <p>게임이 멈추거나, 이상하게 동작하거나, 글자가 깨지는 걸 봤다면 알려 주세요. GitHub 이슈로 남기면 고치는 과정까지 볼 수 있어요.</p>
+          <p style="font-size:12.5px;color:var(--cream-faint)">GitHub 계정이 필요해요. 없다면 옆의 1:1 문의를 써 주세요.</p>
+          <a class="pbtn px-b" id="bug" href="#" target="_blank" rel="noopener">GitHub에 제보하기</a>
+        </div>
+      </div>
+
+      <div class="panel board">
+        <div class="inner">
+          <h3 class="px-b">1:1 문의</h3>
+          <p>계정, 게임 진행, 제안 무엇이든 괜찮아요. 보내기를 누르면 내용이 채워진 메일이 열려요.</p>
+          <div class="prep px" id="prep">문의 메일 주소를 준비하고 있어요. 그동안 버그는 왼쪽 GitHub 제보로 남겨 주세요.</div>
+          <form class="form" id="form" novalidate>
+            <div class="row2">
+              <div class="field"><label class="px" for="f-cat">분류</label>
+                <select id="f-cat"><option>설치 · 실행</option><option>계정 · 로그인</option><option>게임 진행</option><option>버그</option><option>제안</option><option>계정 삭제</option><option>기타</option></select></div>
+              <div class="field"><label class="px" for="f-mail">답장 받을 이메일</label>
+                <input id="f-mail" type="email" autocomplete="email" placeholder="me@example.com" required></div>
+            </div>
+            <div class="row2">
+              <div class="field"><label class="px" for="f-os">컴퓨터</label>
+                <select id="f-os"><option>Windows</option><option>macOS</option><option>기타</option></select></div>
+              <div class="field"><label class="px" for="f-ver">게임 판</label>
+                <input id="f-ver" type="text" placeholder="예: v1.0.0 (모르면 비워 두기)"><span class="hint">타이틀 화면에 "판 …"으로 적혀 있어요.</span></div>
+            </div>
+            <div class="field"><label class="px" for="f-body">내용</label>
+              <textarea id="f-body" required placeholder="무엇을 하다가, 무엇이 일어났는지 적어 주세요."></textarea></div>
+            <div class="form-foot">
+              <button class="pbtn px-b" id="send" type="submit">메일로 보내기</button>
+              <button class="linkbtn px" type="button" id="copy">내용만 복사</button>
+              <span class="status px" id="status" aria-live="polite"></span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap px">
+    <i class="campfire" aria-hidden="true"></i>
+    <span>엄청엄청 위대한 마법사 키우기</span>
+    <div class="r"><a href="game.html">게임 소개</a><a href="releases.html">버전 기록</a><a href="support.html">고객센터</a></div>
+  </div>
+</footer>
+
+<script src="config.js"></script>
+<script src="site.js"></script>
+<script>
+(function(){
+  var S = window.Site, C = S.config;
+
+  /* ---------- FAQ: 주소의 #로 바로 펼치기, 검색 ---------- */
+  var items = Array.prototype.slice.call(document.querySelectorAll('.qa'));
+  function openFromHash(){
+    var t = location.hash && document.querySelector(location.hash);
+    if (t && t.classList.contains('qa')) t.open = true;
+  }
+  openFromHash(); addEventListener('hashchange', openFromHash);
+  // 내 OS의 경고창 질문은 처음부터 펼쳐 둔다
+  if (S.os === 'windows') document.getElementById('q-win').open = true;
+  if (S.os === 'mac') document.getElementById('q-mac').open = true;
+
+  var q = document.getElementById('q'), hits = document.getElementById('hits'), nohit = document.getElementById('nohit');
+  function norm(s){ return s.toLowerCase().replace(/\s+/g, ''); }
+  q.addEventListener('input', function(){
+    var v = norm(q.value), n = 0;
+    items.forEach(function(d){
+      var ok = !v || norm(d.textContent).indexOf(v) >= 0;
+      d.classList.toggle('hide', !ok); if (ok) n++;
+      if (v && ok) d.open = true;
+    });
+    document.querySelectorAll('.cat').forEach(function(c){ c.style.display = c.querySelector('.qa:not(.hide)') ? '' : 'none'; });
+    hits.textContent = v ? '"' + q.value.trim() + '" 찾은 질문 ' + n + '개' : '';
+    nohit.style.display = v && !n ? 'block' : 'none';
+    if (v && document.getElementById('install').getBoundingClientRect().top > innerHeight) document.querySelector('.faq').scrollIntoView({behavior: S.reduce ? 'auto' : 'smooth'});
+  });
+  q.addEventListener('keydown', function(e){ if (e.key === 'Enter') { e.preventDefault(); document.querySelector('.faq').scrollIntoView({behavior: S.reduce ? 'auto' : 'smooth'}); } });
+
+  /* ---------- 복사 버튼 ---------- */
+  function copy(text, btn){
+    var done = function(){ var t = btn.textContent; btn.textContent = '복사했어요'; setTimeout(function(){ btn.textContent = t; }, 1600); };
+    var legacy = function(){
+      var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', '');
+      ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0'; document.body.appendChild(ta); ta.select();
+      var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      if (ok) done(); else { btn.textContent = '복사가 막혔어요. 직접 골라 복사해 주세요'; }
+    };
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, legacy);
+    else legacy();
+  }
+  document.querySelectorAll('[data-copy]').forEach(function(b){ b.addEventListener('click', function(){ copy(b.dataset.copy, b); }); });
+
+  /* ---------- 버그 제보: 내용이 채워진 GitHub 이슈 ---------- */
+  var osName = S.os === 'windows' ? 'Windows' : S.os === 'mac' ? 'macOS' : '';
+  var bugBody = [
+    '## 무슨 일이 있었나요?', '', '',
+    '## 어떻게 하면 다시 일어나나요?', '1. ', '2. ', '3. ', '',
+    '## 원래 어떻게 되어야 하나요?', '', '',
+    '## 환경', '- 컴퓨터: ' + (osName || '(Windows / macOS)'), '- 게임 판: (타이틀 화면의 "판 …")', '- 모드: (솔로 / 협동 / 결투 / 광장)', '',
+    '스크린샷이 있으면 여기에 끌어다 놓아 주세요.'
+  ].join('\n');
+  document.getElementById('bug').href = 'https://github.com/' + C.repo + '/issues/new?title=' + encodeURIComponent('[버그] ') + '&body=' + encodeURIComponent(bugBody);
+
+  /* ---------- 1:1 문의: 메일 앱으로 ---------- */
+  var form = document.getElementById('form'), status = document.getElementById('status'), send = document.getElementById('send');
+  if (osName) document.getElementById('f-os').value = osName;
+  var to = (C.supportEmail || '').trim();
+  if (!to){
+    document.getElementById('prep').style.display = 'block';
+    send.disabled = true; send.textContent = '준비 중';
+  }
+  function compose(){
+    var cat = document.getElementById('f-cat').value;
+    return {
+      subject: '[문의 · ' + cat + '] 엄청엄청 위대한 마법사 키우기',
+      body: [
+        '분류: ' + cat,
+        '답장 받을 이메일: ' + document.getElementById('f-mail').value.trim(),
+        '컴퓨터: ' + document.getElementById('f-os').value,
+        '게임 판: ' + (document.getElementById('f-ver').value.trim() || '모름'),
+        '', document.getElementById('f-body').value.trim()
+      ].join('\n')
+    };
+  }
+  function check(){
+    var mail = document.getElementById('f-mail'), body = document.getElementById('f-body'), bad = [];
+    [mail, body].forEach(function(el){ el.previousElementSibling.classList.remove('err'); });
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail.value.trim())) bad.push(mail);
+    if (body.value.trim().length < 5) bad.push(body);
+    bad.forEach(function(el){ el.previousElementSibling.classList.add('err'); });
+    if (bad.length){ status.className = 'status px err'; status.textContent = bad[0] === mail ? '답장 받을 이메일을 확인해 주세요.' : '내용을 조금 더 적어 주세요.'; bad[0].focus(); }
+    return !bad.length;
+  }
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (!to || !check()) return;
+    var m = compose();
+    location.href = 'mailto:' + to + '?subject=' + encodeURIComponent(m.subject) + '&body=' + encodeURIComponent(m.body);
+    status.className = 'status px ok';
+    status.textContent = '메일 앱을 열었어요. 열리지 않았다면 "내용만 복사"를 눌러 ' + to + '로 보내 주세요.';
+  });
+  document.getElementById('copy').addEventListener('click', function(e){
+    if (!check()) return;
+    var m = compose(); copy(m.subject + '\n\n' + m.body, e.target);
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>게임 소개 — 엄청엄청 위대한 마법사 키우기</title>
+<meta name="description" content="한뎃벌에서 끝없이 웨이브를 버티고, 주문을 조립하고, 지팡이를 강화한다. 솔로·협동·결투·광장.">
+<meta property="og:image" content="assets/shots/assembly.jpg">
+<link rel="icon" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#130e24">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@2.40.3/dist/galmuri.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
+<link rel="stylesheet" href="site.css">
+<style>
+.sub-nav{position:sticky;top:68px;z-index:30;background:rgba(19,14,36,.92);backdrop-filter:blur(8px);box-shadow:0 1px 0 var(--line)}
+.sub-nav .wrap{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.sub-nav .wrap::-webkit-scrollbar{display:none}
+.sub-nav a{flex:none;padding:14px 14px;font-size:13px;text-decoration:none;color:var(--cream-dim)}
+.sub-nav a:hover{color:var(--cream)}
+.sub-nav a.on{color:var(--ember);box-shadow:inset 0 -2px 0 var(--ember)}
+
+.block{padding:110px 0;scroll-margin-top:120px}
+.split{display:grid;grid-template-columns:1fr 1.15fr;gap:64px;align-items:center}
+.split.flip{grid-template-columns:1.15fr 1fr}
+.split.flip .text{order:2}
+@media (max-width:900px){.split,.split.flip{grid-template-columns:1fr;gap:36px}.split.flip .text{order:0}}
+.shot{position:relative;background:#000;box-shadow:0 0 0 3px var(--ink),0 0 0 5px var(--line),0 30px 60px -20px rgba(0,0,0,.7)}
+.shot img{width:100%;height:auto}
+.shot figcaption{position:absolute;left:12px;bottom:12px;font-size:11px;padding:4px 8px;background:rgba(19,14,36,.85);color:var(--cream-dim)}
+.points{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:14px}
+.points li{display:flex;gap:14px;align-items:flex-start;font-size:15px;line-height:1.7;color:var(--cream-dim)}
+.points li::before{content:"";flex:none;width:10px;height:10px;margin-top:8px;background:var(--ember);box-shadow:2px 2px 0 var(--ink)}
+.points b{color:var(--cream);font-weight:600}
+
+/* day cycle */
+.day{margin-top:34px}
+.day ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.day li{position:relative;height:56px;display:grid;place-items:center;font-size:14px;color:var(--ink);box-shadow:inset 0 -4px 0 rgba(0,0,0,.18)}
+.day .d{background:#f3d98a}.day .e{background:#f09a5a}.day .n{background:#4b3c8c;color:var(--cream)}.day .b{background:#c0394f;color:var(--cream)}
+.day li.b::after{content:"BOSS";position:absolute;top:-18px;font-size:10px;color:#ff7a8a}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:14px;font-size:12px;color:var(--cream-dim)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{width:12px;height:12px}
+
+/* bosses */
+.bosses{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:48px}
+@media (max-width:980px){.bosses{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:520px){.bosses{grid-template-columns:repeat(2,1fr)}}
+.boss{position:relative;padding:18px 10px 16px;text-align:center;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0));box-shadow:inset 0 0 0 2px var(--line);transition:box-shadow .2s,transform .2s}
+.boss:hover{transform:translateY(-4px);box-shadow:inset 0 0 0 2px var(--ember)}
+.boss img{width:100%;max-width:160px;margin:0 auto;aspect-ratio:1;image-rendering:auto;filter:drop-shadow(0 10px 14px rgba(0,0,0,.55))}
+.boss b{display:block;margin-top:10px;font-size:17px}
+.boss span{display:block;margin-top:4px;font-size:12px;color:var(--cream-faint)}
+.boss.first::after{content:"첫 보스";position:absolute;top:8px;left:8px;font-size:10px;padding:2px 6px;background:var(--ember);color:var(--ink);font-family:"Galmuri11",monospace}
+
+/* blocks */
+.blocks{display:grid;grid-template-columns:repeat(8,1fr);gap:10px;margin-top:40px}
+@media (max-width:900px){.blocks{grid-template-columns:repeat(4,1fr)}}
+.blk{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 6px 12px;background:var(--slate);box-shadow:0 0 0 2px var(--ink),inset 0 2px 0 rgba(255,255,255,.06);font-size:12px;text-align:center;color:var(--cream-dim);line-height:1.3}
+.blk img{width:48px;height:48px;image-rendering:pixelated}
+.blk:hover{color:var(--cream);box-shadow:0 0 0 2px var(--ink),0 0 0 4px var(--ember)}
+
+/* enhance chart */
+.chart{margin-top:30px;padding:22px 20px 16px;background:rgba(0,0,0,.2);box-shadow:inset 0 0 0 2px var(--line)}
+.chart .bars{display:grid;grid-template-columns:repeat(13,1fr);gap:5px;align-items:end;height:170px}
+.chart .bar{position:relative;background:linear-gradient(180deg,var(--ember),#d9772f);min-height:3px;box-shadow:inset 0 -3px 0 rgba(0,0,0,.2)}
+.chart .bar span{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:4px;font-size:10px;color:var(--cream-dim);white-space:nowrap}
+.chart .bar.hi{background:linear-gradient(180deg,#c9a7ff,#7b52d9)}
+.chart .lbl{display:grid;grid-template-columns:repeat(13,1fr);gap:5px;margin-top:8px;font-size:10px;color:var(--cream-faint);text-align:center}
+.chart .note{margin-top:14px;font-size:12px;color:var(--cream-faint)}
+.chart .bar{transform-origin:bottom;transform:scaleY(0);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.chart.in .bar{transform:scaleY(1)}
+.chart.in .bar:nth-child(n){transition-delay:calc(var(--i) * 40ms)}
+
+/* modes */
+.modes{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;margin-top:48px}
+@media (max-width:800px){.modes{grid-template-columns:1fr}}
+.mode{position:relative;overflow:hidden;background:#000;box-shadow:0 0 0 3px var(--ink),0 0 0 5px var(--line)}
+.mode img{width:100%;aspect-ratio:16/9;object-fit:cover;opacity:.75;transition:opacity .3s,transform .8s}
+.mode:hover img{opacity:.95;transform:scale(1.03)}
+.mode .cap{position:absolute;left:0;right:0;bottom:0;padding:60px 24px 22px;background:linear-gradient(0deg,rgba(19,14,36,.96) 20%,rgba(19,14,36,0))}
+.mode h3{margin:0;font-size:26px;display:flex;align-items:center;gap:12px}
+.mode .pill{font-size:11px;padding:3px 8px;font-weight:400}
+.pill.off{background:var(--gold);color:var(--ink)} .pill.on{background:var(--dark);color:var(--ink)}
+.mode p{margin:8px 0 0;font-size:14px;color:var(--cream-dim);line-height:1.6}
+.profile-note{margin-top:26px;font-size:13px;color:var(--cream-faint);text-align:center}
+</style>
+</head>
+<body>
+
+<nav class="site">
+  <div class="wrap">
+    <a class="mark px-b" href="index.html"><i class="campfire" aria-hidden="true"></i><span>엄청엄청 위대한 마법사 키우기</span></a>
+    <div class="nav-links px" id="nav-links">
+      <a href="index.html">홈</a><a href="game.html" aria-current="page">게임 소개</a><a href="releases.html">버전 기록</a><a href="support.html">고객센터</a>
+      <a class="pbtn sm px-b m-dl" data-dl="auto" href="index.html#download">무료 다운로드</a>
+    </div>
+    <a class="pbtn sm px-b nav-dl" data-dl="auto" href="index.html#download">무료 다운로드</a>
+    <button class="menu-btn" type="button" aria-label="메뉴" aria-expanded="false" aria-controls="nav-links"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 3h12v2H2zM2 7h12v2H2zM2 11h12v2H2z"/></svg></button>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="art" style="background-image:url(assets/bg_game.jpg)"></div>
+  <div class="wrap">
+    <div class="head left px">게임 소개</div>
+    <h1 class="px-b">한뎃벌의 하루</h1>
+    <p>스테이지도, 클리어도 없다. 야생 한 곳에서 끝없이 몰려오는 적을 버티고, 주문을 짜고, 지팡이를 키운다.</p>
+  </div>
+</header>
+
+<div class="sub-nav px" id="subnav">
+  <div class="wrap">
+    <a href="#waves">웨이브</a><a href="#bosses">보스</a><a href="#spells">주문 조립</a><a href="#enhance">지팡이 강화</a><a href="#modes">모드</a>
+  </div>
+</div>
+
+<main>
+  <section class="block" id="waves">
+    <div class="wrap split">
+      <div class="text">
+        <div class="head left px reveal">웨이브</div>
+        <h2 class="title px-b reveal d1">하루는 열 번의 웨이브</h2>
+        <p class="lede reveal d1">낮에서 해질녘, 밤을 지나 열 번째 웨이브에는 보스가 온다. 그리고 다시 아침. 하루는 끝없이 되풀이된다.</p>
+        <div class="day reveal d2" aria-label="하루 열 웨이브">
+          <ol class="px">
+            <li class="d">1</li><li class="d">2</li><li class="d">3</li><li class="d">4</li>
+            <li class="e">5</li><li class="e">6</li><li class="e">7</li>
+            <li class="n">8</li><li class="n">9</li><li class="b">10</li>
+          </ol>
+          <div class="legend px"><span><i style="background:#f3d98a"></i>낮</span><span><i style="background:#f09a5a"></i>해질녘</span><span><i style="background:#4b3c8c"></i>밤</span><span><i style="background:#c0394f"></i>보스</span></div>
+        </div>
+        <ul class="points reveal d3">
+          <li><span><b>야영</b>에서는 주문을 고쳐 조립하고, 회복하고, 비기를 고른다. 강화는 판이 끝난 뒤에.</span></li>
+          <li><span>전장은 사방이 막힌 들판 하나. 벽을 이용하는 주문도 있다.</span></li>
+        </ul>
+      </div>
+      <figure class="shot reveal d1" style="margin:0"><img src="assets/shots/coop.jpg" width="1280" height="720" alt="웨이브를 막아 내고 '웨이브 클리어'가 뜬 전투 화면" loading="lazy"><figcaption class="px">게임 화면 · 웨이브 클리어</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="block" id="bosses" style="padding-top:20px">
+    <div class="wrap">
+      <div class="head left px reveal">보스</div>
+      <h2 class="title px-b reveal d1">열 번째 웨이브의 손님들</h2>
+      <p class="lede reveal d1">보스는 열 웨이브마다, 정해진 순서로 돌아가며 나타난다.</p>
+      <div class="bosses">
+        <div class="boss first reveal"><img src="assets/bosses/mirror_phantom.png" width="192" height="192" alt="" loading="lazy"><b class="px-b">스승의 허상</b><span class="px">얼굴 자리에 거울</span></div>
+        <div class="boss reveal d1"><img src="assets/bosses/kiln_boar.png" width="192" height="192" alt="" loading="lazy"><b class="px-b">가마등</b><span class="px">숯가마 멧돼지왕</span></div>
+        <div class="boss reveal d1"><img src="assets/bosses/spore_queen.png" width="192" height="192" alt="" loading="lazy"><b class="px-b">천 갓</b><span class="px">포자 여왕</span></div>
+        <div class="boss reveal d2"><img src="assets/bosses/storm_owl.png" width="192" height="192" alt="" loading="lazy"><b class="px-b">밤눈</b><span class="px">폭풍 수리부엉이</span></div>
+        <div class="boss reveal d2"><img src="assets/bosses/frost_goat.png" width="192" height="192" alt="" loading="lazy"><b class="px-b">흰뿔</b><span class="px">서리 산양</span></div>
+        <div class="boss reveal d3"><img src="assets/bosses/night_serpent.png" width="192" height="192" alt="" loading="lazy"><b class="px-b">밤삼킴</b><span class="px">별밤 구렁이</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="spells">
+    <div class="wrap split flip">
+      <div class="text">
+        <div class="head left px reveal">주문 조립</div>
+        <h2 class="title px-b reveal d1">주문은 짜는 것</h2>
+        <p class="lede reveal d1">지팡이마다 <b style="color:var(--cream)">코어</b> 한 칸과 연결 칸이 있다. 코어에 투사체를 얹고, 뒤 칸에 블록을 이어 붙이면 그 순서대로 주문이 된다.</p>
+        <ul class="points reveal d2">
+          <li><span>코어에는 <b>투사체</b>만. 마력탄, 거대 화염구, 얼음 송곳, 연쇄 번개, 그림자 구체…</span></li>
+          <li><span>뒤 칸에는 <b>분열, 유도, 관통, 벽 튕김, 적중 시 발동</b> 같은 블록으로 탄을 바꾼다.</span></li>
+          <li><span>화염 · 번개 · 비전 · 냉기 · 암흑, 다섯 속성.</span></li>
+        </ul>
+      </div>
+      <figure class="shot reveal d1" style="margin:0"><img src="assets/shots/assembly.jpg" width="1280" height="451" alt="지팡이 조립 화면. 코어 칸에 마력탄, 아래에 블록 목록" loading="lazy"><figcaption class="px">게임 화면 · 지팡이 조립</figcaption></figure>
+    </div>
+    <div class="wrap">
+      <div class="blocks px" id="blocks"></div>
+    </div>
+  </section>
+
+  <section class="block" id="enhance">
+    <div class="wrap split">
+      <div class="text">
+        <div class="head left px reveal">지팡이 강화</div>
+        <h2 class="title px-b reveal d1">+13을 향해</h2>
+        <p class="lede reveal d1">강화는 느루의 작업대, 전용 강화 화면에서만 한다. 판 중에는 강화할 수 없고, 한 번 오른 단계는 판이 끝나도 남는다.</p>
+        <ul class="points reveal d2">
+          <li><span>다섯 제자의 지팡이는 <b>모두 같은 확률과 비용</b>. 지팡이마다 다른 건 전투 특성과 겉모습뿐.</span></li>
+          <li><span>창고의 블록을 <b>제물</b>로 올리면 확률이 오른다. 같은 속성이면 더.</span></li>
+        </ul>
+        <div class="chart reveal d2" id="chart" aria-label="단계별 기본 강화 확률">
+          <div class="bars px" id="bars"></div>
+          <div class="lbl px" id="lbl"></div>
+          <div class="note px">단계별 기본 확률(%) · 제물·부적 효과 전</div>
+        </div>
+      </div>
+      <figure class="shot reveal d1" style="margin:0"><img src="assets/shots/enhance.jpg" width="1280" height="856" alt="강화 화면. 다섯 제자 목록과 성공 확률, 제물 칸" loading="lazy"><figcaption class="px">게임 화면 · 강화</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="block" id="modes" style="padding-top:40px">
+    <div class="wrap">
+      <div class="head left px reveal">모드</div>
+      <h2 class="title px-b reveal d1">혼자서도, 함께라면 더</h2>
+      <div class="modes">
+        <article class="mode reveal"><img src="assets/shots/menu.jpg" alt="원정 메뉴. 모닥불가의 제자" loading="lazy"><div class="cap"><h3 class="px-b">솔로 <span class="pill off px">오프라인</span></h3><p>인터넷 없이 혼자 끝까지. 계정도 필요 없다.</p></div></article>
+        <article class="mode reveal d1"><img src="assets/shots/lobby.jpg" alt="협동 대기실. 제자 셋이 모였다" loading="lazy"><div class="cap"><h3 class="px-b">협동 <span class="pill on px">온라인</span></h3><p>2~4명이 함께 웨이브를 막는다. 방 코드를 친구에게 알려 주면 끝.</p></div></article>
+        <article class="mode reveal"><img src="assets/shots/duel.jpg" alt="결투 대기실. 두 제자가 마주 섰다" loading="lazy"><div class="cap"><h3 class="px-b">결투 <span class="pill on px">온라인</span></h3><p>1대1로 주문 설계를 겨룬다. 한 번만 해도 순위에 오른다.</p></div></article>
+        <article class="mode reveal d1"><img src="assets/shots/plaza.jpg" alt="광장. 모닥불을 둘러싼 야영지와 장터" loading="lazy"><div class="cap"><h3 class="px-b">광장 <span class="pill on px">온라인</span></h3><p>다른 마법사들이 모이는 첫모닥 야영지. 말을 걸고, 거래도 한다.</p></div></article>
+      </div>
+      <p class="profile-note px reveal">솔로 진행(오프라인 프로필)과 온라인 진행(서버 프로필)은 따로 쌓이고, 서로 옮겨지지 않는다.</p>
+    </div>
+  </section>
+</main>
+
+<section class="dl-band">
+  <div class="wrap">
+    <div class="app-icon reveal"><img src="assets/icon-256.jpg" width="256" height="256" alt="게임 아이콘" loading="lazy"></div>
+    <div class="head px">무료 · 결제 없음</div>
+    <h2 class="title px-b">직접 짜 볼 시간</h2>
+    <a class="pbtn px-b" data-dl="auto" href="index.html#download"><span data-os-icon></span><span data-os-label="용 무료 다운로드">무료 다운로드</span></a>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap px">
+    <i class="campfire" aria-hidden="true"></i>
+    <span>엄청엄청 위대한 마법사 키우기</span>
+    <div class="r"><a href="game.html">게임 소개</a><a href="releases.html">버전 기록</a><a href="support.html">고객센터</a></div>
+  </div>
+</footer>
+
+<script src="config.js"></script>
+<script src="site.js"></script>
+<script>
+(function(){
+  // 블록 (이름은 게임 이름 표 그대로)
+  var B = [['magic_bolt','마력탄'],['fireball','거대 화염구'],['ice_spike','얼음 송곳'],['chain_lightning','연쇄 번개'],['shadow_orb','그림자 구체'],['boomerang','부메랑'],
+           ['split_two','2갈래 분열'],['split_three','3갈래 분열'],['homing','유도'],['pierce','관통 +2'],['wall_bounce','벽 튕김'],['on_hit_trigger','적중 시 발동'],
+           ['double_size','탄환 크기 2배'],['triple_heat','과열 3배'],['frost','서리'],['corrosion','잠식']];
+  document.getElementById('blocks').innerHTML = B.map(function(b, i){
+    return '<div class="blk reveal' + (i % 4 ? ' d' + (i % 4) : '') + '"><img src="assets/blocks/' + b[0] + '.png" width="48" height="48" alt="">' + b[1] + '</div>';
+  }).join('');
+  document.querySelectorAll('#blocks .reveal').forEach(function(el){
+    new IntersectionObserver(function(es, o){ if (es[0].isIntersecting){ el.classList.add('in'); o.disconnect(); } }).observe(el);
+  });
+
+  // 강화 기본 확률 +1~+13 (DECISIONS 1.18)
+  var R = [100,90,75,60,50,40,32,25,18,12,8,5,3];
+  document.getElementById('bars').innerHTML = R.map(function(r, i){
+    return '<div class="bar' + (i >= 9 ? ' hi' : '') + '" style="height:' + Math.max(r, 2) + '%;--i:' + i + '"><span>' + r + '</span></div>';
+  }).join('');
+  document.getElementById('lbl').innerHTML = R.map(function(_, i){ return '<span>+' + (i + 1) + '</span>'; }).join('');
+
+  // 하위 메뉴: 지금 보는 절 표시
+  var links = document.querySelectorAll('#subnav a');
+  var secs = Array.prototype.map.call(links, function(a){ return document.querySelector(a.getAttribute('href')); });
+  function mark(){
+    var y = scrollY + 160, on = -1;
+    secs.forEach(function(s, i){ if (s.offsetTop <= y) on = i; });
+    links.forEach(function(a, i){ a.classList.toggle('on', i === on); });
+  }
+  addEventListener('scroll', mark, {passive:true}); mark();
+})();
+</script>
+</body>
+</html>

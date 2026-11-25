@@ -165,26 +165,39 @@ namespace Wizard.Solo.Screens.Settings
 
         // ---------------------------------------------------------------- 해상도 (D-50)
 
-        /// <summary>창 모드의 크기 선택지: 1920×1080의 정수 배 중 기기 화면에 들어가는 것(작은 것부터). 하나도 안 들어가면 기기 화면 크기 하나.</summary>
+        /// <summary>창 모드 크기 후보(16:9). UI는 어느 크기에서도 창에 맞춰 늘고 준다(UiScale) — 정수 배일 필요가 없다.</summary>
+        static readonly Vector2Int[] WindowedCandidates =
+        {
+            new Vector2Int(1280, 720), new Vector2Int(1600, 900), new Vector2Int(1920, 1080),
+            new Vector2Int(2560, 1440), new Vector2Int(3200, 1800), new Vector2Int(3840, 2160),
+        };
+
+        /// <summary>창 모드의 크기 선택지: 후보 중 기기 화면에 들어가는 것(작은 것부터). 하나도 안 들어가면 기기 화면 크기 하나.</summary>
         public static List<Vector2Int> WindowedResolutions(int deviceW, int deviceH)
         {
             var list = new List<Vector2Int>();
-            int bw = (int)UiScale.RefWidth, bh = (int)UiScale.RefHeight;
-            for (int k = 1; bw * k <= deviceW && bh * k <= deviceH; k++) list.Add(new Vector2Int(bw * k, bh * k));
+            for (int i = 0; i < WindowedCandidates.Length; i++)
+            {
+                var c = WindowedCandidates[i];
+                if (c.x <= deviceW && c.y <= deviceH) list.Add(c);
+            }
             if (list.Count == 0 && deviceW > 0 && deviceH > 0) list.Add(new Vector2Int(deviceW, deviceH));
             return list;
         }
 
         public static bool IsFullscreen(SettingsData s) => SettingsOptions.Str(s, OptionKeys.WindowMode) == OptionValues.Fullscreen;
 
-        /// <summary>적용할 크기: 전체 화면 = 기기 해상도, 창 = 저장한 크기가 선택지에 있으면 그것, 아니면 첫 선택지.</summary>
+        /// <summary>적용할 크기: 전체 화면 = 기기 해상도, 창 = 저장한 크기가 선택지에 있으면 그것, 아니면 1920×1080 이하에서 가장 큰 선택지.</summary>
         public static Vector2Int TargetResolution(SettingsData s, int deviceW, int deviceH)
         {
             if (IsFullscreen(s)) return new Vector2Int(deviceW, deviceH);
             var opts = WindowedResolutions(deviceW, deviceH);
             int w = SettingsOptions.Int(s, OptionKeys.ResolutionW), h = SettingsOptions.Int(s, OptionKeys.ResolutionH);
             for (int i = 0; i < opts.Count; i++) if (opts[i].x == w && opts[i].y == h) return opts[i];
-            return opts.Count > 0 ? opts[0] : new Vector2Int(deviceW, deviceH);
+            if (opts.Count == 0) return new Vector2Int(deviceW, deviceH);
+            var pick = opts[0];
+            for (int i = 1; i < opts.Count; i++) if (opts[i].x <= UiScale.RefWidth && opts[i].y <= UiScale.RefHeight) pick = opts[i];
+            return pick;
         }
 
         /// <summary>창 크기를 고른다(resolution_w/h 두 칸, 저장 1번).</summary>

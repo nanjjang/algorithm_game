@@ -156,13 +156,15 @@ namespace Wizard.Solo.Tests.Core
             Assert.AreEqual(2, SettingsOptions.EffectsLevel(s));
         }
 
-        // 09 요약서 1절: 확대는 정수 배. 1920×1080보다 작을 때만 줄인다.
+        // UI 배율: 1920×1080 안전 영역이 창에 꽉 들어가는 배율(정수로 내리지 않는다 — 큰 창에서 UI가 작게 뜨지 않게).
         [Test]
-        public void UiScale_IntegerUpscaleOnly()
+        public void UiScale_FitsSafeAreaToWindow()
         {
             Assert.AreEqual(1f, UiScale.Compute(1920, 1080));
-            Assert.AreEqual(1f, UiScale.Compute(2560, 1440));
+            Assert.AreEqual(2560f / 1920f, UiScale.Compute(2560, 1440), 0.0001f);
             Assert.AreEqual(2f, UiScale.Compute(3840, 2160));
+            Assert.AreEqual(3024f / 1920f, UiScale.Compute(3024, 1964), 0.0001f); // 맥 레티나(세로가 남는 창)는 너비에 맞춘다
+            Assert.AreEqual(1f, UiScale.Compute(2560, 1080));                     // 21:9는 높이에 맞추고 좌우는 바탕이 채운다
             Assert.AreEqual(1280f / 1920f, UiScale.Compute(1280, 720), 0.0001f);
             Assert.AreEqual(8.4375f, UiScale.OrthographicSize(1080, 1f), 0.0001f);
             Assert.AreEqual(8.4375f, UiScale.OrthographicSize(2160, 2f), 0.0001f);

@@ -66,7 +66,7 @@ namespace Wizard.Solo.App
             _current = boot;
             ApplySavedDisplay(boot);
             ApplyFramePacing();
-            OpenFirstScreen(boot, options.InputOverride == null);
+            OpenFirstScreen(boot);
             return boot;
         }
 
@@ -114,20 +114,11 @@ namespace Wizard.Solo.App
         public static ScreenId FirstScreen(BootResult boot) =>
             boot != null && boot.FirstRun ? ScreenId.FirstRunPrompt : ScreenId.Title;
 
-        /// <summary>첫 실행 인트로를 트는가: 첫 실행, 사람 입력, 영상 파일이 있을 때.</summary>
-        public static bool PlaysIntro(BootResult boot, bool humanInput) =>
-            humanInput && boot != null && boot.FirstRun
-            && Wizard.Solo.Screens.Start.CinematicScreen.Available(Wizard.Solo.Screens.Start.CinematicScreen.IntroVideo);
-
-        static void OpenFirstScreen(BootResult boot, bool humanInput)
+        static void OpenFirstScreen(BootResult boot)
         {
             var ctx = boot != null ? boot.Context : null;
             if (ctx == null || ctx.Screens == null) return;
             ctx.Screens.Push(FirstScreen(boot), FirstScreenArgs(boot));
-            // 인트로는 첫 화면(연출 감도 물음) 위에 얹는다. 끝나거나 건너뛰면 닫혀 물음이 드러난다.
-            if (PlaysIntro(boot, humanInput))
-                ctx.Screens.Push(ScreenId.Cinematic,
-                    Wizard.Solo.Screens.Start.CinematicScreen.ArgsFor(Wizard.Solo.Screens.Start.CinematicScreen.IntroVideo, ScreenId.None, null));
         }
 
         /// <summary>세운 것을 전부 걷는다(판을 끝내고 입력원을 놓고 GameObject를 부순다). 세운 것이 없으면 아무것도 안 한다.</summary>

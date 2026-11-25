@@ -148,6 +148,7 @@
       "phantom_first.reflection_raise_wand": "phantom_3",
       "phantom_first.finale": "phantom_3",
       "phantom_first.downed": "player_down",
+      "tutorial.opening.wind": "char.4/idle-wind",
       "player.death_thud": {"pick": ["player_down"], "gain_db": 2},
       "phantom_first.rise": "player_rise",
       "phantom_first.rise_visual": "player_rise",

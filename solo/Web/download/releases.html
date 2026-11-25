@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>버전 기록 — 엄청엄청 위대한 마법사 키우기</title>
+<meta name="description" content="엄청엄청 위대한 마법사 키우기의 모든 판: 최신 판, 지난 판 다운로드와 바뀐 점.">
+<link rel="icon" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#130e24">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@2.40.3/dist/galmuri.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
+<link rel="stylesheet" href="site.css">
+<style>
+.demo{display:none;background:var(--gold);color:var(--ink);text-align:center;padding:10px 16px;font-size:13px;position:relative;z-index:41;margin-top:68px}
+.demo a{color:var(--ink)}
+body.is-demo .page-head{padding-top:60px}
+
+main{padding:0 0 110px}
+.sec{margin-top:80px}
+.sec:first-child{margin-top:-40px;position:relative;z-index:2}
+.sec-title{display:flex;align-items:baseline;gap:14px;margin:0 0 22px;font-size:24px}
+.sec-title small{font-size:12px;color:var(--cream-faint);font-weight:400}
+
+/* latest */
+.latest .inner{margin:-14px -10px -10px;display:grid;grid-template-columns:1.1fr 1fr;gap:36px;align-items:center}
+@media (max-width:860px){.latest .inner{grid-template-columns:1fr;gap:22px}}
+.latest .tagrow{display:flex;flex-wrap:wrap;gap:8px;font-size:11px}
+.latest .tagrow span{padding:4px 9px}
+.t-new{background:var(--ember);color:var(--ink)}
+.t-ver{background:var(--ink);color:var(--cream);box-shadow:inset 0 0 0 1px var(--line)}
+.t-pre{background:#6b5aa6;color:var(--cream)}
+.latest h2{margin:14px 0 4px;font-size:clamp(36px,4.6vw,56px);line-height:1.05;text-shadow:3px 3px 0 var(--ink)}
+.latest .name{font-size:18px;color:var(--cream)}
+.latest .when{margin-top:8px;font-size:13px;color:var(--cream-faint)}
+.latest .sum{margin-top:16px;font-size:14.5px;line-height:1.8;color:var(--cream-dim)}
+.latest .sum ul{margin:0;padding:0;list-style:none}
+.latest .sum li{position:relative;padding-left:18px;margin:4px 0}
+.latest .sum li::before{content:"";position:absolute;left:2px;top:.72em;width:6px;height:6px;background:var(--ember)}
+.latest .more-notes{display:inline-block;margin-top:10px;font-size:13px;color:var(--ember);text-decoration:none}
+.dl-col{display:flex;flex-direction:column;gap:18px}
+.dl-col .pbtn{justify-content:space-between;width:100%}
+.dl-col .pbtn small{font-family:"Pretendard Variable",sans-serif;font-weight:500;font-size:12px;opacity:.7}
+.dl-col .pbtn.alt{background:var(--cream)}
+.dl-col .other{font-size:12px;color:var(--cream-faint);text-align:center}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--line);box-shadow:0 0 0 2px var(--line)}
+@media (max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{background:var(--night);padding:22px 20px}
+.stat .l{font-size:12px;color:var(--cream-faint)}
+.stat .v{margin-top:8px;font-size:clamp(24px,2.6vw,32px);line-height:1.1}
+.stat .s{margin-top:6px;font-size:12px;color:var(--cream-dim)}
+
+/* timeline */
+.tl-wrap{position:relative;padding:58px 14px 46px;background:rgba(0,0,0,.18);box-shadow:inset 0 0 0 2px var(--line);overflow:hidden}
+.tl-axis{position:relative;height:4px;background:repeating-linear-gradient(90deg,var(--line) 0 8px,transparent 8px 12px)}
+.tl-dot{position:absolute;top:50%;width:14px;height:14px;transform:translate(-50%,-50%);background:var(--cream-dim);box-shadow:0 0 0 3px var(--night);border:0;padding:0;cursor:pointer}
+.tl-dot.pre{background:#8c7bd0}
+.tl-dot.latest{background:var(--ember);width:18px;height:18px;box-shadow:0 0 0 3px var(--night),0 0 16px var(--ember)}
+.tl-dot:hover,.tl-dot:focus-visible{background:var(--ember)}
+.tl-dot .lb{position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:11px;color:var(--cream-dim);pointer-events:none}
+.tl-dot.up .lb{bottom:22px}
+.tl-dot:not(.up) .lb{top:22px}
+.tl-dot .lb b{display:block;color:var(--cream);font-size:12px}
+.tl-dot.latest .lb b{color:var(--ember)}
+.tl-ends{display:flex;justify-content:space-between;margin-top:46px;font-size:11px;color:var(--cream-faint)}
+.tl-legend{display:flex;gap:16px;margin-top:58px;font-size:11px;color:var(--cream-faint)}
+.tl-legend i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px}
+
+/* table */
+.tools{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;margin-bottom:16px}
+.tools input[type=search]{background:#1f2131;color:var(--cream);border:0;font:inherit;font-size:14px;padding:10px 12px;width:220px;box-shadow:inset 0 0 0 2px #12131c;outline:none;border-radius:0}
+.tools input[type=search]:focus{box-shadow:inset 0 0 0 2px var(--ember)}
+.tools label{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--cream-dim);cursor:pointer}
+.tools input[type=checkbox]{accent-color:var(--ember);width:16px;height:16px}
+.tools .cnt{margin-left:auto;font-size:12px;color:var(--cream-faint)}
+table.rels{width:100%;border-collapse:collapse;font-size:14px}
+.rels th{text-align:left;font-weight:400;font-size:12px;color:var(--cream-faint);padding:10px 14px;border-bottom:2px solid var(--line);white-space:nowrap}
+.rels td{padding:14px;border-bottom:1px solid var(--line);vertical-align:middle}
+.rels tr.row{cursor:pointer;transition:background .15s}
+.rels tr.row:hover{background:rgba(255,255,255,.03)}
+.rels tr.row.open{background:rgba(255,179,71,.06)}
+.rels .v{font-family:"Galmuri11",monospace;font-weight:700;color:var(--cream);white-space:nowrap}
+.rels .v .t-new,.rels .v .t-pre{font-size:10px;padding:2px 6px;margin-left:8px;font-weight:400;vertical-align:1px}
+.rels .nm{color:var(--cream-dim)}
+.rels .dt{color:var(--cream-dim);white-space:nowrap}
+.rels .dl a{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;text-decoration:none;color:var(--cream);padding:6px 9px;box-shadow:inset 0 0 0 2px var(--line);white-space:nowrap}
+.rels .dl a:hover{box-shadow:inset 0 0 0 2px var(--ember);color:var(--ember)}
+.rels .dl a svg{width:14px;height:14px}
+.rels .dl .none{color:var(--cream-faint);font-size:12px}
+.rels .cnt-cell{color:var(--cream-dim);text-align:right;white-space:nowrap}
+.rels .tog{color:var(--ember);font-family:"Galmuri11",monospace;text-align:right;width:30px}
+.rels tr.notes td{padding:0 14px 0;border-bottom:1px solid var(--line);background:rgba(255,179,71,.04)}
+.rels tr.notes .body{padding:6px 4px 24px 4px}
+.rels th.r{text-align:right}
+@media (max-width:760px){
+  .rels thead{display:none}
+  .rels tr.row{display:grid;grid-template-columns:1fr auto;gap:6px 12px;padding:14px 4px;border-bottom:1px solid var(--line)}
+  .rels tr.row td{padding:0;border:0}
+  .rels tr.row .nm{grid-column:1/-1;order:3}
+  .rels tr.row .dt{order:2;text-align:right}
+  .rels tr.row .dl{order:4}
+  .rels tr.row .cnt-cell,.rels tr.row .tog{display:none}
+  .rels tr.notes{display:block}
+  .rels tr.notes td{display:block}
+}
+
+.body{font-size:15px;line-height:1.85;color:var(--cream-dim);max-width:760px}
+.body h3,.body h4{margin:20px 0 6px;color:var(--cream);font-family:"Galmuri11",monospace;font-weight:700;font-size:15px}
+.body ul{margin:8px 0;padding-left:0;list-style:none}
+.body li{position:relative;padding-left:20px;margin:4px 0}
+.body li::before{content:"";position:absolute;left:4px;top:.75em;width:6px;height:6px;background:var(--ember)}
+.body p{margin:8px 0}
+.body a{color:var(--ember)}
+.body strong{color:var(--cream)}
+
+.empty{text-align:center;padding:40px 0 10px}
+.empty .bubble{display:inline-block;font-size:16px;margin-bottom:46px}
+.empty p{color:var(--cream-dim);margin:0;line-height:1.8}
+.empty .pbtn{margin-top:26px}
+.skel{height:22px;background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(255,255,255,.09),rgba(255,255,255,.04));background-size:200% 100%;animation:sk 1.2s linear infinite;margin:12px 0}
+@keyframes sk{to{background-position:-200% 0}}
+.foot-note{margin-top:18px;font-size:12px;color:var(--cream-faint)}
+.foot-note a{color:var(--cream-dim)}
+</style>
+</head>
+<body>
+
+<nav class="site">
+  <div class="wrap">
+    <a class="mark px-b" href="index.html"><i class="campfire" aria-hidden="true"></i><span>엄청엄청 위대한 마법사 키우기</span></a>
+    <div class="nav-links px" id="nav-links">
+      <a href="index.html">홈</a><a href="game.html">게임 소개</a><a href="releases.html" aria-current="page">버전 기록</a><a href="support.html">고객센터</a>
+      <a class="pbtn sm px-b m-dl" data-dl="auto" href="index.html#download">무료 다운로드</a>
+    </div>
+    <a class="pbtn sm px-b nav-dl" data-dl="auto" href="index.html#download">무료 다운로드</a>
+    <button class="menu-btn" type="button" aria-label="메뉴" aria-expanded="false" aria-controls="nav-links"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 3h12v2H2zM2 7h12v2H2zM2 11h12v2H2z"/></svg></button>
+  </div>
+</nav>
+<div class="demo px" id="demo">예시 데이터로 보는 중이에요 · 실제 기록은 <a href="releases.html">여기</a></div>
+
+<header class="page-head">
+  <div class="art" style="background-image:url(assets/bg_news.jpg)"></div>
+  <div class="wrap">
+    <div class="head left px">버전 기록</div>
+    <h1 class="px-b">탑의 기록</h1>
+    <p>지금까지 나온 모든 판. 최신 판도, 지난 판도 여기서 받을 수 있고, 판마다 무엇이 바뀌었는지 적혀 있다.</p>
+  </div>
+</header>
+
+<main class="wrap" id="main" aria-live="polite">
+  <div class="sec"><div class="skel" style="height:220px"></div></div>
+</main>
+
+<footer class="site">
+  <div class="wrap px">
+    <i class="campfire" aria-hidden="true"></i>
+    <span>엄청엄청 위대한 마법사 키우기</span>
+    <div class="r"><a href="game.html">게임 소개</a><a href="releases.html">버전 기록</a><a href="support.html">고객센터</a></div>
+  </div>
+</footer>
+
+<script src="config.js"></script>
+<script src="site.js"></script>
+<script>
+(function(){
+  var S = window.Site, C = S.config, main = document.getElementById('main');
+  var DEMO = /[?&]demo=1\b/.test(location.search);
+
+  /* ---------- helpers ---------- */
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function md(src){
+    var out = [], inList = false;
+    function inline(t){
+      t = esc(t);
+      t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      t = t.replace(/`([^`]+)`/g, '<code>$1</code>');
+      t = t.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" rel="noopener" target="_blank">$1</a>');
+      return t;
+    }
+    (src || '').replace(/\r/g, '').split('\n').forEach(function(line){
+      var m;
+      if ((m = line.match(/^\s*[-*]\s+(.*)/))){ if (!inList){ out.push('<ul>'); inList = true; } out.push('<li>' + inline(m[1]) + '</li>'); return; }
+      if (inList){ out.push('</ul>'); inList = false; }
+      if ((m = line.match(/^#{1,2}\s+(.*)/))) out.push('<h3>' + inline(m[1]) + '</h3>');
+      else if ((m = line.match(/^#{3,6}\s+(.*)/))) out.push('<h4>' + inline(m[1]) + '</h4>');
+      else if (line.trim()) out.push('<p>' + inline(line) + '</p>');
+    });
+    if (inList) out.push('</ul>');
+    return out.join('');
+  }
+  function bullets(src, n){
+    var items = (src || '').split('\n').map(function(l){ var m = l.match(/^\s*[-*]\s+(.*)/); return m && m[1]; }).filter(Boolean);
+    return items.slice(0, n).map(function(t){ return '<li>' + md(t).replace(/^<p>|<\/p>$/g, '') + '</li>'; }).join('');
+  }
+  function d(s){ return new Date(s); }
+  function ymd(s){ var x = d(s); return x.getFullYear() + '. ' + (x.getMonth() + 1) + '. ' + x.getDate(); }
+  function ago(s){
+    var days = Math.floor((Date.now() - d(s)) / 864e5);
+    return days <= 0 ? '오늘' : days === 1 ? '어제' : days < 30 ? days + '일 전' : days < 365 ? Math.floor(days / 30) + '달 전' : Math.floor(days / 365) + '년 전';
+  }
+  function size(b){ return b >= 1073741824 ? (b/1073741824).toFixed(2) + 'GB' : Math.round(b/1048576) + 'MB'; }
+  function num(n){ return n.toLocaleString('ko-KR'); }
+  function idOf(r){ return 'v-' + String(r.tag_name || r.id).replace(/[^\w.-]/g, ''); }
+  function osOf(a){ return /mac|darwin|osx/i.test(a.name) ? 'mac' : /win/i.test(a.name) ? 'windows' : ''; }
+  function pick(r, os){ return (r.assets || []).filter(function(a){ return osOf(a) === os && /\.(zip|dmg|exe|msi)$/i.test(a.name); })[0]; }
+  function when(r){ return r.published_at || r.created_at; }
+
+  /* ---------- data: GitHub Releases (10분 캐시) or ?demo=1 ---------- */
+  function load(){
+    if (DEMO) return Promise.resolve(sample());
+    var KEY = 'rel-cache-' + C.repo, hit;
+    try { hit = JSON.parse(sessionStorage.getItem(KEY) || 'null'); } catch (e) {}
+    if (hit && Date.now() - hit.t < 6e5) return Promise.resolve(hit.d);
+    return fetch(S.releasesApi + '?per_page=100').then(function(r){ if (!r.ok) throw r.status; return r.json(); }).then(function(data){
+      try { sessionStorage.setItem(KEY, JSON.stringify({ t: Date.now(), d: data })); } catch (e) {}
+      return data;
+    });
+  }
+  function sample(){
+    var A = function(v, w, m){ return [
+      { name: 'Wizard-Windows.zip', size: 401658767, download_count: w, browser_download_url: '#demo-' + v + '-win' },
+      { name: 'Wizard-macOS.zip', size: 413200487, download_count: m, browser_download_url: '#demo-' + v + '-mac' } ]; };
+    return [
+      { tag_name: 'v1.2.0', name: '서리 내린 한뎃벌', published_at: '2026-11-10T09:00:00Z', assets: A('1.2.0', 412, 198),
+        body: '## 새로 생긴 것\n- 겨울 야영지 배경\n- 결투 순위표에 시즌 표시\n## 고친 것\n- 협동에서 방 코드가 가끔 안 보이던 문제\n- macOS에서 창 크기를 바꾸면 글자가 흐려지던 문제' },
+      { tag_name: 'v1.2.0-rc.1', name: '시험판', prerelease: true, published_at: '2026-10-28T09:00:00Z', assets: A('1.2.0-rc.1', 37, 15),
+        body: '- 겨울 업데이트 시험판' },
+      { tag_name: 'v1.1.1', name: '작은 수리', published_at: '2026-09-20T09:00:00Z', assets: A('1.1.1', 301, 122),
+        body: '- 강화 화면에서 제물 칸이 겹치던 문제\n- 비밀번호 찾기 메일 문구 손질' },
+      { tag_name: 'v1.1.0', name: '광장 열림', published_at: '2026-09-05T09:00:00Z', assets: A('1.1.0', 520, 240),
+        body: '## 새로 생긴 것\n- **광장**: 첫모닥 야영지에서 다른 마법사 만나기\n- 장터와 친구 목록' },
+      { tag_name: 'v1.0.0', name: '첫 공개', published_at: '2026-08-01T09:00:00Z', assets: A('1.0.0', 870, 355),
+        body: '- 솔로, 협동, 결투\n- 다섯 제자와 보스 여섯' }
+    ];
+  }
+
+  /* ---------- render ---------- */
+  function empty(msg, sub){
+    main.innerHTML = '<div class="sec"><div class="empty px"><div class="bubble"><span style="display:block;font-size:12px;color:var(--ember)">느루</span>' + msg + '</div>' +
+      '<p>' + sub + '</p><a class="pbtn px-b" href="index.html#download">지금 판 받으러 가기</a></div></div>';
+  }
+
+  function render(all){
+    all = all.filter(function(r){ return !r.draft; }).sort(function(a, b){ return d(when(b)) - d(when(a)); });
+    if (!all.length) return empty('아직 적을 게 없구나. 쿨쿨…', '첫 판이 나오면 여기에 버전 기록이 쌓여요.');
+    var stable = all.filter(function(r){ return !r.prerelease; });
+    var latest = stable[0] || all[0];
+    var total = all.reduce(function(s, r){ return s + (r.assets || []).reduce(function(t, a){ return t + (a.download_count || 0); }, 0); }, 0);
+    var first = all[all.length - 1];
+
+    var my = S.desktop ? S.os : 'windows', other = my === 'windows' ? 'mac' : 'windows';
+    function bigBtn(os, cls){
+      var a = pick(latest, os);
+      if (!a) return '';
+      return '<a class="pbtn px-b ' + (cls || '') + '" href="' + esc(a.browser_download_url) + '"><span style="display:inline-flex;align-items:center;gap:10px">' + S.icon[os] + S.osName[os] + '용 받기</span><small>' + size(a.size) + '</small></a>';
+    }
+    var sum = bullets(latest.body, 4);
+
+    var html = '';
+    // 최신 판
+    html += '<section class="sec"><div class="latest board"><div class="inner">' +
+      '<div><div class="tagrow px"><span class="t-new">최신 판</span>' + (latest.prerelease ? '<span class="t-pre">시험판</span>' : '') + '</div>' +
+      '<h2 class="px-b">' + esc(latest.tag_name) + '</h2><div class="name px">' + esc(latest.name && latest.name !== latest.tag_name ? latest.name : '') + '</div>' +
+      '<div class="when px">' + ymd(when(latest)) + ' · ' + ago(when(latest)) + '</div>' +
+      (sum ? '<div class="sum"><ul>' + sum + '</ul></div>' : '') +
+      '<a class="more-notes px" href="#' + idOf(latest) + '" data-open="' + idOf(latest) + '">바뀐 점 전부 보기 →</a></div>' +
+      '<div class="dl-col">' + (bigBtn(my) + bigBtn(other, 'alt') || '<div class="other px">이 판에는 받을 파일이 없어요.</div>') +
+      '<div class="other px">압축을 풀고 실행 · 막히면 <a href="support.html#install" style="color:var(--ember)">설치 도움말</a></div></div>' +
+      '</div></div></section>';
+
+    // 숫자
+    html += '<section class="sec"><div class="stats">' +
+      '<div class="stat"><div class="l px">나온 판</div><div class="v px-b">' + stable.length + '</div><div class="s">' + (all.length - stable.length ? '시험판 ' + (all.length - stable.length) + '개 따로' : '정식 판') + '</div></div>' +
+      '<div class="stat"><div class="l px">최신 판</div><div class="v px-b">' + esc(latest.tag_name) + '</div><div class="s">' + ago(when(latest)) + '</div></div>' +
+      '<div class="stat"><div class="l px">첫 공개</div><div class="v px-b">' + ymd(when(first)).replace(/\. /g, '.') + '</div><div class="s">' + esc(first.tag_name) + '</div></div>' +
+      '<div class="stat"><div class="l px">받은 횟수</div><div class="v px-b">' + num(total) + '</div><div class="s">모든 판 · 모든 OS</div></div>' +
+      '</div></section>';
+
+    // 타임라인
+    if (all.length > 1){
+      var t0 = d(when(first)).getTime(), t1 = d(when(all[0])).getTime(), span = Math.max(t1 - t0, 864e5);
+      var dots = all.slice().reverse().map(function(r, i){
+        var x = 3 + 94 * (d(when(r)).getTime() - t0) / span;
+        return '<button class="tl-dot px' + (r === latest ? ' latest' : '') + (r.prerelease ? ' pre' : '') + (i % 2 ? ' up' : '') + '" style="left:' + x.toFixed(2) + '%" data-open="' + idOf(r) + '" aria-label="' + esc(r.tag_name) + ', ' + ymd(when(r)) + '">' +
+          '<span class="lb"><b>' + esc(r.tag_name) + '</b>' + ymd(when(r)).slice(5) + '</span></button>';
+      }).join('');
+      html += '<section class="sec"><h2 class="sec-title px-b">흐름<small class="px">점을 누르면 그 판으로</small></h2>' +
+        '<div class="tl-wrap"><div class="tl-axis">' + dots + '</div>' +
+        '<div class="tl-legend px"><span><i style="background:var(--ember)"></i>최신 판</span><span><i style="background:var(--cream-dim)"></i>정식 판</span><span><i style="background:#8c7bd0"></i>시험판</span></div></div></section>';
+    }
+
+    // 표
+    html += '<section class="sec" id="all"><h2 class="sec-title px-b">모든 판<small class="px">줄을 누르면 바뀐 점이 펼쳐져요</small></h2>' +
+      '<div class="tools px"><input type="search" id="f" placeholder="판 찾기 (예: 1.1)" aria-label="판 찾기">' +
+      (all.length - stable.length ? '<label><input type="checkbox" id="pre"> 시험판도 보기</label>' : '') +
+      '<span class="cnt" id="cnt"></span></div>' +
+      '<table class="rels"><thead><tr><th class="px">판</th><th class="px">이름</th><th class="px">날짜</th><th class="px">Windows</th><th class="px">macOS</th><th class="px r">받은 횟수</th><th></th></tr></thead><tbody>' +
+      all.map(function(r){
+        var id = idOf(r), cnt = (r.assets || []).reduce(function(t, a){ return t + (a.download_count || 0); }, 0);
+        var cell = function(os){ var a = pick(r, os); return a ? '<a href="' + esc(a.browser_download_url) + '" title="' + esc(a.name) + '">' + S.icon[os] + size(a.size) + '</a>' : '<span class="none">—</span>'; };
+        return '<tr class="row' + (r.prerelease ? ' is-pre' : '') + '" id="' + id + '" data-id="' + id + '" data-v="' + esc((r.tag_name + ' ' + (r.name || '')).toLowerCase()) + '" tabindex="0" aria-expanded="false">' +
+          '<td class="v">' + esc(r.tag_name) + (r === latest ? '<span class="t-new">최신</span>' : '') + (r.prerelease ? '<span class="t-pre">시험판</span>' : '') + '</td>' +
+          '<td class="nm">' + esc(r.name && r.name !== r.tag_name ? r.name : '') + '</td>' +
+          '<td class="dt px">' + ymd(when(r)) + '</td>' +
+          '<td class="dl">' + cell('windows') + '</td><td class="dl">' + cell('mac') + '</td>' +
+          '<td class="cnt-cell px">' + num(cnt) + '</td><td class="tog">+</td></tr>' +
+          '<tr class="notes" data-for="' + id + '" hidden><td colspan="7"><div class="body">' + (md(r.body) || '<p>바뀐 점 메모가 없어요.</p>') + '</div></td></tr>';
+      }).join('') + '</tbody></table>' +
+      '<p class="foot-note px">기록은 <a href="' + S.releasesPage + '" target="_blank" rel="noopener">GitHub Releases</a>에서 바로 읽어 와요.</p></section>';
+
+    main.innerHTML = html;
+    wire();
+  }
+
+  /* ---------- interactions ---------- */
+  function toggle(id, force){
+    var row = document.getElementById(id), notes = row && row.nextElementSibling;
+    if (!row) return;
+    var open = force != null ? force : notes.hidden;
+    notes.hidden = !open; row.classList.toggle('open', open); row.setAttribute('aria-expanded', open);
+    row.querySelector('.tog').textContent = open ? '−' : '+';
+  }
+  function reveal(id){
+    var row = document.getElementById(id); if (!row) return;
+    if (row.classList.contains('is-pre') && document.getElementById('pre') && !document.getElementById('pre').checked){ document.getElementById('pre').click(); }
+    toggle(id, true);
+    row.scrollIntoView({ behavior: S.reduce ? 'auto' : 'smooth', block: 'center' });
+  }
+  function wire(){
+    var f = document.getElementById('f'), pre = document.getElementById('pre'), cnt = document.getElementById('cnt');
+    function filter(){
+      var v = f.value.trim().toLowerCase().replace(/^v/, ''), n = 0;
+      document.querySelectorAll('tr.row').forEach(function(row){
+        var ok = (!v || row.dataset.v.indexOf(v) >= 0) && (!row.classList.contains('is-pre') || !pre || pre.checked);
+        row.hidden = !ok; if (!ok) toggle(row.dataset.id, false); else n++;
+      });
+      cnt.textContent = n + '개 판';
+    }
+    f.addEventListener('input', filter); if (pre) pre.addEventListener('change', filter); filter();
+    document.querySelectorAll('tr.row').forEach(function(row){
+      row.addEventListener('click', function(e){ if (e.target.closest('a')) return; toggle(row.dataset.id); });
+      row.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(row.dataset.id); } });
+    });
+    document.querySelectorAll('[data-open]').forEach(function(b){ b.addEventListener('click', function(e){ e.preventDefault(); reveal(b.dataset.open); }); });
+    if (location.hash && /^#v-/.test(location.hash)) reveal(location.hash.slice(1));
+    if (DEMO) document.querySelectorAll('a[href^="#demo-"]').forEach(function(a){ a.addEventListener('click', function(e){ e.preventDefault(); }); });
+  }
+
+  if (DEMO){ document.getElementById('demo').style.display = 'block'; document.body.classList.add('is-demo'); }
+  load().then(render).catch(function(){ empty('기록을 펼치지 못했다. 잠시 뒤 다시 와 보거라.', 'GitHub에서 기록을 읽어 오지 못했어요. 조금 뒤에 새로고침해 주세요.'); });
+})();
+</script>
+</body>
+</html>

@@ -14,7 +14,6 @@ namespace Wizard.Solo.UI
 
             // 시작과 메인 메뉴
             m.Register(ScreenId.FirstRunPrompt, () => new FirstRunPromptScreen());
-            m.Register(ScreenId.Cinematic, () => new CinematicScreen());
             m.Register(ScreenId.Title, () => new TitleScreen());
             m.Register(ScreenId.ProfileSelect, () => new ProfileSelectScreen());
             m.Register(ScreenId.OfflineGuide, () => new OfflineGuideScreen());

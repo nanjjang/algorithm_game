@@ -5,9 +5,9 @@ using UnityEngine.UI;
 namespace Wizard.Solo.UI
 {
     /// <summary>
-    /// 화면 배율(순수 함수). 그림은 정수 배로만 키운다(09 요약서 1절): 창이 1920×1080의 k배 이상이면 k배,
-    /// 1920×1080보다 작으면(에디터 창, 작은 화면) 들어가도록 줄인다(이때만 정수가 아니다). 남는 곳은 먹색 띠.
-    /// 월드 카메라도 같은 배율을 쓴다 → UI의 1px = 월드의 1px(1칸 = 64px × 배율).
+    /// 화면 배율(순수 함수). 1920×1080 안전 영역이 창 안에 다 들어가는 가장 큰 배율(가로·세로 중 작은 쪽 비율).
+    /// 예전에는 정수 배로 내림해서 2560×1440·맥 레티나(3024×1964) 같은 창에서 UI가 1배로 작게 가운데에만 떴다 — 이제 창을 꽉 채운다.
+    /// 16:9가 아닌 창의 남는 둘레는 UiFullBleed가 바탕으로 채운다. 판 카메라는 CameraDirector가 따로 정수 줌으로 맞춘다.
     /// </summary>
     public static class UiScale
     {
@@ -16,8 +16,7 @@ namespace Wizard.Solo.UI
         public static float Compute(int screenWidth, int screenHeight)
         {
             if (screenWidth <= 0 || screenHeight <= 0) return 1f;
-            float s = Mathf.Min(screenWidth / (float)RefWidth, screenHeight / (float)RefHeight);
-            return s >= 1f ? Mathf.Floor(s) : s;
+            return Mathf.Min(screenWidth / (float)RefWidth, screenHeight / (float)RefHeight);
         }
 
         /// <summary>그 배율에서 1칸이 64px × 배율로 보이는 정사영 크기(1080p·1배 = 8.4375).</summary>

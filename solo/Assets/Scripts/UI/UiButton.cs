@@ -53,6 +53,8 @@ namespace Wizard.Solo.UI
 
         /// <summary>올림·커서 빛(바탕 위, 내용 아래). 없으면 null.</summary>
         public UImage Glow;
+        /// <summary>false면 올림 빛을 그리지 않는다(글자만 있는 메뉴 줄).</summary>
+        public bool GlowEnabled = true;
         /// <summary>올림·누름 때 살짝 커지고 줄어드는가(목록 줄·카드·탭 같은 Plain/Tab 꼴은 기본 꺼짐 — 빛만).</summary>
         public bool HoverMotion = true;
         float _scaleNow = 1f, _scaleTarget = 1f, _glowNow, _glowTarget;
@@ -133,9 +135,8 @@ namespace Wizard.Solo.UI
             if (Glow != null && Mathf.Abs(_glowNow - _glowTarget) > 0.002f)
             {
                 _glowNow = Mathf.Lerp(_glowNow, _glowTarget, k);
-                var c = UiTheme.HoverGlow;
-                c.a *= _glowNow;
-                Glow.color = c;
+                if (Mathf.Abs(_glowNow - _glowTarget) <= 0.002f) _glowNow = _glowTarget;
+                SetGlow(_glowNow);
             }
         }
 
@@ -144,7 +145,19 @@ namespace Wizard.Solo.UI
             _scaleNow = 1f;
             _glowNow = 0f;
             if (this != null) transform.localScale = Vector3.one;
-            if (Glow != null) Glow.color = new Color(0f, 0f, 0f, 0f);
+            if (Glow != null) SetGlow(0f);
+        }
+
+        /// <summary>
+        /// 빛 세기(0~1). 색은 HoverGlow로 한 번만 두고 세기는 CanvasRenderer 알파로 — 올림 연출 동안 메시·캔버스를 매 프레임 다시 만들지 않는다.
+        /// 0이면 그림을 꺼서 그리기 자체를 건너뛴다.
+        /// </summary>
+        void SetGlow(float t)
+        {
+            if (Glow.color != UiTheme.HoverGlow) Glow.color = UiTheme.HoverGlow;
+            Glow.canvasRenderer.SetAlpha(t);
+            bool on = GlowEnabled && t > 0.001f;
+            if (Glow.enabled != on) Glow.enabled = on;
         }
 
         void ApplyBackground(UiVisualState s)
@@ -223,7 +236,7 @@ namespace Wizard.Solo.UI
             UiKit.Stretch(glowRt, 2f, 2f, 2f, 2f);
             Glow = glowGo.GetComponent<UImage>();
             Glow.raycastTarget = false;
-            Glow.color = new Color(0f, 0f, 0f, 0f);
+            SetGlow(0f);
 
             if (Style == UiButtonStyle.Caution)
             {
